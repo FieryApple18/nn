@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Задача ведение графика отпусков</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Задачу ведения графика отпусков</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Задачи ведения графиков отпусков</value>
+  </data>
+  <data name="Property_BusinessUnit" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="Property_Department" xml:space="preserve">
+    <value>Подразделение</value>
+  </data>
+  <data name="Property_Year" xml:space="preserve">
+    <value>На год</value>
+  </data>
+  <data name="Property_EmployeeAcquaintancePeriod" xml:space="preserve">
+    <value>Срок ознакомления работников</value>
+  </data>
+  <data name="Property_DaysToRemind" xml:space="preserve">
+    <value>Напоминание, кол-во дней</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupTitle" xml:space="preserve">
+    <value>График отпусков</value>
+  </data>
+  <data name="AttachmentGroup_OtherGroupTitle" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="ControlGroup_73e7c55ab14d49d89a690ed7d46bf563" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_3849ac3b252941c6aa0d03907f402a05" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_035869ed2baa4573bdfe9e4f5e10c4b3" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_035869ed2baa4573bdfe9e4f5e10c4b3_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_74e85eafe5944dc5b4724e791948b781" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_74e85eafe5944dc5b4724e791948b781_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_679cef60166e482cbfa7a1ec861f0263" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_679cef60166e482cbfa7a1ec861f0263_EmptyText" xml:space="preserve">
+    <value>Укажите наблюдателей…</value>
+  </data>
+  <data name="Block_d38d19b46a014a0b9768e9a86450c86c" xml:space="preserve">
+    <value>Задание на инициирование согласования графика отпусков</value>
+  </data>
+  <data name="Block_d38d19b46a014a0b9768e9a86450c86c_Property_839ae3d91f2b472e8d1dbccb5058c66f" xml:space="preserve">
+    <value>Доступна переадресация задания</value>
+  </data>
+  <data name="Block_d38d19b46a014a0b9768e9a86450c86c_Property_73b18ba4fed44b5a9c7e46945e373c8c" xml:space="preserve">
+    <value>Конкурентная работа (устар.)</value>
+  </data>
+  <data name="Block_d38d19b46a014a0b9768e9a86450c86c_Property_914c29f9d044460294128afc2f4d3966" xml:space="preserve">
+    <value>Виртуальный сотрудник</value>
+  </data>
+  <data name="Block_4a7f7e5c4a254e939765d5e75c007b07" xml:space="preserve">
+    <value>Формирование индивидуальных листов ознакомления в RX</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c" xml:space="preserve">
+    <value>Подписание листов ознакомления</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_8209f3be7134471cb5956de0c3f8a01d" xml:space="preserve">
+    <value>Отображать в личном кабинете</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_891784807bb74389ba3fc9fde5e99866" xml:space="preserve">
+    <value>Заместитель может выполнить задание</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_846fc5a66e48423d8144d37e9b4a448a" xml:space="preserve">
+    <value>Доступен результат "Выполнить"</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_3ecee26ac2914b10b217bcd47c8c480d" xml:space="preserve">
+    <value>Доступен результат "На доработку"</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_8d2d9a8e0a2549a9a0b666ab9dfc4b90" xml:space="preserve">
+    <value>Доступен результат "Cогласовать"</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_623aaa70d532441eaac8eb1007792854" xml:space="preserve">
+    <value>Доступен результат "Отказать"</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_a2819e3904504b21aef64722d3a79547" xml:space="preserve">
+    <value>Доступен результат "Прекратить"</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_6fd206cecaec4a85b3681ec440f0e097" xml:space="preserve">
+    <value>Оповещать о новом задании</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_765b463d44a5409db294f038cde8d2ce" xml:space="preserve">
+    <value>Доступна переадресация задания</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_83b75f7aadc44a4e9120653d66515edb" xml:space="preserve">
+    <value>Конкурентная работа (устар.)</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_178751c7fcbf4714a8f264ae06d333f2" xml:space="preserve">
+    <value>Виртуальный сотрудник</value>
+  </data>
+  <data name="Block_029be8c3439345b89b6de7661f3ef86c_Property_9962473c0a094ea2a6d4523bc5f32188" xml:space="preserve">
+    <value>В электронном виде</value>
+  </data>
+  <data name="Block_d38d19b46a014a0b9768e9a86450c86c_Property_51a68411d47d4296906731fd3122dfb5" xml:space="preserve">
+    <value>Доступен результат "Исправлено"</value>
+  </data>
+  <data name="Block_d38d19b46a014a0b9768e9a86450c86c_Property_0cd4180768614ab889df00ce061a9dd9" xml:space="preserve">
+    <value>Доступен результат "Выполнить"</value>
+  </data>
+  <data name="Property_LastInitiatingApprovalAssignment" xml:space="preserve">
+    <value>Последнее задание на инициирование согласования графика отпусков </value>
+  </data>
+  <data name="Block_5ace995e7e7945e684e5ff82c14c8258" xml:space="preserve">
+    <value>Установка реквизитов в документе</value>
+  </data>
+  <data name="Block_5ace995e7e7945e684e5ff82c14c8258_Property_bdff51bf44a5428b86577168456cf781_Enum_fdd5a36f3e654c0f9d2c90bb46534272" xml:space="preserve">
+    <value>Ошибка блокировки</value>
+  </data>
+</root>

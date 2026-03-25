@@ -1,0 +1,64 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "f093cbb9-e3a8-4f67-aa2a-f09f340fedd9",
+  "Name": "HRSolution",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "DirRX.HRSolution.Client",
+  "ClientBaseAssemblyName": "DirRX.HRSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.HRSolution.ClientBase",
+  "ClientNamespace": "DirRX.HRSolution.Client",
+  "Code": "HRSolut",
+  "CompanyCode": "DirRX",
+  "Cover": {
+    "NameGuid": "2dc69688-0314-4db2-a3a0-c6d21508cc6c",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "bfd3e516-679b-40ec-8b5c-b4fa96f626ab",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "b58f87b5-31d7-40e7-9f05-e34e1538c350",
+      "BackgroundPosition": "Stretch"
+    },
+    "RemoteControls": [],
+    "Tabs": []
+  },
+  "DesktopViews": [],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "DirRX.HRSolution",
+  "IsolatedAssemblyName": "DirRX.HRSolution.Isolated",
+  "IsolatedNamespace": "DirRX.HRSolution.Isolated",
+  "OrderedSpecialFolders": [
+    {
+      "NameGuid": "ae768d64-1758-4599-936e-3f04f22151e9",
+      "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.HRSolution",
+  "ServerAssemblyName": "DirRX.HRSolution.Server",
+  "ServerNamespace": "DirRX.HRSolution.Server",
+  "SharedAssemblyName": "DirRX.HRSolution.Shared",
+  "SharedNamespace": "DirRX.HRSolution.Shared",
+  "SpecialFolders": [],
+  "Version": "25.2.0.2",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

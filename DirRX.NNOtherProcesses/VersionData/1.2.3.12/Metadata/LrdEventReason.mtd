@@ -1,0 +1,223 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "b70dd0c3-5960-41f3-9a97-4ea70e723024",
+  "Name": "LrdEventReason",
+  "Actions": [
+    {
+      "NameGuid": "96ab1ecd-a5f1-4942-8d46-138c173d67e9",
+      "Name": "ShowDuplicates",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
+  "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
+  "CanBeNavigationPropertyType": true,
+  "CanBeSearch": true,
+  "Code": "LrdEventReason",
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
+      "NameGuid": "f6ecb523-4b6d-42a1-8ab8-021ea4a981b8",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "090cf353-7610-4341-8cdb-c8ecedb6d554",
+          "Name": "ControlGroup",
+          "ColumnDefinitions": [
+            {
+              "Percentage": 50.0
+            },
+            {
+              "Percentage": 50.0
+            }
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5256b696-cd88-4856-8966-4e2d6ec6661b",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "090cf353-7610-4341-8cdb-c8ecedb6d554",
+          "PropertyGuid": "09517012-f21a-4c4e-b129-d972e884c889",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5a509a4b-10fd-431b-af90-42a401d1375c",
+          "Name": "Status",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "090cf353-7610-4341-8cdb-c8ecedb6d554",
+          "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "ef85b889-316a-4e1c-bf23-03ec98d90c8c",
+          "Name": "Code",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "090cf353-7610-4341-8cdb-c8ecedb6d554",
+          "PropertyGuid": "421a7c3d-bdf9-4019-88ce-a0b59299d2f4",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ]
+    }
+  ],
+  "HandledEvents": [
+    "BeforeSaveServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNOtherProcessesLnaReasons",
+  "NeedWriteHistory": true,
+  "OperationsClass": "",
+  "Overridden": [
+    "IsVisible",
+    "HideFromCreationArea",
+    "HideFromNavigationEditorCreationArea",
+    "NeedWriteHistory",
+    "IsAutoCreated",
+    "CanBeSearch"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "09517012-f21a-4c4e-b129-d972e884c889",
+      "Name": "Name",
+      "Code": "Name",
+      "IsDisplayValue": true,
+      "IsQuickSearchAllowed": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "421a7c3d-bdf9-4019-88ce-a0b59299d2f4",
+      "Name": "Code",
+      "CanBeSearch": false,
+      "Code": "Code",
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "09517012-f21a-4c4e-b129-d972e884c889"
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "Compensation",
+      "ParentClasses": [
+        "LrdEventReason",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Компенсации по обстоятельствам\""
+    },
+    {
+      "Name": "Compensation",
+      "ParentClasses": [
+        "LrdEventReason",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"05\""
+    },
+    {
+      "Name": "MaterialSupport",
+      "ParentClasses": [
+        "LrdEventReason",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная поддержка\""
+    },
+    {
+      "Name": "MaterialSupport",
+      "ParentClasses": [
+        "LrdEventReason",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"03\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GetDuplicates",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "lrdEventReason",
+          "ParameterType": "global::DirRX.NNOtherProcesses.ILrdEventReason",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.ILrdEventReason, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNOtherProcesses.ILrdEventReason>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "FindDuplicatesError"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "c420d683-7eb7-4b80-9962-fdde2d70f19d",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "92479423-fa73-4d03-845b-047c86890608",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 12
+    }
+  ]
+}

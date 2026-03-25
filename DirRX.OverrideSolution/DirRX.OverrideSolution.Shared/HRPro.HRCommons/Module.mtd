@@ -1,0 +1,219 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "9af42045-7f0c-41a8-b1fd-48c23390677f",
+  "Name": "HRCommons",
+  "AssociatedGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "6cde9e57-ad4b-4847-952f-8ae0da0d3f1e",
+      "Name": "AddSignaturesToQueueForImprovement",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "IsHandlerGenerated": true,
+      "Overridden": [
+        "IsHandlerGenerated"
+      ],
+      "Parameters": [
+        {
+          "NameGuid": "cf320050-c024-485d-82c3-9f0477153037",
+          "Name": "SignaturesIds",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "87011db0-ff74-4eff-98ab-c6de2094e674",
+      "Name": "ImprovementSignature",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "c83b5036-2110-4d66-bd62-07c37b339c83",
+          "Name": "entryId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "c98dd478-02fc-418d-9f91-075d48b9695a",
+      "Name": "UpdateImproveStatus",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "IsHandlerGenerated": true,
+      "Overridden": [
+        "IsHandlerGenerated"
+      ],
+      "Parameters": [
+        {
+          "NameGuid": "61e6d503-59d5-4d31-ab6a-3686e1a53e53",
+          "Name": "LastImproveDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "a4356775-83d1-463a-8749-b4057ad75cb3",
+          "Name": "entryId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "c3da0247-bf48-4fdd-98e0-5f4be4d8bb22",
+          "Name": "status",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "a84c6af3-60b1-48df-adfd-00e343c29c53",
+      "Name": "VerifySignatures",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "08f1f07b-7365-47af-a198-c5bede899fef",
+          "Name": "DocumentsID",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "88368bed-d4f9-4c2c-8a08-4b4803ac6092",
+          "Name": "CurrentUserId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "8f13c04b-668a-4639-b3bd-8e1b3deb31af",
+          "Name": "SignaturesID",
+          "ParameterType": "String"
+        }
+      ]
+    }
+  ],
+  "BaseGuid": "0bf67261-274e-4614-ba72-d8a38651c518",
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.Module.HRCommons.ClientBase",
+  "Code": "HRCommo",
+  "CompanyCode": "HRPro",
+  "ExplorerTreeOrder": [],
+  "Importance": "Medium",
+  "IsolatedAreas": [],
+  "IsolatedFunctions": [
+    {
+      "NameGuid": "3d34fb95-0789-40a1-93b2-55162c96d404",
+      "Name": "GeneratePdf",
+      "IsolatedAreaId": "fd5b0e2e-e8c4-45cb-a124-b5a2f9a9195d",
+      "Parameters": [
+        {
+          "Name": "inputStream",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "extension",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.IO.Stream",
+      "ReturnTypeFullName": "System.IO.Stream"
+    }
+  ],
+  "IsVisible": false,
+  "Jobs": [
+    {
+      "NameGuid": "d7a32987-8d86-4920-920c-763972bb7160",
+      "Name": "DeleteResultsReportsInfo",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T02:00:00"
+    },
+    {
+      "NameGuid": "6a07904d-757d-4cd8-a343-ace5132d7e03",
+      "Name": "FindDocumentsForImprove",
+      "IsAncestorMetadata": true,
+      "IsEnabled": false,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T03:00:00"
+    },
+    {
+      "NameGuid": "4ef49295-28c8-4e13-a39a-68632fb6ac33",
+      "Name": "ImproveDocumentSignatures",
+      "IsAncestorMetadata": true,
+      "IsEnabled": false,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T05:00:00"
+    },
+    {
+      "NameGuid": "f715858f-49fc-4592-ada7-9e9525e25dc9",
+      "Name": "DocumentDeleteJob",
+      "Daily": "Repeat",
+      "IsAncestorMetadata": true,
+      "IsEnabled": false,
+      "MonthSchedule": "Monthly",
+      "TimePeriod": 10
+    },
+    {
+      "NameGuid": "b8b03a2d-dd2d-42f2-a7b7-e0eee6232c4e",
+      "Name": "VerifySignatureOnDocuments",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T04:30:00"
+    }
+  ],
+  "LayeredFromGuid": "0bf67261-274e-4614-ba72-d8a38651c518",
+  "PublicFunctions": [
+    {
+      "Name": "ConvertToPdf",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "versionId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::HRPro.HRDocFlow.Structures.Module.IСonversionToPdfAResult",
+      "ReturnTypeFullName": "HRPro.HRDocFlow.Structures.Module.IСonversionToPdfAResult"
+    },
+    {
+      "Name": "ConvertToPdfAndAddSignatureMarks",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::Sungero.Docflow.IOfficialDocument",
+          "ParameterTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "versionId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::HRPro.HRDocFlow.Structures.Module.IСonversionToPdfAResult",
+      "ReturnTypeFullName": "HRPro.HRDocFlow.Structures.Module.IСonversionToPdfAResult"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution.Module.HRCommons",
+  "ResourcesKeys": [
+    "DocNotApproved"
+  ],
+  "SpecialFolders": [],
+  "Version": "2.7.25200.102",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    }
+  ]
+}

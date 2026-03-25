@@ -1,0 +1,397 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "10807d41-4dfc-499d-bf6d-4e3d64b6cc54",
+  "Name": "DocumentsVisabilityLimitation",
+  "Actions": [
+    {
+      "NameGuid": "24a264d0-40e0-4be6-930d-0200e155ef6b",
+      "Name": "FillEmployees",
+      "ActionArea": "ChildCollection",
+      "CollectionPropertyGuid": "552f76cf-4555-42f6-a30d-409e357d704a",
+      "GenerateHandler": true,
+      "IsEmptySelectionAllowed": true,
+      "LargeIconName": "Action_FillEmployees_large_24a264d040e04be6930d0200e155ef6b.png",
+      "SmallIconName": "Action_FillEmployees_small_24a264d040e04be6930d0200e155ef6b.png"
+    },
+    {
+      "NameGuid": "88dbb04b-0361-4ae7-998d-4f9a3b0e754c",
+      "Name": "ShowDuplicates",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
+  "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
+  "CanBeNavigationPropertyType": true,
+  "Code": "DocumentsVisab",
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
+      "NameGuid": "3f07f032-57e8-4230-bb67-0209d318d258",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
+          "Name": "MainGroup"
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "b0de39b3-f1a1-4850-9ed1-bddcbc9b9ec2",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
+          "PropertyGuid": "a0b368c2-3d6e-44ca-aab7-e935a7f0bf6a",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "2ce696a3-aa25-49ba-8db7-7b58c773367e",
+          "Name": "EmployeesGroup",
+          "GroupType": "WithTitleNoBorder"
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "49adf324-b328-4a30-8a7e-02d5601483b6",
+          "Name": "Role",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
+          "PropertyGuid": "d9ab21fc-8b12-4ea9-bcc3-2cb0c77e6c2c",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "ea5c08f1-71fc-4c91-8e43-1ceb52dc2995",
+          "Name": "BusinessUnit",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
+          "PropertyGuid": "d33f8bde-39da-432e-9377-6bf218572d6f",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "3c3a2b14-056f-4a0e-baa4-fc65992a257d",
+          "Name": "Status",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
+          "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "ef14e88b-06e2-4555-9377-49fc92b67e6b",
+          "Name": "Employees",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.GridControlToChildCollectionBinder",
+          "HeaderLocation": "None",
+          "ParentGuid": "2ce696a3-aa25-49ba-8db7-7b58c773367e",
+          "PropertyGuid": "552f76cf-4555-42f6-a30d-409e357d704a",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ]
+    }
+  ],
+  "FormViewUuid": "9df948bd-cb1c-4c24-aef8-14ae06f52c13",
+  "HandledEvents": [
+    "CreatedServer",
+    "BeforeSaveServer",
+    "AfterSaveServer",
+    "AfterDeleteServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNCommonsDocumentsVisabilityLimitation",
+  "OperationsClass": "",
+  "Overridden": [
+    "IsVisible"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility",
+        "IsShowedInList"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "a0b368c2-3d6e-44ca-aab7-e935a7f0bf6a",
+      "Name": "Name",
+      "CanBeSearch": false,
+      "Code": "Name",
+      "IsDisplayValue": true,
+      "IsEnabled": false,
+      "IsQuickSearchAllowed": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d9ab21fc-8b12-4ea9-bcc3-2cb0c77e6c2c",
+      "Name": "Role",
+      "CanBeSearch": false,
+      "Code": "Role",
+      "EntityGuid": "4e5a5076-8115-4ac8-be69-400121c2c21f",
+      "FlatListInStandaloneLookup": true,
+      "HandledEvents": [
+        "ChangedShared",
+        "LookupServer"
+      ],
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "a0b368c2-3d6e-44ca-aab7-e935a7f0bf6a"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d33f8bde-39da-432e-9377-6bf218572d6f",
+      "Name": "BusinessUnit",
+      "CanBeSearch": false,
+      "Code": "BusinessUnit",
+      "EntityGuid": "04e2bd94-344d-4c25-ad56-7b6590d35988",
+      "FlatListInStandaloneLookup": true,
+      "HandledEvents": [
+        "ChangedShared"
+      ],
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "d9ab21fc-8b12-4ea9-bcc3-2cb0c77e6c2c"
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "552f76cf-4555-42f6-a30d-409e357d704a",
+      "Name": "Employees",
+      "Code": "DocumentsVisa1",
+      "EntityGuid": "3cecd3b3-1299-455f-a6a4-c946ed159e4d",
+      "IsShowedInList": false,
+      "PreviousPropertyGuid": "d33f8bde-39da-432e-9377-6bf218572d6f"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "ActionGetDocumentsVisabilityLimitations",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNCommons.IDocumentsVisabilityLimitation>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "AddEmployees",
+      "Parameters": [
+        {
+          "Name": "documentsVisabilityLimitation",
+          "ParameterType": "global::DirRX.NNCommons.IDocumentsVisabilityLimitation",
+          "ParameterTypeFullName": "DirRX.NNCommons.IDocumentsVisabilityLimitation, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "employees",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.IEmployee>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FillName",
+      "Parameters": [
+        {
+          "Name": "documentsVisabilityLimitation",
+          "ParameterType": "global::DirRX.NNCommons.IDocumentsVisabilityLimitation",
+          "ParameterTypeFullName": "DirRX.NNCommons.IDocumentsVisabilityLimitation, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "GetAvailableBusinessUnits",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetAvailableBusinessUnits",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "businessUnit",
+          "ParameterType": "global::DirRX.OverrideSolution.IBusinessUnit",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IBusinessUnit, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.OverrideSolution.IBusinessUnit>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetAvailableDocumentKinds",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.OverrideSolution.IDocumentKind>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetAvailableDocumentKindsInfo",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.DocumentsVisabilityLimitation.IDocumentKindsInfo>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetDocumentsVisabilityLimitations",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "businessUnit",
+          "ParameterType": "global::DirRX.OverrideSolution.IBusinessUnit",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IBusinessUnit, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNCommons.IDocumentsVisabilityLimitation>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetDuplicates",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documentsVisabilityLimitation",
+          "ParameterType": "global::DirRX.NNCommons.IDocumentsVisabilityLimitation",
+          "ParameterTypeFullName": "DirRX.NNCommons.IDocumentsVisabilityLimitation, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNCommons.IDocumentsVisabilityLimitation>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "HaveDuplicates",
+      "Parameters": [
+        {
+          "Name": "documentsVisabilityLimitation",
+          "ParameterType": "global::DirRX.NNCommons.IDocumentsVisabilityLimitation",
+          "ParameterTypeFullName": "DirRX.NNCommons.IDocumentsVisabilityLimitation, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    }
+  ],
+  "PublicStructures": [
+    {
+      "Name": "DocumentKindsInfo",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "DocumentKindId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "isTop",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.DocumentsVisabilityLimitation"
+    }
+  ],
+  "ResourcesKeys": [
+    "NameAutoGeneratedText",
+    "DuplicatesDetected"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "8962e889-63bc-4e06-b6c7-b8eaf72aafe9",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "613cedb3-8429-4ac7-8aea-e4deb1a4a6fb",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

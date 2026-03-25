@@ -1,0 +1,508 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "b597595f-073f-4858-8bdc-1ebbc18234cb",
+  "Name": "Docflow",
+  "AssociatedGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "91e037c0-0ac9-412a-a283-1567d122af49",
+      "Name": "PrepareDocumentBodyForMarkEditor",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "f29a4db6-2032-4e69-b9e8-ad31b48d483e",
+          "Name": "MarkEditorSessionId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "f5517a1a-7aa1-4702-ae21-77f029b08be8",
+      "Name": "IndexDocumentForFullTextSearch",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "c6ccf740-ec3b-4585-ab6b-391cccfa7185",
+          "Name": "QueueItemId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "32f27e17-010a-4b36-8523-47926dc70f33",
+      "Name": "BulkIndexDocumentsForFullTextSearch",
+      "DelayPeriod": 1,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "02a3594a-6ff1-49c9-b3d7-64ead25bd357",
+          "Name": "Mode",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "3f3bd3d7-e532-4221-a4f4-698acc73279f",
+          "Name": "LastDocumentId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "77a7b537-34d0-4a1a-b894-90eefd9c8e8b",
+          "Name": "Priority",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "8fdcbcaa-5b4e-4825-968e-ead247096168",
+          "Name": "PeriodBegin",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "d0439254-e1e3-46f9-9bed-061abf0ca88d",
+          "Name": "PeriodEnd",
+          "ParameterType": "DateTime"
+        }
+      ]
+    },
+    {
+      "NameGuid": "8d3ccc00-7327-4fc4-b055-781286f29e0e",
+      "Name": "SetFPoARegistrationState",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "012c94dd-4c53-4c4f-8f0d-9b1ca7338313",
+          "Name": "QueueItemId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "75ae1f1f-a990-481a-92d1-ae1a9d866fff",
+      "Name": "SetSignatureSettingValidTill",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "1673978f-50c8-4b9d-81ec-5d083cd5725a",
+          "Name": "SignatureSettingId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "7e3b54c4-f4bf-4bb6-a197-912ad6e59d6d",
+          "Name": "ValidTill",
+          "ParameterType": "DateTime"
+        }
+      ]
+    },
+    {
+      "NameGuid": "1a842c29-0f70-4340-99c9-84362dc91144",
+      "Name": "SyncFormalizedPoAWithService",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "5a20fc59-e06c-48d9-8744-fbed6eb1a22b",
+          "Name": "BusinessUnitId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "96abf1f9-fba9-4827-b51c-be683c032361",
+          "Name": "BatchGuid",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "d310685d-fdab-482c-ad16-548b0a8833b8",
+      "Name": "SetFPoARevocationState",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "4d8b4565-db75-4e4a-ae30-a3b11cdbcdd2",
+          "Name": "QueueItemId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "81b6968e-ee0f-4f09-a702-99f477c53ab8",
+          "Name": "State",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "767ae28b-d043-48b3-9e31-e54c288bde75",
+      "Name": "GrantAccessRightsToDocument",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "3550f9bd-0a70-466e-89d5-2cd36937fdae",
+          "Name": "GrantRightToChildDocuments",
+          "ParameterType": "Boolean",
+          "Versions": []
+        },
+        {
+          "NameGuid": "56afed6e-ccd0-4cb7-8941-005655908b08",
+          "Name": "RuleIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "efc64fb9-dd5a-4c42-8fdd-dac020f496bb",
+          "Name": "DocumentId",
+          "ParameterType": "Integer",
+          "Versions": []
+        }
+      ],
+      "Versions": []
+    },
+    {
+      "NameGuid": "c4352760-6439-484b-9e00-6c878427d64e",
+      "Name": "GrantAccessRightsToDocumentsByRule",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "84b31876-37ad-485a-9aa3-8b4e3071f980",
+          "Name": "RuleId",
+          "ParameterType": "Integer",
+          "Versions": []
+        },
+        {
+          "NameGuid": "d667a756-37aa-4da4-8450-40bfb8779c51",
+          "Name": "LaunchId",
+          "ParameterType": "String"
+        }
+      ],
+      "Versions": []
+    },
+    {
+      "NameGuid": "4f03b0d0-f0f5-45ed-b1c5-98d32b864503",
+      "Name": "SetDocumentStorage",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "56bf2d12-f4b0-4e00-aa92-3f367f7414f7",
+          "Name": "DocumentId",
+          "ParameterType": "Integer",
+          "Versions": []
+        },
+        {
+          "NameGuid": "900ec044-ba5f-4430-ad72-24f1f0c2a179",
+          "Name": "StorageId",
+          "ParameterType": "Integer",
+          "Versions": []
+        }
+      ],
+      "Versions": []
+    },
+    {
+      "NameGuid": "a416fcc6-b361-48de-a665-d19de3c5379d",
+      "Name": "ConvertDocumentToPdf",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "4e5da2d1-cc60-4ca6-908e-28338a72c3f9",
+          "Name": "UserId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "a24c08e5-19cb-48ed-8b64-54fb429dc2cf",
+          "Name": "VersionId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "bafcd04d-1721-4fe0-a72d-7acbc7bfc61f",
+          "Name": "DocumentId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "accf7175-912e-48e7-aa12-c7288559f709",
+      "Name": "CopyCaseFiles",
+      "DelayPeriod": 60,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "067cd598-3573-47b0-9094-5724ab542514",
+          "Name": "SourcePeriodStartDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "0d05253f-a3e3-455c-bbb6-86ce8ee5f2ef",
+          "Name": "TargetPeriodEndDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "93f3646b-89a6-4497-bd71-75eea6180fef",
+          "Name": "BusinessUnitId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "9cc0deea-5879-45c4-bffe-14c033a7ed1f",
+          "Name": "TargetPeriodStartDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "9eb0601e-26c1-4958-9500-1fc173ff9d9c",
+          "Name": "SourcePeriodEndDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "cf3fa5fb-ad05-47dd-8a90-0b759a486eec",
+          "Name": "DepartmentId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "f0ec8930-8203-403d-b403-b1011c3017b5",
+          "Name": "UserId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "1a9bf2e4-4778-4fdb-8edc-1f8b5777416b",
+      "Name": "SetDocumentStateAborted",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "6597716e-fdf4-45c3-b01e-7726def8c1a0",
+          "Name": "AbortedDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "90d8e41c-4e39-460b-8727-69b4b124e3d1",
+          "Name": "TaskId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "a11d163d-9758-491f-acd4-e3e5254e9bdc",
+          "Name": "NeedSetState",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "d2640167-7fe0-4455-a17e-21f715194c65",
+          "Name": "SetObsolete",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "d61f9488-0855-48be-a6f1-085d4c55d856",
+          "Name": "NeedGrantAccessRightsOnDocument",
+          "ParameterType": "Boolean"
+        }
+      ]
+    },
+    {
+      "NameGuid": "0dafb1e3-1520-40a8-ab6e-09deeae72e8f",
+      "Name": "ExecuteApprovalFunction",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "91638f41-9665-4a31-a53d-4114bafd2b73",
+          "Name": "QueueItemId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "3e3240a6-f984-406f-a2e5-79467cb926ea",
+      "Name": "AddRegistrationStamp",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "39919c36-08e7-4812-a86f-809a1503876d",
+          "Name": "BottomIndent",
+          "ParameterType": "Double"
+        },
+        {
+          "NameGuid": "441814f1-ea00-48fe-8401-385359d274e3",
+          "Name": "RightIndent",
+          "ParameterType": "Double"
+        },
+        {
+          "NameGuid": "73348e23-17f3-4845-8be2-1380dd989814",
+          "Name": "VersionId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "d82a50f3-ad3f-4bc4-9362-d7ae6f6e41a9",
+          "Name": "DocumentId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "e243048a-0320-4bb6-b9b0-b3e1b1c1770f",
+      "Name": "GrantAccessRightsToDocumentsBulk",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "c75d8e8c-6c1b-4ed1-9c88-b6073cd333ae",
+          "Name": "QueueItemId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "1789c9a0-c48c-4a00-8d0e-fdc2a9c274a8",
+      "Name": "ClearAccessRightsRuleState",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "5c69d42e-2a65-40a5-8fb8-508e7c0c6b2e",
+          "Name": "RuleId",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "dd7a5d44-7c4e-41bc-97b6-957f45a4f8c2",
+      "Name": "CompareDocuments",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "10387b94-21d8-41a4-ad00-2842c53d57ac",
+          "Name": "ComparisonInfoId",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "22243d0c-0ffd-49fa-bf46-aedf7c8ef6bc",
+          "Name": "ProcessingStartTime",
+          "ParameterType": "DateTime"
+        }
+      ]
+    }
+  ],
+  "BaseGuid": "56621fb0-3a90-4a8d-8cdf-6b294148e146",
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.Module.Docflow.ClientBase",
+  "Code": "Docflow",
+  "CompanyCode": "Sungero",
+  "ExplorerTreeOrder": [],
+  "Importance": "Low",
+  "IsolatedAreas": [],
+  "IsVisible": false,
+  "Jobs": [
+    {
+      "NameGuid": "bd4d35ec-198e-4868-9240-305c00653785",
+      "Name": "DeleteMarkEditorSessions",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T22:00:00"
+    },
+    {
+      "NameGuid": "9d346c59-72e0-4957-b13a-9becf38218b1",
+      "Name": "IndexDocumentsForFullTextSearch",
+      "Daily": "Custom",
+      "EndAt": "1753-01-01T06:00:00",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T00:00:00",
+      "TimePeriod": 5
+    },
+    {
+      "NameGuid": "91cb2efd-0ef2-4073-b1d0-fce8bec52690",
+      "Name": "SyncFormalizedPowerOfAttorneyState",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T01:00:00"
+    },
+    {
+      "NameGuid": "d7044e44-89bc-4fb3-9e44-5491514d9b05",
+      "Name": "SendMailNotification",
+      "Daily": "Repeat",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "Overridden": [
+        "GenerateHandler"
+      ],
+      "StartAt": "1753-01-01T00:00:00",
+      "TimePeriod": 30,
+      "Versions": []
+    },
+    {
+      "NameGuid": "2ff6172c-7964-4df7-a294-88c77bc97ef2",
+      "Name": "SendNotificationForExpiringPowerOfAttorney",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T06:00:00",
+      "Versions": []
+    },
+    {
+      "NameGuid": "0df1dbd4-8cd1-407d-90ba-537a251d4f7c",
+      "Name": "TransferDocumentsByStoragePolicy",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T04:00:00",
+      "Versions": []
+    },
+    {
+      "NameGuid": "35ba6be5-acff-4551-9f4d-48f0c7bb6419",
+      "Name": "SendSummaryMailNotifications",
+      "IsAncestorMetadata": true,
+      "Monthly": "WorkingDays",
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T07:00:00"
+    },
+    {
+      "NameGuid": "622cfeba-32e5-4bd0-a85f-f216afe0c210",
+      "Name": "GrantAccessRightsToDocuments",
+      "Daily": "Repeat",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "TimePeriod": 10
+    },
+    {
+      "NameGuid": "3069c638-bc15-4cba-bd4d-2d0dca77906d",
+      "Name": "DeleteComparisonInfos",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T01:00:00"
+    }
+  ],
+  "LayeredFromGuid": "df83a2ea-8d43-4ec4-a34a-2e61863014df",
+  "NeedResetAppliedCache": true,
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution.Module.Docflow",
+  "SpecialFolders": [],
+  "Version": "25.2.0.44",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    }
+  ]
+}

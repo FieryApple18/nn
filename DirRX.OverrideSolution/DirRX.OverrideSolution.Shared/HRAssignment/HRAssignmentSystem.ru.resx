@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Enum_Result_Noted" xml:space="preserve">
+    <value>Принято к сведению</value>
+  </data>
+  <data name="Action_Noted" xml:space="preserve">
+    <value>Принято к сведению</value>
+  </data>
+  <data name="Action_NotedHint" xml:space="preserve">
+    <value>Выполнить с результатом "Принято к сведению"</value>
+  </data>
+  <data name="Action_NotedConfirmationMessage" xml:space="preserve">
+    <value>Выполнить задание с результатом "Принято к сведению"?</value>
+  </data>
+  <data name="Action_NotedDescription" xml:space="preserve">
+    <value>Выполнение задания с результатом "Принято к сведению"</value>
+  </data>
+  <data name="Property_CanNotedDirRX" xml:space="preserve">
+    <value>Доступен результат «Принято к сведению»</value>
+  </data>
+  <data name="Property_CanForwardDirRX" xml:space="preserve">
+    <value>Доступен результат «Переадресовать»</value>
+  </data>
+  <data name="Property_AddresseeDirRX" xml:space="preserve">
+    <value>Переадресовать сотруднику</value>
+  </data>
+  <data name="Enum_Result_Forward" xml:space="preserve">
+    <value>Переадресовать</value>
+  </data>
+  <data name="Action_ForwardDescription" xml:space="preserve">
+    <value>Выполнение задания с результатом "Переадресовать"</value>
+  </data>
+  <data name="Action_ForwardConfirmationMessage" xml:space="preserve">
+    <value>Выполнить задание с результатом "Переадресовать"?</value>
+  </data>
+  <data name="Action_Forward" xml:space="preserve">
+    <value>Переадресовать</value>
+  </data>
+  <data name="Action_ForwardHint" xml:space="preserve">
+    <value>Выполнить с результатом "Переадресовать"</value>
+  </data>
+  <data name="Action_TakeToWorkDirRX" xml:space="preserve">
+    <value>Взять в работу</value>
+  </data>
+  <data name="Action_TakeToWorkDirRXHint" xml:space="preserve">
+    <value>Забрать задание себе в работу</value>
+  </data>
+  <data name="Action_TakeToWorkDirRXDescription" xml:space="preserve">
+    <value>Отправка задания себе в работу.</value>
+  </data>
+  <data name="Action_ReturnToQueueDirRX" xml:space="preserve">
+    <value>Вернуть в очередь</value>
+  </data>
+  <data name="Action_ReturnToQueueDirRXHint" xml:space="preserve">
+    <value>Вернуть задание на виртуального сотрудника</value>
+  </data>
+  <data name="Action_ReturnToQueueDirRXDescription" xml:space="preserve">
+    <value>Возврат на виртуального сотрудника.</value>
+  </data>
+  <data name="Property_IsCompetitionWorkDirRX" xml:space="preserve">
+    <value>Конкурентная работа (устар.)</value>
+  </data>
+  <data name="Property_VirtualEmployeeDirRX" xml:space="preserve">
+    <value>Виртуальный сотрудник (устар.)</value>
+  </data>
+  <data name="Property_NeedActiveTextDirRX" xml:space="preserve">
+    <value>Запрашивать текст</value>
+  </data>
+  <data name="Property_SupernikaActionsDirRX" xml:space="preserve">
+    <value>Действия в push-уведомлениях Суперники</value>
+  </data>
+  <data name="Property_IsManualHoldingEventDirRX" xml:space="preserve">
+    <value>Ручное проведение мероприятия</value>
+  </data>
+  <data name="Property_SupernikaSubjectDirRX" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Property_SupernikaTextDirRX" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+</root>

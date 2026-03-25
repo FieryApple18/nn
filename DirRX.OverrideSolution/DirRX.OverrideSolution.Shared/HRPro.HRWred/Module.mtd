@@ -1,0 +1,245 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "e9cd48cf-e933-4235-ad98-2840f7de4114",
+  "Name": "HRWred",
+  "AssociatedGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "4138d9d6-a7b3-4031-9054-f8db059850b1",
+      "Name": "WredExportMain",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "122dff4b-a902-4059-a378-abb55d086736",
+          "Name": "SigningOperatioinsIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "197677ab-3e1f-46cb-99a3-213a5be62675",
+          "Name": "InitiatorID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "07ee1700-bd34-4db6-b12a-c7945ba816b2",
+      "Name": "WredExportContainer",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "4f6f5289-8911-4e62-8aa1-bf322d8f6ecc",
+          "Name": "exportPath",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "885af947-8ab0-4113-9434-682dcfa0f495",
+          "Name": "password",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c8f7ce56-5a77-4218-a6b3-7198627ffa4b",
+          "Name": "exportOperationId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "ee0a0b5b-52b9-487b-bb98-3ec64815446a",
+          "Name": "name",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "f2e0a5ea-f9b5-4a7c-a18f-dfaf2f65f789",
+          "Name": "signingOperationIds",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "16bc23c0-616e-4f24-85ce-40aef711e5bf",
+      "Name": "WredExportFinish",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "2964a5ce-bffe-4e19-a658-91e63dc681bc",
+          "Name": "GuidExport",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "34de3d31-78bb-4dcd-acc8-59a343f99ce7",
+          "Name": "ArchivePassword",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "4171b081-49ba-4dad-8806-bfb1090061d7",
+          "Name": "PathToFolder",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c0b70077-d703-437b-a765-b18cd697170d",
+          "Name": "InitiatorId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    }
+  ],
+  "BaseGuid": "a4030c9c-aaad-4323-b667-74e659ccc3c6",
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.Module.HRWred.ClientBase",
+  "Code": "HRWred",
+  "CompanyCode": "HRPro",
+  "ExplorerTreeOrder": [],
+  "Importance": "Medium",
+  "IsVisible": false,
+  "LayeredFromGuid": "02dc781f-9aad-49e5-a79a-da6842516b11",
+  "PublicFunctions": [
+    {
+      "Name": "CreateSigningOperation",
+      "Parameters": [
+        {
+          "Name": "mainDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "addendaDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "completedBy",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "performer",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "isEmployer",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "note",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateSigningOperation",
+      "Parameters": [
+        {
+          "Name": "mainDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "addendaDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "signatory",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "isEmployer",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "note",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateSigningOperation",
+      "Parameters": [
+        {
+          "Name": "mainDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "addendaDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "signatory",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "isEmployer",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateSigningOperation",
+      "Parameters": [
+        {
+          "Name": "mainDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "addendaDocs",
+          "ParameterType": "global::System.Collections.Generic.IEnumerable<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.IEnumerable"
+        },
+        {
+          "Name": "completedBy",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "performer",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "isEmployer",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution.Module.HRWred",
+  "SpecialFolders": [],
+  "Version": "2.7.25200.5",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    }
+  ]
+}

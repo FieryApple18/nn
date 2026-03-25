@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <ViewName>Default</ViewName>
+  <Collection FormGuid="cddd4c25-da1e-45d4-ab4b-0250a22ce940">
+    <XtraSerializer version="1.0" application="GridControl">
+      <property name="#LayoutVersion" isnull="true" />
+      <property name="$GridControl" iskey="true" value="GridControl">
+        <property name="View" isnull="true" iskey="true">
+          <property name="LinesPerRowMode">OneLineMode</property>
+          <property name="ColumnChooserState" isnull="true" iskey="true">
+            <property name="Location">528,-194</property>
+            <property name="Size">220,250</property>
+          </property>
+          <property name="AllowSorting">true</property>
+          <property name="IsRowCellMenuEnabled">false</property>
+          <property name="AllowGrouping">true</property>
+        </property>
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="SortInfo" iskey="true" value="1">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="FieldName">ReceivedDate</property>
+            <property name="SortOrder">Ascending</property>
+          </property>
+        </property>
+        <property name="GroupSummary" iskey="true" value="0" />
+        <property name="GroupCount">0</property>
+        <property name="Columns" iskey="true" value="29">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">20</property>
+            <property name="MinWidth">32</property>
+            <property name="FixedWidth">true</property>
+            <property name="Visible">true</property>
+            <property name="FieldName">T</property>
+            <property name="VisibleIndex">0</property>
+            <property name="Width">32</property>
+            <property name="ActualWidth">4*</property>
+          </property>
+          <property name="Item2" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">21</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_Id</property>
+            <property name="FieldName">Id</property>
+            <property name="VisibleIndex">1</property>
+            <property name="ActualWidth">7*</property>
+          </property>
+          <property name="Item3" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">0</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_RecordName</property>
+            <property name="FieldName">RecordName</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item4" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">1</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_RecordStartDate</property>
+            <property name="FieldName">RecordStartDate</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item5" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">2</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_RecordEndDate</property>
+            <property name="FieldName">RecordEndDate</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item6" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">26</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_ReceivedDate</property>
+            <property name="FieldName">ReceivedDate</property>
+            <property name="VisibleIndex">6</property>
+            <property name="ActualWidth">10*</property>
+          </property>
+          <property name="Item7" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">3</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_ErrorMessage</property>
+            <property name="FieldName">ErrorMessage</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item8" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">27</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_ProcessingStatus</property>
+            <property name="FieldName">ProcessingStatus</property>
+            <property name="VisibleIndex">7</property>
+            <property name="ActualWidth">11*</property>
+          </property>
+          <property name="Item9" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">28</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_LastProcessingDate</property>
+            <property name="FieldName">LastProcessingDate</property>
+            <property name="VisibleIndex">8</property>
+            <property name="ActualWidth">10*</property>
+          </property>
+          <property name="Item10" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">4</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_DepartmentCode</property>
+            <property name="FieldName">DepartmentCode</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item11" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">23</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_FirstName</property>
+            <property name="FieldName">FirstName</property>
+            <property name="VisibleIndex">3</property>
+            <property name="ActualWidth">8*</property>
+          </property>
+          <property name="Item12" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">22</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_LastName</property>
+            <property name="FieldName">LastName</property>
+            <property name="VisibleIndex">2</property>
+            <property name="ActualWidth">15*</property>
+          </property>
+          <property name="Item13" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">24</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_MiddleName</property>
+            <property name="FieldName">MiddleName</property>
+            <property name="VisibleIndex">4</property>
+            <property name="ActualWidth">15*</property>
+          </property>
+          <property name="Item14" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">5</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_DateOfBirth</property>
+            <property name="FieldName">DateOfBirth</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item15" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">6</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_INILA</property>
+            <property name="FieldName">INILA</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item16" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">7</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_Sex</property>
+            <property name="FieldName">Sex</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item17" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">8</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_Region</property>
+            <property name="FieldName">Region</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item18" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">9</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_LegalAddress</property>
+            <property name="FieldName">LegalAddress</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item19" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">10</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_PostalAddress</property>
+            <property name="FieldName">PostalAddress</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item20" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">11</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_Phones</property>
+            <property name="FieldName">Phones</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item21" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">12</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_JobTitleCode</property>
+            <property name="FieldName">JobTitleCode</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item22" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">13</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_LineManagerCode</property>
+            <property name="FieldName">LineManagerCode</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item23" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">14</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_EmploymentType</property>
+            <property name="FieldName">EmploymentType</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item24" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">25</property>
+            <property name="Visible">true</property>
+            <property name="Name">EmployeeQueue_PersonnelNumber</property>
+            <property name="FieldName">PersonnelNumber</property>
+            <property name="VisibleIndex">5</property>
+            <property name="ActualWidth">14*</property>
+          </property>
+          <property name="Item25" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">15</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_PartTimeEmpoyeeNumber</property>
+            <property name="FieldName">PartTimeEmpoyeeNumber</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item26" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">16</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_Email</property>
+            <property name="FieldName">Email</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item27" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">17</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_Phone</property>
+            <property name="FieldName">Phone</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item28" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">18</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_Employee</property>
+            <property name="FieldName">Employee.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item29" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">19</property>
+            <property name="Visible">false</property>
+            <property name="Name">EmployeeQueue_City</property>
+            <property name="FieldName">City</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+        </property>
+        <property name="GroupSummarySortInfo" iskey="true" value="0" />
+      </property>
+    </XtraSerializer>
+  </Collection>
+</settings>

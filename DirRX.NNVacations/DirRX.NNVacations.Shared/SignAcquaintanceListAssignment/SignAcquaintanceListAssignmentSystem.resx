@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Enum_Result_Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Action_Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Action_CompleteHint" xml:space="preserve">
+    <value>Complete with Result "Complete"</value>
+  </data>
+  <data name="Action_CompleteConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "Complete"?</value>
+  </data>
+  <data name="Action_CompleteDescription" xml:space="preserve">
+    <value>Complete the assignment with result "Complete"</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Signing the acquaintance lists</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Signing the acquaintance lists</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Signing of the acquaintance lists</value>
+  </data>
+  <data name="Property_ShowInSelfServiceOffice" xml:space="preserve">
+    <value>Show in Employee Self Service</value>
+  </data>
+  <data name="Property_CanComplete" xml:space="preserve">
+    <value>Result "Complete" available</value>
+  </data>
+  <data name="Property_CanForRevision" xml:space="preserve">
+    <value>Result "For rework" available</value>
+  </data>
+  <data name="Property_CanApprove" xml:space="preserve">
+    <value>Result "Approve" available</value>
+  </data>
+  <data name="Property_CanRefuse" xml:space="preserve">
+    <value>Result "Reject" available</value>
+  </data>
+  <data name="Property_CanTerminate" xml:space="preserve">
+    <value>Result "Terminate" available</value>
+  </data>
+  <data name="Property_SubstituteCanComplete" xml:space="preserve">
+    <value>Substitute can complete</value>
+  </data>
+  <data name="Enum_Result_ForRevision" xml:space="preserve">
+    <value>For rework</value>
+  </data>
+  <data name="Action_ForRevision" xml:space="preserve">
+    <value>For rework</value>
+  </data>
+  <data name="Action_ForRevisionHint" xml:space="preserve">
+    <value>Complete with Result "For rework"</value>
+  </data>
+  <data name="Action_ForRevisionConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "ForRevision"?</value>
+  </data>
+  <data name="Action_ForRevisionDescription" xml:space="preserve">
+    <value>Complete the assignment with result "For rework"</value>
+  </data>
+  <data name="Enum_Result_Approved" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="Action_Approved" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="Action_ApprovedHint" xml:space="preserve">
+    <value>Complete with Result "Approved"</value>
+  </data>
+  <data name="Action_ApprovedConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "Approved"?</value>
+  </data>
+  <data name="Action_ApprovedDescription" xml:space="preserve">
+    <value>Complete the assignment with result "Approved"</value>
+  </data>
+  <data name="Enum_Result_Terminate" xml:space="preserve">
+    <value>Terminate</value>
+  </data>
+  <data name="Action_Terminate" xml:space="preserve">
+    <value>Terminate</value>
+  </data>
+  <data name="Action_TerminateHint" xml:space="preserve">
+    <value>Complete with Result "Terminate"</value>
+  </data>
+  <data name="Action_TerminateConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "Terminate"?</value>
+  </data>
+  <data name="Action_TerminateDescription" xml:space="preserve">
+    <value>Complete the assignment with result "Terminate"</value>
+  </data>
+  <data name="Enum_Result_Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="Action_Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="Action_RejectHint" xml:space="preserve">
+    <value>Complete with Result "Reject"</value>
+  </data>
+  <data name="Action_RejectConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "Reject"?</value>
+  </data>
+  <data name="Action_RejectDescription" xml:space="preserve">
+    <value>Complete the assignment with result "Reject"</value>
+  </data>
+  <data name="Property_CanForward" xml:space="preserve">
+    <value>Can forward</value>
+  </data>
+  <data name="Property_Addressee" xml:space="preserve">
+    <value>Addressee</value>
+  </data>
+  <data name="Property_IsCompetitionWork" xml:space="preserve">
+    <value>Competition work (outdated)</value>
+  </data>
+  <data name="Property_VirtualEmployee" xml:space="preserve">
+    <value>Virtual employee (outdated)</value>
+  </data>
+  <data name="Action_TakeToWork" xml:space="preserve">
+    <value>Take to work</value>
+  </data>
+  <data name="Action_TakeToWorkDescription" xml:space="preserve">
+    <value>Sending a task to your work.</value>
+  </data>
+  <data name="Action_TakeToWorkHint" xml:space="preserve">
+    <value>Take the task to work</value>
+  </data>
+  <data name="Action_TakeToWorkConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_TakeToWorkConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ReturnToQueue" xml:space="preserve">
+    <value>Return to queue</value>
+  </data>
+  <data name="Action_ReturnToQueueDescription" xml:space="preserve">
+    <value>Returning assignment to the virtual employee's queue.</value>
+  </data>
+  <data name="Action_ReturnToQueueHint" xml:space="preserve">
+    <value>Return assignment to the virtual employee's queue</value>
+  </data>
+  <data name="Action_ReturnToQueueConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ReturnToQueueConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enum_Result_Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Action_Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Action_ForwardHint" xml:space="preserve">
+    <value>Complete with Result "Forward"</value>
+  </data>
+  <data name="Action_ForwardConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "Forward"?</value>
+  </data>
+  <data name="Action_ForwardDescription" xml:space="preserve">
+    <value>Complete the assignment with result "Forward"</value>
+  </data>
+  <data name="Action_CreateGroupAcquiantanceVacScheduleLists" xml:space="preserve">
+    <value>Create group acquaintance lists</value>
+  </data>
+  <data name="Action_CreateGroupAcquiantanceVacScheduleListsDescription" xml:space="preserve">
+    <value>Create group acquaintance lists</value>
+  </data>
+  <data name="Action_CreateGroupAcquiantanceVacScheduleListsHint" xml:space="preserve">
+    <value>Formation of a group list of acquaintance with the vacation schedule</value>
+  </data>
+  <data name="Action_CreateGroupAcquiantanceVacScheduleListsConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to create group acquaintance lists?</value>
+  </data>
+  <data name="Action_CreateGroupAcquiantanceVacScheduleListsConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_CreateIndividualAcquiantanceVacScheduleLists" xml:space="preserve">
+    <value>Create individual acquaintance lists</value>
+  </data>
+  <data name="Action_CreateIndividualAcquiantanceVacScheduleListsDescription" xml:space="preserve">
+    <value>Create individual acquaintance lists</value>
+  </data>
+  <data name="Action_CreateIndividualAcquiantanceVacScheduleListsHint" xml:space="preserve">
+    <value>Formation of an individual list of acquaintance with the vacation schedule</value>
+  </data>
+  <data name="Action_CreateIndividualAcquiantanceVacScheduleListsConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to create individual acquaintance lists?</value>
+  </data>
+  <data name="Action_CreateIndividualAcquiantanceVacScheduleListsConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_VacationScheduleAcquaintanceLists" xml:space="preserve">
+    <value>Vacation schedule acquaintance lists</value>
+  </data>
+  <data name="Action_VacationScheduleAcquaintanceListsDescription" xml:space="preserve">
+    <value>Vacation schedule acquaintance lists</value>
+  </data>
+  <data name="Action_VacationScheduleAcquaintanceListsHint" xml:space="preserve">
+    <value>Opening the registers of the familiarization sheets generated as part of this task</value>
+  </data>
+  <data name="Action_VacationScheduleAcquaintanceListsConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_VacationScheduleAcquaintanceListsConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_IsElectronic" xml:space="preserve">
+    <value>In electronic form</value>
+  </data>
+  <data name="Property_IsStartedCreateLists" xml:space="preserve">
+    <value>The creation of sheets has been started</value>
+  </data>
+</root>

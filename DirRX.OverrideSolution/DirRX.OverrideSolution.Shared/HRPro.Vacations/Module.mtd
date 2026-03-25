@@ -1,0 +1,358 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "ec6ec22d-efd0-49db-81a3-63ed0fa6fbdd",
+  "Name": "Vacations",
+  "AssociatedGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "03023641-a13f-4728-8494-10b84d617508",
+      "Name": "BuildActualVacationReportDocument",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "2e7291c5-94bb-4fb8-af3b-6fe2c77d42bf",
+          "Name": "DepartmentsIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "8fdb2d4e-21f6-4385-9517-5a106ecb816c",
+          "Name": "ProcessingStartTime",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "d92539c4-387c-477c-b331-461d8f401279",
+          "Name": "BusinessUnitId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "daee0599-6aa6-4326-a35d-ec512440cf2f",
+          "Name": "Year",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "e7930975-5775-45f7-805d-7199c0e93787",
+          "Name": "EmployeesIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "fafe606d-c472-452b-a0ab-c5f5bbc242b9",
+          "Name": "OnlyPaid",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "fcba1b96-28b5-4aff-a313-c1d31427307d",
+          "Name": "ReportResultInfoId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "6f3fdffb-c7eb-4c95-9376-4fdc87146bb1",
+      "Name": "BuildVacationScheduleWithOverlaps",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "49b0be2f-422d-44d4-b9b7-51e29852b4e2",
+          "Name": "ProcessingStartTime",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "90ef719c-7ed9-4533-9cb6-35dfafed26d1",
+          "Name": "VacationsIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c41c9b97-de95-4e11-8517-1d9ad2536e09",
+          "Name": "Year",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "f7143125-e0f6-409e-aa8c-220228688d39",
+          "Name": "ReportResultInfoId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "8b662096-aa66-4a26-ae1e-711cd7a9dd3a",
+      "Name": "AbortDepartmentScheduling",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "89ca4e18-7a98-439a-9b63-7d4a194c1be0",
+          "Name": "MainTaskID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "9ca8483f-d098-46fe-bbdb-d5f8aea46dce",
+          "Name": "AbortReason",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "31a7c857-423f-420d-9b7f-74f8e1ced74a",
+      "Name": "UpdateVacationStatus",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "1dbce7a5-182e-4fe3-88d2-57b68f057ba5",
+          "Name": "TaskID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "a718925d-c8ff-4fe1-996b-35512f015a8e",
+          "Name": "DepartmentID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "dec3f0ec-a13b-47d6-acc2-a234f5ecb190",
+          "Name": "Year",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "76defc10-7824-4f91-8d89-0591dfe61296",
+      "Name": "AbortEmployeeVacationScheduling",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "badc002f-5fe4-4d14-ad68-0bd21e088c15",
+          "Name": "EmployeeID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "9c6990c0-f49e-43f2-b26c-01572587e858",
+      "Name": "UpdateVacationEmploymentType",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "5390bbe1-4ff2-42b7-99ef-1d6610c1e5b9",
+          "Name": "EmployeeID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "013ef4d1-d883-4487-b485-5d41445a26a2",
+      "Name": "SetApprovedVacationStatus",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "432d658a-db68-457c-b698-1651e1c76c16",
+          "Name": "Year",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "5713b604-b3b2-4c6c-bee3-12078de6d0e2",
+          "Name": "DepartmentID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "85d2251e-7afc-4e26-88e5-64a0ea9aaef7",
+      "Name": "DeleteSubstitution",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "2b0b7496-b679-46f5-a055-3f488079a050",
+          "Name": "SubstitutionID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "549ae964-17b1-4f4a-8e06-e6e1be821829",
+          "Name": "TaskID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "73076b35-a224-4010-a0b8-60065d111b0d",
+      "Name": "CreateSubstitution",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "18eed14f-5814-4d2b-b01b-81b48c283000",
+          "Name": "From",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "21f576a9-a0bd-4704-837e-3b245321791a",
+          "Name": "To",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "ac71633e-1aae-4768-a0bd-6e6e5a91d8ec",
+          "Name": "SubstituteID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "ae8af1cf-b6e5-4188-829d-ca879c6e9994",
+          "Name": "EmployeeID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "afc2984a-65b6-436d-a25c-51af296a4416",
+          "Name": "TaskID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "c2e80df0-8bcf-43ab-86f9-772f46a50c0a",
+          "Name": "Comment",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "14838f04-b315-46b0-a7a7-f1ad5a0278de",
+      "Name": "ChangeSubstitution",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "264a2942-affc-4818-ac94-619a909c2319",
+          "Name": "TaskID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "2b44e645-bbbb-44b2-a914-9261a33f7b88",
+          "Name": "NewSubstituteID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "97912023-bc01-439a-b109-e9c0b34daa92",
+          "Name": "SubstitutionID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    }
+  ],
+  "BaseGuid": "1ffb80a4-929e-40c5-9370-b703b0a924eb",
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.Module.Vacations.ClientBase",
+  "Code": "Vacatio",
+  "CompanyCode": "HRPro",
+  "Cover": {
+    "NameGuid": "29638c61-8641-43a2-93d6-346504a1d115",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverReportActionMetadata, Sungero.Reporting.Shared",
+        "NameGuid": "39ee548d-26b3-4cec-991d-7c65186f8105",
+        "Name": "AcquiantanceVacScheduleReportDirRX",
+        "CoverActionPresenterTypeName": "Sungero.Reporting.Client.CoverReportActionPresenter, Sungero.Reporting.Client",
+        "GroupId": "0c4d2a4f-65ee-47fe-9040-80cca452a05a",
+        "PreviousItemGuid": "e328168a-1c40-4147-aaba-d3e3cb61d9e7",
+        "ReportId": "f780b545-c2fb-45f2-8b6c-98f85f3dbadb"
+      }
+    ],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Overridden": [
+      "Actions"
+    ],
+    "RemoteControls": [],
+    "Tabs": []
+  },
+  "ExplorerTreeOrder": [],
+  "HandledEvents": [
+    "InitializingServer"
+  ],
+  "Importance": "Medium",
+  "IsolatedAreas": [],
+  "IsVisible": false,
+  "Jobs": [
+    {
+      "NameGuid": "1cfc620b-3026-414a-97ba-a1b611a9f370",
+      "Name": "VacationCalculation",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T05:30:00"
+    },
+    {
+      "NameGuid": "2e91efca-d28d-406d-b5ac-cf7743e56284",
+      "Name": "VacationMonitoring",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T08:30:00"
+    },
+    {
+      "NameGuid": "7fd395f9-2a86-4203-a3c6-c4d085c0aa67",
+      "Name": "VacationSwitchStatus",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T08:30:00"
+    },
+    {
+      "NameGuid": "b6402a48-928a-4d6a-a938-a0aa77b05af6",
+      "Name": "SchedulingTaskStart",
+      "DaysOfMonthSchedule": "1-14",
+      "IsAncestorMetadata": true,
+      "Monthly": "DaysOfMonth",
+      "MonthSchedule": "October",
+      "StartAt": "1753-01-01T08:00:00"
+    },
+    {
+      "NameGuid": "4d88f778-4c52-406c-a68b-fb7ef607abfb",
+      "Name": "AutoExecutionSchedulingAssignment",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "October, November",
+      "StartAt": "1753-01-01T08:30:00"
+    }
+  ],
+  "LayeredFromGuid": "1ffb80a4-929e-40c5-9370-b703b0a924eb",
+  "PublicFunctions": [
+    {
+      "Name": "GetHRDocumentTypesGuids",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Guid>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution.Module.Vacations",
+  "ResourcesKeys": [
+    "VacationOrder",
+    "DocKindName_VacationStatement",
+    "VacationChangePeriodStatement",
+    "VacationNotice",
+    "DocKindName_VacationSelfRecallStatement"
+  ],
+  "SpecialFolders": [],
+  "Version": "2.7.25200.102",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    }
+  ]
+}

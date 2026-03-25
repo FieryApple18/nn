@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Core.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Localization&#13;&#10;Sungero.Declension&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;DirRX.NNVacations.Shared&#13;&#10;DirRX.NNVacations.Server" ReportInfo.CreatorVersion="2020.2.12.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using Sungero.Domain.Shared;
+using Sungero.CoreEntities;
+using Sungero.Core;
+using Resources = DirRX.NNVacations.Reports.Resources;
+
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+  }
+}
+  </ScriptText>
+  <Dictionary>
+    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]">
+      <TableDataSource Name="Table" Alias="SourceTable" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${SelectReportTableData}">
+        <Column Name="employeeName" DataType="System.String" PropName="Column"/>
+        <Column Name="persnumber" DataType="System.String" PropName="Column"/>
+        <Column Name="jobTitleName" DataType="System.String" PropName="Column"/>
+        <Column Name="firstDepartment" DataType="System.String" PropName="Column"/>
+        <Column Name="secondDepartment" DataType="System.String" PropName="Column"/>
+        <Column Name="thirdDepartment" DataType="System.String" PropName="Column"/>
+        <Column Name="fourthDepartment" DataType="System.String" PropName="Column"/>
+        <Column Name="statusAcq" DataType="System.String" PropName="Column"/>
+        <Column Name="dateAcq" DataType="System.String" PropName="Column" Format="Date"/>
+        <Column Name="reportSessionId" Enabled="false" DataType="System.String" PropName="Column"/>
+        <Column Name="company" DataType="System.String" PropName="Column"/>
+        <Column Name="statusConsent" DataType="System.String" PropName="Column"/>
+        <CommandParameter Name="DocKindId" DataType="12" IsDbType="true" Expression="[DocKindId]"/>
+        <CommandParameter Name="BusinessUnitIds" DataType="16" IsDbType="true" Expression="[BusinessUnitIds]"/>
+        <CommandParameter Name="DepartmentIds" DataType="16" IsDbType="true" Expression="[DepartmentIds]"/>
+        <CommandParameter Name="StatusAcq" DataType="16" IsDbType="true" Expression="[StatusAcq]"/>
+        <CommandParameter Name="DateAcq" DataType="16" IsDbType="true" Expression="[DateAcq]"/>
+        <CommandParameter Name="ReportSessionId" DataType="16" IsDbType="true" Expression="[ReportSessionId]"/>
+        <CommandParameter Name="Acquainted" DataType="16" IsDbType="true" Expression="[Acquainted]"/>
+        <CommandParameter Name="NotAcquainted" DataType="16" IsDbType="true" Expression="[NotAcquainted]"/>
+        <CommandParameter Name="SignedState" DataType="16" IsDbType="true" Expression="[SignedState]"/>
+        <CommandParameter Name="DocTypeGuid" DataType="16" IsDbType="true" Expression="[DocTypeGuid]"/>
+        <CommandParameter Name="HasConsent" DataType="16" IsDbType="true" Expression="[HasConsent]"/>
+        <CommandParameter Name="NoConsent" DataType="16" IsDbType="true" Expression="[NoConsent]"/>
+        <CommandParameter Name="OutsideConsent" DataType="16" IsDbType="true" Expression="[OutsideConsent]"/>
+        <CommandParameter Name="Initiator" DataType="12" IsDbType="true" Expression="[Initiator]"/>
+        <CommandParameter Name="Signed" DataType="16" IsDbType="true" Expression="[Signed]"/>
+        <CommandParameter Name="PendingSignState" DataType="16" IsDbType="true" Expression="[PendingSignState]"/>
+        <CommandParameter Name="ElectronicAcqOption" DataType="16" IsDbType="true" Expression="[ElectronicAcqOption]"/>
+      </TableDataSource>
+    </SungeroSqlDataConnection>
+    <SungeroParameter Name="SungeroConnectionString" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties, DontShow" Id="44979e63-9e2e-48f6-96e1-9255af75f0b8" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="BusinessUnitIds" Id="86060043-741c-401f-94b3-3c79d1a6c723" IsRequired="true" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="DepartmentIds" Id="69993da1-2007-4477-91fc-075e96c05f78" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="StatusAcq" Id="ef92ec98-381e-4afe-ae75-ff9f51f67bff" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="DateAcq" Id="07f3eee6-3df4-453e-8a80-99d37b63a4d6" IsRequired="false" IsCollection="false" InternalDataType="System.Int32" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="DocKindId" Id="cbb4976c-3680-4370-b889-5f0b132dee29" IsRequired="false" IsCollection="false" InternalDataType="System.Int64" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="ReportSessionId" Id="ee71ab0c-c269-49b8-a41d-1246159fc6a5" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="BusinessUnitName" Id="f6bcd040-ae2a-478d-bc32-358a710d54ec" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="SignedState" Id="2d85af70-597b-4d71-96a0-6e0e7e1cc930" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Acquainted" Id="d9c2d83e-d74e-4460-b2df-a113bb64d449" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="NotAcquainted" Id="c21dfc8f-0fb4-4cdd-be75-9fe03e709ed7" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="DocTypeGuid" Id="793ae181-a4bd-4c3c-9dcd-ab2969766a76" IsRequired="true" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="HasConsent" Id="09053c65-ddd8-431a-8ee7-c9f4c84f5a10" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="NoConsent" Id="6ef27828-88f6-440d-8936-1a710a1942e8" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="OutsideConsent" Id="24252563-a272-4a47-9a65-97fede742e9f" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Initiator" Id="4d34e8e6-4836-45a7-ba65-f7cbc6520a9d" IsRequired="true" IsCollection="false" InternalDataType="System.Int64" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="Signed" Id="735c735e-c90f-4e97-b287-35ac017c79c2" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="PendingSignState" Id="8299db6c-0d15-4412-8bd8-9c24711f3f5b" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="ElectronicAcqOption" Id="24feaae6-458b-4f4d-a900-de007872d7ed" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="IncludeHierarchy" Id="cd3def9c-962b-4c8a-9125-5c0b23010991" IsRequired="false" IsCollection="false" InternalDataType="System.Boolean" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="520" PaperHeight="210" RawPaperSize="0" FirstPageSource="15" OtherPagesSource="15" Watermark.Font="Arial, 60pt" UnlimitedWidth="true">
+    <ReportTitleBand Name="ReportTitle1" Width="1890" Height="160.65">
+      <TextObject Name="Text1" Top="113.4" Width="151.2" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.PersonnelNumber]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Left="151.2" Top="113.4" Width="207.9" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.FullName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text3" Left="718.2" Top="113.4" Width="170.1" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.Department1]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="888.3" Top="113.4" Width="170.1" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.Department2]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="1058.4" Top="113.4" Width="170.1" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.Department3]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="1228.5" Top="113.4" Width="170.1" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.Department4]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="1549.8" Top="113.4" Width="151.2" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.AcquiantanceStatus]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="1701" Top="113.4" Width="151.2" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.AcquiantanceDate]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="359.1" Top="113.4" Width="170.1" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.JobTitle]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text19" Left="529.2" Top="9.45" Width="453.6" Height="28.35" Text="Контроль ознакомления с графиком отпусков" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text20" Left="652.05" Top="66.15" Width="207.9" Height="28.35" Text="[Sungero.Core.Calendar.Now.ToString(&quot;dd.MM.yyyy HH:mm&quot;)]" HorzAlign="Center" Font="Arial, 10pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text21" Left="567" Top="37.8" Width="378" Height="28.35" Text="[BusinessUnitName]" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text23" Left="529.2" Top="113.4" Width="189" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.Company]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text25" Left="1398.6" Top="113.4" Width="151.2" Height="47.25" Border.Lines="All" Text="[DirRX.NNVacations.Reports.Resources.AcquiantanceVacScheduleReport.KEDO]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="164.65" Width="1890" Height="47.25" DataSource="Table">
+      <TextObject Name="Text10" Width="151.2" Height="47.25" Border.Lines="All" Text="[SourceTable.persnumber]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text11" Left="151.2" Width="207.9" Height="47.25" Border.Lines="All" Text="[SourceTable.employeeName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="718.2" Width="170.1" Height="47.25" Border.Lines="All" Text="[SourceTable.firstDepartment]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text13" Left="888.3" Width="170.1" Height="47.25" Border.Lines="All" Text="[SourceTable.secondDepartment]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="1058.4" Width="170.1" Height="47.25" Border.Lines="All" Text="[SourceTable.thirdDepartment]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text15" Left="359.1" Width="170.1" Height="47.25" Border.Lines="All" Text="[SourceTable.jobTitleName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text16" Left="1228.5" Width="170.1" Height="47.25" Border.Lines="All" Text="[SourceTable.fourthDepartment]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text17" Left="1549.8" Width="151.2" Height="47.25" Border.Lines="All" Text="[SourceTable.statusAcq]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text18" Left="1701" Width="151.2" Height="47.25" Border.Lines="All" Text="[SourceTable.dateAcq]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt">
+        <Formats>
+          <DateFormat Format="D"/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text22" Left="529.2" Width="189" Height="47.25" Border.Lines="All" Text="[SourceTable.company]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text24" Left="1398.6" Width="151.2" Height="47.25" Border.Lines="All" Text="[SourceTable.statusConsent]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_NotifiableList" xml:space="preserve">
+    <value>Notify</value>
+  </data>
+  <data name="Property_Substitute" xml:space="preserve">
+    <value>Substitute</value>
+  </data>
+  <data name="Property_Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Property_Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="Property_VacationType" xml:space="preserve">
+    <value>Vacation type</value>
+  </data>
+  <data name="Property_StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Property_EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="Property_DaysAmount" xml:space="preserve">
+    <value>Days amount</value>
+  </data>
+  <data name="Property_Notice" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="Property_ShiftTaskId" xml:space="preserve">
+    <value>ID for transfer by notice</value>
+  </data>
+  <data name="Block_0eaeb1772c394ed6b23d1008abcc3a0e" xml:space="preserve">
+    <value>Creating a notification</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8" xml:space="preserve">
+    <value>Assignment to confirm vacation dates</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_2711af9548d348b6b5ce2155e27e2e11" xml:space="preserve">
+    <value>Show in Employee Self Service</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_aea707e9bb784cf6a85e8662d5f797e7" xml:space="preserve">
+    <value>Substitute</value>
+  </data>
+  <data name="AttachmentGroup_EmployeeAttachmentGroupTitle" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="AttachmentGroup_EmployeeAttachmentGroupInformationMessage" xml:space="preserve">
+    <value>Databook record will be added automatically</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_6c4bd667b42c48839a6f3ed1865ea556" xml:space="preserve">
+    <value>Show in Employee Self Service</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_70a063560adc43fc954d456fe847dc83" xml:space="preserve">
+    <value>Substitute</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupTitle" xml:space="preserve">
+    <value>Notice on Scheduled Vacation Beginning</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupInformationMessage" xml:space="preserve">
+    <value>Notice on scheduled vacation beginning not attached</value>
+  </data>
+  <data name="AttachmentGroup_OrderAttachmentGroupTitle" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="AttachmentGroup_OrderAttachmentGroupInformationMessage" xml:space="preserve">
+    <value>No attachments</value>
+  </data>
+  <data name="AttachmentGroup_AdditionalAttachmentGroupTitle" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="AttachmentGroup_AdditionalAttachmentGroupInformationMessage" xml:space="preserve">
+    <value>No attachments</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>The task of confirming vacation dates (according to the schedule)</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>The task of confirming vacation dates (according to the schedule)</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Tasks for confirming vacation dates (according to the schedule)</value>
+  </data>
+  <data name="Block_5dadaebdd1ed420da50572738e554a4d" xml:space="preserve">
+    <value>Waiting for the completion of the vacation transfer task</value>
+  </data>
+  <data name="Block_0eaeb1772c394ed6b23d1008abcc3a0e_Property_6938d185af7c46109c8c45d29d00416a" xml:space="preserve">
+    <value>Form the Notification body</value>
+  </data>
+  <data name="Property_VacationData" xml:space="preserve">
+    <value>Vacation data</value>
+  </data>
+  <data name="Property_TransferTaskId" xml:space="preserve">
+    <value>ID for transfer by application</value>
+  </data>
+  <data name="Block_08979113ee124890bf0c12fdc239961e" xml:space="preserve">
+    <value>Search for a transfer task by application</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_a8efe1a009ef4f888bb416f6ee767b18" xml:space="preserve">
+    <value>Supernika notice subject</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_140490f5cd1941efb9fa48c5cb446360" xml:space="preserve">
+    <value>Supernika notice text</value>
+  </data>
+  <data name="Property_SubstitutionsDirRX" xml:space="preserve">
+    <value>Substitutions</value>
+  </data>
+</root>

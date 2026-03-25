@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CompanySynchronizationErrorsNotificationSubject" xml:space="preserve">
+    <value>Ошибки обработки при синхронизации справочников орг. структуры от {0}.</value>
+  </data>
+  <data name="CompanySynchronizationErrorText" xml:space="preserve">
+    <value>Текст ошибки: {0}.</value>
+  </data>
+  <data name="CompanySynchronizationTextTitle" xml:space="preserve">
+    <value>При синхронизации организационной структуры возникли ошибки обработки.</value>
+  </data>
+  <data name="CompanySynchronizationErrorEntityLink" xml:space="preserve">
+    <value>{0}: {1}. </value>
+  </data>
+  <data name="CompanySynchronizationJobErrorSubject" xml:space="preserve">
+    <value>Ошибка при работе фонового процесса "Обновление организационной структуры" от {0}</value>
+  </data>
+  <data name="CompanySynchronizationJobErrorText" xml:space="preserve">
+    <value>Выполнение фонового процесса \"Обновление организационной структуры\" было прервано из-за ошибки. Текст ошибки: {0}.</value>
+  </data>
+  <data name="SexParseError" xml:space="preserve">
+    <value>Не удалось установить пол сотрудника. Код пола: {0}.</value>
+  </data>
+  <data name="BusinessUnitNotFoundError" xml:space="preserve">
+    <value>Не найдена запись справочника "Наши организации" для подразделения. SAP ID НОР: {0}</value>
+  </data>
+  <data name="CompanySynchronizationDepartmentNotSavedError" xml:space="preserve">
+    <value>Не удалось сохранить запись справочника Подразделения. Ошибка: {0}</value>
+  </data>
+  <data name="CompanySynchronizationRecordNotSavedError" xml:space="preserve">
+    <value>Не удалось сохранить запись очереди. Подробную информацию об ошибке можно найти в лог файлах.</value>
+  </data>
+  <data name="CompanySynchronizationJobTitleNotSavedError" xml:space="preserve">
+    <value>Не удалось сохранить запись справочника Должности. Ошибка: {0}</value>
+  </data>
+  <data name="NotifyAdminGetTextOutgoingMessageErrorSubject" xml:space="preserve">
+    <value>При формировании текста исходящего сообщения произошла ошибка</value>
+  </data>
+  <data name="NotifyAdminGetTextOutgoingMessageErrorText" xml:space="preserve">
+    <value>Обработайте ошибки при формировании текста исходящего сообщения. Текст ошибки</value>
+  </data>
+  <data name="NotifyResponsibleSendOutgoingMessageErrorText" xml:space="preserve">
+    <value>Обработайте ошибки при отправке исходящего сообщения. Текст ошибки</value>
+  </data>
+  <data name="NotifyResponsibleSendOutgoingMessageErrorSubject" xml:space="preserve">
+    <value>При отправке исходящего сообщения произошла ошибка</value>
+  </data>
+  <data name="NotFoundResponsibleForErrors" xml:space="preserve">
+    <value>Не найден ответственный за ошибки для потока внешних систем. Укажите ответственного в записи справочника Потоки внешних систем, для потока вложенного в сообщение и отправьте подзадачу ответственному для обработки ошибки.
+</value>
+  </data>
+  <data name="CompanySynchronizationValidationError" xml:space="preserve">
+    <value>Не заполнено обязательное свойство "{0}"</value>
+  </data>
+  <data name="PersonSexParseError" xml:space="preserve">
+    <value>Не удалось установить пол персоны. Код пола в записи очереди - {0}</value>
+  </data>
+  <data name="CompanySynchronizationCreateRegionError" xml:space="preserve">
+    <value>Не удалось создать регион. Подробности можно найти в лог файле</value>
+  </data>
+  <data name="CompanySynchronizationCreateCityError" xml:space="preserve">
+    <value>Не удалось создать населённый пункт. Подробности можно найти в лог файле</value>
+  </data>
+  <data name="CompanySynchronizationPersonNotSavedError" xml:space="preserve">
+    <value>Не удалось сохранить запись справочника Персоны. Ошибка: {0}</value>
+  </data>
+  <data name="EmployeeQueueInilaError" xml:space="preserve">
+    <value>Ошибка при проверке СНИЛС на валидность. Текст ошибки: {0}.</value>
+  </data>
+  <data name="EmployeeEmployemntTypeParseError" xml:space="preserve">
+    <value>Не удалось установить вид занятости сотрудника. Код вида занятости: {0}.</value>
+  </data>
+  <data name="CompanySynchronizationEmployeeNotSavedError" xml:space="preserve">
+    <value>Не удалось сохранить запись справочника Сотрудники. Ошибка: {0}</value>
+  </data>
+  <data name="FlowNotFoundByGuidError" xml:space="preserve">
+    <value>Не найден поток внешней системы по Guid потока: {0}.</value>
+  </data>
+  <data name="IncomingMessageNotSavedError" xml:space="preserve">
+    <value>Ошибка при сохранении входящего сообщения: {0}. StackTrace: {1}.</value>
+  </data>
+  <data name="CompanyQueuesClearingJobErrorSubject" xml:space="preserve">
+    <value>Ошибка при работе фонового процесса "Очистка очередей организационной структуры" от {0}</value>
+  </data>
+  <data name="CompanyQueuesClearingJobErrorText" xml:space="preserve">
+    <value>Выполнение фонового процесса "Очистка очередей организационной структуры" было прервано из-за ошибки. Текст ошибки: {0}.</value>
+  </data>
+  <data name="CompanyQueueClearingJobDaysError" xml:space="preserve">
+    <value>Не удалось определить количество дней, по истечению которых необходо удалить запись. Значение из константы: {0}</value>
+  </data>
+  <data name="UnmodifiedBusinessUnitDaysError" xml:space="preserve">
+    <value>Не удалось определить количество дней, по истечению которых необходимо оповещать о задержках синхронизации организационной структуры. Значение из константы: {0}</value>
+  </data>
+  <data name="UnmodifiedBusinessUnitDataNotificationSubject" xml:space="preserve">
+    <value>Обнаружены НОР, для которых изменения организационной структуры не производились {0} дней.</value>
+  </data>
+  <data name="UnmodifiedBusinessUnitDataNotificationText" xml:space="preserve">
+    <value>Список НОР: {0}.</value>
+  </data>
+  <data name="NotifyProcessingIncomingMessageErrorSubject" xml:space="preserve">
+    <value>При обработке входящего сообщения произошла ошибка</value>
+  </data>
+  <data name="NotifyProcessingIncomingMessageErrorText" xml:space="preserve">
+    <value>Обработайте ошибки, возникшии во время обработки входящего сообщения. Текст ошибки</value>
+  </data>
+  <data name="ExpressionFuncName_GetMessageSentByTask" xml:space="preserve">
+    <value>Получить отправленное сообщение по задаче</value>
+  </data>
+  <data name="ExpressionFuncDesc_GetMessageSentByTask" xml:space="preserve">
+    <value>Возвращает запись справочника исходящие сообщения по задаче</value>
+  </data>
+  <data name="NeedFillActionName" xml:space="preserve">
+    <value>Требуется заполнить имя действия</value>
+  </data>
+  <data name="EvalutionGroupParseError" xml:space="preserve">
+    <value>Некорректное значение поля Атрибут "Группа оценки". Значение: {0}.</value>
+  </data>
+  <data name="InilaSumNotValidError" xml:space="preserve">
+    <value>Некорректная контрольная сумма для поля СНИЛC.</value>
+  </data>
+  <data name="ServiceUnavailable" xml:space="preserve">
+    <value>Service Unavailable</value>
+  </data>
+  <data name="IncorrectEntityId" xml:space="preserve">
+    <value>Передана некорректная строка entityId: {0}</value>
+  </data>
+  <data name="IncorrectVersionId" xml:space="preserve">
+    <value>Передана некорректная строка versionId: {0}</value>
+  </data>
+  <data name="PersonalPhoneValidationError" xml:space="preserve">
+    <value>Личный телефон не прошёл проверку. Полученное значение: {0}.</value>
+  </data>
+  <data name="IncomingMessageName" xml:space="preserve">
+    <value>Входящее интеграционное сообщение {0} {1}</value>
+  </data>
+  <data name="OutgoingMessageName" xml:space="preserve">
+    <value>Исходящее интеграционное сообщение {0} {1}</value>
+  </data>
+  <data name="UpdateESSPhoneNumberException" xml:space="preserve">
+    <value>Не удалось изменить номер телефона сотрудника в ЛК: {0}, {1}.</value>
+  </data>
+  <data name="UpdateESSPhoneNumberExceptionNotificationSubject" xml:space="preserve">
+    <value>Не удалось изменить номер телефона сотрудника в ЛК: {0}</value>
+  </data>
+  <data name="LineManagerNotificationText" xml:space="preserve">
+    <value>Вам предоставлен доступ в личный кабинет КЭДО.</value>
+  </data>
+  <data name="GetDocumentNotFoundError" xml:space="preserve">
+    <value>Документ не найден или отсутствует версия.</value>
+  </data>
+  <data name="ExpressionFuncName_GetIncomingMessageByOutgoingMessage" xml:space="preserve">
+    <value>Получить входящее сообщение на основании исходящего</value>
+  </data>
+  <data name="ExpressionFuncDesc_GetIncomingMessageByOutgoingMessage" xml:space="preserve">
+    <value>Возвращает запись входящего сообщения, а на основании иходящего сообщения</value>
+  </data>
+  <data name="ExpressionFuncName_GetCodeError" xml:space="preserve">
+    <value>Получить код ошибки</value>
+  </data>
+  <data name="ExpressionFuncDesc_GetCodeError" xml:space="preserve">
+    <value>Возвращает код ошибки</value>
+  </data>
+  <data name="RestampingDocsNoticeTotalInfo" xml:space="preserve">
+    <value>Всего документов: {0}</value>
+  </data>
+  <data name="RestampingDocsNoticeSendedInfo" xml:space="preserve">
+    <value>Отправленные документы: {0}</value>
+  </data>
+  <data name="RestampingDocsNoticeNotSendedInfo" xml:space="preserve">
+    <value>Неотправленные документы: {0}</value>
+  </data>
+  <data name="SupernikaPushNotificationReportTitle" xml:space="preserve">
+    <value>Отчет об отправке Push-уведомлений в Супернику</value>
+  </data>
+  <data name="SupernikaPushNotificationReportPersonalPhone" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="SupernikaPushNotificationReportBeginDate" xml:space="preserve">
+    <value>Дата отправки с</value>
+  </data>
+  <data name="SupernikaPushNotificationReportEndDate" xml:space="preserve">
+    <value>Дата отправки по</value>
+  </data>
+  <data name="SupernikaPushNotificationReportFuncName" xml:space="preserve">
+    <value>Отчет об отправке Push-уведомлений в Супернику</value>
+  </data>
+  <data name="NGDParseError" xml:space="preserve">
+    <value>Не удалось установить признак НГД сотрудника. Код НГД: {0}.</value>
+  </data>
+  <data name="EmployeeDoesntHaveMainEmployeeError" xml:space="preserve">
+    <value>Сотрудник с табельным номером: '{0}' не имеет совместителей с основным местом работы.</value>
+  </data>
+</root>

@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LetterToAirlineKindName" xml:space="preserve">
+    <value>Letter to the airline</value>
+  </data>
+  <data name="IndividualAcquiantanceVacScheduleListKindName" xml:space="preserve">
+    <value>Individual sheet of acquaintance with the vacation schedule</value>
+  </data>
+  <data name="GroupAcquiantanceVacScheduleListKindName" xml:space="preserve">
+    <value>Group sheet of acquiantance with the vacation schedule</value>
+  </data>
+  <data name="OtherVacationKindName" xml:space="preserve">
+    <value>Application for other leave</value>
+  </data>
+  <data name="CompensationVacationKindName" xml:space="preserve">
+    <value>Compensation for part of the annual paid leave (including additional)</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>employee</value>
+  </data>
+  <data name="VacationScheduleTemplateName" xml:space="preserve">
+    <value> for {0} year</value>
+  </data>
+  <data name="DepartmentTemplate" xml:space="preserve">
+    <value>&lt;department&gt;</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value> from </value>
+  </data>
+  <data name="LetterToOVDKindName" xml:space="preserve">
+    <value>Letter to the Department of Internal Affairs</value>
+  </data>
+  <data name="OtherVacationTemplateNotFoundError" xml:space="preserve">
+    <value>A template for other vacation request letters is not specified in the module settings. Contact your system administrator.</value>
+  </data>
+  <data name="AttachableVacationsInfo" xml:space="preserve">
+    <value>{0} {1}, from {2} to {3}, in the number of {4} calendar days.</value>
+  </data>
+  <data name="VacationCompensationOrderKindName" xml:space="preserve">
+    <value>Order to replace part of the employee's vacation with monetary compensation</value>
+  </data>
+  <data name="OtherVacationOrderKindName" xml:space="preserve">
+    <value>Order for other kind of vacation</value>
+  </data>
+  <data name="CurrentVacationPeriodForShift" xml:space="preserve">
+    <value>{0}, {1} - {2}, ({3} d.)</value>
+  </data>
+  <data name="NewVacationDatesForShift" xml:space="preserve">
+    <value>from {0} to {1}</value>
+  </data>
+  <data name="CreateVacationNoticesAndStartTasksSubject" xml:space="preserve">
+    <value>Errors in the formation of vacation confirmation tasks</value>
+  </data>
+  <data name="CreateVacationNoticesAndStartTasksActiveText" xml:space="preserve">
+    <value>Errors occurred when forming the tasks "Registration of annual leave" for the following employees: {0}</value>
+  </data>
+  <data name="NoticeSubjectCreateAcquiantanceVacScheduleLists" xml:space="preserve">
+    <value>The task documents have been generated</value>
+  </data>
+  <data name="NoticeSubjectCreateAcquiantanceVacScheduleListsError" xml:space="preserve">
+    <value>The task documents have not been generated</value>
+  </data>
+  <data name="SubjectIndividualVacationScheduleAcquaintanceTask" xml:space="preserve">
+    <value>Signing of an individual list of acquaintance with the vacation schedule</value>
+  </data>
+  <data name="CreateVacationInfoAndStartTaskSubject" xml:space="preserve">
+    <value>Errors occurred when forming the task of maintaining a vacation schedule</value>
+  </data>
+  <data name="SubjectVacationScheduleManagementTask" xml:space="preserve">
+    <value>Document approval: {0}</value>
+  </data>
+  <data name="GetAvailableDaysInfoDefaultText" xml:space="preserve">
+    <value>(failed to get)</value>
+  </data>
+  <data name="AvailableDaysInfo" xml:space="preserve">
+    <value>Paid vacations earned for the current day: {0}</value>
+  </data>
+  <data name="AvailableNumberOfVacationDays" xml:space="preserve">
+    <value>Paid vacations earned for the current day:</value>
+  </data>
+  <data name="NumberOfDays" xml:space="preserve">
+    <value>{0} days.</value>
+  </data>
+  <data name="GetAvailableNumberOfVacationDaysError" xml:space="preserve">
+    <value>Error in obtaining available vacation balances.</value>
+  </data>
+  <data name="AvailableNumberOfVacationDaysTitle" xml:space="preserve">
+    <value>THE RIGHT TO LEAVE</value>
+  </data>
+  <data name="PeriodOfPlannedVacation" xml:space="preserve">
+    <value>{0} - {1} ({2} days)</value>
+  </data>
+  <data name="PlannedVacationTitle" xml:space="preserve">
+    <value>PLANNED VACATIONS</value>
+  </data>
+  <data name="DocumentTimeCollisionError" xml:space="preserve">
+    <value>Change the vacation period, since a vacation application has already been issued for the selected dates.</value>
+  </data>
+  <data name="DaysBeforeStartEnableError" xml:space="preserve">
+    <value>The application for vacation can be made at least {0} days before it starts.</value>
+  </data>
+  <data name="GetVacationAvailableLimitsError" xml:space="preserve">
+    <value>Error in obtaining available vacation limits</value>
+  </data>
+  <data name="RequestTextGenerationError" xml:space="preserve">
+    <value>Request text generation error</value>
+  </data>
+  <data name="SendMessageToExternalSystemError" xml:space="preserve">
+    <value>The message could not be sent to the external system</value>
+  </data>
+  <data name="DeserializeInStructError" xml:space="preserve">
+    <value>Error deserializing the response to the structure</value>
+  </data>
+  <data name="RefusalToApplyForVacationError" xml:space="preserve">
+    <value>The application for a vacation was refused</value>
+  </data>
+  <data name="VacationAvailableLimitsError" xml:space="preserve">
+    <value>The duration of the requested vacation exceeds the number of available vacation days</value>
+  </data>
+  <data name="TimeCollisionsOfRequestedVacationError" xml:space="preserve">
+    <value>Absence is registered for the specified dates</value>
+  </data>
+  <data name="AvailabilityOfRecordOfParentalLeave" xml:space="preserve">
+    <value>A parental leave has been issued for the specified dates. You can't take a vacation</value>
+  </data>
+  <data name="RequiredDurationRrror" xml:space="preserve">
+    <value>In case of approval of the application for postponement of the vacation, the legislative requirement regarding the duration of the vacation parts will be violated - annually one of the vacation parts must be at least 14 calendar days</value>
+  </data>
+  <data name="CompensationAdditionalVacationKindName" xml:space="preserve">
+    <value>Compensation for part of the annual additional paid leave (per ВУТ/ОУТ)</value>
+  </data>
+  <data name="BusinessProcessVacations" xml:space="preserve">
+    <value>Vacations</value>
+  </data>
+  <data name="BusinessProcessVacationScheduleManagement" xml:space="preserve">
+    <value>Maintaining a vacation schedule</value>
+  </data>
+  <data name="BusinessProcessCompensationPartAnnualVacation" xml:space="preserve">
+    <value>Compensation for part of the annual paid vacation</value>
+  </data>
+  <data name="BusinessProcessRegistrationOtherVacation" xml:space="preserve">
+    <value>Registration of other vacations</value>
+  </data>
+  <data name="BusinessProcessRecallVacation" xml:space="preserve">
+    <value>Recall vacation</value>
+  </data>
+  <data name="BusinessProcessRegistrationAnnualVacation" xml:space="preserve">
+    <value>Registration of annual vacation</value>
+  </data>
+  <data name="CurrentUserPersonalNumberNotFoundError" xml:space="preserve">
+    <value>The current employee's service number could not be obtained</value>
+  </data>
+  <data name="CurrentUserNotFoundError" xml:space="preserve">
+    <value>The current employee could not be identified</value>
+  </data>
+  <data name="DocumentKindNotFoundError" xml:space="preserve">
+    <value>Couldn't get the Document Type</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>An error has occurred. Contact the system administrator.</value>
+  </data>
+  <data name="DocumentTimeCollisionInShiftError" xml:space="preserve">
+    <value>Change the postponement period of the vacation, since a vacation application has already been issued for the selected dates.</value>
+  </data>
+  <data name="ParseStringToDateError" xml:space="preserve">
+    <value>Failed to process the transmitted date: {0}</value>
+  </data>
+  <data name="DocumentKindNotFound" xml:space="preserve">
+    <value>Couldn't get the Document Type</value>
+  </data>
+  <data name="EmployeeNotFound" xml:space="preserve">
+    <value>Failed to get an Employee</value>
+  </data>
+  <data name="BusinessUnitNotFound" xml:space="preserve">
+    <value>Couldn't get Our employee organization</value>
+  </data>
+  <data name="VacationKindTemplateNotFoundError" xml:space="preserve">
+    <value>The template for "{0}" is not specified in the module settings. Contact the system administrator.</value>
+  </data>
+  <data name="StudyVacationOrderKindName" xml:space="preserve">
+    <value>Order for granting study leave</value>
+  </data>
+  <data name="CurrentVacationPeriodForRecall" xml:space="preserve">
+    <value>{0} - {1}, ({2} d.)</value>
+  </data>
+  <data name="AcquiantanceVacScheduleReportExecutionError" xml:space="preserve">
+    <value>You cannot generate a report because you are not included in the business role for the “Maintain vacation schedule” process.</value>
+  </data>
+  <data name="VacationNoticeMessageStyle" xml:space="preserve">
+    <value>&lt;style&gt;
+   table,
+   th,
+   td {
+   padding: 10px;
+   border: 1px solid black;
+   border-collapse: collapse;
+   }
+&lt;/style&gt;</value>
+  </data>
+  <data name="AttachableVacationsInfoHeader" xml:space="preserve">
+    <value>And also:
+{0}</value>
+  </data>
+  <data name="VacationNoticeMessageBody" xml:space="preserve">
+    <value>&lt;html&gt;
+&lt;head&gt; {0} &lt;/head&gt;
+&lt;body&gt;
+ &lt;div style='margin-bottom: 10px'&gt; Произошли ошибки при отправке уведомлений об отпуске по следующим сотрудникам: &lt;/div&gt;
+ &lt;table width='100%'&gt; {1} &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="VacationNoticeMessageSubject" xml:space="preserve">
+    <value>Errors occurred when sending vacation notifications</value>
+  </data>
+  <data name="VacationNoticeMessageRow" xml:space="preserve">
+    <value>&lt;tr&gt;&lt;td&gt;{0}&lt;/td&gt;&lt;td&gt;{1}&lt;/td&gt;&lt;td&gt;{2}&lt;/td&gt;&lt;/tr&gt;</value>
+  </data>
+  <data name="ShiftVacationReason" xml:space="preserve">
+    <value>Transfer due to: </value>
+  </data>
+  <data name="VacationNoticeMessageHeader" xml:space="preserve">
+    <value>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Personnel number&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Employee&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Error&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</value>
+  </data>
+  <data name="VacationConfirmationAssignmentError" xml:space="preserve">
+    <value>The transfer of this scheduled vacation is no longer available. The vacation will be provided on the original dates.</value>
+  </data>
+  <data name="GetMaxVacationEndDateFunctionName" xml:space="preserve">
+    <value>Get the maximum end date of the vacation</value>
+  </data>
+  <data name="GetMaxVacationEndDateFunctionDescription" xml:space="preserve">
+    <value>Returns the maximum end date of a vacation</value>
+  </data>
+  <data name="GetNewVacationDatesFunctionName" xml:space="preserve">
+    <value>Get new vacation dates</value>
+  </data>
+  <data name="GetNewVacationDatesFunctionDescription" xml:space="preserve">
+    <value>Returns new vacation dates in string format</value>
+  </data>
+  <data name="VacationPeriodString" xml:space="preserve">
+    <value>from {0} to {1}</value>
+  </data>
+  <data name="ChangeVacationPeriodOrderKindName" xml:space="preserve">
+    <value>Change vacation period order</value>
+  </data>
+  <data name="CancelVacationOrderKindName" xml:space="preserve">
+    <value>Cancel vacation order</value>
+  </data>
+  <data name="RegisteredVacationTitle" xml:space="preserve">
+    <value>REGISTERED VACATIONS</value>
+  </data>
+  <data name="ValidateVacationDataYearShiftError" xml:space="preserve">
+    <value>Vacation transfer is possible within the current year, select other dates</value>
+  </data>
+  <data name="ValidateVacationDurationRestrictionError" xml:space="preserve">
+    <value>The number of days of the transferred annual leave does not correspond to the number of days of the original leave</value>
+  </data>
+  <data name="ValidateVacationAttachedToAnnualError" xml:space="preserve">
+    <value>Add travel days to your vacation spot to your annual vacation</value>
+  </data>
+  <data name="ShiftVacationStatementDuplicateError" xml:space="preserve">
+    <value>The application for postponement of this vacation has already been issued.</value>
+  </data>
+  <data name="VacationNoticeInProcessError" xml:space="preserve">
+    <value>You have a Notice about this vacation in your office. Go to the notification to make the transfer.</value>
+  </data>
+  <data name="VacationApprovalPeriodNotFoundMessage" xml:space="preserve">
+    <value>No record found in the directory "Vacation approval periods". Search parameters: BusinessUnit ID: {0}, Document type ID: {1}, Vacation type: {2}, Vacation paid: {3}, Top 10/100: {4}</value>
+  </data>
+  <data name="VacationApprovalPeriodNotFoundSubject" xml:space="preserve">
+    <value>No record found in the directory "Vacation approval periods"</value>
+  </data>
+  <data name="VacationApprovalPeriodTrueBoolValue" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="VacationApprovalPeriodFalseBoolValue" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="ValidateRecallVacationDurationRestrictionError" xml:space="preserve">
+    <value>Partial postponement/compensation of annual leave is not allowed. Reschedule and/or compensate for the entire vacation.</value>
+  </data>
+  <data name="SubstitutionNote" xml:space="preserve">
+    <value>Created automatically due to employee vacation</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionName" xml:space="preserve">
+    <value>Get substitution information</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionDescription" xml:space="preserve">
+    <value>Returns text with information about substitute employees</value>
+  </data>
+  <data name="SubstitutionNote_AutoCreated" xml:space="preserve">
+    <value>Created automatically due to employee vacation, {0}, order ID: {1}.</value>
+  </data>
+  <data name="SubstituteCollisionError" xml:space="preserve">
+    <value>The employee will not be able to perform substitution on the specified dates, as they have a statement registered for periods: {0}</value>
+  </data>
+  <data name="SubstituteCheckError" xml:space="preserve">
+    <value>Substitute check error</value>
+  </data>
+</root>

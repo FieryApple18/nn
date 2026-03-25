@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="InsertDepartmentsInDepth">
+    <postgres><![CDATA[insert into {0} (ReportSessionId, empId, dep1, dep2, dep3, dep4)
+WITH RECURSIVE search_tree AS (
+    SELECT r.id, r.parent, 1 AS level, ARRAY[r.id] AS path, ARRAY[r.id] AS deps, r.isheadquarters_overrid_dirrx
+    FROM public.sungero_core_recipient r
+    WHERE r.discriminator = '{1}'
+
+    UNION ALL
+
+    SELECT r.id, r.parent, st.level + 1, path || r.id, 
+      case
+	      when st.isheadquarters_overrid_dirrx != true then array_prepend(r.id, deps)
+	      else deps
+	    end,
+	    r.isheadquarters_overrid_dirrx
+    FROM public.sungero_core_recipient r
+    JOIN search_tree st ON r.id = st.parent
+    WHERE r.discriminator = '{1}'
+)
+
+SELECT
+  '{2}' as ReportSessionId,
+	employee.id, 
+	dep1.name,
+	dep2.name,
+	dep3.name,
+	dep4.name
+FROM (
+    SELECT s.id, s.level, s.path, s.deps, ROW_NUMBER() OVER (PARTITION BY path[1] ORDER BY level DESC) AS rn
+    FROM search_tree as s
+) AS st
+JOIN public.sungero_core_recipient AS employee ON 
+  employee.department_company_sungero = st.path[1]
+LEFT JOIN sungero_core_recipient as dep1 on
+  dep1.id = st.deps[1]
+LEFT JOIN sungero_core_recipient as dep2 on
+  dep2.id = st.deps[2]
+LEFT JOIN sungero_core_recipient as dep3 on
+  dep3.id = st.deps[3]
+LEFT JOIN sungero_core_recipient as dep4 on
+  dep4.id = st.deps[4]
+WHERE employee.discriminator = '{3}' 
+  AND st.rn = 1
+  AND employee.businunitdirrx_esspls_dirrx = ANY(STRING_TO_ARRAY('{4}', ';')::bigint[])
+  AND ('{5}' = '' or employee.department_company_sungero = ANY(STRING_TO_ARRAY('{5}', ';')::bigint[]));]]></postgres>
+  </query>
+  <query key="SelectReportTableData">
+    <postgres><![CDATA[with report_table as (
+  select distinct employee.persnumber_company_sungero as persnumber,
+    employee."name" as employeeName, 
+    jobTitle."name" as jobTitleName,
+    comp.name as company,
+    deph.dep1 as firstDepartment,
+    deph.dep2 as secondDepartment,
+    deph.dep3 as thirdDepartment,
+    deph.dep4 as fourthDepartment,
+    case when employee.consenthrpro_hrproso_hrpro = @Signed
+      then case when doc.intapprstate_docflow_sungero = @SignedState
+             then @Acquainted
+                when doc.intapprstate_docflow_sungero = @PendingSignState and doc.acquiantanceop_overrid_dirrx = @ElectronicAcqOption
+             then @NotAcquainted
+                else @OutsideConsent
+      end else @OutsideConsent
+    end as statusAcq,
+    case when employee.consenthrpro_hrproso_hrpro = @Signed
+      then case when doc.intapprstate_docflow_sungero = @SignedState
+             then doc.approvaldatedi_overrid_dirrx::text
+                when doc.intapprstate_docflow_sungero = @PendingSignState and doc.acquiantanceop_overrid_dirrx = @ElectronicAcqOption
+             then ''
+                else @OutsideConsent
+      end else @OutsideConsent
+    end as dateAcq,
+    case when employee.consenthrpro_hrproso_hrpro = @Signed
+      then @HasConsent
+      else @NoConsent
+    end as statusConsent
+  from dirrx_nnvacat_vacationsinfor as information 
+    left join sungero_core_recipient as employee
+      on employee.id = information.employee
+    left join sungero_content_edoc as doc
+      on employee.id = doc.employeedirrx_overrid_dirrx and doc.discriminator::text = @DocTypeGuid and doc.documentkind_docflow_sungero = @DocKindId
+    left join sungero_company_jobTitle as jobTitle
+      on jobTitle.id = employee.jobtitle_company_sungero
+    right join dirrx_reports_dephierarchy as deph
+      on deph.empid = employee.id
+    left join sungero_core_recipient as comp
+      on comp.id = employee.businunitdirrx_esspls_dirrx
+  where extract(year from information.year)::text = @DateAcq 
+    or extract(year from doc.year1_vacatio_hrpro)::text = @DateAcq
+    and deph.reportsessionid = @ReportSessionId
+    -- Проверка прав доступа к документу
+  order by employeeName
+)
+
+select 
+    persnumber, 
+    employeeName, 
+    jobTitleName, 
+    firstDepartment, 
+    secondDepartment, 
+    thirdDepartment,
+    fourthDepartment,
+    statusAcq,
+    dateAcq,
+    company,
+    statusConsent
+from report_table
+where
+  (@StatusAcq = '' or statusAcq = @StatusAcq)]]></postgres>
+  </query>
+  <query key="CreateDepartmentsTempTable">
+    <mssql><![CDATA[create table {0}
+ ([ReportSessionId] varchar(256) not null,
+  [EmpId] bigint not null,
+  [Dep1] bigint,
+  [Dep2] bigint,
+  [Dep3] bigint,
+  [Dep4] bigint)]]></mssql>
+    <postgres><![CDATA[create table {0}
+ (ReportSessionId citext not null,
+  EmpId bigint not null,
+  Dep1 varchar(250),
+  Dep2 varchar(250),
+  Dep3 varchar(250),
+  Dep4 varchar(250))]]></postgres>
+  </query>
+  <query key="GetSubordinateDepartments">
+    <postgres><![CDATA[WITH RECURSIVE search_tree AS (
+    SELECT r.id, r.headoffice_company_sungero
+    FROM public.sungero_core_recipient r
+    WHERE r.discriminator = '{0}'
+      and r.headoffice_company_sungero = ANY(STRING_TO_ARRAY('{1}', ';')::bigint[])
+
+    UNION ALL
+
+    SELECT r.id, r.headoffice_company_sungero
+    FROM public.sungero_core_recipient r
+    JOIN search_tree st ON st.id = r.headoffice_company_sungero
+    WHERE r.discriminator = '{0}'
+  )
+  select STRING_AGG(cast(search_tree.id as text), ';') from search_tree;]]></postgres>
+  </query>
+</queries>
