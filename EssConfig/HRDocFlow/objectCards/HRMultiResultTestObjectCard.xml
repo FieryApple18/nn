@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="B59AD712-3AC4-48D7-A32D-7B10680CE35B" name="IHRDocFlowTestHRMultiResultTestAssignments" header="Требуются действия" icon="sign">
+    <views>
+      <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+        <fields>
+          <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title"/>
+          <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" binding="deadline" type="DateTime" converter="EssBase.convertDeadline"/>
+          <field caption="@ESSBASE.DEFAULTCARD_STATUS_CAPTION" binding="status" type="Status"/>
+          <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee"/>
+          <field caption="@HRPROSTATEMENTS.OBJECTCARD_INSTRUCTION">{{{instruction}}}</field>
+        </fields>
+        <content>
+          {{#proposedSolution}}
+          {{#reduceFullName}}{{performerFullName}}{{/reduceFullName}}: {{proposedSolution}} {{#isAborted}}({{AuthorFullName}}){{/isAborted}}
+          {{/proposedSolution}}
+        </content>
+        <attachmentsAreas>
+          <attachmentsArea title="Документы">
+            <documentGroups>
+              <documentGroup>DocumentGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+          <attachmentsArea title="Приложения">
+            <documentGroups>
+              <documentGroup>AddendaGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+          <attachmentsArea title="Дополнительно">
+            <documentGroups>
+              <documentGroup>OtherGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+        </attachmentsAreas>
+      </view>
+    </views>
+    <buttons>
+      <button name="Sign" isPrimary="true" isDefault="true">
+        <icon>check-mark</icon>
+        <caption>Подписать</caption>
+        <clickEventHandler>
+          <![CDATA[
+              ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Sign').then(function () {
+              ESS.closeElement(sender);
+              ESS.toasts.showToast(ESS.L('Задание выполнено.'), 'success', true);
+              ESS.widgets.updateWidgets();
+            }).catch(function (error) {
+              ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Approve" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>Согласовать</caption>
+        <clickEventHandler>
+          <![CDATA[
+              ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Approved').then(function () {
+              ESS.closeElement(sender);
+              ESS.toasts.showToast(ESS.L('Задание выполнено.'), 'success', true);
+              ESS.widgets.updateWidgets();
+            }).catch(function (error) {
+              ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Acquainted" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>Ознакомится</caption>
+        <clickEventHandler>
+          <![CDATA[
+              ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Acquainted').then(function () {
+              ESS.closeElement(sender);
+              ESS.toasts.showToast(ESS.L('Задание выполнено.'), 'success', true);
+              ESS.widgets.updateWidgets();
+            }).catch(function (error) {
+              ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Reapproving" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>На повторное согласование</caption>
+        <clickEventHandler>
+          <![CDATA[
+              ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'ForReapproving').then(function () {
+              ESS.closeElement(sender);
+              ESS.toasts.showToast(ESS.L('Задание выполнено.'), 'success', true);
+              ESS.widgets.updateWidgets();
+            }).catch(function (error) {
+              ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Reject" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>Отказ</caption>
+        <clickEventHandler>
+          <![CDATA[
+              ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Reject').then(function () {
+              ESS.closeElement(sender);
+              ESS.toasts.showToast(ESS.L('Задание выполнено.'), 'success', true);
+              ESS.widgets.updateWidgets();
+            }).catch(function (error) {
+              ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Revision" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>На доработку</caption>
+        <clickEventHandler>
+          <![CDATA[
+              ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'ForRevision').then(function () {
+              ESS.closeElement(sender);
+              ESS.toasts.showToast(ESS.L('Задание выполнено.'), 'success', true);
+              ESS.widgets.updateWidgets();
+            }).catch(function (error) {
+              ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+    </buttons>
+    <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformer.xml" />
+    <openedEventHandler>
+      <![CDATA[
+        if(data.requisites.find(re => re.name == "CanSign").value === false || 
+           data.requisites.find(re => re.name == "CanSign").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Sign"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanApprove").value === false || 
+           data.requisites.find(re => re.name == "CanApprove").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Approve"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanAcquainted").value === false || 
+           data.requisites.find(re => re.name == "CanAcquainted").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Acquainted"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanForReapproving").value === false || 
+           data.requisites.find(re => re.name == "CanForReapproving").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Reapproving"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanReject").value === false || 
+           data.requisites.find(re => re.name == "CanReject").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Reject"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanForRevision").value === false || 
+           data.requisites.find(re => re.name == "CanForRevision").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Revision"), 1);
+        }
+
+        resolve({configuration: configuration, data: data});
+      ]]>
+    </openedEventHandler>
+    <closedEventHandler><![CDATA[
+      if(data.isRead === false)
+      {
+        ESS.widgets.updateWidgets();
+      }
+      ]]>
+    </closedEventHandler>
+  </objectCard>

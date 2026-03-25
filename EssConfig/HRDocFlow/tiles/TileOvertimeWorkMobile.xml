@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="overtimeWorkMobile" index="21">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileOvertimeWork" />
+  </authorization>
+  <backgroundColor>#00cfc4</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.STATEMENTS_TILE_OVERTIMEWORK_TITLE</title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: 'f6b72778-53d2-4aea-b9aa-c620d65813a3'});]]></clickEventHandler>
+</tile>

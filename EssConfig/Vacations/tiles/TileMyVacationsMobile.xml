@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="myVacationsMobile" index="10">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileMyVacations" />
+  </authorization>
+  <backgroundColor>#FCAE48</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.VACATIONS_TILE_MY_VACATIONS_TITLE</title>
+  <icon>vacation</icon>
+  <navigationTargetUrl>/facilitygroups/Vacations</navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+</tile>

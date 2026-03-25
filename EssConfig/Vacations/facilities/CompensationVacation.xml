@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="685e687d-246d-43d9-a982-4350ddfc771a" name="CompensationVacation">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.FACILITIES_COMPENSATIONVACATION_TITLE</title>
+  <description></description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetPostListByPerson</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AvailableDaysInfo" defaultValue="Загрузка информации..." isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="AvailableDays" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="DocumentKind" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetCompensationDocumentKinds</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DaysSelected" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>999</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Вице_Президент" defaultValue="#VICE_PRESIDENT" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника" defaultValue="#CURRENT_USER_JOB_TITLE_NOMINATIVE" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Структурное подразделение" defaultValue="#DEPARTMENT_NAME" isRequired="false" isCollection="false">
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника" defaultValue="#CURRENT_USER_FULLNAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_И.О. Фамилия сотрудника" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Фамилия И.О. сотрудника (р.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Табельный_номер" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Количество дней" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="IsFromEssAccount" defaultValue="true" isRequired="false" isCollection="false">
+      <isIndeterminateAllowed>False</isIndeterminateAllowed>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="TemplateId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ErrorId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Info" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="CompensationAdditionalVacationKind" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+      <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-bottom: 12px;">Доступно дней для компенсации: {{{AvailableDays}}}</div>
+        {{#AvailableDays}}
+             Из них:<br/>
+             {{{AvailableDaysInfo}}}
+        {{/AvailableDays}}
+        {{#Info}}
+          <br/><br/>{{{Info}}}
+        {{/Info}}
+      ]]></content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>Initiator</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <valueChangedEventHandler><![CDATA[
+        functions.addPerformingAction('ChangeInitiator');
+        var initiatorId = formItem.value || functions.getValues().Initiator;
+        if (initiatorId != null) {
+          functions.removeError(window.errorInitiator);
+          ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned?employeeId=${initiatorId}`)
+          .then(function (isConsentSigned) {
+            if (isConsentSigned != true) {
+              window.errorInitiator = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+              functions.removePerformingAction();
+            } else {
+              ESS.network.sendRequest(`/api/functions/GetCurrentCompensationAvailableDays?employeeId=${initiatorId}`)
+              .then(function (AvailableDays) {
+                if (AvailableDays.ErrorText == null || AvailableDays.ErrorText.length == 0) {
+                  functions.setValue('AvailableDaysInfo', AvailableDays.DayCountString);
+                  functions.setValue('AvailableDays', AvailableDays.DayCount);
+                }
+                else {
+                  window.errorInitiator = functions.showError(AvailableDays.ErrorText);
+                }
+                functions.removePerformingAction();
+              });
+            }
+          })
+          .catch(function (error) {
+            functions.removePerformingAction();
+            ESS.toasts.showToast(error.message, 'danger', false);
+          });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_COMPENSATIONVACATION_DOCUMENTKIND</label>
+      <placeholder />
+      <parameterName>DocumentKind</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <valueChangedEventHandler><![CDATA[
+        if (formItem.value)
+        {
+          var kindId = functions.getValues().CompensationAdditionalVacationKind;
+          if (formItem.value == kindId) {
+            functions.setValue('Info', ESS.L('@HRPROVACATIONS.FACILITIES_COMPENSATIONVACATION_DOCUMENTKIND_WARNING'));
+          }
+          else {
+            functions.setValue('Info', '');
+          }
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="DaysSelected">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_COMPENSATIONVACATION_DAYSSELECTED</label>
+      <placeholder />
+      <parameterName>DaysSelected</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <valueChangedEventHandler><![CDATA[
+        var errorId = functions.getValues().ErrorId;
+        if (errorId)
+          functions.removeError(errorId);
+          
+        var daysSelected = formItem.value;
+        if (daysSelected)
+        {
+          var availableDays = functions.getValues().AvailableDays;
+          if (availableDays < daysSelected)
+          {
+            var errorType = ESS.enums.FormErrorType.FORM_VALIDATION;
+            errorId = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_COMPENSATIONVACATION_DAYSSELECTED_ERROR'), undefined, errorType, 'DaysSelected');
+            functions.setValue('ErrorId', errorId);
+          };
+        }
+        functions.setValue('Field_Количество дней', formItem.value)
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content>@.FACILITIES_COMPENSATIONVACATION_POLICY</content>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Получить должность и ФИО Вице-президента." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">VICE_PRESIDENT</property>
+        <property name="Result" binding="Field_Вице_Президент,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="1" name="ExecuteFunction" title="Получить наименование должности сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">2</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_JOB_TITLE_NOMINATIVE</property>
+        <property name="Result" binding="Field_Должность сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="2" name="ExecuteFunction" title="Получить наименование структурного подразделения сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">3</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">DEPARTMENT_NAME</property>
+        <property name="Result" binding="Field_Структурное подразделение,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="3" name="ExecuteFunction" title="Получить ФИО сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">4</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_FULLNAME</property>
+        <property name="Result" binding="Field_ФИО сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="4" name="ExecuteFunction" title="Получить табельный номер сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">5</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_PERSONNEL_NUMBER</property>
+        <property name="Result" binding="Field_Табельный_номер,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="5" name="ExecuteFunction" title="Получить инициалы и фамилию сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">6</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME</property>
+        <property name="Result" binding="Field_И.О. Фамилия сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="6" name="ExecuteFunction" title="Получить фамилию и инициалы сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">7</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME_GENITIVE</property>
+        <property name="Result" binding="Field_Фамилия И.О. сотрудника (р.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="7" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+        <property name="NextStepIndex">8</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="DocumentId" type="Int" binding="TemplateId" />
+        <property name="DocumentFormat">pdfa</property>
+        <property name="DocumentGroup">IElectronicDocuments</property>
+        <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+        <property name="DocumentName" binding="Field_Фамилия И.О. сотрудника (р.п.),#TODAY,Format=Заявление на компенсацию части отпуска {0} от {1}" />
+        <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+      </flowStep>
+      <actionStep index="8" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+        <property name="NextStepIndex">9</property>
+        <property name="ActionName">HrProStatements.createSignature</property>
+        <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="SignatureType">Approval</property>
+        <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+        <property name="employeeId" binding="Initiator" type="Int" />
+      </actionStep>
+      <flowStep index="9" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentGroupStep">
+        <property name="NextStepIndex">10</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="ImportingDocuments" binding="StoredDocument*" type="StoredDocument[]" />
+        <property name="DocumentGroup">IVacationStatementDocuments</property>
+        <property name="Employee" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="PreparedBy" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="DocumentKind" binding="DocumentKind,Format={{'Id':{0}}}" />
+        <property name="RegistrationDate" binding="#TODAY" type="DateTimeOffSet" />
+        <property name="ApplicationDateDirRX" binding="#TODAY" type="DateTimeOffSet" />
+        <property name="SelectedDaysDirRX" binding="DaysSelected" type="Int" />
+        <property name="AvailableDaysDirRX" binding="AvailableDays" type="String" />
+        <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="10" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">11</property>
+        <property name="GroupName">DocumentGroup</property>
+        <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="11" name="StartStatementTask" title="Запустить задачу на согласование заявления" type="StartWorkProcessStep">
+        <property name="ProcessName">IHRDocFlowStatementTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="NeedsReview">False</property>
+        <property name="Importance">Normal</property>
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    if (window.isFacilityRunning ?? false) {
+      reject();
+    }
+    else {
+      window.isFacilityRunning = true;
+      var initiatorId = functions.getValues().Initiator;
+      ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+      .then(function (initiatorId) {
+        ESS.network.sendRequest(`/api/functions/GetEmployeeCertificates`)
+        .then(function (certs) {
+          if (certs.length == 0) {
+            ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR'));
+            reject();
+          }
+          else {
+            ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+            .then(function (employee) {
+              ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned`)
+              .then(function (isConsentSigned) {
+                if (isConsentSigned != true && employee.positions.length == 1) {
+                  ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+                  reject();                    
+                }
+                else {
+                  if (employee.positions.length == 1) {
+                    functions.setValue('Initiator', initiatorId);
+                  }
+                  ESS.network.sendRequest(`/api/functions/GetCurrentCompensationAvailableDays?employeeId=${functions.getValues().Initiator}`)
+                  .then(function (AvailableDays) {
+                    if (AvailableDays.ErrorText == null || AvailableDays.ErrorText.length == 0) {
+                      functions.setValue('AvailableDaysInfo', AvailableDays.DayCountString);
+                      functions.setValue('AvailableDays', AvailableDays.DayCount);
+                      ESS.network.sendRequest(`/api/functions/GetCompensationDocumentKinds`)
+                      .then(function (docKinds){
+                        if (docKinds && docKinds[0])
+                          functions.setValue('DocumentKind', docKinds[0].Id);
+                        if (docKinds && docKinds[1])
+                          functions.setValue('CompensationAdditionalVacationKind', docKinds[1].Id);
+                        resolve();
+                      });
+                    }
+                    else {
+                      ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), AvailableDays.ErrorText);
+                      reject();
+                    }
+                  });
+                }
+              });
+            });
+          }
+        })
+        .catch(function (error) {
+          ESS.toasts.showToast(error.message, 'danger', false);
+        });
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, 'danger', false);
+      });
+    }
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <beforeSubmitEventHandler><![CDATA[
+    var initiatorId = functions.getValues().Initiator;
+    var documentKind = functions.getValues().DocumentKind;
+    var daysSelected = functions.getValues().DaysSelected;
+    var getTemplateId = ESS.network.sendRequest(`/api/functions/GetCompensationVacationTemplateId?docKindId=${documentKind}&employeeId=${initiatorId}`)
+    .then(function (VacationStatementData) {
+      if (VacationStatementData.Error.length == 0) {
+        functions.setValue('TemplateId', VacationStatementData.TemplateId);
+      }
+      else {
+        ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), VacationStatementData.Error);
+        reject();
+      }
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+
+    var validateVacationData = ESS.network.sendRequest(`/api/functions/ValidateVacationCompensation?employeeId=${initiatorId}&daysSelected=${daysSelected}`)
+    .then(function (validateVacationResult) {
+      if (validateVacationResult.ErrorText && validateVacationResult.ErrorText.length != 0) {
+        ESS.toasts.showToast(validateVacationResult.ErrorText, 'danger', false);
+        reject();
+      }
+      else {
+        resolve();
+      }
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+
+    Promise.all([
+      getTemplateId,
+      validateVacationData
+    ])
+    .then((success) => { resolve() }, (error) => { reject() });
+  ]]></beforeSubmitEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    window.isFacilityRunning = false;
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') 
+    {
+      ESS.closeElement(sender.parent); 
+      ESS.widgets.updateWidgets();
+    }
+    ]]></closedEventHandler>
+  <contractForm>True</contractForm >
+  <successMessage>@HRPROVACATIONS.FACILITIES_GETVACATION_SUCCESSMESSAGE</successMessage>
+</facility>

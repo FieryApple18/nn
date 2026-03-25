@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="f178357e-6bfe-42d7-8a55-7013389de185" name="ScheduleVacation">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.FACILITIES_SCHEDULEVACATION_TITLE</title>
+  <description></description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterQuery" name="AvailableVacationId" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetAvailableVacationDays?userId=$(CurrentUser.DirectumRX.ActorId)</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="PerformerId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="VacationDuration" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>999</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Instruction" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AvailableDaysJson" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>true</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AvailableDays" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AssignmentType" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AssignmentId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="Year" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="IsShowWarningToast" defaultValue="false" isRequired="false" isCollection="false">
+      <isIndeterminateAllowed>False</isIndeterminateAllowed>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.COMMON_INSTRUCTION</label>
+      <placeholder />
+      <parameterName>Instruction</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content>@.FACILITIES_SCHEDULEVACATION_INSTRUCTIONCONTENT</content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SCHEDULEVACATION_AVAILABLEDAYS</label>
+      <placeholder />
+      <parameterName>AvailableDaysJson</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SCHEDULEVACATION_AVAILABLEDAYS</label>
+      <placeholder />
+      <parameterName>AvailableDays</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SCHEDULEVACATION_ITEMID</label>
+      <placeholder />
+      <parameterName>AssignmentId</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SCHEDULEVACATION_TYPE</label>
+      <placeholder />
+      <parameterName>AssignmentType</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SCHEDULEVACATION_YEAR</label>
+      <placeholder />
+      <parameterName>Year</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTable" name="PlannedVacationGrid" >
+      <hint></hint>
+      <title>@.FACILITIES_SCHEDULEVACATION_TABLE_TITLE</title>
+      <showHeaders>true</showHeaders>
+      <placeholder />
+      <itemAddedEventHandler><![CDATA[
+        const table = functions.getValues().PlannedVacationGrid;
+        const index = table.length -1;
+        const  defaultDate = functions.getValues().Year + '-01-01T00:00:00';
+        const { rowIndex } = table[index];
+        functions.setValue('PlannedVacationGrid', defaultDate, rowIndex, 'BeginDate');
+
+        // Подставляем первый из оплачиваемых, если такой есть.
+        // Если такого нет - первый из неоплачиваемых.
+        const availableVacations = JSON.parse(functions.getValues().AvailableDaysJson);
+        const paidVacation = availableVacations.find(vacation => vacation.IsPaid === true);
+        const unpaidVacation = availableVacations.find(vacation => vacation.IsPaid === false);
+        const vacationKindId = paidVacation ? paidVacation.Id : (unpaidVacation ? unpaidVacation.Id : 0);
+        functions.setValue('PlannedVacationGrid', vacationKindId, rowIndex, 'AvailableVacationId');
+      ]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[
+        window.refreshAvailableDays();
+      ]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <columns>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SCHEDULEVACATION_TABLECOLUMN_VACATIONID_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>AvailableVacationId</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            context.sendRequest(`/api/functions/GetPerformerId?assignmentId=${functions.getValues().AssignmentId}`)
+            .then(function (performerId){
+              var beginDateValue = functions.getValues().PlannedVacationGrid.find(function (x){
+                return x.rowIndex === formItem.index;
+              }).rowValues['BeginDate'];
+              var durationValue = functions.getValues().PlannedVacationGrid.find(function (x){
+                return x.rowIndex === formItem.index;
+              }).rowValues['VacationDuration'];
+              var vacationKindId = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['AvailableVacationId'];
+              
+              if (durationValue != null && beginDateValue != null && vacationKindId != null) {
+                context.sendRequest(`/api/functions/GetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${performerId}&vacationKindId=${vacationKindId}`)
+                .then(function (newEndDateValue) {
+                  functions.setValue('PlannedVacationGrid', newEndDateValue, formItem.index, 'EndDate');
+                })
+                .catch(function (error) {
+                  ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+                });
+              }
+            })
+            .catch(function (error) {
+              ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+            });
+            window.refreshAvailableDays();
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SCHEDULEVACATION_TABLECOLUMN_BEGINDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>BeginDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            context.sendRequest(`/api/functions/GetPerformerId?assignmentId=${functions.getValues().AssignmentId}`)
+            .then(function (performerId) {
+              var beginDateValue = formItem.value;
+              var durationValue = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['VacationDuration'];
+
+              var vacationKindId = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['AvailableVacationId'];
+              
+              if (durationValue != null && beginDateValue != null && vacationKindId != null) {
+                context.sendRequest(`/api/functions/GetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${performerId}&vacationKindId=${vacationKindId}`)
+                .then(function (newEndDateValue) {
+                  functions.setValue('PlannedVacationGrid', newEndDateValue, formItem.index, 'EndDate');
+                  window.refreshAvailableDays();
+                })
+                .catch(function (error) {
+                  ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+                });
+              }
+            })
+            .catch(function (error) {
+              ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+            });
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SCHEDULEVACATION_TABLECOLUMN_VACATIONDURATION_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>VacationDuration</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            context.sendRequest(`/api/functions/GetPerformerId?assignmentId=${functions.getValues().AssignmentId}`)
+            .then(function (performerId) {
+              var beginDateValue = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['BeginDate'];
+              var durationValue = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['VacationDuration'];
+
+              if (durationValue <= 0) {
+                functions.removeError(window.errorId);
+                window.errorId = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DURATION'));
+              } else {
+                functions.removeError(window.errorId);
+              }
+              
+              var vacationKindId = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['AvailableVacationId'];
+
+              if (durationValue != null && beginDateValue != null && vacationKindId != null) {
+                context.sendRequest(`/api/functions/GetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${performerId}&vacationKindId=${vacationKindId}`)
+                .then(function (newEndDateValue) {
+                  functions.setValue('PlannedVacationGrid', newEndDateValue, formItem.index, 'EndDate');
+                  window.refreshAvailableDays();
+                })
+                .catch(function (error) {
+                  ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+                });
+              }
+            })
+            .catch(function (error) {
+              ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+            });
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SCHEDULEVACATION_TABLECOLUMN_ENDDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>true</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>EndDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var isShowWarningToast = functions.getValues()['IsShowWarningToast'];
+            if (isShowWarningToast)
+            {
+              var rows = functions.getValues().PlannedVacationGrid;
+              var beginDate = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['BeginDate'];
+              var duration = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['VacationDuration'];
+              var endDate = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['EndDate'];
+              var vacationKindId = functions.getValues().PlannedVacationGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['AvailableVacationId'];
+              var assignmentId = functions.getValues().AssignmentId;
+
+              var urlCheckNotCriticalSchedulingVacationsDates = `/api/functions/CheckNotCriticalSchedulingVacationsDates?assignmentId=${assignmentId}&vacationKindIds=[${vacationKindId}]&beginDates=["${beginDate}"]&durations=[${duration}]&endDates=["${endDate}"]`;
+              context.sendRequest(urlCheckNotCriticalSchedulingVacationsDates)
+              .then(function (errors) {
+                if(errors.length > 0) {
+                  ESS.toasts.showToast(errors, ESS.enums.ToastType.WARNING, false);
+                }
+                context.sendRequest(`/api/functions/GetPerformerId?assignmentId=${functions.getValues().AssignmentId}`)
+                .then(function (performerId) {
+                  var url = `/api/functions/CheckVacationHasHoliday?periodBegin=${beginDate}&periodEnd=${endDate}&employeeId=${performerId}&vacationKindId=${vacationKindId}`;
+                  context.sendRequest(url)
+                  .then(function (warning) {
+                    if(warning.length > 0)
+                      ESS.toasts.showToast(warning, ESS.enums.ToastType.WARNING, true);
+                  })
+                  .catch(function(error) {
+                    ESS.toasts.showToast(error.message, 'danger', false);
+                  });
+                });
+              })
+              .catch(function(error) {
+                ESS.toasts.showToast(error.message, 'danger', false);
+              });
+            }
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header />
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>true</isHidden>
+          <parameterName>VacationId</parameterName>
+          <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+      </columns>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton">  
+      <text>@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_PLANNING_TOOL_BUTTON_TITLE</text>  
+      <icon>vacation-overlaps</icon>  
+      <isEnabled>true</isEnabled>  
+      <isHidden>false</isHidden>  
+      <onClickEventHandler><![CDATA[
+        const dialogId = 'scheduleVacationPlanningTool';
+        const callDialog = () => {
+          if (!Object.keys(context.canShowDialog).length) {
+            const timeline = {
+              type: ESS.enums.DialogItemType.TEXT,
+              name: 'timeline',
+              properties: {
+                text: `
+                  <component
+                    name="VacationPlanningTool"
+                    public-name="Directum_VacationPlanningTool_1_0"
+                    module-name="loaders"
+                    loader-name="lk-loader"
+                    dialog-id="${dialogId}"
+                  />
+                `,
+              },
+            };
+            const id = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'AssignmentId',
+              properties: {
+                initialValue: functions.getValues().AssignmentId,
+                isHidden: true,
+              },
+            };
+
+            const performerId = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'PerformerId',
+              properties: {
+                initialValue: functions.getValues().PerformerId,
+                isHidden: true,
+              },
+            };
+
+            const vacations = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'Vacations',
+              properties: {
+                initialValue: JSON.stringify(functions.getValues().PlannedVacationGrid),
+                isHidden: true,
+              },
+            };
+
+            const entityGuid = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'EntityGuid',
+              properties: {
+                initialValue: 'f178357e-6bfe-42d7-8a55-7013389de185',
+                isHidden: true,
+              },
+            };
+
+            const items = [
+              timeline,
+              id,
+              vacations,
+              performerId,
+              entityGuid
+            ];
+
+            ESS.dialogs.createDialog({
+              id: dialogId,
+              properties: {
+                width: ESS.enums.DialogWidth.WIDE,
+                isFullScreen: true,
+              },
+              title: `${ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_DIALOG_TITLE')} ${functions.getValues().Year}`,
+              items,
+            });
+            clearInterval(intervalId);
+          }
+        }
+
+        let intervalId = setInterval(callDialog, 300);
+      ]]></onClickEventHandler>  
+    </facilityFormItem>  
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <actionStep  index="0" name="CheckAssignmentInProcess"  title="Проверить, выполнено ли задание.">
+        <property name="ActionName">HRProVacations.checkAssignmentInProcess</property>
+        <property name="NextStepIndex">1</property>
+        <property name="assignmentId" binding="AssignmentId" type="Int" />
+      </actionStep>
+      <flowStep index="1" name="FillVacationsFunction" type="ExecuteFunctionStep">
+        <property name="NextStepIndex">2</property>
+        <property name="ExecutionMethod">Post</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="assignmentId" binding="AssignmentId" type="Int"/>
+        <property name="vacationKindIds" binding="AvailableVacationId" type="Int[]" />
+        <property name="vacationBeginDates" binding="BeginDate" type="DateTimeOffSet[]" />
+        <property name="vacationEndDates" binding="EndDate" type="DateTimeOffSet[]" />
+        <property name="vacationDurations" binding="VacationDuration" type="Int32[]" />
+        <property name="vacationIds" binding="VacationId" type="Int[]" />
+        <property name="FunctionName">Vacations.FillVacations</property>
+      </flowStep>
+      <flowStep index="2" name="SerializeVacation" title="@.FACILITIES_SCHEDULEVACATION_VACATION_PLANNING" type="ChangeWorkItemStateStep">
+        <property name="NextStepIndex">-1</property>
+        <property name="WorkItemName" binding="AssignmentType" />
+        <property name="WorkItemId" binding="AssignmentId" />
+        <property name="TargetSystem">HRPro</property>
+        <property name="State">Complete</property>
+        <property name="StateChangeReason">Complete</property>
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    context.canShowDialog = {};
+    context.sendRequest = (...args) => {
+      const key = Date.now();
+      context.canShowDialog[key] = '';
+      return ESS.network.sendRequest(...args).finally(() => delete context.canShowDialog[key]);
+    };
+    window.refreshAvailableDays = () =>
+    {
+      var availableDays = JSON.parse(functions.getValues()['AvailableDaysJson']);
+      var vacationTable = functions.getValues().PlannedVacationGrid;
+      var count = 0;
+      var vacations = availableDays.map(function (vacationData) {
+        count = vacationData.Count;
+        var mandatoryCount = vacationData.MandatoryDays;
+        vacationTable.forEach(function (row) {
+          if (row.rowValues.AvailableVacationId == vacationData.Id) {
+            count = count - row.rowValues.VacationDuration;
+            mandatoryCount = mandatoryCount - row.rowValues.VacationDuration;
+          }
+        });
+        var objForIE = {};
+        objForIE[vacationData.Name] = [count, Math.max(mandatoryCount, 0)];
+        return objForIE;
+      });
+      var vacationsAsString = vacations.map(function (vacation) {
+        return Object.entries(vacation).map(function (vacationObj) {
+          if (vacationObj[1][0] > -1){
+            return '- ' + vacationObj[0] + ': ' + vacationObj[1][0] + ', ' + ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_MANDATORYDAYS') + ' ' + vacationObj[1][1];
+          }
+          else{
+            return '- ' + vacationObj[0] + ': ' + ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_MANDATORYDAYS_EXCEEDED') + ' ' + Math.abs(vacationObj[1][0]);
+          }
+        });
+      });
+      functions.setValue('AvailableDays', vacationsAsString.join('<br/>'));
+    }
+
+    // Выполнение задания от совместителя
+    ESS.network.sendRequest(`/api/functions/GetPerformerId?assignmentId=${functions.getValues().AssignmentId}`)
+    .then(function (performerId) {
+      functions.setValue('PerformerId', performerId);
+      functions.setDataSource('AvailableVacationId', `/api/functions/GetAvailableVacationDays?userId=${performerId}`);
+      ESS.network.sendRequest(`/api/functions/GetTableInstruction?assignmentId=${functions.getValues().AssignmentId}`)
+      .then(function (instruction) {
+        
+        functions.setValue('Instruction', instruction.join('<br/>'));
+        functions.setValue('IsShowWarningToast', false);
+
+        ESS.network.sendRequest(`/api/functions/GetAvailableVacationDays?userId=${performerId}`)
+        .then(function (availableDaysJson) {
+          functions.setValue('AvailableDaysJson', JSON.stringify(availableDaysJson));
+          var vacationsAsString = availableDaysJson.map(function (vacationData) {
+            var vacationDuration = functions.getValues().VacationDuration
+            if (vacationDuration !== null && vacationDuration < 0){
+              return '- ' + vacationData.Name + ': ' + ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_MANDATORYDAYS_EXCEEDED') + ' ' + Math.abs(vacationData.Count - vacationDuration);
+            }
+            else{
+              return '- ' + vacationData.Name + ': ' + vacationData.Count + ', ' + ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_MANDATORYDAYS') + ' ' + vacationData.MandatoryDays;
+            }
+          });
+          functions.setValue('AvailableDays', vacationsAsString.join('<br/>'));
+          var table = functions.getValues().PlannedVacationGrid;
+          ESS.network.sendRequest(`/api/functions/GetSchedulingVacation?assignmentId=${functions.getValues().AssignmentId}`)
+          .then(function (vacationsData) {
+            var rows = functions.getValues().PlannedVacationGrid;
+            var vacations = vacationsData.NewSchedulingVacationData;
+            if (vacations.length > 0) {
+              if (vacationsData.WarningText)
+                ESS.toasts.showToast(vacationsData.WarningText, ESS.enums.ToastType.WARNING, false);
+              for (var i = 0; i < vacations.length; i++) {
+                var rowIndex = rows.length > i ? rows[i]['rowIndex'] : functions.addItem('PlannedVacationGrid');
+                functions.setCellDataSource('PlannedVacationGrid', 
+                  rowIndex, 
+                  'AvailableVacationId', 
+                  `/api/functions/GetAvailableVacationDays?userId=${performerId}`,
+                  vacations[i]['VacationKindId']);
+                functions.setValue('PlannedVacationGrid', vacations[i]['Begin'], rowIndex, 'BeginDate');
+                functions.setValue('PlannedVacationGrid', vacations[i]['Duration'], rowIndex, 'VacationDuration');
+                functions.setValue('PlannedVacationGrid', vacations[i]['End'], rowIndex, 'EndDate');
+                functions.setValue('PlannedVacationGrid', i, rowIndex, 'VacationId');
+              }
+            }
+            functions.setValue('IsShowWarningToast', true);
+
+            ESS.network.sendRequest(`/api/functions/WarningDifferentVacationForScheduling?assignmentId=${functions.getValues().AssignmentId}`)
+            .then(function (warning) {
+              if(warning.length > 0) {
+                ESS.toasts.showToast(warning, ESS.enums.ToastType.WARNING, false);
+              }
+            });
+
+            resolve();
+          })
+          .catch(function (error) {
+            ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+            reject();
+          });
+        })
+        .catch(function (error) {
+          ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+          reject();
+        });
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+        reject();
+      });
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+      reject();
+    });
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+      ESS.closeElement(sender.parent); 
+      ESS.widgets.updateWidgets();
+    }
+    delete(window.refreshAvailableDays);
+    ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_SUCCESSMESSAGE</successMessage>
+</facility>

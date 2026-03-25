@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="4300c682-f0d8-4f4a-84e0-f3bbfe7b998f" name="IHRDocFlowHRNotices" header="@.OBJECTCARD_NOTICE_HEADER" icon="read-document">
+    <views>
+      <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+        <fields>
+          <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title"/>
+          <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result"/>
+          <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_COMMENT_CAPTION">{{{comment}}}</field>
+          <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee"/>
+        </fields>
+        <content>
+        </content>
+        <attachmentsAreas>
+          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_DOCUMENTS">
+            <documentGroups>
+              <documentGroup>DocumentGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_APPLICATIONS">
+            <documentGroups>
+              <documentGroup>AddendaGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY">
+            <documentGroups>
+              <documentGroup>OtherGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+        </attachmentsAreas>
+      </view>
+    </views>
+    <buttons />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformer.xml" />
+    <openedEventHandler><![CDATA[
+      ESS.network.sendRequest(`/api/functions/GetNoticeActiveText?noticeId=${data.id}`)
+      .then(function (activeText){
+        data.comment = activeText.replace(/([\r\n])/g, '<br/>');
+        resolve({configuration: configuration, data: data});
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, 'danger', false);
+        reject();
+      });
+      ]]>
+    </openedEventHandler>
+    <closedEventHandler><![CDATA[
+        if(data.isRead === false)
+        {
+          ESS.widgets.updateWidgets();
+        }
+      ]]>
+    </closedEventHandler>
+  </objectCard>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="NNRecallVacationEmployee" index="25">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileNNRecallVacationEmployee" />
+  </authorization>
+  <backgroundColor>#009CA6</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_NNRECALLVACATIONEMPLOYEE_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[
+    ESS.network.sendRequest(`/api/functions/IsLineManager`)
+    .then(function (isLineManager) {
+      if (isLineManager) {
+        ESS.actions.facilityActions.runFacility({ id: 'e80bb0fa-98fd-4420-ae32-d25ad3f20083'});
+      }
+      else {
+        ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.FACILITIES_RECALLVACATIONEMPLOYEE_WARNING'), ESS.L('@HRPROVACATIONS.FACILITIES_NNRECALLVACATIONEMPLOYEE_ISLINEMANAGER_ERROR'));
+      }
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+    });
+  ]]></clickEventHandler>
+</tile>

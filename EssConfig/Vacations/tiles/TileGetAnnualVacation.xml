@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tile name="getAnnualVacation" index="20">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileGetAnnualVacation" />
+  </authorization>
+  <backgroundColor>#D38235</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_GET_ANNUAL_VACATION_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: 'f6331d91-636d-4d55-b103-cc6cf63cd982'});]]></clickEventHandler>
+</tile>

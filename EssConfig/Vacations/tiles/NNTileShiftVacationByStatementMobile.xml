@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="NNShiftVacationByStatementMobile" index="23">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileNNShiftVacationByStatement" />
+  </authorization>
+  <backgroundColor>#004C97</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.VACATIONS_TILE_NNSHIFTVACATIONBYSTATEMENT_TITLE</title>
+  <icon>calendar</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: '99346c0a-76bc-43ac-918a-f6899f524007'});]]></clickEventHandler>
+</tile>

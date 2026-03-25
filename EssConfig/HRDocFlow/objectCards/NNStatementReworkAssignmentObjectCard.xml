@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="f4ffeaa2-9858-469e-b62b-84b9d9f4395b" name="INNStatementReworkAssignments" header="@HRPROVACATIONS.OBJECTCARD_VACATION_REWORK_ASSIGMENT_HEADER" icon="read-document">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result" />
+        <field caption="@HRPROVACATIONS.DEFAULTCARD_COMMENT_CAPTION">{{{remark}}}</field>
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee" />
+      </fields>
+      <content></content>
+      <attachmentsAreas>
+        <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_DOCUMENTS">
+          <documentGroups>
+            <documentGroup>DocumentGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+        <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY">
+          <documentGroups>
+            <documentGroup>OtherGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+    <button name="Rework" isPrimary="true" isDefault="true">
+      <icon />
+      <caption>@HRPROVACATIONS.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_REWORK</caption>
+      <clickEventHandler><![CDATA[
+        var facility = data.requisites.find(re => re.name == "Facility").value;
+        if (facility != null) {
+          ESS.actions.facilityActions.runFacility({id: facility}, {parameters:{AssignmentId: data.id, AssignmentType: data.name}});
+          ESS.closeElement(sender);
+        }
+      ]]></clickEventHandler>
+    </button>
+    <button name="Abort" isPrimary="false" isDefault="false">
+      <icon />
+      <caption>@HRPROVACATIONS.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_STOP</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id: 'ee471097-9412-4b33-b24e-8e7443ecd0cb'}, {parameters: {ItemId: data.id, ItemName: data.name, StateName: 'Abort'}}, sender);
+      ]]></clickEventHandler>
+    </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformer.xml" />
+  <openedEventHandler><![CDATA[
+    var assignmentId = data.id;
+    var remark = data.requisites.find(re => re.name == "Remark").value;
+    if (remark) {
+      data.remark = remark.replace(/([\r\n])/g, '<br/>');
+    }
+    ESS.network.sendRequest(`/api/functions/GetAssignmentInstructionForEss?assignmentId=${assignmentId}`)
+    .then(function (instruction) {
+      if (instruction && data.status != 'Completed') {
+        configuration.content = ESS.L('@HRPROVACATIONS.COMMON_INSTRUCTION') + '<br/><br/>' + instruction;
+      }
+      resolve({configuration: configuration, data: data});
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if (data.isRead === false)
+    {
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+</objectCard>

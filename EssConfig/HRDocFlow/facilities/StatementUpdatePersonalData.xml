@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="f5580c17-8af2-4403-bb00-cf4407513e16" name="StatementUpdatePersonalData">
+    <authorization>
+      <allowedRoles>Employee</allowedRoles>
+    </authorization>
+    <title>@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_TITLE</title>
+    <description />
+    <facilityParameters>
+        <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="#CURRENT_USER_ID" isRequired="true" isCollection="false">
+            <dataSource>/api/functions/GetPostListByPerson</dataSource>
+            <dataSourceValueField>id</dataSourceValueField>
+            <dataSourceCaptionField>name</dataSourceCaptionField>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="ImportedApplicationLinks" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterNumber" name="TemplateId" defaultValue="" isRequired="false" isCollection="false">
+            <isInteger>true</isInteger>
+            <precision>0</precision>
+            <minValue>0</minValue>
+            <maxValue>0</maxValue>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterNumber" name="DocumentKind" defaultValue="" isRequired="false" isCollection="false">
+            <isInteger>true</isInteger>
+            <precision>0</precision>
+            <minValue>0</minValue>
+            <maxValue>0</maxValue>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="DocumentNameParam" defaultValue="@HRPROSTATEMENTS.FACILITIES_STATEMENTUPDATEPERSONALDATA_DOCUMENTNAMEPARAM" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_И.О. Фамилия сотрудника" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_Должность руководителя (д.п.)" defaultValue="#CEO_JOB_TITLE_DATIVE" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_Наименование организации (и.п.)" defaultValue="#BUSINESS_UNIT_NAME" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_ФИО руководителя (д.п.)" defaultValue="#CEO_FULLNAME_DATIVE" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterDateTime" name="Field_Дата подписи" defaultValue="#NOW" isRequired="true" isCollection="false">
+            <showTime>false</showTime>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_причина изменения персональных данных" defaultValue="" isRequired="true" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>true</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterFile" name="ApplicationAdditional" defaultValue="" isRequired="true" isCollection="true">
+            <maxSize>15728640</maxSize>
+            <fileTypes>.doc,.docx,.pdf,.png,.jpg,.tiff,.jpeg</fileTypes>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника (р.п.)" defaultValue="#CURRENT_USER_JOB_TITLE_GENITIVE" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+        <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника (р.п.)" defaultValue="#CURRENT_USER_FULLNAME_GENITIVE" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+        </facilityParameter>
+    </facilityParameters>
+    <facilityFormItems>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>Initiator</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[
+                // TODO: Временное решение для одного заявления. При переносе заявлений в отдельные услуги - переделать (сравнение по заголовку заявления) 
+                var initiatorId = formItem.value || '$(CurrentUser.DirectumRX.ActorId)'
+                ESS.network.sendRequest('/api/functions/HRPro/HRDocFlow.GetJSONForStatementsWidget?userId=' + initiatorId, { method: 'GET' })
+                .then(function (documentStatementData) {
+                    for (var templ in documentStatementData)
+                    {
+                        if (documentStatementData[templ].title == ESS.L('@HRPROSTATEMENTS.FACILITIES_STATEMENTUPDATEPERSONALDATA_DOCUMENTNAMEPARAM'))
+                        {
+                            var templateId = JSON.parse(documentStatementData[templ].parameters[0].defaultValue);
+                            var docKindId = JSON.parse(documentStatementData[templ].parameters[1].defaultValue);
+                            functions.setValue('TemplateId', templateId);
+                            functions.setValue('DocumentKind', docKindId);
+                            break;
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    ESS.toasts.showToast(error.message, 'danger', false);
+                    reject();
+                });
+            ]]>
+            </valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormTextblock">
+            <hint />
+            <content>
+                &lt;div style='margin-bottom: 24px;font-weight: 400;
+                font-size: 16px;'&gt;
+                    {{DocumentNameParam}}
+                &lt;/div&gt;
+            </content>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>TemplateId</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>DocumentKind</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_Должность руководителя (д.п.)</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_Наименование организации (и.п.)</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_ФИО руководителя (д.п.)</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>DocumentNameParam</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_И.О. Фамилия сотрудника</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_Должность сотрудника (р.п.)</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_ФИО сотрудника (р.п.)</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_Дата подписи</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>false</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>Field_причина изменения персональных данных</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+        <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>false</isHidden>
+            <showTitles>true</showTitles>
+            <label />
+            <parameterName>ApplicationAdditional</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+        </facilityFormItem>
+    </facilityFormItems>
+    <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+        <flowSteps>
+            <flowStep index="0" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+                <property name="NextStepIndex">1</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+                <property name="ExecutionMethod">GET</property>
+                <property name="employeeId" binding="Initiator" type="Int32" />
+                <property name="fieldName">BUSINESS_UNIT_NAME</property>
+                <property name="Result" binding="Field_Наименование организации (и.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="1" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+                <property name="NextStepIndex">2</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+                <property name="ExecutionMethod">GET</property>
+                <property name="employeeId" binding="Initiator" type="Int32" />
+                <property name="fieldName">CURRENT_USER_JOB_TITLE_GENITIVE</property>
+                <property name="Result" binding="Field_Должность сотрудника (р.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="2" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+                <property name="NextStepIndex">3</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+                <property name="ExecutionMethod">GET</property>
+                <property name="employeeId" binding="Initiator" type="Int32" />
+                <property name="fieldName">CEO_JOB_TITLE_DATIVE</property>
+                <property name="Result" binding="Field_Должность руководителя (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="3" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+                <property name="NextStepIndex">4</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+                <property name="ExecutionMethod">GET</property>
+                <property name="employeeId" binding="Initiator" type="Int32" />
+                <property name="fieldName">CEO_FULLNAME_DATIVE</property>
+                <property name="Result" binding="Field_ФИО руководителя (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="4" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">5</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int32" />
+              <property name="fieldName">DEPARTMENT_NAME</property>
+              <property name="Result" binding="Field_Наименование отдела (и.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="5" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+                <property name="NextStepIndex">6</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+                <property name="ExecutionMethod">GET</property>
+                <property name="employeeId" binding="Initiator" type="Int32" />
+                <property name="fieldName">CURRENT_USER_FULLNAME_GENITIVE</property>
+                <property name="Result" binding="Field_ФИО сотрудника (р.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="6" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+                <property name="NextStepIndex">7</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="DocumentId" type="Int32" binding="TemplateId" />
+                <property name="DocumentFormat">pdfa</property>
+                <property name="DocumentGroup">IElectronicDocuments</property>
+                <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+                <property name="DocumentName" binding="DocumentNameParam,Field_И.О. Фамилия сотрудника,#TODAY,Format={0} {1} от {2}" />
+                <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+            </flowStep>
+            <actionStep index="7" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+                <property name="NextStepIndex">8</property>
+                <property name="ActionName">HrProStatements.createSignature</property>
+                <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+                <property name="SignatureType">Approval</property>
+                <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+                <property name="employeeId" binding="Initiator" type="Int32" />
+            </actionStep>
+            <flowStep index="8" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentGroupStep">
+                <property name="NextStepIndex">9</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="ImportingDocuments" binding="StoredDocument*" type="StoredDocument[]" />
+                <property name="DocumentGroup">IHRDocFlowStatementDocuments</property>
+                <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+                <property name="Actor" binding="Initiator"/>
+                <property name="DocumentKind" binding="DocumentKind,Format={{'Id':{0}}}" />
+                <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+            </flowStep>
+            <flowStep index="9" name="ImportApplicationRX" title="Импортировать приложение в RX" type="ImportDocumentGroupStep">
+                <property name="NextStepIndex">10</property>
+                <property name="TargetSystem">EssBase</property>
+                <property name="ImportingDocuments" binding="Application*" type="StoredDocument[]" />
+                <property name="DocumentGroup">ISimpleDocuments</property>
+                <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+                <property name="ImportedDocuments" binding="ImportedApplicationLinks,Mode=PropertyToParameter" />
+            </flowStep>
+            <flowStep index="10" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+                <property name="NextStepIndex">11</property>
+                <property name="GroupName">DocumentGroup</property>
+                <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+                <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+            </flowStep>
+            <flowStep index="11" title="Сформировать группу вложений для приложений" type="CreateAttachmentGroupStep">
+                <property name="NextStepIndex">12</property>
+                <property name="GroupName">OtherGroup</property>
+                <property name="Documents" binding="ImportedApplicationLinks" type="DocumentLink[]" />
+                <property name="Result" binding="TaskAttachmentsApplications,Mode=PropertyToParameter"></property>
+            </flowStep>
+            <flowStep index="12" name="StartStatementTask" title="Запустить задачу на согласование заявления" type="StartWorkProcessStep">
+                <property name="ProcessName">IHRDocFlowStatementTasks</property>
+                <property name="TargetSystem">HRPro</property>
+                <property name="NextStepIndex">-1</property>
+                <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+                <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}"/>
+                <property name="Subject">@HRPROSTATEMENTS.FACILITIES_STATEMENTUPDATEPERSONALDATA_FLOWSTEP_STARTSTATEMENTTASK_SUBJECT</property>
+                <property name="NeedsReview">False</property>
+                <property name="Importance">Normal</property>
+                <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+                <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int32" />
+            </flowStep>
+        </flowSteps>
+    </facilityFlowScheme>
+    <openingEventHandler><![CDATA[
+        ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+        .then(function (employee){
+            if (employee.positions.length == 0)
+            {
+                ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+                .then(function (initiatorId){
+                    functions.setValue('Initiator', initiatorId);
+                })
+                .catch(function (error) {
+                    ESS.toasts.showToast(error.message, 'danger', false);
+                    reject();
+                });
+            }
+            resolve();
+        })
+        .catch(function (error) {
+            ESS.toasts.showToast(error.message, 'danger', false);
+            reject();
+        });
+    ]]>
+    </openingEventHandler>
+    <openedEventHandler><![CDATA[]]></openedEventHandler>
+    <closingEventHandler><![CDATA[]]></closingEventHandler>
+    <closedEventHandler><![CDATA[
+        if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+            ESS.closeElement(sender.parent); 
+            ESS.widgets.updateWidgets();
+        }
+    ]]>
+    </closedEventHandler>
+    <successMessage>@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_SUCCESSMESSAGE</successMessage>
+</facility>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="selfRecallVacationEmployeeMobile" index="40">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <backgroundColor>#8077FD</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.VACATIONS_TILE_VACATION_EMPLOYEE_SELF_RECALL_TITLE</title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+  <clickEventHandler><![CDATA[
+    ESS.network.sendRequest(`/api/functions/CanEmployeeSelfRecall`)
+    .then(function (isPerformingVacationExsists) {
+      if (isPerformingVacationExsists) {
+        ESS.actions.facilityActions.runFacility({ id: '64f4996e-265b-4b36-af64-c64630c7a900'});
+      }
+      else {
+        ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.FACILITIES_RECALLVACATIONEMPLOYEE_WARNING'), ESS.L('@HRPROVACATIONS.FACILITIES_SELFRECALLVACATIONEMPLOYEE_NO_ACTIVE_VACATIONS_WARNING'));
+      }
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+    });
+  ]]></clickEventHandler>
+</tile>

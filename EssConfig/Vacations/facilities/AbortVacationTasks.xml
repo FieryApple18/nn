@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="f0480ed8-3af9-47a7-8784-e6de635c8b37" name="AbortVacationTasks">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.FACILITIES_ABORTVACATIONTASKS_TITLE</title>
+  <description></description>
+  <contractForm>true</contractForm>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterNumber" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ProcessName" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>200</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Reason" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>200</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content>@.FACILITIES_ABORTVACATIONTASKS_TEXTBLOCK_CONTENT</content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>TaskId</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>ProcessName</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_ABORTVACATIONTASKS_REASON</label>
+      <placeholder />
+      <parameterName>Reason</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Запуск прикладной функции SetAbortingReasonInVacationTask" type="ExecuteFunctionStep">
+        <property name="NextStepIndex">1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">Vacations.SetAbortingReasonInVacationTask</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="taskID" binding="TaskId" type="Int" />
+        <property name="reason" binding="Reason" />
+      </flowStep>
+      <flowStep index="1" name="AbortTask" title="@.FACILITIES_ABORTVACATIONTASKS_STEP_TITLE" type="StopWorkProcessStep">
+        <property name="ProcessName" binding="ProcessName" />
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="ProcessId" binding="TaskId" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    ESS.network.sendRequest(`/api/functions/CheckSignVacationOrder?taskId=${functions.getValues().TaskId}`)
+    .then(function (result){
+      if (result)
+      {
+        ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.FACILITIES_ABORTVACATIONTASKS_ABORTATIONERROR'), ESS.enums.ToastType.ERROR, false);
+        reject();
+      }
+      resolve();
+    })
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+      ESS.closeElement(sender.parent); 
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_ABORTVACATIONTASKS_SUCCESSMESSAGE</successMessage>
+</facility>

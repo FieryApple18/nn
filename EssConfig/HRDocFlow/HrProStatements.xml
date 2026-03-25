@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<solution name="HrProStatements">
+  <title>HrProStatements</title>
+  <description>HrProStatements</description>
+  <version>2.7.25200.102</version>
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <widgets>
+    <widget name="statements" type="facilityShortcuts">
+      <icon>
+      </icon>
+      <title>@.STATEMENTS_WIDGET_STATEMENTS</title>
+      <dataSourceUrl>/api/functions/GetJSONForStatements</dataSourceUrl>
+      <properties />
+    </widget>
+    <widget name="tasks" type="itemList">
+      <title>@.STATEMENTS_WIDGET_TASKS</title>
+      <dataSourceUrl>/api/StatementTasks</dataSourceUrl>
+      <properties>
+        <defaultObjectCard>NNDefaultWorkProcess</defaultObjectCard>
+        <detailsTemplate>@.STATEMENTS_WIDGET_TASKS_DETAILS</detailsTemplate>
+      </properties>
+    </widget>
+  </widgets>
+  <facilityGroups>
+    <facilityGroup id="b2099534-d45f-4ce8-8fab-73380ed7292f" name="HrProStatements">
+      <icon>applications</icon>
+      <title>@.STATEMENTS_TITLE_STATEMENTS</title>
+      <description>
+      </description>
+      <priority>300</priority>
+      <isVisible>true</isVisible>
+      <collectAllNotifications>false</collectAllNotifications>
+      <views>
+        <view device="Web" container="StackPanel" name="statementsWeb">
+          <orientation>Vertical</orientation>
+          <tileslots>
+            <tileslot tileName="weekendWork" size="Wide" />
+            <tileslot tileName="overtimeWork" size="Wide" />
+            <tileslot tileName="getLrdPayment" size="Wide" />
+          </tileslots>
+          <bounds>
+            <bound widgetName="statements" />
+            <bound widgetName="tasks" />
+          </bounds>
+        </view>
+        <view device="Mobile" container="StackPanel" name="statementsMobile">
+          <orientation>Vertical</orientation>
+          <tileslots>
+            <tileslot tileName="weekendWorkMobile" size="Normal" />
+            <tileslot tileName="overtimeWorkMobile" size="Normal" />
+            <tileslot tileName="getLrdPaymentMobile" size="Normal" />
+          </tileslots>
+          <bounds>
+            <bound widgetName="statements" />
+            <bound widgetName="tasks" />
+          </bounds>
+        </view>
+      </views>
+      <facilities>
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/RefuseAssignment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/RejectAssignment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/RefusalToApproveDocument.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkAssignment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/DocumentApprovalOnRework.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/AbortTask.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/SendStatement.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/StatementUpdatePersonalData.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/TerminateAssignment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/WeekendWork.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkWeekendWork.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/OvertimeWork.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkOvertimeWork.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/GetLrdPayment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkLrdPayment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/FillOpinionText.xml" />
+      </facilities>
+    </facilityGroup>
+  </facilityGroups>
+  <objectCards>
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRDocFlowHRNoticeObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRDocFlowDocumentApprovalAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRDocFlowConsentAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRDocFlowESignAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRDocFlowEAcquaintanceAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/HRDocFlowAgreementAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/NNStatementReworkAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/NNCommonsStatementReworkAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/NNDefaultWorkProcess.xml" />
+  </objectCards>
+  <projections>
+    <projection name="StatementTasks" title="@.STATEMENTS_WIDGET_TASKS">
+      <properties>
+        <property name="title" type="String" />
+        <property name="icon" type="String" />
+        <property name="status" type="String" />
+        <property name="created" type="DateTime" />
+        <property name="defaultActionName" type="String" />
+        <property name="defaultActionCaption" type="String" />
+        <property name="itemLink" type="String" />
+      </properties>
+      <sources>
+        <source path="/api/functions/GetNNStatementTasksDataForWidget" >
+          <mapping>
+            <map sourceProperty="Subject" destProperty="title" mode="PropertyToProperty" />
+            <map destProperty="icon" mode="ConstantToProperty" constValue="statements" />
+            <map sourceProperty="Id" destProperty="itemLink" mode="PropertyToProperty" converter="StatementTasksItemLink" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <!--map sourceProperty="Status" destProperty="defaultActionName" mode="PropertyToProperty" converter="StatementTasksDefaultAction" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@EssBase.ABORT" /-->
+          </mapping>
+        </source>
+      </sources>
+    </projection>
+  </projections>
+  <extensions>
+    <extension path="FacilityGroups/Home/views/homeMobile">
+      <tileslots>
+        <tileslot tileName="StatementsMobile" size="Normal" />
+      </tileslots>
+    </extension>
+    <extension path="Projections/activeWorks">
+      <sources>
+        <source path="/api/workitems/HRPro/IHRDocFlowAgreementAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Accept" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_BUTTON_ACCEPT" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IHRDocFlowHRAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Complete" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_BUTTON_COMPLETE" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IHRDocFlowDocumentApprovalAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Sign" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.STATEMENTS_DOCUMENTAPPROVALASSIGNMENTS_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IHRDocFlowConsentAssignments;IHRDocFlowESignAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Sign" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.STATEMENTS_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IHRDocFlowEAcquaintanceAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Acquaint" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_BUTTON_ACQUAINT" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IHRDocFlowHRNotices?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="read-document" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/INNStatementReworkAssignments;INNCommonsStatementReworkAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Rework" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@HRPROVACATIONS.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+      </sources>
+    </extension>
+    <extension path="Projections/completedWorks">
+      <sources>
+        <source path="/api/workitems/HRPro/IHRDocFlowConsentAssignments;IHRDocFlowHRAssignments;IHRDocFlowEAcquaintanceAssignments;IHRDocFlowESignAssignments;IHRDocFlowDocumentApprovalAssignments;IHRDocFlowAgreementAssignments?filter=(((Status eq 'Completed' or Status eq 'Sign') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IHRDocFlowHRNotices?filter=(((Status eq 'Completed' or Status eq 'Sign') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="HRProConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="read-document" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/INNStatementReworkAssignments;INNCommonsStatementReworkAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationApprovalAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+      </sources>
+    </extension>
+  </extensions>
+  <tiles>
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileStatementsMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileWeekendWork.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileWeekendWorkMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileOvertimeWork.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileOvertimeWorkMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetLrdPayment.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetLrdPaymentMobile.xml" />
+  </tiles>
+  <valueConverters>
+    <valueConverter name="HRProConverter" runat="Server" codeFile="converters/HRProConverter.cs" />
+    <valueConverter name="StatementTasksItemLink" runat="Server" codeFile="converters/StatementTasksItemLink.cs" />
+    <valueConverter name="StatementsStatusConverter" runat="Client" codeFile="converters/StatementsStatusConverter.js" />
+    <valueConverter name="StatementTasksDefaultAction" runat="Server" codeFile="converters/StatementTasksDefaultAction.cs" />
+  </valueConverters>
+  <scripts>
+    <script name="createSignature" runat="Client">
+      <code><![CDATA[
+        class createSignature {
+          execute(params) {
+            const document = JSON.parse(params.SigningDocument);
+            const serviceUrl = `/api/functions/GetEmployeeCertificates`;
+            return new Promise(resolve => {
+              ESS.network.sendRequest(serviceUrl)
+                .then(certs => ESS.signing.createSignature({
+                  certificates: certs,
+                  document: {
+                    binaryDataId: document.BinaryDataId,
+                    name: document.Name,
+                  },
+                  cancelationCallback: params.cancelationCallback,
+                }))
+                .then(signature => {
+                  resolve(JSON.stringify({
+                    ...document,
+                    Signature: signature,
+                    SignatureType: params.SignatureType,
+                  }));
+                });
+            });
+          }
+        }
+      ]]></code>
+    </script>
+  </scripts>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="Localizations/HrProStatements.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="Localizations/Common.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="functions/functions.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="roles/Roles.xml" />
+  <notificationTemplates />
+  <usageAgreements />
+</solution>
