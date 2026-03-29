@@ -396,9 +396,7 @@
   "OpenCardByDefaultInCollection": true,
   "OperationsClass": "",
   "Overridden": [
-    "IsAutoCreated",
-    "HideFromCreationArea",
-    "HideFromNavigationEditorCreationArea"
+    "IsAutoCreated"
   ],
   "Properties": [
     {

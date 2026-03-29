@@ -112,4 +112,7 @@
   <data name="Enum_SentStatus_Assigned" xml:space="preserve">
     <value>Substitution assigned</value>
   </data>
+  <data name="Enum_SentStatus_Cancelled" xml:space="preserve">
+    <value>Canсelled</value>
+  </data>
 </root>

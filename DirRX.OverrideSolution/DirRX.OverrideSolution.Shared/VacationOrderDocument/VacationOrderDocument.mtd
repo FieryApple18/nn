@@ -303,9 +303,6 @@
   "LayeredFromGuid": "eef055ba-a884-4b50-9151-e3b522fb9f23",
   "OpenCardByDefaultInCollection": true,
   "OperationsClass": "",
-  "Overridden": [
-    "HideFromCreationArea"
-  ],
   "Properties": [
     {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",

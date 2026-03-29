@@ -11,6 +11,24 @@ namespace DirRX.NNOtherProcesses.Server
   {
 
     /// <summary>
+    /// Получить запись справочника по умолчанию (КЭДО, ИД системы="IS0000098").
+    /// </summary>
+    /// <returns>Запись справочника.</returns>
+    [Public]
+    public static DirRX.NNOtherProcesses.ISubstitutionSystem GetDefaultRecord()
+    {
+      var kedoSystemIdConstant = DirRX.NNCommons.PublicFunctions.Module.GetStringValue(DirRX.NNOtherProcesses.Constants.Module.ConstantsSetting.SubstitutionSystemKedoSystemId.Guid);
+      var kedoSystemId = DirRX.NNOtherProcesses.Constants.Module.ConstantsDefaultValues.SubstitutionSystemKedoSystemId;
+
+      if (!string.IsNullOrEmpty(kedoSystemIdConstant) && !string.IsNullOrWhiteSpace(kedoSystemIdConstant))
+        kedoSystemId = kedoSystemIdConstant;
+
+      return DirRX.NNOtherProcesses.SubstitutionSystems
+        .GetAll(s => string.Equals(s.SystemId, kedoSystemId, StringComparison.OrdinalIgnoreCase))
+        .FirstOrDefault();
+    }
+
+    /// <summary>
     /// Создать запись справочника.
     /// </summary>
     /// <param name="name">Наименование.</param>
@@ -20,11 +38,13 @@ namespace DirRX.NNOtherProcesses.Server
     /// <returns>Ошибка. Пустая строка, если ошибок нет.</returns>
     public static string CreateRecord(string name, string shortName, string systemId, string functions)
     {
-      if (SubstitutionSystems.GetAll(s => s.SystemId == systemId).Any())
+      if (DirRX.NNOtherProcesses.SubstitutionSystems.GetAll(s => s.SystemId == systemId).Any())
+      {
         return string.Empty;
+      }
 
       var error = string.Empty;
-      var record = SubstitutionSystems.Create();
+      var record = DirRX.NNOtherProcesses.SubstitutionSystems.Create();
       
       record.Name = name;
       record.ShortName = shortName;

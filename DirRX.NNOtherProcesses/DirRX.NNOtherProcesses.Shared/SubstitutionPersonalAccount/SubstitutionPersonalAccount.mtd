@@ -222,7 +222,6 @@
       "Code": "Created",
       "DateTimeFormat": "DateTime",
       "IsEnabled": false,
-      "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "03ec0807-39b5-4af5-aeff-3b0cffacc938"
     },
@@ -313,6 +312,11 @@
           "NameGuid": "3fcaaacf-5bbb-41ef-9f12-aad8957896fe",
           "Name": "Error",
           "Code": "Error"
+        },
+        {
+          "NameGuid": "ff4b04b4-4849-4763-a8bf-f85fe4a21fde",
+          "Name": "Cancelled",
+          "Code": "Canselled"
         }
       ],
       "IsEnabled": false,
@@ -341,6 +345,45 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "CancelRecords",
+      "Parameters": [
+        {
+          "Name": "substitution",
+          "ParameterType": "global::Sungero.CoreEntities.ISubstitution",
+          "ParameterTypeFullName": "Sungero.CoreEntities.ISubstitution, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateRecord",
+      "Parameters": [
+        {
+          "Name": "substitution",
+          "ParameterType": "global::Sungero.CoreEntities.ISubstitution",
+          "ParameterTypeFullName": "Sungero.CoreEntities.ISubstitution, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "taskId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNOtherProcesses.ISubstitutionPersonalAccount",
+      "ReturnTypeFullName": "DirRX.NNOtherProcesses.ISubstitutionPersonalAccount, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "CreateRecord",
       "Parameters": [
         {
@@ -357,10 +400,32 @@
           "Name": "taskId",
           "ParameterType": "global::System.Int64",
           "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "ReturnType": "global::DirRX.NNOtherProcesses.ISubstitutionPersonalAccount",
       "ReturnTypeFullName": "DirRX.NNOtherProcesses.ISubstitutionPersonalAccount, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetRecords",
+      "Parameters": [
+        {
+          "Name": "substitution",
+          "ParameterType": "global::Sungero.CoreEntities.ISubstitution",
+          "ParameterTypeFullName": "Sungero.CoreEntities.ISubstitution, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNOtherProcesses.ISubstitutionPersonalAccount>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     }
   ],
   "PublicStructures": [

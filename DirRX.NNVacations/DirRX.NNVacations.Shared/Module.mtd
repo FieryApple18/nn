@@ -2481,6 +2481,18 @@
       "WebApiRequestType": "Get"
     },
     {
+      "Name": "GetCreateDateForSubstitution",
+      "Parameters": [
+        {
+          "Name": "substitution",
+          "ParameterType": "global::Sungero.CoreEntities.ISubstitution",
+          "ParameterTypeFullName": "Sungero.CoreEntities.ISubstitution, Sungero.Domain.Shared"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
       "Name": "GetCurrentCompensationAvailableDays",
       "Parameters": [
         {

@@ -297,7 +297,7 @@
       "ParentClasses": [
         "Module",
         "ConstantsGroup",
-        "SubstitutionPersonalAccount"
+        "Substitution"
       ],
       "TypeName": "System.String",
       "Value": "\"3404F89F-BB72-47E6-8F82-CEB5C72349DC\""
@@ -493,6 +493,16 @@
       "Value": "\"CBCFF959-6A18-486D-889B-2BB4BC32B5FE\""
     },
     {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "SubstitutionSystemKedoSystemId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"46877AE3-E69A-4D03-BBCC-E0DC4BBA17AC\""
+    },
+    {
       "Name": "HRSimpleDocument",
       "ParentClasses": [
         "Module",
@@ -662,6 +672,15 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"0a714e8d-ba7a-40b6-be9c-fed73908c5b2\")"
+    },
+    {
+      "Name": "SubstitutionSystemKedoSystemId",
+      "ParentClasses": [
+        "Module",
+        "ConstantsDefaultValues"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"IS0000098\""
     },
     {
       "Name": "SupportingDocumentForLNADocKind",

@@ -68,11 +68,11 @@ namespace DirRX.NNOtherProcesses.Constants
       /// Замещения ЛК.
       /// </summary>
       [Public]
-      public static class SubstitutionPersonalAccount
+      public static class Substitution
       {
         [Public]
         public const string Guid = "3404F89F-BB72-47E6-8F82-CEB5C72349DC";
-        public const string Name = "Замещения ЛК";
+        public const string Name = "Замещения";
       }
     }
     #endregion
@@ -475,7 +475,18 @@ namespace DirRX.NNOtherProcesses.Constants
       {
         [Public]
         public const string Guid = "CBCFF959-6A18-486D-889B-2BB4BC32B5FE";
-        public const string Name = "Замещения ЛК. Количество дней хранения записей справочника \"Замещение ЛК\"";
+        public const string Name = "Замещения. Количество дней хранения записей справочника \"Замещение ЛК\"";
+      }
+      
+      /// <summary>
+      /// Идентификатор системы КЭДО по умолчанию в справочнике "Список систем для замещения".
+      /// </summary>
+      [Public]
+      public static class SubstitutionSystemKedoSystemId
+      {
+        [Public]
+        public const string Guid = "46877AE3-E69A-4D03-BBCC-E0DC4BBA17AC";
+        public const string Name = "Замещения. ИД системы КЭДО по умолчанию для создания замещений в RX";
       }
     }
 
@@ -534,6 +545,12 @@ namespace DirRX.NNOtherProcesses.Constants
       /// Значение по умолчанию. Количество дней хранения записей справочника "Замещение ЛК".
       /// </summary>
       public const int SubstitutionPersonalAccountRetentionDays = 365;
+
+      /// <summary>
+      /// Идентификатор системы КЭДО по умолчанию в справочнике "Список систем для замещения".
+      /// </summary>
+      [Public]
+      public const string SubstitutionSystemKedoSystemId = "IS0000098";
     }
     
     #endregion

@@ -174,14 +174,11 @@
       "PreviousPropertyGuid": "9560e634-38c8-4276-b8b5-96a0f61795da"
     }
   ],
-  "PublicConstants": [
+  "PublicFunctions": [
     {
-      "Name": "KedoSystemId",
-      "ParentClasses": [
-        "SubstitutionSystem"
-      ],
-      "TypeName": "System.String",
-      "Value": "\"IS0000098\""
+      "Name": "GetDefaultRecord",
+      "ReturnType": "global::DirRX.NNOtherProcesses.ISubstitutionSystem",
+      "ReturnTypeFullName": "DirRX.NNOtherProcesses.ISubstitutionSystem, Sungero.Domain.Interfaces"
     }
   ],
   "PublicStructures": [],

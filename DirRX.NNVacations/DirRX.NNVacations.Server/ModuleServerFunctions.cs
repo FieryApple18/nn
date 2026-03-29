@@ -36,6 +36,8 @@ namespace DirRX.NNVacations.Server
       if (data == null)
         return;
       
+      var system = DirRX.NNOtherProcesses.PublicFunctions.SubstitutionSystem.GetDefaultRecord();
+      
       var substitutions = GetSubstitutionInfosFromTask(task.MainTask);
       if (!substitutions.Any())
       {
@@ -45,11 +47,17 @@ namespace DirRX.NNVacations.Server
 
       foreach (var item in substitutions)
       {
-        DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CreateRecord(item, data.Employee, task.MainTask.Id);
-
-        if (string.Equals(item.SubstitutionSystem.SystemId, DirRX.NNOtherProcesses.PublicConstants.SubstitutionSystem.KedoSystemId, StringComparison.OrdinalIgnoreCase))
+        var substitutionPersonalAccount = DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CreateRecord(item, data.Employee, task.MainTask.Id, logPrefix);
+        if (system != null && item.SubstitutionSystem.Id == system.Id)
         {
-          CreateSubstitution(item, data.Employee, data.OrderId.ToString());
+          var substitution = CreateSubstitution(item, data.Employee, data.OrderId.ToString());
+          if (substitution != null)
+          {
+            substitutionPersonalAccount.Created = GetCreateDateForSubstitution(substitution);
+            substitutionPersonalAccount.SentStatus = DirRX.NNOtherProcesses.SubstitutionPersonalAccount.SentStatus.Assigned;
+            
+            substitutionPersonalAccount.Save();
+          }
         }
       }
 
@@ -71,20 +79,91 @@ namespace DirRX.NNVacations.Server
       if (data == null)
         return;
 
-      var existingSubsts = FindExistingSubstitutions(data.Employee, data.OriginalPeriod, logPrefix);
-      foreach (var subst in existingSubsts)
+      foreach (var subst in FindExistingSubstitutions(data.Employee, data.OriginalPeriod, logPrefix))
       {
-        if (subst.StartDate > data.RecallPeriod.EndDate || subst.EndDate < data.RecallPeriod.StartDate)
-          continue;
-
-        var oldEndDate = subst.EndDate.Value;
-        subst.EndDate = data.RecallPeriod.StartDate.Value;
+        var subStart = subst.StartDate.Value;
+        var subEnd = subst.EndDate.Value;
+        var recallStart = data.RecallPeriod.StartDate.Value;
+        var recallEnd = data.RecallPeriod.EndDate.Value;
         
-        subst.Save();
-
-        Logger.DebugFormat("{0}. Updated substitutionId={1}, oldEndDate={2}, newEndDate={3}.", logPrefix, subst.Id, oldEndDate, data.RecallPeriod.StartDate.Value);
+        if (subStart > recallEnd || subEnd < recallStart)
+          continue;
+        
+        DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CancelRecords(subst, logPrefix);
+        
+        if (recallStart <= subStart && recallEnd >= subEnd)
+        {
+          subst.Status = Sungero.CoreEntities.DatabookEntry.Status.Closed;
+          subst.Save();
+          
+          Logger.DebugFormat("{0}. Closed substitutionId={1}.", logPrefix, subst.Id);
+          
+          continue;
+        }
+        
+        if (recallStart > subStart && recallEnd < subEnd)
+        {
+          var tail = Sungero.CoreEntities.Substitutions.Copy(subst);
+          tail.StartDate = recallEnd.AddDays(1);
+          tail.Save();
+          
+          DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CreateRecord(tail, task.MainTask.Id, logPrefix);
+          
+          subst.EndDate = recallStart.AddDays(-1);
+          subst.Save();
+          
+          DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CreateRecord(subst, task.MainTask.Id, logPrefix);
+          
+          continue;
+        }
+        
+        if (recallStart <= subStart)
+        {
+          var newStartDate = recallEnd.AddDays(1);
+          if (newStartDate > subEnd)
+          {
+            subst.Status = Sungero.CoreEntities.DatabookEntry.Status.Closed;
+            subst.Save();
+            
+            Logger.DebugFormat("{0}. Closed substitutionId={1}, newStartDate {2} > endDate {3}.", logPrefix, subst.Id, newStartDate, subEnd);
+            
+            continue;
+          }
+          
+          subst.StartDate = recallEnd.AddDays(1);
+          subst.Save();
+          
+          Logger.DebugFormat("{0}. Updated substitutionId={1}, oldStartDate={2}, newStartDate={3}.", logPrefix, subst.Id, subStart, newStartDate);
+          
+          DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CreateRecord(subst, task.MainTask.Id, logPrefix);
+          
+          continue;
+        }
+        
+        if (recallEnd >= subEnd)
+        {
+          var newEndDate = recallStart.AddDays(-1);
+          if (newEndDate < subStart)
+          {
+            subst.Status = Sungero.CoreEntities.DatabookEntry.Status.Closed;
+            subst.Save();
+            
+            Logger.DebugFormat("{0}. Closed substitutionId={1}, newEndDate {2} < startDate {3}.", logPrefix, subst.Id, newEndDate, subStart);
+            
+            continue;
+          }
+          
+          subst.EndDate = newEndDate;
+          subst.Save();
+          
+          Logger.DebugFormat("{0}. Updated substitutionId={1}, oldEndDate={2}, newEndDate={3}.", logPrefix, subst.Id, subEnd, newEndDate);
+          
+          DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CreateRecord(subst, task.MainTask.Id, logPrefix);
+          
+          continue;
+        }
       }
-
+      
       Logger.DebugFormat("{0}. Completed for mainTaskId={1}.", logPrefix, task.MainTask.Id);
     }
 
@@ -102,17 +181,15 @@ namespace DirRX.NNVacations.Server
       var data = TryExtractDataForSubstitutionFromTask(task, 2, logPrefix);
       if (data == null)
         return;
-
-      var existingSubsts = FindExistingSubstitutions(data.Employee, data.OriginalPeriod, logPrefix);
-      foreach (var subst in existingSubsts)
+      
+      foreach (var subst in FindExistingSubstitutions(data.Employee, data.OriginalPeriod, logPrefix))
       {
-        if (subst.StartDate >= data.OriginalPeriod.StartDate && subst.EndDate <= data.OriginalPeriod.EndDate)
-        {
-          subst.Status = Sungero.CoreEntities.DatabookEntry.Status.Closed;
-          subst.Save();
+        DirRX.NNOtherProcesses.PublicFunctions.SubstitutionPersonalAccount.CancelRecords(subst, logPrefix);
+        
+        subst.Status = Sungero.CoreEntities.DatabookEntry.Status.Closed;
+        subst.Save();
 
-          Logger.DebugFormat("{0}. Closed substitutionId={1}.", logPrefix, subst.Id);
-        }
+        Logger.DebugFormat("{0}. Closed substitutionId={1}.", logPrefix, subst.Id);
       }
 
       Logger.DebugFormat("{0}. Completed for mainTaskId={1}.", logPrefix, task.MainTask.Id);
@@ -197,13 +274,9 @@ namespace DirRX.NNVacations.Server
       var logParams = string.Empty;
       
       if (operationType == 2)
-      {
         logParams += string.Format(", originalPeriod={0}-{1}", result.OriginalPeriod.StartDate, result.OriginalPeriod.EndDate);
-      }
       if (operationType == 1)
-      {
         logParams += string.Format(", recallPeriod={0}-{1}", result.RecallPeriod.StartDate, result.RecallPeriod.EndDate);
-      }
       
       Logger.DebugFormat("{0}. Params: taskId={1}, orderId={2}, employeeId={3}{4}.", logPrefix, task.Id, order.Id, employee.Id, logParams);
       
@@ -220,7 +293,6 @@ namespace DirRX.NNVacations.Server
       if (HRPro.HRDocFlow.HRProcessTasks.Is(task))
       {
         var document = HRPro.HRDocFlow.HRProcessTasks.As(task).DocumentGroup.OfficialDocuments.FirstOrDefault();
-        
         if (document != null && DirRX.OverrideSolution.VacationOrderDocuments.Is(document))
         {
           return DirRX.OverrideSolution.VacationOrderDocuments.As(document);
@@ -240,7 +312,6 @@ namespace DirRX.NNVacations.Server
       if (DirRX.OverrideSolution.StatementTasks.Is(task))
       {
         var document = DirRX.OverrideSolution.StatementTasks.As(task).DocumentGroup.DocRelatedToWorkBases.FirstOrDefault();
-        
         if (document != null && DirRX.OverrideSolution.VacationStatementDocuments.Is(document))
         {
           return DirRX.OverrideSolution.VacationStatementDocuments.As(document);
@@ -354,13 +425,14 @@ namespace DirRX.NNVacations.Server
     {
       var existingSubsts = Sungero.CoreEntities.Substitutions.GetAll()
         .Where(s => Equals(s.User, Sungero.CoreEntities.Users.As(employee)) &&
-               s.StartDate.Value == period.StartDate &&
-               s.EndDate.Value == period.EndDate &&
+               s.StartDate.HasValue && s.EndDate.HasValue &&
+               s.StartDate.Value >= period.StartDate &&
+               s.EndDate.Value <= period.EndDate &&
                s.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
                s.Comment.Contains(DirRX.NNVacations.Resources.SubstitutionNote))
         .ToList();
       
-      Logger.DebugFormat("{0}. Found {1} active substitutions for employeeId={2}.", logPrefix, existingSubsts.Select(s => s.Id).Count(), employee.Id);
+      Logger.DebugFormat("{0}. Found {1} active substitutions for employeeId={2}.", logPrefix, existingSubsts.Count, employee.Id);
       
       return existingSubsts;
     }
@@ -377,7 +449,6 @@ namespace DirRX.NNVacations.Server
       if (DirRX.NNVacations.RegistrationOfAnnualLeaves.Is(sourceTask))
       {
         var task = DirRX.NNVacations.RegistrationOfAnnualLeaves.As(sourceTask);
-        
         foreach (var substitution in task.SubstitutionsDirRX)
         {
           var info = DirRX.NNOtherProcesses.Structures.SubstitutionPersonalAccount.SubstitutionInfo.Create();
@@ -396,7 +467,6 @@ namespace DirRX.NNVacations.Server
       if (DirRX.OverrideSolution.StatementTasks.Is(sourceTask))
       {
         var task = DirRX.OverrideSolution.StatementTasks.As(sourceTask);
-        
         foreach (var substitution in task.SubstitutionsDirRX)
         {
           var info = DirRX.NNOtherProcesses.Structures.SubstitutionPersonalAccount.SubstitutionInfo.Create();
@@ -416,18 +486,20 @@ namespace DirRX.NNVacations.Server
     }
 
     /// <summary>
-    /// Создать запись в справочнике "Замещения".
+    /// Создать запись в справочнике "Замещение".
     /// </summary>
     /// <param name="info">Структура с информацией о замещении.</param>
     /// <param name="employee">Сотрудник.</param>
     /// <param name="sourceId">ИД приказа для записи в примечание.</param>
-    private static void CreateSubstitution(DirRX.NNOtherProcesses.Structures.SubstitutionPersonalAccount.ISubstitutionInfo info, DirRX.OverrideSolution.IEmployee employee, string sourceId)
+    /// <returns>Запись справочника "Замещение".</returns>
+    private static Sungero.CoreEntities.ISubstitution CreateSubstitution(DirRX.NNOtherProcesses.Structures.SubstitutionPersonalAccount.ISubstitutionInfo info, DirRX.OverrideSolution.IEmployee employee, string sourceId)
     {
       Logger.DebugFormat("CreateSubstitution. Start: substituteId={0}, employeeId={1}, sourceId={2}.", info.Substitute.Id, employee.Id, sourceId);
       
       var existing = Sungero.CoreEntities.Substitutions.GetAll()
-        .Where(s => Equals(s.User, Sungero.CoreEntities.Users.As(employee)) &&
-               Equals(s.Substitute, Sungero.CoreEntities.Users.As(info.Substitute)) &&
+        .Where(s => s.User.Id == employee.Id &&
+               s.Substitute.Id == info.Substitute.Id &&
+               s.StartDate.HasValue && s.EndDate.HasValue &&
                s.StartDate.Value == info.StartDate &&
                s.EndDate.Value == info.EndDate &&
                s.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
@@ -437,7 +509,7 @@ namespace DirRX.NNVacations.Server
       if (existing != null)
       {
         Logger.DebugFormat("CreateSubstitution. Duplicate found, skip, existingId={0}.", existing.Id);
-        return;
+        return existing;
       }
 
       var substitution = Sungero.CoreEntities.Substitutions.Create();
@@ -449,8 +521,24 @@ namespace DirRX.NNVacations.Server
       substitution.Comment = DirRX.NNVacations.Resources.SubstitutionNote_AutoCreatedFormat(Calendar.Now, sourceId);
       
       substitution.Save();
-
+      
       Logger.DebugFormat("CreateSubstitution. Created substitutionId={0}.", substitution.Id);
+      
+      return substitution;
+    }
+
+    /// <summary>
+    /// Получить дату создания записи в справочнике "Замещение".
+    /// </summary>
+    /// <param name="substitution">Запись справочника "Замещение".</param>
+    /// <returns>Дата создания</returns>
+    [Public]
+    public static DateTime? GetCreateDateForSubstitution(Sungero.CoreEntities.ISubstitution substitution)
+    {
+      return substitution.History.GetAll().OrderBy(h => h.HistoryDate)
+        .Where(h => h.Action == Sungero.CoreEntities.History.Action.Create)
+        .Select(h => h.HistoryDate)
+        .FirstOrDefault();
     }
 
     /// <summary>
@@ -575,7 +663,6 @@ namespace DirRX.NNVacations.Server
         if (isTop)
         {
           filteredEmployees.AddRange(employeesQuery.Where(e => topEmployeeIdsInDep.Contains(e.Id)).ToList());
-          
           Logger.Debug("GetEmployeesForSubstitution. TOP filter applied.");
         }
         else
@@ -656,7 +743,6 @@ namespace DirRX.NNVacations.Server
       }
       
       var personnelNumber = substitute.PersonnelNumber;
-      
       if (string.IsNullOrEmpty(personnelNumber))
       {
         return DirRX.NNVacations.Resources.CurrentUserPersonalNumberNotFoundError.ToString();
@@ -665,11 +751,9 @@ namespace DirRX.NNVacations.Server
       Logger.DebugFormat("ValidateSubstitute. Call SAP validation: personnelNumber={0}, vacationsCount={1}.", personnelNumber, vacations.Count);
       
       var result = ValidateEmployeeVacations(substituteId, personnelNumber, vacations);
-      
       if (!string.IsNullOrEmpty(result.ErrorText))
       {
         Logger.DebugFormat("ValidateSubstitute. SAP returned error: {0}.", result.ErrorText);
-        
         return result.ErrorText;
       }
       
@@ -695,20 +779,14 @@ namespace DirRX.NNVacations.Server
       
       try
       {
-        var substituteIds = !string.IsNullOrEmpty(substituteIdsString)
-          ? substituteIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList()
-          : new List<long>();
-        
-        var systemIds = !string.IsNullOrEmpty(systemIdsString)
-          ? systemIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList()
-          : new List<long>();
+        var substituteIds = !string.IsNullOrEmpty(substituteIdsString) ? substituteIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
+        var systemIds = !string.IsNullOrEmpty(systemIdsString) ? systemIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
         
         var employeesDictionary = new Dictionary<long, string>();
         if (substituteIds.Count > 0)
         {
           var uniqueSubstituteIds = substituteIds.Distinct().ToList();
           var employees = DirRX.OverrideSolution.Employees.GetAll().Where(e => uniqueSubstituteIds.Contains(e.Id)).ToList();
-          
           foreach (var emp in employees)
           {
             if (!employeesDictionary.ContainsKey(emp.Id))
@@ -723,16 +801,14 @@ namespace DirRX.NNVacations.Server
         {
           substituteNamesList.Add(employeesDictionary.ContainsKey(subId) ? employeesDictionary[subId] : string.Empty);
         }
+        
         result.SubstituteNamesString = string.Join(";", substituteNamesList);
         
         var systemsDictionary = new Dictionary<long, string>();
         if (systemIds.Count > 0)
         {
           var uniqueSystemIds = systemIds.Distinct().ToList();
-          var systems = DirRX.NNOtherProcesses.SubstitutionSystems.GetAll()
-            .Where(s => uniqueSystemIds.Contains(s.Id))
-            .ToList();
-          
+          var systems = DirRX.NNOtherProcesses.SubstitutionSystems.GetAll().Where(s => uniqueSystemIds.Contains(s.Id)).ToList();
           foreach (var sys in systems)
           {
             if (!systemsDictionary.ContainsKey(sys.Id))
@@ -747,6 +823,7 @@ namespace DirRX.NNVacations.Server
         {
           systemNamesList.Add(systemsDictionary.ContainsKey(sysId) ? systemsDictionary[sysId] : string.Empty);
         }
+        
         result.SystemNamesString = string.Join(";", systemNamesList);
         
         Logger.DebugFormat("GetSubstituteAndSystemNames. Completed.");
@@ -758,6 +835,7 @@ namespace DirRX.NNVacations.Server
       
       return result;
     }
+
     /// <summary>
     /// Получить периоды отпуска по ИД задания.
     /// </summary>
@@ -841,11 +919,9 @@ namespace DirRX.NNVacations.Server
       var result = new List<DirRX.NNVacations.Structures.Module.ISubstitutionData>();
       
       var assignment = Sungero.Workflow.Assignments.GetAll(a => a.Id == assignmentId).FirstOrDefault();
-      
       if (assignment == null || assignment.Task == null)
       {
         Logger.DebugFormat("GetSubstitutionsForTaskFromAssignment. Assignment or task not found, assignmentId={0}.", assignmentId);
-        
         return result;
       }
       
@@ -886,8 +962,7 @@ namespace DirRX.NNVacations.Server
       var startDates = !string.IsNullOrEmpty(startDatesString) ? startDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
       var endDates = !string.IsNullOrEmpty(endDatesString) ? endDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
       
-      Logger.DebugFormat("SaveSubstitutionsToTask. Parsed counts: substituteIds {0}, systemIds {1}, startDates {2}, endDates {3}.",
-                         substituteIds.Count(), systemIds.Count(), startDates.Count(), endDates.Count());
+      Logger.DebugFormat("SaveSubstitutionsToTask. Parsed counts: substituteIds {0}, systemIds {1}, startDates {2}, endDates {3}.", substituteIds.Count(), systemIds.Count(), startDates.Count(), endDates.Count());
       
       if (substituteIds.Count() == 0)
       {
@@ -896,7 +971,6 @@ namespace DirRX.NNVacations.Server
       }
       
       var task = Sungero.Workflow.Tasks.GetAll(t => t.Id == taskId).FirstOrDefault();
-      
       if (task == null)
       {
         Logger.DebugFormat("SaveSubstitutionsToTask. Task {0} not found.", taskId);
@@ -910,9 +984,7 @@ namespace DirRX.NNVacations.Server
           if (DirRX.NNVacations.RegistrationOfAnnualLeaves.Is(task))
           {
             var annualLeaveTask = DirRX.NNVacations.RegistrationOfAnnualLeaves.As(task);
-            
             annualLeaveTask.SubstitutionsDirRX.Clear();
-
             for (var i = 0; i < substituteIds.Count(); i++)
             {
               var item = annualLeaveTask.SubstitutionsDirRX.AddNew();
@@ -931,9 +1003,7 @@ namespace DirRX.NNVacations.Server
           if (DirRX.OverrideSolution.StatementTasks.Is(task))
           {
             var statementTask = DirRX.OverrideSolution.StatementTasks.As(task);
-
             statementTask.SubstitutionsDirRX.Clear();
-
             for (var i = 0; i < substituteIds.Count(); i++)
             {
               var item = statementTask.SubstitutionsDirRX.AddNew();
@@ -979,7 +1049,6 @@ namespace DirRX.NNVacations.Server
       Logger.DebugFormat("SaveSubstitutionsToTaskFromAssignment. Started for assignmentId={0}.", assignmentId);
       
       var assignment = Sungero.Workflow.Assignments.GetAll(a => a.Id == assignmentId).FirstOrDefault();
-      
       if (assignment == null || assignment.Task == null)
       {
         Logger.DebugFormat("SaveSubstitutionsToTaskFromAssignment. Assignment or task not found, assignmentId={0}.", assignmentId);

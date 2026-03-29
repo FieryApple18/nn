@@ -140,8 +140,14 @@ namespace DirRX.NNOtherProcesses.Server
                                                              true,
                                                              Constants.Module.ConstantsDefaultValues.SubstitutionPersonalAccountRetentionDays,
                                                              Constants.Module.ConstantsSetting.SubstitutionPersonalAccountRetentionDays.Guid,
-                                                             Constants.Module.ConstantsGroup.SubstitutionPersonalAccount.Guid);
-
+                                                             Constants.Module.ConstantsGroup.Substitution.Guid);
+      
+      // Идентификатор системы КЭДО по умолчанию в справочнике "Список систем для замещения".
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.SubstitutionSystemKedoSystemId.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsDefaultValues.SubstitutionSystemKedoSystemId,
+                                                             Constants.Module.ConstantsSetting.SubstitutionSystemKedoSystemId.Guid,
+                                                             Constants.Module.ConstantsGroup.Substitution.Guid);
     }
     
     /// <summary>
@@ -198,7 +204,7 @@ namespace DirRX.NNOtherProcesses.Server
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.PersonalDonationProgram.Name, Constants.Module.ConstantsGroup.PersonalDonationProgram.Guid);
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Name, Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Name, Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
-      NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.SubstitutionPersonalAccount.Name, Constants.Module.ConstantsGroup.SubstitutionPersonalAccount.Guid);
+      NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.Substitution.Name, Constants.Module.ConstantsGroup.Substitution.Guid);
     }
     
     /// <summary>
@@ -558,7 +564,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       error += Functions.SubstitutionSystem.CreateRecord(DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name,
                                                          DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name,
-                                                         DirRX.NNOtherProcesses.PublicConstants.SubstitutionSystem.KedoSystemId,
+                                                         DirRX.NNOtherProcesses.PublicConstants.Module.ConstantsDefaultValues.SubstitutionSystemKedoSystemId,
                                                          DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name);
       
       #endregion
