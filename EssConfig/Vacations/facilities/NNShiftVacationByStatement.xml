@@ -677,25 +677,18 @@
       <flowStep index="17" name="StartStatementTask" title="Запустить задачу на согласование заявления" type="StartWorkProcessStep">
         <property name="ProcessName">IHRDocFlowStatementTasks</property>
         <property name="TargetSystem">HRPro</property>
-        <property name="NextStepIndex">18</property>
+        <property name="NextStepIndex">-1</property>
         <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
         <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}"/>
         <property name="NeedsReview">False</property>
         <property name="Importance">Normal</property>
         <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="SubstituteIds" binding="SubstituteIdsString" type="String" />
+        <property name="SystemIds" binding="SystemIdsString" type="String" />
+        <property name="StartDates" binding="StartDatesString" type="String" />
+        <property name="EndDates" binding="EndDatesString" type="String" />
         <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
         <property name="AbortingDateDirRX" binding="ApprovalDate" type="DateTimeOffSet" />
-      </flowStep>
-      <flowStep index="18" name="SaveSubstitutions" title="Сохранить замещения" type="ExecuteFunctionStep">
-        <property name="NextStepIndex">-1</property>
-        <property name="TargetSystem">HRPro</property>
-        <property name="FunctionName">NNVacations.SaveSubstitutionsToTask</property>
-        <property name="ExecutionMethod">Post</property>
-        <property name="taskId" binding="TaskId" type="Int" />
-        <property name="substituteIdsString" binding="SubstituteIdsString" type="String" />
-        <property name="systemIdsString" binding="SystemIdsString" type="String" />
-        <property name="startDatesString" binding="StartDatesString" type="String" />
-        <property name="endDatesString" binding="EndDatesString" type="String" />
       </flowStep>
     </flowSteps>
   </facilityFlowScheme>

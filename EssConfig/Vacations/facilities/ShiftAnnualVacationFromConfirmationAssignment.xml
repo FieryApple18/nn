@@ -530,28 +530,21 @@
         <property name="NeedsReview">False</property>
         <property name="Importance">Normal</property>
         <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="SubstituteIds" binding="SubstituteIdsString" type="String" />
+        <property name="SystemIds" binding="SystemIdsString" type="String" />
+        <property name="StartDates" binding="StartDatesString" type="String" />
+        <property name="EndDates" binding="EndDatesString" type="String" />
         <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
         <property name="AbortingDateDirRX" binding="ApprovalDate" type="DateTimeOffSet" />
       </flowStep>
       <flowStep index="15" name="CompleteReworkAssignment" title="Выполнить задание на подтверждение с результатом Перенос" type="ChangeWorkItemStateStep">
-        <property name="NextStepIndex">16</property>
+        <property name="NextStepIndex">-1</property>
         <property name="TargetSystem">HRPro</property>
         <property name="WorkItemName" binding="AssignmentType" />
         <property name="WorkItemId" binding="AssignmentId" />
         <property name="ShiftTaskId" binding="TaskId" type="Int" />
         <property name="State">Complete</property>
         <property name="StateChangeReason">Shift</property>
-      </flowStep>
-      <flowStep index="16" name="SaveSubstitutions" title="Сохранить замещения" type="ExecuteFunctionStep">
-        <property name="NextStepIndex">-1</property>
-        <property name="TargetSystem">HRPro</property>
-        <property name="FunctionName">NNVacations.SaveSubstitutionsToTask</property>
-        <property name="ExecutionMethod">Post</property>
-        <property name="taskId" binding="TaskId" type="Int" />
-        <property name="substituteIdsString" binding="SubstituteIdsString" type="String" />
-        <property name="systemIdsString" binding="SystemIdsString" type="String" />
-        <property name="startDatesString" binding="StartDatesString" type="String" />
-        <property name="endDatesString" binding="EndDatesString" type="String" />
       </flowStep>
     </flowSteps>
   </facilityFlowScheme>
