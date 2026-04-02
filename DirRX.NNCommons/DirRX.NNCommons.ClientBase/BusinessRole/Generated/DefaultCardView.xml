@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <ViewName>Default</ViewName>
+  <Collectiond5f716cc08c340a3a3081ae4e4494dcf FormGuid="9876ec86-df0e-433a-bfc2-f2729dbba4ca">
+    <XtraSerializer version="1.0" application="GridControl">
+      <property name="#LayoutVersion" isnull="true" />
+      <property name="$GridControl" iskey="true" value="GridControl">
+        <property name="View" isnull="true" iskey="true">
+          <property name="LinesPerRowMode">None</property>
+          <property name="ColumnChooserState" isnull="true" iskey="true">
+            <property name="Location">782,-2</property>
+            <property name="Size">220,250</property>
+          </property>
+          <property name="AllowMoveColumnToDropArea">false</property>
+          <property name="AllowColumnMoving">true</property>
+          <property name="AllowSorting">true</property>
+          <property name="ShowTotalSummary">false</property>
+          <property name="IsRowCellMenuEnabled">false</property>
+          <property name="ShowGroupPanel">false</property>
+          <property name="AutoWidth">false</property>
+          <property name="AllowGrouping">false</property>
+        </property>
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="SortInfo" iskey="true" value="0" />
+        <property name="GroupSummary" iskey="true" value="0" />
+        <property name="GroupCount">0</property>
+        <property name="Columns" iskey="true" value="1">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">BusinessRole_RecipientLinks_Member</property>
+            <property name="FieldName">Member</property>
+            <property name="VisibleIndex">0</property>
+            <property name="Width">108</property>
+            <property name="ActualWidth">9*</property>
+          </property>
+        </property>
+        <property name="GroupSummarySortInfo" iskey="true" value="0" />
+      </property>
+    </XtraSerializer>
+  </Collectiond5f716cc08c340a3a3081ae4e4494dcf>
+</settings>

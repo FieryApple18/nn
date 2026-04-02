@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="SelectDataWithoutConsent">
+    <default><![CDATA[select distinct employee.persnumber_company_sungero as persnumber,
+  employee."name" as employeeName, 
+  jobTitle."name" as jobTitleName,
+  vacationsinfor.structuraldepa as departmentName
+from dirrx_nnvacat_vacationsinfor as vacationsinfor
+  join sungero_core_recipient as employee
+    on employee.id = vacationsinfor.employee
+  join sungero_company_jobTitle as jobTitle
+    on jobTitle.id = employee.jobtitle_company_sungero
+where not @Consent and 
+    vacationsinfor.businessunit = @BusinessUnitId and 
+    extract(year from vacationsinfor."year") = @Year and 
+    (@DepartmentId = 0 or vacationsinfor.department = @DepartmentId) and 
+    employee.consenthrpro_hrproso_hrpro != 'Signed'
+order by employeeName]]></default>
+  </query>
+  <query key="SelectDataWithConsent">
+    <default><![CDATA[select distinct employee.persnumber_company_sungero as persnumber,
+  employee."name" as employeeName, 
+  jobTitle."name" as jobTitleName,
+  doc.structuraldepa_overrid_dirrx as departmentName
+from sungero_content_edoc as doc 
+  join sungero_core_recipient as employee
+    on employee.id = doc.employeedirrx_overrid_dirrx
+  join sungero_company_jobTitle as jobTitle
+    on jobTitle.id = employee.jobtitle_company_sungero
+where @Consent and 
+    doc.acquiantanceop_overrid_dirrx = 'Electronic' and
+    doc.businessunit_docflow_sungero = @BusinessUnitId and 
+    extract(year from doc.year1_vacatio_hrpro) = @Year and
+    (@DepartmentId = 0 or doc.department_docflow_sungero = @DepartmentId) and
+    doc.intapprstate_docflow_sungero = 'Aborted' and
+    doc.documentkind_docflow_sungero = @DocKindId
+order by employeeName]]></default>
+  </query>
+</queries>

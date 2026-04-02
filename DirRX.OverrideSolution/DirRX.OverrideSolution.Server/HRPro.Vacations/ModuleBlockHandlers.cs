@@ -1,0 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sungero.Core;
+using Sungero.CoreEntities;
+using Sungero.Workflow;
+
+namespace DirRX.OverrideSolution.Module.Vacations.Server.VacationsBlocks
+{
+  partial class PrepareDocsAssignmentHandlers
+  {
+
+  }
+  partial class CreateSubstitutionBlockHandlers
+  {
+
+  }
+}

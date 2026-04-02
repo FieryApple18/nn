@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BusinessTripOrder" xml:space="preserve">
+    <value>NN. Business trip order</value>
+  </data>
+  <data name="RetentionStatement" xml:space="preserve">
+    <value>RetentionStatement</value>
+  </data>
+  <data name="BusinessTripOrderDocKind" xml:space="preserve">
+    <value>A business trip order</value>
+  </data>
+  <data name="CancelBusinessTripOrder" xml:space="preserve">
+    <value>The order to cancel the business trip</value>
+  </data>
+  <data name="ChangeBusinessTripOrder" xml:space="preserve">
+    <value>The order to change the business trip</value>
+  </data>
+  <data name="RetentionStatementDocKind" xml:space="preserve">
+    <value>Retention statement</value>
+  </data>
+  <data name="ApproveComment" xml:space="preserve">
+    <value>Document is signed by the service user</value>
+  </data>
+  <data name="SubjectTaskManualHoldingEvent" xml:space="preserve">
+    <value>Data exchange with the external system</value>
+  </data>
+  <data name="BusinessProcessRegistrationBusinessTrips" xml:space="preserve">
+    <value>Registration of business trips</value>
+  </data>
+  <data name="BusinessProcessPersonalDonationProgram" xml:space="preserve">
+    <value>Personal donation program</value>
+  </data>
+  <data name="SubjectTaskSendRetentionStatementStatus" xml:space="preserve">
+    <value>Sending {0} status to SAP</value>
+  </data>
+  <data name="WeekendWorkStatementDocument" xml:space="preserve">
+    <value>Weekend work statement document</value>
+  </data>
+  <data name="WeekendWorkStatementDocKind" xml:space="preserve">
+    <value>Weekend work statement document</value>
+  </data>
+  <data name="OvertimeWorkStatementDocKind" xml:space="preserve">
+    <value>Overtime work statement document</value>
+  </data>
+  <data name="WeekendWorkAgreement" xml:space="preserve">
+    <value>Weekend work agreement</value>
+  </data>
+  <data name="WeekendWorkAgreementDocKind" xml:space="preserve">
+    <value>Weekend work agreement</value>
+  </data>
+  <data name="OvertimeWorkAgreementDocKind" xml:space="preserve">
+    <value>Overtime work agreement</value>
+  </data>
+  <data name="WeekendWorkOrderDocKind" xml:space="preserve">
+    <value>Weekend work order</value>
+  </data>
+  <data name="WeekendWorkCancelationOrderDocKind" xml:space="preserve">
+    <value>Weekend work cancelation order</value>
+  </data>
+  <data name="WeekendWorkOrder" xml:space="preserve">
+    <value>Weekend work order</value>
+  </data>
+  <data name="ExternalSystemValidationWeekendWorkError" xml:space="preserve">
+    <value>The process of sending an outgoing message to conduct checks on the application completed with an error. Please contact your administrator.</value>
+  </data>
+  <data name="ResponsibleWeekendWorkRoleName" xml:space="preserve">
+    <value>Responsible for RV and SU</value>
+  </data>
+  <data name="ResponsibleWeekendWorkRoleDescription" xml:space="preserve">
+    <value>Users responsible for processing applications for departments to be involved in work on weekends and/or holidays, as well as overtime</value>
+  </data>
+  <data name="LrdPaymentStatement" xml:space="preserve">
+    <value>Lrd payment statement</value>
+  </data>
+  <data name="LrdPaymentStatementDocKind" xml:space="preserve">
+    <value>Lrd payment statement</value>
+  </data>
+  <data name="LrdPaymentApplicationDocKind" xml:space="preserve">
+    <value>Lrd payment application</value>
+  </data>
+  <data name="LrdPaymentOrderDocKind" xml:space="preserve">
+    <value>Lrd payment order</value>
+  </data>
+  <data name="LrdOrderDocument" xml:space="preserve">
+    <value>Lrd order document</value>
+  </data>
+  <data name="ExternalSystemCheckLrdPaymentError" xml:space="preserve">
+    <value>The process of sending an outgoing message to conduct checks on the application has ended with an error. Contact the administrator.</value>
+  </data>
+  <data name="LrdPaymentTemplateNotFoundError" xml:space="preserve">
+    <value>The template {0} is not specified in the module settings. Contact the system administrator.</value>
+  </data>
+  <data name="OvertimeWorkOrderDocKind" xml:space="preserve">
+    <value>Overtime work order</value>
+  </data>
+  <data name="ExternalSystemLrdPaymentsGetChildrenError" xml:space="preserve">
+    <value>The process of sending an outgoing message to obtain a list of an employee's children failed. Contact your administrator.</value>
+  </data>
+  <data name="CheckLrdPaymentError" xml:space="preserve">
+    <value>An error occurred when verifying the application data. Try to apply later.</value>
+  </data>
+  <data name="UpdateTopAttributeInDocumentsJobNoticeSubject" xml:space="preserve">
+    <value>The result of the background process "Updating "TOP-10/100" attribute in documents" feature in documents"</value>
+  </data>
+  <data name="UpdateTopAttributeInDocumentsJobNoticeText" xml:space="preserve">
+    <value>The background process "Updating "TOP-10/100" attribute in documents" has been completed.
+It is recommended to disable it, as its execution is no longer required.</value>
+  </data>
+  <data name="ErrorWeekendWorkHoursExceeded" xml:space="preserve">
+    <value>For {0} {1}, it is necessary to specify breaks, since the working time exceeds {2} {3}.</value>
+  </data>
+  <data name="ErrorWeekendWorkHoursExceededEmployee" xml:space="preserve">
+    <value>employee</value>
+  </data>
+  <data name="ErrorWeekendWorkHoursExceededEmployees" xml:space="preserve">
+    <value>employees</value>
+  </data>
+  <data name="ErrorCheckWorkingHoursExceeded" xml:space="preserve">
+    <value>It is necessary to specify breaks, since the working time exceeds {0} {1}.</value>
+  </data>
+</root>

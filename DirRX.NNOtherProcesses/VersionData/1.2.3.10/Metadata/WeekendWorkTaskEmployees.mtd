@@ -1,0 +1,64 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "67c18ce9-8f2e-4f6c-b521-c0e2cfd12596",
+  "Name": "WeekendWorkTaskEmployees",
+  "AccessRightsMode": "NoRight",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "WeekendWorkTas",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "28b27d14-6b4d-4fca-92e1-8cb62eda453d",
+      "Name": "WeekendWorkTask",
+      "CanBeSearch": false,
+      "Code": "Task",
+      "EntityGuid": "dd8163b2-1084-45f6-94e2-fc08267629fd",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "dd33cf20-8f7d-417c-b39e-51bb3f564978",
+      "Name": "Employee",
+      "CanBeSearch": false,
+      "Code": "Employee",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "IsEnabled": false,
+      "IsRequired": true,
+      "IsShowedInList": false,
+      "IsSortingAllowed": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "28b27d14-6b4d-4fca-92e1-8cb62eda453d"
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "f250549c-b08c-4490-988d-240f7b9bdbfd",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "08e5e462-9541-4249-b03e-cfddfe90d63a",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 12
+    }
+  ]
+}

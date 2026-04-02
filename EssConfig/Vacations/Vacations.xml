@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<solution name="HRProVacations">
+  <title>HRProVacations</title>
+  <description>HRPro Отпуска</description>
+  <version>2.7.25200.102</version>
+  <dataSchemeVersion>1.4.60</dataSchemeVersion>
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <widgets>
+    <widget name="myVacations" type="templateWidget">
+      <icon />
+      <title>@.VACATIONS_WIDGET_MYVACATIONS</title>
+      <dataSourceUrl>/api/functions/GetJsonVacationFullInfoByPerson</dataSourceUrl>
+      <properties>
+        <template><![CDATA[
+          <div class="ess-template-widget-padded ess-template-widget-scrollable" style="max-height: 50vh;">
+            {{#EmployeeVacationByYearData}}
+            {{#.}}
+              {{#Year}}
+                <h2><b>{{Year}}</b></h2>
+              {{/Year}}
+              {{#EmployeeVacationData}}
+                <div>
+                  {{#EmployeeDepartment}}
+                    <div class="badge">
+                      {{EmployeeBusinessUnit}}<br/>
+                      {{EmployeeDepartment}}<br/>
+                      {{EmployeeJobTitile}}
+                    </div>
+                  {{/EmployeeDepartment}}
+                  {{#.}}
+                  <div style="padding-top: 12px;">
+                    {{#VacationStatusDetail}}
+                      <div style="padding-bottom: 16px;">
+                        <b>{{VacationStatus}}:</b><br/>
+                          {{#VacationGroupDetail}}
+                            <div style="padding-top: 8px; padding-left: 8px;">  
+                              {{#Group}}
+                                <b>{{Group}}</b>:<br/>
+                              {{/Group}}
+                              <div style="padding-top: 8px; padding-left: 8px;">
+                                {{#VacationDetail}}
+                                  {{VacationKind}}: {{NumberOfDays}}<br/>
+                                  <div style="padding-left: 8px;">
+                                    {{#Dates}}
+                                      {{.}}<br/>
+                                    {{/Dates}}
+                                  </div>
+                                {{/VacationDetail}}
+                              </div>
+                            </div>
+                          {{/VacationGroupDetail}}
+                      </div>
+                      {{#NoDataText}}
+                        <div class="no-data">
+                          {{NoDataText}}
+                        </div>
+                      {{/NoDataText}}
+                    {{/VacationStatusDetail}}
+                  </div>
+                  {{^VacationStatusDetail.0}}
+                    <div class="no-data">
+                      {{ErrorText}}
+                    </div>
+                  {{/VacationStatusDetail.0}}
+                  {{/.}}
+                </div>
+              {{/EmployeeVacationData}}
+            {{/.}}
+            {{/EmployeeVacationByYearData}}
+            <div style="display: flex;">
+              <div>
+                <a onClick="ESS.scripts.HRProVacations.updateWidgetMyVacations({{#PersonId}}{{PersonId}}{{/PersonId}});" style="bottom: 0;">Обновить</a>
+              </div>
+              <div style="color: #8A8A8A; margin-left: auto; margin-right: 0em;">
+                {{#UpdateTime}}{{UpdateTime}}{{/UpdateTime}}
+              </div>
+            <div>
+          </div>
+        ]]></template>
+      </properties>
+    </widget>
+    <widget name="VacationStatements" type="itemList">
+      <title>@.VACATIONS_WIDGET_STATEMENTS</title>
+      <dataSourceUrl>/api/VacationStatementTasks</dataSourceUrl>
+      <properties>
+	    <defaultObjectCard>NNDefaultWorkProcess</defaultObjectCard>
+        <detailsTemplate>@.VACATIONS_WIDGET_STATEMENTS_DETAILS</detailsTemplate>
+      </properties>
+    </widget>
+  </widgets>
+  <facilityGroups>
+    <facilityGroup id="404a4ff5-18b6-4480-980c-58afbfc523aa" name="Vacations">
+      <authorization>
+        <allow roles="Employee" />
+      </authorization>
+      <icon>vacation</icon>
+      <title>@.VACATIONS_TITLE</title>
+      <description>
+      </description>
+      <priority>100</priority>
+      <isVisible>true</isVisible>
+      <collectAllNotifications>false</collectAllNotifications>
+      <views>
+        <view device="Web" container="FlexBox">
+          <direction>column</direction>
+          <items>
+            <item type="flexbox">
+              <direction>row</direction>
+              <items>
+                <item type="bound">
+                  <bound widgetName="myVacations" minWidth="400px" minHeight="200px" />
+                </item>
+              </items>
+            </item>
+            <item type="bound">
+              <bound widgetName="VacationStatements" />
+            </item>
+          </items>
+          <tileslots>
+            <tileslot tileName="getAnnualVacation" size="Wide" />
+            <tileslot tileName="getVacationWithoutPay" size="Wide" />
+            <tileslot tileName="getOtherVacation" size="Wide" />
+            <tileslot tileName="compensationVacation" size="Wide" />
+            <tileslot tileName="NNRecallVacationEmployee" size="Wide" />
+            <tileslot tileName="NNSelfRecallVacationEmployee" size="Wide" />
+            <tileslot tileName="NNShiftVacationByStatement" size="Wide" />
+          </tileslots>
+        </view>
+        <view device="Mobile" container="StackPanel">
+          <orientation>Vertical</orientation>
+          <tileslots>
+            <tileslot tileName="getAnnualVacationMobile" size="Normal" />
+            <tileslot tileName="getVacationWithoutPayMobile" size="Normal" />
+            <tileslot tileName="getOtherVacationMobile" size="Normal" />
+            <tileslot tileName="compensationVacationMobile" size="Normal" />
+            <tileslot tileName="NNRecallVacationEmployeeMobile" size="Normal" />
+            <tileslot tileName="NNSelfRecallVacationEmployeeMobile" size="Normal" />
+            <tileslot tileName="NNShiftVacationByStatementMobile" size="Normal" />
+          </tileslots>
+          <bounds>
+            <bound widgetName="myVacations" />
+            <bound widgetName="VacationStatements" />
+          </bounds>
+        </view>
+      </views>
+      <facilities>
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ScheduleVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/RefuseOrDenyVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkChangeVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ShiftVacationSimple.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/GetVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ChangeSubstitute.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ChangeNotifiable.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/RecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkRecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/SelfRecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/AbortVacationTasks.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/GetAnnualVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/GetOtherVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/GetVacationWithoutPay.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ShiftAnnualVacationFromConfirmationAssignment.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkAnnualVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkOtherVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkShiftVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/CompensationVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/ReworkCompensationVacation.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNRecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNSelfRecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNReworkRecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNReworkSelfRecallVacationEmployee.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNShiftVacationByStatement.xml" />
+        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNReworkShiftVacationByStatement.xml" />
+      </facilities>
+    </facilityGroup>
+  </facilityGroups>
+  <objectCards>
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationEmployeeSchedulingAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationConfirmationAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationApprovalAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationReworkAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationChangeApprovalAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationChangeReworkAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationChangeSignAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationAlignDateAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/NNVacationConfirmationAssignmentObjectCard.xml" />
+    <!--Старое скопированное
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/ShiftSignDocsAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/ShiftStatementApprovalAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationSignDocsAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationNoticeObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/ShiftNoticeObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationApprovalAssignmentObjectCard.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="objectCards/VacationSchedulingSignDocAssignmentObjectCard.xml" />
+  -->
+  </objectCards>
+  <projections>
+    <projection name="VacationStatementTasks" title="@.VACATIONS_WIDGET_STATEMENTS">
+      <properties>
+        <property name="title" type="String" />
+        <property name="icon" type="String" />
+        <property name="status" type="String" />
+        <property name="created" type="DateTime" />
+        <property name="defaultActionName" type="String" />
+        <property name="defaultActionCaption" type="String" />
+        <property name="itemLink" type="String" />
+      </properties>
+      <sources>
+        <source path="/api/functions/GetNNVacationStatementTasksDataForWidget" >
+          <mapping>
+            <map sourceProperty="Subject" destProperty="title" mode="PropertyToProperty" />
+            <map destProperty="icon" mode="ConstantToProperty" constValue="statements" />
+            <map sourceProperty="Id" destProperty="itemLink" mode="PropertyToProperty" converter="VacationStatementTasksItemLink" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <!--map sourceProperty="Status" destProperty="defaultActionName" mode="PropertyToProperty" converter="VacationStatementTasksDefaultAction" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@EssBase.ABORT" /-->
+          </mapping>
+        </source>
+      </sources>
+    </projection>
+  </projections>
+  <extensions>
+    <extension path="FacilityGroups/Home/views/homeMobile">
+      <tileslots>
+        <tileslot tileName="myVacationsMobile" size="Normal" />
+      </tileslots>
+    </extension>
+    <extension path="Projections/activeWorks">
+      <sources>
+        <source path="/api/workitems/HRPro/IVacationEmployeeSchedulingAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Complete" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONEMPLOYEESCHEDULINGASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationApprovalAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Complete" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationReworkAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Rework" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationChangeApprovalAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Approve" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONCHANGEAPPROVALSIGNASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationChangeReworkAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="ForReapproving" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONCHANGEREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationChangeSignAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Sign" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationConfirmationAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Complete" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationAlignDateAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="GetVacation" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/INNVacationConfirmationAssignments?filter=((Status eq 'InProcess') or (IsRead eq false)) and (Status ne 'Aborted') and (ShowInSelfServiceOffice eq true)">
+          <mapping>
+            <map sourceProperty="Created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+            <map destProperty="defaultActionName" mode="ConstantToProperty" constValue="Complete" />
+            <map destProperty="defaultActionCaption" mode="ConstantToProperty" constValue="@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" />
+          </mapping>
+        </source>
+      </sources>
+    </extension>
+    <extension path="Projections/completedWorks">
+      <sources>
+        <source path="/api/workitems/HRPro/IVacationEmployeeSchedulingAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationEmployeeSchedulingAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationApprovalAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationApprovalAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationReworkAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationApprovalAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationChangeApprovalAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationChangeAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationChangeReworkAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationChangeAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationChangeSignAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationChangeAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationConfirmationAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationConfirmationAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/IVacationAlignDateAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationConfirmationAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+        <source path="/api/workitems/HRPro/INNVacationConfirmationAssignments?filter=(((Status eq 'Completed') and (IsRead eq true)) and (ShowInSelfServiceOffice eq true)) or ((Status eq 'Aborted') and (ShowInSelfServiceOffice eq true))&amp;cp=enabled">
+          <mapping>
+            <map sourceProperty="Completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="Deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="Finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="HasAttachments" destProperty="hasAttachments" mode="PropertyToProperty" />
+            <map sourceProperty="Id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="IsExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="IsRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="Name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="ProcessName" destProperty="processName" mode="PropertyToProperty" />
+            <map sourceProperty="Result" destProperty="result" mode="PropertyToProperty" converter="VacationConfirmationAssignmentConverter" />
+            <map sourceProperty="Status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="System" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="Title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="Icon" destProperty="icon" mode="ConstantToProperty" constValue="clock" />
+          </mapping>
+        </source>
+      </sources>
+    </extension>
+  </extensions>
+  <tiles>
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileMyVacations.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetVacation.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileShiftVacation.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileRecallVacationEmployee.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileSelfRecallVacationEmployee.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetVacationWithoutPay.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetOtherVacation.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileCompensationVacation.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/NNTileRecallVacationEmployee.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/NNTileSelfRecallVacationEmployee.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileMyVacationsMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetVacationMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileShiftVacationMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileRecallVacationEmployeeMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileSelfRecallVacationEmployeeMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetAnnualVacation.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetAnnualVacationMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetVacationWithoutPayMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileGetOtherVacationMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/TileCompensationVacationMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/NNTileRecallVacationEmployeeMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/NNTileSelfRecallVacationEmployeeMobile.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/NNTileShiftVacationByStatement.xml" />
+    <include xmlns="http://www.w3.org/2001/XInclude" href="tiles/NNTileShiftVacationByStatementMobile.xml" />
+  </tiles>
+  <valueConverters>
+    <valueConverter name="VacationChangeAssignmentConverter" runat="Server" codeFile="converters/VacationChangeAssignmentConverter.cs" />
+    <valueConverter name="VacationConfirmationAssignmentConverter" runat="Server" codeFile="converters/VacationConfirmationAssignmentConverter.cs" />
+    <valueConverter name="VacationEmployeeSchedulingAssignmentConverter" runat="Server" codeFile="converters/VacationEmployeeSchedulingAssignmentConverter.cs" />
+    <valueConverter name="VacationApprovalAssignmentConverter" runat="Server" codeFile="converters/VacationApprovalAssignmentConverter.cs" />
+    <valueConverter name="VacationStatementTasksItemLink" runat="Server" codeFile="converters/VacationStatementTasksItemLink.cs" />
+    <valueConverter name="VacationsStatusConverter" runat="Client" codeFile="converters/VacationsStatusConverter.js" />
+    <valueConverter name="VacationStatementTasksDefaultAction" runat="Server" codeFile="converters/VacationStatementTasksDefaultAction.cs" />
+  </valueConverters>
+  <notificationTemplates />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="scripts/Scripts.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="Localizations/Vacations.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="functions/Functions.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="roles/Roles.xml" />
+  <usageAgreements />
+  <components>
+    <component name="VacationPlanningTool">
+      <remoteEntry codeFile="components/VacationPlanningTool/dist/remoteEntry.js" />
+      <package>
+        <entry file="components/VacationPlanningTool/dist/chunks/*.js" contentType="text/javascript" />
+        <entry file="components/VacationPlanningTool/dist/css/*.css" contentType="text/css" />
+        <entry file="components/VacationPlanningTool/dist/index_1.0.js" contentType="text/javascript" />
+      </package>
+    </component>
+  </components>
+</solution>

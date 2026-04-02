@@ -1,0 +1,445 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "57b60f43-9178-4c67-b6a2-b6ac478d978f",
+  "Name": "LrdPaymentType",
+  "Actions": [
+    {
+      "NameGuid": "014e8d7c-7dc1-4246-90ad-49229c2f2576",
+      "Name": "ShowDuplicates",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
+  "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
+  "CanBeNavigationPropertyType": true,
+  "CanBeSearch": true,
+  "Code": "LrdPaymentType",
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
+      "NameGuid": "a8c0672d-2930-468e-aad1-7f572fa0b54c",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "Name": "ControlGroup",
+          "ColumnDefinitions": [
+            {
+              "Percentage": 50.0
+            },
+            {
+              "Percentage": 50.0
+            }
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "be2dea4d-052d-454b-a344-0b6d744027c1",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "360fa33c-5326-4dfd-86af-af05a072804f",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "e1346ce1-8cfa-46bd-942e-34a38add0425",
+          "Name": "EventReason",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "3749c4a8-76e8-49b1-9b70-ed9eda1dc421",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5beffd82-965e-4f4c-a774-27924d956987",
+          "Name": "EventReasonClarification",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "2987bca3-a2db-4bf6-bc70-80e3d99a2852",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "1c1bbdd4-3e4e-419d-abd1-2ef79a4c4837",
+          "Name": "PaymentPurpose",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "08611430-7df0-4aa4-b788-b85912dddb9b",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "2a9b12ea-5f15-497d-b288-b34a632f9faa",
+          "Name": "Status",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "abf14705-6aff-4a38-bb86-fbc4c0813350",
+          "Name": "CodeVO",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "84e66d74-00c6-4c79-aa51-ba2487290bbd",
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "f3c566e0-749a-4d4b-a14b-f6647605c7af",
+          "Name": "Instruction",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "365836ac-0c49-40da-a36d-b9aab26785ee",
+          "PropertyGuid": "453c1bfd-0697-41ed-92f6-dfb78cfecbf6",
+          "RowNumber": 5,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ]
+    }
+  ],
+  "FormViewUuid": "60d5aad3-0968-44a2-ade7-49e8e9c9e814",
+  "HandledEvents": [
+    "BeforeSaveServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNOtherProcessesLnaPaymentTypes",
+  "IsStatusEnabled": true,
+  "OperationsClass": "",
+  "Overridden": [
+    "IsVisible",
+    "IsAutoCreated",
+    "HideFromNavigationEditorCreationArea",
+    "HideFromCreationArea",
+    "CanBeSearch",
+    "IsStatusEnabled"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "360fa33c-5326-4dfd-86af-af05a072804f",
+      "Name": "Name",
+      "Code": "Name",
+      "IsDisplayValue": true,
+      "IsQuickSearchAllowed": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "3749c4a8-76e8-49b1-9b70-ed9eda1dc421",
+      "Name": "EventReason",
+      "CanBeSearch": false,
+      "Code": "EventReason",
+      "EntityGuid": "b70dd0c3-5960-41f3-9a97-4ea70e723024",
+      "FlatListInStandaloneLookup": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "360fa33c-5326-4dfd-86af-af05a072804f"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "2987bca3-a2db-4bf6-bc70-80e3d99a2852",
+      "Name": "EventReasonClarification",
+      "CanBeSearch": false,
+      "Code": "EventReasonCla",
+      "EntityGuid": "8562be2c-ebdd-4630-a94d-65d15ef105bf",
+      "FlatListInStandaloneLookup": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "3749c4a8-76e8-49b1-9b70-ed9eda1dc421"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "08611430-7df0-4aa4-b788-b85912dddb9b",
+      "Name": "PaymentPurpose",
+      "CanBeSearch": false,
+      "Code": "PaymentPurpose",
+      "EntityGuid": "3f75ffb1-4460-41b3-96a1-5b9c0fd2f887",
+      "FlatListInStandaloneLookup": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "2987bca3-a2db-4bf6-bc70-80e3d99a2852"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "84e66d74-00c6-4c79-aa51-ba2487290bbd",
+      "Name": "CodeVO",
+      "Code": "CodeVO",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "08611430-7df0-4aa4-b788-b85912dddb9b"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "453c1bfd-0697-41ed-92f6-dfb78cfecbf6",
+      "Name": "Instruction",
+      "CanBeSearch": false,
+      "Code": "Instruction",
+      "IsShowedInList": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "84e66d74-00c6-4c79-aa51-ba2487290bbd"
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "ChildBirth",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь на рождение ребенка, а также усыновление детей-сирот и детей, оставшихся без попечения родителей\""
+    },
+    {
+      "Name": "ChildBirth",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3323/3373, 3391/3392, 3397/3398\""
+    },
+    {
+      "Name": "DisabledChild",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь работнику, имеющему ребенка-инвалида в возрасте до 18 лет\""
+    },
+    {
+      "Name": "DisabledChild",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3334\""
+    },
+    {
+      "Name": "DisabledEmployee",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь работнику-инвалиду\""
+    },
+    {
+      "Name": "DisabledEmployee",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3334\""
+    },
+    {
+      "Name": "Emergency",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь работнику при материальном ущербе в связи с экстремальной ситуацией (стихийное бедствие, пожар, авария, кража и т.п.) \""
+    },
+    {
+      "Name": "Emergency",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3324\""
+    },
+    {
+      "Name": "FamilyMemberDeath",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь работнику в связи со смертью члена семьи\""
+    },
+    {
+      "Name": "FamilyMemberDeath",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3324\""
+    },
+    {
+      "Name": "LifeOneTimePayment",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Единовременная выплата в связи с трудной жизненной ситуацией\""
+    },
+    {
+      "Name": "LifeOneTimePayment",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3319\""
+    },
+    {
+      "Name": "Mutilation",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь (ежемесячная и единовременная) работникам, получившим увечье\""
+    },
+    {
+      "Name": "Mutilation",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3331\""
+    },
+    {
+      "Name": "Other",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь в исключительных случаях\""
+    },
+    {
+      "Name": "Other",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3334\""
+    },
+    {
+      "Name": "Retirement",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Единовременная материальная помощь по уходу на пенсию\""
+    },
+    {
+      "Name": "Retirement",
+      "ParentClasses": [
+        "LrdPaymentType",
+        "CodeVO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3328\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GetDuplicates",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "lrdPaymentType",
+          "ParameterType": "global::DirRX.NNOtherProcesses.ILrdPaymentType",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.ILrdPaymentType, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNOtherProcesses.ILrdPaymentType>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "FindDuplicatesError"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "378fa7a2-75fe-4df3-af26-7f2e799ea6c8",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "30ce3075-7212-4b90-968a-651382c7d5e4",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

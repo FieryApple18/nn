@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roles>
+  <role name="DenyTileStatements" title="Скрытие плитки Заявления" state="Active">
+    <condition>DirectumRX.RoleId Contains "b2143d93-8d82-4516-aea5-80b082ab85de"</condition>
+  </role>
+  <role name="DenyTileWeekendWork" title="Скрытие плитки Заявка на работу в выходной/праздничный день" state="Active">
+    <condition>DirectumRX.RoleId Contains "3bfcbe2b-2463-4737-a849-b815d6597c7f"</condition>
+  </role>
+  <role name="DenyTileOvertimeWork" title="Скрытие плитки Заявка на работу в сверхурочное время" state="Active">
+    <condition>DirectumRX.RoleId Contains "7b70ad53-b7a1-487a-9662-45358963b4b7"</condition>
+  </role>
+  <role name="DenyTileGetLrdPayment" title="Скрытие плитки Заявление на выплату по ЛНА" state="Active">
+    <condition>DirectumRX.RoleId Contains "7f6a42e1-f1c1-42a4-82b5-1f99be1c34c4"</condition>
+  </role>
+</roles>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="da2c8d8e-5b5f-4808-bcc1-ecc0c37737a0" name="GetVacationWithoutPay">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" type="">
+        <property name="NextStepIndex">-1</property>
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    ESS.actions.facilityActions.runFacility({id: '71050155-b485-4546-b757-dba68cef402c'}, {parameters: {VacationKindDirRX: 'LeaveWithoutPay'}});
+  ]]></openingEventHandler>
+</facility>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Weekend work cancelation task</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Weekend work cancelation task</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Weekend work cancelation tasks</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupTitle" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupInformationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttachmentGroup_AddendaGroupTitle" xml:space="preserve">
+    <value>Addenda</value>
+  </data>
+  <data name="AttachmentGroup_AddendaGroupInformationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttachmentGroup_OtherGroupTitle" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="AttachmentGroup_OtherGroupInformationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_WeekendWorkOrder" xml:space="preserve">
+    <value>Cancels/changes order</value>
+  </data>
+  <data name="Resource_035869ed2baa4573bdfe9e4f5e10c4b3" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_035869ed2baa4573bdfe9e4f5e10c4b3_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_74e85eafe5944dc5b4724e791948b781" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_74e85eafe5944dc5b4724e791948b781_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_679cef60166e482cbfa7a1ec861f0263" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_679cef60166e482cbfa7a1ec861f0263_EmptyText" xml:space="preserve">
+    <value>Specify observers…</value>
+  </data>
+  <data name="Form_c9cbae72124940628eac1868f05db780" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="ControlGroup_87056ce4b4304a14bf281d7338e5b4ac" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="Property_Employees" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+</root>

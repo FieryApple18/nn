@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LineManagerRoleName" xml:space="preserve">
+    <value>Линейные руководители</value>
+  </data>
+  <data name="LineManagerRoleDescription" xml:space="preserve">
+    <value>Пользователи, являющиеся линейными руководителями.</value>
+  </data>
+  <data name="DocumentNameAutotext" xml:space="preserve">
+    <value>&lt;Имя будет сформировано автоматически по виду и другим реквизитам документа&gt;</value>
+  </data>
+  <data name="VerifyDocumentsInStorageReportName" xml:space="preserve">
+    <value>Отчет проверки файлового хранилища</value>
+  </data>
+  <data name="VerifyDocumentsInStorageTaskActiveText" xml:space="preserve">
+    <value>Проверка файлового хранилища за период с {0} по {1}.</value>
+  </data>
+  <data name="VerifyDocumentsInStorageNotificationStarted" xml:space="preserve">
+    <value>Запущена проверка файлового хранилища</value>
+  </data>
+  <data name="VerifyDocumentsInStorageNotificationCompleted" xml:space="preserve">
+    <value>Проверка файлового хранилища завершена</value>
+  </data>
+  <data name="VerifyDocumentsInStorageNotificationError" xml:space="preserve">
+    <value>Проверка файлового хранилища завершилась с ошибкой</value>
+  </data>
+  <data name="VerifyDocumentsInStorageTaskName" xml:space="preserve">
+    <value>Отчет проверки файлового хранилища в период с {0} по {1}</value>
+  </data>
+  <data name="VerifyDocumentsDialogAccessError" xml:space="preserve">
+    <value>Запустить проверку могуть только Администраторы системы.</value>
+  </data>
+  <data name="VerifyDocumentsDialogReportLocked" xml:space="preserve">
+    <value>Проверка файлового хранилища уже запущена. Дождитесь окончания текущей проверки для запуска следующей.</value>
+  </data>
+  <data name="VerifyDocumentsDialogName" xml:space="preserve">
+    <value>Проверка документов в файловом хранилище</value>
+  </data>
+  <data name="VerifyDocumentsDialogLongPeriodError" xml:space="preserve">
+    <value>Период должен быть меньше 14 дней</value>
+  </data>
+  <data name="VerifyDocumentsDialogShortPeriodError" xml:space="preserve">
+    <value>Период должен быть больше 0 дней</value>
+  </data>
+  <data name="VerifyDocumentsDialogPeriodFrom" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="VerifyDocumentsDialogPeriodTo" xml:space="preserve">
+    <value>по</value>
+  </data>
+  <data name="HRSimpleDocumentDocType" xml:space="preserve">
+    <value>Простой кадровый документ</value>
+  </data>
+  <data name="SupportingDocumentForLNADocKind" xml:space="preserve">
+    <value>Подтверждающий документ к заявлению на выплату по ЛНА</value>
+  </data>
+  <data name="TradeUnionOrganizationOpinionDocKind" xml:space="preserve">
+    <value>Мнение профсоюзной организации</value>
+  </data>
+  <data name="SupportingDocumentForAnnualVacationDocKind" xml:space="preserve">
+    <value>Подтверждающий документ к заявлению на ежегодный отпуск</value>
+  </data>
+  <data name="SupportingDocumentForOtherVacationDocKind" xml:space="preserve">
+    <value>Подтверждающий документ к заявлению на прочий отпуск</value>
+  </data>
+  <data name="AirlineLetterDocKind" xml:space="preserve">
+    <value>Письмо в авиакомпанию</value>
+  </data>
+  <data name="OVDLetterDocKind" xml:space="preserve">
+    <value>Письмо в ОВД</value>
+  </data>
+  <data name="ExpFunc_SubtractDays_Name" xml:space="preserve">
+    <value>Вычесть рабочие дни (устаревшее)</value>
+  </data>
+  <data name="ExpFunc_SubtractDays_Desc" xml:space="preserve">
+    <value>Возвращает рабочий день и время через определенное количество дней от переданной даты.
+Устаревшее. Используйте функции "Добавить рабочие дни" и "Вычесть рабочие дни".</value>
+  </data>
+  <data name="BusinessProcessKEDO" xml:space="preserve">
+    <value>КЭДО</value>
+  </data>
+  <data name="BusinessProcessRegistrationWork" xml:space="preserve">
+    <value>Регистрация работы в ВД/ПД/СР</value>
+  </data>
+  <data name="BusinessProcessRegistrationPaymentsLNA" xml:space="preserve">
+    <value>Регистрация выплат по ЛНА</value>
+  </data>
+  <data name="ApprovedDocumentCannotBeChangedError" xml:space="preserve">
+    <value>Нельзя изменять жизненный цикл утверждённого документа</value>
+  </data>
+  <data name="HaveTasksInProgressError" xml:space="preserve">
+    <value>По документу есть задачи в работе, для изменения жизненного цикла прекратите их.</value>
+  </data>
+  <data name="ConstantNotFoundError" xml:space="preserve">
+    <value>Не найдена прикладная константа: {0} ({1}).</value>
+  </data>
+  <data name="VerifyDocumentsInStorageReportTitle" xml:space="preserve">
+    <value>Проверка файлового хранилища за период с {0} по {1}.</value>
+  </data>
+  <data name="VerifyDocumentsInStorageReportDocumentCount" xml:space="preserve">
+    <value>Найдено проблемных документов: {0}.</value>
+  </data>
+  <data name="CompareVersionsDocumentResult" xml:space="preserve">
+    <value>Результат сравнения</value>
+  </data>
+  <data name="LinkDocumentToTaskBlockLocksInfo" xml:space="preserve">
+    <value>Ошибки обработки документов: не обработаны ИД задач в документах с ИД: {0}, не обработаны даты в документах с ИД: {1}.
+</value>
+  </data>
+  <data name="ExpFunc_AddCalendarDays_Name" xml:space="preserve">
+    <value>Добавить календарные дни (устаревшее)</value>
+  </data>
+  <data name="ExpFunc_AddCalendarDays_Desc" xml:space="preserve">
+    <value>Функция добавляет календарны дни к указанной дате.
+Устаревшее. Используйте функции "Добавить дни" и "Вычесть дни".</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterReportTitle" xml:space="preserve">
+    <value>Реестр кадровых документов</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogDocKinds" xml:space="preserve">
+    <value>Виды документов</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogBusinessUnits" xml:space="preserve">
+    <value>Наши организации</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogEmployees" xml:space="preserve">
+    <value>Сотрудники</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogPeriodFrom" xml:space="preserve">
+    <value>Дата создания документа с</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogPeriodTo" xml:space="preserve">
+    <value>Дата создания документа по</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogSelectEmployees" xml:space="preserve">
+    <value>Выбрать сотрудников</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogSelectBusUnits" xml:space="preserve">
+    <value>Выбрать организации</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogSelectDocKinds" xml:space="preserve">
+    <value>Выбрать виды документов</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterTemplateError" xml:space="preserve">
+    <value>Не указан идентификатор шаблона "Реестр кадровых документов". Обратитесь к администратору.</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogPeriodError" xml:space="preserve">
+    <value>Период построения отчета не должен превышать трех месяцев.</value>
+  </data>
+  <data name="PersonnelDocumentsRegisterDialogNoData" xml:space="preserve">
+    <value>Нет данных для формирования отчета</value>
+  </data>
+  <data name="ReportSLATemplateError" xml:space="preserve">
+    <value>Не указан идентификатор шаблона для отчета "SLA". Обратитесь к администратору.</value>
+  </data>
+  <data name="ReportSLADialogAssignmentType" xml:space="preserve">
+    <value>Тип заданий</value>
+  </data>
+  <data name="ReportSLADialogAssignmentTypeAll" xml:space="preserve">
+    <value>Все задания</value>
+  </data>
+  <data name="ReportSLADialogAssignmentTypeEvent" xml:space="preserve">
+    <value>Задания на ручное проведение мероприятий</value>
+  </data>
+  <data name="ReportSLADialogPerformers" xml:space="preserve">
+    <value>Исполнители заданий</value>
+  </data>
+  <data name="ReportSLADialogSelectPerformers" xml:space="preserve">
+    <value>Выбрать исполнителей заданий</value>
+  </data>
+  <data name="ReportSLADialogBeginDate" xml:space="preserve">
+    <value>Период с</value>
+  </data>
+  <data name="ReportSLADialogEndDate" xml:space="preserve">
+    <value>Период по</value>
+  </data>
+  <data name="ReportSLADialogPeriodError" xml:space="preserve">
+    <value>Период построения отчета не должен превышать трех месяцев.</value>
+  </data>
+  <data name="ReportSLADialogDocKinds" xml:space="preserve">
+    <value>Виды документов</value>
+  </data>
+  <data name="ReportSLADialogSelectDocKinds" xml:space="preserve">
+    <value>Выбрать виды документов</value>
+  </data>
+  <data name="ReportSLADialogBusinessUnits" xml:space="preserve">
+    <value>Наши организации</value>
+  </data>
+  <data name="ReportSLADialogSelectBusinessUnits" xml:space="preserve">
+    <value>Выбрать организации</value>
+  </data>
+  <data name="ReportSLADialogEmployees" xml:space="preserve">
+    <value>Сотрудники</value>
+  </data>
+  <data name="ReportSLADialogSelectEmployees" xml:space="preserve">
+    <value>Выбрать сотрудников</value>
+  </data>
+  <data name="ReportSLADialogEndDateError" xml:space="preserve">
+    <value>Дата окончания не может быть меньше даты начала периода.</value>
+  </data>
+  <data name="ReportSLANoTasksError" xml:space="preserve">
+    <value>Нет доступных задач для пользователя.</value>
+  </data>
+  <data name="ValidityPeriodUCEPCertificateExpires" xml:space="preserve">
+    <value>Срок действия сертификата УКЭП завершается: {0}</value>
+  </data>
+  <data name="ExpFunc_GetHyperLinkToAssignmentsInSelfOffice_Name" xml:space="preserve">
+    <value>Ссылка на задания в работе</value>
+  </data>
+  <data name="ExpFunc_GetHyperLinkToAssignmentsInSelfOffice_Desc" xml:space="preserve">
+    <value>Получить ссылки на задания в работе</value>
+  </data>
+  <data name="ExpFunc_GetHyperLinkToAssignmentsInSelfOffice_Param_Performer" xml:space="preserve">
+    <value>Исполнитель задания</value>
+  </data>
+  <data name="SpecialistDKPRoleName" xml:space="preserve">
+    <value>Специалисты ДКП</value>
+  </data>
+  <data name="SpecialistDKPRoleDescription" xml:space="preserve">
+    <value>Сотрудники, которые инициируют процедуры по исполнению обязанностей.</value>
+  </data>
+  <data name="ExpFunc_Add_Name" xml:space="preserve">
+    <value>Прибавить (устаревшее)</value>
+  </data>
+  <data name="ExpFunc_Add_Description" xml:space="preserve">
+    <value>Прибавляет число к указанному.
+Устаревшее. Используйте функцию "Увеличить на".</value>
+  </data>
+  <data name="ExpFunc_Add_SecondArgument" xml:space="preserve">
+    <value>Аргумент</value>
+  </data>
+  <data name="HoursDeclensionDefault" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="HoursDeclensionOne" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="HoursDeclensionTwo" xml:space="preserve">
+    <value>часа</value>
+  </data>
+</root>

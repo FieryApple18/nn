@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Vacation processes</value>
+  </data>
+  <data name="CoverTitle" xml:space="preserve">
+    <value>Vacation processes</value>
+  </data>
+  <data name="sf_93d12463_3416_4562_8e9a_34910e8d4b36" xml:space="preserve">
+    <value>Vacation schedule acquaintance lists</value>
+  </data>
+  <data name="FilterPanel_Employee_3ecbb490b6b3455ea03a2ee9c2ab2ce3" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="FilterPanel_Period_b8a851d258e04aa187310da5b45598e3" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="FilterPanel_DateRange_50c4d4251f314839b42e8974856d5b90" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterPanel_IndividualList_ccb591387b5e450d9f5476a9bf376a4d" xml:space="preserve">
+    <value>Индивидуальный</value>
+  </data>
+  <data name="FilterPanel_GroupList_b46fc3f2849f4406ac62bb2866bb429e" xml:space="preserve">
+    <value>Групповой</value>
+  </data>
+  <data name="FilterPanel_DocumentKindFlagsList_100d2539b5634a26b76b1fd5a839c4e1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterPanel_DocumentKind_75b018d7b1c44365a7ba5c37e3297e64" xml:space="preserve">
+    <value>Лист согласования</value>
+  </data>
+  <data name="FilterPanel_BusinessUnit_7cc6d807296c44f1a69972d1da646b84" xml:space="preserve">
+    <value>Business unit</value>
+  </data>
+  <data name="FilterPanel_Department_4081d0c5312a4eb5b4bd0f1613bbaba6" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="FilterPanel_SchedulePeriod_fc7cbdf0945f4358bd16c2d5f84bd5c0" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterPanel_CurrentYear_4e36e237558d4c5c9079f35bdac388da" xml:space="preserve">
+    <value>Текущий год</value>
+  </data>
+  <data name="FilterPanel_NextYear_2d317f55aff94260a63e047d1dd79517" xml:space="preserve">
+    <value>Следующий год</value>
+  </data>
+  <data name="FilterPanel_PreviousYear_82b195a5fec6479e8ca427750e130a19" xml:space="preserve">
+    <value>Предыдущий год</value>
+  </data>
+  <data name="FilterPanel_KEDO_b92a9d4b00b442888dfb2d3ff43389b6" xml:space="preserve">
+    <value>КЭДО</value>
+  </data>
+  <data name="FilterPanel_Paper_68b24538c4a94a5da414ec47ae0f1f19" xml:space="preserve">
+    <value>Бумажный</value>
+  </data>
+  <data name="FilterPanel_Electronic_8acfc35ffa744ea28302a343e58d5faa" xml:space="preserve">
+    <value>Электронный</value>
+  </data>
+  <data name="FilterPanel_KEDOAcquaintanceType_0b210aa94dfd4438aabcbee002077ba2" xml:space="preserve">
+    <value>Вариант ознакомления</value>
+  </data>
+  <data name="FilterPanel_KEDOConsent_c31bc370bd4140e597839411f62c41bd" xml:space="preserve">
+    <value>Согласие на КЭДО</value>
+  </data>
+  <data name="FilterPanel_Signed_45dc1db132ae49d8b761ced6ac52f5ca" xml:space="preserve">
+    <value>Подписано</value>
+  </data>
+  <data name="FilterPanel_NotSigned_458d3f50b09b44bf8a0fe786558cd2c1" xml:space="preserve">
+    <value>Не подписано</value>
+  </data>
+  <data name="FilterPanel_KEDOState_0d2039ee6ae34a30826fd6ddf11af075" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="FilterPanel_Period_54578040dbc342c794e5999df2784078" xml:space="preserve">
+    <value>Произвольный период</value>
+  </data>
+  <data name="FilterPanel_Draft_7b79a889fb7c476cbec5ba59faf9d00b" xml:space="preserve">
+    <value>В разработке</value>
+  </data>
+  <data name="FilterPanel_Active_fd374ebf51754914b42e01d8653dab88" xml:space="preserve">
+    <value>Действующий</value>
+  </data>
+  <data name="FilterPanel_Obsolete_eeb177cd6f754c76878ea18d0988daf1" xml:space="preserve">
+    <value>Устаревший</value>
+  </data>
+  <data name="AsyncHandler_Description_7b210c6a04a84dd08849ae945b8b5155" xml:space="preserve">
+    <value>Automatic generation of vacation confirmation tasks</value>
+  </data>
+  <data name="JobDisplayName_2260bdd7914b40279f2b9b86b67ece23" xml:space="preserve">
+    <value>Норникель. Vacations. Automatically complete assignment to vacation confirmation task</value>
+  </data>
+  <data name="JobDescription_2260bdd7914b40279f2b9b86b67ece23" xml:space="preserve">
+    <value>Automatic completion of the vacation confirmation task.</value>
+  </data>
+  <data name="CoverTab_TestTab" xml:space="preserve">
+    <value>TestTab</value>
+  </data>
+  <data name="CoverGroup_TestGroup" xml:space="preserve">
+    <value>Тестирование</value>
+  </data>
+  <data name="AsyncHandler_Description_ac81b7ca863648c499353684705bf76e" xml:space="preserve">
+    <value>Create and run tasks "Familiarization with an individual sheet"</value>
+  </data>
+  <data name="AsyncHandler_Description_00c8ca424a614acda433e04aa3d554e8" xml:space="preserve">
+    <value>Create group acquaintance lists</value>
+  </data>
+  <data name="AsyncHandler_Description_cfc4eb17a89842d38d9d9fd5c0c95de8" xml:space="preserve">
+    <value>Create individual acquaintance lists</value>
+  </data>
+  <data name="AsyncHandler_Description_b132b0b5ffcf41abb6a8b15876d71bd6" xml:space="preserve">
+    <value>Create and start the "Vacation Schedule Management task"</value>
+  </data>
+  <data name="CoverAction_AcquiantanceVacScheduleReport" xml:space="preserve">
+    <value>Контроль ознакомления с графиком отпусков</value>
+  </data>
+  <data name="CoverDescription_AcquiantanceVacScheduleReport" xml:space="preserve">
+    <value />
+  </data>
+</root>

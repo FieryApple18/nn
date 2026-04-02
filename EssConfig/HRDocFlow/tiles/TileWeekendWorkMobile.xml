@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="weekendWorkMobile" index="20">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileWeekendWork" />
+  </authorization>
+  <backgroundColor>#00d8ae</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.STATEMENTS_TILE_WEEKENDWORK_TITLE</title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: '1d07b75c-dcc0-477c-a607-51a5af517fc9'});]]></clickEventHandler>
+</tile>

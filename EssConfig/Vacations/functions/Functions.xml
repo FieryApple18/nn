@@ -1,0 +1,1411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<functions>
+
+    <!--
+    Виджеты
+    -->
+
+    <!-- Получить информацию по отпускам сотрудника для отображения в "Мои отпуска" в формате json для ЛК. -->
+    <function name="GetJsonVacationFullInfoByEmployee" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetJsonVacationFullInfoByEmployee" method="GET"/>
+    </function>
+    
+    <!-- Получить информацию по отпускам персоны для отображения в "Мои отпуска" в формате json для ЛК. -->
+    <function name="GetJsonVacationFullInfoByPerson" type="Target" methods="GET">
+        <parameters>
+            <parameter name="personId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetJsonVacationFullInfoByPerson" method="GET"/>
+    </function>
+    
+    <!-- Сборка данных для виджета "Отправленные заявления". -->
+    <function name="GetVacationTaskDataForWidget" type="Target" methods="GET">
+        <parameters>
+            <parameter name="userId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetVacationTaskDataForWidget" method="GET"/>
+    </function>
+
+    <!--
+    Инструкции
+    -->
+    
+    <!-- Получить инструкцию для карточки подтверждения отпуска. -->
+    <function name="GetVacAppAInstruction" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetVacAppAInstruction" method="GET"/>
+    </function>
+
+    <!-- Получить инструкцию для карточки подтверждения отпуска со склеенными отпусками. -->
+    <function name="GetUnshiftedVacationsInfo" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetUnshiftedVacationsInfo" method="GET"/>
+    </function>
+
+    <!-- Получить информацию по отпуску, который согласуется, для составления инструкции руководителю. -->
+    <function name="GetVacationInfoFromApprovalAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetVacationInfoFromApprovalAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить инструкцию для согласования руководителем отпуска по заявлению/переноса/досрочного выхода из отпуска. -->
+    <function name="GetInstructionApprovalAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetInstructionApprovalAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить инструкцию для доработки параметров оформления/переноса/отзыва отпуска. -->
+    <function name="GetInstructionReworkVacation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetInstructionReworkVacation" method="GET"/>
+    </function>
+
+    <!-- Получить инструкцию для планирования отпуска. -->
+    <function name="GetTableInstruction" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String" isArray="true"/>
+        <target system="HRPro" function="Vacations.GetTableInstruction" method="GET"/>
+    </function>
+
+    <!--
+    Шаги услуг
+    -->
+
+    <!-- Установить причину прекращения в задачах оформления и переноса отпуска. -->
+    <function name="SetAbortingReasonInVacationTask" type="Target" methods="POST">
+        <parameters>
+            <parameter name="taskId" type="Integer" scope="Client"/>
+            <parameter name="reason" type="String" scope="Client"/>
+        </parameters>
+        <target system="HRPro" function="Vacations.SetAbortingReasonInVacationTask" method="POST"/>
+    </function>
+
+    <!-- Заполнить замещающего в задании на подтверждение отпуска. -->
+    <function name="ChangeSubstituteInAssignment" type="Target" methods="POST">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="substituteId" type="Integer" scope="Client"/>
+        </parameters>
+        <target system="HRPro" function="Vacations.ChangeSubstituteInAssignment" method="POST"/>
+    </function>
+
+    <!-- Заполнить уведомляемых в задании на подтверждение отпуска. -->
+    <function name="ChangeNotifiableInAssignment" type="Target" methods="POST">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="notifiableIds" type="String" scope="Client"/>
+        </parameters>
+        <target system="HRPro" function="Vacations.ChangeNotifiableInAssignment" method="POST"/>
+    </function>
+
+    <!-- Заполнить значения в задании на доработку параметров переноса отпуска. -->
+    <function name="FillShiftStatementApprovalAssignment" type="Target" methods="POST">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="firstVacationId" type="Integer" scope="Client"/>
+            <parameter name="secondVacationId" type="Integer" scope="Client"/>
+            <parameter name="thirdVacationId" type="Integer" scope="Client"/>
+            <parameter name="reason" type="String" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationBeginDates" type="DateTime" isArray="true" scope="Client"/>
+            <parameter name="vacationEndDates" type="DateTime" isArray="true" scope="Client"/>
+            <parameter name="vacationDurations" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <target system="HRPro" function="Vacations.FillShiftStatementApprovalAssignment" method="POST"/>
+    </function>
+
+    <!-- Заполнить значения в задании на доработку параметров отзыва из отпуска. -->
+    <function name="FillVacationChangeReworkAssignmentForRecall" type="Target" methods="POST">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="recallDate" type="DateTime" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="reason" type="String" scope="Client"/>
+            <parameter name="compensation" type="Boolean" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationBeginDates" type="DateTime" isArray="true" scope="Client"/>
+            <parameter name="vacationEndDates" type="DateTime" isArray="true" scope="Client"/>
+            <parameter name="vacationDurations" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <target system="HRPro" function="Vacations.FillVacationChangeReworkAssignmentForRecall" method="POST"/>
+    </function>
+
+    <!-- Заполнить планируемые отпуска. -->
+    <function name="FillVacations" type="Target" methods="POST">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationBeginDates" type="DateTime" isArray="true" scope="Client"/>
+            <parameter name="vacationEndDates" type="DateTime" isArray="true" scope="Client"/>
+            <parameter name="vacationDurations" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <target system="HRPro" function="Vacations.FillVacations" method="POST"/>
+    </function>
+
+    <!-- Получить текст для заполнения параметра шаблона заявления на досрочное завершение отпуска. -->
+    <function name="GetBodyTextForTemplateByRecall" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+            </parameter>
+            <parameter name="vacationsData" type="String" scope="Client"/>
+            <parameter name="recallDate" type="String" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="isCompensation" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetBodyTextForTemplateByRecall" method="GET"/>
+    </function>
+
+    <!-- Получить строку с текущими отпусками для заполнения параметра шаблона заявления на перенос отпуска. -->
+    <function name="GetCurrentVacations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+            </parameter>
+            <parameter name="firstVacationId" type="Integer" scope="Client"/>
+            <parameter name="secondVacationId" type="Integer" scope="Client"/>
+            <parameter name="thirdVacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetBodyTextForTemplateByRecall" method="GET"/>
+    </function>
+
+    <!-- Получить строку с новыми отпусками для заполнения параметра шаблона заявления на перенос отпуска. -->
+    <function name="GetShiftNewVacations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+            </parameter>
+            <parameter name="vacationsData" type="String" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetBodyTextForTemplateByRecall" method="GET"/>
+    </function>
+
+    <!--
+    Функции для работы с заданиями
+    -->
+
+    <!-- Получить видимость признака "Контроль продолжительности отпуска" в услуге ЛК. -->
+    <function name="GetShiftVacationError" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetShiftVacationError" method="GET"/>
+    </function>
+
+    <!-- Проверить, есть ли у сотрудника отпуска с минимальной продолжительностью основного отпуска в статусе
+    "Запланирован", "Перенесен", "Подтвержден", "Исполнен", или сотрудник уже отгулял минимальную продолжительность
+    основного отпуска в рамках отпуска, из которого его отзывают. -->
+    <function name="CheckEmployeeVacationsDurations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="recallDate" type="String" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.CheckEmployeeVacationsDurations" method="GET"/>
+    </function>
+
+    <!-- Получить видимость признака "Контроль продолжительности отпуска" в услуге ЛК. -->
+    <function name="IsIgnoreRequiredDurationVisible" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="recallDate" type="String" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.IsIgnoreRequiredDurationVisible" method="GET"/>
+    </function>
+
+    <!-- Проверить, нарушен ли контроль продолжительности одной части отпуска. -->
+    <function name="CheckVacationRequiredDuration" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckVacationRequiredDuration" method="GET"/>
+    </function>
+
+    <!-- Проверить, что у сотрудников текущей персоны есть отпуска для досрочного прекращения. -->
+    <function name="CanEmployeeSelfRecall" type="Target" methods="GET">
+        <parameters>
+            <parameter name="personId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.CanEmployeeSelfRecall" method="GET"/>
+    </function>
+
+    <!-- Проверить, что у персоны есть сотрудник, который входит в роль "Руководители подразделений". -->
+    <function name="IsDepartmentManagerWithSubtitute" type="Target" methods="GET">
+        <parameters>
+            <parameter name="personId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.IsDepartmentManagerWithSubtitute" method="GET"/>
+    </function>
+
+    <!-- Получить строку информации о периоде отпуска для ЛК. -->
+    <function name="GetVacationPeriodInfo" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetVacationPeriodInfo" method="GET"/>
+    </function>
+
+    <!-- Получить список ИД и имен сотрудников, которые входят в подразделение руководителя. -->
+    <function name="GetEmployeesFromManagersDepartment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="departmentManagerId" type="Integer" scope="Client"/>
+            <parameter name="query" type="String" scope="Client"/>
+            <parameter name="takeCount" type="Integer" scope="Client"/>
+            <parameter name="skipCount" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetEmployeesFromManagersDepartment" method="GET"/>
+    </function>
+
+    <!-- Получить видимость признака "Компенсировать" в услуге ЛК. -->
+    <function name="IsCompensationVisible" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.IsCompensationVisible" method="GET"/>
+    </function>
+
+    <!-- Получить доступность признака "Компенсировать" в услуге ЛК. -->
+    <function name="IsCompensationEnable" type="Target" methods="GET">
+        <parameters>
+            <parameter name="recallDate" type="String" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="durations" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.IsCompensationEnable" method="GET"/>
+    </function>
+
+    <!-- Проверить досрочное завершение отпуска на корректность продолжительности. -->
+    <function name="CheckRecallVacationsDurations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="recallDate" type="String" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="durations" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="isCompensation" type="Boolean" scope="Client"/>
+            <parameter name="isInfo" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckRecallVacationsDurations" method="GET"/>
+    </function>
+
+    <!-- Проверить, подписан ли приказ в задаче. -->
+    <function name="CheckSignVacationOrder" type="Target" methods="GET">
+        <parameters>
+            <parameter name="taskId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.CheckSignVacationOrder" method="GET"/>
+    </function>
+
+    <!-- Получить признак "Инициировано руководителем" в задаче на изменение отпуска. -->
+    <function name="IsInitiateByManagerInAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.IsInitiateByManagerInAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить ИД руководителя подразделения сотрудника. -->
+    <function name="GetEmployeeDepartmentManager" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="Vacations.GetEmployeeDepartmentManager" method="GET"/>
+    </function>
+
+    <!-- Получить наименования НОР, подразделения и должности сотрудника. -->
+    <function name="GetSubstitutePositionAndJobTitle" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetSubstitutePositionAndJobTitle" method="GET"/>
+    </function>
+
+    <!-- Получить замещающего из задания на подтверждение отпуска. -->
+    <function name="GetSubstituteFromAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetSubstituteFromAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить уведомомляемых из задания на подтверждение отпуска и задания на доработку заявления на отпуск. -->
+    <function name="GetNotifiableFromAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetNotifiableFromAssignment" method="GET"/>
+    </function>
+
+    <!-- Проверить, подписано ли согласие на КЭДО у сотрудника и его совместителей. -->
+    <function name="CheckPersonAllEmployeesConsentSigned" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.CheckPersonAllEmployeesConsentSigned" method="GET"/>
+    </function>
+
+    <!-- Проверить, является ли вид отпуска основным в НОР. -->
+    <function name="CheckIsMainVacationKind" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.CheckIsMainVacationKind" method="GET"/>
+    </function>
+
+    <!-- Получить строку с критичными ошибками по отпускам. -->
+    <function name="ValidateVacationData" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationKindId" type="Integer" scope="Client"/>
+            <parameter name="startDate" type="String" scope="Client"/>
+            <parameter name="duration" type="Integer" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.ValidateVacationData" method="GET"/>
+    </function>
+
+    <!-- Заполнить данные отпуска, требуемого для выравнивания отпуска с отпусками совместителей. -->
+    <function name="FillVacationDataForAlign" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.FillVacationDataForAlign" method="GET"/>
+    </function>
+
+    <!-- Получить информацию по переносу отпуска, который согласуется, для составления инструкции руководителю. -->
+    <function name="GetNewVacationInfoFromShiftApprovalAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetNewVacationInfoFromShiftApprovalAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить информацию по отзыва из отпуска для подписания сотрудником. -->
+    <function name="GetVacationInfoFromVacationChangeSignAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetVacationInfoFromVacationChangeSignAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить ИД вида отпуска с помощью ИД отпуска. -->
+    <function name="GetVacationKindIdFromVacationId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="Vacations.GetVacationKindIdFromVacationId" method="GET"/>
+    </function>
+
+    <!-- Получение данных об отпуске на перенос, который стартован из задания на подтверждение. -->
+    <function name="GetConfirmationVacationOnRework" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetConfirmationVacationOnRework" method="GET"/>
+    </function>
+
+    <!-- Получить данные о сотруднике, указанного в Отпуске. -->
+    <function name="GetVacationUserData" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetVacationUserData" method="GET"/>
+    </function>
+
+    <!-- Получить причину отправки на доработку задания на изменение отпуска. -->
+    <function name="GetReworkChangeReason" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetReworkChangeReason" method="GET"/>
+    </function>
+
+    <!-- Получить причину отправки на доработку задания на оформление отпуска. -->
+    <function name="GetReworkVacationReason" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetReworkVacationReason" method="GET"/>
+    </function>
+
+    <!-- Получить причину отправки на доработку/отказ задания на согласование руководителем изменения отпуска. -->
+    <function name="GetApprovalChangeReason" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetApprovalChangeReason" method="GET"/>
+    </function>
+
+    <!-- Получить причину отправки на доработку/отказ задания на согласование сотрудником изменения отпуска. -->
+    <function name="GetSignChangeReason" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetSignChangeReason" method="GET"/>
+    </function>
+
+    <!-- Получить причину отправки на доработку/отказ задания на согласование оформление отпуска. -->
+    <function name="GetApprovalVacationReason" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.GetApprovalVacationReason" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпусках на перенос, которые надо доработать. -->
+    <function name="GetCurrentChangeVacations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetCurrentChangeVacations" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпуске на отзыв, который надо доработать. -->
+    <function name="GetCurrentRecallVacation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetCurrentRecallVacation" method="GET"/>
+    </function>
+
+    <!-- Получить ИД заявления на перенос отпуска из задания. -->
+    <function name="GetShiftVacationStatementId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="Vacations.GetShiftVacationStatementId" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпусках сотрудника, которые доступны для переноса, без учета совмещения. -->
+    <function name="GetCurrentEmployeeVacationsForShift" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="confirmationAssignmentId" type="Integer" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="isForReworkCardOpen" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetCurrentEmployeeVacationsForShift" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпусках сотрудника, которые доступны для отзыва, без учета совмещения. -->
+    <function name="GetRecallVacations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="recallDate" type="String" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetRecallVacations" method="GET"/>
+    </function>
+
+    <!-- Получить данные о видах отпусках по ИД отпуска. -->
+    <function name="GetVacationKindsInfo" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetVacationKindsInfo" method="GET"/>
+    </function>
+
+    <!-- Проверить на ошибки указанные новые отпуска в ЛК. -->
+    <function name="CheckAllVacationShiftDates" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckAllVacationShiftDates" method="GET"/>
+    </function>
+
+    <!-- Проверить переносимые отпуска на корректность продолжительности. -->
+    <function name="CheckShiftingVacationsDurations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="durations" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckShiftingVacationsDurations" method="GET"/>
+    </function>
+
+    <!-- Проверить переносимые отпуска на то, что их изменение ещё не выполняется. -->
+    <function name="CheckExecutionShiftVacations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckExecutionShiftVacations" method="GET"/>
+    </function>
+
+    <!-- Проверить переносимые отпуска в задании на доработку на то, что их изменение ещё не выполняется. -->
+    <function name="CheckExecutionShiftVacationsInRework" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckExecutionShiftVacationsInRework" method="GET"/>
+    </function>
+
+    <!-- Получить ИД исполнителя задания. -->
+    <function name="GetPerformerId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="Vacations.GetPerformerId" method="GET"/>
+    </function>
+
+    <!-- Получить данные о планируемых отпусках из задания на планирование отпуска сотрудниками. -->
+    <function name="GetSchedulingVacation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetSchedulingVacation" method="GET"/>
+    </function>
+
+    <!-- Получить строку с не критичными ошибками указанных дат отпусков для планирования. -->
+    <function name="CheckNotCriticalSchedulingVacationsDates" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindIds" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="Integer" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckNotCriticalSchedulingVacationsDates" method="GET"/>
+    </function>
+
+    <!-- Получить строку с предупреждением для дат отпусков для планирования. -->
+    <function name="WarningDifferentVacationForScheduling" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.WarningDifferentVacationForScheduling" method="GET"/>
+    </function>
+
+    <!-- Получить доступные для распределения дни отпуска. -->
+    <function name="GetAvailableVacationDays" type="Target" methods="GET">
+        <parameters>
+            <parameter name="userId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetAvailableVacationDays" method="GET"/>
+    </function>
+
+    <!-- Получить признак склеенyых отпусков в задании на подтверждение отпуска. -->
+    <function name="IsApprovalVacationGlued" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="Vacations.IsApprovalVacationGlued" method="GET"/>
+    </function>
+
+    <!-- Получить данные о сотруднике, на которого запустили задачу. -->
+    <function name="GetTaskEmployee" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetTaskEmployee" method="GET"/>
+    </function>
+
+    <!-- Получить ИД шаблона заявления на отпуск/перенос отпуска. -->
+    <function name="GetVacationStatementTemplateId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="isShiftVacation" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetVacationStatementTemplateId" method="GET"/>
+    </function>
+
+    <!-- Получить ИД шаблона заявления на отпуск/перенос отпуска/отзыв из отпуска по инициативе руководителя/сотрудника. -->
+    <function name="GetVacationRecallStatementTemplateId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="isShiftVacation" type="Boolean" scope="Client"/>
+            <parameter name="isVacationRecall" type="Boolean" scope="Client"/>
+            <parameter name="isAuthorManager" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetVacationRecallStatementTemplateId" method="GET"/>
+    </function>
+
+    <!-- Получить ИД заявления на отпуск из задания. -->
+    <function name="GetVacationStatementId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="Vacations.GetVacationStatementId" method="GET"/>
+    </function>
+
+    <!-- Получить доступные виды отпуска и количество дней. -->
+    <function name="GetAvailibleVacationKindsAndDays" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetAvailibleVacationKindsAndDays" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпуске, который надо доработать. -->
+    <function name="GetCurrentVacation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetCurrentVacation" method="GET"/>
+    </function>
+
+    <!-- Подсчет календарных дней в промежутке времени за вычетом праздничных дней.
+    Если вид отпуска - неоплачиваемый, то праздничные дни не вычитаются. -->
+    <function name="DurationInCalendarDaysWithoutHoliday" type="Target" methods="GET">
+        <parameters>
+            <parameter name="startDate" type="DateTime" scope="Client"/>
+            <parameter name="endDate" type="DateTime" scope="Client"/>
+            <parameter name="userId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="Vacations.DurationInCalendarDaysWithoutHoliday" method="GET"/>
+    </function>
+
+    <!-- Получить последний день отпуска по виду отпуска. -->
+    <function name="GetVacationEndDate" type="Target" methods="GET">
+        <parameters>
+            <parameter name="dateBegin" type="DateTime" scope="Client"/>
+            <parameter name="duration" type="Integer" scope="Client"/>
+            <parameter name="userId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="DateTime"/>
+        <target system="HRPro" function="Vacations.GetVacationEndDate" method="GET"/>
+    </function>
+
+    <!-- Проверить, что отпуск содержит праздничные дни во время отпуска. -->
+    <function name="CheckVacationHasHoliday" type="Target" methods="GET">
+        <parameters>
+            <parameter name="periodBegin" type="String" scope="Client"/>
+            <parameter name="periodEnd" type="String" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.CheckVacationHasHoliday" method="GET"/>
+    </function>
+
+    <!-- Получить текст по совместителям с исполняющимися отпусками. -->
+    <function name="PartTimeHasPerformingVacations" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="isSelfRecall" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.PartTimeHasPerformingVacations" method="GET"/>
+    </function>
+
+    <!-- Получить информацию о сотрудниках. -->
+    <function name="GetEmployeesInfo" type="Target" methods="GET">
+        <parameters>
+            <parameter name="context" type="String" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetEmployeesInfo" method="GET"/>
+    </function>
+    
+    <!-- Получает информацию о доступных видах отпусков. -->
+    <function name="GetAvailableVacationKinds" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetAvailableVacationKinds" method="GET"/>
+    </function>
+
+    <!-- Получает информацию о доступных периодах отображения/редактирования отпусков. -->
+    <function name="GetAvailablePeriods" type="Target" methods="GET">
+        <parameters>
+            <parameter name="context" type="String" scope="Client"/>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="Vacations.GetAvailablePeriods" method="GET"/>
+    </function>
+
+    <!-- Получает информацию об отпуске. -->
+    <function name="ChangeVacation" type="Target" methods="POST">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="startDate" type="String" scope="Client"/>
+            <parameter name="endDate" type="String" scope="Client"/>
+            <parameter name="vacationDuration" type="Integer" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="vacationKindId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.ChangeVacation" method="POST"/>
+    </function>
+
+    <!-- Удалить отпуск. -->
+    <function name="DeleteVacation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="Vacations.DeleteVacation" method="GET"/>
+    </function>
+
+    <!-- Получить прзадничные и выходные дни. -->
+    <function name="GetHolidaysAndWeekendsInPeriod" type="Target" methods="GET">
+        <parameters>
+            <parameter name="periodBegin" type="DateTime" scope="Client"/>
+            <parameter name="periodEnd" type="DateTime" scope="Client"/>
+            <parameter name="recipientId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String" isArray="true" />
+        <target system="HRPro" function="Vacations.GetHolidaysAndWeekendsInPeriod" method="GET"/>
+    </function>
+
+    <!-- Получить часовой пояс сервера. -->
+    <function name="GetTimeZone" type="Target" methods="GET">
+        <result type="Double" />
+        <target system="HRPro" function="Vacations.GetTimeZone" method="GET"/>
+    </function>
+
+    <!-- Получить виды отпусков из справочника. -->
+    <function name="GetVacationKinds" type="Target" methods="GET">
+        <result type="Object" isArray="true" />
+        <target system="HRPro" function="IVacationKinds" method="GET"/>
+    </function>
+
+    <!-- Получить периоды для отображения в переносе отпуска -->
+    <function name="GetPeriodsForShiftSimple" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="vacationId" type="Integer" scope="Client"/>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object" />
+        <target system="HRPro" function="Vacations.GetPeriodsForShiftSimple" method="GET"/>
+    </function>
+
+    <!-- Получить начало недоступного периода для переноса отпуска. -->
+    <function name="GetUnavalablePeriodStart" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String" />
+        <target system="HRPro" function="Vacations.GetUnavalablePeriodStart" method="GET"/>
+    </function>
+
+    <!-- Получить ИД инициатора согласования/переноса отпуска. -->
+    <function name="GetEmployeeForApprovalAssignment" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer" />
+        <target system="HRPro" function="Vacations.GetEmployeeForApprovalAssignment" method="GET"/>
+    </function>
+
+    <!-- Получить текст инструкции с ссылкой на ЛНА. -->
+    <function name="GetInstructionWithLinkLNA" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetInstructionWithLinkLNA" method="GET"/>
+    </function>
+
+    <!-- Получить строку с информацией по доп. отпускам для заполнения параметра шаблона заявления на ежегодный отпуск. -->
+    <function name="GetAttachableVacationsInfo" type="Target" methods="POST">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeIds" type="String" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetAttachableVacationsInfo" method="POST"/>
+    </function>
+    
+    <!-- Проверить данные по переданным отпускам. -->
+    <function name="NNValidateVacationData" type="Target" methods="POST">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentKindId" type="Integer" scope="Client"/>
+            <parameter name="documentId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeIds" type="String" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.ValidateVacationData" method="POST"/>
+    </function>
+
+    <!-- Проверить данные по переданным прочим отпускам. -->
+    <function name="NNValidateOtherVacationData" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+            <parameter name="vacationReasonId" type="Integer" scope="Client"/>
+            <parameter name="beginDate" type="String" scope="Client"/>
+            <parameter name="endDate" type="String" scope="Client"/>
+            <parameter name="duration" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.ValidateOtherVacationData" method="GET"/>
+    </function>
+
+    <!-- Проверить данные по переданным отпускам для переноса. -->
+    <function name="NNValidateShiftVacationData" type="Target" methods="POST">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentId" type="Integer" scope="Client"/>
+            <parameter name="noticeId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeIds" type="String" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="String" isArray="true" scope="Client"/>
+            <parameter name="oldVacationsJson" type="String" scope="Client"/>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.ValidateShiftVacationData" method="POST"/>
+    </function>
+
+    <!-- Проверить данные по переданным отпускам для отзыва. -->
+    <function name="NNValidateRecallVacationData" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentId" type="Integer" scope="Client"/>
+            <parameter name="typeId" type="Integer" scope="Client"/>
+            <parameter name="beginRecall" type="String" scope="Client"/>
+            <parameter name="endRecall" type="String" scope="Client"/>
+            <parameter name="daysRecall" type="Integer" scope="Client"/>
+            <parameter name="beginShift" type="String" scope="Client"/>
+            <parameter name="endShift" type="String" scope="Client"/>
+            <parameter name="daysShift" type="Integer" scope="Client"/>
+            <parameter name="daysCompensation" type="Integer" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.ValidateRecallVacationData" method="POST"/>
+    </function>
+
+    <!-- Получить дату в соответствии с настройками модуля. -->
+    <function name="GetFormatDates" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="dates" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetFormatDates" method="GET"/>
+    </function>
+
+    <!-- Получение последнего дня отпуска по вдиу отпуска. (с учетом рабочего календаря для оплачиваемых). -->
+    <function name="NNGetVacationEndDate" type="Target" methods="GET">
+        <parameters>
+            <parameter name="dateBegin" type="DateTime" scope="Client"/>
+            <parameter name="duration" type="Integer" scope="Client"/>
+            <parameter name="userId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+            <parameter name="vacationReasonId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="DateTime"/>
+        <target system="HRPro" function="NNVacations.GetVacationEndDate" method="GET"/>
+    </function>
+
+    <!-- Получить сводку по доступным дням для оформления ежегодного отпуска. -->
+    <function name="GetAvailableDaysInfo" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetAvailableDaysInfo" method="GET"/>
+    </function>
+
+    <!-- Получить доступные типы отпусков по виду. -->
+    <function name="GetVacationTypes" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationKind" type="String" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationTypes" method="GET"/>
+    </function>
+
+    <!-- Получить присоединяемые типы отпуска. -->
+    <function name="GetAttachableVacationTypes" type="Target" methods="GET">
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetAttachableVacationTypes" method="GET"/>
+    </function>
+
+    <!-- Получить доступные типы отпусков по виду. -->
+    <function name="GetVacationTypeReasons" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetVacationTypeReasons" method="GET"/>
+    </function>
+
+    <!-- Проверить является ли тип отпуск учебным. -->
+    <function name="CheckForStudyVacationType" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="NNVacations.CheckForStudyVacationType" method="GET"/>
+    </function>
+
+    <!-- Получить имя типа отпуска. -->
+    <function name="GetVacationTypeName" type="Target" methods="GET">
+        <parameters>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetVacationTypeName" method="GET"/>
+    </function>
+
+    <!-- Получить имя типа отпуска. -->
+    <function name="GetVacationReasonName" type="Target" methods="GET">
+        <parameters>
+            <parameter name="id" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetVacationReasonName" method="GET"/>
+    </function>
+
+    <!-- Получить ИД шаблона заявления на прочий отпуск. -->
+    <function name="GetOtherVacationStatementTemplateId" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetOtherVacationStatementTemplateId" method="GET"/>
+    </function>
+    
+    <!-- Получить ИД шаблона заявления на прочий отпуск. -->
+    <function name="GetCompensationVacationTemplateId" type="Target" methods="GET">
+        <parameters>
+          <parameter name="docKindId" type="Integer" scope="Client"/>
+          <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetCompensationVacationTemplateId" method="GET"/>
+    </function>
+    
+    <!-- Получить текущий лимит для оформления компенсации части отпуска. -->
+    <function name="GetCurrentCompensationAvailableDays" type="Target" methods="GET">
+        <parameters>
+          <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object" />
+        <target system="HRPro" function="NNVacations.GetCurrentCompensationAvailableDays" method="GET"/>
+    </function>
+    
+    <!-- Проверить заявление на компенсацию части отпуска. -->
+    <function name="ValidateVacationCompensation" type="Target" methods="GET">
+        <parameters>
+          <parameter name="employeeId" type="Integer" scope="Client"/>
+          <parameter name="daysSelected" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object" />
+        <target system="HRPro" function="NNVacations.ValidateVacationCompensation" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпуске для доработки заявления на ежегодный отпуск. -->
+    <function name="GetVacationDataForReworkAnnual" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationDataForReworkAnnual" method="GET"/>
+    </function>
+
+    <!-- Получить данные об отпуске для доработки заявления на прочий отпуск. -->
+    <function name="GetVacationDataForReworkOther" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationDataForReworkOther" method="GET"/>
+    </function>
+
+    <!-- Получить информацию об отпуске для переноса из задания на доработку. -->
+    <function name="GetVacationDataForReworkShift" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationDataForReworkShift" method="GET"/>
+    </function>
+
+    <!-- Получить информацию об отпуске для отзыва из задания на доработку. -->
+    <function name="GetVacationDataForReworkRecall" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationDataForReworkRecall" method="GET"/>
+    </function>
+
+    <!-- Получить данные для доработки заявления на компенсацию. -->
+    <function name="GetStatementDataForReworkCompensation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetStatementDataForReworkCompensation" method="GET"/>
+    </function>
+
+    <!-- Получить строку с информацией по новым датам отпусков для заполнения параметра шаблона заявления на перенос отпуска. -->
+    <function name="GetNewVacationDatesForShift" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetNewVacationDatesForShift" method="GET"/>
+    </function>
+
+    <!-- Получить информацию об отпуске для переноса из задания на подтверждение. -->
+    <function name="GetCurrentVacationInfoForShift" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetCurrentVacationInfoForShift" method="GET"/>
+    </function>
+
+    <!-- Сборка данных для виджета "Отправленные заявления". -->
+    <function name="GetNNVacationStatementTasksDataForWidget" type="Target" methods="GET">
+      <parameters>
+        <parameter name="userId" type="Integer" scope="Server">
+          <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+        </parameter>
+        <parameter name="isVacation" type="Boolean" scope="Server"> 
+          <defaultValue>true</defaultValue>
+        </parameter>
+      </parameters>
+      <result type="Object" isArray="true" />
+      <target system="HRPro" function="NNCommons.GetNNStatementTasksDataForWidget" method="GET" />
+    </function>
+
+    <!-- Обновить данные для виджета "Мои отпуска". -->
+    <function name="UpdateWidgetMyVacations" type="Target" methods="GET">
+        <parameters>
+          <parameter name="personId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.UpdateWidgetMyVacations" method="GET"/>
+    </function>
+    
+    <!-- Получить виды документов для компенсации. -->
+    <function name="GetCompensationDocumentKinds" type="Target" methods="GET">
+        <parameters></parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetCompensationDocumentKinds" method="GET"/>
+    </function>
+
+    <!-- Получить типы отпуска для услуги перенос ежегодного отпуска. -->
+    <function name="GetVacationTypesForShift" type="Target" methods="GET">
+        <parameters>
+            <parameter name="noticeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationTypesForShift" method="GET"/>
+    </function>
+    
+    <!-- Проверить, что отпуск содержит праздничные дни во время отпуска. -->
+    <function name="NNCheckVacationHasHoliday" type="Target" methods="GET">
+        <parameters>
+            <parameter name="periodBegin" type="String" scope="Client"/>
+            <parameter name="periodEnd" type="String" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+            <parameter name="vacationReasonId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.CheckVacationHasHoliday" method="GET"/>
+    </function>
+
+    <!-- Подсчет календарных дней в промежутке времени за вычетом праздничных дней. -->
+    <function name="NNDurationInCalendarDaysWithoutHoliday" type="Target" methods="GET">
+        <parameters>
+            <parameter name="startDate" type="DateTime" scope="Client"/>
+            <parameter name="endDate" type="DateTime" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeId" type="Integer" scope="Client"/>
+            <parameter name="vacationReasonId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="NNVacations.DurationInCalendarDaysWithoutHoliday" method="GET"/>
+    </function>
+
+    <!-- Получить информацию о текущем отпуске для отзыва. -->
+    <function name="GetCurrentVacationForRecall" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetCurrentVacationForRecall" method="GET"/>
+    </function>
+
+    <!--Получить информацию о совместителях. -->
+    <function name="GetPartTimeEmployeesInfo" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetPartTimeEmployeesInfo" method="GET"/>
+    </function>
+
+    <!-- Проверить, что у персоны есть сотрудник, который входит в роль "Линейные руководители". -->
+    <function name="IsLineManager" type="Target" methods="GET">
+        <parameters>
+            <parameter name="personId" type="Integer" scope="Server">
+                <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+            </parameter>
+        </parameters>
+        <result type="Boolean"/>
+        <target system="HRPro" function="NNVacations.IsLineManager" method="GET"/>
+    </function>
+
+    <!-- Получить список ИД и имен сотрудников линейного руководителя. -->
+    <function name="GetEmployeesFromLineManager" type="Target" methods="GET">
+        <parameters>
+            <parameter name="lineManagerId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetEmployeesFromLineManager" method="GET"/>
+    </function>
+
+    <!-- Получить наименования должности, подразделения и НОР сотрудника. -->
+    <function name="NNGetSubstitutePositionAndJobTitle" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.GetSubstitutePositionAndJobTitle" method="GET"/>
+    </function>
+
+    <!-- Подсчет количества дней для компенсации. -->
+    <function name="GetDayCountCompensation" type="Target" methods="GET">
+        <parameters>
+            <parameter name="beginRecall" type="String" scope="Client"/>
+            <parameter name="endRecall" type="String" scope="Client"/>
+            <parameter name="durationRecall" type="Integer" scope="Client"/>
+            <parameter name="durationShift" type="Integer" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="NNVacations.GetDayCountCompensation" method="POST"/>
+    </function>
+
+    <!-- Подсчет календарных дней в промежутке времени отзыва за вычетом праздничных дней. -->
+    <function name="RecallDurationInCalendarDaysWithoutHoliday" type="Target" methods="GET">
+        <parameters>
+            <parameter name="startDate" type="DateTime" scope="Client"/>
+            <parameter name="endDate" type="DateTime" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="NNVacations.RecallDurationInCalendarDaysWithoutHoliday" method="POST"/>
+    </function>
+
+    <!-- Проверить, что период отзыва содержит праздничные дни. -->
+    <function name="CheckVacationHasHolidayRecall" type="Target" methods="GET">
+        <parameters>
+            <parameter name="periodBegin" type="String" scope="Client"/>
+            <parameter name="periodEnd" type="String" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.CheckVacationHasHolidayRecall" method="POST"/>
+    </function>
+
+    <!-- Подсчет календарных дней в промежутке времени переноса из отзыва за вычетом праздничных дней. -->
+    <function name="ShiftDurationInCalendarDaysWithoutHoliday" type="Target" methods="GET">
+        <parameters>
+            <parameter name="beginDateRecall" type="DateTime" scope="Client"/>
+            <parameter name="endDateRecall" type="DateTime" scope="Client"/>
+            <parameter name="beginDateShift" type="DateTime" scope="Client"/>
+            <parameter name="endDateShift" type="DateTime" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="Integer"/>
+        <target system="HRPro" function="NNVacations.ShiftDurationInCalendarDaysWithoutHoliday" method="POST"/>
+    </function>
+
+    <!-- Проверить, что период переноса из отзыва содержит праздничные дни. -->
+    <function name="CheckVacationHasHolidayShift" type="Target" methods="GET">
+        <parameters>
+            <parameter name="beginRecall" type="String" scope="Client"/>
+            <parameter name="endRecall" type="String" scope="Client"/>
+            <parameter name="beginShift" type="String" scope="Client"/>
+            <parameter name="endShift" type="String" scope="Client"/>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.CheckVacationHasHolidayShift" method="POST"/>
+    </function>
+
+    <!-- Получить информацию о доступных отпусках для переноса по заявлению. -->
+    <function name="GetVacationDataForShiftByStatement" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationDataForShiftByStatement" method="GET"/>
+    </function>
+
+    <!-- Получить типы отпуска для услуги перенос отпуска по заявлению. -->
+    <function name="GetVacationTypesForShiftByStatement" type="Target" methods="GET">
+        <parameters>
+            <parameter name="types" type="String" isArray="true" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationTypesForShiftByStatement" method="POST"/>
+    </function>
+
+    <!-- Получить информацию о сроке согласования отпуска. -->
+    <function name="GetVacationApprovalDate" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentKindId" type="Integer" scope="Client"/>
+            <parameter name="vacationType" type="String" scope="Client"/>
+            <parameter name="paymentCompleted" type="Boolean" scope="Client"/>
+            <parameter name="isStatement" type="Boolean" scope="Client"/>
+            <parameter name="oldStart" type="String" scope="Client"/>
+            <parameter name="newStart" type="String" scope="Client"/>
+        </parameters>
+        <result type="DateTime"/>
+        <target system="HRPro" function="NNVacations.GetVacationApprovalDate" method="GET"/>
+    </function>
+
+    <!-- Получить информацию об отпуске для переноса по заявлению из задания на доработку. -->
+    <function name="GetVacationDataForReworkShiftByStatement" type="Target" methods="GET">
+        <parameters>
+            <parameter name="assignmentId" type="Integer" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.GetVacationDataForReworkShiftByStatement" method="GET"/>
+    </function>
+
+    <!-- Проверить данные по переданным отпускам для переноса по заявлению. -->
+    <function name="NNValidateShiftByStatementVacationData" type="Target" methods="POST">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentId" type="Integer" scope="Client"/>
+            <parameter name="vacationTypeIds" type="String" isArray="true" scope="Client"/>
+            <parameter name="beginDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="endDates" type="String" isArray="true" scope="Client"/>
+            <parameter name="durations" type="String" isArray="true" scope="Client"/>
+            <parameter name="oldVacationsJson" type="String" scope="Client"/>
+            <parameter name="isPaid" type="Boolean" scope="Client"/>
+        </parameters>
+        <result type="Object"/>
+        <target system="HRPro" function="NNVacations.ValidateShiftByStatementVacationData" method="POST"/>
+    </function>
+
+</functions>

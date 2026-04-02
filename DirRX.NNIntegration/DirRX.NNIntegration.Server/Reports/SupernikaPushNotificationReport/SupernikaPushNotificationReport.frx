@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Core.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Localization&#13;&#10;Sungero.Declension&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;DirRX.NNIntegration.Shared&#13;&#10;DirRX.NNIntegration.Server" ReportInfo.CreatorVersion="2020.2.12.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using Sungero.Domain.Shared;
+using Sungero.CoreEntities;
+using Sungero.Core;
+using Resources = DirRX.NNIntegration.Reports.Resources;
+
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+  }
+}
+  </ScriptText>
+  <Dictionary>
+    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${SelectData}">
+        <Column Name="employeeName" DataType="System.String" PropName="Column"/>
+        <Column Name="personalPhone" DataType="System.String" PropName="Column"/>
+        <Column Name="entityid" DataType="System.Int64" PropName="Column"/>
+        <Column Name="sendingdate" DataType="System.DateTime" PropName="Column"/>
+        <Column Name="processstatus" DataType="System.String" PropName="Column"/>
+        <Column Name="errortext" DataType="System.String" PropName="Column"/>
+        <CommandParameter Name="PersonalPhone" DataType="16" IsDbType="true" Expression="[PersonalPhone]"/>
+        <CommandParameter Name="BeginDate" DataType="6" IsDbType="true" Expression="[BeginDate]"/>
+        <CommandParameter Name="EndDate" DataType="6" IsDbType="true" Expression="[EndDate]"/>
+      </TableDataSource>
+    </SungeroSqlDataConnection>
+    <SungeroParameter Name="SungeroConnectionString" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties, DontShow" Id="1cc68528-e374-487d-b6ab-fa7c9f0dda77" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="BeginDate" Id="df3d1778-602b-49ba-bf5e-fa12a010c2db" IsRequired="false" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="EndDate" Id="5b90e627-f870-49f0-840c-20d1c013a90f" IsRequired="false" IsCollection="false" InternalDataType="System.DateTime" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="PersonalPhone" Id="695cd2d0-3436-4ae3-ba87-6c18362d18e4" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt" ExtraDesignWidth="true" UnlimitedWidth="true">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text7" Top="18.9" Width="151.2" Height="18.9" Border.Lines="All" Border.Width="1.5" Text="Сотрудник" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="151.2" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Border.Width="1.5" Text="Личный телефон" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="264.6" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Border.Width="1.5" Text="ИД задания" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="359.1" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Border.Width="1.5" Text="Отправлено" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="472.5" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Border.Width="1.5" Text="Статус" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="585.9" Top="18.9" Width="226.8" Height="18.9" Border.Lines="All" Border.Width="1.5" Text="Текст ошибки" Font="Arial, 10pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="151.2" Height="18.9" Border.Lines="All" Border.Width="1.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Table.employeeName]" Font="Arial, 10pt"/>
+      <TextObject Name="Text2" Left="151.2" Width="113.4" Height="18.9" Border.Lines="All" Border.Width="1.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Table.personalPhone]" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="264.6" Width="94.5" Height="18.9" Border.Lines="All" Border.Width="1.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Table.entityid]" Font="Arial, 10pt"/>
+      <TextObject Name="Text4" Left="359.1" Width="113.4" Height="18.9" Border.Lines="All" Border.Width="1.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Table.sendingdate]" Font="Arial, 10pt">
+        <Formats>
+          <CustomFormat Format="g"/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text5" Left="472.5" Width="113.4" Height="18.9" Border.Lines="All" Border.Width="1.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Table.processstatus]" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="585.9" Width="226.8" Height="18.9" Border.Lines="All" Border.Width="1.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Table.errortext]" Font="Arial, 10pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>

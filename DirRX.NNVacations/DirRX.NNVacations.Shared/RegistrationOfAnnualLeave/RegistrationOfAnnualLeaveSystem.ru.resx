@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_NotifiableList" xml:space="preserve">
+    <value>Уведомить</value>
+  </data>
+  <data name="Property_Substitute" xml:space="preserve">
+    <value>Замещающий</value>
+  </data>
+  <data name="Property_Order" xml:space="preserve">
+    <value>Приказ</value>
+  </data>
+  <data name="Property_Employee" xml:space="preserve">
+    <value>Сотрудник</value>
+  </data>
+  <data name="Property_VacationType" xml:space="preserve">
+    <value>Тип отпуска</value>
+  </data>
+  <data name="Property_StartDate" xml:space="preserve">
+    <value>Начало отпуска</value>
+  </data>
+  <data name="Property_EndDate" xml:space="preserve">
+    <value>Окончание отпуска</value>
+  </data>
+  <data name="Property_DaysAmount" xml:space="preserve">
+    <value>Кол-во дней</value>
+  </data>
+  <data name="Property_Notice" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="Property_ShiftTaskId" xml:space="preserve">
+    <value>ИД переноса из уведомления</value>
+  </data>
+  <data name="Block_0eaeb1772c394ed6b23d1008abcc3a0e" xml:space="preserve">
+    <value>Создание уведомления</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8" xml:space="preserve">
+    <value>Задание на подтверждение дат отпуска</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_2711af9548d348b6b5ce2155e27e2e11" xml:space="preserve">
+    <value>Отображать в личном кабинете</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_aea707e9bb784cf6a85e8662d5f797e7" xml:space="preserve">
+    <value>Замещающий</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_6c4bd667b42c48839a6f3ed1865ea556" xml:space="preserve">
+    <value>Отображать в личном кабинете</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_70a063560adc43fc954d456fe847dc83" xml:space="preserve">
+    <value>Замещающий</value>
+  </data>
+  <data name="AttachmentGroup_EmployeeAttachmentGroupTitle" xml:space="preserve">
+    <value>Сотрудник</value>
+  </data>
+  <data name="AttachmentGroup_EmployeeAttachmentGroupInformationMessage" xml:space="preserve">
+    <value>Запись справочника будет добавлена автоматически</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupTitle" xml:space="preserve">
+    <value>Извещение о начале отпуска</value>
+  </data>
+  <data name="AttachmentGroup_DocumentGroupInformationMessage" xml:space="preserve">
+    <value>Извещение о начале отпуска не вложено</value>
+  </data>
+  <data name="AttachmentGroup_OrderAttachmentGroupTitle" xml:space="preserve">
+    <value>Приказ</value>
+  </data>
+  <data name="AttachmentGroup_OrderAttachmentGroupInformationMessage" xml:space="preserve">
+    <value>Вложений нет</value>
+  </data>
+  <data name="AttachmentGroup_AdditionalAttachmentGroupTitle" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="AttachmentGroup_AdditionalAttachmentGroupInformationMessage" xml:space="preserve">
+    <value>Вложений нет</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Задача на подтверждение дат отпуска (по графику)</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Задача на подтверждение дат отпуска (по графику)</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Задачи на подтверждение дат отпуска (по графику)</value>
+  </data>
+  <data name="Block_5dadaebdd1ed420da50572738e554a4d" xml:space="preserve">
+    <value>Ожидание завершения задачи на перенос отпуска</value>
+  </data>
+  <data name="Block_0eaeb1772c394ed6b23d1008abcc3a0e_Property_6938d185af7c46109c8c45d29d00416a" xml:space="preserve">
+    <value>Формировать тело Уведомления</value>
+  </data>
+  <data name="Property_VacationData" xml:space="preserve">
+    <value>Данные отпуска</value>
+  </data>
+  <data name="Property_TransferTaskId" xml:space="preserve">
+    <value>ИД переноса по заявлению</value>
+  </data>
+  <data name="Block_08979113ee124890bf0c12fdc239961e" xml:space="preserve">
+    <value>Поиск задачи на перенос по заявлению</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_a8efe1a009ef4f888bb416f6ee767b18" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_140490f5cd1941efb9fa48c5cb446360" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+</root>

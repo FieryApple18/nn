@@ -1,0 +1,370 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "4d275128-a4c2-4855-afe6-e0e50daa122f",
+  "Name": "WeekendWorkCompensationKind",
+  "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
+  "CanBeNavigationPropertyType": true,
+  "CanBeSearch": true,
+  "CanBeUsedInIntegration": true,
+  "Code": "WeekendWorkCom",
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
+      "NameGuid": "50c20d94-f1b1-45db-b0bd-4ac7aa0120f9",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "Name": "ControlGroup",
+          "ColumnDefinitions": [
+            {
+              "Percentage": 50.0
+            },
+            {
+              "Percentage": 50.0
+            }
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "dbd8dba9-a1f7-41d3-a789-574503ea2801",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "PropertyGuid": "3ef47aae-707c-49a1-b414-5c7a2099a679",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "9eec7ee9-df52-419a-9f1a-ad2cdbd42e55",
+          "Name": "DocumentKind",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "PropertyGuid": "fae35a77-2d00-4ca8-9b64-c2ac955566f1",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "8b8c90ba-4b76-40d5-8561-163c3d3a2ccc",
+          "Name": "Code",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "PropertyGuid": "2b6527b9-3fee-4faf-9c31-79b980830332",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "7ec7e838-de77-4043-9f09-dbe778be8c18",
+          "Name": "Status",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "f05a5625-97fb-4755-bbe7-8925213d4957",
+          "Name": "NeedRestDate",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "PropertyGuid": "5e202c1c-d661-489f-80d2-3ff038c988b3",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "062d9344-20d2-4da9-903c-f2bbcbf7fae8",
+          "Name": "NoteGroup",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "GroupType": "WithTitleNoBorder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "RowNumber": 5,
+          "RowSpan": 1
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "22c63d91-a0d1-4773-9117-d958c2352dfa",
+          "Name": "Note",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.TextEditorToTextBinder",
+          "HeaderLocation": "None",
+          "ParentGuid": "062d9344-20d2-4da9-903c-f2bbcbf7fae8",
+          "PropertyGuid": "832345bb-5ba0-44f8-a490-9d7668d0eda7",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": [
+            {
+              "Name": "Height",
+              "Value": 60
+            },
+            {
+              "Name": "NeedExpand",
+              "Value": false
+            }
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "cfb7832d-6868-4878-9530-526e24dd9808",
+          "Name": "IsRestDateRequired",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "5acd3fba-4d4c-401e-bb87-5e64a7db5706",
+          "PropertyGuid": "b119ba01-fe9a-47b3-b50d-a74cee63dbbe",
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ]
+    }
+  ],
+  "HandledEvents": [
+    "CreatedServer",
+    "ShowingClient"
+  ],
+  "IconResourcesKeys": [],
+  "IsStatusEnabled": true,
+  "OperationsClass": "",
+  "Overridden": [
+    "CanBeUsedInIntegration",
+    "CanBeSearch",
+    "IsStatusEnabled"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility",
+        "CanBeSearch",
+        "IsShowedInList"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "3ef47aae-707c-49a1-b414-5c7a2099a679",
+      "Name": "Name",
+      "Code": "Name",
+      "IsDisplayValue": true,
+      "IsQuickSearchAllowed": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "fae35a77-2d00-4ca8-9b64-c2ac955566f1",
+      "Name": "DocumentKind",
+      "CanBeSearch": false,
+      "Code": "DocumentKind",
+      "EntityGuid": "bab48523-982c-44de-9766-c8c6d4a65c65",
+      "FlatListInStandaloneLookup": true,
+      "HandledEvents": [
+        "LookupServer"
+      ],
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "3ef47aae-707c-49a1-b414-5c7a2099a679"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "2b6527b9-3fee-4faf-9c31-79b980830332",
+      "Name": "Code",
+      "CanBeSearch": false,
+      "Code": "Code",
+      "Length": 255,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "fae35a77-2d00-4ca8-9b64-c2ac955566f1",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "832345bb-5ba0-44f8-a490-9d7668d0eda7",
+      "Name": "Note",
+      "CanBeSearch": false,
+      "Code": "Note",
+      "Length": 512,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "2b6527b9-3fee-4faf-9c31-79b980830332"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "5e202c1c-d661-489f-80d2-3ff038c988b3",
+      "Name": "NeedRestDate",
+      "CanBeSearch": false,
+      "Code": "NeedRestDate",
+      "HandledEvents": [
+        "ValueInputClient"
+      ],
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "832345bb-5ba0-44f8-a490-9d7668d0eda7"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "b119ba01-fe9a-47b3-b50d-a74cee63dbbe",
+      "Name": "IsRestDateRequired",
+      "CanBeSearch": false,
+      "Code": "IsRestDateRequ",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "5e202c1c-d661-489f-80d2-3ff038c988b3",
+      "Versions": []
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "AdditionalRestTime",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Предоставление дополнительного времени отдыха\""
+    },
+    {
+      "Name": "AdditionalRestTime",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"03\""
+    },
+    {
+      "Name": "AnotherRestDay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Предоставление другого дня отдыха\""
+    },
+    {
+      "Name": "AnotherRestDay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"08\""
+    },
+    {
+      "Name": "DualPay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Оплата с первого часа в двойном размере\""
+    },
+    {
+      "Name": "DualPay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"02\""
+    },
+    {
+      "Name": "IncreasedPay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Двойная оплата\""
+    },
+    {
+      "Name": "IncreasedPay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"07\""
+    },
+    {
+      "Name": "StandardPay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Стандартная оплата\""
+    },
+    {
+      "Name": "StandardPay",
+      "ParentClasses": [
+        "WeekendWorkCompensationKind",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"01\""
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "be425dce-962e-440d-a43d-81588e43f76f",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "f675553d-05ad-4eba-b4e8-0a56119ca0ce",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 12
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "3f75ffb1-4460-41b3-96a1-5b9c0fd2f887",
+  "Name": "LrdPaymentPurpose",
+  "Actions": [
+    {
+      "NameGuid": "6a464225-0fec-4ecc-bfca-b2ecd05c984e",
+      "Name": "ShowDuplicates",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
+  "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
+  "CanBeNavigationPropertyType": true,
+  "CanBeSearch": true,
+  "Code": "LrdPaymentPurp",
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
+      "NameGuid": "084a39c3-d17d-4b51-84eb-afb7568c84f1",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "bd658406-c40d-455c-aa54-ac12a4404c76",
+          "Name": "ControlGroup",
+          "ColumnDefinitions": [
+            {
+              "Percentage": 50.0
+            },
+            {
+              "Percentage": 50.0
+            }
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5db504d9-cb3b-475c-b2d1-6dc07a6a1fc6",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "bd658406-c40d-455c-aa54-ac12a4404c76",
+          "PropertyGuid": "86ff7dba-1b90-499b-9e65-29a17fb3c8ac",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "756aff35-aed1-40e3-8718-ca14df149c44",
+          "Name": "Status",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "bd658406-c40d-455c-aa54-ac12a4404c76",
+          "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "7530255d-6c16-49cf-a393-e8c91befdc21",
+          "Name": "Code",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "bd658406-c40d-455c-aa54-ac12a4404c76",
+          "PropertyGuid": "905dd9a7-a979-4180-9378-6f881a750c3f",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ]
+    }
+  ],
+  "FormViewUuid": "0b69920b-aeaa-4e66-b5fb-1a878e50da5e",
+  "HandledEvents": [
+    "BeforeSaveServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNOtherProcessesLnaPaymentPurposes",
+  "OperationsClass": "",
+  "Overridden": [
+    "IsAutoCreated",
+    "HideFromNavigationEditorCreationArea",
+    "HideFromCreationArea",
+    "IsVisible",
+    "CanBeSearch"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "86ff7dba-1b90-499b-9e65-29a17fb3c8ac",
+      "Name": "Name",
+      "Code": "Name",
+      "IsDisplayValue": true,
+      "IsQuickSearchAllowed": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "905dd9a7-a979-4180-9378-6f881a750c3f",
+      "Name": "Code",
+      "CanBeSearch": false,
+      "Code": "Code",
+      "IsRequired": true,
+      "Length": 25,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "86ff7dba-1b90-499b-9e65-29a17fb3c8ac"
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "DisabledChild",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь работнику, имеющему ребенка-инвалида в возрасте до 18 лет\""
+    },
+    {
+      "Name": "DisabledChild",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"02\""
+    },
+    {
+      "Name": "DisabledEmployee",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь работнику-инвалиду\""
+    },
+    {
+      "Name": "DisabledEmployee",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"01\""
+    },
+    {
+      "Name": "Emergency",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Пожар, кража, авария, стихийное бедствие, иные ЧС\""
+    },
+    {
+      "Name": "Emergency",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"02\""
+    },
+    {
+      "Name": "FamilyMemberDeath",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Смерть члена семьи\""
+    },
+    {
+      "Name": "FamilyMemberDeath",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"01\""
+    },
+    {
+      "Name": "Other",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Иное\""
+    },
+    {
+      "Name": "Other",
+      "ParentClasses": [
+        "LrdPaymentPurpose",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"04\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GetDuplicates",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "lrdPaymentPurpose",
+          "ParameterType": "global::DirRX.NNOtherProcesses.ILrdPaymentPurpose",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.ILrdPaymentPurpose, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNOtherProcesses.ILrdPaymentPurpose>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "FindDuplicatesError"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "3be8c438-c4c9-4626-b1a5-585b3c5b7de8",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "15008a74-fc66-43b7-90bb-2ab7c2455f1c",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

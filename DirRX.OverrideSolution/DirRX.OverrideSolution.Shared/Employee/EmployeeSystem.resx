@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_IsVirtualDirRX" xml:space="preserve">
+    <value>Virtual</value>
+  </data>
+  <data name="Resource_fa5a42b89bb94b5d8352280a109a96c0" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_ccba1597307a4bbca652a2ce60f6009b_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_ccba1597307a4bbca652a2ce60f6009b" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_6063a679a4ef4013a981516a8d5614cf_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_6063a679a4ef4013a981516a8d5614cf" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_7d3fe74917c14f7daf93c5a06f0ff356_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_7d3fe74917c14f7daf93c5a06f0ff356" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_151a86740f1e43758410f5a847a2f478_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_151a86740f1e43758410f5a847a2f478" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_eed275ac8ecd4713b4a7c62538d15f64_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_eed275ac8ecd4713b4a7c62538d15f64" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_464e877dcdeb4f0fb45084e4d677be65" xml:space="preserve">
+    <value>Membership</value>
+  </data>
+  <data name="Form_db0761bf7e6d4e9fa7dfa72241acc367" xml:space="preserve">
+    <value>Performers</value>
+  </data>
+  <data name="Property_PerformersDirRX" xml:space="preserve">
+    <value>Performers</value>
+  </data>
+  <data name="Resource_37d2389a0e504aaeae727a254b182667" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_37d2389a0e504aaeae727a254b182667_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_1db8476014f040b3b3823dfe9467a91c" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdditionalInfoTemplate" xml:space="preserve">
+    <value>Person Num. [PersonnelNumber], [JobTitle], [Department]</value>
+  </data>
+  <data name="Property_LineManagerDirRX" xml:space="preserve">
+    <value>Line manager</value>
+  </data>
+  <data name="Property_PartTimeEmpoyeeNumberDirRX" xml:space="preserve">
+    <value>Part-time employee number</value>
+  </data>
+  <data name="Property_RecordExpirationDateDirRX" xml:space="preserve">
+    <value>Record expiration date</value>
+  </data>
+  <data name="Property_RecordStartDateDirRX" xml:space="preserve">
+    <value>Record start date</value>
+  </data>
+  <data name="Property_NeedNotifyExpiredAssignments" xml:space="preserve">
+    <value>About expired assignments in RX</value>
+  </data>
+  <data name="Property_NeedNotifyNewAssignments" xml:space="preserve">
+    <value>About new assignments in RX</value>
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_NeedClearPhoneDirRX" xml:space="preserve">
+    <value>Need clear phone</value>
+  </data>
+  <data name="Enum_NeedNotifyNewHRAssignmentDirRX_SMS" xml:space="preserve">
+    <value>Суперника</value>
+  </data>
+  <data name="Enum_NeedNotifyExpiredHRAssignmentDirRX_SMS" xml:space="preserve">
+    <value>Суперника</value>
+  </data>
+  <data name="Enum_NeedNotifyHRRepeatDirRX_SMS" xml:space="preserve">
+    <value>Суперника</value>
+  </data>
+  <data name="Property_CertificatePhoneNumberDirRX" xml:space="preserve">
+    <value>Phone number for sertificate issue</value>
+  </data>
+  <data name="Property_MPGroupDirRX" xml:space="preserve">
+    <value>MP group</value>
+  </data>
+  <data name="Action_ShowDocumentsVisabilityLimitationDirRX" xml:space="preserve">
+    <value>Show documents visability limitation</value>
+  </data>
+  <data name="Action_ShowDocumentsVisabilityLimitationDirRXDescription" xml:space="preserve">
+    <value>Demonstrates document visibility limitations</value>
+  </data>
+  <data name="Action_ShowDocumentsVisabilityLimitationDirRXHint" xml:space="preserve">
+    <value>Documents visability limitation</value>
+  </data>
+  <data name="Action_ShowDocumentsVisabilityLimitationDirRXConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ShowDocumentsVisabilityLimitationDirRXConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Ribbon_DocsVisibilityLimitations_cc6ac57739894dc6a37b7c34f8ee8d9c" xml:space="preserve">
+    <value>Document visibility limitations</value>
+  </data>
+  <data name="Property_IsNGDDirRX" xml:space="preserve">
+    <value>NGD</value>
+  </data>
+  <data name="Property_SendPushDuringWorkHoursDirRX" xml:space="preserve">
+    <value>Send Push notifications only during working hours</value>
+  </data>
+  <data name="Resource_b2301f0196a94c61be431d453c5d88a7" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_1f895812dbd14804997ded78cf291d66" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_3a40961886e948ee83789c3eaa7f3021" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_084511e05fb04628bb12bcd9300f24c1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_NeedCreateSubstitutionsDirRX" xml:space="preserve">
+    <value>Create substitutions</value>
+  </data>
+</root>

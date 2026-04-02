@@ -1,0 +1,1431 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "a1ad1487-7b84-400d-b5ab-2bb0b2bd7c65",
+  "Name": "NNOtherProcesses",
+  "AsyncHandlers": [],
+  "Blocks": [
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "55bc2751-d382-4549-8136-6bbc00ee460e",
+      "Name": "SetRejectedOrderStatusForEmployeesBlock",
+      "HandledEvents": [
+        "SetRejectedOrderStatusForEmployeesBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide"
+    }
+  ],
+  "ClientAssemblyName": "DirRX.NNOtherProcesses.Client",
+  "ClientBaseAssemblyName": "DirRX.NNOtherProcesses.ClientBase",
+  "ClientBaseNamespace": "DirRX.NNOtherProcesses.ClientBase",
+  "ClientNamespace": "DirRX.NNOtherProcesses.Client",
+  "Code": "NNOther",
+  "CompanyCode": "DirRX",
+  "Cover": {
+    "NameGuid": "4e273803-9848-4494-a8aa-d3c883fa2603",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "f46eaf82-b852-43cf-afb9-168d8435d967",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "516f334b-1a90-4f38-9456-2706b3d38332",
+      "BackgroundPosition": "Stretch"
+    },
+    "RemoteControls": [],
+    "Tabs": []
+  },
+  "Dependencies": [
+    {
+      "Id": "f093cbb9-e3a8-4f67-aa2a-f09f340fedd9",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "87714b4e-a63a-4825-b0ba-08c838cf01ff"
+    },
+    {
+      "ItemId": "df37b42b-665c-4829-94f8-cfaabaf2e721",
+      "PreviousItemId": "87714b4e-a63a-4825-b0ba-08c838cf01ff"
+    },
+    {
+      "ItemId": "65cccf95-bb8c-43ea-abb6-7335e6942c94",
+      "PreviousItemId": "df37b42b-665c-4829-94f8-cfaabaf2e721"
+    },
+    {
+      "ItemId": "dd8163b2-1084-45f6-94e2-fc08267629fd",
+      "PreviousItemId": "65cccf95-bb8c-43ea-abb6-7335e6942c94"
+    },
+    {
+      "ItemId": "dd10855b-86c8-4301-9ea4-f540580f4612",
+      "PreviousItemId": "dd8163b2-1084-45f6-94e2-fc08267629fd"
+    },
+    {
+      "ItemId": "a8c9cdf9-c50a-427f-8b14-21e2c193c3fa",
+      "PreviousItemId": "dd10855b-86c8-4301-9ea4-f540580f4612"
+    },
+    {
+      "ItemId": "28c370c6-6160-4f25-9707-3f9451f69e82",
+      "PreviousItemId": "a8c9cdf9-c50a-427f-8b14-21e2c193c3fa"
+    },
+    {
+      "ItemId": "c4470d2c-11b0-4e0b-bac0-d560ec1398e7",
+      "PreviousItemId": "28c370c6-6160-4f25-9707-3f9451f69e82"
+    },
+    {
+      "ItemId": "d9102e62-6c30-4cce-8600-63e8a2bc1d60",
+      "PreviousItemId": "c4470d2c-11b0-4e0b-bac0-d560ec1398e7"
+    },
+    {
+      "ItemId": "65cccf95-bb8c-43ea-abb6-7335e6942c94",
+      "PreviousItemId": "d9102e62-6c30-4cce-8600-63e8a2bc1d60"
+    },
+    {
+      "ItemId": "57b60f43-9178-4c67-b6a2-b6ac478d978f",
+      "PreviousItemId": "65cccf95-bb8c-43ea-abb6-7335e6942c94"
+    },
+    {
+      "ItemId": "b70dd0c3-5960-41f3-9a97-4ea70e723024",
+      "PreviousItemId": "57b60f43-9178-4c67-b6a2-b6ac478d978f"
+    },
+    {
+      "ItemId": "8562be2c-ebdd-4630-a94d-65d15ef105bf",
+      "PreviousItemId": "b70dd0c3-5960-41f3-9a97-4ea70e723024"
+    },
+    {
+      "ItemId": "3f75ffb1-4460-41b3-96a1-5b9c0fd2f887",
+      "PreviousItemId": "8562be2c-ebdd-4630-a94d-65d15ef105bf"
+    },
+    {
+      "ItemId": "7a67c114-54f2-47b8-bb86-adb025547623",
+      "PreviousItemId": "3f75ffb1-4460-41b3-96a1-5b9c0fd2f887"
+    },
+    {
+      "ItemId": "578f6cfb-5fe7-4aec-ad13-94ecf361ac09",
+      "PreviousItemId": "7a67c114-54f2-47b8-bb86-adb025547623"
+    },
+    {
+      "ItemId": "a62e018b-df7f-4c54-a5c4-2c9f0b02810a",
+      "PreviousItemId": "578f6cfb-5fe7-4aec-ad13-94ecf361ac09"
+    },
+    {
+      "ItemId": "4d275128-a4c2-4855-afe6-e0e50daa122f",
+      "PreviousItemId": "a62e018b-df7f-4c54-a5c4-2c9f0b02810a"
+    },
+    {
+      "ItemId": "87094eed-c853-4d35-8b9a-3a50a6b7f2e9",
+      "PreviousItemId": "4d275128-a4c2-4855-afe6-e0e50daa122f"
+    }
+  ],
+  "HandledEvents": [
+    "InitializingServer"
+  ],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "DirRX.NNOtherProcesses",
+  "IsolatedAreas": [
+    {
+      "NameGuid": "38d9933d-5bf6-4a52-9c78-b9e8c3df6704",
+      "Name": "Json"
+    }
+  ],
+  "IsolatedAssemblyName": "DirRX.NNOtherProcesses.Isolated",
+  "IsolatedFunctions": [
+    {
+      "NameGuid": "d8c257c1-5d74-4cd7-ac19-32b5d4b333ae",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "38d9933d-5bf6-4a52-9c78-b9e8c3df6704",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNOtherProcesses.Structures.Module.ICompensationKindStructure>",
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNOtherProcesses.Structures.Module.ICompensationKindStructure, Sungero.Domain.Interfaces]]"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "b74eac3a-2f62-4f3c-974c-a356fb07314d",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "38d9933d-5bf6-4a52-9c78-b9e8c3df6704",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNOtherProcesses.Structures.Module.IStatementDataForReworkWeekendWork",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.Structures.Module.IStatementDataForReworkWeekendWork, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    }
+  ],
+  "IsolatedNamespace": "DirRX.NNOtherProcesses.Isolated",
+  "IsVisible": false,
+  "Jobs": [
+    {
+      "NameGuid": "490b8f70-b1f7-4b05-884c-c20649251f35",
+      "Name": "UpdateTopAttributeInDocumentsJob",
+      "Daily": "Custom",
+      "EndAt": "1753-01-01T06:00:00",
+      "GenerateHandler": true,
+      "IsEnabled": false,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T00:00:00",
+      "TimePeriod": 40
+    }
+  ],
+  "Overridden": [
+    "IsVisible"
+  ],
+  "PublicConstants": [
+    {
+      "Name": "BusinessTripOrder",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"164c2316-a489-4e60-af47-44bf2225198c\")"
+    },
+    {
+      "Name": "BusinessTripOrderDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"07\""
+    },
+    {
+      "Name": "CancelBusinessTripOrder",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"65c8aec0-0db1-4fc9-912c-dbcc8c50931b\")"
+    },
+    {
+      "Name": "CancelBusinessTripOrder",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"08\""
+    },
+    {
+      "Name": "ChangeBusinessTripOrder",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"4a383fa2-a9dd-4b5a-880f-13e57678e15b\")"
+    },
+    {
+      "Name": "ChangeBusinessTripOrder",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"09\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "RegistrationOfBusinessTrips"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"e0f0b0e7-0b25-4f19-952c-9379df7bec12\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "PersonalDonationProgram"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"9af4f160-650a-4a9d-899c-3b1d16cc5b82\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "RegistrationOfWorkVDPDSR"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ee24a1eb-56ba-42a8-a5ca-8b237cb81f14\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "RegistrationPaymentsOfLNA"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"9a0594f8-2b23-4879-9f3a-8e96dba16826\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "RetentionStatementDocumentExtension"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"af65cc8a-c97a-413b-a5df-0c90e8281591\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "SendRetentionStatementStatusProcessKindId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"14550231-6dc7-4a22-a605-4c1cc397363a\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ManualHoldingEventProcessKindId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"63c24c57-3b5d-43dc-905c-0bdbcb69a33a\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "BusinessTripOrder"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"89f67595-c1ba-40e7-9b0a-aa0db53369b8\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ChangeBusinessTripOrder"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"e9325243-3d1b-4a42-ba6d-987a969e0c71\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CancelBusinessTripOrder"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"131d53d2-8224-4e36-b6fe-8c6e9470eff4\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "BusinessTripOrderExtension"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"12906b08-a311-44c5-bc38-12160f3b58f8\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "BusinessTripOrderNeedApprove"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"9b7b9315-1b96-472c-ae48-e6b6075a5f39\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "BusinessTripOrderNeedAcquaintance"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"4721841e-30ae-4d75-92ef-837d77d5a8cd\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "WeekendWorkOrderExtension"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"88f6d61e-1d1b-46ec-a3ce-2e4c0c1f1e7c\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ChildSupportPaymentTypesIds"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"8633d2f1-0864-41b9-b39a-ad28b9cea6ca\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "DisabledChildPaymentTypeId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"75824cb6-595c-469c-b8e0-8bf188b97044\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "OpinionTask"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"d7ae75ef-c225-4929-a921-4495dfa91a48\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "LrdPaymentChildrenCacheTime"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"c636e90a-735d-4613-b6d8-3e2c6f03dc88\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "LrdPaymentOrderExtension"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"e55790ac-6330-4b01-83b2-adf653f8038a\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "LrdPaymentStatementCEOJobTitle"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"96938C71-4DB1-4D5F-BE54-E1ECCC412424\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "LrdPaymentStatementCEO"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"BCEDFD63-ABC0-483B-9D82-57BDE82491B2\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "LrdPaymentStatementBusinessUnit"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"6A24654B-278C-41CA-B5C7-7B2DC5D6B5DB\""
+    },
+    {
+      "Name": "HRSimpleDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"bd6e61c4-7d12-40c6-9459-1ce3eb6d0cd0\")"
+    },
+    {
+      "Name": "LrdPaymentOrderDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"03\""
+    },
+    {
+      "Name": "LrdPaymentOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"a62e018b-df7f-4c54-a5c4-2c9f0b02810a\")"
+    },
+    {
+      "Name": "LrdPaymentOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"5b952fd0-b8e2-487c-ae0e-72cb09c00e4c\")"
+    },
+    {
+      "Name": "LrdPaymentStatementDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"20\""
+    },
+    {
+      "Name": "LrdPaymentStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"578f6cfb-5fe7-4aec-ad13-94ecf361ac09\")"
+    },
+    {
+      "Name": "LrdPaymentStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"c7a90606-13f3-43cb-93ae-7d88706efc24\")"
+    },
+    {
+      "Name": "NNBusinessTripOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"87714b4e-a63a-4825-b0ba-08c838cf01ff\")"
+    },
+    {
+      "Name": "NNRetentionStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"df37b42b-665c-4829-94f8-cfaabaf2e721\")"
+    },
+    {
+      "Name": "OtherDocuments",
+      "ParentClasses": [
+        "Module",
+        "CodeMinistryLabor"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"12.999\""
+    },
+    {
+      "Name": "OvertimeWorkAgreementDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"22\""
+    },
+    {
+      "Name": "OvertimeWorkAgreementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"5c9078ec-b57a-4b47-9e8c-9312947a9169\")"
+    },
+    {
+      "Name": "OvertimeWorkOrderDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"24\""
+    },
+    {
+      "Name": "OvertimeWorkOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"ac5cc7bd-535f-4d63-abe9-18ba9fc22ece\")"
+    },
+    {
+      "Name": "OvertimeWorkStatementDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "OvertimeWorkStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"be02cd65-6ac9-4482-af5c-9425dab371c9\")"
+    },
+    {
+      "Name": "ResponsibleWeekendWork",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"0ADDEFB4-0457-4BF1-987F-133849D63C40\")"
+    },
+    {
+      "Name": "RetentionStatementDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"12\""
+    },
+    {
+      "Name": "RetentionStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"0a714e8d-ba7a-40b6-be9c-fed73908c5b2\")"
+    },
+    {
+      "Name": "SupportingDocumentForLNADocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "TradeUnionOrganizationOpinionDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "WeekendWorkAgreementDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"21\""
+    },
+    {
+      "Name": "WeekendWorkAgreementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"28c370c6-6160-4f25-9707-3f9451f69e82\")"
+    },
+    {
+      "Name": "WeekendWorkAgreementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"a0eb6907-66bd-4419-9196-f622cf65ff53\")"
+    },
+    {
+      "Name": "WeekendWorkCancelationOrderDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"25\""
+    },
+    {
+      "Name": "WeekendWorkCancelationOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"733a1004-0fc3-4886-825f-0579998e8b91\")"
+    },
+    {
+      "Name": "WeekendWorkOrderDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"23\""
+    },
+    {
+      "Name": "WeekendWorkOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"65cccf95-bb8c-43ea-abb6-7335e6942c94\")"
+    },
+    {
+      "Name": "WeekendWorkOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"0633c531-ad3f-40ec-b885-3c0b6da84ed0\")"
+    },
+    {
+      "Name": "WeekendWorkStatementDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "WeekendWorkStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentType"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"c4470d2c-11b0-4e0b-bac0-d560ec1398e7\")"
+    },
+    {
+      "Name": "WeekendWorkStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"1c8cc7d5-4d44-4b38-baff-0cbecde898cc\")"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CheckForDisabledChildPaymentType",
+      "Parameters": [
+        {
+          "Name": "paymentTypeId",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "CheckLrdPaymentInExternalSystem",
+      "Parameters": [
+        {
+          "Name": "EmployeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "PaymentTypeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "ChildName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "BirthDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "CreateLrdPaymentEvent",
+      "Parameters": [
+        {
+          "Name": "mainTaskId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "messageGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText"
+    },
+    {
+      "Name": "CreateWeekendWorkCancelationEvent",
+      "Parameters": [
+        {
+          "Name": "mainTaskId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "messageGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText"
+    },
+    {
+      "Name": "CreateWeekendWorkEvent",
+      "Parameters": [
+        {
+          "Name": "mainTaskId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "messageGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText"
+    },
+    {
+      "Name": "CreateWeekendWorkOrderDocumentHandler",
+      "Parameters": [
+        {
+          "Name": "incomingMessageId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "FillLrdPaymentData",
+      "Parameters": [
+        {
+          "Name": "documentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "paymentTypeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "childName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "childBirthDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "amount",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "reason",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "FillStatementDataForWeekendWork",
+      "Parameters": [
+        {
+          "Name": "docId",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "docKindGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "reasonId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "compensation",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "description",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "workFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "workTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "firstBreakFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "firstBreakTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "secondBreakFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "secondBreakTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "restFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "restTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "additionalApproverId",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "GetChildrenByEmployeeId",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetCompensationKindsByDocKind",
+      "Parameters": [
+        {
+          "Name": "docKindGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetJsonForDataSource",
+      "Parameters": [
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "GetJsonPaymentTypes",
+      "Parameters": [
+        {
+          "Name": "paymentTypes",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNOtherProcesses.ILrdPaymentType>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetLrdPaymentDataForRework",
+      "Parameters": [
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetLrdPaymentStatementTemplateId",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetPaymentTypeNameById",
+      "Parameters": [
+        {
+          "Name": "paymentTypeId",
+          "ParameterType": "global::System.Nullable<global::System.Int64>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetPaymentTypesByEmployeId",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetPaymentTypeSetting",
+      "Parameters": [
+        {
+          "Name": "paymentTypeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetStatementDataForReworkWeekendWork",
+      "Parameters": [
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "ProcessCreateBusinessTripOrder",
+      "Parameters": [
+        {
+          "Name": "incomingMessageId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "ProcessingCreateRetentionStatementDocument",
+      "Parameters": [
+        {
+          "Name": "idIncomingMessage",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "ProcessManualHoldingEvent",
+      "Parameters": [
+        {
+          "Name": "incomingMessageId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "UpdateOrCreateLrdPaymentOrder",
+      "Parameters": [
+        {
+          "Name": "idIncomingMessage",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "UpdateOrCreateRetentionStatementDocument",
+      "Parameters": [
+        {
+          "Name": "model",
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.IRetentionStatementDocumentCard",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.IRetentionStatementDocumentCard"
+        },
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "document",
+          "ParameterType": "global::DirRX.NNOtherProcesses.INNRetentionStatementDocument",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.INNRetentionStatementDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "processingDate",
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "ValidateWeekendWorkStatement",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "workFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "workTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "firstBreakFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "firstBreakTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "secondBreakFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "secondBreakTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "ValidateWeekendWorkStatementInExternalSystem",
+      "Parameters": [
+        {
+          "Name": "DocKindGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "EmployeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "WorkDateFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "WorkDateTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "RestDateFrom",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "RestDateTo",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    }
+  ],
+  "PublicStructures": [
+    {
+      "Name": "CompensationKindStructure",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "Name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "NeedRestDate",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "IsRestDateRequired",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
+    },
+    {
+      "Name": "StatementDataForReworkWeekendWork",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "InitiatorId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "PerformerInfo",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "AdditionalApproverId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "StatementId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "WorkDateFrom",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "WorkDateTo",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "FirstBreakFrom",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "FirstBreakTo",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "SecondBreakFrom",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "SecondBreakTo",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "RestDateFrom",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "RestDateTo",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "Compensation",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "Reason",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "ReasonDescription",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
+    }
+  ],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.NNOtherProcesses",
+  "ResourcesKeys": [
+    "BusinessTripOrder",
+    "RetentionStatement",
+    "BusinessTripOrderDocKind",
+    "CancelBusinessTripOrder",
+    "ChangeBusinessTripOrder",
+    "RetentionStatementDocKind",
+    "ApproveComment",
+    "SubjectTaskManualHoldingEvent",
+    "BusinessProcessRegistrationBusinessTrips",
+    "BusinessProcessPersonalDonationProgram",
+    "SubjectTaskSendRetentionStatementStatus",
+    "WeekendWorkStatementDocument",
+    "WeekendWorkStatementDocKind",
+    "OvertimeWorkStatementDocKind",
+    "WeekendWorkAgreement",
+    "WeekendWorkAgreementDocKind",
+    "OvertimeWorkAgreementDocKind",
+    "WeekendWorkOrderDocKind",
+    "WeekendWorkCancelationOrderDocKind",
+    "WeekendWorkOrder",
+    "ExternalSystemValidationWeekendWorkError",
+    "ResponsibleWeekendWorkRoleName",
+    "ResponsibleWeekendWorkRoleDescription",
+    "LrdPaymentStatement",
+    "LrdPaymentStatementDocKind",
+    "LrdPaymentApplicationDocKind",
+    "LrdPaymentOrderDocKind",
+    "LrdOrderDocument",
+    "ExternalSystemCheckLrdPaymentError",
+    "LrdPaymentTemplateNotFoundError",
+    "OvertimeWorkOrderDocKind",
+    "ExternalSystemLrdPaymentsGetChildrenError",
+    "CheckLrdPaymentError",
+    "UpdateTopAttributeInDocumentsJobNoticeSubject",
+    "UpdateTopAttributeInDocumentsJobNoticeText",
+    "ErrorWeekendWorkHoursExceeded",
+    "ErrorWeekendWorkHoursExceededEmployee",
+    "ErrorWeekendWorkHoursExceededEmployees",
+    "ErrorCheckWorkingHoursExceeded"
+  ],
+  "ServerAssemblyName": "DirRX.NNOtherProcesses.Server",
+  "ServerNamespace": "DirRX.NNOtherProcesses.Server",
+  "SharedAssemblyName": "DirRX.NNOtherProcesses.Shared",
+  "SharedNamespace": "DirRX.NNOtherProcesses.Shared",
+  "SpecialFolders": [],
+  "Version": "25.2.0.2",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

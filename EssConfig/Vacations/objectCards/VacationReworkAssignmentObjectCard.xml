@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="6e27d3a0-f615-4025-af7b-7a1f049eac2e" name="IVacationReworkAssignments" header="@.OBJECTCARD_VACATION_REWORK_ASSIGMENT_HEADER" icon="read-document">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result" />
+        <field caption="@HRPROVACATIONS.DEFAULTCARD_COMMENT_CAPTION" binding="reason" />
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_SUBSTITUTE_CAPTION" binding="substitute"/>
+        <field caption="@HRPROVACATIONS.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_NOTIFIABLELIST" binding="notifiableList"/>
+      </fields>
+      <content></content>
+      <attachmentsAreas>
+        <attachmentsArea title="@.DEFAULT_ATTACHMENTS_APPROVAL_DOCUMENTS">
+          <documentGroups>
+            <documentGroup>StatementAttachmentGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+    <button name="ChangeSubstitute" isPrimary="false" isDefault="false">
+      <icon />
+      <caption>@HRPROVACATIONS.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id:'e1d4e6d4-1bbe-4c26-b4e1-fa143c3ee552'}, {parameters:{ItemId: data.id, Substitute: data.substituteId, EmployeeId: data.performer}}, sender);
+      ]]></clickEventHandler>
+    </button>
+    <button name="ChangeNotifiable" isPrimary="false" isDefault="false">
+      <icon />
+      <caption>@HRPROVACATIONS.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id:'5513782f-c6be-4422-bfc7-139259c830e3'}, {parameters:{AssignmentId: data.id, NotifiableIds: data.notifiableIds}}, sender);
+      ]]></clickEventHandler>
+    </button>
+    <button name="Rework" isPrimary="true" isDefault="true">
+      <icon />
+      <caption>@.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_REWORK</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id:'82835b9b-0070-4df6-b5de-2a7a5e99677f'}, {parameters:{AssignmentId: data.id, AssignmentType: data.name, NotifiableIds: data.notifiableIds}});
+        ESS.closeElement(sender);
+      ]]></clickEventHandler>
+    </button>
+    <button name="Abort" isPrimary="false" isDefault="false">
+      <icon />
+      <caption>@.OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_STOP</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id: 'ee471097-9412-4b33-b24e-8e7443ecd0cb'}, {parameters: {ItemId: data.id, ItemName: data.name, StateName: 'Abort'}}, sender);
+      ]]></clickEventHandler>
+    </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
+  <openedEventHandler><![CDATA[
+    var assignmentId = data.id;
+    ESS.network.sendRequest(`/api/functions/GetReworkVacationReason?assignmentId=${assignmentId}`)
+    .then(function (denyReason) {
+      ESS.network.sendRequest(`/api/functions/GetInstructionReworkVacation?assignmentId=${assignmentId}`)
+      .then(function (instruction) {
+        ESS.network.sendRequest(`/api/functions/GetSubstituteFromAssignment?assignmentId=${data.id}`)
+        .then(function (substituteInfo) {
+          const substituteId = substituteInfo.SubstituteId;
+          ESS.network.sendRequest(`/api/functions/GetSubstitutePositionAndJobTitle?employeeId=${substituteId}`)
+          .then(function (substitutePosition) {
+            ESS.network.sendRequest(`/api/functions/GetNotifiableFromAssignment?assignmentId=${data.id}`)
+            .then(function (notifiables) {
+              data.substituteId = substituteId;
+              data.substitute = substituteInfo.SubstituteName;
+              data.notifiableList = notifiables.NotifiableNames;
+              data.notifiableIds = notifiables.NotifiableIds;
+              data.reason = denyReason;
+              if (data.status != 'Completed') {
+              configuration.content = ESS.L('@HRPROVACATIONS.COMMON_INSTRUCTION') + '<br/><br/>' + instruction;
+              }
+              resolve({configuration: configuration, data: data});
+            });
+          });
+        });
+      });
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if(data.isRead === false)
+    {
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+</objectCard>

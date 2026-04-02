@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <ViewName>Default</ViewName>
+  <Collectionf5ea1fb2846949ceb82a36f02d35ecef FormGuid="e09e95c3-4d26-47f2-b1ae-5fa48bb37776">
+    <XtraSerializer version="1.0" application="GridControl">
+      <property name="#LayoutVersion" isnull="true" />
+      <property name="$GridControl" iskey="true" value="GridControl">
+        <property name="View" isnull="true" iskey="true">
+          <property name="LinesPerRowMode">None</property>
+          <property name="ColumnChooserState" isnull="true" iskey="true">
+            <property name="Location">557,-194</property>
+            <property name="Size">220,250</property>
+          </property>
+          <property name="AllowMoveColumnToDropArea">false</property>
+          <property name="AllowColumnMoving">true</property>
+          <property name="AllowSorting">true</property>
+          <property name="ShowTotalSummary">false</property>
+          <property name="IsRowCellMenuEnabled">false</property>
+          <property name="ShowGroupPanel">false</property>
+          <property name="AutoWidth">false</property>
+          <property name="AllowGrouping">false</property>
+        </property>
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="SortInfo" iskey="true" value="0" />
+        <property name="GroupSummary" iskey="true" value="0" />
+        <property name="GroupCount">0</property>
+        <property name="Columns" iskey="true" value="1">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">BusinessUnit_RecipientsNotificationsUKEPDirRX_Recipient</property>
+            <property name="FieldName">Recipient</property>
+            <property name="VisibleIndex">0</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+        </property>
+        <property name="GroupSummarySortInfo" iskey="true" value="0" />
+      </property>
+    </XtraSerializer>
+  </Collectionf5ea1fb2846949ceb82a36f02d35ecef>
+</settings>

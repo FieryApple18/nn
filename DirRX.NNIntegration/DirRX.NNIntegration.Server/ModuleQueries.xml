@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="GetOldCompanyQueueRecordsId">
+    <default><![CDATA[WITH CTE AS (
+    SELECT *,
+           MAX(receiveddate) OVER (PARTITION BY {0}) AS MaxReceivedDate
+    FROM dirrx_nninteg_companyqueue
+)
+SELECT *
+FROM CTE
+WHERE receiveddate < MaxReceivedDate 
+  and {0} is not null 
+  and (processstatus = 'Recent' or processstatus = 'Retry');]]></default>
+  </query>
+  <query key="GetUnmodifiedBUByDays">
+    <default><![CDATA[WITH MaxDate AS (
+    SELECT
+        CompQueueBuf.busUnit AS bu,
+        MAX(CompQueueBuf.LastProcessing) AS max_date
+    FROM (
+        SELECT businessUnit_company_Sungero AS busUnit, LastProcessing
+        FROM public.dirrx_nninteg_companyqueue AS CompQueue
+        JOIN public.sungero_core_recipient AS dep ON CompQueue.Department = dep.Id
+    UNION ALL
+        SELECT BusinessUnit_Company_SUngero AS busUnit, LastProcessing
+        FROM public.dirrx_nninteg_companyqueue AS CompQueue
+        JOIN public.sungero_company_jobtitle AS jt ON CompQueue.JobTitle = jt.Id
+		JOIN public.sungero_core_recipient AS dep ON jt.Department = dep.id
+    UNION ALL
+        SELECT dep.BusinessUnit_Company_SUngero AS busUnit, LastProcessing
+        FROM public.dirrx_nninteg_companyqueue AS CompQueue
+		JOIN public.sungero_core_recipient AS emp ON emp.Id = CompQueue.Employee
+		JOIN public.sungero_core_recipient AS dep ON dep.Id = emp.Department_Company_Sungero
+    ) AS CompQueueBuf
+    GROUP BY CompQueueBuf.busUnit
+)
+SELECT bu.Id
+FROM public.sungero_core_recipient AS bu
+JOIN MaxDate ON bu.id = MaxDate.bu AND MaxDate.max_date < '{0}';]]></default>
+  </query>
+  <query key="SaveStatusSupernikaPushNotification">
+    <default><![CDATA[WITH check_existing AS (
+      SELECT 1
+      FROM public."MessagesSupernikaStatus"
+      WHERE "RXIncomingMessageId" = @rxIncomingMessageId
+        AND "MBMessageId" = @mbMessageId
+        AND "DateTime" = (@dateTime::timestamptz)
+        AND "Status" = @status
+        AND "SelectedButton" = @selectedButton
+        AND "Comment" = @comment
+        AND "ErrorMessage" = @errorMessage
+  )
+  INSERT INTO public."MessagesSupernikaStatus"
+  ("RXIncomingMessageId", "MBMessageId", "DateTime", "Status", "SelectedButton", "Comment", "ErrorMessage")
+  SELECT @rxIncomingMessageId, @mbMessageId, @dateTime::timestamptz, @status, @selectedButton, @comment, @errorMessage
+  WHERE NOT EXISTS (SELECT 1 FROM check_existing);]]></default>
+  </query>
+</queries>

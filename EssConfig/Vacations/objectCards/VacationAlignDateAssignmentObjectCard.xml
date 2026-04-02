@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="08a6615b-9930-4c14-9fd8-6fad406111ff" name="IVacationAlignDateAssignments" header="@.OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_ACTIVE_HEADER" icon="read-document">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result" />
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee" />
+      </fields>
+      <content></content>
+      <attachmentsAreas>
+        <attachmentsArea title="@.OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_ATTACHMENTS_ACQUAINTANCE_DOCUMENTS">
+          <documentGroups>
+            <documentGroup>VacationNoticeAttachmentGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+    <button name="GetVacation" isPrimary="true" isDefault="false">
+      <icon></icon>
+      <caption>@.OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_BUTTON_GET_VACATION</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id: 'd1899307-092b-4a08-87b5-3c7c14f2feff'}, {parameters: {AlignDateAssignmentId: data.id, Initiator: data.performer}}, sender);
+      ]]></clickEventHandler>
+    </button>
+    <button name="Skip" isPrimary="false" isDefault="true">
+      <icon />
+      <caption>@.OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_BUTTON_SKIP</caption>
+      <clickEventHandler><![CDATA[
+        ESS.network.sendRequest(`/api/functions/CheckAssignmentInProcess?assignmentId=${data.id}`)
+          .then(function (isAssignmentInProcess) {
+            if (isAssignmentInProcess) {
+              var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
+              isAssignmentBlocked
+                .then(message => {
+                  if (!message) {
+                    ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Skip').then(function () {
+                      ESS.closeElement(sender);
+                      ESS.widgets.updateWidgets();
+                    })
+                      .catch(function (error) {
+                        ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROSTATEMENTS.ERR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
+                      });
+                  } else {
+                    ESS.toasts.showToast(message, 'danger', false);
+                  }
+                }).catch(function (err) {
+                  ESS.toasts.showErrorToastWithLog(err);
+                });
+            } else {
+              ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.ASSIGNMENT_IS_ALREADY_COMPLETED'), 'danger', false);
+            }
+          }).catch(function (err) {
+            ESS.toasts.showErrorToastWithLog(err);
+          });    
+      ]]></clickEventHandler>
+    </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
+  <openedEventHandler><![CDATA[
+    var assignmentId = data.id;
+    ESS.network.sendRequest(`/api/functions/GetAssignmentInstructionForEss?assignmentId=${assignmentId}`)
+      .then(function (instruction) {
+        var reason = ESS.L('@HRPROVACATIONS.COMMON_INSTRUCTION') + '<br/><br/>' + instruction;
+        configuration.content = reason;
+        resolve({configuration: configuration, data: data});
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if(data.isRead === false)
+    {
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+</objectCard>

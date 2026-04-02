@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="shiftVacation" index="30">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <backgroundColor>#3ACA7D</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>calendar</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_SHIFT_VACATION_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: '6e7a8c95-aa2b-44f3-ae0c-6f748a0e68ac'});]]></clickEventHandler>
+</tile>

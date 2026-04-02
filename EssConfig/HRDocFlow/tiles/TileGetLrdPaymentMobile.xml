@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="getLrdPaymentMobile" index="22">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileGetLrdPayment" />
+  </authorization>
+  <backgroundColor>#005CAD</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.STATEMENTS_TILE_GETLRDPAYMENT_TITLE</title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: '5154e493-54f7-4023-af00-ade29205e0e3'});]]></clickEventHandler>
+</tile>

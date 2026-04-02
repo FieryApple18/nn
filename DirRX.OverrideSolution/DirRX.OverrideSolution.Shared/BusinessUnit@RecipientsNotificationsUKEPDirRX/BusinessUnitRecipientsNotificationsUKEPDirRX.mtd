@@ -1,0 +1,63 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "bd8105e4-2794-4557-bea4-02a6fe6583b3",
+  "Name": "BusinessUnitRecipientsNotificationsUKEPDirRX",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "BusinessUnitRe",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "NonVisualAuthorizationMode": "FullAccess",
+  "Overridden": [
+    "AccessRightsMode",
+    "NonVisualAuthorizationMode"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "8612bd5b-9b67-4374-b130-d5951a4678cc",
+      "Name": "BusinessUnit",
+      "CanBeSearch": false,
+      "Code": "Recipient",
+      "EntityGuid": "04e2bd94-344d-4c25-ad56-7b6590d35988",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "cf87c762-42b8-4064-8cc8-81aa8e3ddd72",
+      "Name": "Recipient",
+      "CanBeSearch": false,
+      "Code": "Recipient1",
+      "EntityGuid": "c612fc41-44a3-428b-a97c-433c333d78e9",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "8612bd5b-9b67-4374-b130-d5951a4678cc"
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "4cd2353d-6264-4bea-9551-adbf1fb6d1f1",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "a79c7b68-8b03-4b09-aed8-26c0ea7c177a",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

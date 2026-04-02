@@ -1,0 +1,49 @@
+{
+  "$type": "Sungero.Metadata.ReportMetadata, Sungero.Reporting.Shared",
+  "NameGuid": "3092b8ab-6557-416b-819f-af1aff36bff5",
+  "Name": "SupernikaPushNotificationReport",
+  "AssociatedGuid": "2571872a-71fb-4a61-a079-fe77d13f8094",
+  "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
+  "DataSources": [],
+  "DefaultExportFormat": "Excel",
+  "ExportFormats": [
+    "Excel"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNIntegrationSupernikaPushNotificationReport",
+  "Overridden": [
+    "PublicConstants",
+    "PublicStructures",
+    "DisplayName",
+    "ExportFormats",
+    "DefaultExportFormat",
+    "Parameters"
+  ],
+  "Parameters": [
+    {
+      "NameGuid": "df3d1778-602b-49ba-bf5e-fa12a010c2db",
+      "Name": "BeginDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "5b90e627-f870-49f0-840c-20d1c013a90f",
+      "Name": "EndDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "695cd2d0-3436-4ae3-ba87-6c18362d18e4",
+      "Name": "PersonalPhone",
+      "InternalDataTypeName": "System.String"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "Versions": [
+    {
+      "Type": "ReportMetadata",
+      "Number": 1
+    }
+  ]
+}

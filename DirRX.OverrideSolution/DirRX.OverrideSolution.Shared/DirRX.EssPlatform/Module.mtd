@@ -1,0 +1,1138 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "d3626371-5840-4ade-8dea-aca7762f1d5b",
+  "Name": "EssPlatform",
+  "AssociatedGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "9b609744-50f1-4370-b00f-50dedcb6e019",
+      "Name": "SyncEmail",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": []
+    },
+    {
+      "NameGuid": "bb642038-1a47-4965-9645-b5638258e356",
+      "Name": "SendNoticeAboutInvite",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "MaxRetryCount": 10,
+      "Parameters": [
+        {
+          "NameGuid": "18d93e1b-9e5f-431e-bb09-882be8cdcc18",
+          "Name": "userId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "f592cc05-747b-485c-9470-561761cf7413",
+          "Name": "message",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "30f16868-3993-4a6a-8eb3-1a3951fec70e",
+      "Name": "CreateAccountsAndIncludeNonInteractiveUsersRoles",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "MaxRetryCount": 20,
+      "Parameters": [
+        {
+          "NameGuid": "6d9b3e19-0106-4258-b704-1200033e27c4",
+          "Name": "employeeIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "8a04ffc2-9cf6-45be-8af6-c09609c9428b",
+          "Name": "numberRecordsProcess",
+          "ParameterType": "Integer"
+        }
+      ]
+    },
+    {
+      "NameGuid": "769bad10-7e6d-4a37-80c8-cc18dac64d28",
+      "Name": "TransferCertificates",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "33044a6a-bf24-477a-ba43-3738f6ab1c93",
+          "Name": "personId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "3c639b5b-cbea-4c2a-9518-2664be64371e",
+      "Name": "ChangeEmployeeEssStatus",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "MaxRetryCount": 100,
+      "Overridden": [
+        "IsHandlerGenerated"
+      ],
+      "Parameters": [
+        {
+          "NameGuid": "00b0a675-9fb8-4bd4-a8c9-793640501c5b",
+          "Name": "EssStatus",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "8bdd6065-f0cd-4308-a5a5-61e04cc12492",
+          "Name": "EmployeeId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "b440e7c9-ea6d-48a9-adcd-3e0504db378f",
+      "Name": "ActivateESSUsers",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "05be4d3b-febc-4462-892b-12bbb969a3b4",
+          "Name": "includeSubDepartments",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "0e5315d1-1ed9-4730-b878-520429fb95a3",
+          "Name": "providerId",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "33ac0184-42b8-4e74-8356-0c5ded42d2ba",
+          "Name": "departmentIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "cbaa5edc-d9ca-4ab9-8d7f-764225cb20b4",
+          "Name": "employeeIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "e45a7565-2ca8-48c6-98e5-5174cfc7a2fc",
+          "Name": "businessUnitIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "f2101152-042c-4969-a4a6-cb68c580e835",
+          "Name": "identificationType",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "fa87625c-eccf-4c15-86dd-79e60658e40a",
+          "Name": "userId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "bb2065e8-9a81-4c87-bea1-9b104a135d29",
+      "Name": "SendSms",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "0d01de02-614a-4171-ab8e-b76e36dd4541",
+          "Name": "messageText",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "112d6c02-baac-4592-9557-8d0ba931d975",
+          "Name": "userid",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "873bcd17-913f-4fce-83b5-66474fe0f665",
+      "Name": "SendEmail",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "1af63b3f-f9e2-4e9d-a239-ea774b6d83ac",
+          "Name": "messageSubject",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "4fb165e6-ba3b-47c5-acb1-b6f815d6e14a",
+          "Name": "messageText",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "85a2172e-61cd-4936-92ab-50539e23ad40",
+          "Name": "email",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c5c7e948-e744-493b-8378-1363d5a183d0",
+          "Name": "targetSystemName",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "e0328bf8-e179-4a96-81a7-e72adabb4ac8",
+          "Name": "userid",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "e30af75d-85d0-4682-9f2d-fdbe83da795f",
+          "Name": "assignmentId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "d6ed7d27-4323-4ea7-bc12-c9acf0cb8cca",
+      "Name": "SendMessageToViber",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "65b6c070-976f-456e-9e7f-b22c1f528f25",
+          "Name": "messageText",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c520aa12-16c8-41ea-947a-bf7c3449ba00",
+          "Name": "userid",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "6b7b3f5d-09ea-4f1d-9f31-3050b488f4d3",
+      "Name": "SynchronizeEmployee",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsAncestorMetadata": true,
+      "IsHandlerGenerated": true,
+      "Overridden": [
+        "IsHandlerGenerated"
+      ],
+      "Parameters": [
+        {
+          "NameGuid": "093fae3e-cfd8-4eb8-b361-97fb9a414c49",
+          "Name": "employeeIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "514dc82c-65db-4437-931f-5864879f2ce5",
+          "Name": "needNotifyExpiredHRAssignmentDirRX",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "5bea38fe-5dec-4a6a-b82d-93ce38184019",
+          "Name": "confirmationTypeDirRX",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "7ccc4314-c70c-43b2-93e3-d4517d080ff9",
+          "Name": "changedEmployeeId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "a387bdfe-cd41-4480-8562-279a94e98b90",
+          "Name": "needNotifyHRRepeatDirRX",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "a73249e3-0526-495e-b180-fe65d86a755f",
+          "Name": "needNotifyNewHRAssignmentDirRX",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "b6685960-e12f-410e-ae60-13562f60fd95",
+          "Name": "personalPhone",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "e8c5ff53-44c6-4fc0-9635-fb0f288531c7",
+          "Name": "personalAccountStatus",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "f1149dcf-54e4-4e03-8027-ba4a59e3f2ed",
+          "Name": "messagesEmail",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "7ebc98be-c831-48db-b890-0ffa180bd39d",
+      "Name": "SendSmsDirRX",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "0abccb34-8fe7-4e0a-a074-62ad51057cd1",
+          "Name": "userId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "aa96c0c8-223e-449b-9df8-23fb482c8910",
+          "Name": "messageText",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "9e437baf-a193-45c0-878c-14287f198355",
+      "Name": "ChangeCandidateEssStatusDirRX",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "c2e20dba-973a-4e21-ae58-65e686e7151e",
+          "Name": "EssStatus",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "d851cb09-990d-42e1-814f-a5f36750d36d",
+          "Name": "CandidateId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "cd685a90-c2f4-403c-8cdd-b9f0c856b96d",
+      "Name": "CreateNotificationToSupernikaDirRX",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "0515a568-0872-4558-96df-d9b531f41742",
+          "Name": "EmployeeID",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "217ab7fc-72a2-4463-8485-122596100b76",
+          "Name": "IsNotice",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "247f4b50-1df8-462d-90cb-60fbf62155b3",
+          "Name": "IsSendToMobile",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "3038778b-ee30-4c83-8e07-f98a1698e71e",
+          "Name": "SelfOfficeObjectType",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "4d156e5a-8663-4119-989d-f2def4babd3d",
+          "Name": "ObjectTypeName",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "4e726bb4-f8fa-44ab-b019-708633bec377",
+          "Name": "TargetSystemName",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "e9bed644-db30-49b3-88fa-5f0675893222",
+          "Name": "Id",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    }
+  ],
+  "BaseGuid": "73a9c4d1-d76d-401d-a361-9f3b38fe1f4f",
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.Module.EssPlatform.ClientBase",
+  "Code": "EssPl",
+  "CompanyCode": "DirRX",
+  "ExplorerTreeOrder": [],
+  "HandledEvents": [
+    "InitializingServer"
+  ],
+  "Importance": "Medium",
+  "IsVisible": false,
+  "LayeredFromGuid": "179a8916-3b1e-4363-92c4-c27e038ff6c6",
+  "PublicConstants": [
+    {
+      "Name": "ShowTileCompensationVacation",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"7DE7660F-6943-42F2-8007-E8F772F9CA16\")"
+    },
+    {
+      "Name": "ShowTileGetAnnualVacation",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"7D154A6E-50AF-41BB-98EA-0DC916571044\")"
+    },
+    {
+      "Name": "ShowTileGetLrdPayment",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"7F6A42E1-F1C1-42A4-82B5-1F99BE1C34C4\")"
+    },
+    {
+      "Name": "ShowTileGetOtherVacation",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"0CFE5645-660F-4836-8F2A-AD84E96C5517\")"
+    },
+    {
+      "Name": "ShowTileGetVacationWithoutPay",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"834A6129-6BFC-43FF-AD78-1BA9DECD688A\")"
+    },
+    {
+      "Name": "ShowTileMyVacations",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"6AE7E206-0EEB-4CA9-8FFC-4AC289288FD6\")"
+    },
+    {
+      "Name": "ShowTileNNRecallVacationEmployee",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"CE762776-9D83-44B1-BE6C-16DF02FFABED\")"
+    },
+    {
+      "Name": "ShowTileNNSelfRecallVacationEmployee",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"0E49B038-A6DA-43F3-B15C-9720A1874550\")"
+    },
+    {
+      "Name": "ShowTileNNShiftVacationByStatement",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"BB856C9E-AB90-4515-9709-1464F39EB18F\")"
+    },
+    {
+      "Name": "ShowTileOvertimeWork",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"7B70AD53-B7A1-487A-9662-45358963B4B7\")"
+    },
+    {
+      "Name": "ShowTileStatements",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"B2143D93-8D82-4516-AEA5-80B082AB85DE\")"
+    },
+    {
+      "Name": "ShowTileWeekendWork",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"3BFCBE2B-2463-4737-A849-B815D6597C7F\")"
+    },
+    {
+      "Name": "SynchronizeEmployee",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "20"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "ActivateESSUser",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "user",
+          "ParameterType": "global::Sungero.CoreEntities.IUser",
+          "ParameterTypeFullName": "Sungero.CoreEntities.IUser, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "person",
+          "ParameterType": "global::Sungero.Parties.IPerson",
+          "ParameterTypeFullName": "Sungero.Parties.IPerson, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "phone",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "businessUnit",
+          "ParameterType": "global::Sungero.Company.IBusinessUnit",
+          "ParameterTypeFullName": "Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "AttachDocuments",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "entityType",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "entityId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "documents",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "ChangeEmployeeStatusConnectionToEss",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "essStatus",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "ChangeOrCreateMainEmployeesAccount",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::Sungero.CoreEntities.ILogin",
+      "ReturnTypeFullName": "Sungero.CoreEntities.ILogin, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "CreateEmptyEssNotification",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.IMessageBrokerNotification",
+      "ReturnTypeFullName": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.IMessageBrokerNotification"
+    },
+    {
+      "Name": "CreateHyperLinkToSelfOffice",
+      "Parameters": [
+        {
+          "Name": "targetSystemName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "selfOfficeObjectType",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "objectTypeName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "id",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CreateHyperLinkToSupernika",
+      "Parameters": [
+        {
+          "Name": "targetSystemName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "selfOfficeObjectType",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "objectTypeName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "id",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CreateUserStructure",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "person",
+          "ParameterType": "global::Sungero.Parties.IPerson",
+          "ParameterTypeFullName": "Sungero.Parties.IPerson, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "user",
+          "ParameterType": "global::Sungero.CoreEntities.IUser",
+          "ParameterTypeFullName": "Sungero.CoreEntities.IUser, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "phone",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "DisconnectEssUser",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.EssPlatformSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.EssPlatformSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "ExtractTextFromHtml",
+      "Parameters": [
+        {
+          "Name": "html",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "FillAccountAndIncludeNonInteractiveUsersRoles",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FormSupernikaSubject",
+      "Parameters": [
+        {
+          "Name": "subject",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isNotice",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetEmployeeCertificateEnities",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::Sungero.Company.IEmployee",
+          "ParameterTypeFullName": "Sungero.Company.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.CoreEntities.ICertificate>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetEssRolesActors",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.EssPlatform.Structures.Module.IRoleActors>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetNotificationActionsForMessageBroker",
+      "Parameters": [
+        {
+          "Name": "assignment",
+          "ParameterType": "global::Sungero.Domain.Shared.IEntity",
+          "ParameterTypeFullName": "Sungero.Domain.Shared.IEntity, Sungero.Domain.Shared"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaAction>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetSupernikaPushContent",
+      "Parameters": [
+        {
+          "Name": "entityId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "isNotice",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaNotifiactionParams",
+      "ReturnTypeFullName": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaNotifiactionParams"
+    },
+    {
+      "Name": "SendNewNotification",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::Sungero.CoreEntities.IUser",
+          "ParameterTypeFullName": "Sungero.CoreEntities.IUser, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "isNotice",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "targetSystemName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "selfOfficeObjectType",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "objectTypeName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "id",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSendToMobile",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "SendNotificationToSupernika",
+      "Parameters": [
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "title",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "content",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "priority",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "properties",
+          "ParameterType": "System.Collections.Generic.Dictionary<global::System.String, global::System.String>"
+        },
+        {
+          "Name": "actions",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaAction>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "attachments",
+          "ParameterType": "System.Collections.Generic.Dictionary<global::System.String, global::System.Int64>"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "SendSupernikaPushOnEmail",
+      "Parameters": [
+        {
+          "Name": "email",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "title",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "text",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "UpdateEssUser",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.EssPlatformSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.EssPlatformSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "oldPhoneNumber",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
+  "PublicStructures": [
+    {
+      "Name": "Claim",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "DirectumRX_PersonId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "DirectumRX_Username",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "phone",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    },
+    {
+      "Name": "EssUserActivateJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "userName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "person",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.EssPlatform.Structures.Module.IPersonData"
+        },
+        {
+          "Name": "identities",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.IClaim"
+        },
+        {
+          "Name": "authentication",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.EssPlatform.Structures.Module.IAuthentication"
+        },
+        {
+          "Name": "inviteToResource",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    },
+    {
+      "Name": "MessageBrokerNotification",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Identity",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.EssPlatform.Structures.Module.IMessageBrokerNotificationIdentity"
+        },
+        {
+          "Name": "Title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Content",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Priority",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "DeliveryMethod",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "DeliveryProxy",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ExpirationPeriod",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Properties",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.Dictionary<global::System.String, global::System.String>"
+        },
+        {
+          "Name": "Actions",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaAction>"
+        },
+        {
+          "Name": "Attachments",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.EssPlatform.Structures.Module.IMessageBrokerNotificationAttachment>"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    },
+    {
+      "Name": "SupernikaAction",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Parameters",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaActionParameter"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    },
+    {
+      "Name": "SupernikaActionParameter",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Comment_required",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Button_type",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    },
+    {
+      "Name": "SupernikaNotifiactionParams",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Subject",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Text",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "NeedEmailNotification",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Actions",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaAction>"
+        },
+        {
+          "Name": "Created",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    },
+    {
+      "Name": "UpdateEssUserJson",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "phoneNumber",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "claims",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.IClaim"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module"
+    }
+  ],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution.Module.EssPlatform",
+  "ResourcesKeys": [
+    "SupernikaNotificationErrorSubject",
+    "SupernikaNotificationAsyncHandlerErrorText",
+    "RoleName_ShowTileMyVacations",
+    "RoleDescription_ShowTileMyVacations",
+    "RoleName_ShowTileGetAnnualVacation",
+    "RoleName_ShowTileGetVacationWithoutPay",
+    "RoleName_ShowTileGetOtherVacation",
+    "RoleName_ShowTileNNShiftVacationByStatement",
+    "RoleName_ShowTileCompensationVacation",
+    "RoleName_ShowTileNNRecallVacationEmployee",
+    "RoleName_ShowTileNNSelfRecallVacationEmployee",
+    "RoleName_ShowTileStatements",
+    "RoleName_ShowTileWeekendWork",
+    "RoleName_ShowTileOvertimeWork",
+    "RoleName_ShowTileGetLrdPayment",
+    "RoleDescription_ShowTileGetAnnualVacation",
+    "RoleDescription_ShowTileGetVacationWithoutPay",
+    "RoleDescription_ShowTileGetOtherVacation",
+    "RoleDescription_ShowTileNNShiftVacationByStatement",
+    "RoleDescription_ShowTileCompensationVacation",
+    "RoleDescription_ShowTileNNRecallVacationEmployee",
+    "RoleDescription_ShowTileNNSelfRecallVacationEmployee",
+    "RoleDescription_ShowTileStatements",
+    "RoleDescription_ShowTileWeekendWork",
+    "RoleDescription_ShowTileOvertimeWork",
+    "RoleDescription_ShowTileGetLrdPayment"
+  ],
+  "SpecialFolders": [],
+  "Version": "2.7.25200.9",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openingEventHandler>
+  <![CDATA[
+    data.showButtons = data.status === 'InProcess'; 
+    data.isSigned = data.result === 'Sign';
+    data.isAborted = data.status === 'Aborted';
+    data.isNotCompleted = true;
+    if (data.isAborted)
+    {
+      data.result = 'Aborted';
+    }
+
+    data.AuthorFullName = data.requisites.find(function (_ref) {
+                var name = _ref.name;
+                return name === 'Author';
+              }).displayValue;
+    if (data.result != null)
+    {
+      var date = new Date(Date.parse(data.finished)).toLocaleDateString('ru-RU');
+      switch(data.result.toLowerCase()) {
+        case 'complete':  // Выполнено
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_COMPLETE') + ' ' + date;
+          data.isNotCompleted = false;
+          break;
+        case 'accept':  // Принято
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_ACCEPT') + ' ' + date;
+          data.isNotCompleted = false;
+          break;
+        case 'approved':  // Согласовано
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_APPROVED') + ' ' + date;
+          data.isNotCompleted = false;
+          break;
+        case 'forrework':  // На доработку
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_FORREWORK') + ' ' + date;
+          break;
+        case 'forrevision':  // На доработку
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_FORREVISION') + ' ' + date;
+          break;
+        case 'refuse':  // Отказано
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_REFUSE') + ' ' + date;
+          break;
+        case 'reject':  // Отказано
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_REJECT') + ' ' + date;
+          break;
+        case 'sign':  // Подписано
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_SIGN') + ' ' + date;
+          data.isNotCompleted = false;
+          break;
+        case 'aborted':  // Прекращено
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_TERMINATE') + ' ' + date;
+          break;
+        case 'terminate':  // Прекращено
+          data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_TERMINATE') + ' ' + date;
+          break;
+        default:
+          data.result = '';
+          break;
+      }
+    }
+
+    // Результат для уведомлений
+    if (data.result == null && data.status.toLowerCase() == 'completed' && data.isRead == true)
+    {
+      var dateModified = new Date(Date.parse(data.modified)).toLocaleDateString('ru-RU');
+      data.result = ESS.L('@HRPROSTATEMENTS.OBJECTCARD_RESULT_VIEWED') + ' ' + dateModified;
+    }
+    
+    ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+    .then(function (emps) {
+        if (Object.keys(emps).length !== 0 && emps.positions.length > 1) {
+          emps.positions.forEach(function (emp) {
+            if (emp.id == data.performer) {
+              data.PerformerInfo = {
+                "FullName": data.performerFullName,
+                "Position": emp.title,
+                "Department": emp.department,
+                "Organization": emp.organization
+              }
+            }
+          })
+        }
+        ESS.network.sendRequest(`/api/functions/GetAssignmentInstructionForEss?assignmentId=${data.id}`)
+          .then(instruction => {
+            if (instruction !== "") {
+              data.instruction = instruction;
+            }
+            resolve(data);
+          }).catch(error => {
+            ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, true);
+            reject();
+          })
+    })
+    .catch(function (error) {
+        ESS.toasts.showToast(error.message, 'danger', false);
+        reject({message: "error text"});
+    });
+  ]]>
+</openingEventHandler>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="getOtherVacation" index="23">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileGetOtherVacation" />
+  </authorization>
+  <backgroundColor>#6C0A0A</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_GET_OTHER_VACATION_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({id: '71050155-b485-4546-b757-dba68cef402c'}, {parameters: {VacationKindDirRX: 'OtherLeave'}});]]></clickEventHandler>
+</tile>
