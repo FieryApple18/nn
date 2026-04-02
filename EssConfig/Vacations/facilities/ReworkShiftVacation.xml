@@ -788,6 +788,12 @@
         
         if (!data || data.substituteIds.length === 0) {
           console.log('[prepareSubstitutionParameters] No data to prepare');
+          
+          functions.setValue('SubstituteIdsString', '');
+          functions.setValue('SystemIdsString', '');
+          functions.setValue('StartDatesString', '');
+          functions.setValue('EndDatesString', '');
+          
           return false;
         }
         

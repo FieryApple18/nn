@@ -563,4 +563,11 @@
 	  });
 	}
 	]]></beforeSubmitEventHandler>
+  <closedEventHandler><![CDATA[
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS')
+    {
+      ESS.closeElement(sender.parent);
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
 </facility>

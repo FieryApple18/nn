@@ -731,10 +731,10 @@
         <property name="NeedsReview">False</property>
         <property name="Importance">Normal</property>
         <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
-        <property name="SubstituteIds" binding="SubstituteIdsString" type="String" />
-        <property name="SystemIds" binding="SystemIdsString" type="String" />
-        <property name="StartDates" binding="StartDatesString" type="String" />
-        <property name="EndDates" binding="EndDatesString" type="String" />
+        <property name="SubstituteIdsDirRX" binding="SubstituteIdsString" type="String" />
+        <property name="SystemIdsDirRX" binding="SystemIdsString" type="String" />
+        <property name="StartDatesDirRX" binding="StartDatesString" type="String" />
+        <property name="EndDatesDirRX" binding="EndDatesString" type="String" />
         <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
       </flowStep>
     </flowSteps>
@@ -942,6 +942,12 @@
         
         if (!data || data.substituteIds.length === 0) {
           console.log('[prepareSubstitutionParameters] No data to prepare');
+          
+          functions.setValue('SubstituteIdsString', '');
+          functions.setValue('SystemIdsString', '');
+          functions.setValue('StartDatesString', '');
+          functions.setValue('EndDatesString', '');
+          
           return false;
         }
         

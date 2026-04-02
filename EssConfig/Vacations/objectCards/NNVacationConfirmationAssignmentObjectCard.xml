@@ -46,8 +46,8 @@
             .then(function(periods) {
               var normalizedPeriods = (periods || []).map(function(p) {
                 return {
-                  StartDate: new Date(p.startDate || p.StartDate).toISOString().split('T')[0],
-                  EndDate: new Date(p.endDate || p.EndDate).toISOString().split('T')[0]
+                  StartDate: p.startDate || p.StartDate,
+                  EndDate: p.endDate || p.EndDate
                 };
               });
               resolve(normalizedPeriods);

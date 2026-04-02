@@ -106,9 +106,10 @@ class validateSubstitutionDates {
             var periodStartDisplay = new Date(nearestPeriod.StartDate).toLocaleDateString('ru-RU');
             var periodEndDisplay = new Date(nearestPeriod.EndDate).toLocaleDateString('ru-RU');
             var subStartDisplay = subStartDate.toLocaleDateString('ru-RU');
+            var subEndDisplay = subEndDate.toLocaleDateString('ru-RU');
             
             if (isCallingService) {
-              var errorMsg = ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_DATE_MISMATCH').replace('{0}', subStartDisplay).replace('{1}', periodStartDisplay + ' - ' + periodEndDisplay);
+              var errorMsg = ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_DATE_MISMATCH').replace('{0}', subStartDisplay + ' - ' + subEndDisplay).replace('{1}', periodStartDisplay + ' - ' + periodEndDisplay);
               errors.push({ rowIndex: i, field: 'StartDate', message: errorMsg });
               resolve({ isValid: false, errors: errors });
               return;
