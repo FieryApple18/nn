@@ -1,35 +1,113 @@
-*.pdb
+```
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+
+# Logs and temp files
 *.log
-*.suo
-*.pdb
-*.rej
-*.orig
-*.patch
-*.Cache
-*.playlist
-*.user
-*.tmp_proj
-*.live.config
-*.nupkg
-*.diff
-*.csproj
-*.sln
-*.g.cs
-*.xaml
-*.xaml.cs
-*.bak
+*.tmp
 
-AssemblyInfo.cs
-Libraries.json
+# System files
+.DS_Store
+Thumbs.db
 
-[dD]ebug
-[rR]elease
-[cC]heckin
-[bB]in/*
+# Environment files
+.env
+.env.local
+*.env.*
 
-obj
-log
-.idea
-.vs
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
 
-_ConfigSettings.xml
+# MyPy cache
+.mypy_cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Build artifacts
+dist/
+build/
+target/
+*.out
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+.ENV
+
+# Node.js
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Gradle
+.gradle/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# C/C++
+*.o
+*.obj
+*.so
+*.a
+*.dll
+*.exe
+
+# Ruby
+*.gem
+.bundle/
+.ruby-version
+
+# Go
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Rust
+Cargo.lock
+
+# Julia
+julia-*/
+
+# Zig
+zig*/
+```
