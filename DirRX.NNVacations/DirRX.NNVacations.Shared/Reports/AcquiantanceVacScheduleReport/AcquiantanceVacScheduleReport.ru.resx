@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Department1" xml:space="preserve">
+    <value>Подразделение 1</value>
+  </data>
+  <data name="ReportParameters" xml:space="preserve">
+    <value>Введите параметры отчета</value>
+  </data>
+  <data name="CompanyParameter" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="DepartmentParameter" xml:space="preserve">
+    <value>Подразделение</value>
+  </data>
+  <data name="AcqStatusParameter" xml:space="preserve">
+    <value>Статус ознакомления</value>
+  </data>
+  <data name="YearParameter" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="AcquaintedStatus" xml:space="preserve">
+    <value>Ознакомлен</value>
+  </data>
+  <data name="NotAcquaintedStatus" xml:space="preserve">
+    <value>Не ознакомлен</value>
+  </data>
+  <data name="PersonnelNumber" xml:space="preserve">
+    <value>Табельный номер</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="Department2" xml:space="preserve">
+    <value>Подразделение 2</value>
+  </data>
+  <data name="Department3" xml:space="preserve">
+    <value>Подразделение 3</value>
+  </data>
+  <data name="Department4" xml:space="preserve">
+    <value>Подразделение 4</value>
+  </data>
+  <data name="AcquiantanceStatus" xml:space="preserve">
+    <value>Статус ознакомления</value>
+  </data>
+  <data name="AcquiantanceDate" xml:space="preserve">
+    <value>Дата ознакомления</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Организация</value>
+  </data>
+  <data name="SelectDepartments" xml:space="preserve">
+    <value>Выбрать подразделения</value>
+  </data>
+  <data name="SelectCompanies" xml:space="preserve">
+    <value>Выбрать организации</value>
+  </data>
+  <data name="KEDO" xml:space="preserve">
+    <value>КЭДО</value>
+  </data>
+  <data name="HasConsent" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="NoConsent" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OutsideConsent" xml:space="preserve">
+    <value>Вне КЭДО</value>
+  </data>
+  <data name="SelectSubordinateDepartments" xml:space="preserve">
+    <value>Учитывать подчинённые подразделения</value>
+  </data>
+</root>

@@ -1,0 +1,89 @@
+{
+  "$type": "Sungero.Metadata.ReportMetadata, Sungero.Reporting.Shared",
+  "NameGuid": "9e7ae797-0477-4ccb-bbe3-cefd4cc335af",
+  "Name": "GroupAcquiantanceVacScheduleReport",
+  "AssociatedGuid": "840723ee-3269-4082-939c-191dcd722a30",
+  "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
+  "DataSources": [],
+  "DefaultExportFormat": "Excel",
+  "ExportFormats": [
+    "Excel"
+  ],
+  "HandledEvents": [
+    "BeforeExecuteServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNVacationsReport",
+  "Overridden": [
+    "PublicConstants",
+    "PublicStructures",
+    "HandledEvents",
+    "ExportFormats",
+    "DefaultExportFormat",
+    "Parameters",
+    "DisplayName",
+    "Description"
+  ],
+  "Parameters": [
+    {
+      "NameGuid": "70d81aad-1c1b-4c61-83a4-189cd114a863",
+      "Name": "Consent",
+      "InternalDataTypeName": "System.Boolean",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "0662a40a-f1c7-41fe-95fc-eddbe067ddc4",
+      "Name": "BusinessUnitId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "b4f75979-0543-482e-a7d9-2c32d88a3799",
+      "Name": "DepartmentId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "7334f6b2-9d90-4232-8637-59d47715070f",
+      "Name": "Year",
+      "InternalDataTypeName": "System.Int32",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "c4bb736f-4b40-4071-8fb8-fde0b29f1a83",
+      "Name": "ApprovalDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "b3dceb25-b4b1-483d-88ae-46d5965a9348",
+      "Name": "RegNumber",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "8b22c2a2-516c-4299-bad9-f7bbcd0c0403",
+      "Name": "RegDate",
+      "InternalDataTypeName": "System.DateTime",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "e4ab605f-67b2-4adb-ac6d-7cb3b4b62293",
+      "Name": "StructuralDepartment",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "a501063c-59d5-4c29-a1f4-06cb4ea3603c",
+      "Name": "DocKindId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "Versions": [
+    {
+      "Type": "ReportMetadata",
+      "Number": 1
+    }
+  ]
+}

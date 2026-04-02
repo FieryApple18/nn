@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="compensationVacation" index="24">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileCompensationVacation" />
+  </authorization>
+  <backgroundColor>#654EA3</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_COMPENSATION_VACATION_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: '685e687d-246d-43d9-a982-4350ddfc771a'});]]></clickEventHandler>
+</tile>

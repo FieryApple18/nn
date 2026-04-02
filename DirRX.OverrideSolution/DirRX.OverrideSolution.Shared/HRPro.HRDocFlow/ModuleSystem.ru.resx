@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_0f82171a2ab74921b8b26f2572cd6e35" xml:space="preserve">
+    <value>Доступен результат "Принято к сведению"</value>
+  </data>
+  <data name="Block_0f8646fc401b4eff922d9b18d0c73179_Property_c0739d2d31bd41bc85d09f1508f141d8" xml:space="preserve">
+    <value>Отображать в ЛК</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_96b1a0e6fecb43369004f2a456060783" xml:space="preserve">
+    <value>Доступна переадресация задания</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_a138f3cafc6a46909d827960ed436759" xml:space="preserve">
+    <value>Конкурентная работа (устар.)</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_9c5f2b996b0e445ebf82b09fe662993a" xml:space="preserve">
+    <value>Виртуальный сотрудник</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_181d574e5fce435a8aaec5ec56ba4bdf" xml:space="preserve">
+    <value>Доступна переадресация задания</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_dd3e772aee4044abb00d18d82b8cc51a" xml:space="preserve">
+    <value>Конкурентная работа (устар.)</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_391be6d008ff4dabb2af1b8488ef2d5f" xml:space="preserve">
+    <value>Виртуальный сотрудник</value>
+  </data>
+  <data name="AsyncHandler_Description_e95e553ac1934572bdd982453dfee4fb" xml:space="preserve">
+    <value>Настройка замещений для виртуального сотрудника.</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a_Enum_8973d00ff91e4faea952a1796d793267" xml:space="preserve">
+    <value>На доработке</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a_Enum_d1b807ef11774e31b47cde87b96adad2" xml:space="preserve">
+    <value>На подписании</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a_Enum_12aaf8b0babd45eab29c05df65a0abeb" xml:space="preserve">
+    <value>Подписан</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a_Enum_670a332a9fa349d79ebf0052807b7086" xml:space="preserve">
+    <value>Прекращено</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a_Enum_92cb459e07c44abaaf28287871084dd6" xml:space="preserve">
+    <value>Согласован</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a" xml:space="preserve">
+    <value>Согласование</value>
+  </data>
+  <data name="Block_db32b72fd75543e5b131e127a39c16e2_Property_40cc7a6801d842e1bcbd1d0614b6fa1a_Enum_afe9c3dff1ed47d6b6b016806994a844" xml:space="preserve">
+    <value>На согласовании</value>
+  </data>
+  <data name="Block_0e30dcbd1cc94703b5936e10708dbe46_Property_11697d49ab9644ac937b29823a1eaa75" xml:space="preserve">
+    <value>Доступно "Массовое подписание"</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_f7f8eb6bf76d4f1bb4aa628702548258" xml:space="preserve">
+    <value>Сводка</value>
+  </data>
+  <data name="Block_0e30dcbd1cc94703b5936e10708dbe46_Property_301bd1dc34c842e89de16ce07df301fb" xml:space="preserve">
+    <value>Сводка</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_239f6aaf6d4b485b9de67b55468f836b" xml:space="preserve">
+    <value>Отображать авансы по отпуску</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_968e96a8b4cd49518d78c95390afc123" xml:space="preserve">
+    <value>Проверка периода отпуска 14 дней</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_db8667f1c4634db282eb072071686707" xml:space="preserve">
+    <value>Разрешить добавление согласующих</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_0301cb33d5c04bc18be90d19bda17a72" xml:space="preserve">
+    <value>Разрешить запрос мнения</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_e3be22317e764a5aa2d1e2d04aafb12f" xml:space="preserve">
+    <value>Запросить дату и суммы выплаты по ЛНА</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_04e132f6225d4bf6ab934a37f83d36c9" xml:space="preserve">
+    <value>Запрашивать текст</value>
+  </data>
+  <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_f9c79d35b37f4626b2c5290ed0e6e821" xml:space="preserve">
+    <value>Действия в push-уведомлениях Суперники</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_1dc4bffbccfd4cd9ba6320c7ef46d62f" xml:space="preserve">
+    <value>Действия в push-уведомлениях Суперники</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_0f98ce3561514a61bc96086d95cd4f3a" xml:space="preserve">
+    <value>Действия в push-уведомлениях Суперники</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_31503e891b084fd59724953f16cab1cb" xml:space="preserve">
+    <value>Ручное проведение мероприятия</value>
+  </data>
+  <data name="JobDescription_5af71f9e6a9a409eb2e134d3d5141f55" xml:space="preserve">
+    <value>Отправка сотрудникам оповещений (push-уведомлений в Супернику) о заданиях на ознакомление и подписание документов с истекающим сроком выполнения</value>
+  </data>
+  <data name="JobDisplayName_5af71f9e6a9a409eb2e134d3d5141f55" xml:space="preserve">
+    <value>Кадровый ЭДО. Отправка push-уведомлений о заданиях с истекающим сроком выполнения</value>
+  </data>
+  <data name="JobDescription_242aee64dfd14a2fb01c54a6a9a1a4cd" xml:space="preserve">
+    <value>Отправка сотрудникам push-уведомлений в Супернику о просроченных заданиях HR Pro</value>
+  </data>
+  <data name="JobDisplayName_242aee64dfd14a2fb01c54a6a9a1a4cd" xml:space="preserve">
+    <value>Кадровый ЭДО. Отправка push-уведомлений о просроченных заданиях HR Pro</value>
+  </data>
+  <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_243de7f1268444b39880c87a679873be" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_6e1b5dddd3cc425fbf23c0f651e3e466" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_d678b29b907f469e93b3216faa93e3d2" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_a8648671a4b44a9fa02b2715f526a3fe_Property_bdf0ef4a7be8465a9c7150357ca59569" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_f6e46482270d4efd93d3a565b946fbd0" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_2fa198a4a71d447fb39b721419a6f905" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+  <data name="Block_0f8646fc401b4eff922d9b18d0c73179_Property_db724b9ad13b4a8e91456939e55ad762" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_0f8646fc401b4eff922d9b18d0c73179_Property_3368cf446c87425f97e5c81a3cc48a98" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+  <data name="Block_0e30dcbd1cc94703b5936e10708dbe46_Property_57813db5115146d6b0fb8ebcd99818f7" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_0e30dcbd1cc94703b5936e10708dbe46_Property_ae43b3df1fb44754a4579bf4787640af" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+  <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_9fb5b00616ea483bbe93b8f279db4fe7" xml:space="preserve">
+    <value>Уведомлять по email</value>
+  </data>
+  <data name="Block_9a96114843c5438a932b20275a6277ad_Property_5e4ef537cd5a425ab0a3a9900af7625b" xml:space="preserve">
+    <value>Уведомлять по email</value>
+  </data>
+  <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_35fbdb2b0da04dc8844b94aee9b90f77" xml:space="preserve">
+    <value>Отправка писем ДКП</value>
+  </data>
+  <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_1989fd767d12460fa3fc7445a0e53209" xml:space="preserve">
+    <value>Текст письма ДКП</value>
+  </data>
+</root>

@@ -1,0 +1,3110 @@
+{
+  "$type": "Sungero.Metadata.ModuleMetadata, Sungero.Metadata",
+  "NameGuid": "74259b34-676b-4226-b53a-caca9ddf5988",
+  "Name": "NNCommons",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "f8a94ca6-46c6-406a-998e-e373a8c6e113",
+      "Name": "VerifyDocumentsInStorage",
+      "DelayPeriod": 1,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "530f59fe-6b53-4c29-ac18-8aa584c7b514",
+          "Name": "employeeId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "9bdbb2cf-381d-433a-8cd3-4d1a533cd177",
+          "Name": "inception",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "c7dd392c-ce5b-45f4-b0d7-7ba33f2e8701",
+          "Name": "iteration",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "f8e7ad41-686a-4c8b-b593-696c005d24d1",
+          "Name": "endDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "f996cf61-2d6d-4dc7-b519-9b7fdcf85c6d",
+          "Name": "beginDate",
+          "ParameterType": "DateTime"
+        }
+      ]
+    },
+    {
+      "NameGuid": "1a23a59d-b393-4176-9b14-e1b3a3c5933a",
+      "Name": "UpdateGeneralRoleAfterDelete",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "1d86ebc4-6048-459b-a285-5d9041b44322",
+          "Name": "EmployeesIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "5a074b78-4e46-46a2-a21c-1d0c6c8a8cad",
+          "Name": "GeneralRoleId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "db45dc09-acd6-422c-9675-e9e8ae098731",
+      "Name": "UpdateGeneralRoleAfterChange",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "17cb5141-19bf-4082-bc52-0f400b5aaa97",
+          "Name": "StatusIsChanged",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "b6444cee-9a04-45a4-a5fe-13d2c9776421",
+          "Name": "EmployeesIsChanged",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "c486bf2a-f653-478d-abe9-58a614f18fdd",
+          "Name": "DocumentsVisabilityLimitationId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "eb8eba55-7674-4bfb-8078-efdb03f76320",
+      "Name": "ImprovementSignatureToCAdESXL",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "62ab8cb1-e77a-4549-b483-564edd05ff5b",
+          "Name": "entryId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "27193b8f-bdab-41cf-97da-ac79fca05ad6",
+      "Name": "UpdateSigningDateInDocs",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "8609e475-77c9-4def-a858-0b5b485d6b33",
+          "Name": "SigningDate",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "ba8a8b5b-b702-48b3-92b2-96d7b63dcf31",
+          "Name": "IsEmployer",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "db35b607-a8a3-4117-b422-209e45a424ae",
+          "Name": "DocsIds",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "a008f099-5fb7-475f-a41e-f5954d2d8683",
+      "Name": "AddEmployeeToRole",
+      "DelayPeriod": 1,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "04ac8ad3-e944-464e-b24e-887c1d80c75d",
+          "Name": "EmployeeId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "f01faeee-993d-4888-8286-5bd114732624",
+          "Name": "RoleId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "ef783ce2-f9a9-4872-af7e-d2adf8ab6d80",
+      "Name": "MarkAsReadAbortedCompetitiveAssignments",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "984b8f07-ff48-4371-aecb-61e02b6318e7",
+          "Name": "TaskId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "ce08864b-3883-4af7-bc77-d82cea066319",
+          "Name": "BlockUId",
+          "ParameterType": "String"
+        }
+      ]
+    }
+  ],
+  "Blocks": [
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "b371c3ee-9f41-412c-820e-cd61a87dad35",
+      "Name": "AbortTaskBlock",
+      "HandledEvents": [
+        "AbortTaskBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "fd9bcfeb-4c4f-4445-90d0-77053df6794a",
+          "Name": "Task",
+          "EntityGuid": "d795d1f6-45c1-4e5e-9677-b53fb7280c7e",
+          "PreviousPropertyGuid": "5dc92a72-3a65-4872-bc04-0aa7ec353b05"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "b0642a53-2e90-4343-bdb7-e8766fe5e777",
+      "Name": "AddDocRelationsBlock",
+      "HandledEvents": [
+        "AddDocRelationsBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "342e54de-1780-427d-9f5d-37ae1d0a59e1",
+          "Name": "MainDocument",
+          "EntityGuid": "030d8d67-9b94-4f0d-bcc6-691016eb70f3",
+          "PreviousPropertyGuid": "5dc92a72-3a65-4872-bc04-0aa7ec353b05"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "4ed6e1e6-1627-4aa7-8f7a-ba995826e274",
+          "Name": "RelationType",
+          "EntityGuid": "b48f5d28-2036-4529-b215-a7b531eed778",
+          "PreviousPropertyGuid": "82559d0f-78d9-4e7c-9238-36b9e78f1c76"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "82559d0f-78d9-4e7c-9238-36b9e78f1c76",
+          "Name": "RelatedDocuments",
+          "EntityGuid": "030d8d67-9b94-4f0d-bcc6-691016eb70f3",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "342e54de-1780-427d-9f5d-37ae1d0a59e1"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "a1f7baa6-3607-48aa-9b93-cde9b2a2fe69",
+      "Name": "DeleteDocumentsBlock",
+      "HandledEvents": [
+        "DeleteDocumentsBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "bebe8b39-ba01-43d5-bac0-20970b233b96",
+          "Name": "DocumentsToBeDeleted",
+          "EntityGuid": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "5dc92a72-3a65-4872-bc04-0aa7ec353b05"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "840fac78-7f09-439b-a22c-608986bc2ff3",
+      "Name": "StatementReworkBlock",
+      "EntityType": "2012d31d-0ccf-4f55-8abc-1ef3b6fca74e",
+      "HandledEvents": [
+        "StatementReworkBlockStartAssignment",
+        "StatementReworkBlockCompleteAssignment"
+      ],
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "e30ca7e1-f61d-4f7c-a101-227c53a76cea",
+          "Name": "Instruction",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "PreviousPropertyGuid"
+          ],
+          "PreviousPropertyGuid": "a62ae638-05a3-4a1e-a66c-b242eb0ccb8d"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "a62ae638-05a3-4a1e-a66c-b242eb0ccb8d",
+          "Name": "Remark",
+          "PreviousPropertyGuid": "e642fef2-a2ca-4030-bd26-a8150bf10d3d"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "ca072f6d-e93e-4134-bc5e-15d9d1e5b25a",
+          "Name": "NeedNotification",
+          "PreviousPropertyGuid": "b9a7a521-c530-4d18-8ae1-068a59850195"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "399eaf6e-2963-41ea-afae-4ceedd268402",
+          "Name": "ShowInSelfServiceOffice",
+          "PreviousPropertyGuid": "ca072f6d-e93e-4134-bc5e-15d9d1e5b25a"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "bf984e79-40e1-44b7-a818-d7e9171b4dda",
+          "Name": "Facility",
+          "PreviousPropertyGuid": "399eaf6e-2963-41ea-afae-4ceedd268402"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "13917402-ef41-46b7-bd35-769856ad512c",
+          "Name": "SupernikaSubjectDirRX",
+          "PreviousPropertyGuid": "bf984e79-40e1-44b7-a818-d7e9171b4dda"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "0f1361cf-a657-4b56-a3b4-be663435ab73",
+          "Name": "SupernikaTextDirRX",
+          "PreviousPropertyGuid": "13917402-ef41-46b7-bd35-769856ad512c"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "be971349-ab0f-422a-b491-fe9c19e8bc03",
+      "Name": "LinkDocumentToTaskBlock",
+      "HandledEvents": [
+        "LinkDocumentToTaskBlockExecute"
+      ],
+      "OutProperties": [
+        {
+          "$type": "Sungero.Metadata.EnumBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "bdff51bf-44a5-428b-8657-7168456cf781",
+          "Name": "ExecutionResult",
+          "DirectValues": [],
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "Values"
+          ]
+        }
+      ],
+      "ProcessStagesDisplayMode": "Hide",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "c39a4d99-4eb1-4fb1-92c9-17642d0c0e06",
+          "Name": "DocsForLink",
+          "EntityGuid": "38b6af02-74b1-4bb1-978f-d95281b01dc5",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "5dc92a72-3a65-4872-bc04-0aa7ec353b05"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "40d005a1-a0ac-411f-bb13-dcb6058a53bf",
+          "Name": "Tasks",
+          "EntityGuid": "d795d1f6-45c1-4e5e-9677-b53fb7280c7e",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "c39a4d99-4eb1-4fb1-92c9-17642d0c0e06"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "ec70f1df-ca7e-4c17-8d27-3942a6f55e9d",
+          "Name": "DocsForUpdate",
+          "EntityGuid": "38b6af02-74b1-4bb1-978f-d95281b01dc5",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "40d005a1-a0ac-411f-bb13-dcb6058a53bf"
+        },
+        {
+          "$type": "Sungero.Metadata.DateTimeBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "c6e1fca9-1d97-41ab-871b-99585f4b1f4e",
+          "Name": "SentDate",
+          "DateTimeFormat": "Date",
+          "PreviousPropertyGuid": "ec70f1df-ca7e-4c17-8d27-3942a6f55e9d"
+        }
+      ]
+    }
+  ],
+  "ClientAssemblyName": "DirRX.NNCommons.Client",
+  "ClientBaseAssemblyName": "DirRX.NNCommons.ClientBase",
+  "ClientBaseNamespace": "DirRX.NNCommons.ClientBase",
+  "ClientNamespace": "DirRX.NNCommons.Client",
+  "Code": "NNCommo",
+  "CompanyCode": "DirRX",
+  "Cover": {
+    "NameGuid": "9ba7ee0d-4393-4709-89fc-5fe10bf416d7",
+    "Actions": [
+      {
+        "$type": "Sungero.Metadata.CoverFunctionActionMetadata, Sungero.Metadata",
+        "NameGuid": "bb89a2fe-3199-475b-9d09-d7c1f241787c",
+        "Name": "VerifyDocumentsInStorage",
+        "FunctionName": "VerifyDocumentsDialog",
+        "GroupId": "59029702-9895-4050-9d2b-051f7ee9f803"
+      }
+    ],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "76eb1855-bd7d-4762-818c-aed40336e235",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [
+      {
+        "NameGuid": "59029702-9895-4050-9d2b-051f7ee9f803",
+        "Name": "Group",
+        "BackgroundPosition": "Stretch",
+        "TabId": "23693843-a36d-447b-a901-e25d56a93a2d"
+      }
+    ],
+    "Header": {
+      "NameGuid": "6291e9ce-47c5-4161-8b26-074b42b40390",
+      "BackgroundPosition": "Stretch"
+    },
+    "RemoteControls": [],
+    "Tabs": [
+      {
+        "NameGuid": "23693843-a36d-447b-a901-e25d56a93a2d",
+        "Name": "Tab"
+      }
+    ]
+  },
+  "Dependencies": [
+    {
+      "Id": "f093cbb9-e3a8-4f67-aa2a-f09f340fedd9",
+      "IsSolutionModule": true,
+      "MaxVersion": "",
+      "MinVersion": ""
+    }
+  ],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "0dd58eb2-8833-481b-ba76-a16aa172915c"
+    },
+    {
+      "ItemId": "a1c70acf-aa80-4322-a49a-81855908d67e",
+      "PreviousItemId": "0dd58eb2-8833-481b-ba76-a16aa172915c"
+    },
+    {
+      "ItemId": "ef500e57-a151-4fd4-a3b2-58db666ae094",
+      "PreviousItemId": "a1c70acf-aa80-4322-a49a-81855908d67e"
+    },
+    {
+      "ItemId": "ae768d64-1758-4599-936e-3f04f22151e9",
+      "PreviousItemId": "ef500e57-a151-4fd4-a3b2-58db666ae094"
+    },
+    {
+      "ItemId": "f520e4d9-25ee-44a3-a496-c195f9a6f1fa",
+      "PreviousItemId": "ae768d64-1758-4599-936e-3f04f22151e9"
+    },
+    {
+      "ItemId": "7261bb7f-944a-4fb2-8e16-aaf224183e63",
+      "PreviousItemId": "f520e4d9-25ee-44a3-a496-c195f9a6f1fa"
+    },
+    {
+      "ItemId": "bd6e61c4-7d12-40c6-9459-1ce3eb6d0cd0",
+      "PreviousItemId": "7261bb7f-944a-4fb2-8e16-aaf224183e63"
+    },
+    {
+      "ItemId": "4e5a5076-8115-4ac8-be69-400121c2c21f",
+      "PreviousItemId": "bd6e61c4-7d12-40c6-9459-1ce3eb6d0cd0"
+    },
+    {
+      "ItemId": "10807d41-4dfc-499d-bf6d-4e3d64b6cc54",
+      "PreviousItemId": "4e5a5076-8115-4ac8-be69-400121c2c21f"
+    },
+    {
+      "ItemId": "2012d31d-0ccf-4f55-8abc-1ef3b6fca74e",
+      "PreviousItemId": "10807d41-4dfc-499d-bf6d-4e3d64b6cc54"
+    },
+    {
+      "ItemId": "ca5f529e-0f53-4930-8f38-d2506a8ccbae",
+      "PreviousItemId": "2012d31d-0ccf-4f55-8abc-1ef3b6fca74e"
+    },
+    {
+      "ItemId": "58e39401-dfa2-4ddc-8db2-3888da86f078",
+      "PreviousItemId": "ca5f529e-0f53-4930-8f38-d2506a8ccbae"
+    },
+    {
+      "ItemId": "69047a55-e4ad-47d9-9638-f0e664466d7c",
+      "PreviousItemId": "58e39401-dfa2-4ddc-8db2-3888da86f078"
+    }
+  ],
+  "HandledEvents": [
+    "InitializingServer"
+  ],
+  "Importance": "Medium",
+  "InitializationFunctions": [
+    {
+      "Name": "CreateHRDocumentKindNN",
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "shortName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "numerationType",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "direction",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "autoFormattedName",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "autoNumerable",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "typeGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "actions",
+          "ParameterType": "Sungero.Domain.Shared.IActionInfo[]"
+        },
+        {
+          "Name": "initID",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "isDefault",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "approver",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "daysForSignEmployee",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "daysForSignManager",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "documentKindsCodes",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isNeedTemplatesRXHRPro",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "isNeedTemplatesLKHRPro",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "needCancelAction",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "businessProcess",
+          "ParameterType": "global::DirRX.NNCommons.IBusinessProcess",
+          "ParameterTypeFullName": "DirRX.NNCommons.IBusinessProcess, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "transferBody",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "sapKindCode",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "DirRX.NNCommons",
+  "IsolatedAreas": [
+    {
+      "NameGuid": "5bae333c-74b2-4bd3-8426-9b71c1763e60",
+      "Name": "VerifyDocumentsInStorage"
+    },
+    {
+      "NameGuid": "05fd966e-e775-474e-a942-ff528861fd78",
+      "Name": "WordInsertTable"
+    },
+    {
+      "NameGuid": "d7d2e6e9-9b4f-4bb8-97c6-a44b862bd6e8",
+      "Name": "ComparingDocumentVersions"
+    },
+    {
+      "NameGuid": "5779dd39-15ef-4dee-8ab5-d3e2a59306dc",
+      "Name": "Json"
+    },
+    {
+      "NameGuid": "1ef7e803-e10b-4949-9be4-594735fc1d1d",
+      "Name": "SetTextIntoDocument"
+    }
+  ],
+  "IsolatedAssemblyName": "DirRX.NNCommons.Isolated",
+  "IsolatedFunctions": [
+    {
+      "NameGuid": "5d625cd7-7f59-43b2-b8e1-6a6b08c83b96",
+      "Name": "BuildVerifyDocumentsReport",
+      "IsolatedAreaId": "5bae333c-74b2-4bd3-8426-9b71c1763e60",
+      "Parameters": [
+        {
+          "Name": "stream",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "documentsVerifyInfo",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IDocumentVerifyInfo>",
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNCommons.Structures.Module.IDocumentVerifyInfo, Sungero.Domain.Interfaces]]"
+        },
+        {
+          "Name": "needCreate",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "title",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "documentCount",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "ReturnType": "global::System.IO.Stream",
+      "ReturnTypeFullName": "System.IO.Stream"
+    },
+    {
+      "NameGuid": "f07dc3bf-236f-47c4-9222-38e7f6681c32",
+      "Name": "CheckReadingDocumentBody",
+      "IsolatedAreaId": "5bae333c-74b2-4bd3-8426-9b71c1763e60",
+      "Parameters": [
+        {
+          "Name": "bodyStream",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "size",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "35ec6e25-ff66-4b89-a92c-03a26d56c4c0",
+      "Name": "GetResultComparingVersions",
+      "IsolatedAreaId": "d7d2e6e9-9b4f-4bb8-97c6-a44b862bd6e8",
+      "Parameters": [
+        {
+          "Name": "ver1",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "ver2",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "author",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "date",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        }
+      ],
+      "ReturnType": "global::System.IO.Stream",
+      "ReturnTypeFullName": "System.IO.Stream"
+    },
+    {
+      "NameGuid": "cdd51635-14fc-4054-8de3-719e31ac95a0",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "5779dd39-15ef-4dee-8ab5-d3e2a59306dc",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNCommons.Structures.Module.IStatementData",
+          "ParameterTypeFullName": "DirRX.NNCommons.Structures.Module.IStatementData, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "848e1993-a5c9-473c-af11-df9d00c3a286",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "5779dd39-15ef-4dee-8ab5-d3e2a59306dc",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.ITaskDataForWidget>",
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNCommons.Structures.Module.ITaskDataForWidget, Sungero.Domain.Interfaces]]"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "601d960e-1397-46bc-81dd-5b08f917f9af",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "5779dd39-15ef-4dee-8ab5-d3e2a59306dc",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IDocumentInfoFromLK>",
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNCommons.Structures.Module.IDocumentInfoFromLK, Sungero.Domain.Interfaces]]"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "c90e00ae-17fe-4143-9635-e2eb4efedb1c",
+      "Name": "SetTextIntoPdfDocument",
+      "IsolatedAreaId": "1ef7e803-e10b-4949-9be4-594735fc1d1d",
+      "Parameters": [
+        {
+          "Name": "inputStream",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "replacements",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.ITextReplacement>",
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNCommons.Structures.Module.ITextReplacement, Sungero.Domain.Interfaces]]"
+        }
+      ],
+      "ReturnType": "global::System.IO.Stream",
+      "ReturnTypeFullName": "System.IO.Stream"
+    },
+    {
+      "NameGuid": "e55e3b82-7053-42db-ba19-3fe05f153e5f",
+      "Name": "WordInsertTableInTag",
+      "IsolatedAreaId": "05fd966e-e775-474e-a942-ff528861fd78",
+      "Parameters": [
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "stream",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        },
+        {
+          "Name": "tableData",
+          "ParameterType": "global::DirRX.NNCommons.Structures.Module.ITableData",
+          "ParameterTypeFullName": "DirRX.NNCommons.Structures.Module.ITableData, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.IO.Stream",
+      "ReturnTypeFullName": "System.IO.Stream"
+    }
+  ],
+  "IsolatedNamespace": "DirRX.NNCommons.Isolated",
+  "IsVisible": false,
+  "Jobs": [
+    {
+      "NameGuid": "1904af71-e2d4-49ef-86da-9206ba21fd69",
+      "Name": "ClosingDocumentKinds",
+      "GenerateHandler": true,
+      "IsEnabled": false,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T08:30:00"
+    },
+    {
+      "NameGuid": "fa8a39b0-cb45-4f4c-8427-81d101c43cd4",
+      "Name": "ImproveDocumentSignaturesToCAdESXL",
+      "GenerateHandler": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T05:00:00"
+    },
+    {
+      "NameGuid": "08925aa5-1f78-4374-96a3-320c0f4ac78c",
+      "Name": "FindDocumentsForImproveToCAdESXL",
+      "GenerateHandler": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T03:00:00"
+    },
+    {
+      "NameGuid": "9cdc7968-4ee4-4e50-ad49-9a0df09e9c10",
+      "Name": "NotificationExpirationValidityPeriodSignature",
+      "GenerateHandler": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T07:00:00"
+    }
+  ],
+  "Libraries": [
+    {
+      "NameGuid": "a2b8d8dc-3a8f-4a6d-b990-d67f9a68f0d1",
+      "Name": "OpenXML",
+      "Scope": "Server"
+    },
+    {
+      "NameGuid": "4400e3ea-97b8-4701-9656-06b13ad5782b",
+      "Name": "NewtonsoftJson",
+      "Scope": "Both"
+    },
+    {
+      "NameGuid": "6ef08b2c-e0c3-4c9d-b756-56e3c275b6b1",
+      "Name": "Aspose",
+      "Scope": "Server"
+    }
+  ],
+  "Overridden": [
+    "NeedResetAppliedCache",
+    "IsVisible"
+  ],
+  "PublicConstants": [
+    {
+      "Name": "AccessToBusinesUnitParamName",
+      "ParentClasses": [
+        "Module",
+        "RoleModel"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"AccessToBusinesUnit:{0}\""
+    },
+    {
+      "Name": "AirlineLetter",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"21A30E74-F281-4190-8CDA-6F031E4A8B29\")"
+    },
+    {
+      "Name": "AirlineLetterDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "AssignmentCreatedIndex",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "9"
+    },
+    {
+      "Name": "AssignmentDeadlineIndex",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "10"
+    },
+    {
+      "Name": "BadRequest",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"BadRequest\""
+    },
+    {
+      "Name": "CertificateIssueRequestNotFoundErrorCode",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"CertificateIssueRequestNotFoundError\""
+    },
+    {
+      "Name": "ChangeConfirmationType",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/SigningConfirmationType/default\""
+    },
+    {
+      "Name": "ChangeConfirmationTypeForCertificateOwner",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/SigningConfirmationType/certificateOwner/{0}\""
+    },
+    {
+      "Name": "ColumnsCount",
+      "ParentClasses": [
+        "Module",
+        "PersonnelDocumentRegisterReport"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "18"
+    },
+    {
+      "Name": "ConfirmationCodeExpired",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ConfirmationCodeExpired\""
+    },
+    {
+      "Name": "ConfirmationExpired",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ConfirmationExpired\""
+    },
+    {
+      "Name": "ConfirmationFailed",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ConfirmationFailed\""
+    },
+    {
+      "Name": "ConfirmationInProgress",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ConfirmationInProgress\""
+    },
+    {
+      "Name": "ConfirmationRejected",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ConfirmationRejected\""
+    },
+    {
+      "Name": "ConfirmationRequest",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/CertificateIssues/{1}/confirmation-request\""
+    },
+    {
+      "Name": "ConfirmationRetryTooFastException",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ConfirmationRetryTooFastException\""
+    },
+    {
+      "Name": "CreateCertificate",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/CertificateIssues\""
+    },
+    {
+      "Name": "CreateStatement",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/CertificateIssues/{1}/statement\""
+    },
+    {
+      "Name": "DateDiffInMonths",
+      "ParentClasses": [
+        "Module",
+        "PersonnelDocumentRegisterReport"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "3"
+    },
+    {
+      "Name": "DateDiffInMonths",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "3"
+    },
+    {
+      "Name": "DefaultDocsCountInIteration",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "1000"
+    },
+    {
+      "Name": "DirectumProviderId",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"directum-css\""
+    },
+    {
+      "Name": "Doc",
+      "ParentClasses": [
+        "Module",
+        "ExtensionsForComparison"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"doc\""
+    },
+    {
+      "Name": "DocumentKindTypeGuid",
+      "ParentClasses": [
+        "Module",
+        "DataBooks"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"14a59623-89a2-4ea8-b6e9-2ad4365f358c\")"
+    },
+    {
+      "Name": "Docx",
+      "ParentClasses": [
+        "Module",
+        "ExtensionsForComparison"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"docx\""
+    },
+    {
+      "Name": "ExceedingDeadlineIndex",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "15"
+    },
+    {
+      "Name": "Fail",
+      "ParentClasses": [
+        "Module",
+        "ActionResultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Fail\""
+    },
+    {
+      "Name": "FirstColumnIndex",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "0"
+    },
+    {
+      "Name": "FirstRowIndex",
+      "ParentClasses": [
+        "Module",
+        "PersonnelDocumentRegisterReport"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "5"
+    },
+    {
+      "Name": "FirstRowIndex",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "6"
+    },
+    {
+      "Name": "GetCertificate",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/Certificate/get?certificateId={1}\""
+    },
+    {
+      "Name": "GetCloudSignProviderInfos",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/CloudSignProviders\""
+    },
+    {
+      "Name": "GetStatementStatus",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/CertificateIssues/{1}/status\""
+    },
+    {
+      "Name": "GoskeyTechnologicalCertificate",
+      "ParentClasses": [
+        "Module",
+        "ParamKey"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"DirRX.SignPlatform.GoskeyCertificate\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "IntegrationWithKss"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"c547fb24-9cdf-42ea-96cd-e6676d845413\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "FileStorage"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ad9d2cec-8cdb-4478-a2eb-ef009c61d83e\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "IssueOfEPCertificates"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"5747fc2f-7a98-4d69-8c77-3a248c2a942b\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
+        "Reports"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"A72475C3-0376-4DD2-8289-1280A8CDCEC3\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PersNumIssuedOrganisation"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"25887f92-9234-4f11-99e5-05c1a24747d7\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "GeneralInn"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"C6F6C779-90AE-4DE2-BC58-DA85B9E867B3\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateTaskAuthorId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"B6F78F9D-5F83-49E0-8E1C-C128D7D0D1D7\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "StudyVacationTypeId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"D1E7F08D-1A3E-4C28-9C2C-D6BB1E518DE0\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "IssuerNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"A3F34D4B-4170-4D22-9189-25DA9B2D42B4\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateIssueProcess"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"84EFF25E-E92D-4E4E-A39A-007FE54A68CC\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "OfficialProviderName"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"97bf0aa6-d019-4f6d-8741-5f11eccef622\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "VerifyDocumentsCountInIteration"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"2d92a919-4f83-4784-a4d9-9ed158b379aa\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PersonelDocumentsRegisterReportTemplateId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"9F3994DC-11AB-44D6-AAE3-2BFD079F737D\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ReportSLATemplateId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"79BF3E34-3AE5-4BFF-9040-CF8CF6A89066\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "NumberDaysAdvancerequiredNotifyTerminationEP"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"EC0815DC-73B8-4313-BF0E-738729AECB6A\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateEmail"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"4941C1B3-367C-493E-9A82-23B9464D3569\""
+    },
+    {
+      "Name": "HostNotFound",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"HostNotFound\""
+    },
+    {
+      "Name": "InternalServerError",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"InternalServerError\""
+    },
+    {
+      "Name": "LastTaskOfCloudCertificatesExpiration",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"LastTaskOfCloudCertificatesExpiration\""
+    },
+    {
+      "Name": "LineManager",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"86629D80-CB0D-44BC-8BE5-956299D592D6\")"
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PersNumIssuedOrganisation"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. Сертификаты. Наименование организации-издателя для указания табельного номера в качестве идентифицирующего документа\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "GeneralInn"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. Сертификаты. Фиктивный общий ИНН для выпуска сертификатов ЭП\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateTaskAuthorId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. ИД автора задачи на выпуск сертификата УНЭП\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "StudyVacationTypeId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Отпуска. ИД типа отпуска Учебный\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "IssuerNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. Имена издателей ЭП, УНЭП которых определяются как ПЭП (указываются через ',')\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateIssueProcess"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. Сертификаты. Выпуск сертификата УНЭП без заявления сотрудника\""
+    },
+    {
+      "Name": "OfficialProviderNameDefaultValue",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ПАО \\\"ГМК \\\"Норильский Никель\\\"\""
+    },
+    {
+      "Name": "Ok",
+      "ParentClasses": [
+        "Module",
+        "ActionResultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Ok\""
+    },
+    {
+      "Name": "OVDLetter",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"E07C92C6-1A4B-423A-8549-6EAD6C6F7B1B\")"
+    },
+    {
+      "Name": "OVDLetterDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "Pdf",
+      "ParentClasses": [
+        "Module",
+        "ExtensionsForComparison"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"pdf\""
+    },
+    {
+      "Name": "ProcessingTimeIndex",
+      "ParentClasses": [
+        "Module",
+        "ReportSLA"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "14"
+    },
+    {
+      "Name": "RevocationRequest",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/Certificate/revocation\""
+    },
+    {
+      "Name": "SendConfirmCode",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"/v2/{0}/CertificateIssues/{1}/confirm\""
+    },
+    {
+      "Name": "Separator",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Char",
+      "Value": "','"
+    },
+    {
+      "Name": "ServiceUserName",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Service User\""
+    },
+    {
+      "Name": "SignServiceAudience",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Directum.Core.SignService\""
+    },
+    {
+      "Name": "SignServiceHealth",
+      "ParentClasses": [
+        "Module",
+        "RequestApiSignService"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"health\""
+    },
+    {
+      "Name": "SpecialistDKP",
+      "ParentClasses": [
+        "Module",
+        "RolesGuid"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"04D53BC7-75EC-4F34-9C3B-66A39B8D96FA\")"
+    },
+    {
+      "Name": "StatementReworkAssignment",
+      "ParentClasses": [
+        "Module",
+        "ObjectCardTypeNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"INNCommonsStatementReworkAssignments\""
+    },
+    {
+      "Name": "Success",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Ok\""
+    },
+    {
+      "Name": "SupportingDocumentForAnnualVacation",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"2D7C0296-B967-4B3E-BAF2-A0CB89C0D342\")"
+    },
+    {
+      "Name": "SupportingDocumentForAnnualVacationDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "SupportingDocumentForLNA",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"3ED918CF-3D7B-4688-9BAC-6A8BD79E9606\")"
+    },
+    {
+      "Name": "SupportingDocumentForLNADocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "SupportingDocumentForOtherVacation",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"A3F591BC-918D-43DE-BDC0-0F8D10D83050\")"
+    },
+    {
+      "Name": "SupportingDocumentForOtherVacationDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "TemporaryUnavailableError",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"TemporaryUnavailableError\""
+    },
+    {
+      "Name": "TooManyAttempts",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"TooManyAttempts\""
+    },
+    {
+      "Name": "TradeUnionOrganizationOpinion",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"5A7E4A7F-D1B5-49DD-A2C9-19D710003111\")"
+    },
+    {
+      "Name": "TradeUnionOrganizationOpinionDocKind",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"\""
+    },
+    {
+      "Name": "UserNotFoundInEsia",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"UserNotFoundInEsia\""
+    },
+    {
+      "Name": "V1A",
+      "ParentClasses": [
+        "Module",
+        "PdfAType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"v1A\""
+    },
+    {
+      "Name": "VerifyRepordDocExtension",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"xlsx\""
+    },
+    {
+      "Name": "WrongConfirmationCode",
+      "ParentClasses": [
+        "Module",
+        "SignServiceResponseCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"WrongConfirmationCode\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CheckPossibilityStatusChange",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::DirRX.OverrideSolution.IDocRelatedToWorkBase",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IDocRelatedToWorkBase, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CompareVersionsDocument",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "docID",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "selectedVesrionId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "comparingVersionId",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "author",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Docflow.IOfficialDocument",
+      "ReturnTypeFullName": "Sungero.Docflow.IOfficialDocument, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "CreateBusinessProcess",
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "processGroup",
+          "ParameterType": "global::DirRX.NNCommons.IBusinessProcess",
+          "ParameterTypeFullName": "DirRX.NNCommons.IBusinessProcess, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNCommons.IBusinessProcess",
+      "ReturnTypeFullName": "DirRX.NNCommons.IBusinessProcess, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "CreateBusinessRole",
+      "Parameters": [
+        {
+          "Name": "roleType",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "businessProcess",
+          "ParameterType": "global::DirRX.NNCommons.IBusinessProcess",
+          "ParameterTypeFullName": "DirRX.NNCommons.IBusinessProcess, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "docKind",
+          "ParameterType": "global::DirRX.OverrideSolution.IDocumentKind",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IDocumentKind, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "top",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNCommons.IBusinessRole",
+      "ReturnTypeFullName": "DirRX.NNCommons.IBusinessRole, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.Double",
+          "ParameterTypeFullName": "System.Double"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isPassword",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::DirRX.OverrideSolution.IJobTitle",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IJobTitle, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isSystem",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "value",
+          "ParameterType": "global::DirRX.OverrideSolution.IBusinessUnit",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IBusinessUnit, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "groupGuid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateConstantsGroup",
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "CreateGeneralRole",
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNCommons.IGeneralRole",
+      "ReturnTypeFullName": "DirRX.NNCommons.IGeneralRole, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "EmployeeHasActiveCertificateIssueTask",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.EssPlatformSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.EssPlatformSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "fromTask",
+          "ParameterType": "global::DirRX.NNCommons.ICertificateIssueTask",
+          "ParameterTypeFullName": "DirRX.NNCommons.ICertificateIssueTask, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "GeneratePeronnelDocumentsRegister",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documentKindsIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "businessUnitsIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "employeesIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "beginDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "endDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "initiator",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GenerateReportSLA",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documentKindsIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "businessUnitsIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "employeesIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "performersIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "beginDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "endDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "initiator",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "assignmentType",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetAvailableBusinessUnits",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.IBusinessUnit>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetAvailableDepartments",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "businessUnits",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.IBusinessUnit>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.OverrideSolution.IDepartment>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetAvailableEmployees",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "businessUnits",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.IBusinessUnit>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.OverrideSolution.IEmployee>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetAvailablePerformers",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.OverrideSolution.IEmployee>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetBaseDocKindsGuidsList",
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Guid>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetBoolValue",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Nullable<global::System.Boolean>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "GetBusinessUnitValue",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::DirRX.OverrideSolution.IBusinessUnit",
+      "ReturnTypeFullName": "DirRX.OverrideSolution.IBusinessUnit, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetCertificateExpirationDateInSignature",
+      "Parameters": [
+        {
+          "Name": "signatureInfo",
+          "ParameterType": "Sungero.Core.ISignatureInfo"
+        }
+      ],
+      "ReturnType": "global::System.DateTime",
+      "ReturnTypeFullName": "System.DateTime"
+    },
+    {
+      "Name": "GetConstant",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::DirRX.NNCommons.IConstantsSetting",
+      "ReturnTypeFullName": "DirRX.NNCommons.IConstantsSetting, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetDateValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "GetDocumentKindId",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.Int64>",
+      "ReturnTypeFullName": "System.Nullable",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetDoubleValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.Double>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "GetEmployeeValue",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::DirRX.OverrideSolution.IEmployee",
+      "ReturnTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetEssCertificates",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.CoreEntities.ICertificate>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetHoursDeclension",
+      "Parameters": [
+        {
+          "Name": "hours",
+          "ParameterType": "global::System.Double",
+          "ParameterTypeFullName": "System.Double"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetIdentifierValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.Int64>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "GetIntValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.Int32>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "GetJobTitleValue",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::DirRX.OverrideSolution.IJobTitle",
+      "ReturnTypeFullName": "DirRX.OverrideSolution.IJobTitle, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetNNDocKindsGuidsList",
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Guid>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetNNStatementTasksDataForWidget",
+      "Parameters": [
+        {
+          "Name": "userId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "isVacation",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetProviderIdIssueCertificate",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetStringValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetTemplateByKind",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "docKind",
+          "ParameterType": "global::Sungero.Docflow.IDocumentKind",
+          "ParameterTypeFullName": "Sungero.Docflow.IDocumentKind, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "businessUnit",
+          "ParameterType": "global::Sungero.Company.IBusinessUnit",
+          "ParameterTypeFullName": "Sungero.Company.IBusinessUnit, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::Sungero.Content.IElectronicDocumentTemplate",
+      "ReturnTypeFullName": "Sungero.Content.IElectronicDocumentTemplate, Sungero.Content.Shared"
+    },
+    {
+      "Name": "GetValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "System.Object"
+    },
+    {
+      "Name": "GetVisibleEmployees",
+      "Parameters": [
+        {
+          "Name": "query",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "takeCount",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "skipCount",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IEmployeeInfo>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "HasEssCertificate",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "HasRightsOnEDoc",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "document",
+          "ParameterType": "global::DirRX.OverrideSolution.IDocRelatedToWorkBase",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IDocRelatedToWorkBase, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "IsLastAsyncHandlerRetry",
+      "Parameters": [
+        {
+          "Name": "currentIteration",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "IsSimpleCertificate",
+      "Parameters": [
+        {
+          "Name": "certificate",
+          "ParameterType": "global::Sungero.CoreEntities.ICertificate",
+          "ParameterTypeFullName": "Sungero.CoreEntities.ICertificate, Sungero.Domain.Shared"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "IsSimpleSignature",
+      "Parameters": [
+        {
+          "Name": "signature",
+          "ParameterType": "Sungero.Domain.Shared.ISignature"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "NeedDocumentsFiltration",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "SetLifeAndApprovalState",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documents",
+          "ParameterType": "global::System.Collections.Generic.List<global::Sungero.Docflow.IOfficialDocument>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "approvalState",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "lifeState",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "SubtractDays",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "date",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "days",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.DateTime",
+      "ReturnTypeFullName": "System.DateTime"
+    },
+    {
+      "Name": "VerifyDocumentsForState",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "documents",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.OverrideSolution.IDocRelatedToWorkBase>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "state",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "VerifyDocumentsInStorage",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "beginDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "endDate",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
+        },
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "inception",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "iteration",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
+  "PublicStructures": [
+    {
+      "Name": "DocumentInfoFromLK",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Id",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "System",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Type",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "DocumentVerifyInfo",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "DocumentId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "DocumentName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Hyperlink",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Versions",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Error",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Valid",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "EmployeeInfo",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "Name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "GeneralRoleInfo",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "GeneralRole",
+          "IsEntity": true,
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.NNCommons.IGeneralRole"
+        },
+        {
+          "Name": "IsLocked",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "StatementData",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "TemplateId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "DocumentKindId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "Error",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "TableData",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "NumberKey",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Values",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::System.Collections.Generic.Dictionary<global::System.String, global::System.String>>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "TaskDataForWidget",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "ProcessName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Subject",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Created",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "Status",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "TextReplacement",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "OldValue",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "NewValue",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "IsNewParagraph",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "VersionVerifyInfo",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Number",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int32>"
+        },
+        {
+          "Name": "Valid",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Error",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "IsPublicBody",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    }
+  ],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.NNCommons",
+  "ResourcesKeys": [
+    "LineManagerRoleName",
+    "LineManagerRoleDescription",
+    "DocumentNameAutotext",
+    "VerifyDocumentsInStorageReportName",
+    "VerifyDocumentsInStorageTaskActiveText",
+    "VerifyDocumentsInStorageNotificationStarted",
+    "VerifyDocumentsInStorageNotificationCompleted",
+    "VerifyDocumentsInStorageNotificationError",
+    "VerifyDocumentsInStorageTaskName",
+    "VerifyDocumentsDialogAccessError",
+    "VerifyDocumentsDialogReportLocked",
+    "VerifyDocumentsDialogName",
+    "VerifyDocumentsDialogLongPeriodError",
+    "VerifyDocumentsDialogShortPeriodError",
+    "VerifyDocumentsDialogPeriodFrom",
+    "VerifyDocumentsDialogPeriodTo",
+    "HRSimpleDocumentDocType",
+    "SupportingDocumentForLNADocKind",
+    "TradeUnionOrganizationOpinionDocKind",
+    "SupportingDocumentForAnnualVacationDocKind",
+    "SupportingDocumentForOtherVacationDocKind",
+    "AirlineLetterDocKind",
+    "OVDLetterDocKind",
+    "ExpFunc_SubtractDays_Name",
+    "ExpFunc_SubtractDays_Desc",
+    "BusinessProcessKEDO",
+    "BusinessProcessRegistrationWork",
+    "BusinessProcessRegistrationPaymentsLNA",
+    "ApprovedDocumentCannotBeChangedError",
+    "HaveTasksInProgressError",
+    "ConstantNotFoundError",
+    "VerifyDocumentsInStorageReportTitle",
+    "VerifyDocumentsInStorageReportDocumentCount",
+    "CompareVersionsDocumentResult",
+    "LinkDocumentToTaskBlockLocksInfo",
+    "ExpFunc_AddCalendarDays_Name",
+    "ExpFunc_AddCalendarDays_Desc",
+    "PersonnelDocumentsRegisterReportTitle",
+    "PersonnelDocumentsRegisterDialogDocKinds",
+    "PersonnelDocumentsRegisterDialogBusinessUnits",
+    "PersonnelDocumentsRegisterDialogEmployees",
+    "PersonnelDocumentsRegisterDialogPeriodFrom",
+    "PersonnelDocumentsRegisterDialogPeriodTo",
+    "PersonnelDocumentsRegisterDialogSelectEmployees",
+    "PersonnelDocumentsRegisterDialogSelectBusUnits",
+    "PersonnelDocumentsRegisterDialogSelectDocKinds",
+    "PersonnelDocumentsRegisterTemplateError",
+    "PersonnelDocumentsRegisterDialogPeriodError",
+    "PersonnelDocumentsRegisterDialogNoData",
+    "ReportSLATemplateError",
+    "ReportSLADialogAssignmentType",
+    "ReportSLADialogAssignmentTypeAll",
+    "ReportSLADialogAssignmentTypeEvent",
+    "ReportSLADialogPerformers",
+    "ReportSLADialogSelectPerformers",
+    "ReportSLADialogBeginDate",
+    "ReportSLADialogEndDate",
+    "ReportSLADialogPeriodError",
+    "ReportSLADialogDocKinds",
+    "ReportSLADialogSelectDocKinds",
+    "ReportSLADialogBusinessUnits",
+    "ReportSLADialogSelectBusinessUnits",
+    "ReportSLADialogEmployees",
+    "ReportSLADialogSelectEmployees",
+    "ReportSLADialogEndDateError",
+    "ReportSLANoTasksError",
+    "ValidityPeriodUCEPCertificateExpires",
+    "ExpFunc_GetHyperLinkToAssignmentsInSelfOffice_Name",
+    "ExpFunc_GetHyperLinkToAssignmentsInSelfOffice_Desc",
+    "ExpFunc_GetHyperLinkToAssignmentsInSelfOffice_Param_Performer",
+    "SpecialistDKPRoleName",
+    "SpecialistDKPRoleDescription",
+    "ExpFunc_Add_Name",
+    "ExpFunc_Add_Description",
+    "ExpFunc_Add_SecondArgument",
+    "HoursDeclensionDefault",
+    "HoursDeclensionOne",
+    "HoursDeclensionTwo"
+  ],
+  "ServerAssemblyName": "DirRX.NNCommons.Server",
+  "ServerNamespace": "DirRX.NNCommons.Server",
+  "SharedAssemblyName": "DirRX.NNCommons.Shared",
+  "SharedNamespace": "DirRX.NNCommons.Shared",
+  "SpecialFolders": [
+    {
+      "NameGuid": "ae768d64-1758-4599-936e-3f04f22151e9",
+      "Name": "MassApprove",
+      "AdditionalRibbonActionNames": "MassApproveSignDirRX;",
+      "DefaultContentType": "44ea4e2c-3aa5-478c-85f7-5de006114fa0",
+      "DisplayType": "Inbox",
+      "FilterPanel": {
+        "NameGuid": "10b9a84e-c29e-4dc1-bbcf-6fd6b8dbe840",
+        "Name": "FilterPanel",
+        "Controls": [
+          {
+            "$type": "Sungero.Metadata.FilterGroupMetadata, Sungero.Metadata",
+            "NameGuid": "fc542ae9-98cb-42c4-8958-b92c0a51a63b",
+            "Name": "Tasks"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListMetadata, Sungero.Metadata",
+            "NameGuid": "f70c9426-3ff9-41ff-a457-907aca5ff876",
+            "Name": "WorkState",
+            "ParentGuid": "fc542ae9-98cb-42c4-8958-b92c0a51a63b"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "c8b423b6-6c3e-4fa6-acef-4947482a9d6d",
+            "Name": "InWork",
+            "IsSelected": true,
+            "ParentGuid": "f70c9426-3ff9-41ff-a457-907aca5ff876"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "3f3e9638-c476-4163-bd6e-2b5ddd546087",
+            "Name": "All",
+            "ParentGuid": "f70c9426-3ff9-41ff-a457-907aca5ff876",
+            "PreviousGuid": "c8b423b6-6c3e-4fa6-acef-4947482a9d6d"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterGroupMetadata, Sungero.Metadata",
+            "NameGuid": "abb3540d-2bd5-4bbb-b492-e90b6bc1e7e2",
+            "Name": "Received",
+            "PreviousGuid": "fc542ae9-98cb-42c4-8958-b92c0a51a63b"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListMetadata, Sungero.Metadata",
+            "NameGuid": "1fef8e0a-0744-4609-b29a-7d1aab68b262",
+            "Name": "ReceivedFlagsList",
+            "MasterControlId": "3f3e9638-c476-4163-bd6e-2b5ddd546087",
+            "ParentGuid": "abb3540d-2bd5-4bbb-b492-e90b6bc1e7e2"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "c280cc41-9f4a-4874-8ab7-02ee4b0cf2ac",
+            "Name": "ThirtyDays",
+            "ParentGuid": "1fef8e0a-0744-4609-b29a-7d1aab68b262"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "ce1df4fa-1f3d-4e97-b0a5-f3eadd29ee98",
+            "Name": "NinetyDays",
+            "IsSelected": true,
+            "ParentGuid": "1fef8e0a-0744-4609-b29a-7d1aab68b262",
+            "PreviousGuid": "c280cc41-9f4a-4874-8ab7-02ee4b0cf2ac"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "905807ff-9bd1-4ee9-a5f3-afa31ee3c3a1",
+            "Name": "OneHundredEightyDays",
+            "ParentGuid": "1fef8e0a-0744-4609-b29a-7d1aab68b262",
+            "PreviousGuid": "ce1df4fa-1f3d-4e97-b0a5-f3eadd29ee98"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterGroupMetadata, Sungero.Metadata",
+            "NameGuid": "0d8a5e30-66c2-40b2-8b5e-6ce7ee6e2f1e",
+            "Name": "View",
+            "PreviousGuid": "abb3540d-2bd5-4bbb-b492-e90b6bc1e7e2"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListMetadata, Sungero.Metadata",
+            "NameGuid": "cc26d069-7bb6-4f3b-9587-3ca1f800ccb4",
+            "Name": "ViewFlagsList",
+            "ParentGuid": "0d8a5e30-66c2-40b2-8b5e-6ce7ee6e2f1e"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "b3e7ac36-48cf-486b-99c0-55d6e0b60f6c",
+            "Name": "ViewAllTasks",
+            "IsSelected": true,
+            "ParentGuid": "cc26d069-7bb6-4f3b-9587-3ca1f800ccb4"
+          },
+          {
+            "$type": "Sungero.Metadata.FilterListItemMetadata, Sungero.Metadata",
+            "NameGuid": "93f9a479-9a0e-4604-8feb-8f6027770651",
+            "Name": "ViewFirstHundredTasks",
+            "ParentGuid": "cc26d069-7bb6-4f3b-9587-3ca1f800ccb4",
+            "PreviousGuid": "b3e7ac36-48cf-486b-99c0-55d6e0b60f6c"
+          }
+        ]
+      },
+      "HandledEvents": [
+        "DataQueryServer"
+      ],
+      "IsShow": true,
+      "Kind": "Computable",
+      "NeedShowMarkedCount": true,
+      "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
+    }
+  ],
+  "Version": "25.2.0.2",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

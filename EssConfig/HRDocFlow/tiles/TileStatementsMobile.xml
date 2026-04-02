@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="StatementsMobile" index="10">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileStatements" />
+  </authorization>
+  <backgroundColor>#60E171</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title>@.STATEMENTS_TITLE_STATEMENTS</title>
+  <icon>statements</icon>
+  <navigationTargetUrl>/facilityGroups/HrProStatements</navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate></contentTemplate>
+</tile>

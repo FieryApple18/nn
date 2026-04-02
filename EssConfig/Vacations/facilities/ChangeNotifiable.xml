@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="5513782f-c6be-4422-bfc7-139259c830e3" name="Change notifiable">
+  <title>@.FACILITIES_CHANGENOTIFIABLE_TITLE</title>
+  <description></description>
+  <contractForm>true</contractForm>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterString" name="AssignmentId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="NotifiableList" defaultValue="" isRequired="false" isCollection="true">
+      <dataSource><![CDATA[/api/functions/GetRecipientsForNotifiableParameter?query={query}&takeCount=0&skipCount=0]]></dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+        <detailTemplate>
+          <![CDATA[
+            {{{BUName}}}
+            {{{DepartmentName}}}
+            {{{JobTitle}}}
+          ]]>
+        </detailTemplate>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="NotifiableIds" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_CHANGENOTIFIABLE_NOTIFIABLELIST_LABEL</label>
+      <placeholder />
+      <parameterName>NotifiableList</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <actionStep  index="0" name="CheckAssignmentInProcess"  title="Проверить, выполнено ли задание.">
+        <property name="ActionName">HRProVacations.checkAssignmentInProcess</property>
+        <property name="NextStepIndex">1</property>
+        <property name="assignmentId" binding="ItemId" type="Int" />
+      </actionStep>
+      <flowStep index="1" name="ExecuteFunction" title="Сменить замещающего в задании." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">-1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">Vacations.ChangeNotifiableInAssignment</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="assignmentId" binding="AssignmentId" type="Int" />
+        <property name="notifiableIds" binding="NotifiableList" type="String" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    async function updateNotifiableList() {
+      var notifiableIds = functions.getValues().NotifiableIds;
+      if (notifiableIds) {
+        functions.removeItem('NotifiableList', 0);
+        var index = 0;
+
+        for (const id of notifiableIds) {
+            const item = await functions.addItemAsync('NotifiableList');
+            functions.setValue('NotifiableList', id, index++);
+        }
+      }
+      resolve();
+    }
+    updateNotifiableList();
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+              ESS.updateElement(sender.parent);
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_CHANGENOTIFIABLE_SUCCESSMESSAGE</successMessage>
+</facility>

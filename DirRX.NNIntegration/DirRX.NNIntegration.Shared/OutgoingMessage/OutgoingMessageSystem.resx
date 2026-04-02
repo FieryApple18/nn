@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_GuidMessage" xml:space="preserve">
+    <value>Guid message</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Outgoing message</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Outgoing message</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Outgoing messages</value>
+  </data>
+  <data name="Property_StatusMessage" xml:space="preserve">
+    <value>Status message</value>
+  </data>
+  <data name="Property_SendingDate" xml:space="preserve">
+    <value>Sending date</value>
+  </data>
+  <data name="Enum_StatusMessage_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Enum_StatusMessage_Sended" xml:space="preserve">
+    <value>Sended in KSIP</value>
+  </data>
+  <data name="Enum_StatusMessage_Received" xml:space="preserve">
+    <value>Response received</value>
+  </data>
+  <data name="Enum_StatusMessage_Error" xml:space="preserve">
+    <value>Processing error</value>
+  </data>
+  <data name="Enum_StatusMessage_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="Property_ExternalSystemFlow" xml:space="preserve">
+    <value>External system flow</value>
+  </data>
+  <data name="Property_Message" xml:space="preserve">
+    <value>Text message</value>
+  </data>
+  <data name="Property_EntityId" xml:space="preserve">
+    <value>Entity id</value>
+  </data>
+  <data name="Property_Answer" xml:space="preserve">
+    <value>Answer text</value>
+  </data>
+  <data name="Property_ErrorText" xml:space="preserve">
+    <value>Error text</value>
+  </data>
+  <data name="Property_MessageText" xml:space="preserve">
+    <value>Message text</value>
+  </data>
+  <data name="Property_AnswerText" xml:space="preserve">
+    <value>Answer text</value>
+  </data>
+  <data name="Action_SendMessage" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="Action_SendMessageDescription" xml:space="preserve">
+    <value>Retry sending</value>
+  </data>
+  <data name="Action_SendMessageHint" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="Action_SendMessageConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_SendMessageConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_ProcessingDate" xml:space="preserve">
+    <value>Processing date</value>
+  </data>
+  <data name="Ribbon_SendMessageGroup_4e5556828cfe4da69c223863048c10a0" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="Ribbon_SendMessageGroup_c3ee28a467f8444e9d5ca9144f35e322" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="Property_VersionId" xml:space="preserve">
+    <value>Id version</value>
+  </data>
+  <data name="Property_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ControlGroup_1ff17efa615445bfbea899dc531a452f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_ce43272de76f4faa984c8756e77c4dd3" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_12596f6825ff4504aa8c8e099117b923" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_ExistsMessageText" xml:space="preserve">
+    <value>Заполнен текст сообщения?</value>
+  </data>
+  <data name="Property_Property" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_MessageTextConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_MessageTextHint" xml:space="preserve">
+    <value>Открыть текст сообщения.</value>
+  </data>
+  <data name="Action_MessageTextConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_MessageTextDescription" xml:space="preserve">
+    <value>Позволяет посмотреть какой запрос был получен.</value>
+  </data>
+  <data name="Action_MessageText" xml:space="preserve">
+    <value>MessageText</value>
+  </data>
+  <data name="FilterPanel_Flag_04f802045a0d4b969a76450cd89aaaed" xml:space="preserve">
+    <value>за 7 дней</value>
+  </data>
+  <data name="FilterPanel_Flag1_621b6476d9d94d72a93c3bf9ecc9478e" xml:space="preserve">
+    <value>за 30 дней</value>
+  </data>
+  <data name="FilterPanel_Flag2_f78698ae454b44b2b71495dda4708498" xml:space="preserve">
+    <value>За период</value>
+  </data>
+  <data name="Action_ActionHint" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ActionConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_Action" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_ActionDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterPanel_Recieved_0e38dbb9ceb7449eacb9a94cbd8a4e3d" xml:space="preserve">
+    <value>Response received</value>
+  </data>
+  <data name="FilterPanel_Error_08a7473999674c76bc863bc4788ed49c" xml:space="preserve">
+    <value>Processing error</value>
+  </data>
+  <data name="FilterPanel_Canceled_ec513a9bbff94820851d032e97e848fc" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="FilterPanel_Status_5966e6a192424b7f81e1a7edab35c248" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="FilterPanel_Created_4a11b002d5094dadb61aaca1f167a75c" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="FilterPanel_Period_78b11822b884475facdf235142f24a4e" xml:space="preserve">
+    <value>Sending date</value>
+  </data>
+  <data name="FilterPanel_LastWeek_43577e9691754decbb69e9398ba20981" xml:space="preserve">
+    <value>Last 7 days</value>
+  </data>
+  <data name="FilterPanel_LastMonth_1584a0eec4e644e08926ecadfc8c160a" xml:space="preserve">
+    <value>Last 30 days</value>
+  </data>
+  <data name="FilterPanel_ExternalSystemFlow_9a38008956f24087b6be12cd2f9e2d84" xml:space="preserve">
+    <value>Поток</value>
+  </data>
+  <data name="FilterPanel_ManualPeriod_40bab1d9ade645b3aca6212672e1c0e6" xml:space="preserve">
+    <value>User-defined period:</value>
+  </data>
+  <data name="Action_ActionConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterPanel_Sending_a400903919d746d3af9bf60089849e5c" xml:space="preserve">
+    <value>Sended in KSIP</value>
+  </data>
+  <data name="FilterPanel_Today_c4c561c37ecb42b99a3b0fa3f23c7ee9" xml:space="preserve">
+    <value>Today</value>
+  </data>
+</root>

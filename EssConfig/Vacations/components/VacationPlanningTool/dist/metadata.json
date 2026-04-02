@@ -1,0 +1,1 @@
+{"vendorName":"Directum","componentName":"VacationPlanningTool","componentVersion":"1.0","controls":[{"name":"VacationPlanningTool","loaders":[{"name":"rx-loader","scope":"Card"}],"displayNames":[{"locale":"en","name":"Vacation Planning Tool"},{"locale":"ru","name":"Vacation Planning Tool"}]}],"publicName":"Directum_VacationPlanningTool_1_0","hostApiVersion":"1.0.2"}

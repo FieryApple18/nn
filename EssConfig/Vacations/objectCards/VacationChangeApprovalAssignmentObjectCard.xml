@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="ae04a4d6-3b1a-4b00-8178-57cb65cfcde5" name="IVacationChangeApprovalAssignments" header="@.OBJECTCARD_VACATION_APPROVAL_ASSIGMENT_HEADER" icon="read-document">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result" />
+        <field caption="@HRPROVACATIONS.DEFAULTCARD_COMMENT_CAPTION" binding="reason" />
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee" />
+      </fields>
+      <content></content>
+      <attachmentsAreas>
+        <attachmentsArea title="@.DEFAULT_ATTACHMENTS_APPROVAL_DOCUMENTS">
+          <documentGroups>
+            <documentGroup>StatementAttachmentGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+  	<button name="ShowOverlaps" isPrimary="false" isDefault="false">
+      <icon></icon>
+      <caption>@.FACILITIES_SCHEDULEVACATION_PLANNING_TOOL_BUTTON_TITLE</caption>
+      <clickEventHandler><![CDATA[
+        const dialogId = 'VacationChangeApprovalAssignment';
+        const timeline = {
+          type: ESS.enums.DialogItemType.TEXT,
+          name: 'timeline',
+          properties: {
+            text: `
+              <component
+                name="VacationPlanningTool"
+                public-name="Directum_VacationPlanningTool_1_0"
+                module-name="loaders"
+                loader-name="lk-loader"
+                dialog-id="${dialogId}"
+              />
+            `,
+          },
+        };
+
+        const id = {
+          type: ESS.enums.DialogItemType.INPUT,
+          name: 'AssignmentId',
+          properties: {
+            initialValue: data.id,
+            isHidden: true,
+          },
+        };
+
+        const performerId = {
+          type: ESS.enums.DialogItemType.INPUT,
+          name: 'PerformerId',
+          properties: {
+            initialValue: data.performer,
+            isHidden: true,
+          },
+        };
+
+		    const entityGuid = {
+          type: ESS.enums.DialogItemType.INPUT,
+          name: 'EntityGuid',
+          properties: {
+            initialValue: 'ae04a4d6-3b1a-4b00-8178-57cb65cfcde5',
+            isHidden: true,
+          },
+        };
+
+        const items = [
+          timeline,
+          id,
+          performerId,
+          entityGuid
+        ];
+
+        ESS.dialogs.createDialog({
+          id: dialogId,
+          properties: {
+            width: ESS.enums.DialogWidth.WIDE,
+            isFullScreen: true,
+          },
+          title: ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_DIALOG_TITLE'),
+          items,
+        });
+      ]]></clickEventHandler>
+    </button>
+    <button name="Approve" isPrimary="true" isDefault="true">
+      <icon />
+      <caption>@.OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_APPROVE</caption>
+      <clickEventHandler><![CDATA[
+        var complete = () => {
+          ESS.network.sendRequest(`/api/functions/CheckAssignmentInProcess?assignmentId=${data.id}`)
+            .then(function (isAssignmentInProcess) {
+              if (isAssignmentInProcess) {
+                var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
+                isAssignmentBlocked
+                  .then(message => {
+                    if (!message) {
+                      ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Approve').then(function () {
+                        ESS.closeElement(sender);
+                        ESS.widgets.updateWidgets();
+                      })
+                        .catch(function (error) {
+                          ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROSTATEMENTS.ERR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
+                        });
+                    } else {
+                      ESS.toasts.showToast(message, 'danger', false);
+                    }
+                  }).catch(function (err) {
+                    ESS.toasts.showErrorToastWithLog(err);
+                  });
+              } else {
+                ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.ASSIGNMENT_IS_ALREADY_COMPLETED'), 'danger', false);
+              }
+            }).catch(function (err) {
+              ESS.toasts.showErrorToastWithLog(err);
+            });
+        }
+
+        var isRequiredDurationBroken = data.requisites.find(function (_ref) {
+                  var name = _ref.name;
+                  return name === 'IsRequiredDurationBroken';
+                }).value;
+        if (isRequiredDurationBroken){
+          const confimationDialog = new Promise((resolve, reject) => {
+          const dialogId = 'new-dialog';
+          const textItem1 = {
+            type: ESS.enums.DialogItemType.TEXT,
+            name: 'textitem1',
+            properties: {
+              text: ESS.L('@HRPROVACATIONS.OBJECTCARD_VACATIONCHANGEAPPROVALSIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_1'),
+            },
+          };
+          const items = [textItem1];
+          const submitButton = {
+            name: 'submit-button',
+            caption: 'Подтвердить',
+            icon: 'check-mark',
+            onClick: form => {
+                resolve();
+                ESS.dialogs.closeDialog(dialogId)
+            },
+            isPrimary: true,
+          };
+          const cancelButton = {
+              name: 'cancel-button',
+              caption: 'Отменить',
+              icon: 'cross',
+              onClick: form => {
+                ESS.dialogs.closeDialog(dialogId);
+              },
+            };
+          const buttons = [submitButton, cancelButton];
+          ESS.dialogs.createDialog({
+              id: dialogId,
+              title: 'Подтвердите действие',
+              items,
+              buttons,
+              properties: {
+                height: '200px',
+              },
+              closeHandler: () => {
+                reject();
+                ESS.dialogs.closeDialog(dialogId);
+              },
+          });
+          }).then(results => {
+            complete();
+          });
+        } else {
+          complete();
+        }
+      ]]></clickEventHandler>
+    </button>
+    <button name="ForRework" isPrimary="false" isDefault="false">
+      <icon></icon>
+      <caption>@.OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REFUSE</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id: 'ee471097-9412-4b33-b24e-8e7443ecd0cb'}, {parameters: {ItemId: data.id, ItemName: data.name, StateName: 'ForRework'}}, sender);
+      ]]></clickEventHandler>
+    </button>
+    <button name="Deny" isPrimary="false" isDefault="false">
+      <icon></icon>
+      <caption>@.OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_DENY</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.facilityActions.runFacility({id: 'ee471097-9412-4b33-b24e-8e7443ecd0cb'}, {parameters: {ItemId: data.id, ItemName: data.name, StateName: 'Deny'}}, sender);
+      ]]></clickEventHandler>
+    </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
+  <openedEventHandler><![CDATA[
+    var assignmentId = data.id;
+    ESS.network.sendRequest(`/api/functions/GetNewVacationInfoFromShiftApprovalAssignment?assignmentId=${assignmentId}`)
+    .then(function (vacationInfo) {
+      ESS.network.sendRequest(`/api/functions/GetApprovalChangeReason?assignmentId=${assignmentId}`)
+      .then(function (denyReason) {
+        data.reason = denyReason;
+        ESS.network.sendRequest(`/api/functions/GetInstructionApprovalAssignment?assignmentId=${assignmentId}`)
+        .then(function (instruction) {
+          if(instruction.length > 0)
+          {
+            configuration.content = ESS.L('@HRPROVACATIONS.COMMON_INSTRUCTION') + '<br/><br/>' + instruction + '<br/><br/>';
+          }
+          configuration.content = configuration.content + vacationInfo;
+          resolve({configuration: configuration, data: data});
+        });
+      });
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if(data.isRead === false)
+    {
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+</objectCard>

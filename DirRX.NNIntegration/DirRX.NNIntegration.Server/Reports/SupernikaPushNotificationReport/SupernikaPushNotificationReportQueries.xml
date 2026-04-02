@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="SelectData">
+    <postgres><![CDATA[select 
+  employee.name as employeeName,
+  employee.personalphone_esspls_dirrx as personalPhone,
+  snikapushnotif.entityid as entityid, 
+  snikapushnotif.sendingdate as sendingdate, 
+  case
+    when snikapushnotif.processstatus = 'Sended' then 'Отправлено в Message Broker'
+    when snikapushnotif.processstatus = 'Received' then 'Получен ответ из ПМД'
+    when snikapushnotif.processstatus = 'Processed' then 'Обработано'
+    when snikapushnotif.processstatus = 'Error' then 'Ошибка'
+  end as processstatus,
+  snikapushnotif.errortext as errortext
+from dirrx_nninteg_snikapushnotif as snikapushnotif
+  join sungero_core_recipient as employee
+    on employee.id = snikapushnotif.employeeid
+where 
+  employee.personalphone_esspls_dirrx = @PersonalPhone and
+  (snikapushnotif.sendingdate between @BeginDate and @EndDate)
+order by snikapushnotif.sendingdate desc;]]></postgres>
+  </query>
+</queries>

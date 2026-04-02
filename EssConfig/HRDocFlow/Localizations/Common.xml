@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<localizedStringValues>
+  <!--RU-->
+  <localizedStringValue code="ERR_ASSIGNMENT_COMPLETION_FAILURE" language="RU" useat="both">При выполнении задания произошла ошибка. Обратитесь к администратору системы.</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_FOR_SIGNING_HEADER" language="RU" useat="server">Задание на подписание</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_NOTICE_HEADER" language="RU" useat="server">Уведомление</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DEFAULT_RESULT_CAPTION" language="RU" useat="server">Результат</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DEFAULT_COMMENT_CAPTION" language="RU" useat="server">Комментарий</localizedStringValue>
+
+  <!--Приложения-->
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_FOR_SIGNING" language="RU" useat="server">Документы на подписание</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_FOR_ACQUAINTANCE" language="RU" useat="server">Документы на ознакомление</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_APPLICATIONS" language="RU" useat="server">Приложения</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY" language="RU" useat="server">Дополнительно</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_DOCUMENTS" language="RU" useat="server">Документы</localizedStringValue>
+
+  <!--Кнопки-->
+  <localizedStringValue code="OBJECTCARD_BUTTON_REFUSE" language="RU" useat="server">Отказаться</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_SIGN" language="RU" useat="server">Подписать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_COMPLETE" language="RU" useat="server">Выполнить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_ON_REWORK" language="RU" useat="server">На доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_APPROVE" language="RU" useat="server">Согласовать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_ACCEPT" language="RU" useat="server">Принять</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_ACQUAINT" language="RU" useat="server">Ознакомлен</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_NOTED" language="RU" useat="server">Принято к сведению</localizedStringValue>
+
+  <!--Сообщения-->
+  <localizedStringValue code="OBJECTCARD_FACILITY_SUCCESSMESSAGE" language="RU" useat="both">Документы подписаны</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_SUCCESSMESSAGE" language="RU" useat="both">Задание выполнено</localizedStringValue>
+  <localizedStringValue code="ASSIGNMENT_IS_ALREADY_COMPLETED" language="RU" useat="both">Задание уже выполнено</localizedStringValue>
+
+  <!--Заголовки-->
+  <localizedStringValue code="OBJECTCARD_DEFAULT_ACTIVE_HEADER" language="RU" useat="server">Требуются действия</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ACTIVE_HEADER" language="RU" useat="server">Задание на согласование</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_EACQUAINTANCEASSIGNMENTSOBJECTCARD_ACTIVE_HEADER" language="RU" useat="server">Задание на ознакомление</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_INSTRUCTION" language="RU" useat="both">Инструкция</localizedStringValue>
+
+  <!--EN-->
+  <localizedStringValue code="ERR_ASSIGNMENT_COMPLETION_FAILURE" language="EN" useat="both">Completion failure. Contact your system administrator.</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_FOR_SIGNING_HEADER" language="EN" useat="server">Signing assignment</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_NOTICE_HEADER" language="EN" useat="server">Notice</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DEFAULT_RESULT_CAPTION" language="EN" useat="server">Result</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DEFAULT_COMMENT_CAPTION" language="EN" useat="server">Comment</localizedStringValue>
+
+  <!--Attachments-->
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_FOR_SIGNING" language="EN" useat="server">Documents for signing</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_FOR_ACQUAINTANCE" language="EN" useat="server">Documents for acquaintance</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_APPLICATIONS" language="EN" useat="server">Applications</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY" language="EN" useat="server">Additionally</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_ATTACHMENT_DOCUMENTS" language="EN" useat="server">Documents</localizedStringValue>
+  
+  <!--Buttons-->
+  <localizedStringValue code="OBJECTCARD_BUTTON_REFUSE" language="EN" useat="server">Refuse</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_SIGN" language="EN" useat="server">Sign</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_COMPLETE" language="EN" useat="server">Complete</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_ON_REWORK" language="EN" useat="server">On rework</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_APPROVE" language="EN" useat="server">Approve</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_ACCEPT" language="EN" useat="server">Accept</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_ACQUAINT" language="EN" useat="server">Acquaint</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_BUTTON_NOTED" language="EN" useat="server">Noted</localizedStringValue>
+  
+  <!--Messages-->
+  <localizedStringValue code="OBJECTCARD_FACILITY_SUCCESSMESSAGE" language="EN" useat="both">Documents signed</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_ASSIGNMENT_SUCCESSMESSAGE" language="EN" useat="both">Assignment complete</localizedStringValue>
+  <localizedStringValue code="ASSIGNMENT_IS_ALREADY_COMPLETED" language="EN" useat="both">The assignment is already completed</localizedStringValue>
+
+  <!--Headers-->
+  <localizedStringValue code="OBJECTCARD_DEFAULT_ACTIVE_HEADER" language="EN" useat="server">Action required</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ACTIVE_HEADER" language="EN" useat="server">Approval assignment</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_EACQUAINTANCEASSIGNMENTSOBJECTCARD_ACTIVE_HEADER" language="EN" useat="server">Acquaintance assignment</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_INSTRUCTION" language="EN" useat="both">Instruction</localizedStringValue>
+</localizedStringValues>

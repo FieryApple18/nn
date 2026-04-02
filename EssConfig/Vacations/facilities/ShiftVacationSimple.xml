@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="6e7a8c95-aa2b-44f3-ae0c-6f748a0e68ac" name="ShiftVacation">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.FACILITIES_SHIFTVACATION_TITLE</title>
+  <description></description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterString" name="AssignmentId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationId" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationId2" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource>/</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationId3" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource>/</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationStatementData" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource>/api/functions/GetVacationStatementTemplateId?employeeId=$(CurrentUser.DirectumRX.ActorId)</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="IsFromEssAccount" defaultValue="True" isRequired="false" isCollection="false">
+      <isIndeterminateAllowed>False</isIndeterminateAllowed>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="JobTitle" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Department" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="BusinessUnit" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="InitiatorId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="VacationDuration" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>999</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="VacationsCount" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>1</precision>
+      <minValue>0</minValue>
+      <maxValue>999</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationKindId" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetVacationKindsInfo?vacationIds=%5B%5D</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationIds" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>50</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Reason" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>200</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Наименование НОР" defaultValue="#BUSINESS_UNIT_NAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника" defaultValue="#CURRENT_USER_JOB_TITLE_GENITIVE_LOWER" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Должность директора по персоналу" defaultValue="#HR_DIRECOR_JOB_TITLE_DATIVE" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО директора по персоналу" defaultValue="#HR_DIRECTOR_FULLNAME_DATIVE" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника" defaultValue="#CURRENT_USER_FULLNAME_GENITIVE" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_И.О. Фамилия сотрудника" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Текущие отпуска" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Новые даты отпуска" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Причина" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="Field_Дата подписи" defaultValue="#NOW" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationsData" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ApprovalDocuments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StoredApprovalDocuments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedApplicationLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationIdsCount" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskSubject" defaultValue="@HRPROVACATIONS.FACILITIES_SHIFTVACATION_TASKSUBJECT_DEFAULTVALUE" isRequired="true" isCollection="false">
+      <maxLength>200</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="$(CurrentUser.DirectumRX.ActorId)" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetPostListByPersonForSource</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DocumentKindId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="TemplateId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>Initiator</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        var initiatorId = formItem.value;
+        functions.setValue('InitiatorId', initiatorId);
+        if (initiatorId) {
+          // Отфильтровать отпуска по выбранному совместителю.
+          functions.setDataSource('VacationId', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`);
+          functions.setDataSource('VacationId2', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`);
+          functions.setDataSource('VacationId3', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`);               
+          // Очистить поля отпусков.
+          functions.setValue('VacationId', null);
+          functions.setValue('VacationId2', null);
+          functions.setValue('VacationId3', null);
+          functions.setValue('VacationIds', JSON.stringify([null, null, null]));
+          functions.setIsItemHidden('VacationId2', true);
+          functions.setIsItemHidden('VacationId3', true);
+          context.checkEmployeeConsentSigned({ functions, context, employeeId: initiatorId });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="VacationId"> 
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_SHIFTVACATION_VACATIONID_LABEL</label>
+      <placeholder />
+      <parameterName>VacationId</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(context.errorVacationId);
+        if (functions.getValues().VacationId) {
+          var vacationId = ESS.parseFloat(functions.getValues().VacationId);
+          var vacationId2 = ESS.parseFloat(functions.getValues().VacationId2);
+          var vacationId3 = ESS.parseFloat(functions.getValues().VacationId3);          
+
+          var vacationArray = [vacationId, vacationId2, vacationId3];
+          var vacArrStr = JSON.stringify(vacationArray);
+          functions.setValue('VacationIds', vacArrStr);
+          
+          var rows = functions.getValues().NewVacationDateGrid;
+          var initiatorId = functions.getValues().InitiatorId;
+          if (initiatorId)
+            context.setDataSource(initiatorId, vacationId, ["VacationId2", "VacationId3"]);
+
+          var count = functions.getValues().VacationsCount; 
+          var vacationKindIdsArray = [];
+          var beginDateArray = [];
+          var vacationDurationArray = [];
+          var endDateArray = [];
+          rows.forEach(row => {
+            if (row.rowValues.VacationKindId && row.rowValues.BeginDate && row.rowValues.VacationDuration) {
+              vacationKindIdsArray.push(row.rowValues.VacationKindId);
+              var beginDate = `"${row.rowValues.BeginDate}"`;
+              beginDateArray.push(beginDate);
+              vacationDurationArray.push(row.rowValues.VacationDuration);
+              var endDate = `"${row.rowValues.EndDate}"`;
+              endDateArray.push(endDate);
+            };
+          });
+          var vacationIds = functions.getValues().VacationIds;
+          var urlTemplate = `/api/functions/CheckAllVacationShiftDates?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&beginDates=[${beginDateArray}]&durations=[${vacationDurationArray}]&endDates=[${endDateArray}]`;
+          ESS.network.sendRequest(urlTemplate).then(function (errors){
+            if(errors.length > 0) {
+              functions.removeError(context.errorVacations);
+              context.errorVacations = functions.showError(errors);
+            } else {
+              functions.removeError(context.errorVacations);
+            }
+          });
+          if (vacationKindIdsArray.length > 0) {
+            var urlTemplate = `/api/functions/CheckShiftingVacationsDurations?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&durations=[${vacationDurationArray}]`;
+            ESS.network.sendRequest(urlTemplate).then(function (durationErrors){
+              if(durationErrors.length > 0) {
+                functions.removeError(context.errorDurations);
+                context.errorDurations = functions.showError(durationErrors);
+              } else {
+                functions.removeError(context.errorDurations);
+              }
+            });
+          };
+          var urlTemplate = `/api/functions/CheckExecutionShiftVacations?vacationIds=${vacationIds}`;
+          ESS.network.sendRequest(urlTemplate).then(function (errors){
+            if(errors.length > 0) {
+              functions.removeError(context.errorExecutionShift);
+              context.errorExecutionShift = functions.showError(errors);
+            } else {
+              functions.removeError(context.errorExecutionShift);
+            }
+          });
+          
+          if (vacationId2 && vacationId === vacationId2 || vacationId3 && vacationId === vacationId3) {
+            context.errorVacationId = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTVACATION_ERRVACATIONKINDID'), undefined, "FORM_REQUIRED", 'VacationId', undefined);
+          }
+          
+          ESS.network.sendRequest(`/api/functions/GetVacationUserData?vacationId=${vacationId}`)
+          .then(function (vacationUserData) {
+            functions.setValue('JobTitle', vacationUserData.title);
+            functions.setValue('Department', vacationUserData.department);
+            functions.setValue('BusinessUnit', vacationUserData.organization);
+            functions.setValue('InitiatorId', vacationUserData.id);      
+            if (functions.isItemHidden('VacationId2') && functions.getValues().VacationsCount > 1) {
+              functions.setIsItemHidden('VacationId2', false);
+            }
+          });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="VacationId2">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>VacationId2</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(context.errorVacationId2);
+        var vacationId = ESS.parseFloat(functions.getValues().VacationId);
+        var vacationId2 = ESS.parseFloat(functions.getValues().VacationId2);
+        var vacationId3 = ESS.parseFloat(functions.getValues().VacationId3);
+        var initiatorId = functions.getValues().InitiatorId;
+
+        context.setDataSource(initiatorId, vacationId, ["VacationId3"]);
+
+        var vacationArray = [vacationId, vacationId2, vacationId3];      
+        var vacArrStr = JSON.stringify(vacationArray);
+        functions.setValue('VacationIds', vacArrStr);
+        
+        if (vacationId2) {
+          if (vacationId && vacationId2 === vacationId || vacationId3 && vacationId2 === vacationId3) {
+            context.errorVacationId2 = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTVACATION_ERRVACATIONKINDID'), undefined, "FORM_REQUIRED", 'VacationId2', undefined);
+          }
+          
+          var rows = functions.getValues().NewVacationDateGrid;
+          var vacationKindIdsArray = [];
+          var beginDateArray = [];
+          var vacationDurationArray = [];
+          var endDateArray = [];
+          rows.forEach(row => {
+            if (row.rowValues.VacationKindId && row.rowValues.BeginDate && row.rowValues.VacationDuration) {
+              vacationKindIdsArray.push(row.rowValues.VacationKindId);
+              var beginDate = `"${row.rowValues.BeginDate}"`;
+              beginDateArray.push(beginDate);
+              vacationDurationArray.push(row.rowValues.VacationDuration);
+              var endDate = `"${row.rowValues.EndDate}"`;
+              endDateArray.push(endDate);
+            };
+          });
+          var vacationIds = functions.getValues().VacationIds;
+          var urlTemplate = `/api/functions/CheckAllVacationShiftDates?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&beginDates=[${beginDateArray}]&durations=[${vacationDurationArray}]&endDates=[${endDateArray}]`;
+          ESS.network.sendRequest(urlTemplate).then(function (errors){
+            if(errors.length > 0) {
+              functions.removeError(context.errorVacations);
+              context.errorVacations = functions.showError(errors);
+            } else {
+              functions.removeError(context.errorVacations);
+            }
+          });
+          if (vacationKindIdsArray.length > 0) {
+            var urlTemplate = `/api/functions/CheckShiftingVacationsDurations?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&durations=[${vacationDurationArray}]`;
+            ESS.network.sendRequest(urlTemplate).then(function (durationErrors){
+              if(durationErrors.length > 0) {
+                functions.removeError(context.errorDurations);
+                context.errorDurations = functions.showError(durationErrors);
+              } else {
+                functions.removeError(context.errorDurations);
+              }
+            });
+          };
+          var urlTemplate = `/api/functions/CheckExecutionShiftVacations?vacationIds=${vacationIds}`;
+          ESS.network.sendRequest(urlTemplate).then(function (errors){
+            if(errors.length > 0) {
+              functions.removeError(context.errorExecutionShift);
+              context.errorExecutionShift = functions.showError(errors);
+            } else {
+              functions.removeError(context.errorExecutionShift);
+            }
+          });
+        } else {
+          functions.setValue('VacationId3', null);
+        }
+        
+        var count = functions.getValues().VacationsCount; 
+        functions.setIsItemHidden('VacationId3', count < 3);
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="VacationId3">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>VacationId3</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(context.errorVacationId3);
+        var vacationId = ESS.parseFloat(functions.getValues().VacationId);
+        var vacationId2 = ESS.parseFloat(functions.getValues().VacationId2);
+        var vacationId3 = ESS.parseFloat(functions.getValues().VacationId3);
+        var vacationArray = [vacationId, vacationId2, vacationId3];
+        var vacArrStr = JSON.stringify(vacationArray);
+        functions.setValue('VacationIds', vacArrStr);
+        
+        if (vacationId3) {
+          if (vacationId && vacationId3 === vacationId || vacationId2 && vacationId3 === vacationId2) {
+            context.errorVacationId3 = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTVACATION_ERRVACATIONKINDID'), undefined, "FORM_REQUIRED", 'VacationId3', undefined);
+          }
+         
+          var rows = functions.getValues().NewVacationDateGrid;
+          var vacationKindIdsArray = [];
+          var beginDateArray = [];
+          var vacationDurationArray = [];
+          var endDateArray = [];
+          rows.forEach(row => {
+            if (row.rowValues.VacationKindId && row.rowValues.BeginDate && row.rowValues.VacationDuration) {
+              vacationKindIdsArray.push(row.rowValues.VacationKindId);
+              var beginDate = `"${row.rowValues.BeginDate}"`;
+              beginDateArray.push(beginDate);
+              vacationDurationArray.push(row.rowValues.VacationDuration);
+              var endDate = `"${row.rowValues.EndDate}"`;
+              endDateArray.push(endDate);
+            };
+          });
+          var vacationIds = functions.getValues().VacationIds;
+          var urlTemplate = `/api/functions/CheckAllVacationShiftDates?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&beginDates=[${beginDateArray}]&durations=[${vacationDurationArray}]&endDates=[${endDateArray}]`;
+          ESS.network.sendRequest(urlTemplate).then(function (errors){
+            if(errors.length > 0) {
+              functions.removeError(context.errorVacations);
+              context.errorVacations = functions.showError(errors);
+            } else {
+              functions.removeError(context.errorVacations);
+            }
+          });
+          if (vacationKindIdsArray.length > 0) {
+            var urlTemplate = `/api/functions/CheckShiftingVacationsDurations?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&durations=[${vacationDurationArray}]`;
+            ESS.network.sendRequest(urlTemplate).then(function (durationErrors){
+              if(durationErrors.length > 0) {
+                functions.removeError(context.errorDurations);
+                context.errorDurations = functions.showError(durationErrors);
+              } else {
+                functions.removeError(context.errorDurations);
+              }
+            });
+          };
+          var urlTemplate = `/api/functions/CheckExecutionShiftVacations?vacationIds=${vacationIds}`;
+          ESS.network.sendRequest(urlTemplate).then(function (errors){
+            if(errors.length > 0) {
+              functions.removeError(context.errorExecutionShift);
+              context.errorExecutionShift = functions.showError(errors);
+            } else {
+              functions.removeError(context.errorExecutionShift);
+            }
+          });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>VacationIds</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        var vacationIds = functions.getValues().VacationIds;
+        ESS.network.sendRequest(`/api/functions/GetVacationKindsInfo?vacationIds=${vacationIds}`)
+        .then(function (vacationKindsInfo) {
+          var vacationKindArray = [];
+          vacationKindsInfo.forEach(function (vacationKindInfo) {
+            vacationKindArray.push(vacationKindInfo.id);
+          });
+          var rows = functions.getValues().NewVacationDateGrid;
+          rows.forEach(row => {
+            if (row.rowValues.VacationKindId && !vacationKindArray.includes(Number(row.rowValues.VacationKindId))) {
+              functions.removeItem('NewVacationDateGrid', row.rowIndex);
+            }
+          });
+          if (vacationKindArray.length == 1) {
+            functions.setDataSource('VacationKindId', `/api/functions/GetVacationKindsInfo?vacationIds=${vacationIds}`, vacationKindArray[0]);
+          } else {
+            functions.setDataSource({
+              parameterName: 'VacationKindId', 
+              newDataSource: `/api/functions/GetVacationKindsInfo?vacationIds=${vacationIds}`,
+              shouldSaveValue: true
+            });
+          }
+          // Меняем значение только если это перенос из задания на подтверждение.
+          if (functions.getValues().AssignmentId != 0) {
+            const vacationIdsCount = JSON.parse(functions.getValues().VacationIds ??= "[]").filter(x => x).length;
+            functions.setValue('VacationIdsCount', vacationIdsCount);
+          }
+        });
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_SHIFTVACATION_INITIATOR</label>
+      <placeholder />
+      <parameterName>InitiatorId</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTable" name="NewVacationDateGrid">
+      <hint></hint>
+      <title>@.FACILITIES_SHIFTVACATION_TABLE_TITLE</title>
+      <showHeaders>true</showHeaders>
+      <placeholder />
+      <itemAddedEventHandler><![CDATA[
+        var vacationIds = functions.getValues().VacationIds;
+        ESS.network.sendRequest(`/api/functions/GetVacationKindsInfo?vacationIds=${vacationIds}`)
+        .then(function (vacationKindsInfo) {
+          if (vacationKindsInfo.length == 1) {
+            var rows = functions.getValues().NewVacationDateGrid;
+            functions.setValue('NewVacationDateGrid', vacationKindsInfo[0].id, rows[rows.length-1].rowIndex, 'VacationKindId')
+          } 
+        })
+      ]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[
+        var rows = functions.getValues().NewVacationDateGrid;
+        var vacationKindIdsArray = [];
+        var beginDateArray = [];
+        var vacationDurationArray = [];
+        var endDateArray = [];
+        var VacationsData = '';
+        rows.forEach(row => {
+          if (row.rowValues.VacationKindId && row.rowValues.BeginDate && row.rowValues.VacationDuration) {
+            vacationKindIdsArray.push(row.rowValues.VacationKindId);
+            var beginDate = `"${row.rowValues.BeginDate}"`;
+            beginDateArray.push(beginDate);
+            vacationDurationArray.push(row.rowValues.VacationDuration);
+            var endDate = `"${row.rowValues.EndDate}"`;
+            endDateArray.push(endDate);
+            VacationsData += row.rowValues.VacationKindId + '~' + row.rowValues.BeginDate + '~' + row.rowValues.EndDate +'!';
+          };
+        });
+        functions.setValue('VacationsData', VacationsData);
+        var vacationIds = functions.getValues().VacationIds;
+        var urlTemplate = `/api/functions/CheckAllVacationShiftDates?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&beginDates=[${beginDateArray}]&durations=[${vacationDurationArray}]&endDates=[${endDateArray}]`;
+        ESS.network.sendRequest(urlTemplate).then(function (errors){
+          if(errors.length > 0) {
+            functions.removeError(context.errorVacations);
+            context.errorVacations = functions.showError(errors);
+          } else {
+            functions.removeError(context.errorVacations);
+          }
+        });
+        var urlTemplate = `/api/functions/CheckShiftingVacationsDurations?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&durations=[${vacationDurationArray}]`;
+        ESS.network.sendRequest(urlTemplate).then(function (durationErrors){
+          if(durationErrors.length > 0) {
+            functions.removeError(context.errorDurations);
+            context.errorDurations = functions.showError(durationErrors);
+          } else {
+            functions.removeError(context.errorDurations);
+          }
+        });
+        var urlTemplate = `/api/functions/CheckExecutionShiftVacations?vacationIds=${vacationIds}`;
+        ESS.network.sendRequest(urlTemplate).then(function (errors){
+          if(errors.length > 0) {
+            functions.removeError(context.errorExecutionShift);
+            context.errorExecutionShift = functions.showError(errors);
+          } else {
+            functions.removeError(context.errorExecutionShift);
+          }
+        });
+      ]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <columns>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONKINDID_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>VacationKindId</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var initiatorId = functions.getValues().InitiatorId;
+            var vacationKindId = formItem.value;
+            var beginDateValue = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['BeginDate'];
+            var durationValue = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationDuration'];
+            var endDateValue = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['EndDate'];
+            if (vacationKindId && durationValue && beginDateValue) {
+              var url = `/api/functions/GetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${initiatorId}&vacationKindId=${vacationKindId}`;
+              ESS.network.sendRequest(url)
+              .then(function (newEndDateValue) {
+                if (new Date(newEndDateValue).getTime() != new Date(endDateValue).getTime()) {
+                  functions.setValue('NewVacationDateGrid', newEndDateValue, formItem.index, 'EndDate');
+                }
+              });
+            }
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_BEGINDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>BeginDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday.setDate(today.getDate() -1);
+            var beginDateValue = formItem.value;
+            var dateFromControl = new Date(beginDateValue).getTime();
+            functions.removeError(context.errorDate);
+            if (dateFromControl < yesterday.getTime()) {
+              context.errorDate = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'));
+            }
+            var initiatorId = functions.getValues().InitiatorId;
+            var durationValue = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationDuration'];
+            var vacationKindId = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationKindId'];
+            
+            if (durationValue && beginDateValue && vacationKindId) {
+              var url = `/api/functions/GetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${initiatorId}&vacationKindId=${vacationKindId}`;
+              context.sendRequest(url)
+              .then(function (newEndDateValue) {
+                functions.setValue('NewVacationDateGrid', newEndDateValue, formItem.index, 'EndDate');
+              });
+            };
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>VacationDuration</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var initiatorId = functions.getValues().InitiatorId;
+            var beginDateValue = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['BeginDate'];
+            var durationValue = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationDuration'];
+            var vacationKindId = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationKindId'];
+            
+            if (durationValue <= 0) {
+              functions.removeError(context.errorId);
+              context.errorId = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DURATION'));
+            } else {
+              functions.removeError(context.errorId);
+            }
+            
+            if (durationValue && beginDateValue && vacationKindId) {
+              var endDate = functions.getValues().NewVacationDateGrid.find(function (x) {
+                return x.rowIndex === formItem.index;
+              }).rowValues['EndDate'];
+              var url = `/api/functions/GetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${initiatorId}&vacationKindId=${vacationKindId}`;
+              context.sendRequest(url)
+              .then(function (newEndDateValue) {
+                if (new Date(newEndDateValue).getTime() != new Date(endDate).getTime()) {
+                  functions.setValue('NewVacationDateGrid', newEndDateValue, formItem.index, 'EndDate');
+                }
+              });
+            };
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_ENDDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>true</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>EndDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var initiatorId = functions.getValues().InitiatorId;
+            var beginDate = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['BeginDate'];
+            var endDate = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['EndDate'];
+            var vacationKindId = functions.getValues().NewVacationDateGrid.find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationKindId'];
+            functions.removeError(context.errorEndDate);
+            if (beginDate && endDate && vacationKindId) {
+              var url = `/api/functions/DurationInCalendarDaysWithoutHoliday?startDate=${beginDate}&endDate=${endDate}&userId=${initiatorId}&vacationKindId=${vacationKindId}`
+              context.sendRequest(url)
+              .then(function (newDuration) {
+                if (newDuration <= 0) {
+                  context.errorEndDate = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_END'));
+                }
+                else {
+                  var rows = functions.getValues().NewVacationDateGrid;
+                  var vacationKindIdsArray = [];
+                  var beginDateArray = [];
+                  var vacationDurationArray = [];
+                  var endDateArray = [];
+                  var VacationsData = '';
+                  rows.forEach(row => {
+                    if (row.rowValues.VacationKindId && row.rowValues.BeginDate && row.rowValues.VacationDuration) {
+                      vacationKindIdsArray.push(row.rowValues.VacationKindId);
+                      var beginDate = `"${row.rowValues.BeginDate}"`;
+                      beginDateArray.push(beginDate);
+                      vacationDurationArray.push(row.rowValues.VacationDuration);
+                      var endDate = `"${row.rowValues.EndDate}"`;
+                      endDateArray.push(endDate);
+                      VacationsData += row.rowValues.VacationKindId + '~' + row.rowValues.BeginDate + '~' + row.rowValues.EndDate +'!';
+                    };
+                  });
+                  functions.setValue('VacationsData', VacationsData);
+                  var vacationIds = functions.getValues().VacationIds;
+
+                  var url = `/api/functions/CheckVacationRequiredDuration?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&beginDates=[${beginDateArray}]&durations=[${vacationDurationArray}]&endDates=[${endDateArray}]`;
+                  context.sendRequest(url)
+                  .then(function (errors) {
+                    if (errors.length > 0){
+                      functions.removeError(context.errorRequiredDuration);
+                      context.errorRequiredDuration = functions.showError(errors);
+                    }
+                    else {
+                      functions.removeError(context.errorRequiredDuration);
+                    }
+                  });
+
+                  var urlTemplate = `/api/functions/CheckAllVacationShiftDates?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&beginDates=[${beginDateArray}]&durations=[${vacationDurationArray}]&endDates=[${endDateArray}]`;
+                  context.sendRequest(urlTemplate).then(function (errors){
+                    if(errors.length > 0) {
+                      functions.removeError(context.errorVacations);
+                      context.errorVacations = functions.showError(errors);
+                    } else {
+                      functions.removeError(context.errorVacations);
+                    }
+                  });
+                  if (vacationKindIdsArray.length > 0) {
+                    var urlTemplate = `/api/functions/CheckShiftingVacationsDurations?vacationIds=${vacationIds}&vacationKindIds=[${vacationKindIdsArray}]&durations=[${vacationDurationArray}]`;
+                    context.sendRequest(urlTemplate).then(function (durationErrors){
+                      if(durationErrors.length > 0) {
+                        functions.removeError(context.errorDurations);
+                        context.errorDurations = functions.showError(durationErrors);
+                      } else {
+                        functions.removeError(context.errorDurations);
+                      }
+                    });
+                  };
+                  var urlTemplate = `/api/functions/CheckExecutionShiftVacations?vacationIds=${vacationIds}`;
+                  context.sendRequest(urlTemplate).then(function (errors){
+                    if(errors.length > 0) {
+                      functions.removeError(context.errorExecutionShift);
+                      context.errorExecutionShift = functions.showError(errors);
+                    } else {
+                      functions.removeError(context.errorExecutionShift);
+                    }
+                  });
+                }
+                
+                var url = `/api/functions/CheckVacationHasHoliday?periodBegin=${beginDate}&periodEnd=${endDate}&employeeId=${initiatorId}&vacationKindId=${vacationKindId}`;
+                context.sendRequest(url)
+                .then(function (warning) {
+                  if(warning.length > 0)
+                    ESS.toasts.showToast(warning, ESS.enums.ToastType.WARNING, true);
+                });
+              });
+            }
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+      </columns>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton">
+      <text>@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_PLANNING_TOOL_BUTTON_TITLE</text>
+      <icon>vacation-overlaps</icon>
+      <isEnabled>true</isEnabled>
+      <isHidden>false</isHidden>
+      <onClickEventHandler><![CDATA[
+        const id = 'shiftVacationSimplePlanningTool';
+        let intervalId;
+        const callDialog = () => {
+          if (!Object.keys(context.canShowDialog).length) {
+            const timeline = {
+              type: ESS.enums.DialogItemType.TEXT,
+              name: 'timeline',
+              properties: {
+                text: `
+                  <component
+                    name="VacationPlanningTool"
+                    public-name="Directum_VacationPlanningTool_1_0"
+                    module-name="loaders"
+                    loader-name="lk-loader"
+                    dialog-id="${id}"
+                  />
+                `,
+              },
+            };
+
+            const newVacations = {
+              type: ESS.enums.DialogItemType.INPUT,
+                name: 'Vacations',
+                properties: {
+                  initialValue: JSON.stringify(functions.getValues().NewVacationDateGrid),
+                  isHidden: true,
+                },
+            }
+
+            const oldVacations = {
+              type: ESS.enums.DialogItemType.INPUT,
+                name: 'OldVacations',
+                properties: {
+                  initialValue: functions.getValues().VacationIds,
+                  isHidden: true,
+                },
+            }
+
+            const performerId = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'PerformerId',
+              properties: {
+                initialValue: functions.getValues().InitiatorId,
+                isHidden: true,
+              },
+            };
+
+            const entityGuid = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'EntityGuid',
+              properties: {
+                initialValue: '6e7a8c95-aa2b-44f3-ae0c-6f748a0e68ac',
+                isHidden: true,
+              },
+            };
+
+            const assignmentId = {
+              type: ESS.enums.DialogItemType.INPUT,
+              name: 'AssignmentId',
+              properties: {
+                initialValue: functions.getValues().AssignmentId,
+                isHidden: true,
+              },
+            };
+
+            const items = [
+              timeline,
+              performerId,
+              newVacations,
+              oldVacations,
+              entityGuid,
+              assignmentId,
+            ];
+
+            ESS.dialogs.createDialog({
+              id,
+              properties: {
+                width: ESS.enums.DialogWidth.WIDE,
+                isFullScreen: true,
+              },
+              title: ESS.L('@HRPROVACATIONS.FACILITIES_SCHEDULEVACATION_DIALOG_TITLE'),
+              items,
+            });
+            clearInterval(intervalId);
+          }
+        }
+
+        intervalId = setInterval(callDialog, 300);
+      ]]></onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint></hint>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SHIFTVACATION_REASON_LABEL</label>
+      <placeholder />
+      <parameterName>Reason</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        functions.setValue('Field_Причина', formItem.value);
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint></hint>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@HRPROVACATIONS.DEFAULTCARD_COMMENT_CAPTION</label>
+      <placeholder />
+      <parameterName>TaskSubject</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Получить наименование НОР в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">100</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="fieldName">BUSINESS_UNIT_NAME</property>
+        <property name="Result" binding="Field_Наименование НОР,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="100" name="ExecuteFunction" title="Получить должность сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">200</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="fieldName">CURRENT_USER_JOB_TITLE_GENITIVE_LOWER</property>
+        <property name="Result" binding="Field_Должность сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="200" name="ExecuteFunction" title="Получить должность директора по персоналу в дательном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">300</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="fieldName">HR_DIRECOR_JOB_TITLE_DATIVE</property>
+        <property name="Result" binding="Field_Должность директора по персоналу,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="300" name="ExecuteFunction" title="Получить ФИО директора по персоналу в дательном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">400</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="fieldName">HR_DIRECTOR_FULLNAME_DATIVE</property>
+        <property name="Result" binding="Field_ФИО директора по персоналу,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="400" name="ExecuteFunction" title="Получить ФИО сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">500</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="fieldName">CURRENT_USER_FULLNAME_GENITIVE</property>
+        <property name="Result" binding="Field_ФИО сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="500" name="ExecuteFunction" title="Получить фамилию и инициалы сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">600</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME</property>
+        <property name="Result" binding="Field_И.О. Фамилия сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="600" name="ExecuteFunction" title="Получить строку с текущими отпусками для заполнения параметра шаблона заявления на перенос отпуска." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">700</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">Vacations.GetCurrentVacations</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="firstVacationId" binding="VacationId" type="Int" />
+        <property name="secondVacationId" binding="VacationId2" type="Int" />
+        <property name="thirdVacationId" binding="VacationId3" type="Int" />
+        <property name="Result" binding="Field_Текущие отпуска,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="700" name="ExecuteFunction" title="Получить строку с новыми отпусками для заполнения параметра шаблона заявления на перенос отпуска." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">800</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">Vacations.GetShiftNewVacations</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="vacationsData" binding="VacationsData" type="String" />
+        <property name="Result" binding="Field_Новые даты отпуска,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="800" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+        <property name="NextStepIndex">900</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="DocumentId" type="Int" binding="TemplateId" />
+        <property name="DocumentFormat">pdfa</property>
+        <property name="DocumentGroup">IElectronicDocuments</property>
+        <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+        <property name="DocumentName" binding="Field_И.О. Фамилия сотрудника,#TODAY,Format=Заявление на перенос отпуска от {0} от {1}" />
+        <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+      </flowStep>
+      <!-- Если переносятся все отпуска из отпуска на подтверждение, то подписываем и извещение и заявление на перенос, иначе подписываем только заявление на перенос. -->
+      <decisionStep index="900" name="IsFullShift">
+        <case condition="VacationsCount = VacationIdsCount &amp; AssignmentId != 0" nextStepIndex="1300" />
+        <case nextStepIndex="1000" />
+      </decisionStep>
+      <!-- Шаг подписи только заявления. -->
+      <actionStep index="1000" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+        <property name="NextStepIndex">1500</property>
+        <property name="ActionName">HrProStatements.createSignature</property>
+        <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="SignatureType">Approval</property>
+        <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+      </actionStep>
+      <!-- Шаг подписи извещения и заявления. -->
+      <actionStep index="1300" name="ExportDocument" title="Экспортировать документ из RX в файловое хранилище ЛК.">
+        <property name="NextStepIndex">1400</property>
+        <property name="ActionName">HRProVacations.exportDocument</property>
+        <property name="SigningDocumentFromRX" binding="ApprovalDocuments" type="DocumentLink[]" />
+        <property name="Result" binding="StoredApprovalDocuments,Mode=PropertyToParameter" type="StoredDocument" />
+      </actionStep>
+      <actionStep index="1400" name="SignDocuments" title="Добавить подписи документам в ФХ">
+        <property name="NextStepIndex">1500</property>
+        <property name="ActionName">HRProVacations.signDocuments</property>
+        <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="SigningDocumentFromRX" binding="StoredApprovalDocuments" type="StoredDocument" />
+        <property name="DocumentInfo" binding="ApprovalDocuments" type="DocumentLink[]" />
+        <property name="employeeId" binding="InitiatorId" type="Int" />
+        <property name="SignatureType">Approval</property>
+        <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+      </actionStep>
+      <flowStep index="1500" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentGroupStep">
+        <property name="NextStepIndex">1600</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="ImportingDocuments" binding="StoredDocument*" type="StoredDocument[]" />
+        <property name="DocumentGroup">IVacationStatementDocuments</property>
+        <property name="Employee" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="Actor" binding="InitiatorId"/>
+        <property name="PreparedBy" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="DocumentKind" binding="DocumentKindId,Format={{'Id':{0}}}" />
+        <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="1600" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">1700</property>
+        <property name="GroupName">StatementAttachmentGroup</property>
+        <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <decisionStep index="1700" name="HasAssignmentId">
+        <case condition="AssignmentId = 0" nextStepIndex="1800" />
+        <case nextStepIndex="1900" />
+      </decisionStep>
+      <flowStep index="1800" name="StartStatementTask" title="@.FACILITIES_GETVACATION_RUNVACATIONAPPROVALTASK" type="StartWorkProcessStep">
+        <property name="ProcessName">IVacationChangeTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="Author" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="StartedBy" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="Employee" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="EssVacations" binding="VacationIds" type="String" />
+        <property name="EssVacationKindIds" binding="VacationKindId" type="String" />
+        <property name="EssVacationBeginDates" binding="BeginDate" type="String" />
+        <property name="EssVacationDurations" binding="VacationDuration" type="String" />
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+        <property name="IsFromEssAccount" binding="IsFromEssAccount" type="boolean" />
+        <property name="Statement" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+        <property name="ChangeReason" binding="Reason" type="String" />
+      </flowStep>
+      <flowStep index="1900" name="StartStatementTaskFromConfirm" title="@.FACILITIES_GETVACATION_RUNVACATIONAPPROVALTASK" type="StartWorkProcessStep">
+        <property name="ProcessName">IVacationChangeTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="Author" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="StartedBy" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="Employee" binding="InitiatorId,Format={{'Id':{0}}}" />
+        <property name="EssVacations" binding="VacationIds" type="String" />
+        <property name="EssVacationKindIds" binding="VacationKindId" type="String" />
+        <property name="EssVacationBeginDates" binding="BeginDate" type="String" />
+        <property name="EssVacationDurations" binding="VacationDuration" type="String" />
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+        <property name="ConfirmationAssignmentId" binding="AssignmentId" type="Int" />
+        <property name="IsFromEssAccount" binding="IsFromEssAccount" type="boolean" />
+        <property name="Statement" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+        <property name="ChangeReason" binding="Reason" type="String" />
+      </flowStep> 
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    context.canShowDialog = {};
+    context.sendRequest = (...args) => {
+      const key = Date.now();
+      context.canShowDialog[key] = '';
+      return ESS.network.sendRequest(...args).finally(() => delete context.canShowDialog[key]);
+    };
+    context.checkEmployeeConsentSigned = ESS.scripts.HRProVacations.checkEmployeeConsentSigned;
+    context.setDataSource = (initiatorId, vacationId, formItems) => {
+      formItems.forEach(item => {
+        var confirmationAssignmentId = functions.getValues().AssignmentId;
+        confirmationAssignmentId = confirmationAssignmentId == 0 ? null : confirmationAssignmentId;
+        ESS.network.sendRequest(`/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${confirmationAssignmentId}&vacationId=${vacationId}&isForReworkCardOpen=false`)
+          .then((response) => functions.setValue('VacationsCount', response.length));
+        functions.setDataSource(item, `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${confirmationAssignmentId}&vacationId=${vacationId}&isForReworkCardOpen=false`);
+      });
+    };
+
+    context.getVacationStatementTemplateId = (initiatorId) => {
+      ESS.network.sendRequest(`/api/functions/GetVacationStatementTemplateId?employeeId=${initiatorId}&isShiftVacation=true`)
+        .then(function (VacationStatementData) {
+          if (VacationStatementData.Error.length == 0) {
+            var templateId = ESS.parseFloat(VacationStatementData.TemplateId);
+            var docKindId = ESS.parseFloat(VacationStatementData.DocumentKindId);
+            functions.setValue('TemplateId', templateId);
+            functions.setValue('DocumentKindId', docKindId);
+            functions.setValue('IsFromEssAccount', true);
+          } else {
+            ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), VacationStatementData.Error);
+          }
+        })
+        .catch(function (error) {
+          ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+        });
+    };
+
+    if (!functions.getValues().AssignmentId){
+      functions.setValue('AssignmentId', 0);
+      functions.setValue('Field_Дата подписи', new Date().toLocaleDateString('ru-RU'));
+      const initiatorId = functions.getValues().Initiator;
+      context.checkEmployeeConsentSigned({ functions, context, employeeId: initiatorId });
+      ESS.network.sendRequest(`/api/functions/GetEmployeeCertificates`)
+      .then(function (certs) {
+        if (certs.length == 0) {
+          ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR'));
+          reject();
+        } else {
+          ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+          .then(function (employee){
+              ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned`)
+              .then(function (isConsentSigned) {
+                if (isConsentSigned != true && employee.positions.length == 1) 
+                {
+                  ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTVACATION_CONSENT_ERROR'));       
+                  reject();  
+                } else {
+                  const primaryId = employee.positions.find(emp => emp.isPrimary).id;
+                  functions.setDataSource('VacationId', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${primaryId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`);
+                  functions.setDataSource('VacationId2', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${primaryId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`);
+                  functions.setDataSource('VacationId3', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${primaryId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`); 
+                  ESS.network.sendRequest(`/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${primaryId}&confirmationAssignmentId=${null}&vacationId=${null}&isForReworkCardOpen=false`)
+                    .then((response) => {
+                      functions.setValue('VacationsCount', response.length);
+                      // Если это не перенос из задания на подтверждение, то устанавливаем значение равное количеству доступных к переносу отпусков.
+                      functions.setValue('VacationIdsCount', response.length);
+                    });
+                  functions.setValue('InitiatorId', primaryId);
+                  functions.addItem('NewVacationDateGrid');
+                  context.getVacationStatementTemplateId(initiatorId);
+                  resolve();
+                }
+              });                        
+          })                
+        }
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+      });
+    }
+    else {
+      var initiatorId = functions.getValues().InitiatorId;
+      var confirmationAssignmentId = functions.getValues().AssignmentId;
+      ESS.network.sendRequest(`/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${confirmationAssignmentId}&vacationId=${null}&isForReworkCardOpen=false`)
+        .then(function (response){
+          functions.setValue('VacationsCount', response.length);
+          if (response.length == 1)
+          {
+            functions.setDataSource('VacationId', `/api/functions/GetCurrentEmployeeVacationsForShift?employeeId=${initiatorId}&confirmationAssignmentId=${confirmationAssignmentId}&vacationId=${null}&isForReworkCardOpen=false`, response[0].id);
+            functions.setIsItemDisabled('VacationId', true); 
+          }
+          else 
+            context.setDataSource(initiatorId, null, ["VacationId", "VacationId2", "VacationId3"]);
+          functions.addItem('NewVacationDateGrid');
+          resolve();  
+          })
+        .catch(function (error) {
+        ESS.toasts.showToast(error.message, ESS.enums.ToastType.ERROR, false);
+      });   
+      context.getVacationStatementTemplateId(initiatorId);
+    }
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <closingEventHandler><![CDATA[
+    var totalVacations = functions.getValues().VacationsCount;
+    var selectedVacations = functions.getValues().VacationIdsCount;
+    context.needCloseConfirmation = totalVacations == selectedVacations;
+    resolve();
+  ]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+      if (context.needCloseConfirmation) {
+        ESS.closeElement(sender.parent);
+      } else {
+        ESS.updateElement(sender.parent);
+      }
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_SHIFTVACATION_SUCCESSMESSAGE</successMessage>
+</facility>

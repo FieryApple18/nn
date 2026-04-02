@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CompensationValidationError" xml:space="preserve">
+    <value>For employees with the compensation kind "{0}" the "Rest Date" field must be filled in.</value>
+  </data>
+  <data name="FillEmployeesDialogTitle" xml:space="preserve">
+    <value>Add employees to the application</value>
+  </data>
+  <data name="FillEmployeesAddButtonName" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="FillEmployeesAddHyperlinkName" xml:space="preserve">
+    <value>Add employees</value>
+  </data>
+  <data name="FillEmployeesDeleteHyperlinkName" xml:space="preserve">
+    <value>Remove employees</value>
+  </data>
+  <data name="FillEmployeesEmployeesAmounError" xml:space="preserve">
+    <value>The number of employees in the application exceeds 100 entries. Reduce the number of employees in the Employees field</value>
+  </data>
+  <data name="FillEmployeesDialogDatesError" xml:space="preserve">
+    <value>Dates of work and Dates of breaks must fall within the period when employees withdraw from the application</value>
+  </data>
+  <data name="FillEmployeesAddHyperlinkListTitle" xml:space="preserve">
+    <value>Select employees to add</value>
+  </data>
+  <data name="FillEmployeesDeleteHyperlinkListTitle" xml:space="preserve">
+    <value>Select artists to exclude</value>
+  </data>
+  <data name="FillEmployeesRestDateFromError" xml:space="preserve">
+    <value>"Rest date from" cannot be less than the value in the "Work date from" field</value>
+  </data>
+  <data name="FillEmployeesRestDateToError" xml:space="preserve">
+    <value>"Rest date to" can not be less than the value in the field "Rest date from"</value>
+  </data>
+  <data name="WeekendWorkStatementValidationError" xml:space="preserve">
+    <value>The application was not automatically verified by SAP. Details in the Employee Data table.
+</value>
+  </data>
+  <data name="WeekendWorkStatementValidationNoInfoError" xml:space="preserve">
+    <value>The employee did not receive information about the error from the external system.</value>
+  </data>
+  <data name="WorkDateValidationError" xml:space="preserve">
+    <value>The application can be made strictly for 1 day. The dates in the Date of work with and Date of Work on fields must match.</value>
+  </data>
+  <data name="WorkTimeValidationError" xml:space="preserve">
+    <value>The time in the "Work date to" field should be strictly longer than the time in the "Work dates from" field.</value>
+  </data>
+  <data name="FillEmployeesNGDGroupValidationError" xml:space="preserve">
+    <value>The application can be made for employees with the same NGD attribute. Remove employees from the tabular part with different NGD features and create a separate application for them.</value>
+  </data>
+  <data name="NGDGroupValidationError" xml:space="preserve">
+    <value>The application can be made for employees with the same NGD attribute. Remove employees from the tabular part with different NGD features and create a separate application for them.</value>
+  </data>
+  <data name="EditEmployeeDialogTitle" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="WorkDateOneDayError" xml:space="preserve">
+    <value>{0} can only be issued for one day, adjust the release dates.</value>
+  </data>
+  <data name="FillEmployeesRestDateTitle" xml:space="preserve">
+    <value>Rest date</value>
+  </data>
+  <data name="FillEmployeesRestDateError" xml:space="preserve">
+    <value>"Rest date" cannot be less than the value in the "Work date from" field</value>
+  </data>
+  <data name="FillEmployeesRestDateOneDayError" xml:space="preserve">
+    <value>Additional rest can only be arranged for one day, adjust the dates of additional rest.</value>
+  </data>
+  <data name="FillEmployeesRestDateEqualError" xml:space="preserve">
+    <value>"Rest date from" and "Rest date to" must be strictly equal.</value>
+  </data>
+  <data name="WorkDateCurrentDayError" xml:space="preserve">
+    <value>The "date work from" cannot be less than the current date</value>
+  </data>
+  <data name="ExpFunc_GetEmployeesWithoutRejected_Name" xml:space="preserve">
+    <value>Are there any employees who are being transferred to the SAP?</value>
+  </data>
+  <data name="ExpFunc_GetEmployeesWithoutRejected_Desc" xml:space="preserve">
+    <value>Determines the availability of employees for the event in SAP.</value>
+  </data>
+  <data name="RestDateFromIsEnableMessage" xml:space="preserve">
+    <value>For the compensation kind "{0}" the "Rest date" field should not be filled in.</value>
+  </data>
+  <data name="HoursDeclensionOne" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="HoursDeclensionTwo" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="HoursDeclensionDefault" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="BreakIncompleteValidationError" xml:space="preserve">
+    <value>When you specify a break, fill in the beginning and end of it.</value>
+  </data>
+</root>

@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <ViewName>Default</ViewName>
+  <Collection FormGuid="cddd4c25-da1e-45d4-ab4b-0250a22ce940">
+    <XtraSerializer version="1.0" application="GridControl">
+      <property name="#LayoutVersion" isnull="true" />
+      <property name="$GridControl" iskey="true" value="GridControl">
+        <property name="View" isnull="true" iskey="true">
+          <property name="LinesPerRowMode">OneLineMode</property>
+          <property name="ColumnChooserState" isnull="true" iskey="true">
+            <property name="Location">930,308</property>
+            <property name="Size">220,250</property>
+          </property>
+          <property name="WaitIndicatorType">Panel</property>
+          <property name="ShowTotalSummary">false</property>
+          <property name="IsRowCellMenuEnabled">false</property>
+          <property name="ShowGroupPanel">false</property>
+          <property name="AutoWidth">true</property>
+        </property>
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="SortInfo" iskey="true" value="1">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="FieldName">Subject</property>
+            <property name="SortOrder">Ascending</property>
+          </property>
+        </property>
+        <property name="GroupSummary" iskey="true" value="0" />
+        <property name="GroupCount">0</property>
+        <property name="Columns" iskey="true" value="22">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">17</property>
+            <property name="MinWidth">32</property>
+            <property name="FixedWidth">true</property>
+            <property name="Visible">true</property>
+            <property name="FieldName">T</property>
+            <property name="VisibleIndex">0</property>
+            <property name="Width">32</property>
+            <property name="ActualWidth">4*</property>
+          </property>
+          <property name="Item2" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">0</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Id</property>
+            <property name="FieldName">Id</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item3" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">18</property>
+            <property name="Visible">true</property>
+            <property name="Name">ESignAssignment_Subject</property>
+            <property name="FieldName">Subject</property>
+            <property name="VisibleIndex">1</property>
+            <property name="ActualWidth">39*</property>
+          </property>
+          <property name="Item4" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">19</property>
+            <property name="Visible">true</property>
+            <property name="Name">ESignAssignment_Author</property>
+            <property name="FieldName">Author.DisplayValue</property>
+            <property name="VisibleIndex">2</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item5" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">1</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Performer</property>
+            <property name="FieldName">Performer.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item6" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">2</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Status</property>
+            <property name="FieldName">Status</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item7" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">3</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Importance</property>
+            <property name="FieldName">Importance</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item8" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">20</property>
+            <property name="Visible">true</property>
+            <property name="Name">ESignAssignment_Deadline</property>
+            <property name="FieldName">Deadline</property>
+            <property name="VisibleIndex">3</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item9" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">21</property>
+            <property name="Visible">true</property>
+            <property name="Name">ESignAssignment_Created</property>
+            <property name="FieldName">Created</property>
+            <property name="VisibleIndex">4</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item10" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">4</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Modified</property>
+            <property name="FieldName">Modified</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item11" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">5</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Task</property>
+            <property name="FieldName">Task.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item12" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">6</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_MainTask</property>
+            <property name="FieldName">MainTask.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item13" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">7</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_HasSubtasksInProcess</property>
+            <property name="FieldName">HasSubtasksInProcess</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item14" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">8</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_CompletedBy</property>
+            <property name="FieldName">CompletedBy.DisplayValue</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item15" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">9</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Completed</property>
+            <property name="FieldName">Completed</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item16" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">10</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_Result</property>
+            <property name="FieldName">Result</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item17" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">11</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_AllowSignSubstitution</property>
+            <property name="FieldName">AllowSignSubstitution</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item18" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">12</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_CanSign</property>
+            <property name="FieldName">CanSign</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item19" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">13</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_CanForRevision</property>
+            <property name="FieldName">CanForRevision</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item20" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">14</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_CanRefuse</property>
+            <property name="FieldName">CanRefuse</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item21" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">15</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_RepeatedTaskAlerts</property>
+            <property name="FieldName">RepeatedTaskAlerts</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item22" isnull="true" iskey="true">
+            <property name="ExtendedVisibleIndex">16</property>
+            <property name="Visible">false</property>
+            <property name="Name">ESignAssignment_MassSigningDirRX</property>
+            <property name="FieldName">MassSigningDirRX</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+        </property>
+        <property name="GroupSummarySortInfo" iskey="true" value="0" />
+      </property>
+    </XtraSerializer>
+  </Collection>
+</settings>

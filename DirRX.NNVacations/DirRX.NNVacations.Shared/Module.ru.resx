@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LetterToAirlineKindName" xml:space="preserve">
+    <value>Письмо в авиакомпанию</value>
+  </data>
+  <data name="IndividualAcquiantanceVacScheduleListKindName" xml:space="preserve">
+    <value>Индивидуальный лист ознакомления с графиком отпусков</value>
+  </data>
+  <data name="GroupAcquiantanceVacScheduleListKindName" xml:space="preserve">
+    <value>Групповой лист ознакомления с графиком отпусков</value>
+  </data>
+  <data name="OtherVacationKindName" xml:space="preserve">
+    <value>Заявление на прочий отпуск</value>
+  </data>
+  <data name="CompensationVacationKindName" xml:space="preserve">
+    <value>Компенсация части ежегодного оплачиваемого отпуска (в том числе дополнительного)</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>работника</value>
+  </data>
+  <data name="VacationScheduleTemplateName" xml:space="preserve">
+    <value> на {0} год</value>
+  </data>
+  <data name="DepartmentTemplate" xml:space="preserve">
+    <value>&lt;структурное подразделение&gt;</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value> от </value>
+  </data>
+  <data name="LetterToOVDKindName" xml:space="preserve">
+    <value>Письмо в ОВД</value>
+  </data>
+  <data name="OtherVacationTemplateNotFoundError" xml:space="preserve">
+    <value>В настройках модуля не указан шаблон заявления на прочий отпуск. Обратитесь к администратору системы.</value>
+  </data>
+  <data name="AttachableVacationsInfo" xml:space="preserve">
+    <value>{0} {1}, с {2} по {3}, в количестве {4} календарных дней.</value>
+  </data>
+  <data name="VacationCompensationOrderKindName" xml:space="preserve">
+    <value>Приказ о замене части отпуска работнику денежной компенсации</value>
+  </data>
+  <data name="OtherVacationOrderKindName" xml:space="preserve">
+    <value>Приказ на прочий отпуск</value>
+  </data>
+  <data name="CurrentVacationPeriodForShift" xml:space="preserve">
+    <value>{0}, {1} - {2}, ({3} д.)</value>
+  </data>
+  <data name="NewVacationDatesForShift" xml:space="preserve">
+    <value>с {0} по {1}</value>
+  </data>
+  <data name="CreateVacationNoticesAndStartTasksSubject" xml:space="preserve">
+    <value>Ошибки при формировании задач на подтверждение отпуска</value>
+  </data>
+  <data name="CreateVacationNoticesAndStartTasksActiveText" xml:space="preserve">
+    <value>Произошли ошибки при формировании задач "Регистрация ежегодного отпуска" для следующих сотрудников: {0}</value>
+  </data>
+  <data name="NoticeSubjectCreateAcquiantanceVacScheduleLists" xml:space="preserve">
+    <value>Документы по задаче сформированы</value>
+  </data>
+  <data name="NoticeSubjectCreateAcquiantanceVacScheduleListsError" xml:space="preserve">
+    <value>Документы по задаче не сформированы</value>
+  </data>
+  <data name="SubjectIndividualVacationScheduleAcquaintanceTask" xml:space="preserve">
+    <value>Подписание индивидуального листа ознакомления с графиком отпусков</value>
+  </data>
+  <data name="CreateVacationInfoAndStartTaskSubject" xml:space="preserve">
+    <value>Произошли ошибки при формировании задачи Ведение графика отпусков</value>
+  </data>
+  <data name="SubjectVacationScheduleManagementTask" xml:space="preserve">
+    <value>Согласование документа: {0}</value>
+  </data>
+  <data name="GetAvailableDaysInfoDefaultText" xml:space="preserve">
+    <value>(не удалось получить)</value>
+  </data>
+  <data name="AvailableDaysInfo" xml:space="preserve">
+    <value>Оплачиваемые отпуска, заработанные на текущий день: {0}</value>
+  </data>
+  <data name="AvailableNumberOfVacationDays" xml:space="preserve">
+    <value>Оплачиваемые отпуска, заработанные на текущий день:</value>
+  </data>
+  <data name="NumberOfDays" xml:space="preserve">
+    <value>{0} дн.</value>
+  </data>
+  <data name="GetAvailableNumberOfVacationDaysError" xml:space="preserve">
+    <value>Ошибка получения доступных остатков по отпуску.</value>
+  </data>
+  <data name="AvailableNumberOfVacationDaysTitle" xml:space="preserve">
+    <value>ПРАВО НА ОТПУСК</value>
+  </data>
+  <data name="PeriodOfPlannedVacation" xml:space="preserve">
+    <value>{0} - {1} ({2} дн.)</value>
+  </data>
+  <data name="PlannedVacationTitle" xml:space="preserve">
+    <value>ЗАПЛАНИРОВАННЫЕ ОТПУСКА</value>
+  </data>
+  <data name="DocumentTimeCollisionError" xml:space="preserve">
+    <value>Измените период отпуска, так как на выбранные даты уже оформлено заявление на отпуск.</value>
+  </data>
+  <data name="DaysBeforeStartEnableError" xml:space="preserve">
+    <value>Заявление на отпуск может быть оформлено не менее чем за {0} дней до его начала.</value>
+  </data>
+  <data name="GetVacationAvailableLimitsError" xml:space="preserve">
+    <value>Ошибка получения доступных лимитов отпуска</value>
+  </data>
+  <data name="RequestTextGenerationError" xml:space="preserve">
+    <value>Не удалось сформировать текст запроса</value>
+  </data>
+  <data name="SendMessageToExternalSystemError" xml:space="preserve">
+    <value>Не удалось отправить сообщение во внешнюю систему</value>
+  </data>
+  <data name="DeserializeInStructError" xml:space="preserve">
+    <value>Ошибка десериализации ответа в структуру</value>
+  </data>
+  <data name="RefusalToApplyForVacationError" xml:space="preserve">
+    <value>Отказано в оформлении отпуска</value>
+  </data>
+  <data name="VacationAvailableLimitsError" xml:space="preserve">
+    <value>Продолжительность запрашиваемого отпуска превышает количество доступных дней отпуска</value>
+  </data>
+  <data name="TimeCollisionsOfRequestedVacationError" xml:space="preserve">
+    <value>На указанные даты оформлено отсутствие</value>
+  </data>
+  <data name="AvailabilityOfRecordOfParentalLeave" xml:space="preserve">
+    <value>На указанные даты оформлен отпуск по уходу за ребенком. Вы не можете оформить отпуск</value>
+  </data>
+  <data name="RequiredDurationRrror" xml:space="preserve">
+    <value>В случае согласования заявления на перенос отпуска будет нарушено законодательное требование в части продолжительности частей отпуска - ежегодно одна из частей отпуска должна быть не менее 14 календарных дней</value>
+  </data>
+  <data name="CompensationAdditionalVacationKindName" xml:space="preserve">
+    <value>Компенсация части ежегодного дополнительного оплачиваемого отпуска (за ВУТ/ОУТ)</value>
+  </data>
+  <data name="BusinessProcessVacations" xml:space="preserve">
+    <value>Отпуска</value>
+  </data>
+  <data name="BusinessProcessVacationScheduleManagement" xml:space="preserve">
+    <value>Ведение графика отпусков</value>
+  </data>
+  <data name="BusinessProcessCompensationPartAnnualVacation" xml:space="preserve">
+    <value>Компенсация части ежегодного оплачиваемого отпуска</value>
+  </data>
+  <data name="BusinessProcessRegistrationOtherVacation" xml:space="preserve">
+    <value>Регистрация прочих отпусков</value>
+  </data>
+  <data name="BusinessProcessRecallVacation" xml:space="preserve">
+    <value>Отзыв из отпуска</value>
+  </data>
+  <data name="BusinessProcessRegistrationAnnualVacation" xml:space="preserve">
+    <value>Регистрация ежегодного отпуска</value>
+  </data>
+  <data name="CurrentUserPersonalNumberNotFoundError" xml:space="preserve">
+    <value>Не удалось получить табельный номер текущего сотрудника</value>
+  </data>
+  <data name="CurrentUserNotFoundError" xml:space="preserve">
+    <value>Не удалось определить текущего сотрудника</value>
+  </data>
+  <data name="DocumentKindNotFoundError" xml:space="preserve">
+    <value>Не удалось получить Вид документа</value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>Произошла ошибка. Обратитесь к администратору системы.</value>
+  </data>
+  <data name="DocumentTimeCollisionInShiftError" xml:space="preserve">
+    <value>Измените период переноса отпуска, так как на выбранные даты уже оформлено заявление на отпуск.</value>
+  </data>
+  <data name="ParseStringToDateError" xml:space="preserve">
+    <value>Не удалось обработать переданную дату: {0}</value>
+  </data>
+  <data name="DocumentKindNotFound" xml:space="preserve">
+    <value>Не удалось получить Вид документа</value>
+  </data>
+  <data name="EmployeeNotFound" xml:space="preserve">
+    <value>Не удалось получить Сотрудника</value>
+  </data>
+  <data name="BusinessUnitNotFound" xml:space="preserve">
+    <value>Не удалось получить Нашу организацию сотрудника</value>
+  </data>
+  <data name="VacationKindTemplateNotFoundError" xml:space="preserve">
+    <value>В настройках модуля не указан шаблон для "{0}". Обратитесь к администратору системы.</value>
+  </data>
+  <data name="StudyVacationOrderKindName" xml:space="preserve">
+    <value>Приказ на предоставление учебного отпуска</value>
+  </data>
+  <data name="CurrentVacationPeriodForRecall" xml:space="preserve">
+    <value>{0} - {1}, ({2} д.)</value>
+  </data>
+  <data name="AcquiantanceVacScheduleReportExecutionError" xml:space="preserve">
+    <value>Вы не можете сформировать отчет так как вы не включены в бизнес-роль по процессу "Ведение графика отпусков".</value>
+  </data>
+  <data name="VacationNoticeMessageStyle" xml:space="preserve">
+    <value>&lt;style&gt;
+   table,
+   th,
+   td {
+   padding: 10px;
+   border: 1px solid black;
+   border-collapse: collapse;
+   }
+&lt;/style&gt;</value>
+  </data>
+  <data name="AttachableVacationsInfoHeader" xml:space="preserve">
+    <value>А также:
+{0}</value>
+  </data>
+  <data name="VacationNoticeMessageBody" xml:space="preserve">
+    <value>&lt;html&gt;
+&lt;head&gt; {0} &lt;/head&gt;
+&lt;body&gt;
+ &lt;div style='margin-bottom: 10px'&gt; Произошли ошибки при отправке уведомлений об отпуске по следующим сотрудникам: &lt;/div&gt;
+ &lt;table width='100%'&gt; {1} &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="VacationNoticeMessageSubject" xml:space="preserve">
+    <value>Произошли ошибки при отправке уведомлений об отпуске</value>
+  </data>
+  <data name="VacationNoticeMessageRow" xml:space="preserve">
+    <value>&lt;tr&gt;&lt;td&gt;{0}&lt;/td&gt;&lt;td&gt;{1}&lt;/td&gt;&lt;td&gt;{2}&lt;/td&gt;&lt;/tr&gt;</value>
+  </data>
+  <data name="ShiftVacationReason" xml:space="preserve">
+    <value>Перенос в связи с: </value>
+  </data>
+  <data name="VacationNoticeMessageHeader" xml:space="preserve">
+    <value>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Табельный номер&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;ФИО Сотрудника&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Ошибка&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</value>
+  </data>
+  <data name="VacationConfirmationAssignmentError" xml:space="preserve">
+    <value>Перенос данного планового отпуска больше не доступен. Отпуск будет предоставлен в первоначальные даты.</value>
+  </data>
+  <data name="GetMaxVacationEndDateFunctionName" xml:space="preserve">
+    <value>Получить максимальную дату окончания отпуска</value>
+  </data>
+  <data name="GetMaxVacationEndDateFunctionDescription" xml:space="preserve">
+    <value>Возвращает максимальную дату окончания отпуска</value>
+  </data>
+  <data name="GetNewVacationDatesFunctionName" xml:space="preserve">
+    <value>Получить даты новых отпусков</value>
+  </data>
+  <data name="GetNewVacationDatesFunctionDescription" xml:space="preserve">
+    <value>Возвращает даты новых отпусков в формате строки</value>
+  </data>
+  <data name="VacationPeriodString" xml:space="preserve">
+    <value>с {0} по {1}</value>
+  </data>
+  <data name="ChangeVacationPeriodOrderKindName" xml:space="preserve">
+    <value>Приказ о переносе сроков отпуска</value>
+  </data>
+  <data name="CancelVacationOrderKindName" xml:space="preserve">
+    <value>Приказ об отмене приказа</value>
+  </data>
+  <data name="RegisteredVacationTitle" xml:space="preserve">
+    <value>ПРЕДОСТАВЛЕННЫЕ ОТПУСКА</value>
+  </data>
+  <data name="ValidateVacationDataYearShiftError" xml:space="preserve">
+    <value>Перенос отпуска возможен в пределах текущего года, выберите другие даты</value>
+  </data>
+  <data name="ValidateVacationDurationRestrictionError" xml:space="preserve">
+    <value>Количество дней перенесенного ежегодного отпуска не соответствуют количеству дней первоначального отпуска</value>
+  </data>
+  <data name="ValidateVacationAttachedToAnnualError" xml:space="preserve">
+    <value>Присоедините дни на проезд к месту отдыха к ежегодному отпуску</value>
+  </data>
+  <data name="ShiftVacationStatementDuplicateError" xml:space="preserve">
+    <value>Заявление на перенос данного отпуска уже оформлено.</value>
+  </data>
+  <data name="VacationNoticeInProcessError" xml:space="preserve">
+    <value>У вас в работе находится Уведомление об этом отпуске. Зайдите в уведомление, чтобы оформить перенос.</value>
+  </data>
+  <data name="VacationApprovalPeriodNotFoundMessage" xml:space="preserve">
+    <value>Не найдена запись справочника "Сроки согласования отпусков". Параметры для поиска: ИД НОР: {0}, ИД вида документа: {1}, Тип отпуска: {2}, Отпуск оплачен: {3}, Топ-10/100: {4}</value>
+  </data>
+  <data name="VacationApprovalPeriodNotFoundSubject" xml:space="preserve">
+    <value>Не найдена запись справочника "Сроки согласования отпусков"</value>
+  </data>
+  <data name="VacationApprovalPeriodTrueBoolValue" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="VacationApprovalPeriodFalseBoolValue" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="ValidateRecallVacationDurationRestrictionError" xml:space="preserve">
+    <value>Не допускается частичный перенос/компенсация ежегодного отпуска. Перенесите и/или компенсируйте отпуск целиком.</value>
+  </data>
+</root>

@@ -1,0 +1,350 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "8562be2c-ebdd-4630-a94d-65d15ef105bf",
+  "Name": "LrdEventReasonClarification",
+  "Actions": [
+    {
+      "NameGuid": "783273be-e6f1-4962-a389-aae433b4ea56",
+      "Name": "ShowDuplicates",
+      "ActionArea": "Card",
+      "GenerateHandler": true,
+      "LargeIconName": null,
+      "SmallIconName": null
+    }
+  ],
+  "BaseGuid": "04581d26-0780-4cfd-b3cd-c2cafc5798b0",
+  "CanBeNavigationPropertyType": true,
+  "CanBeSearch": true,
+  "Code": "LnaEventReasCl",
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
+      "NameGuid": "e1bf535e-77bc-40a8-903d-298cb34fe517",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "259b97f4-7605-42b0-9b38-a2690023e049",
+          "Name": "ControlGroup",
+          "ColumnDefinitions": [
+            {
+              "Percentage": 50.0
+            },
+            {
+              "Percentage": 50.0
+            }
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "83ee6168-37a5-4ade-b86e-8e97d3cc9cb1",
+          "Name": "Control",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "259b97f4-7605-42b0-9b38-a2690023e049",
+          "PropertyGuid": "2d52407c-b7d8-411f-a364-43e5e5390cbb",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "da40915f-828b-49f5-a206-b0d047d26861",
+          "Name": "Status",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "259b97f4-7605-42b0-9b38-a2690023e049",
+          "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "50828a46-5be2-4363-b587-1416797fbc9c",
+          "Name": "Code",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "259b97f4-7605-42b0-9b38-a2690023e049",
+          "PropertyGuid": "92cf4066-1a1a-47c3-91f1-4c95369ad804",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ]
+    }
+  ],
+  "HandledEvents": [
+    "BeforeSaveServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNOtherProcessesLnaEventReasonClarification",
+  "NeedWriteHistory": true,
+  "OperationsClass": "",
+  "Overridden": [
+    "IsVisible",
+    "NeedWriteHistory",
+    "HideFromCreationArea",
+    "HideFromNavigationEditorCreationArea",
+    "IsAutoCreated",
+    "CanBeSearch"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
+      "Name": "Status",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "2d52407c-b7d8-411f-a364-43e5e5390cbb",
+      "Name": "Name",
+      "Code": "Name",
+      "IsDisplayValue": true,
+      "IsQuickSearchAllowed": true,
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "92cf4066-1a1a-47c3-91f1-4c95369ad804",
+      "Name": "Code",
+      "CanBeSearch": false,
+      "Code": "Code",
+      "IsRequired": true,
+      "Length": 25,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "2d52407c-b7d8-411f-a364-43e5e5390cbb"
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "ChildBirth",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Рождение ребенка\""
+    },
+    {
+      "Name": "ChildBirth",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"02\""
+    },
+    {
+      "Name": "DisabledChild",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Ребенок инвалид до 18 лет\""
+    },
+    {
+      "Name": "DisabledChild",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"17\""
+    },
+    {
+      "Name": "DisabledEmployee",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"В связи с инвалидностью работника\""
+    },
+    {
+      "Name": "DisabledEmployee",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"16\""
+    },
+    {
+      "Name": "EmployeeMaterialSupport3324",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная поддержка работникам (в/о 3324)\""
+    },
+    {
+      "Name": "EmployeeMaterialSupport3324",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"19\""
+    },
+    {
+      "Name": "EmployeesMaterialSupport",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная поддержка работникам\""
+    },
+    {
+      "Name": "EmployeesMaterialSupport",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"08\""
+    },
+    {
+      "Name": "FamilyMemberDeath",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Смерть члена семьи работника\""
+    },
+    {
+      "Name": "FamilyMemberDeath",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"03\""
+    },
+    {
+      "Name": "LifeOneTimePayment",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Единовременная выплата в связи с трудной жизненной ситуацией\""
+    },
+    {
+      "Name": "LifeOneTimePayment",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"04\""
+    },
+    {
+      "Name": "MutilationMaterialSupport",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Материальная помощь. Увечье\""
+    },
+    {
+      "Name": "MutilationMaterialSupport",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"05\""
+    },
+    {
+      "Name": "RetirementOneTimePayment",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Единовременная материальная помощь по уходу на пенсию\""
+    },
+    {
+      "Name": "RetirementOneTimePayment",
+      "ParentClasses": [
+        "LrdEventReasonClarification",
+        "DefaultCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"05\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GetDuplicates",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "lrdEventReasonClarification",
+          "ParameterType": "global::DirRX.NNOtherProcesses.ILrdEventReasonClarification",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.ILrdEventReasonClarification, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNOtherProcesses.ILrdEventReasonClarification>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "FindDuplicatesError"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "52f113f5-6d91-4fd5-a744-9acc1f7f694d",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "3e6cf9a0-d7fc-401c-aa9d-c9509a7466c4",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 12
+    }
+  ]
+}

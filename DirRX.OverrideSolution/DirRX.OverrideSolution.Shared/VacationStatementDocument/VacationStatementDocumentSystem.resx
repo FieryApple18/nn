@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_StartDateDirRX" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Property_EndDateDirRX" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="Property_DaysDirRX" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Property_IsPostgraduateDirRX" xml:space="preserve">
+    <value>Postgraduate</value>
+  </data>
+  <data name="Property_DaysAmountDirRX" xml:space="preserve">
+    <value>Amount of days</value>
+  </data>
+  <data name="Property_InterruptStartDateDirRX" xml:space="preserve">
+    <value>Revocation/interruption start date</value>
+  </data>
+  <data name="Property_InterruptEndDateDirRX" xml:space="preserve">
+    <value>Revocation/interruption end date</value>
+  </data>
+  <data name="Property_CompensationTypeDirRX" xml:space="preserve">
+    <value>Type of compensation</value>
+  </data>
+  <data name="Enum_CompensationTypeDirRX_WithPayment" xml:space="preserve">
+    <value>Transfer vacation with compensation</value>
+  </data>
+  <data name="Enum_CompensationTypeDirRX_WithoutPayment" xml:space="preserve">
+    <value>Transfer vacation without compensation</value>
+  </data>
+  <data name="Property_AvailableDaysDirRX" xml:space="preserve">
+    <value>Available days</value>
+  </data>
+  <data name="Property_SelectedDaysDirRX" xml:space="preserve">
+    <value>Selected days</value>
+  </data>
+  <data name="Property_ApplicationDateDirRX" xml:space="preserve">
+    <value>Application date</value>
+  </data>
+  <data name="Resource_fc50c88831554ff196e8ff7064894ead" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_406e14dc17444a7f85d8f6eef8abaa3f" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Resource_670056d3a80d41c290537ace73f8c3e3" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_ddf41ead829a4a3f8d12d40a52b7440c" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_fc50c88831554ff196e8ff7064894ead_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_CompensationDaysDirRX" xml:space="preserve">
+    <value>Number of days for compensation</value>
+  </data>
+  <data name="Control_ddf41ead829a4a3f8d12d40a52b7440c_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_553a4e2dd5ec47eeb797b9e188349572" xml:space="preserve">
+    <value>Vacation data</value>
+  </data>
+  <data name="Resource_b9937a170c624d238b3f976de00a1439" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_b9937a170c624d238b3f976de00a1439_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_b8017e2288d643da8d6d8d11917b1dd6" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_3d411ab8967c43b4ab770240b19d9921" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_09b8c877bb4f4b329a9832d12a8dae24" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_09b8c877bb4f4b329a9832d12a8dae24_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_597fdf1225334c36b69ae250aa909158" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_597fdf1225334c36b69ae250aa909158_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_VacationReasonDirRX" xml:space="preserve">
+    <value>Vacation reason</value>
+  </data>
+  <data name="Property_VacationTypeDirRX" xml:space="preserve">
+    <value>Vacation type</value>
+  </data>
+  <data name="Property_InterruptDaysDirRX" xml:space="preserve">
+    <value>Interrupt days amount</value>
+  </data>
+  <data name="ControlGroup_7439d2fac3934bf3b0648b81899d5866" xml:space="preserve">
+    <value>Additional vacation data</value>
+  </data>
+  <data name="Property_AdditionalVacationDirRX" xml:space="preserve">
+    <value>Additional vacation details</value>
+  </data>
+  <data name="ControlGroup_97207a7b22634cd4be840302e7587c25" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Property_AddendaPaperCount" xml:space="preserve">
+    <value>Number of addenda papers</value>
+  </data>
+  <data name="Property_PaperCount" xml:space="preserve">
+    <value>Number of papers</value>
+  </data>
+  <data name="Property_VacationDaysExcessDirRX" xml:space="preserve">
+    <value>Number of days exceeded</value>
+  </data>
+  <data name="Property_VacationDataDirRX" xml:space="preserve">
+    <value>Vacation data</value>
+  </data>
+  <data name="Property_IsVacationPeriodBrokenDirRX" xml:space="preserve">
+    <value>Absence of vacation in 14 days</value>
+  </data>
+  <data name="Property_InterruptVacationDirRX" xml:space="preserve">
+    <value>Vacation interruption/recall data</value>
+  </data>
+  <data name="Property_ChangePeriodKindDirRX" xml:space="preserve">
+    <value>Change period kind</value>
+  </data>
+  <data name="Enum_ChangePeriodKindDirRX_PlannedVacation" xml:space="preserve">
+    <value>Postponement of planned vacation</value>
+  </data>
+  <data name="Enum_ChangePeriodKindDirRX_GrantedVacation" xml:space="preserve">
+    <value>Postponement of granted vacation (issued by order)</value>
+  </data>
+  <data name="Property_PaymentCompletedDirRX" xml:space="preserve">
+    <value>Payment completed</value>
+  </data>
+  <data name="Property_IsShiftByStatementDirRX" xml:space="preserve">
+    <value>Shift by statement</value>
+  </data>
+</root>

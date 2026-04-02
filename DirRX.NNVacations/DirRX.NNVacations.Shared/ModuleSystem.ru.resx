@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Процессы по отпускам</value>
+  </data>
+  <data name="CoverTitle" xml:space="preserve">
+    <value>Процессы по отпускам</value>
+  </data>
+  <data name="sf_93d12463_3416_4562_8e9a_34910e8d4b36" xml:space="preserve">
+    <value>Листы ознакомления с графиком отпусков</value>
+  </data>
+  <data name="FilterPanel_Employee_3ecbb490b6b3455ea03a2ee9c2ab2ce3" xml:space="preserve">
+    <value>Сотрудник</value>
+  </data>
+  <data name="FilterPanel_Period_b8a851d258e04aa187310da5b45598e3" xml:space="preserve">
+    <value>На год</value>
+  </data>
+  <data name="FilterPanel_DateRange_50c4d4251f314839b42e8974856d5b90" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FilterPanel_GroupList_b46fc3f2849f4406ac62bb2866bb429e" xml:space="preserve">
+    <value>Групповой</value>
+  </data>
+  <data name="FilterPanel_BusinessUnit_7cc6d807296c44f1a69972d1da646b84" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="FilterPanel_Department_4081d0c5312a4eb5b4bd0f1613bbaba6" xml:space="preserve">
+    <value>Подразделение</value>
+  </data>
+  <data name="AsyncHandler_Description_7b210c6a04a84dd08849ae945b8b5155" xml:space="preserve">
+    <value>Автоматическое формирование задач на подтверждение отпуска</value>
+  </data>
+  <data name="JobDisplayName_2260bdd7914b40279f2b9b86b67ece23" xml:space="preserve">
+    <value>Норникель. Отпуска. Автоматическое выполнение задания на подтверждение отпуска</value>
+  </data>
+  <data name="JobDescription_2260bdd7914b40279f2b9b86b67ece23" xml:space="preserve">
+    <value>Автоматическое выполнение задания на подтверждение отпуска.</value>
+  </data>
+  <data name="CoverGroup_TestGroup" xml:space="preserve">
+    <value>Тестирование</value>
+  </data>
+  <data name="AsyncHandler_Description_ac81b7ca863648c499353684705bf76e" xml:space="preserve">
+    <value>Создать и запустить задачи "Ознакомление с индивидуальным листом"</value>
+  </data>
+  <data name="AsyncHandler_Description_00c8ca424a614acda433e04aa3d554e8" xml:space="preserve">
+    <value>Сформировать групповые листы ознакомления</value>
+  </data>
+  <data name="AsyncHandler_Description_cfc4eb17a89842d38d9d9fd5c0c95de8" xml:space="preserve">
+    <value>Сформировать индивидуальные листы ознакомления</value>
+  </data>
+  <data name="AsyncHandler_Description_b132b0b5ffcf41abb6a8b15876d71bd6" xml:space="preserve">
+    <value>Создать и запустить задачу "Ведение графика отпусков"</value>
+  </data>
+</root>

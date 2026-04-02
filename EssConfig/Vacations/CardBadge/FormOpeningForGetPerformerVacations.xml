@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openingEventHandler><![CDATA[
+  data.showButtons = data.status === 'InProcess'; 
+  data.isSigned = data.result === 'Sign';
+  data.isAborted = data.status === 'Aborted';
+
+  data.AuthorFullName = data.requisites.find(function (_ref) {
+    var name = _ref.name;
+    return name === 'Author';
+  }).displayValue;
+
+  var date = new Date(Date.parse(data.finished)).toLocaleDateString('ru-RU');
+  
+  // тут собраны все значения result из конвертеров
+  if (data.result != null)
+  {
+    if (data.name === 'IVacationConfirmationAssignments' || data.name === 'IVacationAlignDateAssignments')
+    {
+      switch(data.result.toLowerCase()) {
+        case 'complete':  // Подтверждено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_COMPLETE') + ' ' + date;
+          break;
+        case 'shift':  // Выполнено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_DEFAULT_STATUS_COMPLETED') + ' ' + date;
+          break;
+        case 'skip':  // Выполнено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_DEFAULT_STATUS_COMPLETED') + ' ' + date;
+          break;
+        case 'getvacation':  // Выполнено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_DEFAULT_STATUS_COMPLETED') + ' ' + date;
+          break;
+        default:
+          data.result = '';
+          break;
+      }
+    }
+    else if (data.name === 'IVacationApprovalAssignments' || data.name === 'IVacationReworkAssignments')
+    {
+      switch(data.result.toLowerCase()) {
+        case 'complete':  // Согласовано
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_APPROVED') + ' ' + date;
+          break;
+        case 'forrework':  // Отправлено на доработку
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_FORREWORK') + ' ' + date;
+          break;
+        case 'deny':  // Отказано
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_DENY') + ' ' + date;
+          break;
+        case 'forreapproving':  // Выполнено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_DEFAULT_STATUS_COMPLETED') + ' ' + date;
+          break;
+        case 'abort':  // Прекращено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_ABORT') + ' ' + date;
+          break;
+        default:
+          data.result = '';
+          break;
+      }
+    }
+    else if (data.name === 'IVacationChangeApprovalAssignments' || data.name === 'IVacationChangeReworkAssignments' || data.name === 'IVacationChangeSignAssignments')
+    {
+      switch(data.result.toLowerCase()) {
+        case 'approve':  // Согласовано
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_APPROVED') + ' ' + date;
+          break;
+        case 'forrework':  // Отправлено на доработку
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_FORREWORK') + ' ' + date;
+          break;
+        case 'deny':  // Отказано
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_DENY') + ' ' + date;
+          break;
+        case 'forreapproving':  // Выполнено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_DEFAULT_STATUS_COMPLETED') + ' ' + date;
+          break;
+        case 'abort':  // Прекращено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_ABORT') + ' ' + date;
+          break;
+        case 'sign':  // Подписано
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_SIGN') + ' ' + date;
+          break;
+        case 'refuse':  // Отказано
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_REFUSE') + ' ' + date;
+          break;
+        default:
+          data.result = '';
+          break;
+      }
+    }
+    else
+    {
+      switch(data.result.toLowerCase()) {
+        case 'complete':  // Выполнено
+          data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_DEFAULT_STATUS_COMPLETED') + ' ' + date;
+          break;
+        default:
+          data.result = '';
+          break;
+      }
+    }
+  }
+
+  if (data.isAborted)
+  {
+    data.result = ESS.L('@HRPROVACATIONS.OBJECTCARD_RESULT_ABORT') + ' ' + date;
+  }
+  
+  ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+  .then(function (emps) {
+    if (emps.positions.length > 1) {
+      emps.positions.forEach(function (emp) {
+        if (emp.id == data.performer) {
+          data.PerformerInfo = {
+            "FullName": data.performerFullName,
+            "Position": emp.title,
+            "Department": emp.department,
+            "Organization": emp.organization
+          }
+        }
+      })
+    }
+    resolve(data);
+    console.log(data);
+  })
+  .catch(function (error) {
+    ESS.toasts.showToast(error.message, 'danger', false);
+    reject({message: "error text"});
+  });
+]]></openingEventHandler>

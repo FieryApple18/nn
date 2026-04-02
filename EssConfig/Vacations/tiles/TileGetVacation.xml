@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="getVacation" index="20">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <backgroundColor>#5CA2FC</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_GET_VACATION_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[ESS.actions.facilityActions.runFacility({ id: 'd1899307-092b-4a08-87b5-3c7c14f2feff'});]]></clickEventHandler>
+</tile>

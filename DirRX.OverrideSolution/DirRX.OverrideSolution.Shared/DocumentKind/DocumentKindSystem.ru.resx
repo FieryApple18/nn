@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_NeedCancelActionDirRX" xml:space="preserve">
+    <value>При отказе в подписании требуется отмена проведенного мероприятия</value>
+  </data>
+  <data name="Resource_6dc77869d11041ecbfa57fab726cd87c" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_5ec988275b8c41f89d87037a01aea5cf" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_577b29daa5b84421aaf3b0ad37f3a306" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_119071ae88184c72a6089a6c5895722f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_fff537f6c9c44d30bf5e6cc2cb0770d2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_98676e65565e4add8ad63e40050c777b" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_86f23e9ea7b14712899f9961d0224841" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_121a490e33f24df68f5ef4a4e125a90f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_121a490e33f24df68f5ef4a4e125a90f_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_BusinessProcessDirRX" xml:space="preserve">
+    <value>Бизнес-процесс</value>
+  </data>
+  <data name="Resource_f9765d8adc5f458d84a4c049779bdd02" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_f9765d8adc5f458d84a4c049779bdd02_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_28fb4b9e26c44cec95b94561dc540eb8" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_28fb4b9e26c44cec95b94561dc540eb8_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_a43679fc681c41b89a4b834793cd7a40" xml:space="preserve">
+    <value>Проектный документооборот</value>
+  </data>
+  <data name="Resource_47d838c87f994f438e70feea834159be" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_8b6c04eac0a14e14a7c40997314304cc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_b6a93f9f0d324620b981c56d4480b516" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="Resource_f11956a9fe6d410f8ddc1b424d723e6e" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_f11956a9fe6d410f8ddc1b424d723e6e_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_b095712434c34b328577bff6da3c59e2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_0316ec7c4ec84214bd97feca2aeee27b" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_0316ec7c4ec84214bd97feca2aeee27b_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_01764d267ac64022842e9cf325a074d5" xml:space="preserve">
+    <value>Настройка</value>
+  </data>
+  <data name="Resource_2e6e0b25c61541d18f1919fe2f374dff" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_802be73618bb4fad81c70ddcb0c255fa" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_1890217b5dc04436bebad7c5ccdae17e" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_1890217b5dc04436bebad7c5ccdae17e_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_fbdbcee32d254e1a99afc490a57d75e0" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_c5bc89e02d104fc78d720835fc10de20" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_ae288e92ebf3451c884587e29de06f09" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_c00527b0e58f414980dcb2c63b6e486d" xml:space="preserve">
+    <value>Отправка</value>
+  </data>
+  <data name="Resource_a5e8df40089e478d844e0ad363dff7fc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_9d4ebb67e5c04726b7fce3cea0f72bcf" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_d5de8de90c954ca98ef9060b43c1a9ca" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_GetBusinessRolesLinksDirRX" xml:space="preserve">
+    <value>Показать записи</value>
+  </data>
+  <data name="Action_GetBusinessRolesLinksDirRXHint" xml:space="preserve">
+    <value>Показать записи</value>
+  </data>
+  <data name="Action_GetBusinessRolesLinksDirRXDescription" xml:space="preserve">
+    <value>Показать записи</value>
+  </data>
+  <data name="Property_SAPCodeDirRX" xml:space="preserve">
+    <value>Код SAP</value>
+  </data>
+  <data name="Property_TransferBody" xml:space="preserve">
+    <value>При передаче статуса передавать тело документа</value>
+  </data>
+</root>

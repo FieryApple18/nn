@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="27b57bd9-c5b8-407f-af85-aa98ea38dfe9" name="IHRDocFlowHRAssignments" header="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_ACTIVE_HEADER" icon="sign">
+    <views>
+      <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+        <fields>
+          <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title"/>
+          <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline"/>
+          <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result"/>
+          <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_COMMENT_CAPTION">{{{comment}}}</field>
+          <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee"/>
+          <field caption="@HRPROSTATEMENTS.OBJECTCARD_INSTRUCTION">{{{instruction}}}</field>
+        </fields>
+        <content>
+          {{#isNotCompleted}}
+          {{#proposedSolution}}
+          {{#reduceFullName}}{{performerFullName}}{{/reduceFullName}}: {{proposedSolution}} {{#isAborted}}({{AuthorFullName}}){{/isAborted}}
+          {{/proposedSolution}}
+          {{/isNotCompleted}}
+        </content>
+        <attachmentsAreas>
+          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_DOCUMENTS">
+            <documentGroups>
+              <documentGroup>DocumentGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_APPLICATIONS">
+            <documentGroups>
+              <documentGroup>AddendaGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY">
+            <documentGroups>
+              <documentGroup>OtherGroup</documentGroup>
+            </documentGroups>
+          </attachmentsArea>
+        </attachmentsAreas>
+      </view>
+    </views>
+    <buttons>
+      <button name="Complete" isPrimary="true" isDefault="true">
+        <icon>check-mark</icon>
+        <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_COMPLETE</caption>
+        <clickEventHandler>
+          <![CDATA[
+            if (data.requisites.find(re => re.name == "NeedActiveTextDirRX").value === false || 
+                data.requisites.find(re => re.name == "NeedActiveTextDirRX").value === null)
+            {
+              var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
+              isAssignmentBlocked.then(message => {
+                if (!message) {
+                  ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Complete').then(function () {
+                    ESS.closeElement(sender);
+                    ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_SUCCESSMESSAGE'), 'success', true);
+                    ESS.widgets.updateWidgets();
+                  }).catch(function (error) {
+                    ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROSTATEMENTS.ERR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
+                  });
+                } else {
+                  ESS.toasts.showToast(message, 'danger', false);
+                }
+              });
+            }
+            else {
+              ESS.actions.facilityActions.runFacility({id: 'cbf8e1d7-d66c-4451-ac22-14865f87e8d8'}, {parameters: {ItemId: data.id, ItemName: data.name}}, sender);
+            }
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Noted" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_NOTED</caption>
+        <clickEventHandler>
+          <![CDATA[
+            var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
+            isAssignmentBlocked.then(message => {
+              if (!message) {
+                ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Noted').then(function () {
+                  ESS.closeElement(sender);
+                  ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_SUCCESSMESSAGE'), 'success', true);
+                  ESS.widgets.updateWidgets();
+                }).catch(function (error) {
+                  ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROSTATEMENTS.ERR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
+                });
+              } else {
+                ESS.toasts.showToast(message, 'danger', false);
+              }
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Revision" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_ON_REWORK</caption>
+        <clickEventHandler>
+          <![CDATA[
+            var attachmentTitle = data.attachments.filter(function(attachment) {
+              return attachment.group === "DocumentGroup";
+            });
+            var docName = "";
+            attachmentTitle.forEach(attachment => {
+              if (docName === "")
+                docName = attachment.title
+              else
+                docName = docName + "; " + attachment.title
+            })
+            ESS.actions.facilityActions.runFacility({id: 'd3f7270a-2680-44fe-b231-1708b532beb3'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName, StateName: 'ForRevision', IsSigned: false}}, sender);
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Approve" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>Согласовать</caption>
+        <clickEventHandler>
+          <![CDATA[
+            var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
+            isAssignmentBlocked.then(message => {
+              if (!message) {
+                ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Approved').then(function () {
+                  ESS.closeElement(sender);
+                  ESS.toasts.showToast(ESS.L('Документы согласованы.'), 'success', true);
+                  ESS.widgets.updateWidgets();
+                }).catch(function (error) {
+                  ESS.toasts.showErrorToastWithLog(ESS.L('При выполнении задания произошла ошибка. Обратитесь к администратору.'), error.message);
+                });
+              } else {
+                ESS.toasts.showToast(message, 'danger', false);
+              }
+            });
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Refuse" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>Отказать</caption>
+        <clickEventHandler>
+          <![CDATA[
+            var attachmentTitle = data.attachments.filter(function(attachment) {
+              return attachment.group === "DocumentGroup";
+            });
+            var docName = "";
+            attachmentTitle.forEach(attachment => {
+              if (docName === "")
+                docName = attachment.title
+              else
+                docName = docName + "; " + attachment.title
+            })
+            ESS.actions.facilityActions.runFacility({id: 'b908bc4a-5c80-4841-af63-942250079765'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName}}, sender);
+          ]]>
+        </clickEventHandler>
+      </button>
+      <button name="Terminate" isPrimary="false" isDefault="false">
+        <icon>check-mark</icon>
+        <caption>Прекратить</caption>
+        <clickEventHandler>
+          <![CDATA[
+            var attachmentTitle = data.attachments.filter(function(attachment) {
+              return attachment.group === "DocumentGroup";
+            });
+            var docName = "";
+            attachmentTitle.forEach(attachment => {
+              if (docName === "")
+                docName = attachment.title
+              else
+                docName = docName + "; " + attachment.title
+            })
+            ESS.actions.facilityActions.runFacility({id: 'C910C78C-A9F1-4DA6-AB15-BE36D4BAB354'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName}}, sender);
+          ]]>
+        </clickEventHandler>
+      </button>
+    </buttons>
+    <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformer.xml" />
+    <openedEventHandler>
+      <![CDATA[
+        ESS.network.sendRequest(`/api/functions/GetTaskActiveText?assignmentId=${data.id}`)
+        .then(function (activeText){
+          data.comment = activeText.replace(/([\r\n])/g, '<br/>');
+          resolve({configuration: configuration, data: data});
+        })
+        .catch(function (error) {
+          ESS.toasts.showToast(error.message, 'danger', false);
+          reject();
+        });
+
+        if(data.requisites.find(re => re.name == "CanComplete").value === false || 
+           data.requisites.find(re => re.name == "CanComplete").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Complete"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanForRevision").value === false || 
+           data.requisites.find(re => re.name == "CanForRevision").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Revision"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanApprove").value === false || 
+           data.requisites.find(re => re.name == "CanApprove").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Approve"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanRefuse").value === false || 
+           data.requisites.find(re => re.name == "CanRefuse").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Refuse"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanTerminate").value === false || 
+           data.requisites.find(re => re.name == "CanTerminate").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Terminate"), 1);
+        }
+        if(data.requisites.find(re => re.name == "CanNotedDirRX").value === false || 
+           data.requisites.find(re => re.name == "CanNotedDirRX").value === null)
+        {
+          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Noted"), 1);
+        }
+      ]]>
+    </openedEventHandler>
+    <closedEventHandler><![CDATA[
+      if(data.isRead === false)
+      {
+        ESS.widgets.updateWidgets();
+      }
+      ]]>
+    </closedEventHandler>
+  </objectCard>

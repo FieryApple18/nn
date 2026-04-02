@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_LegalEntityDirRX" xml:space="preserve">
+    <value>Legal entity</value>
+  </data>
+  <data name="Property_SapOrganizationTypeDirRX" xml:space="preserve">
+    <value>Organizational type of sap</value>
+  </data>
+  <data name="Property_SapLegalEntityCodeDirRX" xml:space="preserve">
+    <value>SAP Code of the legal entity</value>
+  </data>
+  <data name="Resource_69146147b9c44f47a97515990570d974" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_69146147b9c44f47a97515990570d974_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_2812c08b949c45028db2faa6f07e3fa1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_2812c08b949c45028db2faa6f07e3fa1_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_514374bce2c44c718a55832f36db6f6f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_514374bce2c44c718a55832f36db6f6f_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_bba041ddff534020ade7f40b42894c75" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_bba041ddff534020ade7f40b42894c75_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_696020c339d64173870e77c71e60e681" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_696020c339d64173870e77c71e60e681_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_9bf192f4d4914ad295f6b2180ae511d7" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_008a422fc89644759937cb93d3ae3ce9" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_008a422fc89644759937cb93d3ae3ce9_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_518e105aca4b4cafb7ec75d99cb09d84" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_518e105aca4b4cafb7ec75d99cb09d84_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_72af7ed565a44fbdace6ca657912a854" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_72af7ed565a44fbdace6ca657912a854_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_bb54f7b1375543819b5a9c3cee9177cf" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="Resource_622902f178454ad7977d20118eecbb94" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_622902f178454ad7977d20118eecbb94_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_aeda37379c194913b9dcf7f057161bf8" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_aeda37379c194913b9dcf7f057161bf8_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_a826a3226afc47aa85768602c547bba8" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_a826a3226afc47aa85768602c547bba8_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_904847d7ec654ce288418ac85f44d6b5" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_904847d7ec654ce288418ac85f44d6b5_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_90156c38f540457cbdccfdabc15ba87c" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_90156c38f540457cbdccfdabc15ba87c_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_0f130974d4e74a53966e75b382db56ab" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_0f130974d4e74a53966e75b382db56ab_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_3113519881bb4ef8be7585a3352d11ba" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_3113519881bb4ef8be7585a3352d11ba_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_9da605c7bdd94e6993bc03b9e8426253" xml:space="preserve">
+    <value>Bank details</value>
+  </data>
+  <data name="Resource_7a2a2046050142bca902c5d2c647a5b1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_7a2a2046050142bca902c5d2c647a5b1_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_ba2f90d73cc3447f91bea6a11b6eaf81" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_ba2f90d73cc3447f91bea6a11b6eaf81_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_9fdc669362014c9397edc404a1a81110" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Resource_471227dcd36a4f4192ab6ffb55e7d522" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_471227dcd36a4f4192ab6ffb55e7d522_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_d829478116be4ca8b533786ea672d89a" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_d829478116be4ca8b533786ea672d89a_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_3195751eedf84148bc33dbaf98d5f6a6" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_675d96a13bd24a88ba7fa8d49445fa7c" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_675d96a13bd24a88ba7fa8d49445fa7c_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_4be2fe98ffe14cae9fb8272c672acf11" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_VicePresidentDirRX" xml:space="preserve">
+    <value>Vice President for Human Resources Policy</value>
+  </data>
+  <data name="Resource_4110c7605ea746019e12f1209e2f22ab" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_4110c7605ea746019e12f1209e2f22ab_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_38e6dbbdac07464abd52c3ae66e2cfcb" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_27c428d7ad7f49daa821ac5602bc9702" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_c89b51efed3948859bd1590ce319e8be" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_c89b51efed3948859bd1590ce319e8be_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_d98b26ef94f841378a649057e5895e23" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_21427ff234f94c6cbd8427cf96a7a364" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_5090c90f325f455c8c920e38687ff804" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_98c1516cc3ad4c5589a225f5add17c79" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_d00b16accfbe4d32bae6a45809a5781f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_63d657ed784d4b0a8514685397f7aa1f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_e15c75fcda684b648d53ccd8fa62ce13" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_387ad1d858f84ab38d9d3f3dc14d043b" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_40762e29608e4c8a8936734ecb90efaa" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_LNADirRX" xml:space="preserve">
+    <value>LNA for joining additional vacations</value>
+  </data>
+  <data name="Property_VacationScheduleResponsibleDirRX" xml:space="preserve">
+    <value>Responsible for vacation schedule</value>
+  </data>
+  <data name="Property_NameInGenitiveCaseDirRX" xml:space="preserve">
+    <value>Name (genitive case)</value>
+  </data>
+  <data name="Enum_NeedNotifyHRRepeatDirRXSungero_SMS" xml:space="preserve">
+    <value>Суперника</value>
+  </data>
+  <data name="Enum_NeedNotifyNewHRAssignmentDirRXSungero_SMS" xml:space="preserve">
+    <value>Суперника</value>
+  </data>
+  <data name="Enum_NeedNotifyExpiredHRAssignmentDirRXSungero_SMS" xml:space="preserve">
+    <value>Суперника</value>
+  </data>
+  <data name="Property_ActivateLineManagersDirRX" xml:space="preserve">
+    <value>Activate line managers to ess</value>
+  </data>
+  <data name="Resource_f52e874b29a84bbb87388d2392a9d82b" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_337f9c06b1c24e4a827d0e94e04f7e6c_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_337f9c06b1c24e4a827d0e94e04f7e6c" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_8c56f7fd70c0467eae22d6bd6306a5f1_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_8c56f7fd70c0467eae22d6bd6306a5f1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_ecc6c53c0b804f888ec611dc8663eef1_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_ecc6c53c0b804f888ec611dc8663eef1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_08168debc2fb48dc89859994c3154e4f" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_f52e874b29a84bbb87388d2392a9d82b_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_2533ee6c6a1646edbbaceb9aa97f1802" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_2533ee6c6a1646edbbaceb9aa97f1802_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_OUSAPIDDirRX" xml:space="preserve">
+    <value>OU SAP ID</value>
+  </data>
+  <data name="Property_IsNeedNotifyCompletionUKEPDirRX" xml:space="preserve">
+    <value>Send notifications about completion of the UKEP</value>
+  </data>
+  <data name="Property_RecipientsNotificationsUKEPDirRX" xml:space="preserve">
+    <value>Recipients of notifications about completion of the UKEP</value>
+  </data>
+  <data name="Resource_b0d1e92c931842fba65413f549fa77aa" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_fd0f1efcf2094483b37a9c7f7c76472e" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_fd0f1efcf2094483b37a9c7f7c76472e_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_223ed1b4217a4b99805759754c44f57d" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_223ed1b4217a4b99805759754c44f57d_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_85804705b19b41319e5f5d7b2014cd0e" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_a45ca9e32df2466f83dd5c12ac42b1d0" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_a45ca9e32df2466f83dd5c12ac42b1d0_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Property_SendPushDuringWorkHoursDirRX" xml:space="preserve">
+    <value>Send Push notifications only during working hours</value>
+  </data>
+  <data name="Property_IsBreakMonitoringRequiredDirRX" xml:space="preserve">
+    <value>Break monitoring is required (Weekend work)</value>
+  </data>
+  <data name="Property_WorkingHoursWithoutBreakDirRX" xml:space="preserve">
+    <value>Possible amount of hours without a break</value>
+  </data>
+  <data name="Resource_0f3b0c66e956494f82ef619fa8febaf2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_965057b967f3456e8ad3c26f4078e35d" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_e5fe21b4eca04861ab14e10bcad5e504" xml:space="preserve">
+    <value />
+  </data>
+</root>

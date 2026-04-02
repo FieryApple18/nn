@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="GetEntityIdsForCadesXL">
+    <postgres><![CDATA[-- Получить ID сущностей, подписи которых удовлетворяют формальным критериям (currentformat < Cades-XL, не запрашивалось усовершенствование, усовершенствование доступно).
+-- Используется для поиска УКЭП подписей, подходящих для усовершенствования до CAdES-XL.
+SELECT DISTINCT entityid
+FROM sungero_core_sign
+WHERE (currentformat < 4 OR currentformat IS NULL)
+  AND improverequested IS NOT TRUE
+  AND improveunavailable IS NOT TRUE;]]></postgres>
+  </query>
+</queries>

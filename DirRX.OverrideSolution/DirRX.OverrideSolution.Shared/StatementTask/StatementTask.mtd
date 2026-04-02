@@ -1,0 +1,233 @@
+{
+  "$type": "Sungero.Metadata.TaskMetadata, Sungero.Workflow.Shared",
+  "NameGuid": "2ab06c10-5ed8-4673-ba0c-0610ce411c6f",
+  "Name": "StatementTask",
+  "AccessRightsMode": "Both",
+  "Actions": [
+    {
+      "NameGuid": "0871245b-1f6a-45e4-bb5c-16320db12a30",
+      "Name": "Start",
+      "AllowUserDisableConfirmation": true,
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "NeedConfirmation": true,
+      "Overridden": [
+        "GenerateHandler"
+      ]
+    }
+  ],
+  "AttachmentGroups": [
+    {
+      "NameGuid": "b80b6b22-03cb-43f6-9211-75b93cf9710e",
+      "Name": "DocumentGroup",
+      "Constraints": [
+        {
+          "NameGuid": "6b53a625-6736-44ca-9fac-690d640a56a0",
+          "Name": "DocRelatedToWorkBases",
+          "ConstraintTypeId": "38b6af02-74b1-4bb1-978f-d95281b01dc5"
+        }
+      ],
+      "HandledEvents": [
+        "AddedShared"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Constraints",
+        "HandledEvents"
+      ]
+    }
+  ],
+  "BaseGuid": "c5a26565-4178-43f4-b68c-41df5395f2cf",
+  "BlockIds": [],
+  "Blocks": [
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "7d1ecb99-4df2-4c90-b417-9c930b4383bf",
+      "Name": "StatementReworkBlockDirRX",
+      "EntityType": "b47faf1f-8adb-4bc3-80bc-9d808d4afae1",
+      "HandledEvents": [
+        "StatementReworkBlockDirRXStartAssignment"
+      ],
+      "IsVisible": false,
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "e30ca7e1-f61d-4f7c-a101-227c53a76cea",
+          "Name": "Instruction",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "PreviousPropertyGuid"
+          ],
+          "PreviousPropertyGuid": "aa83d129-f11d-4f07-a58f-5d66031dfab8"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "5bbace48-e5e4-4e38-a937-78693f9b9696",
+          "Name": "ShowInSelfServiceOfficeDirRX",
+          "PreviousPropertyGuid": "aa094148-4495-4177-a048-5b58700d1c00"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "aa094148-4495-4177-a048-5b58700d1c00",
+          "Name": "NeedNotificationDirRX",
+          "PreviousPropertyGuid": "b9a7a521-c530-4d18-8ae1-068a59850195"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "37a0ed2a-d9d2-4f08-b4ce-c00478c26c00",
+          "Name": "FacilityDirRX",
+          "PreviousPropertyGuid": "5bbace48-e5e4-4e38-a937-78693f9b9696"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "aa83d129-f11d-4f07-a58f-5d66031dfab8",
+          "Name": "RemarkDirRX",
+          "PreviousPropertyGuid": "e642fef2-a2ca-4030-bd26-a8150bf10d3d"
+        }
+      ]
+    }
+  ],
+  "CanBeNavigationPropertyType": true,
+  "CanBeSearch": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "8d829390-c6cf-4b00-b846-412f2d086650",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "bd0a4ce3-3467-48ad-b905-3820bf6b9da6",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "Forms": [
+    {
+      "$type": "Sungero.Metadata.WorkflowEntityStandaloneFormMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "a4d6d92a-261a-4c7e-826d-742b7d4062ee",
+      "Name": "Card",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "5add371a-5fd4-40a1-a01c-5af66715c03e",
+          "Name": "Instruction",
+          "GroupType": "WithTitleNoBorder",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "Controls"
+          ]
+        },
+        {
+          "$type": "Sungero.Metadata.FunctionControlMetadata, Sungero.Metadata",
+          "NameGuid": "1f9c9fa1-c35f-4223-ba57-0cc3420ddd12",
+          "Name": "InstructionDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StateViewToFunctionBinder",
+          "FunctionName": "StatementVacationInstruction",
+          "HeaderLocation": "None",
+          "ParentGuid": "5add371a-5fd4-40a1-a01c-5af66715c03e",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        }
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "SettingsResourceKey"
+      ]
+    }
+  ],
+  "FormViewUuid": "4205a459-d914-4036-a969-f635619d0a38",
+  "HandledEvents": [
+    "BeforeStartServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "HRDocFlowStatementTask",
+  "IsVisibleThreadText": true,
+  "LayeredFromGuid": "c5a26565-4178-43f4-b68c-41df5395f2cf",
+  "NeverLinkToParentWhenCreated": true,
+  "OperationsClass": "",
+  "Overridden": [
+    "IsAutoGenerated",
+    "CanBeSearch"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "3364c324-c4c4-4ccb-a81c-53653255a022",
+      "Name": "Observers",
+      "EntityGuid": "ddcd6f19-f126-4f21-b6df-492971d6aff2",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "cd64be74-5b83-4353-affe-8e1baf6516f5",
+      "Name": "AdditionalApprovers",
+      "EntityGuid": "15e4751b-a8f9-4efc-86f0-180db36474cb",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4c906990-76e9-42fc-bac1-5f917718a982",
+      "Name": "AbortingDateDirRX",
+      "CanBeSearch": false,
+      "Code": "AbortingDateDi",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "cd64be74-5b83-4353-affe-8e1baf6516f5"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "e814c07c-b767-4d30-96f2-56cecaa2248f",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "8e615cc3-f3ee-444a-99e1-6d563e78edf4",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Scheme": {
+    "NameGuid": "c7ae4ee8-f2a6-4784-8e61-7f7f642dbcd1",
+    "Name": "RouteScheme",
+    "IsAncestorMetadata": true,
+    "VersionsCounter": 0
+  },
+  "UseSchemeFromSettings": true,
+  "Versions": [
+    {
+      "Type": "TaskMetadata",
+      "Number": 4
+    },
+    {
+      "Type": "WorkflowEntityMetadata",
+      "Number": 2
+    },
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

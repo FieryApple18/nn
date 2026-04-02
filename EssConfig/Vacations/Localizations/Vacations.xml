@@ -1,0 +1,917 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<localizedStringValues>
+
+  <!-- Vacations -->
+
+  <localizedStringValue code="VACATIONS_TITLE" language="RU" useat="server">Отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TITLE" language="EN" useat="server">Vacations</localizedStringValue>
+
+  <!-- Tiles -->
+
+  <localizedStringValue code="VACATIONS_TILE_MY_VACATIONS_TITLE" language="RU" useat="server">Отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_MY_VACATIONS_TITLE" language="EN" useat="server">Vacations</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_GET_VACATION_TITLE" language="RU" useat="server">Оформить отпуск</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_GET_VACATION_TITLE" language="EN" useat="server">Apply for Vacation</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_SHIFT_VACATION_TITLE" language="RU" useat="server">Перенести отпуск</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_SHIFT_VACATION_TITLE" language="EN" useat="server">Change Vacation Dates</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_VACATION_EMPLOYEE_SELF_RECALL_TITLE" language="RU" useat="server">Прервать отпуск</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_VACATION_EMPLOYEE_SELF_RECALL_TITLE" language="EN" useat="server">Apply for Early End of Vacation</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_VACATION_EMPLOYEE_RECALL_TITLE" language="RU" useat="server">Отозвать сотрудника из отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_VACATION_EMPLOYEE_RECALL_TITLE" language="EN" useat="server">Recall Employee from Vacation</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_GET_ANNUAL_VACATION_TITLE" language="RU" useat="server">Ежегодный отпуск</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_GET_ANNUAL_VACATION_TITLE" language="EN" useat="server">Annual vacation</localizedStringValue>
+  
+  <localizedStringValue code="VACATIONS_TILE_GET_VACATION_WITHOUT_PAY_TITLE" language="RU" useat="server">Отпуск без сохранения заработной платы</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_GET_VACATION_WITHOUT_PAY_TITLE" language="EN" useat="server">Leave without pay</localizedStringValue>
+  
+  <localizedStringValue code="VACATIONS_TILE_GET_OTHER_VACATION_TITLE" language="RU" useat="server">Остальные отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_GET_OTHER_VACATION_TITLE" language="EN" useat="server">Other leave</localizedStringValue>
+  
+  <localizedStringValue code="VACATIONS_TILE_COMPENSATION_VACATION_TITLE" language="RU" useat="server">Компенсация отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_COMPENSATION_VACATION_TITLE" language="EN" useat="server">Vacation compensation</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_NNSELFRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="server">Прерывание отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_NNSELFRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="server">Interruption of vacation</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_NNRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="server">Отзыв сотрудника из отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_NNRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="server">Recall of an employee from vacation</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_TILE_NNSHIFTVACATIONBYSTATEMENT_TITLE" language="RU" useat="server">Перенос отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_TILE_NNSHIFTVACATIONBYSTATEMENT_TITLE" language="EN" useat="server">Change Vacation Dates</localizedStringValue>
+
+  <!-- Widgets -->
+
+  <localizedStringValue code="VACATIONS_WIDGET_MYVACATIONS" language="RU" useat="server">Мои отпуска</localizedStringValue>
+  <localizedStringValue code="VACATIONS_WIDGET_MYVACATIONS" language="EN" useat="server">My Vacations</localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_WIDGET_STATEMENTS" language="RU" useat="server">Отправленные заявления</localizedStringValue>
+  <localizedStringValue code="VACATIONS_WIDGET_STATEMENTS" language="EN" useat="server">Sent Applications</localizedStringValue>
+  
+  <localizedStringValue code="VACATIONS_WIDGET_STATEMENTS_DETAILS" language="RU" useat="server">
+    <![CDATA[
+      <div style="display: flex;">
+        Дата создания: {{#EssBase_simplifyDate}}{{created}}{{/EssBase_simplifyDate}}
+        {{#HRProVacations_VacationsStatusConverter}}{{status}}{{/HRProVacations_VacationsStatusConverter}}
+      </div>
+    ]]>
+  </localizedStringValue>
+  <localizedStringValue code="VACATIONS_WIDGET_STATEMENTS_DETAILS" language="EN" useat="server">
+    <![CDATA[
+      <div style="display: flex;">
+        Created: {{#EssBase_simplifyDate}}{{created}}{{/EssBase_simplifyDate}}
+        {{#HRProVacations_VacationsStatusConverter}}{{status}}{{/HRProVacations_VacationsStatusConverter}}
+      </div>
+    ]]>
+  </localizedStringValue>
+
+  <localizedStringValue code="VACATIONS_WIDGET_OTHERSTATEMENTS" language="RU" useat="server">Оформить прочее заявление</localizedStringValue>
+  <localizedStringValue code="VACATIONS_WIDGET_OTHERSTATEMENTS" language="EN" useat="server">Create Other Application</localizedStringValue>
+
+  <!-- Errors -->
+
+  <localizedStringValue code="ERROR_COMMON" language="RU" useat="both">Ошибка</localizedStringValue>
+  <localizedStringValue code="ERROR_COMMON" language="EN" useat="both">Error</localizedStringValue>
+
+  <localizedStringValue code="ERROR_DATE_BEGIN" language="RU" useat="both">Дата начала не может быть меньше сегодняшней даты.</localizedStringValue>
+  <localizedStringValue code="ERROR_DATE_BEGIN" language="EN" useat="both">Start date must not be less than today's date.</localizedStringValue>
+
+  <localizedStringValue code="ERROR_DATE_END" language="RU" useat="both">Дата окончания не может быть меньше даты начала.</localizedStringValue>
+  <localizedStringValue code="ERROR_DATE_END" language="EN" useat="both">Vacation end date cannot be earlier than its start date.</localizedStringValue>
+
+  <localizedStringValue code="ERROR_DURATION" language="RU" useat="both">Длительность должна быть больше 0.</localizedStringValue>
+  <localizedStringValue code="ERROR_DURATION" language="EN" useat="both">Duration must be greater than 0.</localizedStringValue>
+
+  <localizedStringValue code="ERROR_AVALIABLE_DAYS" language="RU" useat="both">Продолжительность отпуска не может превышать количество доступных дней.</localizedStringValue>
+  <localizedStringValue code="ERROR_AVALIABLE_DAYS" language="EN" useat="both">The vacation period cannot be longer than the number of available vacation days.</localizedStringValue>
+
+  <localizedStringValue code="ERROR_ASSIGNMENT_COMPLETION_FAILURE" language="RU" useat="both">При выполнении задания произошла ошибка. Обратитесь к администратору системы.</localizedStringValue>
+  <localizedStringValue code="ERROR_ASSIGNMENT_COMPLETION_FAILURE" language="EN" useat="both">Completion failure. Contact your system administrator.</localizedStringValue>
+
+  <!-- Default values -->
+
+  <localizedStringValue code="DEFAULTCARD_COMMENT_CAPTION" language="RU" useat="both">Комментарий</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_COMMENT_CAPTION" language="EN" useat="both">Comment</localizedStringValue>
+
+  <localizedStringValue code="DEFAULT_BUTTON_SIGN" language="RU" useat="server">Подписать</localizedStringValue>
+  <localizedStringValue code="DEFAULT_BUTTON_SIGN" language="EN" useat="server">Sign</localizedStringValue>
+
+  <localizedStringValue code="DEFAULT_BUTTON_REFUSE" language="RU" useat="server">Отказать</localizedStringValue>
+  <localizedStringValue code="DEFAULT_BUTTON_REFUSE" language="EN" useat="server">Reject</localizedStringValue>
+
+  <localizedStringValue code="DEFAULT_BUTTON_ON_REWORK" language="RU" useat="server">На доработку</localizedStringValue>
+  <localizedStringValue code="DEFAULT_BUTTON_ON_REWORK" language="EN" useat="server">On rework</localizedStringValue>
+
+  <localizedStringValue code="DEFAULT_ATTACHMENTS_SIGNING_DOCUMENTS" language="RU" useat="server">Документы на подписание:</localizedStringValue>
+  <localizedStringValue code="DEFAULT_ATTACHMENTS_SIGNING_DOCUMENTS" language="EN" useat="server">Documents for signing:</localizedStringValue>
+
+  <localizedStringValue code="DEFAULT_ATTACHMENTS_APPROVAL_DOCUMENTS" language="RU" useat="server">Заявление</localizedStringValue>
+  <localizedStringValue code="DEFAULT_ATTACHMENTS_APPROVAL_DOCUMENTS" language="EN" useat="server">Application</localizedStringValue>
+
+  <!-- Common values -->
+
+  <localizedStringValue code="COMMON_INSTRUCTION" language="RU" useat="both">Инструкция</localizedStringValue>
+  <localizedStringValue code="COMMON_INSTRUCTION" language="EN" useat="both">Instruction</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATION_APPROVAL_ASSIGMENT_HEADER" language="RU" useat="both">Согласование</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATION_APPROVAL_ASSIGMENT_HEADER" language="EN" useat="both">Approve</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATION_CONFIRMATION_ASSIGMENT_HEADER" language="RU" useat="both">Подтверждение отпуска</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATION_CONFIRMATION_ASSIGMENT_HEADER" language="EN" useat="both">Confirm Vacation</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATION_REWORK_ASSIGMENT_HEADER" language="RU" useat="both">Доработка</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATION_REWORK_ASSIGMENT_HEADER" language="EN" useat="both">Rework</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATION_SIGN_ASSIGMENT_HEADER" language="RU" useat="both">Подписание</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATION_SIGN_ASSIGMENT_HEADER" language="EN" useat="both">Sign</localizedStringValue>
+                                                                                                                                                     
+  <localizedStringValue code="OBJECTCARD_DEFAULT_RESULT_CAPTION" language="RU" useat="both">Результат</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DEFAULT_RESULT_CAPTION" language="EN" useat="both">Result</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_DEFAULT_STATUS_COMPLETED" language="RU" useat="both">Выполнено</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DEFAULT_STATUS_COMPLETED" language="EN" useat="both">Completed</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_COMPLETE" language="RU" useat="both">Подтверждено</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_COMPLETE" language="EN" useat="both">Confirmed</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_APPROVED" language="RU" useat="both">Согласовано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_APPROVED" language="EN" useat="both">Approved</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_FORREWORK" language="RU" useat="both">Отправлено на доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_FORREWORK" language="EN" useat="both">Sent for rework</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_DENY" language="RU" useat="both">Отказано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_DENY" language="EN" useat="both">Rejected</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_ABORT" language="RU" useat="both">Прекращено</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_ABORT" language="EN" useat="both">Aborted</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_SIGN" language="RU" useat="both">Подписано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_SIGN" language="EN" useat="both">Signed</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_RESULT_REFUSE" language="RU" useat="both">Отказано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_REFUSE" language="EN" useat="both">Denied</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_SUBSTITUTE_CAPTION" language="RU" useat="server">Замещающий</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_SUBSTITUTE_CAPTION" language="EN" useat="server">Subsitute</localizedStringValue>
+
+  <!-- facilities/GetVacation -->
+
+  <localizedStringValue code="FACILITIES_GETVACATION_TITLE" language="RU" useat="server">Оформить отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_TITLE" language="EN" useat="server">Request Vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_TASKSUBJECT_DEFAULTVALUE" language="RU" useat="server">Прошу согласовать предоставление отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_TASKSUBJECT_DEFAULTVALUE" language="EN" useat="server">Please agree on leave.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_TASKSUBJECT_DESCRIPTION" language="RU" useat="server"></localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_TASKSUBJECT_DESCRIPTION" language="EN" useat="server"></localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_LABEL" language="RU" useat="server">Период отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_LABEL" language="EN" useat="server">Date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_BEGINDATE" language="RU" useat="server">Начало</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_BEGINDATE" language="EN" useat="server">Begin</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATIONDURATION" language="RU" useat="server">Продолжительность отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATIONDURATION" language="EN" useat="server">Duration</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATIONDAYS" language="RU" useat="server">Дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATIONDAYS" language="EN" useat="server">Days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_ENDDATE" language="RU" useat="server">Окончание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_ENDDATE" language="EN" useat="server">End date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_RUNVACATIONAPPROVALTASK" language="RU" useat="server">Запустить задачу по оформлению отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_RUNVACATIONAPPROVALTASK" language="EN" useat="server">Run vacation approval task</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_SUCCESSMESSAGE" language="RU" useat="server">Заявление отправлено</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_SUCCESSMESSAGE" language="EN" useat="server">Statement sent</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_CONSENT_ERROR" language="RU" useat="both">Для оформления заявлений подпишите Согласие на КЭДО.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_CONSENT_ERROR" language="EN" useat="both">To create applications, sign the Consent for Digital HR Document Management.</localizedStringValue>
+
+   <localizedStringValue code="FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR" language="RU" useat="both">У вас нет действующих сертификатов электронной подписи для подписания заявления. Обратитесь к администратору системы.</localizedStringValue>
+   <localizedStringValue code="FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR" language="EN" useat="both">You don't have a valid electronic signature certificate required to sign the application. Contact your system administrator.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_KIND_NAME" language="RU" useat="both">Вид отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_VACATION_KIND_NAME" language="EN" useat="both">Vacation kind</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_SUBSTITUTE" language="RU" useat="both">Замещающий</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_SUBSTITUTE" language="EN" useat="both">Substitute</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_NOTIFIABLELIST_LABEL" language="RU" useat="both">Кого уведомить</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_NOTIFIABLELIST_LABEL" language="EN" useat="both">Notify</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETVACATION_ERROR_SUBSTITUTE" language="RU" useat="both">Сотрудник не может замещать самого себя.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETVACATION_ERROR_SUBSTITUTE" language="EN" useat="both">Employee cannot substitute themselves.</localizedStringValue>
+  
+  <!-- facilities/ReworkVacations -->
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_TITLE" language="RU" useat="server">Доработать параметры отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_TITLE" language="EN" useat="server">Rework vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_ITEMID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_ITEMID" language="EN" useat="server">ID</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_TYPE" language="EN" useat="server">Type</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_BEGINDATE" language="RU" useat="server">Начало</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_BEGINDATE" language="EN" useat="server">Begin</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_VACATIONDURATION" language="RU" useat="server">Продолжительность отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_VACATIONDURATION" language="EN" useat="server">Duration</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_VACATIONDAYS" language="RU" useat="server">Дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_VACATIONDAYS" language="EN" useat="server">Days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_VACATION_ENDDATE" language="RU" useat="server">Окончание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_VACATION_ENDDATE" language="EN" useat="server">End date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_PERIOD" language="RU" useat="server">Период отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_PERIOD" language="EN" useat="server">Period</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_STEPTITLE" language="RU" useat="server">Доработать параметры отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_STEPTITLE" language="EN" useat="server">Rework vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKVACATION_SUCCESSMESSAGE" language="RU" useat="server">Отпуск доработан</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKVACATION_SUCCESSMESSAGE" language="EN" useat="server">Vacation reworked</localizedStringValue>
+  
+  <!-- facilities/ShiftVacationSimple -->
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TITLE" language="RU" useat="server">Перенос отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TITLE" language="EN" useat="server">Shift vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_VACATIONID_LABEL" language="RU" useat="server">Периоды отпусков</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_VACATIONID_LABEL" language="EN" useat="server">Vacation dates</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_REASON_LABEL" language="RU" useat="server">В связи с</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_REASON_LABEL" language="EN" useat="server">Reason</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_JOB" language="RU" useat="server">Должность</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_JOB" language="EN" useat="server">Job</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_DEPARTMENT" language="RU" useat="server">Подразделение</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_DEPARTMENT" language="EN" useat="server">Department</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_BUSINESSUNIT" language="RU" useat="server">Организация</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_BUSINESSUNIT" language="EN" useat="server">Business unit</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_INITIATOR" language="RU" useat="server">Инициатор</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_INITIATOR" language="EN" useat="server">Initiator</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_SUCCESSMESSAGE" language="RU" useat="server">Запрос отправлен</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_SUCCESSMESSAGE" language="EN" useat="server">Request sent</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_ERRVACATIONKINDID" language="RU" useat="both">Этот отпуск уже добавлен. Выберите другой.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_ERRVACATIONKINDID" language="EN" useat="both">This vacation has been already added to the form. Select another one.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLE_TITLE" language="RU" useat="server">Новые даты отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLE_TITLE" language="EN" useat="server">New vacation dates</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONKINDID_HEADER" language="RU" useat="server">Вид отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONKINDID_HEADER" language="EN" useat="server">Vacation kind</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_BEGINDATE_HEADER" language="RU" useat="server">Начало</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_BEGINDATE_HEADER" language="EN" useat="server">Start date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER" language="RU" useat="server">Количество дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER" language="EN" useat="server">Days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_ENDDATE_HEADER" language="RU" useat="server">Окончание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TABLECOLUMN_ENDDATE_HEADER" language="EN" useat="server">End date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_CONSENT_ERROR" language="RU" useat="both">Для оформления заявлений подпишите Согласие на КЭДО.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_CONSENT_ERROR" language="EN" useat="both">To create applications, sign the Consent for Digital HR Document Management.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TASKSUBJECT_DEFAULTVALUE" language="RU" useat="server">Прошу согласовать перенос отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATION_TASKSUBJECT_DEFAULTVALUE" language="EN" useat="server">I hereby request a change of vacation dates.</localizedStringValue>
+  
+  <!-- facilities/SelfRecallVacationEmployee -->
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="server">Оформление досрочного выхода из отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="server">Apply for Early End of Vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_RECALLDATE" language="RU" useat="server">Дата отзыва</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_RECALLDATE" language="EN" useat="server">Recall date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_VACATIONID_LABEL" language="RU" useat="server">Период отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_VACATIONID_LABEL" language="EN" useat="server">Date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_COMPENSATION_LABEL" language="RU" useat="server">Компенсировать оставшиеся дни</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_COMPENSATION_LABEL" language="EN" useat="server">Compensate remaining days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_TASKSUBJECT_DEFAULTVALUE" language="RU" useat="server">Прошу согласовать досрочный выход из отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_TASKSUBJECT_DEFAULTVALUE" language="EN" useat="server">I hereby request to end my vacation earlier than scheduled.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_RECALLDATE_HINT" language="RU" useat="server">Укажите дату отзыва из отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_RECALLDATE_HINT" language="EN" useat="server">Specify the date of recall from vacation.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_NO_ACTIVE_VACATIONS_WARNING" language="RU" useat="both">Не удалось запросить досрочный выход из отпуска. Активные отпуска не найдены.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_NO_ACTIVE_VACATIONS_WARNING" language="EN" useat="both">Cannot apply for an early end of vacation. Active vacations are not found.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_COMPENSATION_HINT" language="RU" useat="server">Установите флажок, чтобы получить компенсацию за оставшиеся дни отпуска или их часть</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_COMPENSATION_HINT" language="EN" useat="server">Select the checkbox to get compensation for the remaining vacation days or some of those days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_INSTRUCTION" language="RU" useat="server">Укажите дату выхода из отпуска. Проверьте пересечения отпусков по кнопке "Посмотреть пересечения". Перенесите оставшиеся дни или выберите полную или частичную компенсацию. Если прерывается отпуск, оформленный по заявлению, указывать новые даты необязательно. На оставшиеся дни можно оформить отпуск по заявлению позже.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_INSTRUCTION" language="EN" useat="server">Specify the date of early end of vacation. Check the vacation overlaps by clicking "Show Overlaps". Set new dates for the remaining vacation days, or select full or partial compensation. If you terminate a vacation initiated using an application, you can skip selecting new dates and create a new vacation application for the remaining days later.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_SELFRECALLWARNING" language="RU" useat="both">
+    Отправляя задачу, вы подписываете "Заявление о досрочном прекращении отпуска" и подтверждаете, что не относитесь к льготной категории работников, определенных ст. 125 ТК РФ:&lt;br/&gt;
+     1. Работники в возрасте до 18-ти лет;&lt;br/&gt;
+     2. Беременные женщины;&lt;br/&gt;
+     3. Работники, занятые на работах с вредными и (или) опасными условиями труда.
+  </localizedStringValue>
+  <localizedStringValue code="FACILITIES_SELFRECALLVACATIONEMPLOYEE_SELFRECALLWARNING" language="EN" useat="both">
+    By sending the task, you sign the application for an early end of vacation and confirm that you do not belong to protected employee categories defined by article 125 of the Labor Code of the Russian Federation:&lt;br/&gt;
+     1. Underage employees;&lt;br/&gt;
+     2. Pregnant women;&lt;br/&gt;
+     3. Employees exposed to harmful and/or hazardous working environments.
+  </localizedStringValue>
+  
+  <!-- facilities/RecallVacationEmployee -->
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="server">Отзыв сотрудника из отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="server">Recall Employee from Vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_RECALLDATE" language="RU" useat="server">Дата отзыва</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_RECALLDATE" language="EN" useat="server">Recall date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_VACATIONID_LABEL" language="RU" useat="server">Период отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_VACATIONID_LABEL" language="EN" useat="server">Date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_COMPENSATION_LABEL" language="RU" useat="server">Компенсировать оставшиеся дни</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_COMPENSATION_LABEL" language="EN" useat="server">Compensate remaining days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_IGNOREREQUIREDDURATION_LABEL" language="RU" useat="server">Отключить контроль продолжительности одной части отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_IGNOREREQUIREDDURATION_LABEL" language="EN" useat="server">Disable monitoring of required duration of one vacation part</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_TASKSUBJECT_DEFAULTVALUE" language="RU" useat="server">Подтвердите досрочный выход из отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_TASKSUBJECT_DEFAULTVALUE" language="EN" useat="server">Confirm an early end of vacation.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_RECALLDATE_HINT" language="RU" useat="server">Укажите дату отзыва из отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_RECALLDATE_HINT" language="EN" useat="server">Specify the date of recall from vacation.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_COMPENSATION_HINT" language="RU" useat="server">Установите флажок, чтобы сотрудник получил компенсацию за оставшиеся дни отпуска или их часть.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_COMPENSATION_HINT" language="EN" useat="server">Select the checkbox to compensate the employee for the remaining vacation days or some of those days.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_INSTRUCTION" language="RU" useat="server">Укажите сотрудника и дату отзыва из отпуска. Перенесите оставшиеся дни или выберите полную или частичную их компенсацию. Если отзыв оформляется для отпуска по заявлению, новые даты можно не указывать. В этом случае сотрудник оформляет заявление на оставшиеся дни.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_INSTRUCTION" language="EN" useat="server">Specify the employee and recall date. Set new dates for the remaining vacation days, or select full or partial compensation. If you recall the employee from a vacation initiated using an application, you can skip selecting new dates. The employee will create a new vacation application for the remaining days later.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_EMPLOYEE" language="RU" useat="server">Сотрудник</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_EMPLOYEE" language="EN" useat="server">Employee</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_WARNING" language="RU" useat="both">Предупреждение</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_WARNING" language="EN" useat="both">Warning</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_ISDEPARTMENTMANAGER_ERROR" language="RU" useat="both">Только руководитель подразделения может отправить задачу.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_ISDEPARTMENTMANAGER_ERROR" language="EN" useat="both">Only a department manager can send the task.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_NEEDCONTROLDURATION_HINT" language="RU" useat="both">Установите флажок "Отключить контроль продолжительности одной части отпуска", чтобы отключить проверку на соответствие требованиям к минимальной продолжительности одной части отпуска в организации.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_RECALLVACATIONEMPLOYEE_NEEDCONTROLDURATION_HINT" language="EN" useat="both">Select the "Disable monitoring of required duration of one vacation part" checkbox to disable the check for conformance with minimum duration of one vacation part in the business unit.</localizedStringValue>
+  
+  <!-- facilities/ReworkRecallVacationEmployee -->
+
+  <localizedStringValue code="FACILITIES_REWORKRECALLVACATION_TITLE" language="RU" useat="server">Доработка отзыва из отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKRECALLVACATION_TITLE" language="EN" useat="server">Rework Recall from Vacation</localizedStringValue>
+  
+  <!-- facilities/ReworkShiftVacation -->
+  
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_DURATION_ERROR" language="RU" useat="both">Перенос отпуска можно оформить только на то же количество дней, что и было заявлено при подтверждении.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_DURATION_ERROR" language="EN" useat="both">The shift of the vacation can only be issued for the same number of days as it was stated at the confirmation.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TITLE" language="RU" useat="server">Доработать параметры переноса отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TITLE" language="EN" useat="server">Rework shift vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_RELOCATE" language="RU" useat="server">Перенести отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_RELOCATE" language="EN" useat="server">Shift vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_ITEMID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_ITEMID" language="EN" useat="server">ID</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TYPE" language="EN" useat="server">Type</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_STEPTITLE" language="RU" useat="server">Запустить задачу по переносу отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_STEPTITLE" language="EN" useat="server">Start task of shift vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_SUCCESSMESSAGE" language="RU" useat="server">Отпуск доработан</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_SUCCESSMESSAGE" language="EN" useat="server">Vacation reworked</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_ERRVACATIONKINDID" language="RU" useat="both">Этот отпуск уже добавлен. Выберите другой.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_ERRVACATIONKINDID" language="EN" useat="both">This vacation has been already added to the form. Select another one.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_JOB" language="RU" useat="server">Должность</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_JOB" language="EN" useat="server">Job title</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_DEPARTMENT" language="RU" useat="server">Подразделение</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_DEPARTMENT" language="EN" useat="server">Department</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_BUSINESSUNIT" language="RU" useat="server">Организация</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_BUSINESSUNIT" language="EN" useat="server">Business unit</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_INITIATOR" language="RU" useat="server">Инициатор</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_INITIATOR" language="EN" useat="server">Initiator</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLE_TITLE" language="RU" useat="server">Новые даты отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLE_TITLE" language="EN" useat="server">New vacation dates</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_VACATIONKINDID_HEADER" language="RU" useat="server">Вид отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_VACATIONKINDID_HEADER" language="EN" useat="server">Vacation kind</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_BEGINDATE_HEADER" language="RU" useat="server">Начало</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_BEGINDATE_HEADER" language="EN" useat="server">Start date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER" language="RU" useat="server">Количество дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER" language="EN" useat="server">Days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_ENDDATE_HEADER" language="RU" useat="server">Окончание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_TABLECOLUMN_ENDDATE_HEADER" language="EN" useat="server">End date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_REASON_LABEL" language="RU" useat="server">В связи с</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKSHIFTVACATION_REASON_LABEL" language="EN" useat="server">Reason</localizedStringValue>
+  
+  <!-- facilities/ScheduleVacation -->
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_DIALOG_TITLE" language="RU" useat="both">График отпусков</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_DIALOG_TITLE" language="EN" useat="both">Vacation Schedule</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_PLANNING_TOOL_BUTTON_TITLE" language="RU" useat="both">Посмотреть пересечения</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_PLANNING_TOOL_BUTTON_TITLE" language="EN" useat="both">Show Overlaps</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TITLE" language="RU" useat="server">Спланируйте отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TITLE" language="EN" useat="server">Shedule vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_AVAILABLEDAYS" language="RU" useat="server">Доступные дни отпуска:</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_AVAILABLEDAYS" language="EN" useat="server">Available days:</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_ITEMID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_ITEMID" language="EN" useat="server">Id</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TYPE" language="EN" useat="server">Type</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_YEAR" language="RU" useat="server">Год</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_YEAR" language="EN" useat="server">Year</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLE_TITLE" language="RU" useat="server">Планируемые отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLE_TITLE" language="EN" useat="server">Sheduled vacations</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_VACATIONID_HEADER" language="RU" useat="server">Вид отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_VACATIONID_HEADER" language="EN" useat="server">Vacation type</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_BEGINDATE_HEADER" language="RU" useat="server">Начало</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_BEGINDATE_HEADER" language="EN" useat="server">Begin date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_VACATIONDURATION_HEADER" language="RU" useat="server">Количество дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_VACATIONDURATION_HEADER" language="EN" useat="server">count days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_ENDDATE_HEADER" language="RU" useat="server">Окончание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_TABLECOLUMN_ENDDATE_HEADER" language="EN" useat="server">End date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_VACATION_PLANNING" language="RU" useat="server">Планирование отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_VACATION_PLANNING" language="EN" useat="server">Vacation planning</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_SUCCESSMESSAGE" language="RU" useat="server">Отпуск запланирован</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_SUCCESSMESSAGE" language="EN" useat="server">Vacation planned</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_MANDATORYDAYS" language="RU" useat="both">из них обязательны для планирования</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_MANDATORYDAYS" language="EN" useat="both">schedule at least</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_MANDATORYDAYS_EXCEEDED" language="RU" useat="both">превышено количество доступных дней на</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_MANDATORYDAYS_EXCEEDED" language="EN" useat="both">number of available vacation days is exceeded by</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_INSTRUCTIONCONTENT" language="RU" useat="server">
+    Инструкция:&lt;br/&gt;
+    {{{Instruction}}}&lt;br/&gt;
+    Доступное количество дней отпуска:&lt;br/&gt;
+    {{{AvailableDays}}}
+  </localizedStringValue>
+  <localizedStringValue code="FACILITIES_SCHEDULEVACATION_INSTRUCTIONCONTENT" language="EN" useat="server">
+    Instruction:&lt;br/&gt;
+    {{{Instruction}}}&lt;br/&gt;
+    Available days of vacation: &lt;br/&gt;
+    {{{AvailableDays}}}
+  </localizedStringValue>
+
+  <!-- facilities/ShiftVacationFromApprovalAssignment -->
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TITLE" language="RU" useat="server">Перенос отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TITLE" language="EN" useat="server">Shift vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_ITEMID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_ITEMID" language="EN" useat="server">ID</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_LABEL" language="RU" useat="server">Перенести отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_LABEL" language="EN" useat="server">Shift vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_REASON_LABEL" language="RU" useat="server">В связи с</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_REASON_LABEL" language="EN" useat="server">Reason</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_SUCCESSMESSAGE" language="RU" useat="server">Запрос отправлен</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_SUCCESSMESSAGE" language="EN" useat="server">Request sent</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLE_TITLE" language="RU" useat="server">Новые даты отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLE_TITLE" language="EN" useat="server">New vacation dates</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_BEGINDATE_HEADER" language="RU" useat="server">Начало</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_BEGINDATE_HEADER" language="EN" useat="server">Start date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_VACATIONDURATION_HEADER" language="RU" useat="server">Количество дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_VACATIONDURATION_HEADER" language="EN" useat="server">Days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_ENDDATE_HEADER" language="RU" useat="server">Окончание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_ENDDATE_HEADER" language="EN" useat="server">End date</localizedStringValue>
+
+  <!-- facilities/AbortVacationTasks -->
+
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_TITLE" language="RU" useat="server">Подтвердите прекращение</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_TITLE" language="EN" useat="server">Confirm termination</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_STEP_TITLE" language="RU" useat="server">Прекратить задачу</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_STEP_TITLE" language="EN" useat="server">Terminate task</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_TEXTBLOCK_CONTENT" language="RU" useat="server">Для прекращения рассмотрения заявления нажмите кнопку "Отправить"</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_TEXTBLOCK_CONTENT" language="EN" useat="server">To terminate the consideration of the application, click the "Submit" button</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_REASON" language="RU" useat="server">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_REASON" language="EN" useat="server">Reason</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_SUCCESSMESSAGE" language="RU" useat="server">Работы прекращены</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_SUCCESSMESSAGE" language="EN" useat="server">Works terminated</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_ABORTATIONERROR" language="RU" useat="both">Нельзя прекратить задачу, приказ уже подписан руководителем.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTVACATIONTASKS_ABORTATIONERROR" language="EN" useat="both">The assignment cannot be aborted. The order has already been signed by the manager.</localizedStringValue>
+
+  <!-- facilities/RefuseOrDenyVacation -->
+
+  <localizedStringValue code="FACILITIES_REFUSEORDENYVACATION_TITLE" language="RU" useat="both">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSEORDENYVACATION_TITLE" language="EN" useat="both">Reason</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_REFUSEORDENYVACATION_SUCCESSMESSAGE" language="RU" useat="both">Задание выполнено</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSEORDENYVACATION_SUCCESSMESSAGE" language="EN" useat="both">Complete</localizedStringValue>
+
+  <!-- facilities/ChangeSubstitute -->
+
+  <localizedStringValue code="FACILITIES_CHANGESUBSTITUTE_TITLE" language="RU" useat="both">Смена замещающего</localizedStringValue>
+  <localizedStringValue code="FACILITIES_CHANGESUBSTITUTE_TITLE" language="EN" useat="both">Change Substitute</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_CHANGESUBSTITUTE_SUCCESSMESSAGE" language="RU" useat="both">Замещающий изменен.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_CHANGESUBSTITUTE_SUCCESSMESSAGE" language="EN" useat="both">Substitute changed.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_CHANGESUBSTITUTE_SUBSTITUTE" language="RU" useat="both">Замещающий</localizedStringValue>
+  <localizedStringValue code="FACILITIES_CHANGESUBSTITUTE_SUBSTITUTE" language="EN" useat="both">Substitute</localizedStringValue>
+  
+  <!-- facilities/ChangeNotifiable -->
+
+  <localizedStringValue code="FACILITIES_CHANGENOTIFIABLE_TITLE" language="RU" useat="both">Выбор уведомляемых</localizedStringValue>
+  <localizedStringValue code="FACILITIES_CHANGENOTIFIABLE_TITLE" language="EN" useat="both">Select Employees to Notify</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_CHANGENOTIFIABLE_NOTIFIABLELIST_LABEL" language="RU" useat="both">Кого уведомить</localizedStringValue>
+  <localizedStringValue code="FACILITIES_CHANGENOTIFIABLE_NOTIFIABLELIST_LABEL" language="EN" useat="both">Notify</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_CHANGENOTIFIABLE_SUCCESSMESSAGE" language="RU" useat="both">Список сотрудников, которым отправляются уведомления, изменен.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_CHANGENOTIFIABLE_SUCCESSMESSAGE" language="EN" useat="both">List of employees to notify has been changed.</localizedStringValue>
+  
+  <!-- facilities/GetAnnualVacation -->
+
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_TITLE" language="RU" useat="server">Оформить ежегодный отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_TITLE" language="EN" useat="server">Take an annual vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_VACATIONTYPE" language="RU" useat="server">Тип отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_VACATIONTYPE" language="EN" useat="server">Vacation type</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_VACATIONREASON" language="RU" useat="server">Причина отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_VACATIONREASON" language="EN" useat="server">Vacation reason</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_TABLE_TITLE" language="RU" useat="server">Присоединить дополнительный отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_TABLE_TITLE" language="EN" useat="server">Attach an additional vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_ADDITIONALATTACHMENT" language="RU" useat="server">Приложение</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_ADDITIONALATTACHMENT" language="EN" useat="server">Addendum</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_INSTRUCTION" language="RU" useat="both">Прикрепите документы. Если не помните, какие, смотрите {0}</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_INSTRUCTION" language="EN" useat="both">Attach the documents. If you don't remember which ones, watch {0}</localizedStringValue>
+
+  <!-- facilities/GetOtherVacation -->
+  
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_TITLE" language="RU" useat="both">Оформить отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_TITLE" language="EN" useat="both">Request vacation</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_VACATIONDAYS" language="RU" useat="server">Количество дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_VACATIONDAYS" language="EN" useat="server">Number of days</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_VACATION_TYPE_NAME" language="RU" useat="both">Тип отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_VACATION_TYPE_NAME" language="EN" useat="both">Vacation type</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_VACATIONREASON_LABEL" language="RU" useat="both">Причина отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_VACATIONREASON_LABEL" language="EN" useat="both">Vacation reason</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_SAVINGSALARY_LABEL" language="RU" useat="both">Сохранение зар. платы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_SAVINGSALARY_LABEL" language="EN" useat="both">Saving the salary</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_ASPIRANT_LABEL" language="RU" useat="both">Аспирант</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_ASPIRANT_LABEL" language="EN" useat="both">Graduate student</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_SAVESALARY" language="RU" useat="both">С сохранением заработной платы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_SAVESALARY" language="EN" useat="both">With pay</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_WITHOUTSALARY" language="RU" useat="both">Без сохранения заработной платы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_WITHOUTSALARY" language="EN" useat="both">Without pay</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_INSTRUCTION" language="RU" useat="both">Прикрепите документы. Если не помните, какие, смотрите {0}</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETOTHERVACATION_INSTRUCTION" language="EN" useat="both">Attach the documents. If you don't remember which ones, watch {0}</localizedStringValue>
+
+  <!-- facilities/CompensationVacation -->
+  
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_TITLE" language="RU" useat="both">Оформить компенсацию части отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_TITLE" language="EN" useat="both">Registration of compensation for part of the vacation</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_AVAILABLEDAYS" language="RU" useat="both">Доступно дней для компенсации</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_AVAILABLEDAYS" language="EN" useat="both">Days available for payment</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DOCUMENTKIND" language="RU" useat="both">Вид компенсации</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DOCUMENTKIND" language="EN" useat="both">Kind of compensation</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DOCUMENTKIND_WARNING" language="RU" useat="both">Дни отпуска за работу во вредных условиях труда доступны для компенсации только если Вы подписали соответствующее соглашение. Для получения подробной информации обратитесь в службу персонала.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DOCUMENTKIND_WARNING" language="EN" useat="both">Vacation days for working in harmful working conditions are available for compensation only if you have signed an appropriate agreement. For more information, please contact the staff service.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DAYSSELECTED" language="RU" useat="both">Выбрано дней</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DAYSSELECTED" language="EN" useat="both">Days selected</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DAYSSELECTED_ERROR" language="RU" useat="both">Количество запрашиваемых дней превышает количество доступных для компенсации дней отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_DAYSSELECTED_ERROR" language="EN" useat="both">The number of requested days exceeds the number of vacation days available for compensation.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_POLICY" language="RU" useat="both">Согласно Коллективному договору денежная компенсация выплачивается не ранее фактического предоставления 28 календарных дней ежегодного оплачиваемого отпуска, кроме ежегодного дополнительного оплачиваемого отпуска за работу во вредных и (или) опасных условиях труда, за соответствующий рабочий год. Количество доступных дней рассчитано с учётом этого требования</localizedStringValue>
+  <localizedStringValue code="FACILITIES_COMPENSATIONVACATION_POLICY" language="EN" useat="both">According to the Collective Agreement, monetary compensation is paid no earlier than after the actual use of 28 calendar days of annual paid leave, except for additional annual paid leave for work in harmful and/or hazardous conditions, for the corresponding work year. The number of available days is calculated taking this requirement into account.</localizedStringValue>
+
+  <!-- facilities/ReworkCompensationVacation -->
+
+  <localizedStringValue code="FACILITIES_REWORKCOMPENSATIONVACATION_TITLE" language="RU" useat="both">Доработать параметры компенсации части отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORKCOMPENSATIONVACATION_TITLE" language="EN" useat="both">Finalize the parameters of compensation for part of the vacation</localizedStringValue>
+
+  <!-- facilities/ShiftAnnualVacationFromConfirmationAssignment -->
+
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_TITLE" language="RU" useat="both">Оформить перенос отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_TITLE" language="EN" useat="both">Request a shift of vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_PERFORMERINFO" language="RU" useat="server">От кого</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_PERFORMERINFO" language="EN" useat="server">From whom</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_DURATION_ERROR" language="RU" useat="both">Количество дней перенесенного отпуска не может быть больше количества дней первоначального отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_DURATION_ERROR" language="EN" useat="both">The number of days of postponed vacation cannot be greater than the planned vacation duration.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_BEGINDATE_ERROR" language="RU" useat="both">Новые периоды отпуска не должны пересекаться.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_BEGINDATE_ERROR" language="EN" useat="both">New vacation periods must not overlap.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTKIND" language="RU" useat="both">Вид переноса</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTKIND" language="EN" useat="both">Shift kind</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTPERIOD" language="RU" useat="both">Переносимый период</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTPERIOD" language="EN" useat="both">Shift period</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTPERIOD_ERROR" language="RU" useat="both">Нет отпусков, доступных для переноса. Если вы хотите перенести отпуск, который уже начался, воспользуйтесь услугой «Прерывание отпуска».</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTPERIOD_ERROR" language="EN" useat="both">There are no vacations available to reschedule. If you want to reschedule a vacation that has already begun, use the "Vacation Interruption" service.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTKIND_PLANVACATION" language="RU" useat="both">Перенос запланированного отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTKIND_PLANVACATION" language="EN" useat="both">Postponement of planned vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTKIND_REGISTEREDVACATION" language="RU" useat="both">Перенос предоставленного отпуска (оформлен приказом)</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_SHIFTKIND_REGISTEREDVACATION" language="EN" useat="both">Postponement of granted leave (issued by order)</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_PAIDINFO" language="RU" useat="both">Прошу направить часть моей заработной платы (последующих заработных плат при недостаточности текущей) и иных выплат на полное погашение образовавшейся задолженности в виде излишне выплаченных отпускных в связи с переносом сроков отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_PAIDINFO" language="EN" useat="both">I ask you to send part of my salary (subsequent salaries if the current one is insufficient) and other payments to fully repay the arrears in the form of overpaid vacation pay due to the postponement of the vacation.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO" language="RU" useat="both">Срок согласования заявления - {0}. Процесс согласования заявления будет прекращен, отпуск не будет перенесен.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO" language="EN" useat="both">The deadline for approving the application is {0}. The application approval process will be terminated, and the vacation will not be postponed.</localizedStringValue>
+
+  <!-- facilities/NNSelfRecallVacationEmployee -->
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="both">Оформить досрочное прерывание отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="both">Arrange an early termination of vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_COMPENSATIONTYPE_WITHPAYMENT" language="RU" useat="both">Перенести отпуск с компенсацией</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_COMPENSATIONTYPE_WITHPAYMENT" language="EN" useat="both">Reschedule vacation with compensation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_COMPENSATIONTYPE_WITHOUTPAYMENT" language="RU" useat="both">Перенести отпуск без компенсации</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_COMPENSATIONTYPE_WITHOUTPAYMENT" language="EN" useat="both">Reschedule vacation without compensation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_CURRENTVACATION" language="RU" useat="both">Предоставленный отпуск</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_CURRENTVACATION" language="EN" useat="both">Granted vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_RECALLPERIOD" language="RU" useat="both">Период прерывания отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_RECALLPERIOD" language="EN" useat="both">Vacation interruption period</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_SHIFTPERIOD" language="RU" useat="both">Период переноса отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_SHIFTPERIOD" language="EN" useat="both">Vacation transfer period</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_COMPENSATIONKIND" language="RU" useat="both">Вид компенсации</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_COMPENSATIONKIND" language="EN" useat="both">Kind of compensation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_DAYCOUNTCOMPENSATION" language="RU" useat="both">Количество дней для компенсации:</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_DAYCOUNTCOMPENSATION" language="EN" useat="both">Number of days for compensation:</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_REASONRECALL" language="RU" useat="both">Причина прерывания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_REASONRECALL" language="EN" useat="both">The reason for the interruption</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_PARTTIMEEMPLOYEES_WARNING" language="RU" useat="both">Оформите досрочное прерывание отпуска для должностей по совместительству:</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_PARTTIMEEMPLOYEES_WARNING" language="EN" useat="both">Apply for early termination of leave for part-time positions:</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_DATERECALL_ERROR" language="RU" useat="both">На указанную дату нет отпусков, доступных для прерывания.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_DATERECALL_ERROR" language="EN" useat="both">There are no active vacations on the specified date.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_NOTALLDAYSSHIFT_ERROR" language="RU" useat="both">Перенесены не все дни отпуска. Необходимо перенести или компенсировать оставшиеся дни.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_NOTALLDAYSSHIFT_ERROR" language="EN" useat="both">There are no active vacations on the specified date.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_LIMITDAYSSHIFT_ERROR" language="RU" useat="both">Количество переносимых/компенсируемых дней превышает исходное количество дней отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_LIMITDAYSSHIFT_ERROR" language="EN" useat="both">The number of days transferred/compensated exceeds the initial number of vacation days.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_CURRENTVACATION_ERROR" language="RU" useat="both">Не удалось запросить досрочный выход из отпуска. </localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_CURRENTVACATION_ERROR" language="EN" useat="both">It was not possible to request an early exit from vacation. </localizedStringValue>
+
+  <!-- facilities/NNReworkSelfRecallVacationEmployee -->
+
+  <localizedStringValue code="FACILITIES_NNREWORKSELFRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="both">Доработать параметры досрочного прерывания отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNREWORKSELFRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="both">Finalize the parameters for early termination of vacation</localizedStringValue>
+
+  <!-- facilities/NNRecallVacationEmployee -->
+
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_REASONRECALL" language="RU" useat="both">Причина отзыва</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_REASONRECALL" language="EN" useat="both">Reason for the recall</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_ISLINEMANAGER_ERROR" language="RU" useat="both">Только линейный руководитель может отправить задачу.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_ISLINEMANAGER_ERROR" language="EN" useat="both">Only a line manager can send the task.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="both">Отозвать сотрудника из отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="both">Recall an employee from vacation</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_PARTTIMEEMPLOYEES_WARNING" language="RU" useat="both">Сотрудник является совместителем. Организуйте отзыв из отпуска для должностей по совместительству:</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_PARTTIMEEMPLOYEES_WARNING" language="EN" useat="both">The employee works on more than one job position. Recall them from vacation for other job positions:</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_CURRENTVACATION_ERROR" language="RU" useat="both">Не удалось запросить отзыв из отпуска. </localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNRECALLVACATIONEMPLOYEE_CURRENTVACATION_ERROR" language="EN" useat="both">Couldn't request a vacation recall. </localizedStringValue>
+
+  <!-- facilities/NNReworkRecallVacationEmployee -->
+  
+  <localizedStringValue code="FACILITIES_NNREWORKRECALLVACATIONEMPLOYEE_TITLE" language="RU" useat="both">Доработать параметры отзыва сотрудника из отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNREWORKRECALLVACATIONEMPLOYEE_TITLE" language="EN" useat="both">Refine the parameters of the employee's recall from vacation</localizedStringValue>
+
+  <!-- objectCards/ShiftStatementApprovalAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REJECT" language="RU" useat="server">Доработать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REJECT" language="EN" useat="server">Reject</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_STOP" language="RU" useat="server">Прекратить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_STOP" language="EN" useat="server">Abort</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_APPROVE" language="RU" useat="server">Согласовать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_APPROVE" language="EN" useat="server">Approve</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REFUSE" language="RU" useat="server">На доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REFUSE" language="EN" useat="server">Refuse</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_DENY" language="RU" useat="server">Отказать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_SHIFTSTATEMENTAPPROVALASSIGNMENTOBJECTCARD_BUTTON_DENY" language="EN" useat="server">Denied</localizedStringValue>
+
+  <!-- objectCards/VacationChangeSignAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_SUCCESSMESSAGE" language="RU" useat="both">Документы подписаны</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_SUCCESSMESSAGE" language="EN" useat="both">Documents signed</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_1" language="RU" useat="both">Выполняя задание, вы подписываете Согласие на отзыв из отпуска и подтверждаете, что не относитесь к льготной категории работников, определенных ст. 125 ТК РФ:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_1" language="EN" useat="both">By completing this assignment, you are signing the Consent for recall from vacation and confirming that you do not belong to protected employee categories defined by article 125 of the Labor Code of the Russian Federation:</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_2" language="RU" useat="both">1. Работники в возрасте до 18-ти лет.</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_2" language="EN" useat="both">1. Underage employees.</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_3" language="RU" useat="both">2. Беременные женщины.</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_3" language="EN" useat="both">2. Pregnant women.</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_4" language="RU" useat="both">3. Работники, занятые на работах с вредными и (или) опасными условиями труда.</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_4" language="EN" useat="both">3. Employees exposed to harmful and/or hazardous working environments.</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Подписать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGESIGNASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Sign</localizedStringValue>
+
+  <!-- objectCards/VacationChangeApprovalAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGEAPPROVALSIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_1" language="RU" useat="both">Выбран единственный период отпуска, который отвечает требованиям к продолжительности одной части отпуска в организации. Подтвердить отзыв сотрудника?</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGEAPPROVALSIGNASSIGNMENTOBJECTCARD_CONFIRMDIALOGTEXT_1" language="EN" useat="both">You have selected the only vacation period that conforms with required duration of one part of vacation in the business unit. Confirm the recall from vacation?</localizedStringValue>  
+  
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGEAPPROVALSIGNASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Согласовать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGEAPPROVALSIGNASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Approve</localizedStringValue>
+
+  <!-- objectCards/VacationSchedulingObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONSCHEDULINGOBJECTCARD_BUTTON_SCHEDULE" language="RU" useat="server">Спланировать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONSCHEDULINGOBJECTCARD_BUTTON_SCHEDULE" language="EN" useat="server">Schedule</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONSCHEDULINGOBJECTCARD_HEADER" language="RU" useat="both">Планирование отпуска</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONSCHEDULINGOBJECTCARD_HEADER" language="EN" useat="both">Schedule Vacation</localizedStringValue>
+  
+  <!-- objectCards/VacationApprovalAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_APPROVE" language="RU" useat="server">Согласовать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_APPROVE" language="EN" useat="server">Approve</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REWORK" language="RU" useat="server">На доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_REWORK" language="EN" useat="server">For Rework</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_DENY" language="RU" useat="server">Отказать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_DENY" language="EN" useat="server">Denied</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE" language="RU" useat="both">Изменить замещающего</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE" language="EN" useat="both">Change Substitute</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE" language="RU" useat="both">Изменить уведомляемых</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE" language="EN" useat="both">Change Employees to Notify</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Согласовать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONAPPROVALASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Approve</localizedStringValue>
+
+<!-- objectCards/VacationConfirmationAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_SHIFT" language="RU" useat="server">Перенести</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_SHIFT" language="EN" useat="server">Change dates</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE" language="RU" useat="server">Подтвердить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE" language="EN" useat="server">Confirm</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE" language="RU" useat="both">Отпуск подтвержден</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE" language="EN" useat="both">Vacation confirmed</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE" language="RU" useat="both">Изменить замещающего</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE" language="EN" useat="both">Change Substitute</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE" language="RU" useat="both">Уведомить сотрудников</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE" language="EN" useat="both">Select Employees to Notify</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_NOTIFIABLELIST" language="RU" useat="both">Кого уведомить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_NOTIFIABLELIST" language="EN" useat="both">Notify</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Подтвердить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Confirm</localizedStringValue>
+
+<!-- objectCards/VacationAlignDateAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_ATTACHMENTS_ACQUAINTANCE_DOCUMENTS" language="RU" useat="server">Извещение о начале отпуска:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_ATTACHMENTS_ACQUAINTANCE_DOCUMENTS" language="EN" useat="server">Notice on vacation beginning:</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_BUTTON_SKIP" language="RU" useat="server">Пропустить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_BUTTON_SKIP" language="EN" useat="server">Skip</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_BUTTON_GET_VACATION" language="RU" useat="server">Оформить отпуск</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_BUTTON_GET_VACATION" language="EN" useat="server">Apply for Vacation</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_ACTIVE_HEADER" language="RU" useat="both">Выравнивание отпусков</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_ACTIVE_HEADER" language="EN" useat="both">Match Vacations</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Оформить отпуск</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONALIGNDATEASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Apply for Vacation</localizedStringValue>
+
+  <!-- objectCards/VacationReworkAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_REWORK" language="RU" useat="both">Доработать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_REWORK" language="EN" useat="both">Rework</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_STOP" language="RU" useat="both">Прекратить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_STOP" language="EN" useat="both">Abort</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE" language="RU" useat="both">Изменить замещающего</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_CHANGESUBSTITUTE" language="EN" useat="both">Change Substitute</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE" language="RU" useat="both">Изменить уведомляемых</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_BUTTON_CHANGENOTIFIABLE" language="EN" useat="both">Change Employees to Notify</localizedStringValue>
+
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_NOTIFIABLELIST" language="RU" useat="both">Кого уведомить</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_NOTIFIABLELIST" language="EN" useat="both">Notify</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Доработать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Rework</localizedStringValue>
+
+  <!-- objectCards/VacationChangeReworkAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGEREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Доработать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONCHANGEREWORKASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Reject</localizedStringValue>
+                                                                                                                                                                     
+  <!-- objectCards/VacationEmployeeSchedulingAssignmentObjectCard -->
+
+  <localizedStringValue code="OBJECTCARD_VACATIONEMPLOYEESCHEDULINGASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="RU" useat="server">Спланировать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_VACATIONEMPLOYEESCHEDULINGASSIGNMENTOBJECTCARD_DEFAULTACTIONNAME" language="EN" useat="server">Schedule</localizedStringValue>
+
+  <!-- Dialogs -->
+
+  <localizedStringValue code="DIALOGS_BUTTON_CONFIRM" language="RU" useat="both">Подтвердить</localizedStringValue>
+  <localizedStringValue code="DIALOGS_BUTTON_CONFIRM" language="EN" useat="both">Confirm</localizedStringValue>
+
+  <localizedStringValue code="DIALOGS_BUTTON_CANCEL" language="RU" useat="both">Отменить</localizedStringValue>
+  <localizedStringValue code="DIALOGS_BUTTON_CANCEL" language="EN" useat="both">Cancel</localizedStringValue>
+
+  <localizedStringValue code="DIALOGS_TITLE_CONFIRMACTION" language="RU" useat="both">Подтвердите действие</localizedStringValue>
+  <localizedStringValue code="DIALOGS_TITLE_CONFIRMACTION" language="EN" useat="both">Confirm Action</localizedStringValue>
+  
+</localizedStringValues>

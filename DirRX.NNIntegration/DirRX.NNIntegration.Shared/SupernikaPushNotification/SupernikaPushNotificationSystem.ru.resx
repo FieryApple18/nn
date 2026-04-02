@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Push-уведомление в Супернику</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Push-уведомление в Супернику</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Push-уведомления в Супернику</value>
+  </data>
+  <data name="Property_NotificationGuid" xml:space="preserve">
+    <value>GUID push-уведомления</value>
+  </data>
+  <data name="Property_EmployeeId" xml:space="preserve">
+    <value>Id сотрудника</value>
+  </data>
+  <data name="Property_EntityId" xml:space="preserve">
+    <value>Id сущности</value>
+  </data>
+  <data name="Property_IsNotification" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="Property_SendingDate" xml:space="preserve">
+    <value>Отправлено в Message Broker</value>
+  </data>
+  <data name="Property_ReceivedDate" xml:space="preserve">
+    <value>Ответ из Суперники получен</value>
+  </data>
+  <data name="Property_ProcessingDate" xml:space="preserve">
+    <value>Ответ из Суперники обработан</value>
+  </data>
+  <data name="Property_ProcessingStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Enum_ProcessingStatus_Sended" xml:space="preserve">
+    <value>Отправлено в Message Broker</value>
+  </data>
+  <data name="Enum_ProcessingStatus_Received" xml:space="preserve">
+    <value>Получен ответ из ПМД</value>
+  </data>
+  <data name="Enum_ProcessingStatus_Processed" xml:space="preserve">
+    <value>Обработано</value>
+  </data>
+  <data name="Enum_ProcessingStatus_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Property_IncomingMessageId" xml:space="preserve">
+    <value>Id вх. интеграционного сообщения</value>
+  </data>
+  <data name="Property_ActionName" xml:space="preserve">
+    <value>Имя нажатого действия</value>
+  </data>
+  <data name="Property_Comment" xml:space="preserve">
+    <value>Полученный комментарий</value>
+  </data>
+  <data name="Property_ErrorText" xml:space="preserve">
+    <value>Текст ошибки</value>
+  </data>
+  <data name="ControlGroup_c818ca7b21b740adae3587bccfa413a6" xml:space="preserve">
+    <value>Основное</value>
+  </data>
+  <data name="ControlGroup_b6ac18f111984a9f8063478a7ac78b40" xml:space="preserve">
+    <value>Ответ</value>
+  </data>
+  <data name="ControlGroup_d95be766693e4bf99d8e7af27f653692" xml:space="preserve">
+    <value>Текст ошибки</value>
+  </data>
+  <data name="Property_Employee" xml:space="preserve">
+    <value>Сотрудник</value>
+  </data>
+  <data name="Property_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Property_PlannedShipDate" xml:space="preserve">
+    <value>Плановая дата отправки</value>
+  </data>
+  <data name="Property_Created" xml:space="preserve">
+    <value>Дата создания записи</value>
+  </data>
+  <data name="Enum_ProcessingStatus_QueuedForMB" xml:space="preserve">
+    <value>Запланирована отправка в Message Broker</value>
+  </data>
+  <data name="Enum_ProcessingStatus_Canceled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="Property_MessageText" xml:space="preserve">
+    <value>Текст сообщения</value>
+  </data>
+  <data name="ControlGroup_4faf32e6a31345ada55f17d236c65c59" xml:space="preserve">
+    <value>Получатель</value>
+  </data>
+  <data name="ControlGroup_e319341757b8403d94d35884a092f7eb" xml:space="preserve">
+    <value>Жизненный цикл</value>
+  </data>
+  <data name="ControlGroup_41c50545b4794a8593c1a40ee9ffe35f" xml:space="preserve">
+    <value>Текст сообщения</value>
+  </data>
+  <data name="ControlGroup_100358c2ffca4860bdb5102495b55cdd" xml:space="preserve">
+    <value>Полученный комментарий</value>
+  </data>
+  <data name="Action_CancelSending" xml:space="preserve">
+    <value>Отменить отправку</value>
+  </data>
+  <data name="Action_CancelSendingHint" xml:space="preserve">
+    <value>Нажмите, чтобы прервать отправку push-сообщения.</value>
+  </data>
+  <data name="Action_CancelSendingDescription" xml:space="preserve">
+    <value>Прерывает отправку запланированного push-сообщения, если оно еще не передано на MessageBroker.</value>
+  </data>
+  <data name="Action_CancelSendingConfirmationMessage" xml:space="preserve">
+    <value>Отменить отправку push-сообщения?</value>
+  </data>
+  <data name="Action_CancelSendingConfirmationDescription" xml:space="preserve">
+    <value>Это сообщение еще не отправлено. Вы можете отменить его отправку.</value>
+  </data>
+  <data name="Ribbon_CancelSending_6d446f5e8cae471db31a33a2a2574337" xml:space="preserve">
+    <value>Отменить отправку</value>
+  </data>
+  <data name="Instruction" xml:space="preserve">
+    <value />
+  </data>
+</root>
