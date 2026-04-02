@@ -1,194 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
 <objectCard id="5ee48db8-f4d6-4268-8605-78a37181c858" name="IHRDocFlowESignAssignments" header="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_FOR_SIGNING_HEADER" icon="sign">
-    <views>
-      <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
-        <fields>
-          <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title"/>
-          <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline"/>
-          <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result"/>
-          <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_COMMENT_CAPTION">{{{comment}}}</field>
-          <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee"/>
-          <field caption="@HRPROSTATEMENTS.OBJECTCARD_INSTRUCTION">{{{instruction}}}</field>
-        </fields>
-        <content>
-          {{#isNotCompleted}}
-          {{#proposedSolution}}
-          {{#reduceFullName}}{{performerFullName}}{{/reduceFullName}}: {{proposedSolution}} {{#isAborted}}({{AuthorFullName}}){{/isAborted}}
-          {{/proposedSolution}}
-          {{/isNotCompleted}}
-        </content>
-        <attachmentsAreas>
-          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_FOR_SIGNING">
-            <documentGroups>
-              <documentGroup>DocumentGroup</documentGroup>
-            </documentGroups>
-          </attachmentsArea>
-          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_APPLICATIONS">
-            <documentGroups>
-              <documentGroup>AddendaGroup</documentGroup>
-            </documentGroups>
-          </attachmentsArea>
-          <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY">
-            <documentGroups>
-              <documentGroup>OtherGroup</documentGroup>
-            </documentGroups>
-          </attachmentsArea>
-        </attachmentsAreas>
-      </view>
-    </views>
-    <buttons>
-      <button name="Refuse" isPrimary="false" isDefault="false">
-        <icon />
-        <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_REFUSE</caption>
-        <clickEventHandler><![CDATA[
-            var attachmentTitle = data.attachments.filter(function(attachment) {
-              return attachment.group === "DocumentGroup";
-            });
-            var docName = "";
-            attachmentTitle.forEach(attachment => {
-              if (docName === "")
-                docName = attachment.title
-              else
-                docName = docName + "; " + attachment.title
-            })
-            ESS.actions.facilityActions.runFacility({id: '5c85d154-09cd-4b64-84d1-37088a2107f3'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName}}, sender);
-          ]]>
-        </clickEventHandler>
-      </button>
-      <button name="Rework" isPrimary="false" isDefault="false">
-        <icon />
-        <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_ON_REWORK</caption>
-        <clickEventHandler><![CDATA[
-            var attachmentTitle = data.attachments.filter(function(attachment) {
-              return attachment.group === "DocumentGroup";
-            });
-            var docName = "";
-            attachmentTitle.forEach(attachment => {
-              if (docName === "")
-                docName = attachment.title
-              else
-                docName = docName + "; " + attachment.title
-            })
-            ESS.actions.facilityActions.runFacility({id:'d3f7270a-2680-44fe-b231-1708b532beb3'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName, StateName: 'ForRevision', IsSigned: true}}, sender);
-          ]]>
-        </clickEventHandler>
-      </button>
-      <button name="Sign" isPrimary="true" isDefault="false">
-        <icon>check-mark</icon>
-        <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_SIGN</caption>
-        <clickEventHandler>
-          <![CDATA[
-              const certOverlayId = 'signDocument_getEmployeeCertificates';
-              ESS.overlay.showOverlay(certOverlayId);
-              var serviceUrl = `/api/functions/GetEmployeeCertificates`;
-              var signatureType;
-              ESS.network.sendRequest(serviceUrl)
-                .then(function (certs) {
-                  var documents = [];
-                  var documentGroups = data.attachments.filter(function (x) {
-                    return x.group === 'DocumentGroup' || x.group === 'AddendaGroup';
-                  });
-                  documentGroups.forEach(function (a) {
-                    return documents.push({ id: a.id, title: a.title });
-                  });
-                  var allowSignSubstitution = data.requisites.find(function (_ref) {
-                    var name = _ref.name;
-                    return name === 'AllowSignSubstitution';
-                  }).value;
-                  if(allowSignSubstitution)
-                    signatureType = 'EmployerApproval';
-                  else
-                  {
-                    signatureType = data.requisites.find(function (_ref) {
-                      var name = _ref.name;
-                      return name === 'SignatureType';
-                    }).value;
-                  }	
-
-                  function callback() {
-                    const overlayId = 'signDocument_changeWorkItemState';
-                    ESS.overlay.showOverlay(overlayId);
-		                var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
-				              isAssignmentBlocked
-                        .then(message => {
-                          if (!message) {
-                            return ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Sign')
-					                    .then(function () {
-                                ESS.closeElement(sender);
-                                ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.OBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
-                                ESS.widgets.updateWidgets();
-                              })
-                          } else {
-					                  ESS.toasts.showToast(message, 'danger', false);
-					                }
-				                }).catch(function (error) {
-                          ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROSTATEMENTS.ERR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
-                        }).finally(function () {
-                          ESS.overlay.hideOverlay(overlayId);
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title"/>
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline"/>
+        <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result"/>
+        <field caption="@HRPROSTATEMENTS.OBJECTCARD_DEFAULT_COMMENT_CAPTION">{{{comment}}}</field>
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee"/>
+        <field caption="@HRPROSTATEMENTS.OBJECTCARD_INSTRUCTION">{{{instruction}}}</field>
+      </fields>
+      <content>
+        {{#isNotCompleted}}
+        {{#proposedSolution}}
+        {{#reduceFullName}}{{performerFullName}}{{/reduceFullName}}: {{proposedSolution}} {{#isAborted}}({{AuthorFullName}}){{/isAborted}}
+        {{/proposedSolution}}
+        {{/isNotCompleted}}
+      </content>
+      <attachmentsAreas>
+        <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_FOR_SIGNING">
+          <documentGroups>
+            <documentGroup>DocumentGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+        <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_APPLICATIONS">
+          <documentGroups>
+            <documentGroup>AddendaGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+        <attachmentsArea title="@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_ATTACHMENT_ADDITIONALLY">
+          <documentGroups>
+            <documentGroup>OtherGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+    <button name="Refuse" isPrimary="false" isDefault="false">
+      <icon />
+      <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_REFUSE</caption>
+      <clickEventHandler><![CDATA[
+          var attachmentTitle = data.attachments.filter(function(attachment) {
+            return attachment.group === "DocumentGroup";
+          });
+          var docName = "";
+          attachmentTitle.forEach(attachment => {
+            if (docName === "")
+              docName = attachment.title
+            else
+              docName = docName + "; " + attachment.title
+          })
+          ESS.actions.facilityActions.runFacility({id: '5c85d154-09cd-4b64-84d1-37088a2107f3'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName}}, sender);
+        ]]>
+      </clickEventHandler>
+    </button>
+    <button name="Rework" isPrimary="false" isDefault="false">
+      <icon />
+      <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_ON_REWORK</caption>
+      <clickEventHandler><![CDATA[
+          var attachmentTitle = data.attachments.filter(function(attachment) {
+            return attachment.group === "DocumentGroup";
+          });
+          var docName = "";
+          attachmentTitle.forEach(attachment => {
+            if (docName === "")
+              docName = attachment.title
+            else
+              docName = docName + "; " + attachment.title
+          })
+          ESS.actions.facilityActions.runFacility({id:'d3f7270a-2680-44fe-b231-1708b532beb3'}, {parameters: {ItemId: data.id, ItemName: data.name, DocName: docName, StateName: 'ForRevision', IsSigned: true}}, sender);
+        ]]>
+      </clickEventHandler>
+    </button>
+    <button name="Sign" isPrimary="true" isDefault="false">
+      <icon>check-mark</icon>
+      <caption>@HRPROSTATEMENTS.OBJECTCARD_BUTTON_SIGN</caption>
+      <clickEventHandler>
+        <![CDATA[
+          const certOverlayId = 'signDocument_getEmployeeCertificates';
+          ESS.overlay.showOverlay(certOverlayId);
+          
+          ESS.network.sendRequest('/api/functions/GetEmployeeCertificates')
+            .then(function(certs) {
+              var documents = [];
+              
+              var documentGroups = data.attachments.filter(function(x) {
+                return x.group === 'DocumentGroup' || x.group === 'AddendaGroup';
+              });
+              
+              documentGroups.forEach(function(a) {
+                documents.push({ id: a.id, title: a.title });
+              });
+              
+              var allowSignSubstitution = data.requisites.find(function(_ref) {
+                var name = _ref.name;
+                return name === 'AllowSignSubstitution';
+              }).value;
+              
+              var signatureType = allowSignSubstitution ? 'EmployerApproval' : 
+                data.requisites.find(function(_ref) {
+                  var name = _ref.name;
+                  return name === 'SignatureType';
+                }).value;
+              
+              function signDocuments() {
+                return new Promise(function(resolve, reject) {
+                  ESS.network.sendRequest('/api/functions/IsAssignmentCardBlocked?assignmentId=' + data.id)
+                    .then(function(message) {
+                      if (!message) {
+                        ESS.signing.sign({
+                          certificates: certs,
+                          documents: documents,
+                          documentGroup: 'IElectronicDocuments',
+                          systemName: data.system,
+                          signatureType: signatureType,
+                          packageTitle: data.title,
+                          signedBy: data.performer,
+                          callback: function() {
+                            resolve();
+                          },
+                          errorCallback: function(err) {
+                            reject(err);
+                          }
                         });
-                  };
-
-                  var isAssignmentBlocked = ESS.network.sendRequest(`/api/functions/IsAssignmentCardBlocked?assignmentId=${data.id}`);
-                    isAssignmentBlocked
-                      .then(message => {
-                        if (!message) {
-                          ESS.signing.sign({
-                            certificates: certs,
-                            documents,
-                            documentGroup: 'IElectronicDocuments',
-                            systemName: data.system,
-                            signatureType: signatureType,
-                            packageTitle: data.title,
-                            signedBy: data.performer,
-                            callback,
-                          });
-                        } else {
-					                ESS.toasts.showToast(message, 'danger', false);
-					              }
-                        }).catch(function (err) {
-                            ESS.toasts.showErrorToastWithLog(err);
-                        }).finally(() => {
-                            ESS.overlay.hideOverlay(certOverlayId);
-                      });
-                }).catch(function (err) {
-                  ESS.overlay.hideOverlay(certOverlayId);
-                  ESS.toasts.showErrorToastWithLog(err);
+                      } else {
+                        reject(new Error(message));
+                      }
+                    })
+                    .catch(function(err) {
+                      reject(err);
+                    })
+                    .finally(function() {
+                      ESS.overlay.hideOverlay(certOverlayId);
+                    });
                 });
-          ]]>
-        </clickEventHandler>
-      </button>
-    </buttons>
-    <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformer.xml" />
-    <openedEventHandler>
-      <![CDATA[
-        if(data.requisites.find(re => re.name === "CanSign").value === false ||
-          data.requisites.find(re => re.name == "CanSign").value === null)
+              }
+              
+              function checkVacationPeriods() {
+                return new Promise(function(resolve) {
+                  ESS.network.sendRequest('/api/functions/GetVacationPeriodsByAssignmentId?assignmentId=' + data.id)
+                    .then(function(periods) {
+                      var normalizedPeriods = (periods || []).map(function(p) {
+                        return {
+                          StartDate: p.startDate || p.StartDate,
+                          EndDate: p.endDate || p.EndDate
+                        };
+                      });
+                      resolve(normalizedPeriods);
+                    })
+                    .catch(function(error) {
+                      resolve([]);
+                    });
+                });
+              }
+              
+              function openSubstitutionFacility(vacationPeriods) {
+                return new Promise(function(resolve) {
+                  if (!vacationPeriods || vacationPeriods.length === 0) {
+                    resolve(false);
+                    return;
+                  }
+                  
+                  var vacationPeriodsJson = JSON.stringify(vacationPeriods);
+                  
+                  ESS.actions.facilityActions.runFacility(
+                    { id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' },
+                    {
+                      parameters: {
+                        InitiatorId: data.performer,
+                        AssignmentId: data.id,
+                        AssignmentType: data.name,
+                        VacationPeriodsJson: vacationPeriodsJson,
+                        CompleteAssignmentAfterSubmit: true,
+                        WorkItemChangingReason: 'Sign'
+                      }
+                    }
+                  );
+                  resolve(true);
+                });
+              }
+              
+              function completeAssignmentDirectly() {
+                const overlayId = 'signDocument_changeWorkItemState';
+                ESS.overlay.showOverlay(overlayId);
+                
+                return ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Sign')
+                  .then(function() {
+                    ESS.closeElement(sender);
+                    ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.OBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
+                    ESS.widgets.updateWidgets();
+                  })
+                  .catch(function(error) {
+                    ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROSTATEMENTS.ERR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
+                  })
+                  .finally(function() {
+                    ESS.overlay.hideOverlay(overlayId);
+                  });
+              }
+              
+              signDocuments()
+                .then(function() {
+                  return checkVacationPeriods();
+                })
+                .then(function(vacationPeriods) {
+                  return openSubstitutionFacility(vacationPeriods);
+                })
+                .then(function(facilityOpened) {
+                  if (!facilityOpened) {
+                    return completeAssignmentDirectly();
+                  }
+                  ESS.closeElement(sender);
+                  ESS.toasts.showToast(ESS.L('@HRPROSTATEMENTS.OBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
+                  ESS.widgets.updateWidgets();
+                })
+                .catch(function(error) {
+                  ESS.toasts.showErrorToastWithLog('Ошибка при подписании', error.message);
+                  ESS.overlay.hideOverlay(certOverlayId);
+                });
+                
+            })
+            .catch(function(err) {
+              ESS.overlay.hideOverlay(certOverlayId);
+              ESS.toasts.showErrorToastWithLog(err);
+            });
+        ]]>
+      </clickEventHandler>
+    </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformer.xml" />
+  <openedEventHandler>
+   <![CDATA[
+      if(data.requisites.find(re => re.name === "CanSign").value === false ||
+        data.requisites.find(re => re.name == "CanSign").value === null)
         configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Sign"), 1);
 
-        if(data.requisites.find(re => re.name === "CanForRevision").value === false ||
-            data.requisites.find(re => re.name == "CanForRevision").value === null)
-          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Rework"), 1);
+      if(data.requisites.find(re => re.name === "CanForRevision").value === false ||
+          data.requisites.find(re => re.name == "CanForRevision").value === null)
+        configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Rework"), 1);
 
-        if(data.requisites.find(re => re.name === "CanRefuse").value === false ||
-            data.requisites.find(re => re.name == "CanRefuse").value === null)
-          configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Refuse"), 1);
-        
-        ESS.network.sendRequest(`/api/functions/GetTaskActiveText?assignmentId=${data.id}`)
-        .then(function (activeText){
-          data.comment = activeText.replace(/([\r\n])/g, '<br/>');
-          resolve({configuration: configuration, data: data});
-        })
-        .catch(function (error) {
-          ESS.toasts.showToast(error.message, 'danger', false);
-          reject();
-        });
-      ]]>
-    </openedEventHandler>
-    <closedEventHandler><![CDATA[
-      if(data.isRead === false)
-      {
-        ESS.widgets.updateWidgets();
-      }
-      ]]>
-    </closedEventHandler>
-  </objectCard>
+      if(data.requisites.find(re => re.name === "CanRefuse").value === false ||
+        data.requisites.find(re => re.name == "CanRefuse").value === null)
+        configuration.buttons.splice(configuration.buttons.findIndex(bu => bu.name === "Refuse"), 1);
+      
+      ESS.network.sendRequest(`/api/functions/GetTaskActiveText?assignmentId=${data.id}`)
+      .then(function (activeText){
+        data.comment = activeText.replace(/([\r\n])/g, '<br/>');
+        resolve({configuration: configuration, data: data});
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, 'danger', false);
+        reject();
+      });
+    ]]>
+  </openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if(data.isRead === false)
+    {
+      ESS.widgets.updateWidgets();
+    }
+    ]]>
+  </closedEventHandler>
+</objectCard>

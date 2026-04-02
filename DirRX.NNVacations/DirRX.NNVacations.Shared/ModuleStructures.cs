@@ -6,10 +6,105 @@ using Sungero.CoreEntities;
 
 namespace DirRX.NNVacations.Structures.Module
 {
-  
+
+  /// <summary>
+  /// Период отпуска (строковый).
+  /// </summary>
+  [Public]
+  partial class VacationPeriodString
+  {
+    /// <summary>
+    /// Дата начала отпуска.
+    /// </summary>
+    public string StartDate { get; set; }
+    
+    /// <summary>
+    /// Дата окончания отпуска.
+    /// </summary>
+    public string EndDate { get; set; }
+  }
+
+  /// <summary>
+  /// Данные для работы с замещениями из задачи после валидации.
+  /// </summary>
+  [Public]
+  partial class DataForSubstitutionFromTask
+  {
+    /// <summary>
+    /// Сотрудник.
+    /// </summary>
+    public DirRX.OverrideSolution.IEmployee Employee { get; set; }
+    
+    /// <summary>
+    /// ИД приказа.
+    /// </summary>
+    public long OrderId { get; set; }
+    
+    /// <summary>
+    /// Исходный период отпуска.
+    /// </summary>
+    public DirRX.NNVacations.Structures.Module.IVacationPeriod OriginalPeriod { get; set; }
+    
+    /// <summary>
+    /// Период отзыва/прерывания.
+    /// </summary>
+    public DirRX.NNVacations.Structures.Module.IVacationPeriod RecallPeriod { get; set; }
+  }
+
+  /// <summary>
+  /// Результат получения наименований замещающих и систем.
+  /// </summary>
+  [Public]
+  partial class SubstituteNamesResult
+  {
+    /// <summary>Строка с ФИО замещающих (через ;).</summary>
+    public string SubstituteNamesString { get; set; }
+    
+    /// <summary>Строка с наименованиями систем (через ;).</summary>
+    public string SystemNamesString { get; set; }
+  }
+
+  /// <summary>
+  /// Структура данных замещения.
+  /// </summary>
+  [Public]
+  partial class SubstitutionData
+  {
+    /// <summary>
+    /// ИД замещающего.
+    /// </summary>
+    public long SubstituteId { get; set; }
+
+    /// <summary>
+    /// ФИО замещающего.
+    /// </summary>
+    public string SubstituteName { get; set; }
+
+    /// <summary>
+    /// ИД системы.
+    /// </summary>
+    public long SystemId { get; set; }
+
+    /// <summary>
+    /// Название системы.
+    /// </summary>
+    public string SystemName { get; set; }
+
+    /// <summary>
+    /// Дата с.
+    /// </summary>
+    public DateTime StartDate { get; set; }
+
+    /// <summary>
+    /// Дата по.
+    /// </summary>
+    public DateTime EndDate { get; set; }
+  }
+
   /// <summary>
   /// Период отпуска.
   /// </summary>
+  [Public]
   partial class VacationPeriod
   {
     // Дата начала отпуска.

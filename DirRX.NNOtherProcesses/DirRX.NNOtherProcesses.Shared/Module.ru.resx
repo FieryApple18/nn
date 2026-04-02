@@ -176,4 +176,7 @@
   <data name="ErrorCheckWorkingHoursExceeded" xml:space="preserve">
     <value>Необходимо указать перерывы, так как рабочее время превышает {0} {1}.</value>
   </data>
+  <data name="DefaultSubstitutionSystem_Name" xml:space="preserve">
+    <value>КЭДО</value>
+  </data>
 </root>

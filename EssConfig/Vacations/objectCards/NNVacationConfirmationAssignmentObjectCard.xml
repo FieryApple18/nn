@@ -37,27 +37,82 @@
       ]]></clickEventHandler>
     </button>
     <button name="Complete" isPrimary="true" isDefault="true">
-      <icon>check-mark</icon>
-      <caption>@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE</caption>
-      <clickEventHandler><![CDATA[
-        var callback = function callback() {
-          ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Confirm').then(function () {
-            ESS.closeElement(sender);
-            ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
-            ESS.widgets.updateWidgets();
-          }).catch(function (error) {
-            ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROVACATIONS.ERROR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
+    <icon>check-mark</icon>
+    <caption>@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE</caption>
+    <clickEventHandler><![CDATA[
+      var getVacationPeriodsFromServer = function() {
+        return new Promise(function(resolve) {
+          ESS.network.sendRequest('/api/functions/GetVacationPeriodsByAssignmentId?assignmentId=' + data.id)
+            .then(function(periods) {
+              var normalizedPeriods = (periods || []).map(function(p) {
+                return {
+                  StartDate: p.startDate || p.StartDate,
+                  EndDate: p.endDate || p.EndDate
+                };
+              });
+              resolve(normalizedPeriods);
+            })
+            .catch(function(error) {
+              resolve([]);
+            });
+        });
+      };
+      
+      var runSubstitutionSetup = function(vacationPeriods) {
+        return new Promise(function(resolve) {
+          if (!vacationPeriods || vacationPeriods.length === 0) {
+            resolve();
+            return;
+          }
+          
+          var vacationPeriodsJson = JSON.stringify(vacationPeriods);
+          
+          ESS.actions.facilityActions.runFacility(
+            { id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' },
+            {
+              parameters: {
+                InitiatorId: data.performer,
+                AssignmentId: data.id,
+                AssignmentType: data.name,
+                VacationPeriodsJson: vacationPeriodsJson,
+                CompleteAssignmentAfterSubmit: true,
+                WorkItemChangingReason: 'Confirm'
+              }
+            }
+          );
+          
+          resolve();
+        });
+      };
+      
+      var closeCard = function() {
+        ESS.closeElement(sender);
+        ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
+        ESS.widgets.updateWidgets();
+      };
+      
+      var executeFullChain = function() {        
+        getVacationPeriodsFromServer()
+          .then(function(vacationPeriods) {
+            return runSubstitutionSetup(vacationPeriods);
+          })
+          .then(function() {
+            closeCard();
+          })
+          .catch(function(error) {
+            ESS.toasts.showErrorToastWithLog('Ошибка при выполнении задания', error.message);
           });
-        };
-        
-        var documents = data.attachments.filter(x => x.group === 'DocumentGroup').map(a => ({ id: a.id, title: a.title }));
-        if (documents !== undefined && documents.length != 0) {
-          ESS.scripts.HRProVacations.signFromObjectCard({ data, documents, callback });
-        } else {
-          callback();
-        }
-      ]]></clickEventHandler>
-    </button>
+      };
+      
+      var documents = data.attachments.filter(x => x.group === 'DocumentGroup').map(a => ({ id: a.id, title: a.title }));
+      
+      if (documents !== undefined && documents.length !== 0) {
+        ESS.scripts.HRProVacations.signFromObjectCard({ data: data, documents: documents, callback: executeFullChain});
+      } else {
+        executeFullChain();
+      }
+    ]]></clickEventHandler>
+  </button>
   </buttons>
   <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
   <openedEventHandler><![CDATA[

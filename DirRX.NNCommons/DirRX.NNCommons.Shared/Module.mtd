@@ -2783,6 +2783,22 @@
       "StructureNamespace": "DirRX.NNCommons.Structures.Module"
     },
     {
+      "Name": "OptionItem",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "DisplayValue",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
       "Name": "StatementData",
       "IsIsolated": true,
       "IsPublic": true,
@@ -3095,7 +3111,7 @@
       "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
     }
   ],
-  "Version": "25.2.0.2",
+  "Version": "25.2.0.3",
   "Widgets": [],
   "Versions": [
     {
