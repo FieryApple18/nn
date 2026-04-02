@@ -8,6 +8,23 @@ namespace DirRX.NNVacations.Structures.Module
 {
 
   /// <summary>
+  /// Период отпуска (строковый).
+  /// </summary>
+  [Public]
+  partial class VacationPeriodString
+  {
+    /// <summary>
+    /// Дата начала отпуска.
+    /// </summary>
+    public string StartDate { get; set; }
+    
+    /// <summary>
+    /// Дата окончания отпуска.
+    /// </summary>
+    public string EndDate { get; set; }
+  }
+
+  /// <summary>
   /// Данные для работы с замещениями из задачи после валидации.
   /// </summary>
   [Public]

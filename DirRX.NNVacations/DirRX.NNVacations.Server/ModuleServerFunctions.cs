@@ -842,11 +842,11 @@ namespace DirRX.NNVacations.Server
     /// <param name="assignmentId">ИД задания.</param>
     /// <returns>Список периодов отпуска или пустой список.</returns>
     [Public(WebApiRequestType = RequestType.Get)]
-    public virtual List<DirRX.NNVacations.Structures.Module.IVacationPeriod> GetVacationPeriodsByAssignmentId(long assignmentId)
+    public virtual List<DirRX.NNVacations.Structures.Module.IVacationPeriodString> GetVacationPeriodsByAssignmentId(long assignmentId)
     {
       Logger.DebugFormat("GetVacationPeriodsByAssignmentId. Started for assignmentId={0}.", assignmentId);
       
-      var result = new List<DirRX.NNVacations.Structures.Module.IVacationPeriod>();
+      var result = new List<DirRX.NNVacations.Structures.Module.IVacationPeriodString>();
       
       try
       {
@@ -867,7 +867,8 @@ namespace DirRX.NNVacations.Server
           }
 
           result.AddRange(DirRX.OverrideSolution.VacationNoticeDocuments.As(document).VacationDataDirRX
-                          .Select(d => DirRX.NNVacations.Structures.Module.VacationPeriod.Create(d.StartDate.Value.Date, d.EndDate.Value.Date)));
+                          .Select(d => DirRX.NNVacations.Structures.Module.VacationPeriodString.Create(d.StartDate.Value.Date.ToUserTime().ToString("yyyy-MM-dd"), 
+                                                                                                       d.EndDate.Value.Date.ToUserTime().ToString("yyyy-MM-dd"))));
 
           return result;
         }
@@ -891,7 +892,11 @@ namespace DirRX.NNVacations.Server
               return result;
             }
             
-            result.AddRange(GetShiftPeriodsFromStatement(statement));
+            var periods = GetShiftPeriodsFromStatement(statement)
+              .Select(p => DirRX.NNVacations.Structures.Module.VacationPeriodString.Create(p.StartDate.Value.Date.ToUserTime().ToString("yyyy-MM-dd"),
+                                                                                           p.EndDate.Value.Date.ToUserTime().ToString("yyyy-MM-dd")));
+            
+            result.AddRange(periods);
           }
         }
         
@@ -957,19 +962,6 @@ namespace DirRX.NNVacations.Server
     {
       Logger.DebugFormat("SaveSubstitutionsToTask. Started for taskId={0}.", taskId);
       
-      var substituteIds = !string.IsNullOrEmpty(substituteIdsString) ? substituteIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
-      var systemIds = !string.IsNullOrEmpty(systemIdsString) ? systemIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
-      var startDates = !string.IsNullOrEmpty(startDatesString) ? startDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
-      var endDates = !string.IsNullOrEmpty(endDatesString) ? endDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
-      
-      Logger.DebugFormat("SaveSubstitutionsToTask. Parsed counts: substituteIds {0}, systemIds {1}, startDates {2}, endDates {3}.", substituteIds.Count(), systemIds.Count(), startDates.Count(), endDates.Count());
-      
-      if (substituteIds.Count() == 0)
-      {
-        Logger.DebugFormat("SaveSubstitutionsToTask. No substitutions to save.");
-        return;
-      }
-      
       var task = Sungero.Workflow.Tasks.GetAll(t => t.Id == taskId).FirstOrDefault();
       if (task == null)
       {
@@ -977,6 +969,13 @@ namespace DirRX.NNVacations.Server
         return;
       }
       
+      var substituteIds = !string.IsNullOrEmpty(substituteIdsString) ? substituteIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
+      var systemIds = !string.IsNullOrEmpty(systemIdsString) ? systemIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
+      var startDates = !string.IsNullOrEmpty(startDatesString) ? startDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
+      var endDates = !string.IsNullOrEmpty(endDatesString) ? endDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
+      
+      Logger.DebugFormat("SaveSubstitutionsToTask. Parsed counts: substituteIds {0}, systemIds {1}, startDates {2}, endDates {3}.", substituteIds.Count(), systemIds.Count(), startDates.Count(), endDates.Count());
+
       try
       {
         if (Locks.TryLock(task))
@@ -985,6 +984,12 @@ namespace DirRX.NNVacations.Server
           {
             var annualLeaveTask = DirRX.NNVacations.RegistrationOfAnnualLeaves.As(task);
             annualLeaveTask.SubstitutionsDirRX.Clear();
+            
+            if (substituteIds.Count() == 0)
+            {
+              Logger.DebugFormat("SaveSubstitutionsToTask. No substitutions to save.");
+            }
+            
             for (var i = 0; i < substituteIds.Count(); i++)
             {
               var item = annualLeaveTask.SubstitutionsDirRX.AddNew();
@@ -1004,6 +1009,12 @@ namespace DirRX.NNVacations.Server
           {
             var statementTask = DirRX.OverrideSolution.StatementTasks.As(task);
             statementTask.SubstitutionsDirRX.Clear();
+            
+            if (substituteIds.Count() == 0)
+            {
+              Logger.DebugFormat("SaveSubstitutionsToTask. No substitutions to save.");
+            }
+            
             for (var i = 0; i < substituteIds.Count(); i++)
             {
               var item = statementTask.SubstitutionsDirRX.AddNew();

@@ -3170,7 +3170,7 @@
           "ParameterTypeFullName": "System.Int64"
         }
       ],
-      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IVacationPeriod>",
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IVacationPeriodString>",
       "ReturnTypeFullName": "System.Collections.Generic.List",
       "WebApiRequestType": "Get"
     },
@@ -5516,6 +5516,23 @@
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
     },
     {
+      "Name": "VacationPeriodString",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "StartDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "EndDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
       "Name": "VacationStatementData",
       "IsIsolated": true,
       "IsPublic": true,
@@ -6023,7 +6040,7 @@
       "NeedShowMarkedCount": false
     }
   ],
-  "Version": "25.2.0.2",
+  "Version": "25.2.0.3",
   "Widgets": [],
   "Versions": [
     {
