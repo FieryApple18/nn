@@ -1,35 +1,72 @@
-*.pdb
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.class
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Dependencies
+.venv/
+venv/
+node_modules/
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+target/
+.gradle/
+
+# Logs and temp files
 *.log
-*.suo
-*.pdb
-*.rej
-*.orig
-*.patch
-*.Cache
-*.playlist
-*.user
-*.tmp_proj
-*.live.config
-*.nupkg
-*.diff
-*.csproj
-*.sln
-*.g.cs
-*.xaml
-*.xaml.cs
-*.bak
+*.tmp
+*.swp
+*.swo
 
-AssemblyInfo.cs
-Libraries.json
+# Environment
+.env
+.env.local
+.env.*
 
-[dD]ebug
-[rR]elease
-[cC]heckin
-[bB]in/*
+# Editors
+.vscode/
+.idea/
 
-obj
-log
-.idea
-.vs
+# System files
+.DS_Store
+Thumbs.db
 
-_ConfigSettings.xml
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+```
