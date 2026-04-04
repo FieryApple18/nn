@@ -337,4 +337,22 @@
   <data name="ValidateRecallVacationDurationRestrictionError" xml:space="preserve">
     <value>Partial postponement/compensation of annual leave is not allowed. Reschedule and/or compensate for the entire vacation.</value>
   </data>
+  <data name="SubstitutionNote" xml:space="preserve">
+    <value>Created automatically due to employee vacation</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionName" xml:space="preserve">
+    <value>Get substitution information</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionDescription" xml:space="preserve">
+    <value>Returns text with information about substitute employees</value>
+  </data>
+  <data name="SubstitutionNote_AutoCreated" xml:space="preserve">
+    <value>Created automatically due to employee vacation, {0}, order ID: {1}.</value>
+  </data>
+  <data name="SubstituteCollisionError" xml:space="preserve">
+    <value>The employee will not be able to perform substitution on the specified dates, as they have a statement registered for periods: {0}</value>
+  </data>
+  <data name="SubstituteCheckError" xml:space="preserve">
+    <value>Substitute check error</value>
+  </data>
 </root>

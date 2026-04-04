@@ -597,6 +597,9 @@
   <localizedStringValue code="FACILITIES_GETANNUALVACATION_INSTRUCTION" language="RU" useat="both">Прикрепите документы. Если не помните, какие, смотрите {0}</localizedStringValue>
   <localizedStringValue code="FACILITIES_GETANNUALVACATION_INSTRUCTION" language="EN" useat="both">Attach the documents. If you don't remember which ones, watch {0}</localizedStringValue>
 
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_APPROVALDATE_INFO" language="RU" useat="both">Срок согласования заявления - {0}. Процесс согласования заявления будет прекращен, приказ на отпуск оформлен не будет.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_APPROVALDATE_INFO" language="EN" useat="both">The deadline for approving the application is {0}. The application approval process will be terminated, and no leave order will be issued.</localizedStringValue>
+
   <!-- facilities/GetOtherVacation -->
   
   <localizedStringValue code="FACILITIES_GETOTHERVACATION_TITLE" language="RU" useat="both">Оформить отпуск</localizedStringValue>
@@ -914,4 +917,96 @@
   <localizedStringValue code="DIALOGS_TITLE_CONFIRMACTION" language="RU" useat="both">Подтвердите действие</localizedStringValue>
   <localizedStringValue code="DIALOGS_TITLE_CONFIRMACTION" language="EN" useat="both">Confirm Action</localizedStringValue>
   
+  <localizedStringValue code="SUBSTITUTION_NOT_ALLOWED" language="RU" useat="both">Задание нельзя выполнить по замещению</localizedStringValue>
+  <localizedStringValue code="SUBSTITUTION_NOT_ALLOWED" language="EN" useat="both">The assignment cannot be executed by substitution</localizedStringValue>
+  
+  <!-- NNSubstitutionSetup -->
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_TITLE" language="RU" useat="both">Настройка замещений</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_TITLE" language="EN" useat="both">Substitution Settings</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_INSTRUCTION" language="RU" useat="both">Укажите замещающих сотрудников и системы, в которых необходимо настроить замещение на период вашего отсутствия.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_INSTRUCTION" language="EN" useat="both">Specify substitute employees and systems where substitution should be configured for your absence period.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_TABLE_TITLE" language="RU" useat="both">Замещающие</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_TABLE_TITLE" language="EN" useat="both">Substitutes</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_SUBSTITUTE" language="RU" useat="both">Замещающий</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_SUBSTITUTE" language="EN" useat="both">Substitute</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_SYSTEM" language="RU" useat="both">Система</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_SYSTEM" language="EN" useat="both">System</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_START_DATE" language="RU" useat="both">Дата с</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_START_DATE" language="EN" useat="both">Start Date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_END_DATE" language="RU" useat="both">Дата по</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_COLUMN_END_DATE" language="EN" useat="both">End Date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_SYSTEMS_INFO_PREFIX" language="RU" useat="both">Доступные системы для замещения:</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_SYSTEMS_INFO_PREFIX" language="EN" useat="both">Available substitution systems:</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_NO_SYSTEMS" language="RU" useat="both">Нет доступных систем для замещения</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_NO_SYSTEMS" language="EN" useat="both">No available substitution systems</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_SYSTEMS_ERROR" language="RU" useat="both">Не удалось загрузить информацию о системах</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_SYSTEMS_ERROR" language="EN" useat="both">Failed to load systems information</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_VACATION_PERIODS_LABEL" language="RU" useat="both">Периоды отпуска:</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_VACATION_PERIODS_LABEL" language="EN" useat="both">Vacation periods:</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_NO_PERIODS" language="RU" useat="both">Периоды отпуска не указаны</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_NO_PERIODS" language="EN" useat="both">Vacation periods not specified</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_START_AFTER_END" language="RU" useat="both">Дата окончания не может быть раньше даты начала</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_START_AFTER_END" language="EN" useat="both">End date cannot be earlier than start date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_DATE_OUT_OF_PERIOD" language="RU" useat="both">Дата должна быть в пределах периода отпуска ({0} - {1})</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_DATE_OUT_OF_PERIOD" language="EN" useat="both">Date must be within the vacation period ({0} - {1})</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_DATES_SPAN_PERIODS" language="RU" useat="both">Даты замещения должны быть в пределах одного периода отпуска</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_DATES_SPAN_PERIODS" language="EN" useat="both">Substitution dates must be within a single vacation period</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_OPTIONAL_TEXT" language="RU" useat="both">
+    <![CDATA[
+      <b>Назначить замещающих, если необходимо в автоматизированных системах</b><br/><br/>
+      Указание замещающих не является обязательным. Если вам не нужно указывать замещающих, нажмите кнопку «Отправить» без вызова окна настройки замещений.
+    ]]>
+  </localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_OPTIONAL_TEXT" language="EN" useat="both">
+    <![CDATA[
+      <b>Specify substitutes if necessary in automated systems</b><br/><br/>
+      Specifying substitutes is optional. If you don't need to specify substitutes, click the 'Submit' button without opening the substitution setup window.
+    ]]>
+  </localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_ADD" language="RU" useat="both">Определить замещающих</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_ADD" language="EN" useat="both">Set substitutes</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_ERROR_MISSING_DATA" language="RU" useat="both">Заполните даты отпуска перед указанием замещающих</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_ERROR_MISSING_DATA" language="EN" useat="both">Fill in vacation dates before specifying substitutes</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_SUCCESS_MESSAGE" language="RU" useat="both">Замещающие определены</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_SUCCESS_MESSAGE" language="EN" useat="both">Substitutes defined</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_CHECK_ERROR" language="RU" useat="both">Ошибка проверки доступности сотрудника</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_CHECK_ERROR" language="EN" useat="both">Employee availability check error</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_SHOW" language="RU" useat="both">Показать замещающих</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_SHOW" language="EN" useat="both">Show Substitutes</localizedStringValue>
+
+  <localizedStringValue code="SUBSTITUTION_INFO_HEADER" language="RU" useat="both"><![CDATA[<b>Заполненные замещающие:</b>]]></localizedStringValue>
+  <localizedStringValue code="SUBSTITUTION_INFO_HEADER" language="EN" useat="both"><![CDATA[<b>Defined substitutes:</b>]]></localizedStringValue>
+
+  <localizedStringValue code="SUBSTITUTE_FALLBACK" language="RU" useat="both">Сотрудник #{0}</localizedStringValue>
+  <localizedStringValue code="SUBSTITUTE_FALLBACK" language="EN" useat="both">Employee #{0}</localizedStringValue>
+
+  <localizedStringValue code="SYSTEM_FALLBACK" language="RU" useat="both">Система #{0}</localizedStringValue>
+  <localizedStringValue code="SYSTEM_FALLBACK" language="EN" useat="both">System #{0}</localizedStringValue>
+
+  <localizedStringValue code="SUBSTITUTION_INFO_ITEM_TEMPLATE" language="RU" useat="both"><![CDATA[{0}. {1} в системе {2} с {3} по {4}]]></localizedStringValue>
+  <localizedStringValue code="SUBSTITUTION_INFO_ITEM_TEMPLATE" language="EN" useat="both"><![CDATA[{0}. {1} in system {2} from {3} to {4}]]></localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_DATE_MISMATCH" language="RU" useat="both">Даты замещения {0} не соответствует периоду отпуска {1}. Исправьте даты замещения или период отпуска.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NN_SUBSTITUTION_SETUP_DATE_MISMATCH" language="EN" useat="both">Substitution dates {0} do not match the vacation period {1}. Please correct the substitution dates or vacation period.</localizedStringValue>
+
 </localizedStringValues>

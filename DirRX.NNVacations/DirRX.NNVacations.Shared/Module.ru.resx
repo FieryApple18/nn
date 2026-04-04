@@ -337,4 +337,22 @@
   <data name="ValidateRecallVacationDurationRestrictionError" xml:space="preserve">
     <value>Не допускается частичный перенос/компенсация ежегодного отпуска. Перенесите и/или компенсируйте отпуск целиком.</value>
   </data>
+  <data name="SubstitutionNote" xml:space="preserve">
+    <value>Создано автоматически в связи с отпуском сотрудника</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionName" xml:space="preserve">
+    <value>Получить информацию о замещениях</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionDescription" xml:space="preserve">
+    <value>Возвращает текст с информацией о замещающих сотрудниках</value>
+  </data>
+  <data name="SubstitutionNote_AutoCreated" xml:space="preserve">
+    <value>Создано автоматически в связи с отпуском сотрудника, {0}, ИД приказа: {1}.</value>
+  </data>
+  <data name="SubstituteCollisionError" xml:space="preserve">
+    <value>В указанные даты сотрудник не сможет выполнять замещение, так как у него оформлено заявление на периоды: {0}</value>
+  </data>
+  <data name="SubstituteCheckError" xml:space="preserve">
+    <value>Ошибка проверки замещающего</value>
+  </data>
 </root>

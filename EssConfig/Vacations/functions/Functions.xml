@@ -1408,4 +1408,86 @@
         <target system="HRPro" function="NNVacations.ValidateShiftByStatementVacationData" method="POST"/>
     </function>
 
+    <!-- Функции для работы с замещениями -->
+
+    <function name="GetSubstitutionSystemsInfo" type="Target" methods="GET">
+      <parameters/>
+      <result type="String"/>
+      <target system="HRPro" function="NNVacations.GetSubstitutionSystemsInfo" method="GET"/>
+    </function>
+
+    <function name="GetSubstitutionSystems" type="Target" methods="GET">
+      <parameters/>
+      <result type="Object" isArray="true"/>
+      <target system="HRPro" function="NNVacations.GetSubstitutionSystems" method="GET"/>
+    </function>
+    
+    <function name="GetEmployeesForSubstitution" type="Target" methods="GET">
+      <parameters>
+        <parameter name="initiatorId" type="Integer" scope="Client"/>
+        <parameter name="query" type="String" scope="Client"/>
+        <parameter name="takeCount" type="Integer" scope="Client"/>
+        <parameter name="skipCount" type="Integer" scope="Client"/>
+      </parameters>
+      <result type="Object" isArray="true"/>
+      <target system="HRPro" function="NNVacations.GetEmployeesForSubstitution" method="GET"/>
+    </function>
+
+    <function name="GetSubstitutionsForTaskFromAssignment" type="Target" methods="GET">
+      <parameters>
+        <parameter name="assignmentId" type="Integer" scope="Client"/>
+      </parameters>
+      <result type="Object" isArray="true"/>
+      <target system="HRPro" function="NNVacations.GetSubstitutionsForTaskFromAssignment" method="GET"/>
+    </function>
+
+    <function name="SaveSubstitutionsToTask" type="Target" methods="POST">
+      <parameters>
+        <parameter name="taskId" type="Integer" scope="Client"/>
+        <parameter name="substituteIdsString" type="String" scope="Client"/>
+        <parameter name="systemIdsString" type="String" scope="Client"/>
+        <parameter name="startDatesString" type="String" scope="Client"/>
+        <parameter name="endDatesString" type="String" scope="Client"/>
+      </parameters>
+      <target system="HRPro" function="NNVacations.SaveSubstitutionsToTask" method="POST"/>
+    </function>
+
+    <function name="SaveSubstitutionsToTaskFromAssignment" type="Target" methods="POST">
+      <parameters>
+        <parameter name="assignmentId" type="Integer" scope="Client"/>
+        <parameter name="substituteIdsString" type="String" scope="Client"/>
+        <parameter name="systemIdsString" type="String" scope="Client"/>
+        <parameter name="startDatesString" type="String" scope="Client"/>
+        <parameter name="endDatesString" type="String" scope="Client"/>
+      </parameters>
+      <target system="HRPro" function="NNVacations.SaveSubstitutionsToTaskFromAssignment" method="POST"/>
+    </function>
+
+    <function name="GetVacationPeriodsByAssignmentId" type="Target" methods="GET">
+      <parameters>
+        <parameter name="assignmentId" type="Integer" scope="Client"/>
+      </parameters>
+      <result type="Object" isArray="true"/>
+      <target system="HRPro" function="NNVacations.GetVacationPeriodsByAssignmentId" method="GET"/>
+    </function>
+
+    <function name="ValidateSubstitute" type="Target" methods="POST">
+      <parameters>
+        <parameter name="substituteId" type="Integer" scope="Client"/>
+        <parameter name="startDate" type="String" scope="Client"/>
+        <parameter name="endDate" type="String" scope="Client"/>
+      </parameters>
+      <result type="String"/>
+      <target system="HRPro" function="NNVacations.ValidateSubstitute" method="POST"/>
+    </function>
+    
+    <function name="GetSubstituteAndSystemNames" type="Target" methods="POST">
+      <parameters>
+        <parameter name="substituteIdsString" type="String" scope="Client"/>
+        <parameter name="systemIdsString" type="String" scope="Client"/>
+      </parameters>
+      <result type="Object"/>
+      <target system="HRPro" function="NNVacations.GetSubstituteAndSystemNames" method="POST"/>
+    </function>
+
 </functions>
