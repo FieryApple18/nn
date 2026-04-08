@@ -525,6 +525,7 @@
           var systemIdsString = functions.getValues().SystemIdsString;
           var startDatesString = functions.getValues().StartDatesString;
           var endDatesString = functions.getValues().EndDatesString;
+          var vacationTypeIdsString = functions.getValues().VacationTypeIdsString || '';
           
           ESS.actions.facilityActions.runFacility(
             {
@@ -538,7 +539,8 @@
                 SubstituteIdsString: substituteIdsString,
                 SystemIdsString: systemIdsString,
                 StartDatesString: startDatesString,
-                EndDatesString: endDatesString
+                EndDatesString: endDatesString,
+                VacationTypeIdsString: vacationTypeIdsString
               }
             }
           );
@@ -895,7 +897,8 @@
             systemIds: data.SystemIdsString.split(';').filter(function(id) { return id && id !== ''; }),
             systemNames: data.SystemNamesString ? data.SystemNamesString.split(';') : [],
             startDates: data.StartDatesString.split(';').filter(function(date) { return date && date !== ''; }),
-            endDates: data.EndDatesString.split(';').filter(function(date) { return date && date !== ''; })
+            endDates: data.EndDatesString.split(';').filter(function(date) { return date && date !== ''; }),
+            vacationTypeIds: data.VacationTypeIdsString ? data.VacationTypeIdsString.split(';').filter(function(id) { return id && id !== ''; }) : []
           };
           
           console.log('[getSubstitutionDataFromStorage] Data loaded:', result.substituteIds.length, 'substitutes');
@@ -947,6 +950,7 @@
           functions.setValue('SystemIdsString', '');
           functions.setValue('StartDatesString', '');
           functions.setValue('EndDatesString', '');
+          functions.setValue('VacationTypeIdsString', '');
           
           return false;
         }
@@ -955,6 +959,7 @@
         functions.setValue('SystemIdsString', data.systemIds.join(';'));
         functions.setValue('StartDatesString', data.startDates.join(';'));
         functions.setValue('EndDatesString', data.endDates.join(';'));
+        functions.setValue('VacationTypeIdsString', data.vacationTypeIds ? data.vacationTypeIds.join(';') : '');
         
         console.log('[prepareSubstitutionParameters] Parameters set:', data.substituteIds.length, 'substitutes');
         return true;

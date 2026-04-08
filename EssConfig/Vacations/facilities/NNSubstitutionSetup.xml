@@ -564,8 +564,8 @@ t  functions.setValue('VacationTypeIdsString', functions.getValues().VacationTyp
 		  SystemIdsString: systemIds.join(';'), 
 		  SystemNamesString: namesResult.SystemNamesString || '',
 		  StartDatesString: startDates.join(';'), 
-		  EndDatesString: endDates.join(';')
-t          VacationTypeIdsString: functions.getValues().VacationTypeIdsString || ''
+		  EndDatesString: endDates.join(';'),
+            VacationTypeIdsString: functions.getValues().VacationTypeIdsString || ''
 		}));
 		resolve();
 	  })
@@ -575,7 +575,7 @@ t          VacationTypeIdsString: functions.getValues().VacationTypeIdsString ||
           var substituteNames = substituteIds.map(function(id) { return ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTE_FALLBACK'), id); });
           var systemNames = systemIds.map(function(id) { return ESS.formatString(ESS.L('@HRPROVACATIONS.SYSTEM_FALLBACK'), id); });
           
-		  localStorage.setItem('NNSubstitutionSetup_Data', JSON.stringify({ SubstituteIdsString: substituteIds.join(';'), SubstituteNamesString: substituteNames.join(';'), SystemIdsString: systemIds.join(';'), SystemNamesString: systemNames.join(';'), StartDatesString: startDates.join(';'), EndDatesString: endDates.join(';') }));
+		  localStorage.setItem('NNSubstitutionSetup_Data', JSON.stringify({ SubstituteIdsString: substituteIds.join(';'), SubstituteNamesString: substituteNames.join(';'), SystemIdsString: systemIds.join(';'), SystemNamesString: systemNames.join(';'), StartDatesString: startDates.join(';'), EndDatesString: endDates.join(';'), VacationTypeIdsString: functions.getValues().VacationTypeIdsString || '' }));
 		  
 		  resolve();
 	  });
