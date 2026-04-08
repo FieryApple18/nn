@@ -96,6 +96,11 @@
       <multiline>false</multiline>
       <isHidden>true</isHidden>
     </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationTypeIdsString" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
   </facilityParameters>
   <facilityFormItems>
     <facilityFormItem type="FacilityFormTextblock">
@@ -221,6 +226,7 @@
         <property name="systemIdsString" binding="SystemIdsString" type="String" />
         <property name="startDatesString" binding="StartDatesString" type="String" />
         <property name="endDatesString" binding="EndDatesString" type="String" />
+        <property name="vacationTypeIdsString" binding="VacationTypeIdsString" type="String" />
       </flowStep>
       <flowStep index="3" name="CompleteAssignment" title="Выполнить задание" type="ChangeWorkItemStateStep">
         <property name="NextStepIndex">-1</property>
@@ -316,12 +322,14 @@
         functions.removeError(window[`errorSubstitute${rowIndex}`]);
         
         if (substituteId && startDate && endDate) {
+          var vacationTypeIdsString = functions.getValues().VacationTypeIdsString || '';
           ESS.network.sendRequest('/api/functions/ValidateSubstitute', {
             method: 'POST',
             body: JSON.stringify({
               substituteId: substituteId,
               startDate: startDate,
-              endDate: endDate
+              endDate: endDate,
+              vacationTypeIds: vacationTypeIdsString
             })
           })
           .then(function(errorMessage) {
@@ -418,12 +426,19 @@
     if (periods.length > 0) {
       periodsDisplay = ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_VACATION_PERIODS_LABEL')) + '<br/>';
       
+      var vacationTypeIds = [];
       for (var i = 0; i < periods.length; i++) {
         var period = periods[i];
         var startDate = period.StartDate ? new Date(period.StartDate).toLocaleDateString('ru-RU') : '';
         var endDate = period.EndDate ? new Date(period.EndDate).toLocaleDateString('ru-RU') : '';
         periodsDisplay += (i + 1) + '. ' + startDate + ' - ' + endDate + '<br/>';
+        
+        if (period.VacationTypeId && vacationTypeIds.indexOf(period.VacationTypeId.toString()) === -1) {
+          vacationTypeIds.push(period.VacationTypeId);
+        }
       }
+      
+      functions.setValue('VacationTypeIdsString', vacationTypeIds.join(';'));
     } 
     else {
       periodsDisplay = ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_NO_PERIODS'));
@@ -435,6 +450,7 @@
     var systemIdsString = functions.getValues().SystemIdsString;
     var startDatesString = functions.getValues().StartDatesString;
     var endDatesString = functions.getValues().EndDatesString;
+    var vacationTypeIdsString = functions.getValues().VacationTypeIdsString;
     
     if (substituteIdsString && substituteIdsString !== 'null' && substituteIdsString !== '' &&
         systemIdsString && systemIdsString !== 'null' && systemIdsString !== '' &&
@@ -529,6 +545,7 @@
 	  functions.setValue('SystemIdsString', systemIds.join(';'));
 	  functions.setValue('StartDatesString', startDates.join(';'));
 	  functions.setValue('EndDatesString', endDates.join(';'));
+t  functions.setValue('VacationTypeIdsString', functions.getValues().VacationTypeIdsString || '');
         
 	  resolve();     
 	}
@@ -548,6 +565,7 @@
 		  SystemNamesString: namesResult.SystemNamesString || '',
 		  StartDatesString: startDates.join(';'), 
 		  EndDatesString: endDates.join(';')
+t          VacationTypeIdsString: functions.getValues().VacationTypeIdsString || ''
 		}));
 		resolve();
 	  })

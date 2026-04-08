@@ -99,6 +99,11 @@ namespace DirRX.NNVacations.Structures.Module
     /// Дата по.
     /// </summary>
     public DateTime EndDate { get; set; }
+
+    /// <summary>
+    /// ИД типа отпуска.
+    /// </summary>
+    public long? VacationTypeId { get; set; }
   }
 
   /// <summary>

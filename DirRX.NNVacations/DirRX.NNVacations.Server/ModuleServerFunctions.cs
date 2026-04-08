@@ -985,8 +985,9 @@ namespace DirRX.NNVacations.Server
     /// <param name="systemIdsString">Cтрока со списком ИД систем для замещения.</param>
     /// <param name="startDatesString">Cтрока со списком дат начала замещений.</param>
     /// <param name="endDatesString">Cтрока со списком дат окончания замещений.</param>
+    /// <param name="vacationTypeIdsString">Cтрока со списком ИД типов отпусков через точку с запятой.</param>
     [Public(WebApiRequestType = RequestType.Post)]
-    public virtual void SaveSubstitutionsToTask(long taskId, string substituteIdsString, string systemIdsString, string startDatesString, string endDatesString)
+    public virtual void SaveSubstitutionsToTask(long taskId, string substituteIdsString, string systemIdsString, string startDatesString, string endDatesString, string vacationTypeIdsString)
     {
       Logger.DebugFormat("SaveSubstitutionsToTask. Started for taskId={0}.", taskId);
       
@@ -1001,8 +1002,9 @@ namespace DirRX.NNVacations.Server
       var systemIds = !string.IsNullOrEmpty(systemIdsString) ? systemIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
       var startDates = !string.IsNullOrEmpty(startDatesString) ? startDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
       var endDates = !string.IsNullOrEmpty(endDatesString) ? endDatesString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(DateTime.Parse).ToList() : new List<DateTime>();
+      var vacationTypeIds = !string.IsNullOrEmpty(vacationTypeIdsString) ? vacationTypeIdsString.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToList() : new List<long>();
       
-      Logger.DebugFormat("SaveSubstitutionsToTask. Parsed counts: substituteIds {0}, systemIds {1}, startDates {2}, endDates {3}.", substituteIds.Count(), systemIds.Count(), startDates.Count(), endDates.Count());
+      Logger.DebugFormat("SaveSubstitutionsToTask. Parsed counts: substituteIds {0}, systemIds {1}, startDates {2}, endDates {3}, vacationTypeIds {4}.", substituteIds.Count(), systemIds.Count(), startDates.Count(), endDates.Count(), vacationTypeIds.Count());
 
       try
       {
@@ -1082,8 +1084,9 @@ namespace DirRX.NNVacations.Server
     /// <param name="systemIdsString">Cтрока со списком ИД систем для замещения.</param>
     /// <param name="startDatesString">Cтрока со списком дат начала замещений.</param>
     /// <param name="endDatesString">Cтрока со списком дат окончания замещений.</param>
+    /// <param name="vacationTypeIdsString">Cтрока со списком ИД типов отпусков через точку с запятой.</param>
     [Public(WebApiRequestType = RequestType.Post)]
-    public virtual void SaveSubstitutionsToTaskFromAssignment(long assignmentId, string substituteIdsString, string systemIdsString, string startDatesString, string endDatesString)
+    public virtual void SaveSubstitutionsToTaskFromAssignment(long assignmentId, string substituteIdsString, string systemIdsString, string startDatesString, string endDatesString, string vacationTypeIdsString)
     {
       Logger.DebugFormat("SaveSubstitutionsToTaskFromAssignment. Started for assignmentId={0}.", assignmentId);
       
@@ -1094,7 +1097,7 @@ namespace DirRX.NNVacations.Server
         return;
       }
       
-      SaveSubstitutionsToTask(assignment.Task.Id, substituteIdsString, systemIdsString, startDatesString, endDatesString);
+      SaveSubstitutionsToTask(assignment.Task.Id, substituteIdsString, systemIdsString, startDatesString, endDatesString, vacationTypeIdsString);
     }
 
     #endregion

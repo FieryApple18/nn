@@ -32,6 +32,11 @@ namespace DirRX.NNOtherProcesses.Structures.SubstitutionPersonalAccount
     /// Дата окончания.
     /// </summary>
     public DateTime EndDate { get; set; }
+
+    /// <summary>
+    /// ИД типа отпуска.
+    /// </summary>
+    public long? VacationTypeId { get; set; }
   }
 
 }
