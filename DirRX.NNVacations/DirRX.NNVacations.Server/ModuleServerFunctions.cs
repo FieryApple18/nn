@@ -720,8 +720,13 @@ namespace DirRX.NNVacations.Server
       var endDateTime = DateTime.Parse(endDate);
       
       var vacations = new List<Structures.Module.IVerificationVacationData>();
-      var vacationKind = GetVacationKindByIds(vacationTypeIds);
-      vacations.Add(Structures.Module.VerificationVacationData.Create(vacationKind, null, startDateTime, (endDateTime - startDateTime).Days + 1, endDateTime));
+      var vacationKinds = GetVacationKindsByIds(vacationTypeIds);
+      
+      // Для каждого типа отпуска создаём запись для валидации
+      foreach (var vacationKind in vacationKinds)
+      {
+        vacations.Add(Structures.Module.VerificationVacationData.Create(vacationKind, null, startDateTime, (endDateTime - startDateTime).Days + 1, endDateTime));
+      }
       
       var statement = GetDocumentTimeCollisions(substituteId, 0, vacations);
       if (statement != null)
@@ -764,23 +769,25 @@ namespace DirRX.NNVacations.Server
     }
 
     /// <summary>
-    /// Получить тип отпуска по строке с ИД через разделитель.
+    /// Получить список типов отпусков по строке с ИД через разделитель.
     /// </summary>
     /// <param name="vacationTypeIds">Строка с ИД типов отпусков через точку с запятой.</param>
-    /// <returns>Первый найденный тип отпуска или null.</returns>
-    private DirRX.OverrideSolution.IVacationKind GetVacationKindByIds(string vacationTypeIds)
+    /// <returns>Список найденных типов отпусков. Если строка пустая - возвращается первый доступный тип.</returns>
+    private List<DirRX.OverrideSolution.IVacationKind> GetVacationKindsByIds(string vacationTypeIds)
     {
+      var allKinds = DirRX.OverrideSolution.VacationKinds.GetAll().ToList();
+      
       if (string.IsNullOrEmpty(vacationTypeIds))
-        return DirRX.OverrideSolution.VacationKinds.GetAll().FirstOrDefault();
+        return allKinds.Take(1).ToList();
       
       var ids = vacationTypeIds.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
                                .Select(long.Parse)
                                .ToList();
       
       if (!ids.Any())
-        return DirRX.OverrideSolution.VacationKinds.GetAll().FirstOrDefault();
+        return allKinds.Take(1).ToList();
       
-      return DirRX.OverrideSolution.VacationKinds.GetAll(v => ids.Contains(v.Id)).FirstOrDefault();
+      return allKinds.Where(v => ids.Contains(v.Id)).ToList();
     }
 
     /// <summary>
