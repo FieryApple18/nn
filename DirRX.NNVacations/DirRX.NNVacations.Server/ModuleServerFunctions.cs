@@ -709,17 +709,18 @@ namespace DirRX.NNVacations.Server
     /// <param name="substituteId">ИД замещающего сотрудника для проверки.</param>
     /// <param name="startDate">Дата начала замещения в строковом формате.</param>
     /// <param name="endDate">Дата окончания замещения в строковом формате.</param>
+    /// <param name="vacationTypeIds">Строка с ИД типов отпусков через точку с запятой.</param>
     /// <returns>Сообщение об ошибке или пустая строка, если замещающий доступен.</returns>
     [Public(WebApiRequestType = RequestType.Post)]
-    public virtual string ValidateSubstitute(long substituteId, string startDate, string endDate)
+    public virtual string ValidateSubstitute(long substituteId, string startDate, string endDate, string vacationTypeIds)
     {
-      Logger.DebugFormat("ValidateSubstitute. Start. Params: substituteId={0}, startDate={1}, endDate={2}.", substituteId, startDate, endDate);
+      Logger.DebugFormat("ValidateSubstitute. Start. Params: substituteId={0}, startDate={1}, endDate={2}, vacationTypeIds={3}.", substituteId, startDate, endDate, vacationTypeIds);
       
       var startDateTime = DateTime.Parse(startDate);
       var endDateTime = DateTime.Parse(endDate);
       
       var vacations = new List<Structures.Module.IVerificationVacationData>();
-      var vacationKind = DirRX.OverrideSolution.VacationKinds.GetAll().FirstOrDefault();
+      var vacationKind = GetVacationKindByIds(vacationTypeIds);
       vacations.Add(Structures.Module.VerificationVacationData.Create(vacationKind, null, startDateTime, (endDateTime - startDateTime).Days + 1, endDateTime));
       
       var statement = GetDocumentTimeCollisions(substituteId, 0, vacations);
@@ -760,6 +761,26 @@ namespace DirRX.NNVacations.Server
       Logger.Debug("ValidateSubstitute. Completed successfully. No collisions detected.");
       
       return string.Empty;
+    }
+
+    /// <summary>
+    /// Получить тип отпуска по строке с ИД через разделитель.
+    /// </summary>
+    /// <param name="vacationTypeIds">Строка с ИД типов отпусков через точку с запятой.</param>
+    /// <returns>Первый найденный тип отпуска или null.</returns>
+    private DirRX.OverrideSolution.IVacationKind GetVacationKindByIds(string vacationTypeIds)
+    {
+      if (string.IsNullOrEmpty(vacationTypeIds))
+        return DirRX.OverrideSolution.VacationKinds.GetAll().FirstOrDefault();
+      
+      var ids = vacationTypeIds.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                               .Select(long.Parse)
+                               .ToList();
+      
+      if (!ids.Any())
+        return DirRX.OverrideSolution.VacationKinds.GetAll().FirstOrDefault();
+      
+      return DirRX.OverrideSolution.VacationKinds.GetAll(v => ids.Contains(v.Id)).FirstOrDefault();
     }
 
     /// <summary>
