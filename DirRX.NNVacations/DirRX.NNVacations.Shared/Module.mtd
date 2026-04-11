@@ -125,6 +125,35 @@
       ]
     }
   ],
+  "Blocks": [
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "cf6ebff4-caba-47be-9b69-af2f9a89a487",
+      "Name": "CreateSubstitutionsScriptBlock",
+      "HandledEvents": [
+        "CreateSubstitutionsScriptBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide"
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "36a2af78-a485-4e42-a106-ff30547900a1",
+      "Name": "UpdateSubstitutionsScriptBlock",
+      "HandledEvents": [
+        "UpdateSubstitutionsScriptBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide"
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "aa529d65-7175-44ad-b05f-3171ae210a85",
+      "Name": "CloseSubstitutionsScriptBlock",
+      "HandledEvents": [
+        "CloseSubstitutionsScriptBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide"
+    }
+  ],
   "ClientAssemblyName": "DirRX.NNVacations.Client",
   "ClientBaseAssemblyName": "DirRX.NNVacations.ClientBase",
   "ClientBaseNamespace": "DirRX.NNVacations.ClientBase",
@@ -1654,6 +1683,18 @@
       "WebApiRequestType": "Post"
     },
     {
+      "Name": "CloseSubstitutionsFromTask",
+      "Parameters": [
+        {
+          "Name": "task",
+          "ParameterType": "global::Sungero.Workflow.ITask",
+          "ParameterTypeFullName": "Sungero.Workflow.ITask, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    },
+    {
       "Name": "CreateCompensationForPartOfAnnualPaidLeave",
       "Parameters": [
         {
@@ -1754,6 +1795,18 @@
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText"
+    },
+    {
+      "Name": "CreateSubstitutionsFromTask",
+      "Parameters": [
+        {
+          "Name": "task",
+          "ParameterType": "global::Sungero.Workflow.ITask",
+          "ParameterTypeFullName": "Sungero.Workflow.ITask, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     },
     {
       "Name": "CreateVacationNoticesAndStartTasks",
@@ -2454,6 +2507,18 @@
       "WebApiRequestType": "Get"
     },
     {
+      "Name": "GetCreateDateForSubstitution",
+      "Parameters": [
+        {
+          "Name": "substitution",
+          "ParameterType": "global::Sungero.CoreEntities.ISubstitution",
+          "ParameterTypeFullName": "Sungero.CoreEntities.ISubstitution, Sungero.Domain.Shared"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
       "Name": "GetCurrentCompensationAvailableDays",
       "Parameters": [
         {
@@ -2595,6 +2660,34 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetEmployeesForSubstitution",
+      "Parameters": [
+        {
+          "Name": "initiatorId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "query",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "takeCount",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "skipCount",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::HRPro.HRCommons.Structures.Module.ISubstituteEmployeeInfo>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
       "WebApiRequestType": "Get"
     },
     {
@@ -2793,6 +2886,24 @@
       "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
+      "Name": "GetSubstituteAndSystemNames",
+      "Parameters": [
+        {
+          "Name": "substituteIdsString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "systemIdsString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNVacations.Structures.Module.ISubstituteNamesResult",
+      "ReturnTypeFullName": "DirRX.NNVacations.Structures.Module.ISubstituteNamesResult",
+      "WebApiRequestType": "Post"
+    },
+    {
       "Name": "GetSubstitutePositionAndJobTitle",
       "Parameters": [
         {
@@ -2801,6 +2912,31 @@
           "ParameterTypeFullName": "System.Int64"
         }
       ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetSubstitutionsForTaskFromAssignment",
+      "Parameters": [
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.ISubstitutionData>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetSubstitutionSystems",
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IOptionItem>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetSubstitutionSystemsInfo",
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
       "WebApiRequestType": "Get"
@@ -3075,6 +3211,19 @@
       "ReturnTypeFullName": "System.DateTime"
     },
     {
+      "Name": "GetVacationInfoByAssignmentId",
+      "Parameters": [
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNVacations.Structures.Module.IVacationInfoForSubstitutionSetup",
+      "ReturnTypeFullName": "DirRX.NNVacations.Structures.Module.IVacationInfoForSubstitutionSetup",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "GetVacationReasonName",
       "Parameters": [
         {
@@ -3206,6 +3355,72 @@
       "WebApiRequestType": "Post"
     },
     {
+      "Name": "SaveSubstitutionsToTask",
+      "Parameters": [
+        {
+          "Name": "taskId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "substituteIdsString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "systemIdsString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "startDatesString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "endDatesString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "SaveSubstitutionsToTaskFromAssignment",
+      "Parameters": [
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "substituteIdsString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "systemIdsString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "startDatesString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "endDatesString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void",
+      "WebApiRequestType": "Post"
+    },
+    {
       "Name": "SendingStatusVacationNoticeToSap",
       "Parameters": [
         {
@@ -3334,6 +3549,18 @@
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult",
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessIncomingMessageResult"
+    },
+    {
+      "Name": "UpdateSubstitutionsFromTask",
+      "Parameters": [
+        {
+          "Name": "task",
+          "ParameterType": "global::Sungero.Workflow.ITask",
+          "ParameterTypeFullName": "Sungero.Workflow.ITask, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
     },
     {
       "Name": "UpdateWidgetMyVacations",
@@ -3593,6 +3820,34 @@
       "WebApiRequestType": "Post"
     },
     {
+      "Name": "ValidateSubstitute",
+      "Parameters": [
+        {
+          "Name": "substituteId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "startDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "endDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "vacationKindId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
+    },
+    {
       "Name": "ValidateVacationCompensation",
       "Parameters": [
         {
@@ -3840,6 +4095,10 @@
           "TypeFullName": "global::System.String"
         },
         {
+          "Name": "VacationTypeId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
           "Name": "CurrentDateStart",
           "IsNullable": true,
           "TypeFullName": "global::System.DateTime"
@@ -3922,6 +4181,33 @@
           "IsList": true,
           "IsNullable": true,
           "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IAdditionalVacationData>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
+      "Name": "DataForSubstitutionFromTask",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Employee",
+          "IsEntity": true,
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.OverrideSolution.IEmployee"
+        },
+        {
+          "Name": "OrderId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "OriginalPeriod",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.NNVacations.Structures.Module.IVacationPeriod"
+        },
+        {
+          "Name": "RecallPeriod",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.NNVacations.Structures.Module.IVacationPeriod"
         }
       ],
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
@@ -4586,6 +4872,58 @@
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
     },
     {
+      "Name": "SubstituteNamesResult",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "SubstituteNamesString",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SystemNamesString",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
+      "Name": "SubstitutionData",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "SubstituteId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "SubstituteName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SystemId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "SystemName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "StartDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "EndDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
       "Name": "VacationApprovalDateInfo",
       "IsIsolated": true,
       "IsPublic": true,
@@ -5036,6 +5374,23 @@
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
     },
     {
+      "Name": "VacationInfoForSubstitutionSetup",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "VacationKindId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "Periods",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IVacationPeriodString>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
       "Name": "VacationInfoIFS10392",
       "IsIsolated": true,
       "IsPublic": true,
@@ -5209,6 +5564,40 @@
         {
           "Name": "DayCount",
           "TypeFullName": "global::System.Int32"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
+      "Name": "VacationPeriod",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "StartDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "EndDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
+      "Name": "VacationPeriodString",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "StartDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "EndDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
         }
       ],
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
@@ -5499,7 +5888,14 @@
     "EmptyShiftDaysWhenRecallError",
     "CurrentVacationTypeNotFoundError",
     "ErrorDeadlineForApproval",
-    "RequiredShiftDaysWhenRecall"
+    "RequiredShiftDaysWhenRecall",
+    "SubstitutionNote",
+    "GetSubstitutionTextForEmployeeFunctionName",
+    "GetSubstitutionTextForEmployeeFunctionDescription",
+    "SubstitutionNote_AutoCreated",
+    "SubstituteCollisionError",
+    "SubstituteCheckError",
+    "VacationKindNotFoundError"
   ],
   "ServerAssemblyName": "DirRX.NNVacations.Server",
   "ServerNamespace": "DirRX.NNVacations.Server",

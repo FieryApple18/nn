@@ -30,7 +30,7 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "e0f0b0e7-0b25-4f19-952c-9379df7bec12";
         public const string Name = "Регистрация командировок";
       }
-      
+
       /// <summary>
       /// Программа личных пожертвований.
       /// </summary>
@@ -41,7 +41,7 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "9af4f160-650a-4a9d-899c-3b1d16cc5b82";
         public const string Name = "Программа личных пожертвований";
       }
-      
+
       /// <summary>
       /// Регистрация работы ВД/ПД/СР.
       /// </summary>
@@ -52,7 +52,7 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "ee24a1eb-56ba-42a8-a5ca-8b237cb81f14";
         public const string Name = "Регистрация работы ВД/ПД/СР";
       }
-      
+
       /// <summary>
       /// Регистрация выплат по ЛНА.
       /// </summary>
@@ -62,6 +62,17 @@ namespace DirRX.NNOtherProcesses.Constants
         [Public]
         public const string Guid = "9a0594f8-2b23-4879-9f3a-8e96dba16826";
         public const string Name = "Регистрация выплат по ЛНА";
+      }
+
+      /// <summary>
+      /// Замещения ЛК.
+      /// </summary>
+      [Public]
+      public static class Substitution
+      {
+        [Public]
+        public const string Guid = "3404F89F-BB72-47E6-8F82-CEB5C72349DC";
+        public const string Name = "Замещения";
       }
     }
     #endregion
@@ -455,6 +466,28 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "6A24654B-278C-41CA-B5C7-7B2DC5D6B5DB";
         public const string Name = "Заявление на выплату по ЛНА. Организация \"ПАО ГМК Норильский Никель\"";
       }
+      
+      /// <summary>
+      /// Количество дней хранения записей справочника "Замещение ЛК".
+      /// </summary>
+      [Public]
+      public static class SubstitutionPersonalAccountRetentionDays
+      {
+        [Public]
+        public const string Guid = "CBCFF959-6A18-486D-889B-2BB4BC32B5FE";
+        public const string Name = "Замещения. Количество дней хранения записей справочника \"Замещение ЛК\"";
+      }
+      
+      /// <summary>
+      /// Идентификатор системы КЭДО по умолчанию в справочнике "Список систем для замещения".
+      /// </summary>
+      [Public]
+      public static class SubstitutionSystemKedoSystemId
+      {
+        [Public]
+        public const string Guid = "46877AE3-E69A-4D03-BBCC-E0DC4BBA17AC";
+        public const string Name = "Замещения. ИД системы КЭДО по умолчанию для создания замещений в RX";
+      }
     }
 
     /// <summary>
@@ -507,6 +540,17 @@ namespace DirRX.NNOtherProcesses.Constants
       /// Значение по умолчанию. Формат документа "Приказ на вплату по ЛНА".
       /// </summary>
       public const string LrdPaymentOrderExtension = "doc";
+      
+      /// <summary>
+      /// Значение по умолчанию. Количество дней хранения записей справочника "Замещение ЛК".
+      /// </summary>
+      public const int SubstitutionPersonalAccountRetentionDays = 365;
+
+      /// <summary>
+      /// Идентификатор системы КЭДО по умолчанию в справочнике "Список систем для замещения".
+      /// </summary>
+      [Public]
+      public const string SubstitutionSystemKedoSystemId = "IS0000098";
     }
     
     #endregion

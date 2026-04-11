@@ -1516,7 +1516,17 @@ namespace DirRX.NNCommons.Server
     public void CreateConstantsGroup(string name, string guid)
     {
       if (ConstantsGroups.GetAll(p => p.GUID == guid).Any())
+      {
+        var constant = ConstantsGroups.GetAll(p => p.GUID == guid).FirstOrDefault();
+        
+        if (!string.Equals(constant.Name, name))
+        {
+          constant.Name = name;
+          constant.Save();
+        }
+        
         return;
+      }
       
       var newConstantsGroup = ConstantsGroups.Create();
       newConstantsGroup.Name = name;

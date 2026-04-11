@@ -133,7 +133,21 @@ namespace DirRX.NNOtherProcesses.Server
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.LrdPaymentStatementBusinessUnit.Name,
                                                              true, DirRX.OverrideSolution.BusinessUnits.Null,
                                                              Constants.Module.ConstantsSetting.LrdPaymentStatementBusinessUnit.Guid,
-                                                             Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);      
+                                                             Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
+      
+      // Количество дней хранения записей "Замещение ЛК".
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.SubstitutionPersonalAccountRetentionDays.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsDefaultValues.SubstitutionPersonalAccountRetentionDays,
+                                                             Constants.Module.ConstantsSetting.SubstitutionPersonalAccountRetentionDays.Guid,
+                                                             Constants.Module.ConstantsGroup.Substitution.Guid);
+      
+      // Идентификатор системы КЭДО по умолчанию в справочнике "Список систем для замещения".
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.SubstitutionSystemKedoSystemId.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsDefaultValues.SubstitutionSystemKedoSystemId,
+                                                             Constants.Module.ConstantsSetting.SubstitutionSystemKedoSystemId.Guid,
+                                                             Constants.Module.ConstantsGroup.Substitution.Guid);
     }
     
     /// <summary>
@@ -190,6 +204,7 @@ namespace DirRX.NNOtherProcesses.Server
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.PersonalDonationProgram.Name, Constants.Module.ConstantsGroup.PersonalDonationProgram.Guid);
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Name, Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Name, Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
+      NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.Substitution.Name, Constants.Module.ConstantsGroup.Substitution.Guid);
     }
     
     /// <summary>
@@ -545,6 +560,15 @@ namespace DirRX.NNOtherProcesses.Server
       
       #endregion
       
+      #region Список систем для замещения.
+      
+      error += Functions.SubstitutionSystem.CreateRecord(DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name,
+                                                         DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name,
+                                                         DirRX.NNOtherProcesses.PublicConstants.Module.ConstantsDefaultValues.SubstitutionSystemKedoSystemId,
+                                                         DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name);
+      
+      #endregion
+      
       if (!string.IsNullOrEmpty(error))
         InitializationLogger.Debug(error);
     }
@@ -555,11 +579,18 @@ namespace DirRX.NNOtherProcesses.Server
     private static void GrantRightsOnDatabooks()
     {
       InitializationLogger.Debug("Init Other processes module: Grant rights on databooks.");
+      
       NNOtherProcesses.WeekendWorkCompensationKinds.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
       NNOtherProcesses.WeekendWorkCompensationKinds.AccessRights.Save();
       
       NNOtherProcesses.WeekendWorkReasons.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
       NNOtherProcesses.WeekendWorkReasons.AccessRights.Save();
+      
+      NNOtherProcesses.SubstitutionSystems.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
+      NNOtherProcesses.SubstitutionSystems.AccessRights.Save();
+      
+      NNOtherProcesses.SubstitutionPersonalAccounts.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
+      NNOtherProcesses.SubstitutionPersonalAccounts.AccessRights.Save();
       
       var hrUsers = Roles.GetAll(x => x.Sid == HRPro.HRDocFlow.PublicConstants.Module.Roles.HRDocFlowUsers).FirstOrDefault();
       if (hrUsers != null)
@@ -571,6 +602,6 @@ namespace DirRX.NNOtherProcesses.Server
         InitializationLogger.Debug("Не найдена роль \"Пользователи модуля Кадровый ЭДО\"");
       
     }
-    
+
   }
 }

@@ -155,6 +155,31 @@
     </facilityParameter>
     <facilityParameter type="FacilityParameterNumber" name="TemplateWithTableId" defaultValue="" isRequired="false" isCollection="false" />
     <facilityParameter type="FacilityParameterString" name="IsVacationPeriodBroken" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="SubstituteIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SystemIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StartDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="EndDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SubstitutionsInfo" isRequired="false" isCollection="false">
+      <maxLength>5000</maxLength>
+      <multiline>true</multiline>
+      <isHidden>false</isHidden>
+    </facilityParameter>
   </facilityParameters>
   <facilityFormItems>
     <facilityFormItem type="FacilityFormParameter" name="PerformerInfo">
@@ -284,6 +309,88 @@
       <parameterName>Reason</parameterName>
       <calculateFunction><![CDATA[]]></calculateFunction>
       <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <content>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_OPTIONAL_TEXT</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>false</isHidden>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_ADD</text>
+      <icon>user</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <onClickEventHandler>
+        <![CDATA[          
+          var initiatorId = functions.getValues().PerformerId;
+          var assignmentId = functions.getValues().AssignmentId;
+          var vacationTable = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+          var vacationPeriods = [];
+          var vacationTypeId = 0;
+          
+          if (vacationTable && vacationTable.length > 0) {
+            var firstRowValues = vacationTable[0].rowValues;
+            if (firstRowValues.VacationType){
+              vacationTypeId = firstRowValues.VacationType;
+            }
+            vacationTable.forEach(function(row) {
+              if (row.rowValues.VacationType && row.rowValues.BeginDate && row.rowValues.BeginDate.trim() !='' && row.rowValues.Duration)
+                vacationPeriods.push({
+                  StartDate: row.rowValues.BeginDate,
+                  EndDate: row.rowValues.EndDate
+                });
+            });
+          }
+          
+          if (!initiatorId || !assignmentId || vacationPeriods.length === 0 || !vacationTypeId) {
+            ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_ERROR_MISSING_DATA'), 'warning', true);
+          }
+          
+          functions.setIsItemHidden('ShowSubstitutesButton', false);
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          
+          window.prepareSubstitutionParameters();
+          
+          var substituteIdsString = functions.getValues().SubstituteIdsString;
+          var systemIdsString = functions.getValues().SystemIdsString;
+          var startDatesString = functions.getValues().StartDatesString;
+          var endDatesString = functions.getValues().EndDatesString;
+          
+          ESS.actions.facilityActions.runFacility(
+            {
+              id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' 
+            },
+            {
+              parameters: {
+                InitiatorId: initiatorId,
+                VacationPeriodsJson: JSON.stringify(vacationPeriods),
+                SubstituteIdsString: substituteIdsString,
+                SystemIdsString: systemIdsString,
+                StartDatesString: startDatesString,
+                EndDatesString: endDatesString,
+                VacationKindId: vacationTypeId
+              }
+            }
+          );
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton" name="ShowSubstitutesButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_SHOW</text>
+      <icon>chevron-bottom</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <onClickEventHandler>
+        <![CDATA[
+          console.log('[SHOW SUBSTITUTES] Button clicked');
+          window.showSubstitutionInfo();
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock" name="SubstitutionsInfoBlock">
+      <content>{{{SubstitutionsInfo}}}</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
     </facilityFormItem>
   </facilityFormItems>
   <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
@@ -419,15 +526,26 @@
         <property name="reason" binding="Reason" type="String" />
         <property name="FunctionName">NNVacations.FillNewVacationDatesForShift</property>
       </flowStep>
-      <flowStep index="13" name="CompleteReworkAssignment" title="Выполнить задание с результатом Исправлено" type="ChangeWorkItemStateStep">
+      <flowStep index="13" name="SaveSubstitutions" title="Сохранить замещения" type="ExecuteFunctionStep">
+        <property name="NextStepIndex">14</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.SaveSubstitutionsToTaskFromAssignment</property>
+        <property name="ExecutionMethod">Post</property>
+        <property name="assignmentId" binding="AssignmentId" type="Int" />
+        <property name="substituteIdsString" binding="SubstituteIdsString" type="String" />
+        <property name="systemIdsString" binding="SystemIdsString" type="String" />
+        <property name="startDatesString" binding="StartDatesString" type="String" />
+        <property name="endDatesString" binding="EndDatesString" type="String" />
+      </flowStep>
+      <flowStep index="14" name="CompleteReworkAssignment" title="Выполнить задание с результатом Исправлено" type="ChangeWorkItemStateStep">
         <property name="WorkItemName" binding="AssignmentType" />
         <property name="WorkItemId" binding="AssignmentId" />
         <property name="TargetSystem">HRPro</property>
-        <property name="NextStepIndex">14</property>
+        <property name="NextStepIndex">15</property>
         <property name="State">Complete</property>
         <property name="StateChangeReason">ForReapproving</property>
       </flowStep>
-      <flowStep index="14" title="Заполнить дату прекращения в задаче на согласование заявления" type="ExecuteFunctionStep">
+      <flowStep index="15" title="Заполнить дату прекращения в задаче на согласование заявления" type="ExecuteFunctionStep">
         <property name="TargetSystem">HRPro</property>
         <property name="NextStepIndex">-1</property>
         <property name="ExecutionMethod">POST</property>
@@ -566,7 +684,33 @@
         functions.setValue('DocumentKindId', docKindId);
         functions.setValue('IsFromEssAccount', true);
       });
-
+      
+      ESS.network.sendRequest('/api/functions/GetSubstitutionsForTaskFromAssignment?assignmentId=' + encodeURIComponent(assignmentId))
+      .then(function(response) {
+        if (response && response.length > 0) {
+          var substituteIds = response.map(function(item) { return item.SubstituteId; }).join(';');
+          var systemIds = response.map(function(item) { return item.SystemId; }).join(';');
+          var startDates = response.map(function(item) { return item.StartDate; }).join(';');
+          var endDates = response.map(function(item) { return item.EndDate; }).join(';');
+          var substituteNames = response.map(function(item) { return item.SubstituteName || ''; }).join(';');
+          var systemNames = response.map(function(item) { return item.SystemName || ''; }).join(';');
+          
+          functions.setValue('SubstituteIdsString', substituteIds);
+          functions.setValue('SystemIdsString', systemIds);
+          functions.setValue('StartDatesString', startDates);
+          functions.setValue('EndDatesString', endDates);
+          
+          localStorage.setItem('NNSubstitutionSetup_Data', JSON.stringify({ 
+            SubstituteIdsString: substituteIds, 
+            SubstituteNamesString: substituteNames,
+            SystemIdsString: systemIds, 
+            SystemNamesString: systemNames,
+            StartDatesString: startDates, 
+            EndDatesString: endDates
+          }))
+        }
+      })
+      
       ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
       .then(function (employee){
         if (employee.positions.length == 1) {
@@ -580,8 +724,111 @@
       reject();
     });
   ]]></openingEventHandler>
-  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <openedEventHandler>
+    <![CDATA[
+      window.getSubstitutionDataFromStorage = function() {
+        try {
+          var storedData = localStorage.getItem('NNSubstitutionSetup_Data');
+          
+          if (!storedData || storedData === '' || storedData === 'null') {
+            console.log('[getSubstitutionDataFromStorage] No data in localStorage');
+            return null;
+          }
+          
+          var data = JSON.parse(storedData);
+          
+          if (!data.SubstituteIdsString || data.SubstituteIdsString === '') {
+            console.log('[getSubstitutionDataFromStorage] No substitute IDs');
+            return null;
+          }
+          
+          var result = {
+            substituteIds: data.SubstituteIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            substituteNames: data.SubstituteNamesString ? data.SubstituteNamesString.split(';') : [],
+            systemIds: data.SystemIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            systemNames: data.SystemNamesString ? data.SystemNamesString.split(';') : [],
+            startDates: data.StartDatesString.split(';').filter(function(date) { return date && date !== ''; }),
+            endDates: data.EndDatesString.split(';').filter(function(date) { return date && date !== ''; })
+          };
+          
+          console.log('[getSubstitutionDataFromStorage] Data loaded:', result.substituteIds.length, 'substitutes');
+          return result;
+        }
+        catch (e) {
+          console.error('[getSubstitutionDataFromStorage] Parse error:', e);
+          return null;
+        }
+      };
+
+      window.showSubstitutionInfo = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[showSubstitutionInfo] No data to display');
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          functions.setIsItemHidden('ShowSubstitutesButton', true);
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+        
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        functions.setIsItemHidden('SubstitutionsInfoBlock', false);
+        functions.setIsItemHidden('ShowSubstitutesButton', false);
+        
+        console.log('[showSubstitutionInfo] Info displayed');
+        return true;
+      };
+
+      window.prepareSubstitutionParameters = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[prepareSubstitutionParameters] No data to prepare');
+          
+          functions.setValue('SubstituteIdsString', '');
+          functions.setValue('SystemIdsString', '');
+          functions.setValue('StartDatesString', '');
+          functions.setValue('EndDatesString', '');
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+		
+        functions.setValue('SubstituteIdsString', data.substituteIds.join(';'));
+        functions.setValue('SystemIdsString', data.systemIds.join(';'));
+        functions.setValue('StartDatesString', data.startDates.join(';'));
+        functions.setValue('EndDatesString', data.endDates.join(';'));
+        
+        console.log('[prepareSubstitutionParameters] Parameters set:', data.substituteIds.length, 'substitutes');
+        return true;
+      };
+    ]]>
+  </openedEventHandler>
   <beforeSubmitEventHandler><![CDATA[
+    window.prepareSubstitutionParameters();
+    
     var initiatorId = functions.getValues().PerformerId;
     var noticeId = functions.getValues().NoticeId;
     var statementId = functions.getValues().StatementId;
@@ -631,7 +878,38 @@
       ESS.scripts.HRProVacations.validateShiftVacationData({ functions, initiatorId, statementId, noticeId, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray, formattedVacationsOld })
       .then((success) => { 
         ESS.toasts.showToast(ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO'), dateApprovalStr), 'warning', false);
-        resolve();
+        
+        var substitutionsInfo = functions.getValues().SubstitutionsInfo;
+        if (!substitutionsInfo || substitutionsInfo === '' || substitutionsInfo === 'null') {
+          resolve();
+        } else {
+          var vacationTable = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+          var vacationPeriods = [];
+          if (vacationTable && vacationTable.length > 0) {
+            vacationTable.forEach(function(row) {
+              if (row.rowValues.VacationType && row.rowValues.BeginDate && row.rowValues.BeginDate.trim() !='' && row.rowValues.Duration)
+                vacationPeriods.push({
+                  StartDate: row.rowValues.BeginDate,
+                  EndDate: row.rowValues.EndDate
+                });
+            });
+          }
+          
+          ESS.scripts.HRProVacations.validateSubstitutionDates({ VacationPeriodsJson: JSON.stringify(vacationPeriods), StartDatesString: functions.getValues().StartDatesString || '', EndDatesString: functions.getValues().EndDatesString || '', IsCallingService: true })
+          .then(function(substitutionResult) {
+            if (substitutionResult && !substitutionResult.isValid) {
+              if (substitutionResult.errors && substitutionResult.errors.length > 0) {
+                ESS.toasts.showToast(substitutionResult.errors[0].message, 'danger', true);
+                reject();
+                return;
+              }
+            }
+            resolve();
+          })
+          .catch(function (error) {
+            reject();
+          });
+        }
       }, (error) => { reject() });
     })
     .catch(function (error) {
@@ -639,6 +917,14 @@
     });
   ]]></beforeSubmitEventHandler>
   <closingEventHandler><![CDATA[ESS.toasts.hideToast(window.durationError); resolve();]]></closingEventHandler>
-  <closedEventHandler><![CDATA[if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {ESS.closeElement(sender.parent); ESS.widgets.updateWidgets();}]]></closedEventHandler>
+  <closedEventHandler>
+    <![CDATA[
+      localStorage.removeItem('NNSubstitutionSetup_Data');
+    
+      if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+        ESS.closeElement(sender.parent); ESS.widgets.updateWidgets();
+      }
+    ]]>
+  </closedEventHandler>
   <successMessage>@HRPROVACATIONS.FACILITIES_SHIFTVACATIONFROMAPPROVAL_SUCCESSMESSAGE</successMessage>
 </facility>

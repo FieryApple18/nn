@@ -160,4 +160,7 @@
   <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_140490f5cd1941efb9fa48c5cb446360" xml:space="preserve">
     <value>Supernika notice text</value>
   </data>
+  <data name="Property_SubstitutionsDirRX" xml:space="preserve">
+    <value>Substitutions</value>
+  </data>
 </root>

@@ -309,6 +309,16 @@
       "Code": "TransferTaskId",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "5444ecb6-040d-48a5-9ed0-14ed0bf8d715"
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "82902710-b0c2-4bfa-b482-eaf153e1c0b7",
+      "Name": "SubstitutionsDirRX",
+      "Code": "RegistrationO2",
+      "EntityGuid": "ee6fcb0d-54ea-4885-bc00-ec134f4be8bd",
+      "IsShowedInList": false,
+      "PreviousPropertyGuid": "362b1027-cc76-459c-918a-28ae48dae100",
+      "Versions": []
     }
   ],
   "PublicFunctions": [

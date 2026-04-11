@@ -349,4 +349,25 @@
   <data name="RequiredShiftDaysWhenRecall" xml:space="preserve">
     <value>For the current type of vacation, you must specify the shifting dates.</value>
   </data>
+  <data name="SubstitutionNote" xml:space="preserve">
+    <value>Created automatically due to employee vacation</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionName" xml:space="preserve">
+    <value>Get substitution information</value>
+  </data>
+  <data name="GetSubstitutionTextForEmployeeFunctionDescription" xml:space="preserve">
+    <value>Returns text with information about substitute employees</value>
+  </data>
+  <data name="SubstitutionNote_AutoCreated" xml:space="preserve">
+    <value>Created automatically due to employee vacation, {0}, order ID: {1}.</value>
+  </data>
+  <data name="SubstituteCollisionError" xml:space="preserve">
+    <value>The employee will not be able to perform substitution on the specified dates, as they have a statement registered for periods: {0}</value>
+  </data>
+  <data name="SubstituteCheckError" xml:space="preserve">
+    <value>Substitute check error</value>
+  </data>
+  <data name="VacationKindNotFoundError" xml:space="preserve">
+    <value>The kind of vacation could not be identified</value>
+  </data>
 </root>

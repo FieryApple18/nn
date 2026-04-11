@@ -152,7 +152,32 @@
       <maxSize>15728640</maxSize>
       <fileTypes>.doc,.docx,.pdf,.png,.jpg,.tiff,.jpeg</fileTypes>
     </facilityParameter>
-  </facilityParameters>
+    <facilityParameter type="FacilityParameterString" name="SubstituteIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SystemIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StartDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="EndDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SubstitutionsInfo" isRequired="false" isCollection="false">
+      <maxLength>5000</maxLength>
+      <multiline>true</multiline>
+      <isHidden>false</isHidden>
+    </facilityParameter>
+  </facilityParameters>  
   <facilityFormItems>
     <facilityFormItem type="FacilityFormParameter">
       <hint />
@@ -364,6 +389,75 @@
         });
       ]]></valueChangedEventHandler>
     </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <content>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_OPTIONAL_TEXT</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>false</isHidden>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_ADD</text>
+      <icon>user</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <onClickEventHandler>
+        <![CDATA[
+          var initiatorId = functions.getValues().Initiator;
+          var vacationStartDate = functions.getValues().BeginDate;
+          var vacationEndDate = functions.getValues().EndDate;
+          var vacationTypeId = functions.getValues().VacationType;
+          
+          if (!initiatorId || !vacationStartDate || !vacationEndDate || !vacationTypeId) {
+            ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_ERROR_MISSING_DATA'), 'warning', true);
+            return;
+          }
+          
+          functions.setIsItemHidden('ShowSubstitutesButton', false);
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          
+          window.prepareSubstitutionParameters();
+          
+          var substituteIdsString = functions.getValues().SubstituteIdsString;
+          var systemIdsString = functions.getValues().SystemIdsString;
+          var startDatesString = functions.getValues().StartDatesString;
+          var endDatesString = functions.getValues().EndDatesString;
+          
+          ESS.actions.facilityActions.runFacility(
+            {
+              id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' 
+            },
+            {
+              parameters: {
+                InitiatorId: initiatorId,
+                VacationStartDate: vacationStartDate,
+                VacationEndDate: vacationEndDate,
+                SubstituteIdsString: substituteIdsString,
+                SystemIdsString: systemIdsString,
+                StartDatesString: startDatesString,
+                EndDatesString: endDatesString,
+                VacationKindId: vacationTypeId
+              }
+            }
+          );
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton" name="ShowSubstitutesButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_SHOW</text>
+      <icon>chevron-bottom</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <onClickEventHandler>
+        <![CDATA[
+          console.log('[SHOW SUBSTITUTES] Button clicked');
+          window.showSubstitutionInfo();
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock" name="SubstitutionsInfoBlock">
+      <content>{{{SubstitutionsInfo}}}</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
+    </facilityFormItem>
     <facilityFormItem type="FacilityFormParameter">
       <hint />
       <isReadOnly>false</isReadOnly>
@@ -530,12 +624,16 @@
         <property name="NeedsReview">False</property>
         <property name="Importance">Normal</property>
         <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="SubstituteIdsDirRX" binding="SubstituteIdsString" type="String" />
+        <property name="SystemIdsDirRX" binding="SystemIdsString" type="String" />
+        <property name="StartDatesDirRX" binding="StartDatesString" type="String" />
+        <property name="EndDatesDirRX" binding="EndDatesString" type="String" />
         <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
       </flowStep>
     </flowSteps>
   </facilityFlowScheme>
   <openingEventHandler><![CDATA[
-    if (window.isFacilityRunning ?? false) {
+  if (window.isFacilityRunning ?? false) {
     reject();
   }
   else {
@@ -611,39 +709,144 @@
     });
   }
   ]]></openingEventHandler>
-  <openedEventHandler><![CDATA[
-    console.log('openedEventHandler. Старт события. ИД текущего инициатора = ' + functions.getValues().Initiator);
-    var initiatorId = functions.getValues().Initiator;
-    ESS.network.sendRequest(`/api/functions/GetInstructionWithLinkLNA?employeeId=${initiatorId}`)
-    .then(function (instruction) {
-      if (typeof instruction === "string") {
-        if (instruction) {
-          functions.setValue('Instruction', instruction);
-          console.log('openedEventHandler. Параметр Instruction установлен. instruction = ' + functions.getValues().Instruction);
-        }
-      } else {
-        console.log('openedEventHandler. Параметр Instruction не установлен. typeof instruction = ' + typeof instruction);
-        console.log('openedEventHandler. instruction = ' + instruction);
-      }
-    });
-    
-    window.setEndDate = function () {
+  <openedEventHandler>
+    <![CDATA[
+      console.log('openedEventHandler. Старт события. ИД текущего инициатора = ' + functions.getValues().Initiator);
+      
       var initiatorId = functions.getValues().Initiator;
-      var vacationTypeId = functions.getValues().VacationType;
-      var vacationReasonId = functions.getValues().VacationReason;
-      var beginDate = functions.getValues().BeginDate;
-      var duration = functions.getValues().Duration;
-      if (duration != null && beginDate != null) {
-        var url = `/api/functions/NNGetVacationEndDate?dateBegin=${beginDate}&duration=${duration}&userId=${initiatorId}&vacationTypeId=${vacationTypeId}&vacationReasonId=${vacationReasonId}`
-        ESS.network.sendRequest(url)
-        .then(function (newEndDateValue) {
-          functions.setValue('EndDate', newEndDateValue);
-        });
+      ESS.network.sendRequest(`/api/functions/GetInstructionWithLinkLNA?employeeId=${initiatorId}`)
+      .then(function (instruction) {
+        if (typeof instruction === "string") {
+          if (instruction) {
+            functions.setValue('Instruction', instruction);
+            console.log('openedEventHandler. Параметр Instruction установлен. instruction = ' + functions.getValues().Instruction);
+          }
+        } else {
+          console.log('openedEventHandler. Параметр Instruction не установлен. typeof instruction = ' + typeof instruction);
+          console.log('openedEventHandler. instruction = ' + instruction);
+        }
+      });
+      
+      window.setEndDate = function () {
+        var initiatorId = functions.getValues().Initiator;
+        var vacationTypeId = functions.getValues().VacationType;
+        var vacationReasonId = functions.getValues().VacationReason;
+        var beginDate = functions.getValues().BeginDate;
+        var duration = functions.getValues().Duration;
+        if (duration != null && beginDate != null) {
+          var url = `/api/functions/NNGetVacationEndDate?dateBegin=${beginDate}&duration=${duration}&userId=${initiatorId}&vacationTypeId=${vacationTypeId}&vacationReasonId=${vacationReasonId}`
+          ESS.network.sendRequest(url)
+          .then(function (newEndDateValue) {
+            functions.setValue('EndDate', newEndDateValue);
+          });
+        }
       }
-    }
-	console.log('openedEventHandler. Конец события. ИД текущего инициатора = ' + functions.getValues().Initiator);
-  ]]></openedEventHandler>
+      
+      window.getSubstitutionDataFromStorage = function() {
+        try {
+          var storedData = localStorage.getItem('NNSubstitutionSetup_Data');
+          
+          if (!storedData || storedData === '' || storedData === 'null') {
+            console.log('[getSubstitutionDataFromStorage] No data in localStorage');
+            return null;
+          }
+          
+          var data = JSON.parse(storedData);
+          
+          if (!data.SubstituteIdsString || data.SubstituteIdsString === '') {
+            console.log('[getSubstitutionDataFromStorage] No substitute IDs');
+            return null;
+          }
+          
+          var result = {
+            substituteIds: data.SubstituteIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            substituteNames: data.SubstituteNamesString ? data.SubstituteNamesString.split(';') : [],
+            systemIds: data.SystemIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            systemNames: data.SystemNamesString ? data.SystemNamesString.split(';') : [],
+            startDates: data.StartDatesString.split(';').filter(function(date) { return date && date !== ''; }),
+            endDates: data.EndDatesString.split(';').filter(function(date) { return date && date !== ''; })
+          };
+          
+          console.log('[getSubstitutionDataFromStorage] Data loaded:', result.substituteIds.length, 'substitutes');
+          return result;
+        }
+        catch (e) {
+          console.error('[getSubstitutionDataFromStorage] Parse error:', e);
+          return null;
+        }
+      };
+
+      window.showSubstitutionInfo = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[showSubstitutionInfo] No data to display');
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          functions.setIsItemHidden('ShowSubstitutesButton', true);
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+        
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        functions.setIsItemHidden('SubstitutionsInfoBlock', false);
+        functions.setIsItemHidden('ShowSubstitutesButton', false);
+        
+        console.log('[showSubstitutionInfo] Info displayed');
+        return true;
+      };
+
+      window.prepareSubstitutionParameters = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[prepareSubstitutionParameters] No data to prepare');
+          
+          functions.setValue('SubstituteIdsString', '');
+          functions.setValue('SystemIdsString', '');
+          functions.setValue('StartDatesString', '');
+          functions.setValue('EndDatesString', '');
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+		
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        functions.setValue('SubstituteIdsString', data.substituteIds.join(';'));
+        functions.setValue('SystemIdsString', data.systemIds.join(';'));
+        functions.setValue('StartDatesString', data.startDates.join(';'));
+        functions.setValue('EndDatesString', data.endDates.join(';'));
+        
+        console.log('[prepareSubstitutionParameters] Parameters set:', data.substituteIds.length, 'substitutes');
+        return true;
+      };
+      
+      console.log('openedEventHandler. Конец события. ИД текущего инициатора = ' + functions.getValues().Initiator);
+    ]]>
+  </openedEventHandler>
   <beforeSubmitEventHandler><![CDATA[
+    window.prepareSubstitutionParameters();
+
     var initiatorId = functions.getValues().Initiator;
     var vacationType = functions.getValues().VacationType;
     var vacationReason = functions.getValues().VacationReason;
@@ -651,17 +854,17 @@
     var endDate = functions.getValues().EndDate;
     var duration = functions.getValues().Duration;
     functions.setValue('Field_Продолжительность_отпуска', duration);
-    
+
     var getVacationTypeName = ESS.network.sendRequest(`/api/functions/GetVacationTypeName?vacationTypeId=${vacationType}`)
     .then(function (typeName) {
       functions.setValue('Field_Вид_отпуска', typeName);
     });
-    
+
     var getVacationReasonName = ESS.network.sendRequest(`/api/functions/GetVacationReasonName?id=${vacationReason}`)
     .then(function (reasonName) {
       functions.setValue('Field_Причина_отпуска', reasonName);
     });
-    
+
     var beginDateLocale = JSON.stringify(new Date(functions.getValues().BeginDate).toLocaleDateString('en-CA'));
     var endDateLocale = JSON.stringify(new Date(functions.getValues().EndDate).toLocaleDateString('en-CA'));
     var dates = [];
@@ -672,20 +875,47 @@
       functions.setValue('Field_Дата_начала_отпуска', dates[0]);
       functions.setValue('Field_Дата_окончания_отпуска', dates[1]);
     });
-    
+
     var validateVacationData = ESS.scripts.HRProVacations.validateOtherVacationData({ functions, initiatorId, statementId: 0, vacationType, vacationReason, beginDate, endDate, duration });
-    
-    Promise.all([
-      getVacationTypeName,
-      getVacationReasonName,
-      getFormatDates,
-      validateVacationData
-    ])
-    .then((success) => { resolve() }, (error) => { reject() });
-  ]]></beforeSubmitEventHandler>
+
+    var validateSubstitutionDates = function() {
+      var substitutionsInfo = functions.getValues().SubstitutionsInfo;
+      
+      if (!substitutionsInfo || substitutionsInfo === '' || substitutionsInfo === 'null') {
+        return Promise.resolve({ isValid: true, errors: [] });
+      }
+      
+      var vacationPeriodsJson = '';
+      if (beginDate && endDate) {
+        var periods = [{ StartDate: beginDate, EndDate: endDate }];
+        vacationPeriodsJson = JSON.stringify(periods);
+      }
+      
+      return ESS.scripts.HRProVacations.validateSubstitutionDates({ VacationPeriodsJson: vacationPeriodsJson, StartDatesString: functions.getValues().StartDatesString || '', EndDatesString: functions.getValues().EndDatesString || '', IsCallingService: true });
+    };
+
+    Promise.all([getVacationTypeName, getVacationReasonName, getFormatDates, validateVacationData, validateSubstitutionDates()])
+    .then(function(results) {
+      var substitutionResult = results[4];
+      if (substitutionResult && !substitutionResult.isValid) {
+        if (substitutionResult.errors && substitutionResult.errors.length > 0) {
+        ESS.toasts.showToast(substitutionResult.errors[0].message, 'danger', true);
+      }
+        reject();
+        return;
+      }
+      resolve();
+    })
+    .catch(function(error) {
+      reject();
+    });
+	]]></beforeSubmitEventHandler>
   <closingEventHandler><![CDATA[]]></closingEventHandler>
   <closedEventHandler><![CDATA[
     window.isFacilityRunning = false;
+    
+    localStorage.removeItem('NNSubstitutionSetup_Data');
+    
     if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') 
     {
       ESS.closeElement(sender.parent); 
