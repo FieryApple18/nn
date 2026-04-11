@@ -35,9 +35,6 @@
       <maxLength>250</maxLength>
       <multiline>false</multiline>
     </facilityParameter>
-    <facilityParameter type="FacilityParameterNumber" name="VacationTypeCurrent" defaultValue="" isRequired="false" isCollection="false">
-      <isInteger>true</isInteger>
-    </facilityParameter>
     <facilityParameter type="FacilityParameterDateTime" name="BeginDateCurrent" defaultValue="" isRequired="true" isCollection="false">
       <showTime>false</showTime>
     </facilityParameter>
@@ -63,7 +60,17 @@
     <facilityParameter type="FacilityParameterDateTime" name="EndDateShift" defaultValue="" isRequired="true" isCollection="false">
       <showTime>false</showTime>
     </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDateShiftNotRequired" defaultValue="" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDateShiftNotRequired" defaultValue="" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
     <facilityParameter type="FacilityParameterNumber" name="DurationShift" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DurationShiftNotRequired" defaultValue="" isRequired="false" isCollection="false">
       <isInteger>true</isInteger>
       <precision>0</precision>
     </facilityParameter>
@@ -198,6 +205,19 @@
             if(warning.length > 0)
               ESS.toasts.showToast(warning, 'warning', true);
           });
+          
+          var url = `/api/functions/CheckRequireShiftDaysWhenRecall?periodBegin=${beginDate}&periodEnd=${endDate}&currentVacationData=${currentVacationData}`;
+          ESS.network.sendRequest(url).then(function (warning){
+            var isRequired = warning.length == 0;
+            functions.setIsItemHidden('BeginDateShift', isRequired);
+            functions.setIsItemHidden('BeginDateShiftNotRequired', !isRequired);
+            functions.setIsItemHidden('EndDateShift', isRequired);
+            functions.setIsItemHidden('EndDateShiftNotRequired', !isRequired);
+            functions.setIsItemHidden('DurationShift', isRequired);
+            functions.setIsItemHidden('DurationShiftNotRequired', !isRequired);
+            if (!isRequired)
+              ESS.toasts.showToast(warning, 'warning', true);
+          });
 
           window.checkDurationShift();
           window.setDayCountCompensation();
@@ -209,7 +229,7 @@
       <hint />
       <label>@.FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_SHIFTPERIOD</label>
     </facilityFormItem>
-    <facilityFormItem type="FacilityFormParameter">
+    <facilityFormItem type="FacilityFormParameter" name="BeginDateShift">
       <isReadOnly>false</isReadOnly>
       <isHidden>false</isHidden>
       <showTitles>true</showTitles>
@@ -219,10 +239,11 @@
       <valueChangedEventHandler><![CDATA[
         window.checkDate(formItem.name, null, ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'));
         window.checkDate('EndDateShift', formItem.name, ESS.L('@HRPROVACATIONS.ERROR_DATE_END'));
+        functions.setValueQuiet('BeginDateShiftNotRequired', formItem.value);
         window.setDurationShift();
       ]]></valueChangedEventHandler>
     </facilityFormItem>
-    <facilityFormItem type="FacilityFormParameter">
+    <facilityFormItem type="FacilityFormParameter" name="EndDateShift">
       <isReadOnly>false</isReadOnly>
       <isHidden>false</isHidden>
       <showTitles>true</showTitles>
@@ -231,10 +252,11 @@
       <groupName>DateGroupShift</groupName>
       <valueChangedEventHandler><![CDATA[
         window.checkDate(formItem.name, 'BeginDateShift', ESS.L('@HRPROVACATIONS.ERROR_DATE_END'));
+        functions.setValueQuiet('EndDateShiftNotRequired', formItem.value);
         window.setDurationShift();
       ]]></valueChangedEventHandler>
     </facilityFormItem>
-    <facilityFormItem type="FacilityFormParameter">
+    <facilityFormItem type="FacilityFormParameter" name="DurationShift">
       <isReadOnly>true</isReadOnly>
       <isHidden>false</isHidden>
       <showTitles>true</showTitles>
@@ -256,6 +278,64 @@
           });
 
           window.checkDurationShift();
+          functions.setValueQuiet('DurationShiftNotRequired', formItem.value);
+          window.setDayCountCompensation();
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormGroup" name="DateGroupShiftNotRequired">
+      <hint />
+      <label>@.FACILITIES_NNSELFRECALLVACATIONEMPLOYEE_SHIFTPERIOD</label>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="BeginDateShiftNotRequired">
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_GETVACATION_VACATION_BEGINDATE</label>
+      <parameterName>BeginDateShiftNotRequired</parameterName>
+      <groupName>DateGroupShiftNotRequired</groupName>
+      <valueChangedEventHandler><![CDATA[  
+        window.checkDate(formItem.name, null, ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'));
+        window.checkDate('EndDateShiftNotRequired', formItem.name, ESS.L('@HRPROVACATIONS.ERROR_DATE_END'));
+        functions.setValueQuiet('BeginDateShift', formItem.value);
+        window.setDurationShift();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="EndDateShiftNotRequired">
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_GETVACATION_VACATION_ENDDATE</label>
+      <parameterName>EndDateShiftNotRequired</parameterName>
+      <groupName>DateGroupShiftNotRequired</groupName>
+      <valueChangedEventHandler><![CDATA[
+        window.checkDate(formItem.name, 'BeginDateShiftNotRequired', ESS.L('@HRPROVACATIONS.ERROR_DATE_END'));
+        functions.setValueQuiet('EndDateShift', formItem.value);
+        window.setDurationShift();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="DurationShiftNotRequired">
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER</label>
+      <parameterName>DurationShiftNotRequired</parameterName>
+      <groupName>DateGroupShiftNotRequired</groupName>
+      <valueChangedEventHandler><![CDATA[
+        if (formItem.value > 0) {
+          var initiatorId = functions.getValues().Initiator;
+          var beginRecall = functions.getValues().BeginDateRecall;
+          var endRecall = functions.getValues().EndDateRecall;
+          var beginShift = functions.getValues().BeginDateShift;
+          var endShift = functions.getValues().EndDateShift;
+          var currentVacationData = functions.getValues().CurrentVacationData;
+          var url = `/api/functions/CheckVacationHasHolidayShift?beginRecall=${beginRecall}&endRecall=${endRecall}&beginShift=${beginShift}&endShift=${endShift}&employeeId=${initiatorId}&currentVacationData=${currentVacationData}`;
+          ESS.network.sendRequest(url).then(function (warning){
+            if(warning.length > 0)
+              ESS.toasts.showToast(warning, 'warning', true);
+          });
+          window.checkDurationShift();
+          functions.setValueQuiet('DurationShift', formItem.value);
           window.setDayCountCompensation();
         }
       ]]></valueChangedEventHandler>
@@ -419,7 +499,6 @@
         <property name="NextStepIndex">13</property>
         <property name="ExecutionMethod">POST</property>
         <property name="document" binding="ImportedDocumentLinks" type="String" />
-        <property name="vacationTypeCurrentId" binding="VacationTypeCurrent" type="Int" />
         <property name="beginDateCurrent" binding="BeginDateCurrent" type="DateTimeOffSet" />
         <property name="endDateCurrent" binding="EndDateCurrent" type="DateTimeOffSet" />
         <property name="durationCurrent" binding="DurationCurrent" type="Int32" />
@@ -487,7 +566,6 @@
                         functions.setValue('InitiatorId', vacationData.InitiatorId);
                         functions.setValue('CurrentVacationData', JSON.stringify(vacationData.CurrentVacations));
                         functions.setValue('CurrentVacation', vacationData.VacationPeriod);
-                        functions.setValue('VacationTypeCurrent', vacationData.VacationTypeId);
                         functions.setValue('StatementId', vacationData.StatementId);
                         functions.setValue('PerformerInfo', vacationData.PerformerInfo);
                         functions.setValue('Reason', vacationData.Reason);
@@ -623,7 +701,6 @@
   ]]></openedEventHandler>
   <beforeSubmitEventHandler><![CDATA[
     var initiatorId = functions.getValues().InitiatorId;
-    var vacationTypeId = functions.getValues().VacationTypeCurrent;
     var statementId = functions.getValues().StatementId;
     var dayCountCompensation = functions.getValues().DayCountCompensation;
     var currentVacationData = functions.getValues().CurrentVacationData;
@@ -643,19 +720,33 @@
     });
     
     var durationShift = functions.getValues().DurationShift;
-    functions.setValue('Field_Дней переноса', durationShift);
     var beginDateShift = functions.getValues().BeginDateShift;
     var endDateShift = functions.getValues().EndDateShift;
-    var datesShift = [];
-    datesShift.push(beginDateShift);
-    datesShift.push(endDateShift);
-    var getFormatDatesShift = ESS.network.sendRequest(`/api/functions/GetFormatDates?employeeId=${initiatorId}&dates=%5B${datesShift}%5D`)
-    .then(function (dates) {
-      functions.setValue('Field_Дата_начала_отпуска', dates[0]);
-      functions.setValue('Field_Дата_окончания_отпуска', dates[1]);
-    });
+	
+    beginDateShift ??= '';
+	endDateShift ??= '';
+	durationShift ??= 0;
+	var getFormatDatesShift;
+	if (!beginDateShift || !endDateShift){
+	  functions.setValue('Field_Дата_начала_отпуска', null);
+	  functions.setValue('Field_Дата_окончания_отпуска', null);
+	  functions.setValue('Field_Дней переноса', 0);
+	  getFormatDatesShift = true;
+	}
+	else {
+	  var datesShift = [];
+	  datesShift.push(beginDateShift);
+	  datesShift.push(endDateShift);
+    
+	  getFormatDatesShift = ESS.network.sendRequest(`/api/functions/GetFormatDates?employeeId=${initiatorId}&dates=%5B${datesShift}%5D`)
+	  .then(function (dates) {
+	  functions.setValue('Field_Дата_начала_отпуска', dates[0]);
+	  functions.setValue('Field_Дата_окончания_отпуска', dates[1]);
+	  functions.setValue('Field_Дней переноса', durationShift);
+	  });
+	}
 
-    var validateVacationData = ESS.scripts.HRProVacations.validateRecallVacationData({ functions, initiatorId, statementId, vacationTypeId, beginDateRecall, endDateRecall, durationRecall, beginDateShift, endDateShift, durationShift, dayCountCompensation, currentVacationData });
+    var validateVacationData = ESS.scripts.HRProVacations.validateRecallVacationData({ functions, initiatorId, statementId, beginDateRecall, endDateRecall, durationRecall, beginDateShift, endDateShift, durationShift, dayCountCompensation, currentVacationData });
     
     Promise.all([
       getFormatDatesRecall,

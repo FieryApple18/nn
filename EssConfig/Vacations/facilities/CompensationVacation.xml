@@ -15,6 +15,10 @@
       <maxLength>10000</maxLength>
       <multiline>false</multiline>
     </facilityParameter>
+	<facilityParameter type="FacilityParameterNumber" name="DaysOnApproving" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
     <facilityParameter type="FacilityParameterNumber" name="AvailableDays" defaultValue="" isRequired="false" isCollection="false">
       <maxLength>10000</maxLength>
       <multiline>false</multiline>
@@ -103,14 +107,21 @@
     <facilityFormItem type="FacilityFormTextblock">
       <hint />
       <content><![CDATA[
-      <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-bottom: 12px;">Доступно дней для компенсации: {{{AvailableDays}}}</div>
+      <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-bottom: 12px;">
+		Доступно дней для компенсации: {{{AvailableDays}}} <br/>
+		
+	  </div>
         {{#AvailableDays}}
              Из них:<br/>
              {{{AvailableDaysInfo}}}
         {{/AvailableDays}}
+		<br/>
+		{{#DaysOnApproving}}
+			     На согласовании заявления на компенсацию дней - {{{DaysOnApproving}}} <br/>
+		{{/DaysOnApproving}}
         {{#Info}}
           <br/><br/>{{{Info}}}
-        {{/Info}}
+        {{/Info}} 
       ]]></content>
     </facilityFormItem>
     <facilityFormItem type="FacilityFormParameter">
@@ -137,7 +148,9 @@
               .then(function (AvailableDays) {
                 if (AvailableDays.ErrorText == null || AvailableDays.ErrorText.length == 0) {
                   functions.setValue('AvailableDaysInfo', AvailableDays.DayCountString);
+				  functions.setValue('DaysOnApproving', AvailableDays.DaysOnApproving);
                   functions.setValue('AvailableDays', AvailableDays.DayCount);
+				 
                 }
                 else {
                   window.errorInitiator = functions.showError(AvailableDays.ErrorText);
@@ -357,7 +370,9 @@
                   .then(function (AvailableDays) {
                     if (AvailableDays.ErrorText == null || AvailableDays.ErrorText.length == 0) {
                       functions.setValue('AvailableDaysInfo', AvailableDays.DayCountString);
+					  functions.setValue('DaysOnApproving', AvailableDays.DaysOnApproving);
                       functions.setValue('AvailableDays', AvailableDays.DayCount);
+					  
                       ESS.network.sendRequest(`/api/functions/GetCompensationDocumentKinds`)
                       .then(function (docKinds){
                         if (docKinds && docKinds[0])

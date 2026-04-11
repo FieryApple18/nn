@@ -149,6 +149,10 @@
     </facilityParameter>
     <facilityParameter type="FacilityParameterNumber" name="TemplateWithTableId" defaultValue="" isRequired="false" isCollection="false" />
     <facilityParameter type="FacilityParameterString" name="IsVacationPeriodBroken" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="DateApprovalText" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
   </facilityParameters>
   <facilityFormItems>
     <facilityFormItem type="FacilityFormParameter" name="PerformerInfo">
@@ -220,6 +224,23 @@
             if (beginDate.getTime() < yesterday.getTime()) {
               window[`errorYesterday${beginDate}`] = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'), undefined, ESS.enums.FormErrorType.FORM_VALIDATION, tableName, formItem.index, 'BeginDate');
               window[`errorYesterday${formItem.index}`] = window[`errorYesterday${beginDate}`];
+            } else {
+              var initiatorId = functions.getValues().PerformerId;
+              var documentKindId = functions.getValues().DocumentKindId;
+              var vacationType = 'Planned';
+              var oldDateStart = functions.getValues().BeginDateOld;
+              var beginDates = rows.map(x => Date.parse(x.rowValues.BeginDate));
+              var oldStart = new Date(oldDateStart).toLocaleDateString('en-CA');
+              var newStart = new Date(Math.min(...beginDates)).toLocaleDateString('en-CA');
+
+              ESS.network.sendRequest(`/api/functions/GetVacationApprovalDate?employeeId=${initiatorId}&documentKindId=${documentKindId}&vacationType=${vacationType}&paymentCompleted=false&isStatement=false&oldStart=${oldStart}&newStart=${newStart}`)
+              .then((dateApproval) => {
+                 functions.setValue('ApprovalDate', dateApproval);
+                 if (dateApproval.length != 0) {
+                 var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
+                 functions.setValue('DateApprovalText', ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO_NEW'), dateApprovalStr));
+                 }
+              });
             };
             window.setEndDate(formItem.index);
           ]]></valueChangedEventHandler>
@@ -267,6 +288,14 @@
           <calculateFunction><![CDATA[]]></calculateFunction>
         </column>
       </columns>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+		    {{#DateApprovalText}}
+        <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-top: 12px;">{{{DateApprovalText}}}</div>
+		    {{/DateApprovalText}}
+      ]]></content>
     </facilityFormItem>
     <facilityFormItem type="FacilityFormParameter">
       <hint></hint>
@@ -574,14 +603,9 @@
     var initiatorId = functions.getValues().PerformerId;
     var noticeId = functions.getValues().NoticeId;
     var assignmentId = functions.getValues().AssignmentId;
-    var documentKindId = functions.getValues().DocumentKindId;
-    var oldDateStart = functions.getValues().BeginDateOld;
-    var oldDateEnd = functions.getValues().EndDateOld;
-    var durationOld = functions.getValues().DurationOld;
-    var tableName = 'VacationType&BeginDate&Duration&EndDateGrid'; 
+    var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
     var rows = functions.getValues()[tableName];
     var vacationTypeIdsArray = [];
-    var vacationReasonIdsArray = [];
     var beginDateArray = [];
     var endDateArray = [];
     var durationArray = [];
@@ -610,23 +634,15 @@
     functions.setValue('FormattedVacationsOld', formattedVacationsOld);
     
     var vacationType = 'Planned';
-    var beginDates = rows.map(x => Date.parse(x.rowValues.BeginDate));
-    var newStart = new Date(Math.min(...beginDates)).toLocaleDateString('en-CA');
-    var oldStart = new Date(oldDateStart).toLocaleDateString('en-CA');
-    ESS.network.sendRequest(`/api/functions/GetVacationApprovalDate?employeeId=${initiatorId}&documentKindId=${documentKindId}&vacationType=${vacationType}&paymentCompleted=false&isStatement=false&oldStart=${oldStart}&newStart=${newStart}`)
-    .then(function (dateApproval) {
-      var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
-      functions.setValue('ApprovalDate', dateApproval);
-      
-      ESS.scripts.HRProVacations.validateShiftVacationData({ functions, initiatorId, statementId: 0, noticeId, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray, formattedVacationsOld, assignmentId })
-      .then((success) => { 
-        ESS.toasts.showToast(ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO'), dateApprovalStr), 'warning', false);
-        resolve();
-      }, (error) => { reject() });
-    })
-    .catch(function (error) {
-      reject();
-    });
+
+    ESS.scripts.HRProVacations.validateShiftVacationData({ functions, initiatorId, statementId: 0, noticeId, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray, formattedVacationsOld, assignmentId })
+     .then(
+     (success) => {
+       resolve();
+     },
+     (error) => {
+      reject(); 
+      });
   ]]></beforeSubmitEventHandler>
   <closingEventHandler><![CDATA[ESS.toasts.hideToast(window.durationError); resolve();]]></closingEventHandler>
   <closedEventHandler><![CDATA[if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {ESS.closeElement(sender.parent); ESS.widgets.updateWidgets();}]]></closedEventHandler>

@@ -171,6 +171,10 @@
       <maxLength>10000</maxLength>
       <multiline>false</multiline>
     </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="DateApprovalText" defaultValue='' isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
   </facilityParameters>
   <facilityFormItems>
     <facilityFormItem type="FacilityFormParameter">
@@ -328,6 +332,27 @@
             if (beginDate.getTime() < yesterday.getTime()) {
               window[`errorYesterday${beginDate}`] = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'), undefined, ESS.enums.FormErrorType.FORM_VALIDATION, tableName, formItem.index, 'BeginDate');
               window[`errorYesterday${formItem.index}`] = window[`errorYesterday${beginDate}`];
+            } else {
+             var initiatorId = functions.getValues().Initiator;
+             var documentKindId = functions.getValues().DocumentKindId;
+             var noticeId = functions.getValues().NoticeId;
+             var shiftKind = functions.getValues().ShiftKind;
+             var vacationType = shiftKind == 1 ? 'Planned' : 'Registered';
+             var shiftPeriod = JSON.parse(functions.getValues().ShiftPeriodJson);
+             var isPaid = shiftPeriod.Paid;
+             var oldDateStart = shiftPeriod.DateStart;
+             var oldStart = new Date(oldDateStart).toLocaleDateString('en-CA');
+             var beginDates = rows.map(x => Date.parse(x.rowValues.BeginDate));
+             var newStart = new Date(Math.min(...beginDates)).toLocaleDateString('en-CA');
+   
+             ESS.network.sendRequest(`/api/functions/GetVacationApprovalDate?employeeId=${initiatorId}&documentKindId=${documentKindId}&vacationType=${vacationType}&paymentCompleted=${isPaid}&isStatement=true&oldStart=${oldStart}&newStart=${newStart}`)
+             .then((dateApproval) => { 
+                 if (dateApproval.length != 0) {
+                 var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
+                 functions.setValue('ApprovalDate', dateApproval);
+                 functions.setValue('DateApprovalText', ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO_NEW'), dateApprovalStr));
+                 }
+             });
             };
             window.setEndDate(formItem.index);
           ]]></valueChangedEventHandler>
@@ -375,6 +400,14 @@
           <calculateFunction><![CDATA[]]></calculateFunction>
         </column>
       </columns>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+		    {{#DateApprovalText}}
+        <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-top: 12px;">{{{DateApprovalText}}}</div>
+		    {{/DateApprovalText}}
+      ]]></content>
     </facilityFormItem>
     <facilityFormItem type="FacilityFormParameter">
       <hint></hint>
@@ -588,7 +621,8 @@
       </flowStep>
     </flowSteps>
   </facilityFlowScheme>
-  <openingEventHandler><![CDATA[
+  <openingEventHandler>
+  <![CDATA[
   if (window.isFacilityRunning ?? false) {
     reject();
   }
@@ -759,25 +793,21 @@
     }
   ]]></openedEventHandler>
   <beforeSubmitEventHandler><![CDATA[
-    var shiftKind = functions.getValues().ShiftKind;
-    var shiftPeriod = JSON.parse(functions.getValues().ShiftPeriodJson);
     var vacationsJson = functions.getValues().VacationsJson;
+    var shiftPeriod = JSON.parse(functions.getValues().ShiftPeriodJson);
+    var isPaid = shiftPeriod.Paid;
     var oldDateStart = shiftPeriod.DateStart;
     var oldDateEnd = shiftPeriod.DateEnd;
     var durationOld = shiftPeriod.DaysCount;
-    var isPaid = shiftPeriod.Paid;
-    functions.setValue('BeginDateOld', oldDateStart);
+    functions.setValue('BeginDateOld', oldDateStart); 
     functions.setValue('EndDateOld', oldDateEnd);
     functions.setValue('DurationOld', durationOld);
     functions.setValue('Paid', isPaid);
+
     var initiatorId = functions.getValues().Initiator;
-    var documentKindId = functions.getValues().DocumentKindId;
-    var noticeId = functions.getValues().NoticeId;
-    var assignmentId = functions.getValues().AssignmentId;
-    var tableName = 'VacationType&BeginDate&Duration&EndDateGrid'; 
+    var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
     var rows = functions.getValues()[tableName];
     var vacationTypeIdsArray = [];
-    var vacationReasonIdsArray = [];
     var beginDateArray = [];
     var endDateArray = [];
     var durationArray = [];
@@ -793,26 +823,15 @@
         durationArray.push(row.rowValues.Duration);
       };
     });
-    
-    var vacationType = shiftKind == 1 ? 'Planned' : 'Registered';
-    var beginDates = rows.map(x => Date.parse(x.rowValues.BeginDate));
-    var newStart = new Date(Math.min(...beginDates)).toLocaleDateString('en-CA');
-    var oldStart = new Date(oldDateStart).toLocaleDateString('en-CA');
 
-    ESS.network.sendRequest(`/api/functions/GetVacationApprovalDate?employeeId=${initiatorId}&documentKindId=${documentKindId}&vacationType=${vacationType}&paymentCompleted=${isPaid}&isStatement=true&oldStart=${oldStart}&newStart=${newStart}`)
-    .then(function (dateApproval) {
-      var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
-      functions.setValue('ApprovalDate', dateApproval);
-      
-      ESS.scripts.HRProVacations.validateShiftByStatementVacationData({ functions, initiatorId, statementId: 0, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray, vacationsJson, isPaid })
-      .then((success) => { 
-        ESS.toasts.showToast(ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO'), dateApprovalStr), 'warning', false);
+    ESS.scripts.HRProVacations.validateShiftByStatementVacationData({ functions, initiatorId, statementId: 0, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray, vacationsJson, isPaid })
+      .then(
+      (success) => {
         resolve();
-      }, (error) => { reject() });
-    })
-    .catch(function (error) {
-      reject();
-    });
+      }, 
+      (error) => {
+       reject();
+      });
   ]]></beforeSubmitEventHandler>
   <closingEventHandler><![CDATA[resolve();]]></closingEventHandler>
   <closedEventHandler><![CDATA[

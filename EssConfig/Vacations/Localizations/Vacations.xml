@@ -597,6 +597,9 @@
   <localizedStringValue code="FACILITIES_GETANNUALVACATION_INSTRUCTION" language="RU" useat="both">Прикрепите документы. Если не помните, какие, смотрите {0}</localizedStringValue>
   <localizedStringValue code="FACILITIES_GETANNUALVACATION_INSTRUCTION" language="EN" useat="both">Attach the documents. If you don't remember which ones, watch {0}</localizedStringValue>
 
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_APPROVALDATE_INFO" language="RU" useat="both">Срок согласования заявления {0}. Если заявление до указанной даты не будет согласовано, то отпуск предоставлен не будет.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETANNUALVACATION_APPROVALDATE_INFO" language="EN" useat="both">The deadline for approving the application is {0}. if the application is not approved by the specified date, the leave will not be granted.</localizedStringValue>
+
   <!-- facilities/GetOtherVacation -->
   
   <localizedStringValue code="FACILITIES_GETOTHERVACATION_TITLE" language="RU" useat="both">Оформить отпуск</localizedStringValue>
@@ -688,6 +691,10 @@
 
   <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO" language="RU" useat="both">Срок согласования заявления - {0}. Процесс согласования заявления будет прекращен, отпуск не будет перенесен.</localizedStringValue>
   <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO" language="EN" useat="both">The deadline for approving the application is {0}. The application approval process will be terminated, and the vacation will not be postponed.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO_NEW" language="RU" useat="both">Срок согласования заявления на перенос отпуска - {0}. Если заявление до указанной даты не будет согласовано, то отпуск будет предоставлен согласно плановому графику отпусков.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO_NEW" language="EN" useat="both">The deadline for approving the application for vacation transfer is {0}. If the application is not approved by the specified date, the leave will be granted according to the planned leave schedule.</localizedStringValue>
+
 
   <!-- facilities/NNSelfRecallVacationEmployee -->
 

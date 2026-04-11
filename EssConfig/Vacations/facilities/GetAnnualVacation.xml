@@ -155,7 +155,11 @@
       <maxLength>10000</maxLength>
       <multiline>false</multiline>
     </facilityParameter>
-    <facilityParameter type="FacilityParameterString" name="Instruction" defaultValue='' isRequired="true" isCollection="false">
+     <facilityParameter type="FacilityParameterString" name="DateApproval" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Instruction" defaultValue="" isRequired="true" isCollection="false">
       <maxLength>10000</maxLength>
       <multiline>false</multiline>
     </facilityParameter>
@@ -173,8 +177,13 @@
   <facilityFormItems>
     <facilityFormItem type="FacilityFormTextblock">
       <hint />
-      <content>
-        {{{AvailableDays}}}
+      <content><![CDATA[
+       {{{AvailableDays}}}<br/>
+
+		    {{#DateApproval}}
+        <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-top: 12px;">{{{DateApproval}}}</div>
+		    {{/DateApproval}}
+        ]]>
       </content>
     </facilityFormItem>
     <facilityFormItem type="FacilityFormParameter">
@@ -277,7 +286,18 @@
         functions.removeError(window.errorDateAnnual);
         if (dateFromControl < yesterday.getTime()) {
           window.errorDateAnnual = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'));
-        }
+          functions.setValue('DateApproval', '');
+        } else {
+        var initiatorId = functions.getValues().Initiator;
+        var documentKindId = functions.getValues().DocumentKindId;
+        ESS.network.sendRequest(`/api/functions/GetDateDeadlineForApprovalLK?employeeId=${initiatorId}&documentKindId=${documentKindId}&date=${beginDateValue}`)
+          .then(function (dateApproval) {
+            if (dateApproval.length != 0) {
+            var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
+            functions.setValue('DateApproval', ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_GETANNUALVACATION_APPROVALDATE_INFO'), dateApprovalStr));
+            }
+          })
+        };
         window.setEndDateAnnual();
       ]]></valueChangedEventHandler>
     </facilityFormItem>
@@ -846,7 +866,10 @@
       getAttachableVacationsInfo,
       validateVacationData
     ])
-    .then((success) => { console.log('beforeSubmitEventHandler. Успешное завершение события.'); resolve() }, (error) => { console.log('beforeSubmitEventHandler. Завершение события с ошибкой.'); reject() });
+    .then((success) => { console.log('beforeSubmitEventHandler. Успешное завершение события.'); resolve() }, (error) => {
+     reject();
+     functions.setValue('DateApproval', '');
+      });
   ]]></beforeSubmitEventHandler>
   <closingEventHandler><![CDATA[]]></closingEventHandler>
   <closedEventHandler><![CDATA[

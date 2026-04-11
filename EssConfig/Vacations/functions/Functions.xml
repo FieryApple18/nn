@@ -919,6 +919,17 @@
         <result type="String"/>
         <target system="HRPro" function="NNVacations.GetAttachableVacationsInfo" method="POST"/>
     </function>
+
+     <!-- Получить строку с информацией по ежегодным отпускам для уведомления в заявлении на ежегодный отпуск. -->
+    <function name="GetDateDeadlineForApprovalLK" type="Target" methods="GET">
+        <parameters>
+            <parameter name="employeeId" type="Integer" scope="Client"/>
+            <parameter name="documentKindId" type="Integer" scope="Client"/>
+            <parameter name="date" type="String" scope="Client"/>
+        </parameters>
+        <result type="DateTime"/>
+        <target system="HRPro" function="NNVacations.GetDateDeadlineForApprovalLK" method="GET"/>
+    </function>
     
     <!-- Проверить данные по переданным отпускам. -->
     <function name="NNValidateVacationData" type="Target" methods="POST">
@@ -972,7 +983,6 @@
         <parameters>
             <parameter name="employeeId" type="Integer" scope="Client"/>
             <parameter name="documentId" type="Integer" scope="Client"/>
-            <parameter name="typeId" type="Integer" scope="Client"/>
             <parameter name="beginRecall" type="String" scope="Client"/>
             <parameter name="endRecall" type="String" scope="Client"/>
             <parameter name="daysRecall" type="Integer" scope="Client"/>
@@ -1320,6 +1330,17 @@
         </parameters>
         <result type="String"/>
         <target system="HRPro" function="NNVacations.CheckVacationHasHolidayRecall" method="POST"/>
+    </function>
+	
+	<!-- Проверить, что прерываемый период отпуска требует переноса. -->
+    <function name="CheckRequireShiftDaysWhenRecall" type="Target" methods="GET">
+        <parameters>
+            <parameter name="periodBegin" type="String" scope="Client"/>
+            <parameter name="periodEnd" type="String" scope="Client"/>
+            <parameter name="currentVacationData" type="String" scope="Client"/>
+        </parameters>
+        <result type="String"/>
+        <target system="HRPro" function="NNVacations.CheckRequireShiftDaysWhenRecall" method="POST"/>
     </function>
 
     <!-- Подсчет календарных дней в промежутке времени переноса из отзыва за вычетом праздничных дней. -->
