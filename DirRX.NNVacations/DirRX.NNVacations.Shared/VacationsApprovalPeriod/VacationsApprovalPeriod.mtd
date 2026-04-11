@@ -41,10 +41,13 @@
           "Name": "ControlGroup",
           "ColumnDefinitions": [
             {
-              "Percentage": 50.0
+              "Percentage": 33.33
             },
             {
-              "Percentage": 50.0
+              "Percentage": 33.33
+            },
+            {
+              "Percentage": 33.33
             }
           ]
         },
@@ -164,6 +167,32 @@
           "RowNumber": 7,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5329a32e-ca84-4c8f-8623-5f5a8457ca1b",
+          "Name": "ExactTimeDeadline",
+          "ColumnNumber": 2,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "045e3a61-66bf-4442-a948-ef8db3a5a56c",
+          "PropertyGuid": "12101370-fede-4dc0-9b50-c16849096433",
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "c2316b74-47db-4b1d-a396-af31d803e2ac",
+          "Name": "WorkingDays",
+          "ColumnNumber": 2,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "045e3a61-66bf-4442-a948-ef8db3a5a56c",
+          "PropertyGuid": "86bace48-34e2-4668-a3f7-fe049c4bca84",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
         }
       ]
     }
@@ -276,9 +305,6 @@
       "Name": "NextVacationDays",
       "CanBeSearch": false,
       "Code": "NextVacationDa",
-      "HandledEvents": [
-        "ValueInputClient"
-      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "6bc97e54-3bb5-44ba-ac08-3b16e15c9ab1"
     },
@@ -305,6 +331,25 @@
       ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "ba44c4a9-bc38-4d86-a1f3-306469e7a33e"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "12101370-fede-4dc0-9b50-c16849096433",
+      "Name": "ExactTimeDeadline",
+      "Code": "ExactTimeDeadl",
+      "HandledEvents": [
+        "ValueInputClient"
+      ],
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "4b261617-e1d7-4bfb-bd19-af4e946f7fbd"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "86bace48-34e2-4668-a3f7-fe049c4bca84",
+      "Name": "WorkingDays",
+      "Code": "WorkingDays",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "12101370-fede-4dc0-9b50-c16849096433"
     }
   ],
   "PublicFunctions": [
@@ -358,7 +403,8 @@
   "PublicStructures": [],
   "ResourcesKeys": [
     "DuplicateRecordsFoundError",
-    "PositiveValueError"
+    "PositiveValueError",
+    "ValidExactTimeDeadlineError"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "2e2c6eff-39d1-4ebb-a4b5-943072210414",

@@ -337,4 +337,16 @@
   <data name="ValidateRecallVacationDurationRestrictionError" xml:space="preserve">
     <value>Не допускается частичный перенос/компенсация ежегодного отпуска. Перенесите и/или компенсируйте отпуск целиком.</value>
   </data>
+  <data name="EmptyShiftDaysWhenRecallError" xml:space="preserve">
+    <value>Для текущего типа отпуска ({0}) требуется указать даты переноса.</value>
+  </data>
+  <data name="CurrentVacationTypeNotFoundError" xml:space="preserve">
+    <value>Текущий тип отпуска не найден. Обратитесь к администратору.</value>
+  </data>
+  <data name="ErrorDeadlineForApproval" xml:space="preserve">
+    <value>Не удалось определить срок согласования для сотрудника c ИД: {0}</value>
+  </data>
+  <data name="RequiredShiftDaysWhenRecall" xml:space="preserve">
+    <value>Для текущего типа отпуска требуется указать даты переноса.</value>
+  </data>
 </root>

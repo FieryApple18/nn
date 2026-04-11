@@ -621,5 +621,11 @@ namespace DirRX.NNVacations.Constants
     /// Автоматическое создание мероприятия «Отзыв из отпуска» из КЭДО в АСУП.
     /// </summary>
     public const string RecallEventSAP = "Т2";
+    
+    /// <summary>
+    /// Паттерн валидации времени.
+    /// </summary>
+    [Public]
+    public const string PatternValidTime = @"^([01]?[0-9]|2[0-3]):([0-5][0-9])$";
   }
 }

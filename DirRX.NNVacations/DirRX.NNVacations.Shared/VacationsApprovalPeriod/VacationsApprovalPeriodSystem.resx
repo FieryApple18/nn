@@ -115,4 +115,10 @@
   <data name="Action_ShowDuplicatesConfirmationDescription" xml:space="preserve">
     <value />
   </data>
+  <data name="Property_ExactTimeDeadline" xml:space="preserve">
+    <value>Exact time deadline</value>
+  </data>
+  <data name="Property_WorkingDays" xml:space="preserve">
+    <value>Working days</value>
+  </data>
 </root>

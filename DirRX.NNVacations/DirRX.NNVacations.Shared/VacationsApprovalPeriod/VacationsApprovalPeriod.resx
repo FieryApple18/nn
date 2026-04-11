@@ -64,4 +64,7 @@
   <data name="PositiveValueError" xml:space="preserve">
     <value>The value must be positive.</value>
   </data>
+  <data name="ValidExactTimeDeadlineError" xml:space="preserve">
+    <value>The exact time must be entered in the format HH:MM</value>
+  </data>
 </root>

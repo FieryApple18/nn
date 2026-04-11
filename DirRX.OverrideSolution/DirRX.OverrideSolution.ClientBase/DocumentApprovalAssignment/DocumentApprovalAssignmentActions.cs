@@ -9,6 +9,31 @@ namespace DirRX.OverrideSolution.Client
 {
   partial class DocumentApprovalAssignmentActions
   {
+    public virtual void ForwardDirRX(Sungero.Domain.Client.ExecuteActionArgs e)
+    {
+      if (_obj.AddresseeDirRX == null)
+      {
+        e.AddError(Module.HRDocFlow.Resources.CantForwardWithoutAddressee);
+        return;
+      }
+      if (Employees.Equals(_obj.AddresseeDirRX, _obj.Performer))
+      {
+        e.AddError(Module.HRDocFlow.Resources.PerformerAlreadyExistsFormat(_obj.AddresseeDirRX.Person.ShortName));
+        return;
+      }
+      
+      _obj.Forward(_obj.AddresseeDirRX, _obj.Deadline);
+      
+      e.CloseFormAfterAction = true;
+    }
+
+    public virtual bool CanForwardDirRX(Sungero.Domain.Client.CanExecuteActionArgs e)
+    {
+      return _obj.Status == DocumentApprovalAssignment.Status.InProcess &&
+        !(_obj.IsCompetitionWorkDirRX.HasValue && _obj.IsCompetitionWorkDirRX.Value) &&
+        _obj.CanForwardDirRX.HasValue && _obj.CanForwardDirRX.Value;
+    }
+
 
     public override void CreateSubtask(Sungero.Domain.Client.ExecuteActionArgs e)
     {
@@ -86,6 +111,9 @@ namespace DirRX.OverrideSolution.Client
 
     public virtual void Forward(Sungero.Workflow.Client.ExecuteResultActionArgs e)
     {
+      // TODO Nikitin_II. Старая конкурентная работа.
+      // Вариант выполнения задания можно убрать, когда завершатся все задачи, запущенные до обновления на 25.2/2.7.
+      
       if (_obj.AddresseeDirRX == null)
       {
         e.AddError(Module.HRDocFlow.Resources.CantForwardWithoutAddressee);
@@ -100,7 +128,11 @@ namespace DirRX.OverrideSolution.Client
 
     public virtual bool CanForward(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return _obj.CanForwardDirRX.HasValue && _obj.CanForwardDirRX.Value;
+      // TODO Nikitin_II. Старая конкурентная работа.
+      // Вариант выполнения задания можно убрать, когда завершатся все задачи, запущенные до обновления на 25.2/2.7.
+      
+      return _obj.IsCompetitionWorkDirRX.HasValue && _obj.IsCompetitionWorkDirRX.Value &&
+        _obj.CanForwardDirRX.HasValue && _obj.CanForwardDirRX.Value;
     }
 
     public virtual void ReturnToQueueDirRX(Sungero.Domain.Client.ExecuteActionArgs e)

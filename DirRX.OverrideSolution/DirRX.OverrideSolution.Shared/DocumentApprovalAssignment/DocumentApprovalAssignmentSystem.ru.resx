@@ -184,4 +184,16 @@
   <data name="Property_NeedEmailNotificationDirRX" xml:space="preserve">
     <value>Уведомлять по email</value>
   </data>
+  <data name="Action_ForwardDirRX" xml:space="preserve">
+    <value>Переадресовать</value>
+  </data>
+  <data name="Action_ForwardDirRXHint" xml:space="preserve">
+    <value>Выполнить с результатом "Переадресовать"</value>
+  </data>
+  <data name="Action_ForwardDirRXDescription" xml:space="preserve">
+    <value>Выполнение задания с результатом "Переадресовать"</value>
+  </data>
+  <data name="Action_ForwardDirRXConfirmationMessage" xml:space="preserve">
+    <value>Выполнить задание с результатом "Переадресовать"?</value>
+  </data>
 </root>

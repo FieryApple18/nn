@@ -157,4 +157,7 @@
   <data name="ControlGroup_c9a6b231c3474c728cc89a1e7f37ce76" xml:space="preserve">
     <value>Перенос отпуска по заявлению</value>
   </data>
+  <data name="Property_RequireShiftDaysWhenRecallDirRX" xml:space="preserve">
+    <value>Требовать перенос отпуска при прерывании/отзыве</value>
+  </data>
 </root>

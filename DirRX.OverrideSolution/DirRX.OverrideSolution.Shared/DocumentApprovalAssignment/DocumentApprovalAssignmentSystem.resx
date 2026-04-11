@@ -208,4 +208,19 @@
   <data name="Property_NeedEmailNotificationDirRX" xml:space="preserve">
     <value>Need email notification</value>
   </data>
+  <data name="Action_ForwardDirRX" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Action_ForwardDirRXDescription" xml:space="preserve">
+    <value>Complete the assignment with result "Forward"</value>
+  </data>
+  <data name="Action_ForwardDirRXHint" xml:space="preserve">
+    <value>Complete with Result "Forward"</value>
+  </data>
+  <data name="Action_ForwardDirRXConfirmationMessage" xml:space="preserve">
+    <value>Complete the assignment with result "Forward"?</value>
+  </data>
+  <data name="Action_ForwardDirRXConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

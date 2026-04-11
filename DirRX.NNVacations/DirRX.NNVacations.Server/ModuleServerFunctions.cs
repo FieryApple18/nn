@@ -1072,7 +1072,6 @@ namespace DirRX.NNVacations.Server
     /// </summary>
     /// <param name="employeeId">ИД сотрудника.</param>
     /// <param name="documentId">ИД документа.</param>
-    /// <param name="typeId">ИД типа отпуска.</param>
     /// <param name="beginRecall">Дата начала отзыва.</param>
     /// <param name="endRecall">Дата окончания отзыва.</param>
     /// <param name="daysRecall">Количество дней отзыва.</param>
@@ -1083,9 +1082,9 @@ namespace DirRX.NNVacations.Server
     /// <param name="currentVacationData">Данные текущего отпуска.</param>
     /// <returns>Json с результатом проверки.</returns>
     [Public(WebApiRequestType = RequestType.Post)]
-    public string ValidateRecallVacationData(long employeeId, long? documentId, long typeId,
+    public string ValidateRecallVacationData(long employeeId, long? documentId,
                                              string beginRecall, string endRecall, int daysRecall,
-                                             string beginShift, string endShift, int daysShift,
+                                             string beginShift, string endShift, int? daysShift,
                                              int daysCompensation, string currentVacationData)
     {
       var logPrefix = string.Format("ValidateRecallVacationData. ИД сотрудника: {0}", employeeId);
@@ -1101,6 +1100,7 @@ namespace DirRX.NNVacations.Server
       var endDateRecall = NNIntegration.PublicFunctions.Module.ParseStringToDate(endRecall);
       var beginDateShift = NNIntegration.PublicFunctions.Module.ParseStringToDate(beginShift);
       var endDateShift = NNIntegration.PublicFunctions.Module.ParseStringToDate(endShift);
+           
       if (employee == null)
         errorMessages.Add(DirRX.NNVacations.Resources.CurrentUserNotFoundError.ToString());
       else if (string.IsNullOrEmpty(employee.PersonnelNumber))
@@ -1111,30 +1111,10 @@ namespace DirRX.NNVacations.Server
         errorMessages.Add(DirRX.NNVacations.Resources.ParseStringToDateErrorFormat(beginRecall));
       if (!endDateRecall.HasValue)
         errorMessages.Add(DirRX.NNVacations.Resources.ParseStringToDateErrorFormat(endRecall));
-      if (!beginDateShift.HasValue)
-        errorMessages.Add(DirRX.NNVacations.Resources.ParseStringToDateErrorFormat(beginShift));
-      if (!endDateShift.HasValue)
-        errorMessages.Add(DirRX.NNVacations.Resources.ParseStringToDateErrorFormat(endShift));
-      
-      if (errorMessages.Any())
-      {
-        result.ErrorText = string.Join(Constants.Module.ListDelimiter, errorMessages);
-        return IsolatedFunctions.Json.SerializeInJson(result);
-      }
-      
-      // Подготовка данных для проверки коллизий временных данных в RX.
-      var vacations = new List<Structures.Module.IVerificationVacationData>();
-      var vacation = Structures.Module.VerificationVacationData.Create();
-      vacation.BeginDate = beginDateShift.Value;
-      vacation.EndDate = endDateShift.Value;
-      vacation.Duration = daysShift;
-      vacations.Add(vacation);
-      
-      var shiftVacations = new List<Structures.Module.IVerificationVacationData>();
-      #region Подготовка данных для проверки, что до планируемого отпуска осталось N дней.
-      
+          
       // Данные текущего отпуска.
       var currentVacations = this.ParseCurrentVacationData(currentVacationData);
+      
       // Данные прерывания/отзыва из отпуска.
       var recallVacations = new List<Structures.Module.IVerificationVacationData>();
       foreach (var vacInfo in currentVacations)
@@ -1142,54 +1122,83 @@ namespace DirRX.NNVacations.Server
         if (beginDateRecall > vacInfo.EndDate || endDateRecall < vacInfo.BeginDate)
           continue;
         
-        var vacationRecall = Structures.Module.VerificationVacationData.Create();
+        var vacationRecall = Structures.Module.VerificationVacationData.Create();       
         vacationRecall.VacationType = vacInfo.VacationType;
         vacationRecall.BeginDate = vacInfo.BeginDate <= beginDateRecall.Value ? beginDateRecall.Value : vacInfo.BeginDate;
         vacationRecall.EndDate = vacInfo.EndDate >= endDateRecall.Value ? endDateRecall.Value : vacInfo.EndDate;
         vacationRecall.Duration = this.DurationInCalendarDaysWithoutHoliday(vacationRecall.BeginDate, vacationRecall.EndDate, employee, vacationRecall.VacationType, null);
         recallVacations.Add(vacationRecall);
       }
-      // Данные переноса отпуска.
-      var beginDateShiftPart = beginDateShift.Value;
-      foreach (var vacInfo in recallVacations)
+      
+      var vacationTypesRequireShiftDays = recallVacations.Where(v => v.VacationType != null && v.VacationType.RequireShiftDaysWhenRecallDirRX.HasValue &&
+                                                                v.VacationType.RequireShiftDaysWhenRecallDirRX.Value == true).Select(t => t.VacationType.SAPIdDirRX);
+      
+      // Признак проверки переносимых дат отпуска.
+      var requireShiftDaysWhenRecall = vacationTypesRequireShiftDays.Any();      
+      
+      if ((!beginDateShift.HasValue || !endDateShift.HasValue) && requireShiftDaysWhenRecall)
       {
-        var vacationShift = Structures.Module.VerificationVacationData.Create();
-        vacationShift.VacationType = vacInfo.VacationType;
-        vacationShift.BeginDate = beginDateShiftPart;
-        var endDateShiftPart = this.GetVacationEndDate(vacationShift.BeginDate, vacInfo.Duration, employee, vacInfo.VacationType, null);
-        vacationShift.EndDate = endDateShiftPart >= endDateShift.Value ? endDateShift.Value : endDateShiftPart;
-        vacationShift.Duration = this.DurationInCalendarDaysWithoutHoliday(vacationShift.BeginDate, vacationShift.EndDate, employee, vacationShift.VacationType, null);
-        shiftVacations.Add(vacationShift);
+        var vacTypesRequireShiftDaysMessage = string.Join(Constants.Module.ListDelimiter, vacationTypesRequireShiftDays);
+        errorMessages.Add(DirRX.NNVacations.Resources.EmptyShiftDaysWhenRecallErrorFormat(vacTypesRequireShiftDaysMessage));
+      }
+          
+      if (errorMessages.Any())
+      {
+        result.ErrorText = string.Join(Constants.Module.ListDelimiter, errorMessages);
+        return IsolatedFunctions.Json.SerializeInJson(result);
+      }         
+      
+      if (requireShiftDaysWhenRecall)
+      {
+        // Подготовка данных для проверки коллизий временных данных в RX.
+        var vacations = new List<Structures.Module.IVerificationVacationData>();
+        var vacation = Structures.Module.VerificationVacationData.Create();
+        vacation.BeginDate = beginDateShift.Value;
+        vacation.EndDate = endDateShift.Value;
+        vacation.Duration = daysShift.GetValueOrDefault();
+        vacations.Add(vacation);
+ 
+        // Данные переноса отпуска.
+        var shiftVacations = new List<Structures.Module.IVerificationVacationData>();               
+        var beginDateShiftPart = beginDateShift.Value;
+        foreach (var vacInfo in recallVacations)
+        {
+          var vacationShift = Structures.Module.VerificationVacationData.Create();
+          vacationShift.VacationType = vacInfo.VacationType;
+          vacationShift.BeginDate = beginDateShiftPart;
+          var endDateShiftPart = this.GetVacationEndDate(vacationShift.BeginDate, vacInfo.Duration, employee, vacInfo.VacationType, null);
+          vacationShift.EndDate = endDateShiftPart >= endDateShift.Value ? endDateShift.Value : endDateShiftPart;
+          vacationShift.Duration = this.DurationInCalendarDaysWithoutHoliday(vacationShift.BeginDate, vacationShift.EndDate, employee, vacationShift.VacationType, null);
+          shiftVacations.Add(vacationShift);
+          
+          if (vacationShift.EndDate == endDateShift.Value.Date)
+            break;
+          beginDateShiftPart = vacationShift.EndDate.AddDays(1);
+        }
         
-        if (vacationShift.EndDate == endDateShift.Value.Date)
-          break;
-        beginDateShiftPart = vacationShift.EndDate.AddDays(1);
+        #endregion
+               
+        // Проверка коллизий временных данных в RX.
+        var documentCollision = this.GetDocumentTimeCollisions(employeeId, documentId, vacations);
+        if (documentCollision != null)
+        {
+          result.ErrorText = Resources.DocumentTimeCollisionInShiftError;
+          return IsolatedFunctions.Json.SerializeInJson(result);
+        }
+        
+        // Проверка что до планируемого отпуска осталось N дней. Если сотрудник входит в топ10 или топ100, то проверки нет.
+        result = this.CheckDaysBeforeStart(employee, shiftVacations);
+        if (!string.IsNullOrEmpty(result.ErrorText))
+          return IsolatedFunctions.Json.SerializeInJson(result);
+        
+        // Проверка количества дней для ежегодного отпуска и других типов.
+        result = CheckVacationDurationsRestriction(shiftVacations, recallVacations, employee, daysCompensation);
+        if (!string.IsNullOrEmpty(result.ErrorText))
+          return IsolatedFunctions.Json.SerializeInJson(result);
       }
-      
-      #endregion
-      
-      #endregion
-      
-      // Проверка коллизий временных данных в RX.
-      var documentCollision = this.GetDocumentTimeCollisions(employeeId, documentId, vacations);
-      if (documentCollision != null)
-      {
-        result.ErrorText = Resources.DocumentTimeCollisionInShiftError;
-        return IsolatedFunctions.Json.SerializeInJson(result);
-      }
-      
-      // Проверка что до планируемого отпуска осталось N дней. Если сотрудник входит в топ10 или топ100, то проверки нет.
-      result = this.CheckDaysBeforeStart(employee, shiftVacations);
-      if (!string.IsNullOrEmpty(result.ErrorText))
-        return IsolatedFunctions.Json.SerializeInJson(result);
-      
-      // Проверка количества дней для ежегодного отпуска и других типов.
-      result = CheckVacationDurationsRestriction(shiftVacations, recallVacations, employee, daysCompensation);
-      if (!string.IsNullOrEmpty(result.ErrorText))
-        return IsolatedFunctions.Json.SerializeInJson(result);
       
       // Проверка данных в SAP.
-      result = this.ValidateRecallVacation(employeeId, personnelNumber, beginDateRecall.Value, endDateRecall.Value, beginDateShift.Value, endDateShift.Value, daysCompensation);
+      result = this.ValidateRecallVacation(employeeId, personnelNumber, beginDateRecall.Value, endDateRecall.Value, beginDateShift, endDateShift, daysCompensation);
       
       Logger.DebugFormat("{0}. Конец обработки.", logPrefix);
       return IsolatedFunctions.Json.SerializeInJson(result);
@@ -1316,8 +1325,11 @@ namespace DirRX.NNVacations.Server
     public string GetCurrentCompensationAvailableDays(long employeeId)
     {
       var structure = this.GetCompensationAvailableDays(employeeId);
+      var daysOnApproving = this.GetCompensationDaysOnApproving(employeeId);
+      structure.DayCount -= daysOnApproving;
+      structure.DaysOnApproving = daysOnApproving;
       var delimiter = Constants.Module.ListIdsDelimiter.ToString();
-      structure.DayCountString = structure.DayCountString?.Replace(delimiter, delimiter + Constants.Module.DelimiterNewLineForLK);
+      structure.DayCountString = structure.DayCountString?.Replace(delimiter, delimiter + Constants.Module.DelimiterNewLineForLK); // кол-во дней строкой без учёта дней на согласовании.
       return IsolatedFunctions.Json.SerializeInJson(structure);
     }
     
@@ -1534,7 +1546,6 @@ namespace DirRX.NNVacations.Server
     /// Заполнить данные об отпуске в заявлении на отзыв из отпуска.
     /// </summary>
     /// <param name="document">Документ.</param>
-    /// <param name="vacationTypeCurrentId">ИД типа отпуска.</param>
     /// <param name="beginDateCurrent">Дата начала текущего отпуска.</param>
     /// <param name="endDateCurrent">Дата окончания текущего отпуска.</param>
     /// <param name="durationCurrent">Продолжительность текущего отпуска.</param>
@@ -1550,15 +1561,15 @@ namespace DirRX.NNVacations.Server
     /// <param name="isVacationPeriodBroken">Отсутствие отпуска в 14 дней.</param>
     /// <param name="currentVacationData">Данные текущего отпуска.</param>
     [Public(WebApiRequestType = RequestType.Post)]
-    public void FillVacationDataForRecall(string document, long? vacationTypeCurrentId,
+    public void FillVacationDataForRecall(string document,
                                           DateTime? beginDateCurrent, DateTime? endDateCurrent, int? durationCurrent,
                                           string beginRecall, string endRecall, int? durationRecall,
                                           string beginShift, string endShift, int? durationShift,
                                           int? compensationKind, int? dayCountCompensation, string reason, string isVacationPeriodBroken, string currentVacationData)
     {
       var documentId = IsolatedFunctions.Json.GetDocumentIdFromLK(document);
-      Logger.DebugFormat("FillVacationDataForRecall. ИД документа: {0}. ИД типа отпуска: {1}. Дата начала текущего отпуска: {2}. Дата окончания текущего отпуска: {3}. Продолжительность текущего отпуска: {4}. Начало выполнения.",
-                         documentId, vacationTypeCurrentId, beginDateCurrent, endDateCurrent, durationCurrent);
+      Logger.DebugFormat("FillVacationDataForRecall. ИД документа: {0}. Дата начала текущего отпуска: {1}. Дата окончания текущего отпуска: {2}. Продолжительность текущего отпуска: {3}. Начало выполнения.",
+                         documentId, beginDateCurrent, endDateCurrent, durationCurrent);
       var beginDateRecall = NNIntegration.PublicFunctions.Module.ParseStringToDate(beginRecall);
       beginDateRecall = beginDateRecall.HasValue ? beginDateRecall.Value.Date : beginDateRecall;
       
@@ -1618,21 +1629,25 @@ namespace DirRX.NNVacations.Server
       }
       
       // Данные переноса отпуска
-      var beginDateShiftPart = beginDateShift;
       statement.AdditionalVacationDirRX.Clear();
-      foreach (var vacation in statement.InterruptVacationDirRX)
+      if (beginDateShift.HasValue && endDateShift.HasValue)
       {
-        var vacationShift = statement.AdditionalVacationDirRX.AddNew();
-        vacationShift.VacationType = vacation.VacationType;
-        vacationShift.StartDate = beginDateShiftPart;
-        var endDateShiftPart = this.GetVacationEndDate(vacationShift.StartDate.Value, vacation.Days.Value, employee, vacationShift.VacationType, null);
-        vacationShift.EndDate = endDateShiftPart >= endDateShift ? endDateShift : endDateShiftPart;
-        vacationShift.Days = this.DurationInCalendarDaysWithoutHoliday(vacationShift.StartDate.Value, vacationShift.EndDate.Value, employee, vacationShift.VacationType, null);
-        
-        if (vacationShift.EndDate == endDateShift)
-          break;
-        beginDateShiftPart = vacationShift.EndDate.Value.AddDays(1);
+        var beginDateShiftPart = beginDateShift;        
+        foreach (var vacation in statement.InterruptVacationDirRX)
+        {
+          var vacationShift = statement.AdditionalVacationDirRX.AddNew();
+          vacationShift.VacationType = vacation.VacationType;
+          vacationShift.StartDate = beginDateShiftPart;
+          var endDateShiftPart = this.GetVacationEndDate(vacationShift.StartDate.Value, vacation.Days.Value, employee, vacationShift.VacationType, null);
+          vacationShift.EndDate = endDateShiftPart >= endDateShift ? endDateShift : endDateShiftPart;
+          vacationShift.Days = this.DurationInCalendarDaysWithoutHoliday(vacationShift.StartDate.Value, vacationShift.EndDate.Value, employee, vacationShift.VacationType, null);
+          
+          if (vacationShift.EndDate == endDateShift)
+            break;
+          beginDateShiftPart = vacationShift.EndDate.Value.AddDays(1);
+        }
       }
+      
       
       try
       {
@@ -1761,6 +1776,33 @@ namespace DirRX.NNVacations.Server
         }
       }
       return string.Empty;
+    }
+    
+    /// <summary>
+    /// Проверить, что прерываемый период отпуска требует переноса.
+    /// </summary>
+    /// <param name="periodBegin">Начало.</param>
+    /// <param name="periodEnd">Окончание.</param>
+    /// <param name="currentVacationData">Данные текущего отпуска.</param>
+    /// <returns>Текст сообщения о требуемом переносе отпуска.</returns>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public string CheckRequireShiftDaysWhenRecall(string periodBegin, string periodEnd, string currentVacationData)
+    {
+      var currentVacations = this.ParseCurrentVacationData(currentVacationData);
+      var beginDate = NNIntegration.PublicFunctions.Module.ParseStringToDate(periodBegin);
+      var endDate = NNIntegration.PublicFunctions.Module.ParseStringToDate(periodEnd);
+      if (beginDate.HasValue && endDate.HasValue)
+      {
+        foreach (var vacInfo in currentVacations)
+        {
+          if (beginDate > vacInfo.EndDate || endDate < vacInfo.BeginDate)
+            continue;
+
+          if (vacInfo.VacationType != null && vacInfo.VacationType.RequireShiftDaysWhenRecallDirRX.HasValue && vacInfo.VacationType.RequireShiftDaysWhenRecallDirRX.Value == true)
+            return DirRX.NNVacations.Resources.RequiredShiftDaysWhenRecall;
+        }                
+      }
+      return string.Empty;                 
     }
     
     /// <summary>
@@ -3153,6 +3195,27 @@ namespace DirRX.NNVacations.Server
       newStartDate = newStartDate.AddWorkingDays(-nextVacationDays);
       
       return oldStartDate < newStartDate ? oldStartDate : newStartDate;
+    }
+    
+    /// <summary>
+    /// Получить срок согласования отпуска.
+    /// </summary>
+    /// <param name="employeeId">ИД сотрудника.</param>
+    /// <param name="documentKindId">ИД вида документа.</param>
+    /// <param name="date">Дата начала отпуска.</param>
+    /// <returns>Срок согласования.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public DateTime GetDateDeadlineForApprovalLK(long employeeId, long documentKindId, string date)
+    {
+      var employee = Employees.Get(employeeId);
+      var documentKind = DocumentKinds.Get(documentKindId);
+      var newDate = DateTime.Parse(date);
+      var resDate = GetDateDeadlineForApproval(newDate, employee, documentKind);
+      
+      if (resDate == null)
+        throw new InvalidOperationException(Resources.ErrorDeadlineForApprovalFormat(employeeId));
+      
+      return resDate.Value;
     }
     
     #endregion
@@ -5253,6 +5316,33 @@ namespace DirRX.NNVacations.Server
       return result;
     }
     
+    /// <summary>
+    /// Получить количество дней компенсации отпуска на согласовании.
+    /// </summary>
+    /// <param name="employeeId">ИД сотрудника.</param>
+    /// <returns>Количество дней на согласовании.</returns>
+    public int GetCompensationDaysOnApproving(long employeeId)
+    {
+      var statements = VacationStatementDocuments.GetAll()
+        .Where(d => d.Employee != null && d.Employee.Id == employeeId)
+        .Where(d => d.DocumentKind != null && DocumentKinds.As(d.DocumentKind).SAPCodeDirRX == Constants.Module.SapKindsCodes.CompensationVacationKind)
+        .Where(d => d.SelectedDaysDirRX != null);
+      
+      var daysCount = 0;
+      foreach (var statement in statements)
+      {
+        var onApproving = StatementTasks.GetAll()
+          .Where(t => t.Status == DirRX.OverrideSolution.StatementTask.Status.InProcess || t.Status == DirRX.OverrideSolution.StatementTask.Status.UnderReview)
+          .Where(t => t.AttachmentDetails.Any(d => d.EntityId == statement.Id && d.GroupId == Guid.Parse("b80b6b22-03cb-43f6-9211-75b93cf9710e")))
+          .Any();
+        
+        if (onApproving)
+          daysCount += statement.SelectedDaysDirRX.Value;
+      }
+      
+      return daysCount;
+    }
+    
     #endregion
     
     #region IF-S-11187. Проверка данных в АСУП для заявления на компенсацию части ежегодного отпуска (АСУП -> КЭДО).
@@ -5829,7 +5919,7 @@ namespace DirRX.NNVacations.Server
     /// <param name="dayCountCompensation">Количество дней компенсации.</param>
     [Public]
     public Structures.Module.IValidateVacationResult ValidateRecallVacation(long employeeId, string personnelNumber, DateTime presenceDateStart, DateTime presenceDateEnd,
-                                                                            DateTime dateTransferStart, DateTime dateTransferEnd, int dayCountCompensation)
+                                                                            DateTime? dateTransferStart, DateTime? dateTransferEnd, int dayCountCompensation)
     {
       var logPrefix = string.Format("ValidateRecallVacation. ИД сотрудника: {0}", employeeId);
       Logger.DebugFormat("{0}. Начало обработки.", logPrefix);
@@ -5890,18 +5980,21 @@ namespace DirRX.NNVacations.Server
     /// <returns>Структура для передачи данных в SAP.</returns>
     [Public]
     public DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText GenerateStructForValidateRecallVacation(long employeeId, string personnelNumber, DateTime presenceDateStart, DateTime presenceDateEnd,
-                                                                                                                    DateTime dateTransferStart, DateTime dateTransferEnd, int dayCountCompensation)
+                                                                                                                    DateTime? dateTransferStart, DateTime? dateTransferEnd, int dayCountCompensation)
     {
       var logPrefix = string.Format("GenerateStructForValidateRecallVacation. ИД сотрудника: {0}", employeeId);
       var result = DirRX.NNIntegration.Structures.Module.ResultGenerateRequestText.Create();
       Logger.DebugFormat("{0}. Начало обработки.", logPrefix);
       
+      var savedDateTransferStart = dateTransferStart?.ToString("dd.MM.yyyy") ?? "";
+      var savedDateTransferEnd = dateTransferEnd?.ToString("dd.MM.yyyy") ?? "";
+      
       var model = DirRX.NNVacations.Structures.Module.ValidateVacationRecall.Create(Guid.NewGuid().ToString(),
                                                                                     personnelNumber,
                                                                                     presenceDateStart.ToString("dd.MM.yyyy"),
                                                                                     presenceDateEnd.ToString("dd.MM.yyyy"),
-                                                                                    dateTransferStart.ToString("dd.MM.yyyy"),
-                                                                                    dateTransferEnd.ToString("dd.MM.yyyy"),
+                                                                                    savedDateTransferStart,
+                                                                                    savedDateTransferEnd,
                                                                                     dayCountCompensation);
       
       try
@@ -5957,6 +6050,9 @@ namespace DirRX.NNVacations.Server
       var dayCountCompensation = doc.CompensationDaysDirRX;
       var newVacations = doc.AdditionalVacationDirRX;
       
+      var requireShiftDaysWhenRecall = doc.InterruptVacationDirRX.Any(v => v.VacationType != null && v.VacationType.RequireShiftDaysWhenRecallDirRX.HasValue && 
+                                                                      v.VacationType.RequireShiftDaysWhenRecallDirRX.Value == true);
+      
       if (doc.EmployeeDirRX == null)
         errorMessage += "Не заполнено поле Сотрудник. ";
       else if (string.IsNullOrEmpty(doc.EmployeeDirRX.PersonnelNumber))
@@ -5975,7 +6071,7 @@ namespace DirRX.NNVacations.Server
         errorMessage += "Не заполнено поле Тип отпуска. ";
       if (dayCountCompensation == null)
         errorMessage += "Не заполнено поле Количество дней для компенсации. ";
-      if (!newVacations.Any())
+      if (!newVacations.Any() && requireShiftDaysWhenRecall)
       {
         errorMessage += "Не заполнены Данные нового отпуска. ";
       }
@@ -5986,11 +6082,11 @@ namespace DirRX.NNVacations.Server
         dateTransferStart = startDateShift.HasValue ? startDateShift.Value.ToString("dd.MM.yyyy") : string.Empty;
         dateTransferEnd = endDateShift.HasValue ? endDateShift.Value.ToString("dd.MM.yyyy") : string.Empty;
         dayCount = newVacations.Sum(v => v.Days ?? 0);
-        if (string.IsNullOrEmpty(dateTransferStart))
+        if (string.IsNullOrEmpty(dateTransferStart) && requireShiftDaysWhenRecall)
           errorMessage += "Не заполнено поле Дата начала в таблице Данные нового отпуска. ";
-        if (string.IsNullOrEmpty(dateTransferEnd))
+        if (string.IsNullOrEmpty(dateTransferEnd) && requireShiftDaysWhenRecall)
           errorMessage += "Не заполнено поле Дата окончания в таблице Данные нового отпуска. ";
-        if (dayCount == 0)
+        if (dayCount == 0 && requireShiftDaysWhenRecall)
           errorMessage += "Не заполнено поле Кол-во дней в таблице Данные нового отпуска. ";
       }
       
@@ -6034,6 +6130,85 @@ namespace DirRX.NNVacations.Server
     #endregion
     
     #region Функции вычисляемых выражений.
+    
+    /// <summary>
+    /// Определить срок согласования.
+    /// </summary>
+    /// <param name="date">Дата начала отпуска.</param>
+    /// <returns>Возвращает дату срок согласования</returns>
+    [ExpressionElement("Определить срок согласования", "Возвращает дату срок согласования", "", "Сотрудник", "Вид документа", "Тип отпуска", "Рабочие дни")]
+    public DateTime? GetDateDeadlineForApproval(DateTime date, IEmployee empl, IDocumentKind documentKind)
+    {
+      if (date == null)
+      {
+        Logger.ErrorFormat("GetDateDeadlineForApproval. Не заполнена дата.");
+        return null;
+      }
+      
+      if (empl == null)
+      {
+        Logger.ErrorFormat("GetDateDeadlineForApproval. Не заполнен сотрудник.");
+        return null;
+      }
+      
+      if (documentKind == null)
+      {
+        Logger.ErrorFormat("GetDateDeadlineForApproval. Не заполнен вид документа.");
+        return null;
+      }
+           
+      var top =  empl.JobTitle != null && OverrideSolution.JobTitles.As(empl.JobTitle).EvaluationGroupDirRX?.Value != null &&
+                 OverrideSolution.JobTitles.As(empl.JobTitle).EvaluationGroupDirRX.Value != OverrideSolution.JobTitle.EvaluationGroupDirRX.OutOfCategories;
+      
+      // Получить запись справочника "Cрок согласования отпуска".
+      var vacationApprovalPeriod = PublicFunctions.VacationsApprovalPeriod.GetVacationsApprovalPeriod(empl.BusinessUnit.Id, documentKind.Id, null, false, top);
+      var nextVacationDays = vacationApprovalPeriod?.NextVacationDays ?? 0;
+      DateTime? newDate;
+      
+      if (vacationApprovalPeriod != null && vacationApprovalPeriod.WorkingDays.GetValueOrDefault(true))
+        newDate = date.AddWorkingDays(-nextVacationDays);
+      else 
+        newDate = date.AddDays(-nextVacationDays);
+      
+      if (!string.IsNullOrEmpty(vacationApprovalPeriod?.ExactTimeDeadline))
+        newDate = SetTimeInDate(newDate.Value, empl, int.Parse(vacationApprovalPeriod.ExactTimeDeadline.Substring(0,2)), int.Parse(vacationApprovalPeriod.ExactTimeDeadline.Substring(3,2)));
+
+      return newDate;
+    }
+    
+    /// <summary>
+    /// Установить время по часовому поясу сотрудника.
+    /// </summary>
+    /// <param name="date">Дата.</param>
+    /// <returns>Дату со временем по часовому поясу сотрудника</returns>
+    [ExpressionElement("Установить время по часовому поясу сотрудника", "Возвращает дату со временем по часовому поясу сотрудника", "", "Сотрудник", "Часы", "Минуты")]
+    public DateTime? SetTimeInDate(DateTime date, IEmployee empl, int hour, int minute)
+    {
+      if (date == null)
+      {
+        Logger.ErrorFormat("SetTimeInDate. Не заполнена дата.");
+        return null;
+      }
+      
+      if (empl == null)
+      {
+        Logger.ErrorFormat("SetTimeInDate. Не заполнен сотрудник.");
+        return null;
+      }
+      
+      var utcOffset = Users.GetUtcOffset(empl);
+      
+      if (utcOffset == null)
+      {
+        Logger.ErrorFormat("SetTimeInDate. Не заполнен часовой пояс сотрудника.");
+        return null;
+      }
+      
+      var dataTimeEmpl = new DateTimeOffset(date.Year, date.Month, date.Day, hour, minute, 0, utcOffset);
+
+      return Calendar.FromUtcTime(dataTimeEmpl.UtcDateTime);
+    }
+
     
     /// <summary>
     /// Получить максимальную дату окончания отпуска.

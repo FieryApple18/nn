@@ -64,4 +64,7 @@
   <data name="PositiveValueError" xml:space="preserve">
     <value>Значение должно быть положительным.</value>
   </data>
+  <data name="ValidExactTimeDeadlineError" xml:space="preserve">
+    <value>Точное время должно быть заполненно в формате ЧЧ:ММ</value>
+  </data>
 </root>

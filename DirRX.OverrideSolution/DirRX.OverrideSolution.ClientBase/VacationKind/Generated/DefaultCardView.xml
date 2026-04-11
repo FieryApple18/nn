@@ -30,7 +30,7 @@
             <property name="Name">VacationKind_ActualAbsenceDirRX_VacationReason</property>
             <property name="FieldName">VacationReason</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">465</property>
+            <property name="Width">633</property>
             <property name="ActualWidth">58*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
@@ -38,7 +38,7 @@
             <property name="Name">VacationKind_ActualAbsenceDirRX_ActualAbsence</property>
             <property name="FieldName">ActualAbsence</property>
             <property name="VisibleIndex">1</property>
-            <property name="Width">256</property>
+            <property name="Width">349</property>
             <property name="ActualWidth">32*</property>
           </property>
         </property>

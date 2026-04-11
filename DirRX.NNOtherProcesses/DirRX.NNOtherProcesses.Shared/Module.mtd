@@ -1416,7 +1416,7 @@
   "SharedAssemblyName": "DirRX.NNOtherProcesses.Shared",
   "SharedNamespace": "DirRX.NNOtherProcesses.Shared",
   "SpecialFolders": [],
-  "Version": "25.2.0.2",
+  "Version": "25.2.0.4",
   "Widgets": [],
   "Versions": [
     {

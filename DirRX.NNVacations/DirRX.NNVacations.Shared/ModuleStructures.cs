@@ -637,11 +637,6 @@ namespace DirRX.NNVacations.Structures.Module
     public string VacationPeriod { get; set; }
     
     /// <summary>
-    /// ИД типа отпуска.
-    /// </summary>
-    public long VacationTypeId { get; set; }
-    
-    /// <summary>
     /// Дата начала текущего отпуска.
     /// </summary>
     public DateTime CurrentDateStart { get; set; }
@@ -713,6 +708,11 @@ namespace DirRX.NNVacations.Structures.Module
     /// Доступно дней.
     /// </summary>
     public string DayCountString { get; set; }
+    
+    /// <summary>
+    /// Дней на согласовании.
+    /// </summary>
+    public int DaysOnApproving { get; set; }
     
     /// <summary>
     /// Текст ошибки.

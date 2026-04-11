@@ -109,4 +109,10 @@
   <data name="Action_ShowDuplicatesDescription" xml:space="preserve">
     <value>Отображает список найденных дубликатов</value>
   </data>
+  <data name="Property_ExactTimeDeadline" xml:space="preserve">
+    <value>Точное время срока</value>
+  </data>
+  <data name="Property_WorkingDays" xml:space="preserve">
+    <value>Рабочие дни</value>
+  </data>
 </root>

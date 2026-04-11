@@ -337,4 +337,16 @@
   <data name="ValidateRecallVacationDurationRestrictionError" xml:space="preserve">
     <value>Partial postponement/compensation of annual leave is not allowed. Reschedule and/or compensate for the entire vacation.</value>
   </data>
+  <data name="EmptyShiftDaysWhenRecallError" xml:space="preserve">
+    <value>For the current type of vacation ({0}), you must specify the shifting dates.</value>
+  </data>
+  <data name="CurrentVacationTypeNotFoundError" xml:space="preserve">
+    <value>Current vacation type is not found. Contact the administrator.</value>
+  </data>
+  <data name="ErrorDeadlineForApproval" xml:space="preserve">
+    <value>It was not possible to determine the deadline for approval for the employee ID: {0}</value>
+  </data>
+  <data name="RequiredShiftDaysWhenRecall" xml:space="preserve">
+    <value>For the current type of vacation, you must specify the shifting dates.</value>
+  </data>
 </root>

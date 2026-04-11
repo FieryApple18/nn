@@ -1312,6 +1312,14 @@
       "Value": "\"\""
     },
     {
+      "Name": "PatternValidTime",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "@\"^([01]?[0-9]|2[0-3]):([0-5][0-9])$\""
+    },
+    {
       "Name": "RecallVacationOrder",
       "ParentClasses": [
         "Module",
@@ -1522,6 +1530,29 @@
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean",
       "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "CheckRequireShiftDaysWhenRecall",
+      "Parameters": [
+        {
+          "Name": "periodBegin",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "periodEnd",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "currentVacationData",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Post"
     },
     {
       "Name": "CheckVacationHasHoliday",
@@ -1985,11 +2016,6 @@
           "ParameterTypeFullName": "System.String"
         },
         {
-          "Name": "vacationTypeCurrentId",
-          "ParameterType": "global::System.Nullable<global::System.Int64>",
-          "ParameterTypeFullName": "System.Nullable"
-        },
-        {
           "Name": "beginDateCurrent",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
           "ParameterTypeFullName": "System.Nullable"
@@ -2279,13 +2305,13 @@
         },
         {
           "Name": "dateTransferStart",
-          "ParameterType": "global::System.DateTime",
-          "ParameterTypeFullName": "System.DateTime"
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
           "Name": "dateTransferEnd",
-          "ParameterType": "global::System.DateTime",
-          "ParameterTypeFullName": "System.DateTime"
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
           "Name": "dayCountCompensation",
@@ -2476,6 +2502,29 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetDateDeadlineForApprovalLK",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "documentKindId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "date",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.DateTime",
+      "ReturnTypeFullName": "System.DateTime",
       "WebApiRequestType": "Get"
     },
     {
@@ -3367,13 +3416,13 @@
         },
         {
           "Name": "dateTransferStart",
-          "ParameterType": "global::System.DateTime",
-          "ParameterTypeFullName": "System.DateTime"
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
           "Name": "dateTransferEnd",
-          "ParameterType": "global::System.DateTime",
-          "ParameterTypeFullName": "System.DateTime"
+          "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
           "Name": "dayCountCompensation",
@@ -3396,11 +3445,6 @@
           "Name": "documentId",
           "ParameterType": "global::System.Nullable<global::System.Int64>",
           "ParameterTypeFullName": "System.Nullable"
-        },
-        {
-          "Name": "typeId",
-          "ParameterType": "global::System.Int64",
-          "ParameterTypeFullName": "System.Int64"
         },
         {
           "Name": "beginRecall",
@@ -3429,8 +3473,8 @@
         },
         {
           "Name": "daysShift",
-          "ParameterType": "global::System.Int32",
-          "ParameterTypeFullName": "System.Int32"
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
         },
         {
           "Name": "daysCompensation",
@@ -3701,6 +3745,10 @@
           "TypeFullName": "global::System.String"
         },
         {
+          "Name": "DaysOnApproving",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
           "Name": "ErrorText",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
@@ -3790,10 +3838,6 @@
           "Name": "VacationPeriod",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
-        },
-        {
-          "Name": "VacationTypeId",
-          "TypeFullName": "global::System.Int64"
         },
         {
           "Name": "CurrentDateStart",
@@ -5451,7 +5495,11 @@
     "VacationApprovalPeriodNotFoundSubject",
     "VacationApprovalPeriodTrueBoolValue",
     "VacationApprovalPeriodFalseBoolValue",
-    "ValidateRecallVacationDurationRestrictionError"
+    "ValidateRecallVacationDurationRestrictionError",
+    "EmptyShiftDaysWhenRecallError",
+    "CurrentVacationTypeNotFoundError",
+    "ErrorDeadlineForApproval",
+    "RequiredShiftDaysWhenRecall"
   ],
   "ServerAssemblyName": "DirRX.NNVacations.Server",
   "ServerNamespace": "DirRX.NNVacations.Server",
@@ -5671,7 +5719,7 @@
       "NeedShowMarkedCount": false
     }
   ],
-  "Version": "25.2.0.2",
+  "Version": "25.2.0.4",
   "Widgets": [],
   "Versions": [
     {

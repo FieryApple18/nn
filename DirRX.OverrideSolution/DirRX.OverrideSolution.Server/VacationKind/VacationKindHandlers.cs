@@ -30,6 +30,7 @@ namespace DirRX.OverrideSolution
       _obj.IsCompensatedDirRX = false;
       _obj.CanBeTransferredSeparatelyDirRX = false;
       _obj.NeedsTransferredCompletelyDirRX = false;
+      _obj.RequireShiftDaysWhenRecallDirRX = true;
     }
 
   }

@@ -157,4 +157,7 @@
   <data name="ControlGroup_c9a6b231c3474c728cc89a1e7f37ce76" xml:space="preserve">
     <value>Change vacation period</value>
   </data>
+  <data name="Property_RequireShiftDaysWhenRecallDirRX" xml:space="preserve">
+    <value>Require shift days when recall</value>
+  </data>
 </root>

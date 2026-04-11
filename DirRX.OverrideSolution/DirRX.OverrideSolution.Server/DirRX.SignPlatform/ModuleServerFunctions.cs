@@ -76,26 +76,40 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
         try
         {
           var employee = EssPlatformSolution.Employees.As(certificate.Owner);
-          if (employee == null)
-            continue;
-
-          if(employee.Status != Sungero.CoreEntities.DatabookEntry.Status.Closed)
+          
+          if (employee == null || employee.Status == Sungero.CoreEntities.DatabookEntry.Status.Closed)
           {
-            var author = EssPlatformSolution.Employees.GetAll(e => Equals(e.BusinessUnit, employee.BusinessUnit) && e.Status == Sungero.Company.Employee.Status.Active)
-              .Select(s => Sungero.CoreEntities.Users.As(s)).ToList()
-              .Where(u => u.IncludedIn(DirRX.EssPlatform.PublicConstants.Module.AdminElEmployeeInteractionSystem))
-              .FirstOrDefault();
-
-            var certificateRequest = DirRX.SignPlatform.CertificateRequests.Get(certificate.Id);
-            var userConnectionParams = DirRX.SignPlatform.Structures.Module.UserConnectionParams.Create(
-              certificateRequest.ProviderId,
-              certificateRequest.ProviderType,
-              certificateRequest.IdentificationType.Value.Value,
-              true);
-
-            DirRX.OverrideSolution.Module.SignPlatform.PublicFunctions.Module.Remote.IssueCertificate(employee, author, userConnectionParams);
-            anyIssueCreate = true;
+            Logger.DebugFormat("Jobs CloudCertificatesReissueTasks: employee is not found. CertificateId='{0}'", certificate.Id);
+            continue;
           }
+          
+          var author = EssPlatformSolution.Employees
+            .GetAll(e => Equals(e.BusinessUnit, employee.BusinessUnit) && e.Status == Sungero.Company.Employee.Status.Active)
+            .Select(s => Sungero.CoreEntities.Users.As(s)).ToList()
+            .Where(u => u.IncludedIn(DirRX.EssPlatform.PublicConstants.Module.AdminElEmployeeInteractionSystem))
+            .FirstOrDefault();
+          
+          if (author == null)
+          {
+            hasErrors = true;
+            
+            Logger.ErrorFormat(
+              "Jobs CloudCertificatesReissueTasks: author for CertificateIssueTask is not found. EmployeeId='{0}', CertificateId='{1}'",
+              employee.Id,
+              certificate.Id);
+            
+            continue;
+          }
+          
+          var certificateRequest = DirRX.SignPlatform.CertificateRequests.GetAll().First(p => p.CertificateID == certificate.Id);
+          var userConnectionParams = DirRX.SignPlatform.Structures.Module.UserConnectionParams.Create(
+            certificateRequest.ProviderId,
+            certificateRequest.ProviderType,
+            certificateRequest.IdentificationType.Value.Value,
+            true);
+
+          DirRX.OverrideSolution.Module.SignPlatform.PublicFunctions.Module.Remote.IssueCertificate(employee, author, userConnectionParams);
+          anyIssueCreate = true;
         }
         catch (Exception ex)
         {
@@ -667,7 +681,7 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
     {
       var certificateIssueRequest = base.CreateCertificateIssueRequest(employee, identificationType);
       certificateIssueRequest.PhoneNumber = DirRX.OverrideSolution.PublicFunctions.Employee.GetCertificatePhoneNumber(Employees.As(employee));
-      certificateIssueRequest.Email = string.IsNullOrEmpty(certificateIssueRequest.Email) ? 
+      certificateIssueRequest.Email = string.IsNullOrEmpty(certificateIssueRequest.Email) ?
         NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateEmail.Guid) :
         certificateIssueRequest.Email;
       

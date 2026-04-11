@@ -21,6 +21,7 @@ namespace DirRX.NNVacations
       _obj.PaymentCompleted = false;
       _obj.Top = false;
       _obj.Status = NNVacations.VacationsApprovalPeriod.Status.Active;
+      _obj.WorkingDays = true;
     }
   }
 
