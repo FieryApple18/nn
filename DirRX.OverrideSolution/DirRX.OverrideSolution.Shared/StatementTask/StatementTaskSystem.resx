@@ -79,4 +79,19 @@
   <data name="Property_AbortingDateDirRX" xml:space="preserve">
     <value>Aborting date</value>
   </data>
+  <data name="Property_SubstitutionsDirRX" xml:space="preserve">
+    <value>Substitutions</value>
+  </data>
+  <data name="Property_SubstituteIdsDirRX" xml:space="preserve">
+    <value>SubstituteIds</value>
+  </data>
+  <data name="Property_SystemIdsDirRX" xml:space="preserve">
+    <value>SystemIds</value>
+  </data>
+  <data name="Property_StartDatesDirRX" xml:space="preserve">
+    <value>StartDates</value>
+  </data>
+  <data name="Property_EndDatesDirRX" xml:space="preserve">
+    <value>EndDates</value>
+  </data>
 </root>

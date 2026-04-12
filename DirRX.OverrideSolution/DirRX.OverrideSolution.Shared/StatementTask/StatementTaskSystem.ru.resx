@@ -79,4 +79,19 @@
   <data name="Property_AbortingDateDirRX" xml:space="preserve">
     <value>Дата прекращения</value>
   </data>
+  <data name="Property_SubstitutionsDirRX" xml:space="preserve">
+    <value>Замещения</value>
+  </data>
+  <data name="Property_SubstituteIdsDirRX" xml:space="preserve">
+    <value>ИД замещающих</value>
+  </data>
+  <data name="Property_SystemIdsDirRX" xml:space="preserve">
+    <value>ИД систем</value>
+  </data>
+  <data name="Property_StartDatesDirRX" xml:space="preserve">
+    <value>Даты с</value>
+  </data>
+  <data name="Property_EndDatesDirRX" xml:space="preserve">
+    <value>Даты по</value>
+  </data>
 </root>
