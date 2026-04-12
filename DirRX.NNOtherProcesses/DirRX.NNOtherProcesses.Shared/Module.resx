@@ -176,7 +176,4 @@ It is recommended to disable it, as its execution is no longer required.</value>
   <data name="ErrorCheckWorkingHoursExceeded" xml:space="preserve">
     <value>It is necessary to specify breaks, since the working time exceeds {0} {1}.</value>
   </data>
-  <data name="DefaultSubstitutionSystem_Name" xml:space="preserve">
-    <value>KEDO</value>
-  </data>
 </root>

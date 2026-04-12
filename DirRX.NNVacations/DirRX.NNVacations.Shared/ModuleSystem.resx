@@ -175,13 +175,4 @@
   <data name="CoverDescription_AcquiantanceVacScheduleReport" xml:space="preserve">
     <value />
   </data>
-  <data name="Block_cf6ebff4caba47be9b69af2f9a89a487" xml:space="preserve">
-    <value>Create substitutions</value>
-  </data>
-  <data name="Block_36a2af78a4854e42a106ff30547900a1" xml:space="preserve">
-    <value>Update substitutions</value>
-  </data>
-  <data name="Block_aa529d65717544adb05f3171ae210a85" xml:space="preserve">
-    <value>Close substitutions</value>
-  </data>
 </root>

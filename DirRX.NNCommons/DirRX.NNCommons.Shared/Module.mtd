@@ -2783,22 +2783,6 @@
       "StructureNamespace": "DirRX.NNCommons.Structures.Module"
     },
     {
-      "Name": "OptionItem",
-      "IsPublic": true,
-      "Properties": [
-        {
-          "Name": "Id",
-          "TypeFullName": "global::System.Int64"
-        },
-        {
-          "Name": "DisplayValue",
-          "IsNullable": true,
-          "TypeFullName": "global::System.String"
-        }
-      ],
-      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
-    },
-    {
       "Name": "StatementData",
       "IsIsolated": true,
       "IsPublic": true,

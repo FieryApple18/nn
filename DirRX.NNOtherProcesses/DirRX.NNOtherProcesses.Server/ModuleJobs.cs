@@ -10,45 +10,6 @@ namespace DirRX.NNOtherProcesses.Server
   {
 
     /// <summary>
-    /// ФП по удалению устаревших записей справочника "Замещение ЛК" по истечении срока хранения.
-    /// </summary>
-    public virtual void CleanSubstitutionPersonalAccountJob()
-    {
-      var retentionConstant = DirRX.NNCommons.PublicFunctions.Module.GetIntValue(DirRX.NNOtherProcesses.Constants.Module.ConstantsSetting.SubstitutionPersonalAccountRetentionDays.Guid);
-      var retentionDays = DirRX.NNOtherProcesses.Constants.Module.ConstantsDefaultValues.SubstitutionPersonalAccountRetentionDays;
-
-      if (retentionConstant != null && retentionConstant.HasValue)
-        retentionDays = retentionConstant.Value;
-
-      var borderDate = Calendar.Today.AddDays(-retentionDays);
-
-      Logger.DebugFormat("CleanSubstitutionPersonalAccountJob. Start. RetentionDays = {0}, borderDate = {1}.", retentionDays, borderDate);
-      
-      var deletedCount = 0;
-      var errorsCount = 0;
-      
-      var records = DirRX.NNOtherProcesses.SubstitutionPersonalAccounts.GetAll(r => r.EndDate.HasValue && r.EndDate < borderDate).ToList();
-      
-      foreach (var record in records)
-      {
-        try
-        {
-          Transactions.Execute(() => {
-                                 SubstitutionPersonalAccounts.Delete(record);
-                               });
-          deletedCount++;
-        }
-        catch (Exception ex)
-        {
-          errorsCount++;
-          Logger.ErrorFormat("CleanSubstitutionPersonalAccountJob. Error while deleting recordId={0}, {1}.", record.Id, ex.Message);
-        }
-      }
-
-      Logger.DebugFormat("CleanSubstitutionPersonalAccountJob. Finished. Deleted {0}, errors {1}.", deletedCount, errorsCount);
-    }
-
-    /// <summary>
     /// ФП по актуализации признака "TOP-10/100" в документах.
     /// </summary>
     public virtual void UpdateTopAttributeInDocumentsJob()

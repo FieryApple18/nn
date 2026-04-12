@@ -173,7 +173,6 @@
         <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNReworkSelfRecallVacationEmployee.xml" />
         <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNShiftVacationByStatement.xml" />
         <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNReworkShiftVacationByStatement.xml" />
-        <include xmlns="http://www.w3.org/2001/XInclude" href="facilities/NNSubstitutionSetup.xml" />
       </facilities>
     </facilityGroup>
   </facilityGroups>

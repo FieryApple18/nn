@@ -10,14 +10,6 @@ namespace DirRX.OverrideSolution
   partial class StatementTaskServerHandlers
   {
 
-    public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
-    {
-      base.BeforeSave(e);
-      
-      if (_obj.State.IsInserted)
-        DirRX.OverrideSolution.Functions.StatementTask.AddSubstitutions(_obj);
-    }
-
     // HACK: Копирование базового метода BeforeStart, с добавлением работы с новой группой вложения VacationStatementDocuments.
     public override void BeforeStart(Sungero.Workflow.Server.BeforeStartEventArgs e)
     {

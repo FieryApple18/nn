@@ -13,5 +13,4 @@
     <script name="validateShiftByStatementVacationData" runat="Client" codeFile="scripts/validateShiftByStatementVacationData.js" />
     <script name="validateRecallVacationData" runat="Client" codeFile="scripts/validateRecallVacationData.js" />
     <script name="signFromObjectCard" runat="Client" codeFile="scripts/signFromObjectCard.js" />
-    <script name="validateSubstitutionDates" runat="Client" codeFile="scripts/validateSubstitutionDates.js" />
 </scripts>

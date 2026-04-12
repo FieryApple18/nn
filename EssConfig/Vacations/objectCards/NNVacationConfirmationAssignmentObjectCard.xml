@@ -37,97 +37,27 @@
       ]]></clickEventHandler>
     </button>
     <button name="Complete" isPrimary="true" isDefault="true">
-    <icon>check-mark</icon>
-    <caption>@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE</caption>
-    <clickEventHandler><![CDATA[
-      var getVacationInfoFromServer = function() {
-        return new Promise(function(resolve) {
-          ESS.network.sendRequest('/api/functions/GetVacationInfoByAssignmentId?assignmentId=' + data.id)
-          .then(function(response) {
-            if (!response) {
-              resolve({ vacationKindId: 0, periods: [] });
-              return;
-            }
-            
-            var vacationKindId = response.vacationKindId || response.VacationKindId || 0;
-            var rawPeriods = response.periods || response.Periods || [];
-            
-            var normalizedPeriods = rawPeriods.map(function(p) {
-              return {
-                StartDate: p.startDate || p.StartDate,
-                EndDate: p.endDate || p.EndDate
-              };
-            });
-
-            resolve({
-              vacationKindId: vacationKindId,
-              periods: normalizedPeriods
-            });
-          })
-          .catch(function(error) {
-            resolve({ vacationKindId: 0, periods: [] });
+      <icon>check-mark</icon>
+      <caption>@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE</caption>
+      <clickEventHandler><![CDATA[
+        var callback = function callback() {
+          ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Confirm').then(function () {
+            ESS.closeElement(sender);
+            ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
+            ESS.widgets.updateWidgets();
+          }).catch(function (error) {
+            ESS.toasts.showErrorToastWithLog(ESS.L('@HRPROVACATIONS.ERROR_ASSIGNMENT_COMPLETION_FAILURE'), error.message);
           });
-        });
-      };
-
-      var runSubstitutionSetup = function(vacationData) {
-        return new Promise(function(resolve) {
-          var periods = vacationData.periods;
-          var vacationKindId = vacationData.vacationKindId;
-
-          if (!periods || periods.length === 0) {
-            resolve();
-            return;
-          }
-          
-          var vacationPeriodsJson = JSON.stringify(periods);
-          
-          ESS.actions.facilityActions.runFacility(
-            { id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' },
-            {
-              parameters: {
-                InitiatorId: data.performer,
-                AssignmentId: data.id,
-                AssignmentType: data.name,
-                VacationPeriodsJson: vacationPeriodsJson,
-                CompleteAssignmentAfterSubmit: true,
-                WorkItemChangingReason: 'Confirm',
-                VacationKindId: vacationKindId
-              }
-            }
-          );
-          resolve();
-        });
-      };
-    
-      var closeCard = function() {
-        ESS.closeElement(sender);
-        ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
-        ESS.widgets.updateWidgets();
-      };
-      
-      var executeFullChain = function() {        
-        getVacationInfoFromServer()
-          .then(function(vacationInfo) {
-            return runSubstitutionSetup(vacationInfo);
-          })
-          .then(function() {
-            closeCard();
-          })
-          .catch(function(error) {
-            ESS.toasts.showErrorToastWithLog('Ошибка при выполнении задания', error.message);
-          });
-      };
-      
-      var documents = data.attachments.filter(x => x.group === 'DocumentGroup').map(a => ({ id: a.id, title: a.title }));
-      
-      if (documents !== undefined && documents.length !== 0) {
-        ESS.scripts.HRProVacations.signFromObjectCard({ data: data, documents: documents, callback: executeFullChain});
-      } else {
-        executeFullChain();
-      }
-    ]]></clickEventHandler>
-  </button>
+        };
+        
+        var documents = data.attachments.filter(x => x.group === 'DocumentGroup').map(a => ({ id: a.id, title: a.title }));
+        if (documents !== undefined && documents.length != 0) {
+          ESS.scripts.HRProVacations.signFromObjectCard({ data, documents, callback });
+        } else {
+          callback();
+        }
+      ]]></clickEventHandler>
+    </button>
   </buttons>
   <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
   <openedEventHandler><![CDATA[

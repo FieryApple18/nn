@@ -119,14 +119,6 @@
     {
       "ItemId": "87094eed-c853-4d35-8b9a-3a50a6b7f2e9",
       "PreviousItemId": "4d275128-a4c2-4855-afe6-e0e50daa122f"
-    },
-    {
-      "ItemId": "55f01030-a8b4-45be-9734-c09ee9ee0862",
-      "PreviousItemId": "87094eed-c853-4d35-8b9a-3a50a6b7f2e9"
-    },
-    {
-      "ItemId": "82694e32-6bba-4ac4-8514-bb3f75f35859",
-      "PreviousItemId": "55f01030-a8b4-45be-9734-c09ee9ee0862"
     }
   ],
   "HandledEvents": [
@@ -144,7 +136,7 @@
   "IsolatedAssemblyName": "DirRX.NNOtherProcesses.Isolated",
   "IsolatedFunctions": [
     {
-      "NameGuid": "7b3b3970-b4af-4adb-bf47-98f8f89dc7e3",
+      "NameGuid": "d8c257c1-5d74-4cd7-ac19-32b5d4b333ae",
       "Name": "SerializeInJson",
       "IsolatedAreaId": "38d9933d-5bf6-4a52-9c78-b9e8c3df6704",
       "Parameters": [
@@ -158,7 +150,7 @@
       "ReturnTypeFullName": "System.String"
     },
     {
-      "NameGuid": "c73d503a-33c1-432b-8d2b-c48568675398",
+      "NameGuid": "b74eac3a-2f62-4f3c-974c-a356fb07314d",
       "Name": "SerializeInJson",
       "IsolatedAreaId": "38d9933d-5bf6-4a52-9c78-b9e8c3df6704",
       "Parameters": [
@@ -185,13 +177,6 @@
       "MonthSchedule": "Monthly",
       "StartAt": "1753-01-01T00:00:00",
       "TimePeriod": 40
-    },
-    {
-      "NameGuid": "584a90de-3867-4888-b2cc-539619bf0b85",
-      "Name": "CleanSubstitutionPersonalAccountJob",
-      "GenerateHandler": true,
-      "MonthSchedule": "Monthly",
-      "StartAt": "1753-01-01T08:30:00"
     }
   ],
   "Overridden": [
@@ -291,16 +276,6 @@
       ],
       "TypeName": "System.String",
       "Value": "\"9a0594f8-2b23-4879-9f3a-8e96dba16826\""
-    },
-    {
-      "Name": "Guid",
-      "ParentClasses": [
-        "Module",
-        "ConstantsGroup",
-        "Substitution"
-      ],
-      "TypeName": "System.String",
-      "Value": "\"3404F89F-BB72-47E6-8F82-CEB5C72349DC\""
     },
     {
       "Name": "Guid",
@@ -483,26 +458,6 @@
       "Value": "\"6A24654B-278C-41CA-B5C7-7B2DC5D6B5DB\""
     },
     {
-      "Name": "Guid",
-      "ParentClasses": [
-        "Module",
-        "ConstantsSetting",
-        "SubstitutionPersonalAccountRetentionDays"
-      ],
-      "TypeName": "System.String",
-      "Value": "\"CBCFF959-6A18-486D-889B-2BB4BC32B5FE\""
-    },
-    {
-      "Name": "Guid",
-      "ParentClasses": [
-        "Module",
-        "ConstantsSetting",
-        "SubstitutionSystemKedoSystemId"
-      ],
-      "TypeName": "System.String",
-      "Value": "\"46877AE3-E69A-4D03-BBCC-E0DC4BBA17AC\""
-    },
-    {
       "Name": "HRSimpleDocument",
       "ParentClasses": [
         "Module",
@@ -672,15 +627,6 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"0a714e8d-ba7a-40b6-be9c-fed73908c5b2\")"
-    },
-    {
-      "Name": "SubstitutionSystemKedoSystemId",
-      "ParentClasses": [
-        "Module",
-        "ConstantsDefaultValues"
-      ],
-      "TypeName": "System.String",
-      "Value": "\"IS0000098\""
     },
     {
       "Name": "SupportingDocumentForLNADocKind",
@@ -1463,8 +1409,7 @@
     "ErrorWeekendWorkHoursExceeded",
     "ErrorWeekendWorkHoursExceededEmployee",
     "ErrorWeekendWorkHoursExceededEmployees",
-    "ErrorCheckWorkingHoursExceeded",
-    "DefaultSubstitutionSystem_Name"
+    "ErrorCheckWorkingHoursExceeded"
   ],
   "ServerAssemblyName": "DirRX.NNOtherProcesses.Server",
   "ServerNamespace": "DirRX.NNOtherProcesses.Server",

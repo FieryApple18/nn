@@ -8,23 +8,6 @@ namespace DirRX.NNCommons.Structures.Module
 {
 
   /// <summary>
-  /// Универсальный элемент списка для параметра FacilityParameterQuery.
-  /// </summary>
-  [Public]
-  partial class OptionItem
-  {
-    /// <summary>
-    /// ИД записи.
-    /// </summary>
-    public long Id { get; set; }
-    
-    /// <summary>
-    /// Отображаемое значение.
-    /// </summary>
-    public string DisplayValue { get; set; }
-  }
-
-  /// <summary>
   /// Структура для замены текстовой метки на новое текстовое значение.
   /// </summary>
   [Public(Isolated=true)]
