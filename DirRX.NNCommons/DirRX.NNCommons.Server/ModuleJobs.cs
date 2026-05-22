@@ -9,6 +9,52 @@ namespace DirRX.NNCommons.Server
 {
   public partial class ModuleJobs
   {
+
+    /// <summary>
+    /// Норникель. Очистка частных календарей рабочего времени.
+    /// </summary>
+    public virtual void PrivateWorkingTimeCalendarsCleaningJob()
+    {
+      var functionName = nameof(PrivateWorkingTimeCalendarsCleaningJob);
+      Logger.DebugFormat("{0}. Запущен фоновый процесс.", functionName);
+      
+      var daysAfterNewYear = Functions.Module.GetIntValue(Constants.Module.ConstantsSetting.CountDaysAfterNewYearToDeleteWorkingTimeCalendars.Guid) ??
+        Constants.Module.DefaultCountDaysAfterNewYearToDeleteWorkingTimeCalendars;
+      var dateToDeleteOldCalendars = Calendar.Today.BeginningOfYear().AddDays(daysAfterNewYear);
+      var needDeleteOldCalendars = dateToDeleteOldCalendars <= Calendar.Today;
+      var calendarsToDelete = PrivateWorkingTimeCalendars.GetAll().Where(c => (needDeleteOldCalendars && Calendar.Today.Year > c.Year) ||
+                                                                         (c.Recipients.Count() == 1 &&
+                                                                          c.Recipients.FirstOrDefault(r => Employees.Is(r.Recipient) &&
+                                                                                                      r.Recipient.Status == Sungero.CoreEntities.Recipient.Status.Closed) != null));
+      
+      var deletedCalendarsCount = 0;
+      var calendarsToDeleteCount = calendarsToDelete.Select(c => c.Id).Count();
+      if (calendarsToDeleteCount != 0)
+      {
+        var iterationSize = Functions.Module.GetIntValue(Constants.Module.ConstantsSetting.CountWorkingTimeCalendarsToDeleteInIteration.Guid) ??
+          Constants.Module.DefaultCountWorkingTimeCalendarsToDeleteInIteration;
+        
+        Logger.DebugFormat("{0}. Найдено календарей для удаления: {1}. Максимальное кол-во удаляемых календарей за итерацию ФП: {2}.", functionName, calendarsToDeleteCount, iterationSize);
+        
+        var calendarsToDeleteIds = calendarsToDelete.Take(iterationSize).Select(c => c.Id).ToList();
+        foreach (var calendarId in calendarsToDeleteIds)
+        {
+          var isSuccess = Transactions.Execute(() => {
+                                                 var calendar = PrivateWorkingTimeCalendars.GetAll(c => c.Id == calendarId).FirstOrDefault();
+                                                 PrivateWorkingTimeCalendars.Delete(calendar);
+                                               });
+          if (isSuccess)
+            deletedCalendarsCount++;
+          else
+            Logger.ErrorFormat("{0}. Не удалось удалить календарь c ИД {1}.", functionName, calendarId);
+        }
+      }
+      else
+        Logger.DebugFormat("{0}. Не найдены календари для удаления.", functionName);
+
+      Logger.DebugFormat("{0}. Фоновый процесс завершил работу. Удалено календарей: {1}.", functionName, deletedCalendarsCount);
+    }
+    
     /// <summary>
     /// Уведомление о завершении срока действия УКЭП.
     /// </summary>

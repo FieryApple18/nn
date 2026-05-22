@@ -295,4 +295,43 @@ Obsolete. Use the "Increase by" function.</value>
   <data name="HoursDeclensionTwo" xml:space="preserve">
     <value>hours</value>
   </data>
+  <data name="MassIssueCertificatesStarted" xml:space="preserve">
+    <value>Start of execution async handler "Mass issue certificates".</value>
+  </data>
+  <data name="MassIssueCertificatesCompleted" xml:space="preserve">
+    <value>Completed execution async handler "Mass issue certificates".</value>
+  </data>
+  <data name="DisableSimpleCertificatesStarted" xml:space="preserve">
+    <value>Start of execution async handler "Disable simple certificate".</value>
+  </data>
+  <data name="DisableSimpleCertificatesCompleted" xml:space="preserve">
+    <value>Completed execution async handler "Disable simple certificate".</value>
+  </data>
+  <data name="TimeZoneNameTemplate" xml:space="preserve">
+    <value>UTC+{0}</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedTest" xml:space="preserve">
+    <value>Measuring the working time calculation rate</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedTestDescription" xml:space="preserve">
+    <value>Measure the speed of calculating working times based on private calendars.</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_EmployeeCount" xml:space="preserve">
+    <value>Employee count</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_HoursShift" xml:space="preserve">
+    <value>Hours shift</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_DaysShift" xml:space="preserve">
+    <value>Days shift</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestResult" xml:space="preserve">
+    <value>Avarage time: {0} sec.
+
+Details (sec):
+{1}</value>
+  </data>
 </root>

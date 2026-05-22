@@ -115,4 +115,11 @@
   <data name="Property_SupernikaTextDirRX" xml:space="preserve">
     <value>Supernika notice text</value>
   </data>
+  <data name="Property_IsSubstitutionAllowedDirRX" xml:space="preserve">
+    <value>Execute by substitution
+</value>
+  </data>
+  <data name="Property_IsSubstitutionVisibleDirRX" xml:space="preserve">
+    <value>Display by substitution</value>
+  </data>
 </root>

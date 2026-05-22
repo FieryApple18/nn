@@ -1089,6 +1089,15 @@
   "OperationsClass": "",
   "Properties": [
     {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ac8e0cc1-f2a7-4076-956b-117766501f7f",
+      "Name": "UseESSDirRX",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsEnabled"
+      ]
+    },
+    {
       "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
       "NameGuid": "70df2cc4-5611-45ec-8459-6724ce1d937c",
       "Name": "NeedNotifyNewHRAssignmentDirRXSungero",

@@ -138,6 +138,12 @@ namespace DirRX.NNCommons.Server
       indexName = "idx_doc_employee_vacation_hpro";
       indexQuery = string.Format(Queries.Module.CreateVacationPersonalDocumentBaseIndex, tableName, indexName);
       Sungero.Docflow.PublicFunctions.Module.CreateIndexOnTable(tableName, indexName, indexQuery);
+      
+      // Индекс по полю "Календарь рабочего времени" в днях календарей рабочего времени.
+      tableName = "public.sungero_core_wrktimecalday ";
+      indexName = "idx_wrktimecalday_workingtime";
+      indexQuery = string.Format(Queries.Module.CreateWorkingDayOnWorkingTimeIndex, tableName, indexName);
+      Sungero.Docflow.PublicFunctions.Module.CreateIndexOnTable(tableName, indexName, indexQuery);
     }
     
     /// <summary>
@@ -322,6 +328,61 @@ namespace DirRX.NNCommons.Server
       Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.NumberDaysAdvancerequiredNotifyTerminationEP.Name, true, string.Empty,
                                       Constants.Module.ConstantsSetting.NumberDaysAdvancerequiredNotifyTerminationEP.Guid,
                                       Constants.Module.ConstantsGroup.IssueOfEPCertificates.Guid);
+      
+      // Общее. Имена издателей УНЭП (указываются через ',').
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.IssuerNamesUnqualifiedSignature.Name, true, string.Empty,
+                                      Constants.Module.ConstantsSetting.IssuerNamesUnqualifiedSignature.Guid,
+                                      Constants.Module.ConstantsGroup.IntegrationWithKss.Guid);
+      
+      #region Группа констант "Параметры подключения к БД"
+      
+      // Адрес сервера СУБД Ess.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.EssDatabaseAddress.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseAddress.DefaultValue,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseAddress.Guid,
+                                                             Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
+      // Порт сервера СУБД Ess.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.EssDatabasePort.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsSetting.EssDatabasePort.DefaultValue,
+                                                             Constants.Module.ConstantsSetting.EssDatabasePort.Guid,
+                                                             Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
+      
+      // Наименование базы данных Ess.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.EssDatabaseName.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseName.DefaultValue,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseName.Guid,
+                                                             Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
+      
+      // Имя пользователя для подключения к СУБД Ess.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.EssDatabaseUserName.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseUserName.DefaultValue,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseUserName.Guid,
+                                                             Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
+      
+      // Пароль для подключения к СУБД Ess.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.EssDatabaseUserPassword.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseUserPassword.DefaultValue,
+                                                             true,
+                                                             Constants.Module.ConstantsSetting.EssDatabaseUserPassword.Guid,
+                                                             Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
+      #endregion
+      
+      // Общее. Количество календарей, удаляемое за один раз ФП Норникель. Очистка частных календарей рабочего времени.
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.CountWorkingTimeCalendarsToDeleteInIteration.Name, true,
+                                      Constants.Module.DefaultCountWorkingTimeCalendarsToDeleteInIteration,
+                                      Constants.Module.ConstantsSetting.CountWorkingTimeCalendarsToDeleteInIteration.Guid,
+                                      Constants.Module.ConstantsGroup.WorkingTimeCalendars.Guid);
+      
+      // Общее. Количество дней для хранения ЧКРВ после Нового года.
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.CountDaysAfterNewYearToDeleteWorkingTimeCalendars.Name, true,
+                                      Constants.Module.DefaultCountDaysAfterNewYearToDeleteWorkingTimeCalendars,
+                                      Constants.Module.ConstantsSetting.CountDaysAfterNewYearToDeleteWorkingTimeCalendars.Guid,
+                                      Constants.Module.ConstantsGroup.WorkingTimeCalendars.Guid);
     }
     
     /// <summary>
@@ -334,6 +395,8 @@ namespace DirRX.NNCommons.Server
       Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.FileStorage.Name, Constants.Module.ConstantsGroup.FileStorage.Guid);
       Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.IssueOfEPCertificates.Name, Constants.Module.ConstantsGroup.IssueOfEPCertificates.Guid);
       Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.Reports.Name, Constants.Module.ConstantsGroup.Reports.Guid);
+      Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.DbConnectionSettings.Name, Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
+      Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.WorkingTimeCalendars.Name, Constants.Module.ConstantsGroup.WorkingTimeCalendars.Guid);
     }
     
     /// <summary>

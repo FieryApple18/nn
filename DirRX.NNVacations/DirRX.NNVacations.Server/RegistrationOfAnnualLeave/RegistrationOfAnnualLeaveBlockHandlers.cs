@@ -84,6 +84,9 @@ namespace DirRX.NNVacations.Server.RegistrationOfAnnualLeaveBlocks
       assignment.SupernikaSubject = _block.SupernikaSubject;
       assignment.SupernikaText = _block.SupernikaText;
       
+      assignment.IsSubstitutionAllowed = _block.IsSubstitutionAllowed;
+      assignment.IsSubstitutionVisible = _block.IsSubstitutionVisible;
+      
       // Отправить уведомление о новом задании.
       DirRX.EssPlatform.PublicFunctions.Module.SendNewNotification(Sungero.Company.Employees.As(assignment.Performer), false,
                                                                    HRPro.HRProSolution.PublicConstants.Module.TargetNameSpace,

@@ -191,19 +191,19 @@
     <value>Facility</value>
   </data>
   <data name="JobDisplayName_fa8a39b0cb454f4c842781d101c43cd4" xml:space="preserve">
-    <value>Норникель. Select documents whose electronic signatures must be upgraded to the CAdES-XL format</value>
+    <value>Obsolete. Норникель. Select documents whose electronic signatures must be upgraded to the CAdES-XL format</value>
   </data>
   <data name="JobDescription_fa8a39b0cb454f4c842781d101c43cd4" xml:space="preserve">
-    <value>Select documents whose signatures must be upgraded to the CAdES-XL format</value>
+    <value>Obsolete. Select documents whose signatures must be upgraded to the CAdES-XL format</value>
   </data>
   <data name="AsyncHandler_Description_eb8eba5576744bfb8078efdb03f76320" xml:space="preserve">
-    <value>Upgrade electronic signature to the CAdES-XL format</value>
+    <value>Obsolete. Upgrade electronic signature to the CAdES-XL format</value>
   </data>
   <data name="JobDisplayName_08925aa51f78437496a3320c0f4ac78c" xml:space="preserve">
-    <value>Норникель. Search documents signed with electronic signature</value>
+    <value>Obsolete. Норникель. Search documents signed with electronic signature</value>
   </data>
   <data name="JobDescription_08925aa51f78437496a3320c0f4ac78c" xml:space="preserve">
-    <value>Search documents with electronic signature in the CadesBes and CadesT formats</value>
+    <value>Obsolete. Search documents with electronic signature in the CadesBes and CadesT formats</value>
   </data>
   <data name="AsyncHandler_Description_a008f0995fb7475fa41ef5954d2d8683" xml:space="preserve">
     <value>Add employee to role</value>
@@ -241,5 +241,29 @@
   <data name="AsyncHandler_Description_ef783ce2f9a94872af7ed2adf8ab6d80" xml:space="preserve">
     <value>Mark as read aborted competitive assignments.
 HACK BUG 446803.</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_3d8425b68830465884497f63ea8c1a40" xml:space="preserve">
+    <value>Execute by substitution</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_809f747802e54d11b1f67ca8cbfbf540" xml:space="preserve">
+    <value>Display by substitution</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_3d8425b68830465884497f63ea8c1a40" xml:space="preserve">
+    <value>IsSubstitutionAllowed</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_809f747802e54d11b1f67ca8cbfbf540" xml:space="preserve">
+    <value>IsSubstitutionVisible</value>
+  </data>
+  <data name="AsyncHandler_Description_a825ff6bef2e46ab82f307c869881a9e" xml:space="preserve">
+    <value>Disable simple certificates</value>
+  </data>
+  <data name="AsyncHandler_Description_e98a058e44a64d4e92171b6834b67b2c" xml:space="preserve">
+    <value>Mass issue certificates</value>
+  </data>
+  <data name="JobDisplayName_0df2de757007482dbd16e61e67382276" xml:space="preserve">
+    <value>Норникель. Private working time calendars cleaning</value>
+  </data>
+  <data name="JobDescription_0df2de757007482dbd16e61e67382276" xml:space="preserve">
+    <value>Cleaning irrelevant private working time calendars.</value>
   </data>
 </root>

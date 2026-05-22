@@ -27,6 +27,7 @@ namespace DirRX.OverrideSolution
       base.AfterSave(e);
 
       var needStartAsyncHandlers = false;
+      var needExcludeEmployeeFromTimeZone = false;
       
       if (e.Params.TryGetValue(Constants.HRProSolution.Employee.NeedStartUpdateSubstitutionsForVirtualEmployeeDirRX, out needStartAsyncHandlers) && needStartAsyncHandlers)
       {
@@ -35,6 +36,11 @@ namespace DirRX.OverrideSolution
         asyncHandler.ExecuteAsync();
         
         e.Params.Remove(Constants.HRProSolution.Employee.NeedStartUpdateSubstitutionsForVirtualEmployeeDirRX);
+      }
+      
+      if (e.Params.TryGetValue(Constants.HRProSolution.Employee.NeedExcludeEmployeeFromTimeZone, out needExcludeEmployeeFromTimeZone) && needExcludeEmployeeFromTimeZone)
+      {
+        NNCommons.PublicFunctions.Module.ExcludeEmployeeFromTimeZone(_obj);
       }
     }
 
@@ -75,6 +81,10 @@ namespace DirRX.OverrideSolution
       
       // Вычислить необходимость синхронизации сотрудников персоны.
       Functions.Employee.NeedUpdatePersonEmployees(_obj);
+      
+      // Исключение сотрудника из часового пояса, если запись сотрудника закрывается.
+      if (!_obj.State.IsInserted && _obj.State.Properties.Status.IsChanged && _obj.Status == Employee.Status.Closed)
+        e.Params.AddOrUpdate(Constants.HRProSolution.Employee.NeedExcludeEmployeeFromTimeZone, true);
     }
 
   }

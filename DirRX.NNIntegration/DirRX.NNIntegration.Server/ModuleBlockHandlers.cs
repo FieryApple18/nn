@@ -37,7 +37,7 @@ namespace DirRX.NNIntegration.Server.NNIntegrationBlocks
       // ПЭП.
       if (_block.SignatureType == NNIntegration.Server.NNIntegrationBlocks.SendToStampingBlockHandlers.SignatureType.Simple)
         isSimpleSignature = true;
-      // УКЭП.
+      // УКЭП/УНЭП.
       else if (_block.SignatureType == NNIntegration.Server.NNIntegrationBlocks.SendToStampingBlockHandlers.SignatureType.Qualified)
         isSimpleSignature = false;
 

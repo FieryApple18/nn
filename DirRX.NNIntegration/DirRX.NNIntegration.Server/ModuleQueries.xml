@@ -55,4 +55,8 @@ JOIN MaxDate ON bu.id = MaxDate.bu AND MaxDate.max_date < '{0}';]]></default>
   SELECT @rxIncomingMessageId, @mbMessageId, @dateTime::timestamptz, @status, @selectedButton, @comment, @errorMessage
   WHERE NOT EXISTS (SELECT 1 FROM check_existing);]]></default>
   </query>
+  <query key="SelectEssUserProfile">
+    <postgres><![CDATA[SELECT "Profile_SerializedValue" FROM public."UserAccounts"
+WHERE "Name" = @personUid;]]></postgres>
+  </query>
 </queries>

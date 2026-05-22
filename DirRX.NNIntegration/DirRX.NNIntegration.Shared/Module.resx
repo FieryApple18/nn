@@ -249,4 +249,10 @@
   <data name="EmployeeDoesntHaveMainEmployeeError" xml:space="preserve">
     <value>An employee with the service number '{0}' does not have part-time employee with their main place of work.</value>
   </data>
+  <data name="IdentityDocumentKindParseError" xml:space="preserve">
+    <value>The kind of identification document could not be determined. Document kind code: {0}.</value>
+  </data>
+  <data name="UtcOffsetParseError" xml:space="preserve">
+    <value>The employee's time zone could not be set. Time zone: {0}.</value>
+  </data>
 </root>

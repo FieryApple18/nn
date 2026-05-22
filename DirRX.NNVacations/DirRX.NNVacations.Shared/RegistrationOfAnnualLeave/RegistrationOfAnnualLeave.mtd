@@ -104,6 +104,18 @@
           "NameGuid": "140490f5-cd19-41ef-b9fa-48c5cb446360",
           "Name": "SupernikaText",
           "PreviousPropertyGuid": "a8efe1a0-09ef-4f88-8bb4-16f6ee767b18"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "c30ac953-c8cb-4e2c-8812-fbd327c87c40",
+          "Name": "IsSubstitutionAllowed",
+          "PreviousPropertyGuid": "140490f5-cd19-41ef-b9fa-48c5cb446360"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "6618ef18-65c0-4b56-ade2-3007769c5ebe",
+          "Name": "IsSubstitutionVisible",
+          "PreviousPropertyGuid": "c30ac953-c8cb-4e2c-8812-fbd327c87c40"
         }
       ]
     },

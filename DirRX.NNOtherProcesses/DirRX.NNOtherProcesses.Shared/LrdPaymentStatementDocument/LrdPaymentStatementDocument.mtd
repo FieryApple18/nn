@@ -369,6 +369,16 @@
   ],
   "Properties": [
     {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ec082683-e3d8-4cf2-8cfa-1461ee0e6fc0",
+      "Name": "LifeCycleState",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsVisibility"
+      ],
+      "Versions": []
+    },
+    {
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "a8c35fbf-8218-4289-8f45-9b6d3ad7342b",
       "Name": "EmployeeDirRX",

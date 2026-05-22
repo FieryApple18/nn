@@ -344,6 +344,12 @@ namespace DirRX.NNIntegration.Server
                                      Constants.Module.ExternalSystemsFlowGuids.LrdPaymentOrder, Direction.Incoming, ksip,
                                      string.Empty, false, NNIntegration.ExternalSystemFlow.FlowKind.Asynchronic,
                                      OverrideSolution.Employees.Null, null, false);
+      
+      // IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО.
+      CreateExternalSystemFlowRecord(Constants.Module.ExternalSystemsFlowNames.UpdateOrCreateWorkingTimeCalendar, Constants.Module.ExternalSystemsFlowDescriptions.UpdateOrCreateWorkingTimeCalendar,
+                                     Constants.Module.ExternalSystemsFlowGuids.UpdateOrCreateWorkingTimeCalendar, Direction.Incoming, ksip,
+                                     string.Empty, false, NNIntegration.ExternalSystemFlow.FlowKind.Asynchronic,
+                                     OverrideSolution.Employees.Null, null, false);
     }
     
     /// <summary>
@@ -599,6 +605,17 @@ namespace DirRX.NNIntegration.Server
                                                              Constants.Module.ConstantsSetting.SupernikaPushNotificationsIsTimestampRequired.Guid,
                                                              Constants.Module.ConstantsGroup.IntegrationWithSupernika.Guid);
       
+      // Интеграция. Перевыпуск сертификата УНЭП при синхронизации орг. структуры.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.ReissueCertificateOnOrgStructureSync.Name,
+                                                             true, false,
+                                                             Constants.Module.ConstantsSetting.ReissueCertificateOnOrgStructureSync.Guid,
+                                                             Constants.Module.ConstantsGroup.SynchronizationOfOrganizationalStructure.Guid);
+      
+      // Интеграция. Проштамповка. Идентификатор шаблона штампа для УНЭП.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.TemplateIdUnqualifiedSignature.Name,
+                                                             true, string.Empty,
+                                                             Constants.Module.ConstantsSetting.TemplateIdUnqualifiedSignature.Guid,
+                                                             Constants.Module.ConstantsGroup.IntegrationWithKss.Guid);
       
       #region Коды видов документов SAP.
 

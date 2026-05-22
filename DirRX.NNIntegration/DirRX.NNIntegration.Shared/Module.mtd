@@ -511,6 +511,10 @@
     {
       "NameGuid": "d4508324-cd7a-49b1-97d7-70ffed0d2218",
       "Name": "SaveStatusInMB"
+    },
+    {
+      "NameGuid": "0775f5f0-ccef-4f05-bbe9-33885a07d5e7",
+      "Name": "EssDatabase"
     }
   ],
   "IsolatedAssemblyName": "DirRX.NNIntegration.Isolated",
@@ -877,6 +881,25 @@
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.ISupernikaNotificationStatus, Sungero.Domain.Interfaces"
     },
     {
+      "NameGuid": "f5167078-dce2-4cbb-abbd-c11c7a51271c",
+      "Name": "DeserializeInStruct",
+      "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
+      "Parameters": [
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.IWorkingTimeCalendar",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.IWorkingTimeCalendar, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IWorkingTimeCalendar",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IWorkingTimeCalendar, Sungero.Domain.Interfaces"
+    },
+    {
       "NameGuid": "5ca0a123-9be7-4bec-baf9-c786cd8001fa",
       "Name": "ExecuteRequestToExternalSystem",
       "IsolatedAreaId": "ac76383a-0368-4f81-b441-022fc3ca2a76",
@@ -926,7 +949,31 @@
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultSendingMessage, Sungero.Domain.Interfaces"
     },
     {
-      "NameGuid": "7d609e71-3ed3-4d1f-972d-aa8947bbe351",
+      "NameGuid": "7594650c-439d-4b58-aac0-c2c94eee9b22",
+      "Name": "GetEssUserProfileCurrentPeriod",
+      "IsolatedAreaId": "0775f5f0-ccef-4f05-bbe9-33885a07d5e7",
+      "Parameters": [
+        {
+          "Name": "selectQuery",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "connectionString",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "personUid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IEssCurrentPeriod",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IEssCurrentPeriod, Sungero.Domain.Interfaces"
+    },
+    {
+      "NameGuid": "5096cae2-681f-4a50-a618-abddbe37d93d",
       "Name": "SaveStatusSupernikaPushNotification",
       "IsolatedAreaId": "d4508324-cd7a-49b1-97d7-70ffed0d2218",
       "Parameters": [
@@ -1425,6 +1472,20 @@
           "Name": "structure",
           "ParameterType": "global::DirRX.NNIntegration.Structures.Module.ISupernikaNotificationStatus",
           "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.ISupernikaNotificationStatus, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "cd5e1860-859a-4e1d-b5d0-4011f43ab1e9",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.IIncomingWorkingTimeCalendar",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.IIncomingWorkingTimeCalendar, Sungero.Domain.Interfaces"
         }
       ],
       "ReturnType": "global::System.String",
@@ -1969,6 +2030,26 @@
       "Value": "\"01E797D1-F7C1-4521-BB6C-0BA8A6A9E034\""
     },
     {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ReissueCertificateOnOrgStructureSync"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"F17EAE55-A271-4C27-922A-0BB147BA0163\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "TemplateIdUnqualifiedSignature"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"AFC3F83D-5510-4547-ADA3-413F6C7FF7C5\""
+    },
+    {
       "Name": "High",
       "ParentClasses": [
         "Module",
@@ -2276,6 +2357,26 @@
       "Value": "\"Добавлять дату и время формирования задания в текст Push-уведомления\""
     },
     {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ReissueCertificateOnOrgStructureSync"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Интеграция. Перевыпуск сертификата УНЭП при синхронизации орг. структуры\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "TemplateIdUnqualifiedSignature"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Интеграция. Проштамповка. Идентификатор шаблона штампа для УНЭП\""
+    },
+    {
       "Name": "Normal",
       "ParentClasses": [
         "Module",
@@ -2566,6 +2667,15 @@
       ],
       "TypeName": "System.String",
       "Value": "\"ТОП-100\""
+    },
+    {
+      "Name": "UpdateOrCreateWorkingTimeCalendar",
+      "ParentClasses": [
+        "Module",
+        "ExternalSystemsFlowGuids"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"C3054A3F-2C3A-4789-9819-410196794C65\""
     },
     {
       "Name": "VacationByRelocation",
@@ -3088,6 +3198,169 @@
         },
         {
           "Name": "PP0001VDSK1",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "CreateEmployeeQueueRecordV2",
+      "Parameters": [
+        {
+          "Name": "PP0002NACHN",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002VORNA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002MIDNM",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002GBDAT",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0290ICCD",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002GESCH",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Region",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0006ORT01",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "RegistrationAddress",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PostalAddress",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Phones",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Division",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001PLANS",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001ZZPERNR_MNG",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001PERSG",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0000PERNR",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Email",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0000BEGDA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0000ENDDA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "MPGroup",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001VDSK1",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "TIN",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentKind",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentSeries",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentNumber",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentIssueDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentIssuedBy",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentIssuerID",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentBirthPlace",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentExpirationDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "UtcOffset",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         }
@@ -3704,6 +3977,18 @@
       "ReturnTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
     },
     {
+      "Name": "GetPersonEssCurrentPeriod",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IEssCurrentPeriod",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IEssCurrentPeriod"
+    },
+    {
       "Name": "GetResultStamping",
       "Parameters": [
         {
@@ -4108,6 +4393,29 @@
           "Name": "ErrorText",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "UpdateOrCreateWorkingTimeCalendar",
+      "Parameters": [
+        {
+          "Name": "Employee",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Year",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "DayDisc",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IIncomingWorkingDayDescription>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
@@ -4772,6 +5080,29 @@
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
     },
     {
+      "Name": "EssCurrentPeriod",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Length",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int32>"
+        },
+        {
+          "Name": "BeginDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "EndDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
       "Name": "IncomingVacationScheduleDocumentInfoFromSAP",
       "IsIsolated": true,
       "IsPublic": true,
@@ -4825,6 +5156,66 @@
           "Name": "Email",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
+      "Name": "IncomingWorkingDayDescription",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "DayStart",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "DayEnd",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "BrStart",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "BrEnd",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Type",
+          "TypeFullName": "global::System.Int32"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
+      "Name": "IncomingWorkingTimeCalendar",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Employee",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Year",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "DayDisc",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IIncomingWorkingDayDescription>"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -5934,6 +6325,66 @@
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
+      "Name": "WorkingDayDescription",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "DayStart",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Double>"
+        },
+        {
+          "Name": "DayEnd",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Double>"
+        },
+        {
+          "Name": "BrStart",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Double>"
+        },
+        {
+          "Name": "BrEnd",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Double>"
+        },
+        {
+          "Name": "Type",
+          "TypeFullName": "global::System.Int32"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
+      "Name": "WorkingTimeCalendar",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Employee",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Year",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "DayDisc",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IWorkingDayDescription>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
     }
   ],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
@@ -6001,14 +6452,16 @@
     "SupernikaPushNotificationReportEndDate",
     "SupernikaPushNotificationReportFuncName",
     "NGDParseError",
-    "EmployeeDoesntHaveMainEmployeeError"
+    "EmployeeDoesntHaveMainEmployeeError",
+    "IdentityDocumentKindParseError",
+    "UtcOffsetParseError"
   ],
   "ServerAssemblyName": "DirRX.NNIntegration.Server",
   "ServerNamespace": "DirRX.NNIntegration.Server",
   "SharedAssemblyName": "DirRX.NNIntegration.Shared",
   "SharedNamespace": "DirRX.NNIntegration.Shared",
   "SpecialFolders": [],
-  "Version": "25.2.0.4",
+  "Version": "25.2.0.7",
   "Widgets": [],
   "Versions": [
     {

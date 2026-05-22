@@ -241,6 +241,9 @@
     }
   ],
   "FormViewUuid": "2a2cb3cd-276b-4a63-b10c-628f57985c9f",
+  "HandledEvents": [
+    "ShowingClient"
+  ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "NNVacationConfirmationAssignment",
   "IsVisibleThreadText": true,
@@ -344,6 +347,22 @@
       "Code": "VacConfSNText",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToTextBinder",
       "PreviousPropertyGuid": "20f0f8f4-8d28-4ab2-a153-fdcf31d7d22a"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "18ddc994-5896-4085-a818-97c6c9769063",
+      "Name": "IsSubstitutionAllowed",
+      "Code": "IsSubstitutio1",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "e349ae2e-71f9-4f87-be0b-bbec6f60edbe"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "2ecdb48f-afb4-4b86-b556-149c2e19fa0c",
+      "Name": "IsSubstitutionVisible",
+      "Code": "IsSubstitution",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "18ddc994-5896-4085-a818-97c6c9769063"
     }
   ],
   "PublicStructures": [],

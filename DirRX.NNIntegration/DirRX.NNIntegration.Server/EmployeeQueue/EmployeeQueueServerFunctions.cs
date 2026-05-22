@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -11,7 +11,110 @@ namespace DirRX.NNIntegration.Server
 {
   partial class EmployeeQueueFunctions
   {
-
+    /// <summary>
+    /// Проверить реквизиты документа, удостоверяющего личность.
+    /// </summary>
+    /// <returns>Перечень ошибок заполнения.</returns>
+    /// <remarks>Функция создана на основе функции DirRX.EssPlatformSolution.PublicFunctions.Person.CheckPersonIdentityDocument()</remarks>
+    [Public]
+    public virtual List<string> CheckPersonIdentityDocument()
+    {
+      var errors = new List<string>();
+      
+      if (_obj.IdentityDocumentKind == null)
+      {
+        errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentKind.LocalizedName));
+      }
+      
+      if (string.IsNullOrWhiteSpace(_obj.IdentityDocumentNumber))
+      {
+        errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentNumber.LocalizedName));
+      }
+      
+      if (!_obj.IdentityDocumentIssueDate.HasValue)
+      {
+        errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentIssueDate.LocalizedName));
+      }
+      
+      if (_obj.IdentityDocumentIssueDate.HasValue && _obj.IdentityDocumentIssueDate > Calendar.Now)
+      {
+        errors.Add(DirRX.EssPlatformSolution.People.Resources.IdertityDocumentIssueDateError);
+      }
+      
+      if (_obj.IdentityDocumentExpirationDate.HasValue && _obj.IdentityDocumentIssueDate.HasValue && _obj.IdentityDocumentIssueDate.Value >= _obj.IdentityDocumentExpirationDate.Value)
+      {
+        errors.Add(DirRX.EssPlatformSolution.People.Resources.ErrorIssueDateLessExpirationDate);
+      }
+      
+      if (string.IsNullOrWhiteSpace(_obj.IdentityDocumentIssuedBy))
+      {
+        errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentIssuedBy.LocalizedName));
+      }
+      
+      if (_obj.IdentityDocumentKind == NNIntegration.EmployeeQueue.IdentityDocumentKind.PassportRF)
+      {
+        if (string.IsNullOrWhiteSpace(_obj.IdentityDocumentSeries))
+        {
+          errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentSeries.LocalizedName));
+        }
+        
+        if (string.IsNullOrWhiteSpace(_obj.IdentityDocumentIssuerID))
+        {
+          errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentIssuerID.LocalizedName));
+        }
+        
+        if (string.IsNullOrWhiteSpace(_obj.IdentityDocumentBirthPlace))
+        {
+          errors.Add(DirRX.EssPlatformSolution.People.Resources.PropertyIsEmptyFormat(_obj.Info.Properties.IdentityDocumentBirthPlace.LocalizedName));
+        }
+        
+        if (_obj.IdentityDocumentSeries.Length != 4 || !int.TryParse(_obj.IdentityDocumentSeries, out _))
+        {
+          errors.Add(DirRX.EssPlatformSolution.People.Resources.IdentityDocumentSeriesLengthValidation);
+        }
+        
+        if (_obj.IdentityDocumentNumber.Length != 6 || !int.TryParse(_obj.IdentityDocumentNumber, out _))
+        {
+          errors.Add(DirRX.EssPlatformSolution.People.Resources.IdentityDocumentNumberLengthValidation);
+        }
+        
+        if (_obj.IdentityDocumentIssuerID.Length != 6 || !int.TryParse(_obj.IdentityDocumentIssuerID, out _))
+        {
+          errors.Add(DirRX.EssPlatformSolution.People.Resources.IdentityDocumentIssuerIDLengthValidation);
+        }
+      }
+      
+      return errors;
+    }
+    
+    /// <summary>
+    /// Установить Вид документа по его коду.
+    /// </summary>
+    /// <param name="identityDocumentKind">Вид документа.</param>
+    /// <returns>Результат. True - удалось установить вид документа. False - не удалось установить вид документа.</returns>
+    public bool TryParseIdentityDocumentKind(string identityDocumentKind)
+    {
+      if (identityDocumentKind == Constants.EmployeeQueue.IdentityDocumentKindCodes.PassportRF)
+      {
+        _obj.IdentityDocumentKind = DirRX.NNIntegration.EmployeeQueue.IdentityDocumentKind.PassportRF;
+        return true;
+      }
+      
+      if (identityDocumentKind == Constants.EmployeeQueue.IdentityDocumentKindCodes.OtherDocument)
+      {
+        _obj.IdentityDocumentKind = DirRX.NNIntegration.EmployeeQueue.IdentityDocumentKind.OtherDocument;
+        return true;
+      }
+      
+      if (identityDocumentKind == Constants.EmployeeQueue.IdentityDocumentKindCodes.ForeignPassport)
+      {
+        _obj.IdentityDocumentKind = DirRX.NNIntegration.EmployeeQueue.IdentityDocumentKind.ForeignPassport;
+        return true;
+      }
+      
+      return false;
+    }
+    
     /// <summary>
     /// Установить признак НГД.
     /// </summary>

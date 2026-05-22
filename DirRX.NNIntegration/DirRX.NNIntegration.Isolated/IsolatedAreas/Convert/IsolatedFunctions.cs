@@ -10,7 +10,7 @@ namespace DirRX.NNIntegration.Isolated.Convert
 {
   public partial class IsolatedFunctions
   {
-    #region Работа с DateTime
+    #region Работа с датой и временем
     
     /// <summary>
     /// Парсинг строки в дату с учетом культуры "ru-RU".
@@ -26,6 +26,30 @@ namespace DirRX.NNIntegration.Isolated.Convert
       catch (Exception ex)
       {
         Logger.ErrorFormat("ParseStringToDate. Ошибка при попытке парсинга строки '{0}' в дату. Текст ошибки: {1} StackTrace: {2}", date, ex.Message, ex.StackTrace);
+        return null;
+      }
+    }
+    
+    /// <summary>
+    /// Парсинг строки с временем в число с плавающей точкой.
+    /// </summary>
+    /// <param name="time">Время в формате MM:SS.</param>
+    /// <returns>Если парсинг успешен double, иначе null.</returns>
+    public static double? ParseTimeToDouble(string time)
+    {
+      if (string.IsNullOrEmpty(time))
+        return null;
+      
+      try
+      {
+        var timeByParts = time.Split(':');
+        var minutes = int.Parse(timeByParts[0]);
+        var seconds = int.Parse(timeByParts[1]);
+        return minutes + seconds / 60.0;
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("ParseTimeToDouble. Ошибка при попытке парсинга строки с временем '{0}' в число с плавающей точкой. Текст ошибки: {1} StackTrace: {2}", time, ex.Message, ex.StackTrace);
         return null;
       }
     }
@@ -738,6 +762,49 @@ namespace DirRX.NNIntegration.Isolated.Convert
       return JsonConvert.DeserializeObject<SupernikaNotificationStatus>(json, settings);
     }
 
+    
+    #endregion
+    
+    #region IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО (АСУП -> КЭДО).
+    
+    /// <summary>
+    /// Десериализация строки json в структуру.
+    /// </summary>
+    /// <param name="json">Json строка структуры IncomingWorkingTimeCalendar.</param>
+    /// <returns>Структура IWorkingTimeCalendar.</returns>
+    /// <remarks>Помимо десериализации происходит преобразование типов свойств, поэтому выходная структура отличается от входящей сериализованной.</remarks>
+    [Public]
+    public static IWorkingTimeCalendar DeserializeInStruct(string json, IWorkingTimeCalendar structure)
+    {
+      var isolatedCalendarStructure = JsonConvert.DeserializeObject<IncomingWorkingTimeCalendar>(json);
+      var calendarStructure = NNIntegration.Structures.Module.WorkingTimeCalendar.Create();
+      structure.Employee = isolatedCalendarStructure.Employee;
+      structure.Year = isolatedCalendarStructure.Year;
+      structure.DayDisc = new List<NNIntegration.Structures.Module.IWorkingDayDescription>();
+      foreach (var isolatedDayStructure in isolatedCalendarStructure.DayDisc)
+      {
+        var dayStructure = NNIntegration.Structures.Module.WorkingDayDescription.Create();
+        dayStructure.Date = ParseStringToDate(isolatedDayStructure.Date).Value;
+        dayStructure.DayStart = ParseTimeToDouble(isolatedDayStructure.DayStart);
+        dayStructure.DayEnd = ParseTimeToDouble(isolatedDayStructure.DayEnd);
+        dayStructure.BrStart = ParseTimeToDouble(isolatedDayStructure.BrStart);
+        dayStructure.BrEnd = ParseTimeToDouble(isolatedDayStructure.BrEnd);
+        dayStructure.Type = isolatedDayStructure.Type;
+        structure.DayDisc.Add(dayStructure);
+      }
+      return structure;
+    }
+
+    /// <summary>
+    /// Сериализация структуры в json строку.
+    /// </summary>
+    /// <param name="structure">Структура.</param>
+    /// <returns>Json строка.</returns>
+    [Public]
+    public static string SerializeInJson(IIncomingWorkingTimeCalendar structure)
+    {
+      return JsonConvert.SerializeObject(structure);
+    }
     
     #endregion
     

@@ -199,4 +199,10 @@
   <data name="Block_ea064af55bed4973a9b2daae5c5da69d_Property_1989fd767d12460fa3fc7445a0e53209" xml:space="preserve">
     <value>Текст письма ДКП</value>
   </data>
+  <data name="Block_0e30dcbd1cc94703b5936e10708dbe46_Property_e9ef2a0a22ec4614ad24ba05ebede3da" xml:space="preserve">
+    <value>Выполнять по замещению</value>
+  </data>
+  <data name="Block_0e30dcbd1cc94703b5936e10708dbe46_Property_4935f41e566d448db6b0ce858c1c98f9" xml:space="preserve">
+    <value>Отображать по замещению</value>
+  </data>
 </root>

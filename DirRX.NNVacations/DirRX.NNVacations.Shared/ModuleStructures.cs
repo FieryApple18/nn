@@ -1619,7 +1619,7 @@ namespace DirRX.NNVacations.Structures.Module
     /// <summary>
     /// Дата начала переноса отпуска.
     /// </summary>
-    public DateTime BeginDateShift { get; set; }
+    public DateTime? BeginDateShift { get; set; }
     
     /// <summary>
     /// Кол-во дней переноса отпуска.
@@ -1629,7 +1629,7 @@ namespace DirRX.NNVacations.Structures.Module
     /// <summary>
     /// Дата окончания переноса отпуска.
     /// </summary>
-    public DateTime EndDateShift { get; set; }
+    public DateTime? EndDateShift { get; set; }
     
     /// <summary>
     /// Вид компенсации.

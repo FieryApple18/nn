@@ -5,6 +5,39 @@
   "AccessRightsMode": "Instance",
   "Actions": [
     {
+      "$type": "Sungero.Workflow.Shared.ExecutionResultActionMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "ab86a6cd-576d-4a11-ba92-742e2a9734b1",
+      "Name": "Sign",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "NeedConfirmation": true,
+      "Overridden": [
+        "GenerateHandler"
+      ]
+    },
+    {
+      "$type": "Sungero.Workflow.Shared.ExecutionResultActionMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "9fdd51c0-9d1a-4020-8cf9-168b2631e90d",
+      "Name": "Refuse",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "NeedConfirmation": true,
+      "Overridden": [
+        "GenerateHandler"
+      ]
+    },
+    {
+      "$type": "Sungero.Workflow.Shared.ExecutionResultActionMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "b60b7043-56e9-4b4b-91c7-854960712c6f",
+      "Name": "ForRevision",
+      "GenerateHandler": true,
+      "IsAncestorMetadata": true,
+      "NeedConfirmation": true,
+      "Overridden": [
+        "GenerateHandler"
+      ]
+    },
+    {
       "NameGuid": "bab4a1d6-9e8c-491c-919d-3cafbe456116",
       "Name": "MassApproveSignDirRX",
       "ActionArea": "Collection",
@@ -198,6 +231,9 @@
     }
   ],
   "FormViewUuid": "8d2f8b99-af97-430b-8918-96e0ad1bf4b6",
+  "HandledEvents": [
+    "ShowingClient"
+  ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "HRDocFlowESignAssignment",
   "IsVisibleThreadText": true,
@@ -247,6 +283,22 @@
       "Code": "ESignSuText",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToTextBinder",
       "PreviousPropertyGuid": "16de3496-c98a-42b3-84fe-1c18e74c904b"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "b511390e-0f58-478f-a607-c0191431072f",
+      "Name": "IsSubstitutionAllowedDirRX",
+      "Code": "IsSubstitutio1",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "e349ae2e-71f9-4f87-be0b-bbec6f60edbe"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "b9761183-95d6-4016-87d4-05328827777a",
+      "Name": "IsSubstitutionVisibleDirRX",
+      "Code": "IsSubstitution",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "b511390e-0f58-478f-a607-c0191431072f"
     }
   ],
   "PublicFunctions": [

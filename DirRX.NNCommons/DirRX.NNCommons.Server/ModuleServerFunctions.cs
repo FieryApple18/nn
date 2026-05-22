@@ -13,7 +13,39 @@ namespace DirRX.NNCommons.Server
 {
   public partial class ModuleFunctions
   {
-
+    /// <summary>
+    /// Запустить задачи на выпуск сертификатов.
+    /// </summary>
+    [Remote]
+    public void MassIssueCertificates()
+    {
+      var employeesIds = OverrideSolution.Employees.GetAll(x => x.Status == OverrideSolution.Employee.Status.Active &&
+                                                           x.ConsentHRPro == OverrideSolution.Employee.ConsentHRPro.Signed &&
+                                                           x.EmploymentType == OverrideSolution.Employee.EmploymentType.MainPlace).Select(x => x.Id);
+      var async = AsyncHandlers.MassIssueCertificates.Create();
+      async.EmployeesIds = string.Join(Constants.Module.Separator.ToString(), employeesIds.Select(id => id.ToString()));
+      async.ExecuteAsync(DirRX.NNCommons.Resources.MassIssueCertificatesStarted, DirRX.NNCommons.Resources.MassIssueCertificatesCompleted);
+    }
+    
+    /// <summary>
+    /// Закрыть сертификаты ПЭП.
+    /// </summary>
+    [Remote]
+    public void DisableSimpleCertificates()
+    {
+      var issueConst = Functions.Module.GetStringValue(Constants.Module.ConstantsSetting.IssuerNames.Guid);
+      if (string.IsNullOrEmpty(issueConst))
+      {
+        Logger.DebugFormat("DisableSimpleCertificates. Прикладная константа '{1}' не заполнена.", Constants.Module.ConstantsSetting.IssuerNames.Name);
+        return;
+      }
+      var issueNames = issueConst.Trim().Split(Constants.Module.Separator);
+      var certificatesIds = Certificates.GetAll(x => x.Enabled == true && issueNames.Contains(x.Issuer)).Select(x => x.Id);
+      var async = AsyncHandlers.DisableSimpleCertificates.Create();
+      async.CertificatesIds = string.Join(Constants.Module.Separator.ToString(), certificatesIds.Select(id => id.ToString()));
+      async.ExecuteAsync(DirRX.NNCommons.Resources.DisableSimpleCertificatesStarted, DirRX.NNCommons.Resources.DisableSimpleCertificatesCompleted);
+    }
+    
     /// <summary>
     /// Прибавить число к указанному.
     /// </summary>
@@ -817,7 +849,7 @@ namespace DirRX.NNCommons.Server
     }
 
     /// <summary>
-    /// Получить сертификты ЭП закреплённые за персоной.
+    /// Получить сертификаты ЭП закреплённые за персоной.
     /// </summary>
     /// <param name="personId">ИД персоны.</param>
     /// <returns>Сертификаты ЭП.</returns>
@@ -826,7 +858,7 @@ namespace DirRX.NNCommons.Server
     {
       return Certificates.GetAll()
         .Where(x =>
-               x.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
+               x.Enabled == true &&
                x.Parameters.Any(p => p.Key == DirRX.SignPlatform.PublicConstants.Module.ProviderIdCertificateKeyParameter) &&
                x.Parameters.Any(p => p.Key == DirRX.SignPlatform.PublicConstants.Module.OwnerIdCertificateKeyParameter && p.Value.Contains(personId.ToString())) &&
                x.NotBefore <= Calendar.Now && Calendar.Now < x.NotAfter);
@@ -1470,6 +1502,25 @@ namespace DirRX.NNCommons.Server
     }
 
     /// <summary>
+    /// Функция опеределяет является ли подпись УНЭП.
+    /// </summary>
+    /// <param name="signature">Электронная подпись.</param>
+    /// <returns>True если является, иначе false.</returns>
+    [Public]
+    public virtual bool IsUnqualifiedSignature(Sungero.Domain.Shared.ISignature signature)
+    {
+      if (signature?.SignCertificate == null)
+        return false;
+      
+      var issueConst = GetStringValue(Constants.Module.ConstantsSetting.IssuerNamesUnqualifiedSignature.Guid);
+      if (string.IsNullOrEmpty(issueConst))
+        return false;
+      
+      var issueNames = issueConst.Trim().Split(',');
+      return issueNames.Contains(signature.SignCertificate.IssuerName);
+    }
+
+    /// <summary>
     /// Функция опеределяет является ли подпись ПЭП.
     /// </summary>
     /// <param name="signature">Электронная подпись.</param>
@@ -1589,5 +1640,522 @@ namespace DirRX.NNCommons.Server
 
     #endregion
 
+    #region Интеграционный сценарий "Синхронизация календарей рабочего времени".
+    
+    #region IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО (АСУП -> КЭДО).
+    
+    [Public]
+    public NNIntegration.Structures.Module.IProcessIncomingMessageResult UpdateOrCreateWorkingTimeCalendar(long idIncomingMessage)
+    {
+      var logPrefix = string.Format("UpdateOrCreateWorkingTimeCalendar. Ид входящего сообщения: {0}.", idIncomingMessage);
+      Logger.Debug(logPrefix);
+      
+      var result = NNIntegration.Structures.Module.ProcessIncomingMessageResult.Create();
+      result.Retry = false;
+      
+      var message = NNIntegration.IncomingMessages.GetAll(x => x.Id == idIncomingMessage).FirstOrDefault();
+      if (message == null)
+      {
+        result.ErrorText = "Не найдена запись справочника Входящие интеграционные сообщения.";
+        Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+        result.Retry = true;
+        return result;
+      }
+      
+      var jsonMessage = DirRX.NNIntegration.PublicFunctions.IncomingMessage.Remote.GetIncomingMessageText(message);
+      
+      if (string.IsNullOrWhiteSpace(jsonMessage))
+      {
+        result.ErrorText = "Не удалось получить тело запроса.";
+        Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+        result.Retry = true;
+        return result;
+      }
+      
+      var model = NNIntegration.Structures.Module.WorkingTimeCalendar.Create();
+      try
+      {
+        model = NNIntegration.IsolatedFunctions.Convert.DeserializeInStruct(jsonMessage, model);
+      }
+      catch (Exception ex)
+      {
+        result.ErrorText = "Ошибка десериализации в структуру IncomingWorkingTimeCalendar.";
+        Logger.ErrorFormat("{0} {1} Текст ошибки: {2}. StackTrace: {3}.", logPrefix, result.ErrorText, ex.Message, ex.StackTrace);
+        result.Retry = true;
+        return result;
+      }
+      
+      var employeeResult = OverrideSolution.PublicFunctions.Employee.GetEmployeeByPersNumberWithError(model.Employee);
+      
+      if (!string.IsNullOrWhiteSpace(employeeResult.ErrorMessage))
+      {
+        result.ErrorText = string.Format("EmployeeError: {0}. ", employeeResult.ErrorMessage);
+        Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      var employee = employeeResult.Employee;
+      if (employee.Status == OverrideSolution.Employee.Status.Closed)
+      {
+        result.ErrorText = string.Format("Календари синхронизируются только для действующих сотрудников.");
+        Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      var year = model.Year;
+      var userCalendar = PrivateWorkingTimeCalendars.Null;
+      
+      try
+      {
+        var daysCountOfTargetYear = Calendar.GetDate(year, 1, 1).EndOfYear().DayOfYear;
+        var copyFromGlobalCalendar = model.DayDisc.Select(d => d.Date).Distinct().Count() != daysCountOfTargetYear;
+        userCalendar = GetOrCreatePrivateWorkingTimeCalendar(year, employee, copyFromGlobalCalendar, logPrefix);
+
+        if (!userCalendar.State.IsInserted && !Locks.TryLock(userCalendar))
+        {
+          result.ErrorText = "Не удалось поставить блокировку на частный календарь сотрудника.";
+          Logger.ErrorFormat("{0} {1}.", logPrefix, result.ErrorText);
+          result.Retry = true;
+          return result;
+        }
+        
+        foreach (var dayModel in model.DayDisc)
+        {
+          var errorText = UpdateWorkingTimeCalendarByDayModel(userCalendar, dayModel);
+          
+          if (!string.IsNullOrEmpty(errorText))
+            throw AppliedCodeException.Create(errorText);
+        }
+        
+        userCalendar.Save();
+      }
+      catch (Exception ex)
+      {
+        result.ErrorText = string.Format("Произошла ошибка обработки календаря сотрудника с ID = '{0}. Текст ошибки: {1}. StackTrace: {2}.'", employee.Id, ex.Message, ex.StackTrace);
+        Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      finally
+      {
+        if (userCalendar != null && Locks.GetLockInfo(userCalendar).IsLockedByMe)
+          Locks.Unlock(userCalendar);
+      }
+      
+      return result;
+    }
+    
+    /// <summary>
+    /// Получить существующий или создать новый частный календарь рабочего времени сотрудника.
+    /// </summary>
+    /// <param name="year">Год.</param>
+    /// <param name="employee">Сотрудник.</param>
+    /// <param name="needCopyFromGlobalCalendar">Признак необходимости заполнения создаваемого календаря из вышестоящего (НОР, либо общий).</param>
+    /// <param name="logPrefix">Префикс для записи логов.</param>
+    /// <returns>Существующий или созданный календарь.</returns>
+    public IPrivateWorkingTimeCalendar GetOrCreatePrivateWorkingTimeCalendar(int year, OverrideSolution.IEmployee employee, bool copyFromGlobalCalendar, string logPrefix)
+    {
+      var userCalendar = GetPrivateWorkingCalendar(year, employee);
+      
+      if (userCalendar == null)
+      {
+        Logger.DebugFormat("{0} {1}", logPrefix, "Частный календарь сотрудника не найден, будет создан новый.");
+        
+        userCalendar = PrivateWorkingTimeCalendars.Create();
+        userCalendar.Name = string.Format("{0}. {1} ТН {2}", year, Sungero.Company.PublicFunctions.UserBase.GetUserShortName(employee, false), employee.PersonnelNumber);
+        userCalendar.Year = year;
+        
+        var calendarRecipient = userCalendar.Recipients.AddNew();
+        calendarRecipient.Recipient = employee;
+        
+        if(copyFromGlobalCalendar)
+        {
+          // Ищем частный календарь по НОР.
+          var globalUserCalendar = WorkingTime.Null;
+          globalUserCalendar = GetPrivateWorkingCalendar(year, employee.BusinessUnit);
+          
+          // Ищем общий календарь.
+          if (globalUserCalendar == null)
+          {
+            globalUserCalendar = WorkingTime.GetAll(c => !PrivateWorkingTimeCalendars.Is(c) && c.Year.HasValue && c.Year.Value == year).FirstOrDefault();
+            Logger.DebugFormat("{0} {1}", logPrefix, "Частный календарь сотрудника будет основан на общем календаре.");
+          }
+          else
+            Logger.DebugFormat("{0} {1}", logPrefix, "Частный календарь сотрудника будет основан на календаре НОР.");
+          
+          foreach (var day in globalUserCalendar.Day)
+            userCalendar.Day.AddCopy(day);
+        }
+      }
+      
+      return userCalendar;
+    }
+    
+    /// <summary>
+    /// Обновляет календарь в соответствии с переданной моделью дня.
+    /// </summary>
+    /// <param name="calendar">Обновляемый календарь.</param>
+    /// <param name="dayModel">Модель дня.</param>
+    /// <returns>Пустая строка при успешном выполнении, иначе текст ошибки.</returns>
+    public string UpdateWorkingTimeCalendarByDayModel(IWorkingTimeCalendar calendar,
+                                                      NNIntegration.Structures.Module.IWorkingDayDescription dayModel)
+    {
+      var targetDate = dayModel.Date;
+      var calendarDay = GetOrCreateWorkingTimeDay(calendar, targetDate);
+      
+      if (calendarDay == null)
+        return String.Format("Не удалось обработать дату {0}.", targetDate.Date);
+      
+      var previousCalendarDay = GetOrCreateWorkingTimeDay(calendar, targetDate.AddDays(-1));
+      var previousCalendarDayIsTransit = false;
+      if (previousCalendarDay != null)
+        previousCalendarDayIsTransit = previousCalendarDay.DayEnding == Constants.Module.CalendarDayEnding &&
+          calendarDay.DayBeginning == Constants.Module.CalendarDayBeginning;
+      
+      var nextDate = targetDate.AddDays(1);
+      var nextCalendarDay = GetOrCreateWorkingTimeDay(calendar, nextDate);
+      var calendarDayIsTransit = nextCalendarDay != null &&
+        calendarDay.DayEnding == Constants.Module.CalendarDayEnding &&
+        nextCalendarDay.DayBeginning == Constants.Module.CalendarDayBeginning;
+      var dayModelIsTransit = dayModel.DayStart >= dayModel.DayEnd;
+      
+      #region Тип дня.
+      
+      var dayModelKind = DefineWorkingTimeCalendarDayKind(dayModel.Type);
+      
+      // Если день будет нерабочим.
+      if (dayModelKind != null)
+      {
+        // Если предыдущий день переходящий и текущий день будет выходным (а не праздничным).
+        if (previousCalendarDayIsTransit && dayModelKind == Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Weekend)
+        {
+          // Если текущий день совмещает две смены.
+          if (calendarDay.LunchBreakBeginning != null)
+          {
+            calendarDay.DayEnding = calendarDay.LunchBreakBeginning;
+            calendarDay.LunchBreakBeginning = null;
+            calendarDay.LunchBreakEnding = null;
+          }
+        }
+        else
+          calendarDay.Kind = dayModelKind;
+        
+        // Если текущий день переходящий.
+        if (calendarDayIsTransit && nextCalendarDay != null)
+        {
+          // Если следующий день совмещает две смены.
+          if (nextCalendarDay.LunchBreakBeginning != null)
+          {
+            nextCalendarDay.DayBeginning = nextCalendarDay.LunchBreakEnding;
+            nextCalendarDay.LunchBreakBeginning = null;
+            nextCalendarDay.LunchBreakEnding = null;
+          }
+          else
+            nextCalendarDay.Kind = Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Weekend;
+        }
+        
+        return string.Empty;
+      }
+      else
+        calendarDay.Kind = dayModelKind;
+      
+      #endregion
+      
+      var dayBeginning = dayModel.DayStart;
+      var dayEnding = dayModel.DayEnd;
+      var lunchBreakBeginning = dayModel.BrStart;
+      var lunchBreakEnding = dayModel.BrEnd;
+      
+      #region Переходность предыдущего дня.
+      
+      if (previousCalendarDayIsTransit)
+      {
+        // Если текущий день не совмещал смен.
+        if (calendarDay.LunchBreakBeginning == null)
+          calendarDay.LunchBreakBeginning = calendarDay.DayEnding;
+        
+        calendarDay.LunchBreakEnding = dayBeginning;
+      }
+      else
+      {
+        calendarDay.DayBeginning = dayBeginning;
+        calendarDay.LunchBreakBeginning = dayModelIsTransit ? null : lunchBreakBeginning;
+        calendarDay.LunchBreakEnding = dayModelIsTransit ? null : lunchBreakEnding;
+      }
+      
+      #endregion
+      
+      #region Переходность текущего дня.
+      
+      // Если день будет переходящий.
+      if (dayModelIsTransit)
+      {
+        calendarDay.DayEnding = Constants.Module.CalendarDayEnding;
+        
+        if (nextCalendarDay == null)
+          return string.Empty;
+        
+        // Если день уже переходящий.
+        if (calendarDayIsTransit)
+        {
+          // Если следующий день не совмещал смен.
+          if (nextCalendarDay.LunchBreakBeginning == null)
+            nextCalendarDay.DayEnding = dayModel.DayEnd;
+          else
+            nextCalendarDay.LunchBreakBeginning = dayModel.DayEnd;
+        }
+        else
+        {
+          if (nextCalendarDay.Kind == Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Holiday)
+            return string.Empty;
+          
+          if (nextCalendarDay.Kind == Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Weekend)
+          {
+            nextCalendarDay.Kind = null;
+            nextCalendarDay.LunchBreakBeginning = null;
+            nextCalendarDay.LunchBreakEnding = null;
+            nextCalendarDay.DayEnding = dayModel.DayEnd;
+          }
+          else
+          {
+            nextCalendarDay.LunchBreakBeginning = dayModel.DayEnd;
+            nextCalendarDay.LunchBreakEnding = nextCalendarDay.DayBeginning;
+          }
+          
+          nextCalendarDay.DayBeginning = Constants.Module.CalendarDayBeginning;
+        }
+      }
+      else
+      {
+        calendarDay.DayEnding = dayEnding;
+        
+        // Если текущий день переходящий.
+        if (calendarDayIsTransit && nextCalendarDay != null)
+        {
+          // Если следующий день совмещает две смены.
+          if (nextCalendarDay.LunchBreakBeginning != null)
+          {
+            nextCalendarDay.DayBeginning = nextCalendarDay.LunchBreakEnding;
+            nextCalendarDay.LunchBreakBeginning = null;
+            nextCalendarDay.LunchBreakEnding = null;
+          }
+          else
+            nextCalendarDay.Kind = Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Weekend;
+        }
+      }
+      
+      #endregion
+      
+      return string.Empty;
+    }
+    
+    /// <summary>
+    /// Получить или создать день календаря рабочего времени.
+    /// </summary>
+    /// <param name="calendar">Календарь рабочего времени.</param>
+    /// <param name="date">Дата, соответствующая дню календаря.</param>
+    /// <returns>День календаря или null, если такого дня в указанном календаре быть не может.</returns>
+    public IWorkingTimeCalendarDay GetOrCreateWorkingTimeDay(IWorkingTimeCalendar calendar, DateTime date)
+    {
+      if (date.Year != calendar.Year.Value)
+        return null;
+      
+      var calendarDay = calendar.Day.Where(d => d.Day.Date.Equals(date.Date)).FirstOrDefault();
+      if (calendarDay == null)
+      {
+        calendarDay = calendar.Day.AddNew();
+        calendarDay.Day = date;
+      }
+      
+      return calendarDay;
+    }
+    
+    /// <summary>
+    /// Получить частный календарь рабочего времени субъекта прав.
+    /// </summary>
+    /// <param name="year">Год</param>
+    /// <param name="recipient">Субъект прав.</param>
+    /// <returns>Частный календарь.</returns>
+    public IPrivateWorkingTimeCalendar GetPrivateWorkingCalendar(int year, IRecipient recipient)
+    {
+      return PrivateWorkingTimeCalendars.GetAll(c => c.Year.HasValue && c.Year.Value == year &&
+                                                c.Recipients.Select(r => r.Recipient).Contains(recipient)).FirstOrDefault();
+    }
+    
+    /// <summary>
+    /// Определить тип дня календаря рабочего времени.
+    /// </summary>
+    /// <param name="type">Целочисленное представление типа календарного дня.</param>
+    /// <returns>Значение типа календарного дня.</returns>
+    public Nullable<Enumeration> DefineWorkingTimeCalendarDayKind(int type)
+    {
+      switch (type)
+      {
+        case 1:
+          return Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Weekend;
+        case 2:
+          return Sungero.CoreEntities.WorkingTimeCalendarDay.Kind.Holiday;
+        default:
+          return null;
+      }
+    }
+    
+    /// <summary>
+    /// Выполнить измерение скорости расчёта времени с учётом календарей рабочего времени.
+    /// </summary>
+    /// <param name="employeeCount">Количество случайных сотрудников в выборке.</param>
+    /// <param name="shiftDays">Cмещение.</param>
+    /// <param name="shiftHours">True для смещения дней, иначе часов.</param>
+    /// <returns> Результат замера.</returns>
+    [Public, Remote(IsPure=true)]
+    public string WorkingTimeCalculationSpeedTest(int employeeCount, int shift, bool shiftDays)
+    {
+      var totalEmployee = OverrideSolution.Employees.GetAll().Where(e => e.Status == OverrideSolution.Employee.Status.Active &&
+                                                                    e.IsVirtualDirRX.HasValue && e.IsVirtualDirRX.Value == false);
+      var totalEmployeeCountLong = totalEmployee.Select(e => e.Id).LongCount();
+      var totalEmployeeCount = totalEmployeeCountLong > int.MaxValue ? int.MaxValue : (int)totalEmployeeCountLong;
+      var random = new System.Random();
+      var calculationTimes = new List<double>();
+      var stopwatch = new System.Diagnostics.Stopwatch();
+      
+      for (var i = 0; i < employeeCount; i++)
+      {
+        var skip = random.Next(totalEmployeeCount);
+        var employee = totalEmployee.Skip(skip).FirstOrDefault();
+        
+        stopwatch.Restart();
+        
+        if (shiftDays)
+          Calendar.Now.AddWorkingDays(employee, shift);
+        else
+          Calendar.Now.AddWorkingHours(employee, shift);
+        
+        stopwatch.Stop();
+        calculationTimes.Add(Math.Round(stopwatch.Elapsed.TotalSeconds, 5));
+      }
+      
+      var avarageTimes = calculationTimes.Sum() / calculationTimes.Count;
+      
+      return DirRX.NNCommons.Resources.WorkingTimeCalculationSpeedtestResultFormat(
+        Math.Round(avarageTimes, 5),
+        string.Join(Environment.NewLine, calculationTimes));
+    }
+    
+    #endregion
+    
+    #endregion
+    
+    #region Работа с часовыми поясами.
+    
+    /// <summary>
+    /// Синхронизировать часовой пояс сотрудника с одноимённым справочником.
+    /// </summary>
+    /// <param name="employee">Сотрудник.</param>
+    /// <returns>Пустая строка при успешном выполнении. Иначе текст ошибки.</returns>
+    [Public]
+    public string SynchronizationTimeZone(OverrideSolution.IEmployee employee)
+    {
+      if (employee.Status == OverrideSolution.Employee.Status.Closed)
+      {
+        ExcludeEmployeeFromTimeZone(employee);
+        return string.Empty;
+      }
+      
+      var businessUnitUtcOffset = TimeZones.GetAll()
+        .Where(z => z.Recipients.Any(r => r.Recipient.Equals(employee.BusinessUnit)))
+        .Select(z => z.UtcOffset)
+        .FirstOrDefault();
+      
+      if (businessUnitUtcOffset == null)
+        return "Не удалось определить часовой пояс Нашей организации сотрудника";
+      
+      var equalsBusinessUnitTimeZone = businessUnitUtcOffset == employee.UtcOffsetDirRX;
+      var employeeTimeZone = TimeZones.GetAll(z => z.Recipients.Any(r => r.Recipient.Equals(employee))).FirstOrDefault();
+      var needSyncTimeZone = false;
+      
+      try
+      {
+        if (!equalsBusinessUnitTimeZone)
+        {
+          if (employeeTimeZone != null)
+          {
+            if (employeeTimeZone.UtcOffset != employee.UtcOffsetDirRX)
+            {
+              ExcludeEmployeeFromTimeZone(employeeTimeZone, employee);
+              needSyncTimeZone = true;
+            }
+          }
+          else
+            needSyncTimeZone = true;
+          
+          if (needSyncTimeZone)
+          {
+            var targetTimeZone = TimeZones.GetAll(z => z.UtcOffset == employee.UtcOffsetDirRX).FirstOrDefault();
+            if (targetTimeZone == null)
+            {
+              targetTimeZone = TimeZones.Create();
+              targetTimeZone.Name = DirRX.NNCommons.Resources.TimeZoneNameTemplateFormat(employee.UtcOffsetDirRX);
+              targetTimeZone.UtcOffset = employee.UtcOffsetDirRX;
+            }
+            
+            var recipient = targetTimeZone.Recipients.AddNew();
+            recipient.Recipient = employee;
+            targetTimeZone.Save();
+          }
+        }
+        else
+        {
+          if (employeeTimeZone != null)
+            ExcludeEmployeeFromTimeZone(employeeTimeZone, employee);
+        }
+      }
+      catch (Exception ex)
+      {
+        var error = string.Format("Не удалось синхронизировать часовой пояс. Ошибка: {0}.", ex);
+        Logger.ErrorFormat("{0}. ИД Сотрудника {1}. {2}.", nameof(SynchronizationTimeZone), employee.Id, error);
+        return error;
+      }
+      
+      return string.Empty;
+    }
+    
+    /// <summary>
+    /// Исключает сотрудника из часового пояса.
+    /// </summary>
+    /// <param name="employee">Сотрудник.</param>
+    /// <remarks>Если в часовом поясе был указан только один сотрудник, то пояс удаляется.</remarks>
+    [Public]
+    public void ExcludeEmployeeFromTimeZone(OverrideSolution.IEmployee employee)
+    {
+      var employeeTimeZone = TimeZones.GetAll(z => z.Recipients.Any(r => r.Recipient.Equals(employee))).FirstOrDefault();
+      if (employeeTimeZone != null)
+      {
+        ExcludeEmployeeFromTimeZone(employeeTimeZone, employee);
+      }
+    }
+    
+    /// <summary>
+    /// Исключает сотрудника из часового пояса.
+    /// </summary>
+    /// <param name="timeZone">Часовой пояс.</param>
+    /// <param name="employee">Сотрудник.</param>
+    /// <remarks>Если в часовом поясе был указан только один сотрудник, то пояс удаляется.</remarks>
+    [Public]
+    public void ExcludeEmployeeFromTimeZone(Sungero.CoreEntities.ITimeZone timeZone, OverrideSolution.IEmployee employee)
+    {
+      if (timeZone.Recipients.Any(r => r.Recipient.Equals(employee)))
+      {
+        if (timeZone.Recipients.Count == 1)
+          TimeZones.Delete(timeZone);
+        else
+        {
+          var recipient = timeZone.Recipients.FirstOrDefault(r => r.Recipient.Equals(employee));
+          timeZone.Recipients.Remove(recipient);
+          timeZone.Save();
+        }
+      }
+    }
+    
+    #endregion
+    
   }
 }

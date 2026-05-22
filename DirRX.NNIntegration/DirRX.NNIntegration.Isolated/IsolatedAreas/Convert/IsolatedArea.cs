@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -253,7 +253,7 @@ namespace DirRX.NNIntegration.Isolated.Convert
     {
       var response = new SupernikaNotificationStatus();
       JObject jsonObject = JObject.Load(reader);
- 
+      
       // Получение списка уведомлений.
       var notificationsJson = jsonObject["notifications"]?.Children<JToken>();
       response.notifications = notificationsJson?.Select(n => _notificationConverter.ReadJson(n.CreateReader(), typeof(SupernikaNotification), null, false, serializer)).Cast<ISupernikaNotification>().ToList() ?? new List<ISupernikaNotification>();
@@ -318,6 +318,67 @@ namespace DirRX.NNIntegration.Isolated.Convert
     }
   }
 
+  #endregion
+  
+  #region IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО (АСУП -> КЭДО).
+  
+  /// <summary>
+  /// Информация о календаре рабочего времени.
+  /// </summary>
+  public class IncomingWorkingTimeCalendar
+  {
+    /// <summary>
+    /// Сотрудник.
+    /// </summary>
+    public string Employee { get; set; }
+    
+    /// <summary>
+    /// Год.
+    /// </summary>
+    public int Year { get; set; }
+    
+    /// <summary>
+    /// Описание дней.
+    /// </summary>
+    public List<IncomingWorkingDayDescription> DayDisc { get; set; }
+  }
+  
+  /// <summary>
+  /// Описание дня в календаре рабочего времени.
+  /// </summary>
+  public class IncomingWorkingDayDescription
+  {
+    /// <summary>
+    /// Дата.
+    /// </summary>
+    public string Date { get; set; }
+    
+    /// <summary>
+    /// Начало дня.
+    /// </summary>
+    public string DayStart { get; set; }
+    
+    /// <summary>
+    /// Окончание дня.
+    /// </summary>
+    public string DayEnd { get; set; }
+    
+    /// <summary>
+    /// Начало обеда.
+    /// </summary>
+    public string BrStart { get; set; }
+    
+    /// <summary>
+    /// Окончание обеда.
+    /// </summary>
+    public string BrEnd { get; set; }
+    
+    /// <summary>
+    /// Тип дня.
+    /// </summary>
+    public int Type { get; set; }
+  }
+  
   #endregion
   
 }

@@ -187,4 +187,7 @@
   <data name="Property_NeedCreateSubstitutionsDirRX" xml:space="preserve">
     <value>Создать замещения</value>
   </data>
+  <data name="Property_UtcOffsetDirRX" xml:space="preserve">
+    <value>Часовой пояс</value>
+  </data>
 </root>

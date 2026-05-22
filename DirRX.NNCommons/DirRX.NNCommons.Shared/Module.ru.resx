@@ -296,4 +296,43 @@
   <data name="HoursDeclensionTwo" xml:space="preserve">
     <value>часа</value>
   </data>
+  <data name="MassIssueCertificatesStarted" xml:space="preserve">
+    <value>Начало выполнения АО "Запустить задачи на выпуск сертификатов".</value>
+  </data>
+  <data name="MassIssueCertificatesCompleted" xml:space="preserve">
+    <value>Завершено выполнение АО "Запустить задачи на выпуск сертификатов".</value>
+  </data>
+  <data name="DisableSimpleCertificatesStarted" xml:space="preserve">
+    <value>Начало выполнения АО "Закрыть сертификаты ПЭП".</value>
+  </data>
+  <data name="DisableSimpleCertificatesCompleted" xml:space="preserve">
+    <value>Завершено выполнение АО "Закрыть сертификаты ПЭП".</value>
+  </data>
+  <data name="TimeZoneNameTemplate" xml:space="preserve">
+    <value>UTC+{0}</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedTest" xml:space="preserve">
+    <value>Измерение скорости расчёта рабочего времени</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedTestDescription" xml:space="preserve">
+    <value>Выполнить измерение скорости расчёта рабочего времени с учётом частных календарей.</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_EmployeeCount" xml:space="preserve">
+    <value>Сотрудников в выборке</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_Shift" xml:space="preserve">
+    <value>Смещение</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_HoursShift" xml:space="preserve">
+    <value>Смещение в часах</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestDialog_DaysShift" xml:space="preserve">
+    <value>Смещение в днях</value>
+  </data>
+  <data name="WorkingTimeCalculationSpeedtestResult" xml:space="preserve">
+    <value>Среднее время: {0} сек.
+
+Детализация по каждому замеру (сек.):
+{1}</value>
+  </data>
 </root>

@@ -802,12 +802,66 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "CheckAssignmentCompleted",
+      "Parameters": [
+        {
+          "Name": "assignment",
+          "ParameterType": "global::Sungero.Workflow.IAssignmentBase",
+          "ParameterTypeFullName": "Sungero.Workflow.IAssignmentBase, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "CheckAssignmentCompletedBy",
+      "Parameters": [
+        {
+          "Name": "assignment",
+          "ParameterType": "global::Sungero.Workflow.IAssignmentBase",
+          "ParameterTypeFullName": "Sungero.Workflow.IAssignmentBase, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.Int64>",
+      "ReturnTypeFullName": "System.Nullable"
+    },
+    {
+      "Name": "CheckAssignmentResult",
+      "Parameters": [
+        {
+          "Name": "assignment",
+          "ParameterType": "global::Sungero.Workflow.IAssignmentBase",
+          "ParameterTypeFullName": "Sungero.Workflow.IAssignmentBase, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
       "Name": "CheckForDisabledChildPaymentType",
       "Parameters": [
         {
           "Name": "paymentTypeId",
           "ParameterType": "global::System.Nullable<global::System.Int64>",
           "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "CheckIfCurrentUserIsPerformer",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "assignmentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
         }
       ],
       "ReturnType": "global::System.Boolean",
@@ -1027,6 +1081,19 @@
       "WebApiRequestType": "Post"
     },
     {
+      "Name": "GetAssignmentsForWorkItemList",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNOtherProcesses.Structures.Module.IAssignmentItem>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "GetChildrenByEmployeeId",
       "Parameters": [
         {
@@ -1050,6 +1117,19 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetHistoryAssignmentsForWorkItemList",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNOtherProcesses.Structures.Module.IHistoryAssignmentItem>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
       "WebApiRequestType": "Get"
     },
     {
@@ -1158,6 +1238,19 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "GetSubstitutionAssignmentsForWorkItemList",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNOtherProcesses.Structures.Module.ISubstitutionAssignmentItem>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
       "WebApiRequestType": "Get"
     },
     {
@@ -1319,6 +1412,85 @@
   ],
   "PublicStructures": [
     {
+      "Name": "AssignmentItem",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "system",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "icon",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "isRead",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "isExpired",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "created",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "deadline",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "completed",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "status",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "result",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "defaultActionName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "defaultActionCaption",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "defaultActionIcon",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
+    },
+    {
       "Name": "CompensationKindStructure",
       "IsIsolated": true,
       "IsPublic": true,
@@ -1339,6 +1511,89 @@
         {
           "Name": "IsRestDateRequired",
           "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
+    },
+    {
+      "Name": "HistoryAssignmentItem",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "system",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "icon",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "isRead",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "isExpired",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "deadline",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "assignee",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "bySubstitution",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "finished",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "status",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "result",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "defaultActionName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "defaultActionCaption",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "defaultActionIcon",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
         }
       ],
       "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
@@ -1420,6 +1675,64 @@
         }
       ],
       "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
+    },
+    {
+      "Name": "SubstitutionAssignmentItem",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "system",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "name",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "id",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "icon",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "isRead",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "isExpired",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "assignee",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "created",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "deadline",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "isExecutable",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNOtherProcesses.Structures.Module"
     }
   ],
   "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
@@ -1471,7 +1784,7 @@
   "SharedAssemblyName": "DirRX.NNOtherProcesses.Shared",
   "SharedNamespace": "DirRX.NNOtherProcesses.Shared",
   "SpecialFolders": [],
-  "Version": "25.2.0.4",
+  "Version": "25.2.0.7",
   "Widgets": [],
   "Versions": [
     {

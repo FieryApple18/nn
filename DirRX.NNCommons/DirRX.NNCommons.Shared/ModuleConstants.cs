@@ -5,6 +5,15 @@ namespace DirRX.NNCommons.Constants
 {
   public static class Module
   {
+    /// <summary>
+    /// Количество обрабатываемых записей в АО "Запустить задачи на выпуск сертификатов" в одной итерации.
+    /// </summary>
+    public const int CountMassIssueCertificatesInIteration = 200;
+    
+    /// <summary>
+    /// Количество обрабатываемых записей в АО "Закрыть сертификаты ПЭП" в одной итерации.
+    /// </summary>
+    public const int CountDisableSimpleCertificatesInIteration = 200;
 
     /// <summary>
     /// Кол-во записей справочника Сотрудники, которое возвращается при открытии справочника из ЛК.
@@ -200,6 +209,28 @@ namespace DirRX.NNCommons.Constants
         public const string Guid = "A72475C3-0376-4DD2-8289-1280A8CDCEC3";
         public const string Name = "Отчеты";
       }
+      
+      /// <summary>
+      /// Параметры подключения к БД.
+      /// </summary>
+      [Public]
+      public static class DbConnectionSettings
+      {
+        [Public]
+        public const string Guid = "75886E1B-41A3-46A1-BE54-9FC322BDD454";
+        public const string Name = "Параметры подключения к БД";
+      }
+      
+      /// <summary>
+      /// Календари рабочего времени.
+      /// </summary>
+      [Public]
+      public static class WorkingTimeCalendars
+      {
+        [Public]
+        public const string Guid = "937007e4-3469-4c75-9ec1-0cd52db4a1f9";
+        public const string Name = "Календари рабочего времени";
+      }
     }
     #endregion
     
@@ -344,6 +375,105 @@ namespace DirRX.NNCommons.Constants
         [Public]
         public const string Guid = "4941C1B3-367C-493E-9A82-23B9464D3569";
         public const string Name = "Общее. Сертификаты. Эл. почта для получения сертификатов";
+      }
+      
+      /// <summary>
+      /// Общее. Имена издателей УНЭП (указываются через ',').
+      /// </summary>
+      [Public]
+      public static class IssuerNamesUnqualifiedSignature
+      {
+        [Public]
+        public const string Guid = "6A22E99B-2A54-4DC9-B604-694B99701FC7";
+        [Public]
+        public const string Name = "Общее. Имена издателей УНЭП (указываются через ',')";
+      }
+      
+      /// <summary>
+      /// Адрес сервера СУБД Ess.
+      /// </summary>
+      [Public]
+      public static class EssDatabaseAddress
+      {
+        [Public]
+        public const string Guid = "D22369EF-FABF-491C-BD02-207C84534282";
+        public const string Name = "Параметры подключения к БД. Адрес сервера СУБД Ess";
+        [Public]
+        public const string DefaultValue = "";
+      }
+      
+      /// <summary>
+      /// Порт сервера СУБД Ess.
+      /// </summary>
+      [Public]
+      public static class EssDatabasePort
+      {
+        [Public]
+        public const string Guid = "9393F40C-E97E-4E11-95CB-6D4167B4C656";
+        public const string Name = "Параметры подключения к БД. Порт сервера СУБД Ess";
+        [Public]
+        public const string DefaultValue = "5432";
+      }
+      
+      /// <summary>
+      /// Наименование базы данных Ess.
+      /// </summary>
+      [Public]
+      public static class EssDatabaseName
+      {
+        [Public]
+        public const string Guid = "EA86FE76-09AD-4F51-97B7-C66DBF4DB29A";
+        public const string Name = "Параметры подключения к БД. Наименование базы данных Ess";
+        [Public]
+        public const string DefaultValue = "";
+      }
+      
+      /// <summary>
+      /// Имя пользователя для подключения к СУБД Ess.
+      /// </summary>
+      [Public]
+      public static class EssDatabaseUserName
+      {
+        [Public]
+        public const string Guid = "5DFAA580-177E-462F-88F9-059F461E2685";
+        public const string Name = "Параметры подключения к БД. Имя пользователя для подключения к СУБД Ess";
+        [Public]
+        public const string DefaultValue = "";
+      }
+      
+      /// <summary>
+      /// Пароль для подключения к СУБД Ess.
+      /// </summary>
+      [Public]
+      public static class EssDatabaseUserPassword
+      {
+        [Public]
+        public const string Guid = "F224C472-D656-4F68-9370-F62496280E4C";
+        public const string Name = "Параметры подключения к БД. Пароль для подключения к СУБД Ess";
+        [Public]
+        public const string DefaultValue = "";
+      }
+      
+      /// <summary>
+      /// Общее. Количество календарей, удаляемое за один раз ФП Норникель. Очистка частных календарей рабочего времени.
+      /// </summary>
+      [Public]
+      public static class CountWorkingTimeCalendarsToDeleteInIteration
+      {
+        [Public]
+        public const string Guid = "29C012EC-3D6A-48AF-9EFF-53FC5AC894C4";
+        public const string Name = "Общее. Количество календарей, удаляемое за один раз ФП \"Норникель. Очистка частных календарей рабочего времени\"";
+      }
+      
+      /// <summary>
+      /// Общее. Количество дней для хранения ЧКРВ после Нового года.
+      /// </summary>
+      [Public]
+      public static class CountDaysAfterNewYearToDeleteWorkingTimeCalendars
+      {
+        [Public]
+        public const string Guid = "59286C73-0B96-4899-8EB0-AFE1107690B3";
+        public const string Name = "Общее. Количество дней для хранения ЧКРВ после Нового года";
       }
     }
     
@@ -728,6 +858,30 @@ namespace DirRX.NNCommons.Constants
       [Public]
       public const string V1A = "v1A";
     }
+    
+    #endregion
+    
+    #region Синхронизация календарей рабочего времени.
+    
+    /// <summary>
+    /// Время начала календарного дня рабочего времени.
+    /// </summary>
+    public const double CalendarDayBeginning = 0.0;
+    
+    /// <summary>
+    /// Время окончания календарного дня рабочего времени.
+    /// </summary>
+    public const double CalendarDayEnding = 23.98;
+    
+    /// <summary>
+    /// Количество календарей, удаляемое за один раз ФП Норникель. Очистка частных календарей рабочего времени по умолчанию.
+    /// </summary>
+    public const int DefaultCountWorkingTimeCalendarsToDeleteInIteration = 1000;
+    
+    /// <summary>
+    /// Количество дней для хранения ЧКРВ после Нового года.
+    /// </summary>
+    public const int DefaultCountDaysAfterNewYearToDeleteWorkingTimeCalendars = 14;
     
     #endregion
   }

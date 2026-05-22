@@ -169,4 +169,46 @@
   <data name="Property_IsNGD" xml:space="preserve">
     <value>NGD</value>
   </data>
+  <data name="Property_TIN" xml:space="preserve">
+    <value>TIN</value>
+  </data>
+  <data name="Property_IdentityDocumentKind" xml:space="preserve">
+    <value>Document type</value>
+  </data>
+  <data name="Enum_IdentityDocumentKind_PassportRF" xml:space="preserve">
+    <value>Passport of citizen of the Russian Federation</value>
+  </data>
+  <data name="Enum_IdentityDocumentKind_OtherDocument" xml:space="preserve">
+    <value>Another identity document</value>
+  </data>
+  <data name="Enum_IdentityDocumentKind_ForeignPassport" xml:space="preserve">
+    <value>Foreign passport</value>
+  </data>
+  <data name="Property_IdentityDocumentSeries" xml:space="preserve">
+    <value>Serial number</value>
+  </data>
+  <data name="Property_IdentityDocumentNumber" xml:space="preserve">
+    <value>Individual number</value>
+  </data>
+  <data name="Property_IdentityDocumentIssueDate" xml:space="preserve">
+    <value>Date of issue</value>
+  </data>
+  <data name="Property_IdentityDocumentIssuedBy" xml:space="preserve">
+    <value>Issuing authority</value>
+  </data>
+  <data name="Property_IdentityDocumentIssuerID" xml:space="preserve">
+    <value>Issuing authority code</value>
+  </data>
+  <data name="Property_IdentityDocumentBirthPlace" xml:space="preserve">
+    <value>Place of birth</value>
+  </data>
+  <data name="Property_IdentityDocumentExpirationDate" xml:space="preserve">
+    <value>Date of expire</value>
+  </data>
+  <data name="ControlGroup_e68e5af85fa84ce38fb5002a78517d17" xml:space="preserve">
+    <value>Identity Document</value>
+  </data>
+  <data name="Property_UtcOffset" xml:space="preserve">
+    <value>Time zone</value>
+  </data>
 </root>

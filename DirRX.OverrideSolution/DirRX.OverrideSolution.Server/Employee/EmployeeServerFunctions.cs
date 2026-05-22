@@ -321,7 +321,7 @@ namespace DirRX.OverrideSolution.Server
       
       // Получить автора задачи по значению ИД из прикладной константы.
       var authorId = DirRX.NNCommons.PublicFunctions.Module.GetIdentifierValue(DirRX.NNCommons.PublicConstants.Module.ConstantsSetting.CertificateTaskAuthorId.Guid);
-      var author = Users.GetAll(x => x.Id == authorId).FirstOrDefault();
+      var author = Employees.Current ?? Users.GetAll(x => x.Id == authorId).FirstOrDefault();
       if (author == null)
       {
         Logger.ErrorFormat("{0}. Не найден автор задачи на выпуск сертификата ЭП. ИД автора из константы: {1}.", logPrefix, authorId);

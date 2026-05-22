@@ -311,6 +311,173 @@ namespace DirRX.NNIntegration.Server
       
       return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty);
     }
+    
+    /// <summary>
+    /// Создать запись справочника "Очередь сообщений справочника Сотрудники".
+    /// </summary>
+    /// <param name="PP0002NACHN">Фамилия.</param>
+    /// <param name="PP0002VORNA">Имя.</param>
+    /// <param name="PP0002MIDNM">Отчество.</param>
+    /// <param name="PP0002GBDAT">Дата рождения.</param>
+    /// <param name="PP0290ICCD">СНИЛС.</param>
+    /// <param name="PP0002GESCH">Пол.</param>
+    /// <param name="Region">Регион.</param>
+    /// <param name="PP0006ORT01">Населенный пункт.</param>
+    /// <param name="RegistrationAddress">Адрес регистрации.</param>
+    /// <param name="PostalAddress">Почтовый адрес.</param>
+    /// <param name="Phones">Телефоны.</param>
+    /// <param name="Division">Подразделение.</param>
+    /// <param name="PP0001PLANS">Должность.</param>
+    /// <param name="PP0001ZZPERNR_MNG">Линейный руководитель.</param>
+    /// <param name="PP0001PERSG">Вид занятости.</param>
+    /// <param name="PP0000PERNR">Табельный номер.</param>
+    /// <param name="Email">Эл. почта (рабочая).</param>
+    /// <param name="PP0000BEGDA">Дата начала действия записи.</param>
+    /// <param name="PP0000ENDDA">Дата окончания действия записи.</param>
+    /// <param name="MPGroup">Группа МР.</param>
+    /// <param name="PP0001VDSK1">НГД.</param>
+    /// <param name="TIN">ИНН.</param>
+    /// <param name="IdentityDocumentKind">Вид документа.</param>
+    /// <param name="IdentityDocumentSeries">Вид документа.</param>
+    /// <param name="IdentityDocumentNumber">Номер.</param>
+    /// <param name="IdentityDocumentIssueDate">Дата выдачи.</param>
+    /// <param name="IdentityDocumentIssuedBy">Кем выдан.</param>
+    /// <param name="IdentityDocumentIssuerID">Код подразделения.</param>
+    /// <param name="IdentityDocumentBirthPlace">Место рождения.</param>
+    /// <param name="IdentityDocumentExpirationDate">Срок действия.</param>
+    /// <param name="UtcOffset">Часовой пояс.</param>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public virtual IResponseToExternalSystemRequest CreateEmployeeQueueRecordV2(string PP0002NACHN, string PP0002VORNA, string PP0002MIDNM, string PP0002GBDAT, string PP0290ICCD, string PP0002GESCH, string Region,
+                                                                                string PP0006ORT01, string RegistrationAddress, string PostalAddress, string Phones, string Division, string PP0001PLANS, string PP0001ZZPERNR_MNG,
+                                                                                string PP0001PERSG, string PP0000PERNR, string Email, string PP0000BEGDA, string PP0000ENDDA,
+                                                                                string MPGroup, string PP0001VDSK1,
+                                                                                string TIN, string IdentityDocumentKind, string IdentityDocumentSeries, string IdentityDocumentNumber, string IdentityDocumentIssueDate,
+                                                                                string IdentityDocumentIssuedBy, string IdentityDocumentIssuerID, string IdentityDocumentBirthPlace, string IdentityDocumentExpirationDate,
+                                                                                string UtcOffset)
+    {
+      Logger.DebugFormat("CreateEmployeeQueueRecord. Табельный номер: {0}. Получен запрос на создание записи очереди справочника Сотрудники.", PP0000PERNR);
+      var queueRecord = EmployeeQueues.Create();
+      queueRecord.LastName = PP0002NACHN;
+      queueRecord.FirstName = PP0002VORNA;
+      queueRecord.MiddleName = PP0002MIDNM;
+      queueRecord.INILA = PP0290ICCD;
+      queueRecord.Region = Region;
+      queueRecord.City = PP0006ORT01;
+      queueRecord.LegalAddress = RegistrationAddress;
+      queueRecord.PostalAddress = PostalAddress;
+      queueRecord.Phones = Phones;
+      queueRecord.DepartmentCode = Division;
+      queueRecord.JobTitleCode = PP0001PLANS;
+      queueRecord.LineManagerCode = PP0001ZZPERNR_MNG;
+      queueRecord.EmploymentType = PP0001PERSG;
+      queueRecord.PersonnelNumber = PP0000PERNR;
+      queueRecord.Email = Email;
+      queueRecord.MPGroup = MPGroup;
+      queueRecord.TIN = TIN;
+      queueRecord.IdentityDocumentSeries = IdentityDocumentSeries;
+      queueRecord.IdentityDocumentNumber = IdentityDocumentNumber;
+      queueRecord.IdentityDocumentIssuedBy = IdentityDocumentIssuedBy;
+      queueRecord.IdentityDocumentIssuerID = IdentityDocumentIssuerID?.Replace("-", string.Empty);
+      queueRecord.IdentityDocumentBirthPlace = IdentityDocumentBirthPlace;
+      
+      var validationErrors = string.Empty;
+      
+      // Проверка периода действия записи.
+      var error = Functions.CompanyQueueBase.SetRecordDatePeriod(queueRecord, PP0000BEGDA, PP0000ENDDA);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка СНИЛС.
+      error = Functions.EmployeeQueue.CheckInila(queueRecord);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1} СНИЛС: {2}.", PP0000PERNR, error, queueRecord.INILA);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка кода вида занятости сотрудника.
+      if (!Functions.EmployeeQueue.CheckEmployemntType(queueRecord.EmploymentType))
+      {
+        error = DirRX.NNIntegration.Resources.EmployeeEmployemntTypeParseErrorFormat(queueRecord.EmploymentType);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка кода пола персоны.
+      if (!Functions.EmployeeQueue.TryParsePersonSex(queueRecord, PP0002GESCH))
+      {
+        error = DirRX.NNIntegration.Resources.SexParseErrorFormat(PP0002GESCH);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка Группы МР.
+      error = Functions.EmployeeQueue.CheckMPGroup(queueRecord);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      //Проверка признака НГД.
+      if (!Functions.EmployeeQueue.TrySetNGD(queueRecord, PP0001VDSK1))
+      {
+        error = DirRX.NNIntegration.Resources.NGDParseErrorFormat(PP0001VDSK1);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка вида документа, удостоверяющего личность.
+      if (!string.IsNullOrEmpty(IdentityDocumentKind) && !Functions.EmployeeQueue.TryParseIdentityDocumentKind(queueRecord, IdentityDocumentKind))
+      {
+        error = DirRX.NNIntegration.Resources.IdentityDocumentKindParseErrorFormat(IdentityDocumentKind);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      var culture = new System.Globalization.CultureInfo("ru-RU");
+      if (!string.IsNullOrEmpty(PP0002GBDAT))
+        queueRecord.DateOfBirth = DateTime.Parse(PP0002GBDAT, culture);
+      if (!string.IsNullOrEmpty(IdentityDocumentIssueDate))
+        queueRecord.IdentityDocumentIssueDate = DateTime.Parse(IdentityDocumentIssueDate, culture);
+      if (!string.IsNullOrEmpty(IdentityDocumentExpirationDate))
+        queueRecord.IdentityDocumentExpirationDate = DateTime.Parse(IdentityDocumentExpirationDate, culture);
+      
+      // Проверка формата часового пояса.
+      var utcOffset = 0.0;
+      if (!double.TryParse(UtcOffset, out utcOffset))
+      {
+        error = DirRX.NNIntegration.Resources.UtcOffsetParseErrorFormat(UtcOffset);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      else
+        queueRecord.UtcOffset = utcOffset;
+      
+      // Вернуть ошибки валидации запроса в КСИП.
+      if (!string.IsNullOrEmpty(validationErrors))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. Таб. номер сотрудника: {0}. Запись справочника \"Очередь сообщений справочника Сотрудники\" не создана из-за ошибок валидации.",
+                           queueRecord.PersonnelNumber);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, validationErrors);
+      }
+      
+      try
+      {
+        queueRecord.Save();
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. Таб. номер сотрудника: {0}. Ошибка при сохранении записи справочника \"Очередь сообщений справочника Сотрудники\". Текст ошибки: {1}, StackTrace: {2}.",
+                           queueRecord.PersonnelNumber, ex.Message, ex.StackTrace);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, ex.Message);
+      }
+      
+      return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty);
+    }
     #endregion
     
     #region Функции синхронизации справочников орг. структуры.
@@ -864,6 +1031,8 @@ namespace DirRX.NNIntegration.Server
         .Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Created ||
                x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Retry)
         .OrderBy(x => x.ProcessingStatus);
+      // Получение ответственного из справочника "Потоки внешних систем" по guid потока.
+      var responsible = Functions.Module.GetFlowResponsible(Constants.Module.ExternalSystemsFlowGuids.CompanySynchronization);
       
       Logger.DebugFormat("{0}. {1}. Начало обработки. Всего новых записей: {2}. Всего записей на повторной обработке: {3}.", logPrefix, EmployeeQueues.Info.LocalizedName,
                          employeeQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Created).Count(),
@@ -896,6 +1065,7 @@ namespace DirRX.NNIntegration.Server
         var personalPhone = record.Phones.Split(',').FirstOrDefault();
         var personalPhoneIsEmpty = string.IsNullOrEmpty(personalPhone);
         var employeeStatus = GetStatusByRecordDate(record);
+        var needIssueCertificate = false;
         
         // Если личный телефон - не пустой, то необходимо его провалидировать до обновления персоны и сотрудника.
         if (!personalPhoneIsEmpty && !DirRX.EssPlatform.PublicFunctions.Module.PhoneNumberLengthIsValid(personalPhone, false))
@@ -934,6 +1104,9 @@ namespace DirRX.NNIntegration.Server
                                      {
                                        if (string.IsNullOrEmpty(jobState.RetryMessage))
                                        {
+                                         if (person.FirstName != record.FirstName || person.LastName != record.LastName || person.MiddleName != record.MiddleName)
+                                           needIssueCertificate = true;
+                                         
                                          if (person.State.IsInserted || person.FirstName != record.FirstName)
                                            person.FirstName = record.FirstName;
                                          if (person.State.IsInserted || person.LastName != record.LastName)
@@ -954,6 +1127,66 @@ namespace DirRX.NNIntegration.Server
                                            person.INILA = record.INILA;
                                          if (person.Status != DirRX.OverrideSolution.Person.Status.Active)
                                            person.Status = DirRX.OverrideSolution.Person.Status.Active;
+                                         
+                                         #region ИНН.
+                                         if (person.State.IsInserted || person.TIN != record.TIN)
+                                         {
+                                           var errorTin = Sungero.Parties.PublicFunctions.Counterparty.CheckTin(record.TIN, false);
+                                           if (!string.IsNullOrEmpty(errorTin))
+                                           {
+                                             Logger.DebugFormat("{0}. {1}. ID записи: {2}. ID персоны: {3}. Таб. номер: {4}. Ошибка: {5}.",
+                                                                logPrefix, EmployeeQueues.Info.LocalizedName, record.Id, person.Id, record.PersonnelNumber, errorTin);
+                                             if (responsible != null)
+                                               SendNotificationToResponsible(responsible, Resources.CompanySynchronizationErrorsNotificationSubjectFormat(Calendar.Now), string.Format("{0}. {1}", Hyperlinks.Get(record), errorTin));
+                                             person.TIN = null;
+                                           }
+                                           else
+                                           {
+                                             person.TIN = record.TIN;
+                                           }
+                                         }
+                                         #endregion
+                                         
+                                         #region Реквизиты документа, удостоверяющего личность.
+                                         
+                                         // Проверка реквизитов документа, удостоверяющего личность.
+                                         var errorIdentityDocument = string.Join(" ", Functions.EmployeeQueue.CheckPersonIdentityDocument(record));
+                                         if (!string.IsNullOrEmpty(errorIdentityDocument))
+                                         {
+                                           Logger.DebugFormat("{0}. {1}. ID записи: {2}. ID персоны: {3}. Таб. номер: {4}. Ошибка: {5}.",
+                                                              logPrefix, EmployeeQueues.Info.LocalizedName, record.Id, person.Id, record.PersonnelNumber, errorIdentityDocument);
+                                           if (responsible != null)
+                                             SendNotificationToResponsible(responsible, Resources.CompanySynchronizationErrorsNotificationSubjectFormat(Calendar.Now), string.Format("{0}. {1}", Hyperlinks.Get(record), errorIdentityDocument));
+                                           person.IdentityDocumentKind = null;
+                                           person.IdentityDocumentSeries = null;
+                                           person.IdentityDocumentNumber = null;
+                                           person.IdentityDocumentIssueDate = null;
+                                           person.IdentityDocumentIssuedBy = null;
+                                           person.IdentityDocumentIssuerID = null;
+                                           person.IdentityDocumentBirthPlaceDirRX = null;
+                                           person.IdentityDocumentExpirationDate = null;
+                                         }
+                                         else
+                                         {
+                                           if (person.State.IsInserted || person.IdentityDocumentKind != record.IdentityDocumentKind)
+                                             person.IdentityDocumentKind = record.IdentityDocumentKind;
+                                           if (person.State.IsInserted || person.IdentityDocumentSeries != record.IdentityDocumentSeries)
+                                             person.IdentityDocumentSeries = record.IdentityDocumentSeries;
+                                           if (person.State.IsInserted || person.IdentityDocumentNumber != record.IdentityDocumentNumber)
+                                             person.IdentityDocumentNumber = record.IdentityDocumentNumber;
+                                           if (person.State.IsInserted || person.IdentityDocumentIssueDate != record.IdentityDocumentIssueDate)
+                                             person.IdentityDocumentIssueDate = record.IdentityDocumentIssueDate;
+                                           if (person.State.IsInserted || person.IdentityDocumentIssuedBy != record.IdentityDocumentIssuedBy)
+                                             person.IdentityDocumentIssuedBy = record.IdentityDocumentIssuedBy;
+                                           if (person.State.IsInserted || person.IdentityDocumentIssuerID != record.IdentityDocumentIssuerID)
+                                             person.IdentityDocumentIssuerID = record.IdentityDocumentIssuerID;
+                                           if (person.State.IsInserted || person.IdentityDocumentBirthPlaceDirRX != record.IdentityDocumentBirthPlace)
+                                             person.IdentityDocumentBirthPlaceDirRX = record.IdentityDocumentBirthPlace;
+                                           if (person.State.IsInserted || person.IdentityDocumentExpirationDate != record.IdentityDocumentExpirationDate)
+                                             person.IdentityDocumentExpirationDate = record.IdentityDocumentExpirationDate;
+                                         }
+                                         
+                                         #endregion
                                          
                                          #region Регион.
                                          // Заполнение региона и населённого пункта должно выполняться с учётом логики ведущий-ведомый.
@@ -1047,7 +1280,6 @@ namespace DirRX.NNIntegration.Server
         var department = Departments.Null;
         var oldDepartment = Sungero.Company.Departments.Null;
         var employee = Employees.Null;
-        var needIssueCertificate = false;
         var employeeIsInserted = false;
         var employeePreviousStatus = OverrideSolution.Employee.Status.Active;
         
@@ -1234,7 +1466,6 @@ namespace DirRX.NNIntegration.Server
                                                var errorMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не удалось отключить сотрудника от ЛК. Текст ошибки: {2}.", employee.Id, record.PersonnelNumber, ex.Message);
                                                jobState.RetryMessage = string.Format("{0}  StackTrace: {1}", errorMessage, ex.StackTrace);
                                                
-                                               var responsible = NNIntegration.PublicFunctions.Module.GetFlowResponsible(NNIntegration.Constants.Module.ExternalSystemsFlowGuids.CompanySynchronization);
                                                if (responsible != null)
                                                  DirRX.NNIntegration.PublicFunctions.Module.SendNotificationToResponsible(responsible, errorMessage, errorMessage);
                                              }
@@ -1331,6 +1562,11 @@ namespace DirRX.NNIntegration.Server
                                          employee.IsNGDDirRX = record.IsNGD;
                                        #endregion
                                        
+                                       #region Часовой пояс
+                                       if (record.UtcOffset != employee.UtcOffsetDirRX)
+                                         employee.UtcOffsetDirRX = record.UtcOffset;
+                                       #endregion
+                                       
                                        Logger.DebugFormat("{0}. {1}. ID записи: {2}. ID сотрудника: {3}. Таб. номер: {4}. Итоговый статус действия сотрудника перед сохранением: {5}.",
                                                           logPrefix, EmployeeQueues.Info.LocalizedName, record.Id, employee.Id, record.PersonnelNumber,
                                                           Employees.Info.Properties.Status.GetLocalizedValue(employee.Status));
@@ -1378,8 +1614,9 @@ namespace DirRX.NNIntegration.Server
             record.Employee = employee == null || employee.State.IsInserted ? Employees.Null : GetEmployeeByPersonnelNumber(record.PersonnelNumber);
           else
           {
+            var isReissueCertificateOnOrgStructureSync = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(Constants.Module.ConstantsSetting.ReissueCertificateOnOrgStructureSync.Guid);
             // Выпустить сертификат, если изменился номер телефона или адрес эл. почты.
-            if (needIssueCertificate && string.IsNullOrEmpty(jobState.ErrorMessage))
+            if ((isReissueCertificateOnOrgStructureSync == true) && needIssueCertificate && string.IsNullOrEmpty(jobState.ErrorMessage))
               DirRX.OverrideSolution.PublicFunctions.Employee.ReissueCertificate(employee);
             
             if (!Employees.Equals(record.Employee, employee))
@@ -1411,6 +1648,15 @@ namespace DirRX.NNIntegration.Server
             UpdateSubstitutionsForMainEmployee(logPrefix, record.Employee);
           }
           
+        }
+        #endregion
+        
+        #region Синхронизация часового пояса.
+        if (string.IsNullOrEmpty(jobState.ErrorMessage) && string.IsNullOrEmpty(jobState.RetryMessage))
+        {
+          var syncTimeZoneError = NNCommons.PublicFunctions.Module.SynchronizationTimeZone(employee);
+          if (!string.IsNullOrEmpty(syncTimeZoneError))
+            jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не удалось синхронизировать часовой пояс сотрудника: {2}", employee.Id, record.PersonnelNumber,  syncTimeZoneError);
         }
         #endregion
         
@@ -3444,6 +3690,10 @@ namespace DirRX.NNIntegration.Server
         case Constants.Module.ExternalSystemsFlowGuids.LrdPaymentOrder:
           result = DirRX.NNOtherProcesses.PublicFunctions.Module.UpdateOrCreateLrdPaymentOrder(idIncomingMessage);
           break;
+          // IF-S-28097. Синхронизация календарей рабочего времени.
+        case Constants.Module.ExternalSystemsFlowGuids.UpdateOrCreateWorkingTimeCalendar:
+          result = DirRX.NNCommons.PublicFunctions.Module.UpdateOrCreateWorkingTimeCalendar(idIncomingMessage);
+          break;
         default:
           result.ErrorText = string.Format("Поток с переданным guid не найден. Guid: {0}", flowGuid);
           break;
@@ -4089,7 +4339,7 @@ namespace DirRX.NNIntegration.Server
       {
         var signatureTypeString = string.Empty;
         if (isSimpleSignature.HasValue)
-          signatureTypeString = isSimpleSignature.Value ? " с типом ПЭП" : " с типом УКЭП";
+          signatureTypeString = isSimpleSignature.Value ? " с типом ПЭП" : " с типом УКЭП/УНЭП";
         
         result.ErrorText = string.Format("На версии не найдено подписей{0}.", signatureTypeString);
         Logger.ErrorFormat("{0}. {1}", logPrefix, result.ErrorText);
@@ -4110,8 +4360,16 @@ namespace DirRX.NNIntegration.Server
         var attributes = DirRX.NNIntegration.Structures.Module.Attributes.Create();
         
         // Получить Guid шаблона штампа в зависимости от его типа.
-        var templateId = isSimpleSignature == true ? DirRX.NNCommons.PublicFunctions.Module.GetStringValue(Constants.Module.ConstantsSetting.TemplateIdSimpleSignature.Guid) :
-          DirRX.NNCommons.PublicFunctions.Module.GetStringValue(Constants.Module.ConstantsSetting.TemplateIdQualifiedSignature.Guid);
+        var templateId = string.Empty;
+        // ПЭП.
+        if (isSimpleSignature == true)
+          templateId = DirRX.NNCommons.PublicFunctions.Module.GetStringValue(Constants.Module.ConstantsSetting.TemplateIdSimpleSignature.Guid);
+        // УНЭП.
+        else if (NNCommons.PublicFunctions.Module.IsUnqualifiedSignature(signature))
+          templateId = DirRX.NNCommons.PublicFunctions.Module.GetStringValue(Constants.Module.ConstantsSetting.TemplateIdUnqualifiedSignature.Guid);
+        // УКЭП.
+        else
+          templateId = DirRX.NNCommons.PublicFunctions.Module.GetStringValue(Constants.Module.ConstantsSetting.TemplateIdQualifiedSignature.Guid);
         
         // Структура для парметров документа.
         var document = DirRX.NNIntegration.Structures.Module.DocumentForStamping.Create();
@@ -5948,6 +6206,75 @@ namespace DirRX.NNIntegration.Server
     
     #endregion
     
+    #region Интеграционный сценарий "Синхронизация календарей рабочего времени".
+    
+    #region IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО (АСУП -> КЭДО).
+    
+    /// <summary>
+    /// Синхронизация календаря рабочего времени.
+    /// </summary>
+    /// <param name="Employee">Сотрудник.</param>
+    /// <param name="Year">Год.</param>
+    /// <param name="DayDisc">Описание дней.</param>
+    /// <returns>Результат обработки.</returns>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public IResponseToExternalSystemRequest UpdateOrCreateWorkingTimeCalendar(string Employee, string Year, List<Structures.Module.IIncomingWorkingDayDescription> DayDisc)
+    {
+      var errorMessage = string.Empty;
+
+      if (string.IsNullOrEmpty(Employee))
+        errorMessage += "Не заполнен Сотрудник. ";
+      
+      var yearNumber = 0;
+      if (string.IsNullOrEmpty(Year))
+        errorMessage += "Не заполнен Год. ";
+      else
+      {
+        if (int.TryParse(Year, out yearNumber))
+        {
+          if (yearNumber < Calendar.Today.Year)
+            errorMessage += "Переданный год меньше текущего. ";
+        }
+        else
+          errorMessage += "Некорректный формат года. ";
+      }
+
+      if (!DayDisc.Any())
+        errorMessage += "Список передаваемых дней пуст. ";
+      
+      if (!string.IsNullOrEmpty(errorMessage))
+      {
+        errorMessage = errorMessage.Trim();
+        Logger.ErrorFormat("UpdateOrCreateWorkingTimeCalendar. {0}", errorMessage);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+      }
+      
+      Employee = Employee.Trim().TrimStart('0');
+      
+      var model = Structures.Module.IncomingWorkingTimeCalendar.Create(Employee, yearNumber, DayDisc);
+      var responseBody = string.Empty;
+      try
+      {
+        responseBody = IsolatedFunctions.Convert.SerializeInJson(model);
+      }
+      catch (Exception ex)
+      {
+        errorMessage = "Ошибка сериализации в Json строку.";
+        Logger.ErrorFormat("UpdateOrCreateWorkingTimeCalendar. {0} Текст ошибки: {1}. StackTrace: {2}.", errorMessage, ex.Message, ex.StackTrace);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+      }
+      
+      errorMessage = NNIntegration.PublicFunctions.Module.CreateIncomingMessage(NNIntegration.Constants.Module.ExternalSystemsFlowGuids.UpdateOrCreateWorkingTimeCalendar,
+                                                                                "UpdateOrCreateWorkingTimeCalendar", responseBody, string.Empty, string.Empty);
+      return string.IsNullOrEmpty(errorMessage)
+        ? CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty)
+        : CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+    }
+    
+    #endregion
+    
+    #endregion
+    
     #region ПМД (Суперника)
     
     #region IF-S-25401. Передача результата нажатия на действие в центре уведомлений ПМД (ПМД → КЭДО).
@@ -6313,6 +6640,39 @@ namespace DirRX.NNIntegration.Server
     }
     
     #endregion
+    
+    #endregion
+    
+    #region Взаимодействие с ЛК.
+    
+    /// <summary>
+    /// Получить профиль пользователя ЛК из БД Ess.
+    /// </summary>
+    /// <param name="personId">Ид персоны.</param>
+    /// <returns>Данные фильтра из профиля пользователя ЛК.</returns>
+    [Public]
+    public NNIntegration.Structures.Module.IEssCurrentPeriod GetPersonEssCurrentPeriod(long personId)
+    {
+      // Параметры подключения к базе данных.
+      var server = NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.EssDatabaseAddress.Guid);
+      var port = NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.EssDatabasePort.Guid);
+      var database = NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.EssDatabaseName.Guid);
+      var user = NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.EssDatabaseUserName.Guid);
+      var password = NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.EssDatabaseUserPassword.Guid);
+      if (string.IsNullOrEmpty(server) || string.IsNullOrEmpty(port) || string.IsNullOrEmpty(database) || string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
+      {
+        Logger.ErrorFormat("GetPerosnEssCurrentPeriod. PersonId: {0}. Не заполнены константы для строки подключения к БД Ess.", personId);
+        return null;
+      }
+      
+      var connectionString = string.Format("server={0};port={1};database={2};user id={3};password={4}", server, port, database, user, password);
+      var personUid = DirRX.OverrideSolution.Module.EssPlatform.PublicFunctions.Module.Remote.GetUidPerson(personId);
+      var essCurrentPeriod = NNIntegration.IsolatedFunctions.EssDatabase.GetEssUserProfileCurrentPeriod(Queries.Module.SelectEssUserProfile, connectionString, personUid);
+      if (essCurrentPeriod == null)
+        Logger.ErrorFormat("GetPerosnEssCurrentPeriod. PersonId: {0}. Не удалось получить данные фильтра из профиля пользователя в Ess. Подробности в лог файле изолированной области модуля.", personId);
+      
+      return essCurrentPeriod;
+    }
     
     #endregion
   }

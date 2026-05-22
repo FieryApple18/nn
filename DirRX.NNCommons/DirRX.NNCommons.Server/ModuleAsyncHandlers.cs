@@ -50,6 +50,93 @@ namespace DirRX.NNCommons.Server
     }
 
     /// <summary>
+    /// Запустить задачи на выпуск сертификатов.
+    /// </summary>
+    /// <param name="args">args.EmployeesIds - ИД сотрудников.</param>
+    public virtual void MassIssueCertificates(DirRX.NNCommons.Server.AsyncHandlerInvokeArgs.MassIssueCertificatesInvokeArgs args)
+    {
+      var logPrefix = "MassIssueCertificates";
+      Logger.DebugFormat("{0}. ИД сотрудников: {1}. Начало обработки.", logPrefix, args.EmployeesIds);
+      var step = Constants.Module.CountMassIssueCertificatesInIteration;
+      var employeesIds = args.EmployeesIds.Split(Constants.Module.Separator).Select(x => long.Parse(x)).ToList();
+      var partEmployeesIds = employeesIds.Skip(step * args.RetryIteration).Take(step).ToList();
+      foreach (var employeeId in partEmployeesIds)
+      {
+        Transactions.Execute(() =>
+                             {
+                               var employee = Employees.GetAll(x => x.Id == employeeId).FirstOrDefault();
+                               try
+                               {
+                                 var needIssueCertificate = !Functions.Module.HasEssCertificate(employee.Person.Id) &&
+                                   !OverrideSolution.PublicFunctions.Employee.Remote.HasActiveCertificateIssueTasks(employee);
+                                 if (needIssueCertificate)
+                                   OverrideSolution.PublicFunctions.Employee.IssueCertificate(employee);
+                                 else
+                                   Logger.DebugFormat("{0}. ИД сотрудника: {1}. У сотрудника есть сертификат ЭП или действующая задача на его выпуск. Новая задача на выпуск сертификата не будет создана.",
+                                                      logPrefix, employee.Id);
+                               }
+                               catch (Exception ex)
+                               {
+                                 Logger.ErrorFormat("{0}. ИД сотрудника: {1}. Произошла ошибка при выпуске сертификата: {2}. StackTrace: {3}",
+                                                    logPrefix, employee.Id, ex.Message, ex.StackTrace);
+                               }
+                             });
+      }
+      if (partEmployeesIds.Count == step)
+      {
+        args.Retry = true;
+        var partEmployeesIdsStr = string.Join(Constants.Module.Separator.ToString(), partEmployeesIds.Select(id => id.ToString()));
+        Logger.DebugFormat("{0}. ИД обработанных сотрудников в текущей итерации: {1}. Конец выполнения итерации. Асинхронный обработчик будет запущен повторно",
+                           logPrefix, partEmployeesIdsStr);
+      }
+      else
+      {
+        Logger.DebugFormat("{0}. ИД сотрудников: {1}. Конец обработки.", logPrefix, args.EmployeesIds);
+      }
+    }
+
+    /// <summary>
+    /// Закрыть сертификаты ПЭП.
+    /// </summary>
+    /// <param name="args">args.CertificatesIds - ИД сертификатов.</param>
+    public virtual void DisableSimpleCertificates(DirRX.NNCommons.Server.AsyncHandlerInvokeArgs.DisableSimpleCertificatesInvokeArgs args)
+    {
+      var logPrefix = "DisableSimpleCertificates";
+      Logger.DebugFormat("{0}. ИД сертификатов: {1}. Начало обработки.", logPrefix, args.CertificatesIds);
+      var step = Constants.Module.CountDisableSimpleCertificatesInIteration;
+      var certificatesIds = args.CertificatesIds.Split(Constants.Module.Separator).Select(x => long.Parse(x)).ToList();
+      var partCertificatesIds = certificatesIds.Skip(step * args.RetryIteration).Take(step).ToList();
+      foreach (var certificateId in partCertificatesIds)
+      {
+        Transactions.Execute(() =>
+                             {
+                               var certificate = Certificates.GetAll(x => x.Id == certificateId).FirstOrDefault();
+                               try
+                               {
+                                 certificate.Enabled = false;
+                                 certificate.Save();
+                               }
+                               catch (Exception ex)
+                               {
+                                 Logger.ErrorFormat("{0}. ИД сертификата: {1}. Произошла ошибка при закрытии сертификата ПЭП: {2}. StackTrace: {3}",
+                                                    logPrefix, certificate.Id, ex.Message, ex.StackTrace);
+                               }
+                             });
+      }
+      if (partCertificatesIds.Count == step)
+      {
+        args.Retry = true;
+        var partCertificatesIdsStr = string.Join(Constants.Module.Separator.ToString(), partCertificatesIds.Select(id => id.ToString()));
+        Logger.DebugFormat("{0}. ИД обработанных сертификатов в текущей итерации: {1}. Конец выполнения итерации. Асинхронный обработчик будет запущен повторно",
+                           logPrefix, partCertificatesIdsStr);
+      }
+      else
+      {
+        Logger.DebugFormat("{0}. ИД сертификатов: {1}. Конец обработки.", logPrefix, args.CertificatesIds);
+      }
+    }
+
+    /// <summary>
     /// Запись даты и времени подписания документов сотрудником/работодателем в соответствующие свойства.
     /// </summary>
     /// <param name="args"></param>

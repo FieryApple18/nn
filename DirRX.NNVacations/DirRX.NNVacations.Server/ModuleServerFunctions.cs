@@ -2631,7 +2631,9 @@ namespace DirRX.NNVacations.Server
                                           int? compensationKind, int? dayCountCompensation, string reason, string isVacationPeriodBroken, string currentVacationData)
     {
       var documentId = IsolatedFunctions.Json.GetDocumentIdFromLK(document);
-      Logger.DebugFormat("FillVacationDataForRecall. ИД документа: {0}. Дата начала текущего отпуска: {1}. Дата окончания текущего отпуска: {2}. Продолжительность текущего отпуска: {3}. Начало выполнения.",
+      beginDateCurrent = beginDateCurrent?.ToUserTime();
+      endDateCurrent = endDateCurrent?.ToUserTime();
+      Logger.DebugFormat("FillVacationDataForRecall. ИД документа: {0}. ИД типа отпуска: {1}. Дата начала текущего отпуска: {2}. Дата окончания текущего отпуска: {3}. Продолжительность текущего отпуска: {4}. Начало выполнения.",
                          documentId, beginDateCurrent, endDateCurrent, durationCurrent);
       var beginDateRecall = NNIntegration.PublicFunctions.Module.ParseStringToDate(beginRecall);
       beginDateRecall = beginDateRecall.HasValue ? beginDateRecall.Value.Date : beginDateRecall;
@@ -3594,9 +3596,15 @@ namespace DirRX.NNVacations.Server
       result.DurationRecall = document.InterruptDaysDirRX.Value;
       
       var shiftVacations = document.AdditionalVacationDirRX;
-      result.BeginDateShift = shiftVacations.OrderBy(v => v.StartDate).First().StartDate.Value;
-      result.EndDateShift = shiftVacations.OrderByDescending(v => v.EndDate).First().EndDate.Value;
-      result.DurationShift = shiftVacations.Sum(v => v.Days).Value;
+      
+      if (shiftVacations.Any())
+      {
+        result.BeginDateShift = shiftVacations.OrderBy(v => v.StartDate).First().StartDate.Value;
+        result.EndDateShift = shiftVacations.OrderByDescending(v => v.EndDate).First().EndDate.Value;
+        result.DurationShift = shiftVacations.Sum(v => v.Days).Value;
+      }
+      else
+        result.DurationShift = 0;
       
       result.CompensationKind = document.CompensationTypeDirRX.Value == OverrideSolution.VacationStatementDocument.CompensationTypeDirRX.WithPayment ? "1" : "2";
       result.Reason = document.Note;
@@ -3641,6 +3649,8 @@ namespace DirRX.NNVacations.Server
     public void FillVacationDataForOther(string document, long? vacationTypeId, long? vacationReasonId, DateTime? beginDate, DateTime? endDate, int? duration, bool? aspirant)
     {
       var documentId = IsolatedFunctions.Json.GetDocumentIdFromLK(document);
+      beginDate = beginDate?.ToUserTime();
+      endDate = endDate?.ToUserTime();
       Logger.DebugFormat("FillVacationDataForOther. ИД документа: {0}. ИД типа отпуска: {1}. ИД причины отпуска: {2}. Дата начала отпуска: {3}. Дата окончания отпуска: {4}. Продолжительность отпуска: {5}. Аспирант: {6}. Начало выполнения.",
                          documentId, vacationTypeId, vacationReasonId, beginDate, endDate, duration, aspirant);
       var statement = VacationStatementDocuments.GetAll(d => d.Id == documentId).FirstOrDefault();
@@ -3688,6 +3698,8 @@ namespace DirRX.NNVacations.Server
                                            List<long?> vacationTypeIds, List<DateTime?> beginDates, List<DateTime?> endDates, List<int?> durations)
     {
       var documentId = IsolatedFunctions.Json.GetDocumentIdFromLK(document);
+      beginDateAnnual = beginDateAnnual?.ToUserTime();
+      endDateAnnual = endDateAnnual?.ToUserTime();
       Logger.DebugFormat("FillVacationDatesForAnnual. ИД документа: {0}. ИД типа отпуска: {1}. Дата начала отпуска: {2}. Дата окончания отпуска: {3}. Продолжительность отпуска: {4}. Кол-во дней превышения {5}. Начало выполнения.",
                          documentId, vacationTypeAnnualId, beginDateAnnual, endDateAnnual, durationAnnual, vacationDaysExcess);
       var statement = VacationStatementDocuments.GetAll(d => d.Id == documentId).FirstOrDefault();
@@ -3702,8 +3714,8 @@ namespace DirRX.NNVacations.Server
       {
         var vacation = statement.AdditionalVacationDirRX.AddNew();
         vacation.VacationType = VacationKinds.GetAll(v => v.Id == vacationTypeIds[i]).FirstOrDefault();
-        vacation.StartDate = beginDates[i];
-        vacation.EndDate = endDates[i];
+        vacation.StartDate = beginDates[i].ToUserTime();
+        vacation.EndDate = endDates[i].ToUserTime();
         vacation.Days = durations[i];
       }
       
@@ -3763,6 +3775,8 @@ namespace DirRX.NNVacations.Server
     {
       var documentId = IsolatedFunctions.Json.GetDocumentIdFromLK(document);
       var delimiter = Constants.Module.ListIdsDelimiter.ToString();
+      beginDates = beginDates.Select(d => d?.ToUserTime()).ToList();
+      endDates = endDates.Select(d => d?.ToUserTime()).ToList();
       Logger.DebugFormat("FillNewVacationDatesForShift. ИД документа: {0}. ИД типа отпуска: {1}. Даты начала отпусков: {2}. Даты окончания отпусков: {3}. Продолжительности отпусков: {4}. Начало выполнения.",
                          documentId, string.Join(delimiter, vacationTypeIds), string.Join(delimiter, beginDates), string.Join(delimiter, endDates), string.Join(delimiter, durations));
       var statement = VacationStatementDocuments.GetAll(d => d.Id == documentId).FirstOrDefault();
@@ -3897,14 +3911,15 @@ namespace DirRX.NNVacations.Server
     /// <param name="employeeId">ИД отрудника.</param>
     /// <param name="dates">Список дат.</param>
     /// <returns>Даты в формате настроек.</returns>
-    [Public(WebApiRequestType = RequestType.Get)]
+    [Public(WebApiRequestType = RequestType.Post)]
     public string GetFormatDates(long employeeId, List<string> dates)
     {
       var employee = Employees.GetAll(x => x.Id == employeeId).FirstOrDefault();
       var businessUnit = employee.Department.BusinessUnit;
       var dateFormat = BusinessUnits.As(businessUnit).DateFormatStringHRPro;
+      string [] formats = {"yyyy-MM-dd","yyyy-M-d", "M/d/yyyy", "M/dd/yyyy", "MM/d/yyyy", "MM/dd/yyyy"};
       for (var i = 0; i < dates.Count; i++)
-        dates[i] = DateTime.Parse(dates[i]).ToString(dateFormat);
+        dates[i] = DateTime.ParseExact(dates[i], formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None).ToString(dateFormat);
       return EssPlatform.PublicFunctions.Module.SerializedToJson(dates);
     }
     
@@ -4326,7 +4341,7 @@ namespace DirRX.NNVacations.Server
     }
     
     /// <summary>
-    /// Получение последнего дня отпуска по вдиу отпуска. (с учетом рабочего календаря для оплачиваемых).
+    /// Получение последнего дня отпуска по виду отпуска. (с учетом рабочего календаря для оплачиваемых).
     /// </summary>
     /// <param name="dateBegin">Начало отпуска.</param>
     /// <param name="duration">Продолжительность отпуска.</param>
@@ -4337,10 +4352,12 @@ namespace DirRX.NNVacations.Server
     [Public(WebApiRequestType = RequestType.Get)]
     public DateTime GetVacationEndDate(DateTime dateBegin, int duration, long userId, long? vacationTypeId, long? vacationReasonId)
     {
+      dateBegin = dateBegin.ToUserTime();
       var employee = Employees.GetAll(x => x.Id == userId).FirstOrDefault();
       var vacationType = VacationKinds.GetAll(v => v.Id == vacationTypeId).FirstOrDefault();
       var vacationReason = VacationReasonses.GetAll(v => v.Id == vacationReasonId).FirstOrDefault();
-      return this.GetVacationEndDate(dateBegin, duration, employee, vacationType, vacationReason);
+      var vacationEndDate = this.GetVacationEndDate(dateBegin, duration, employee, vacationType, vacationReason);
+      return vacationEndDate.FromUserTime();
     }
     
     /// <summary>

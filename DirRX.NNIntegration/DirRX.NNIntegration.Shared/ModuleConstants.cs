@@ -431,6 +431,30 @@ namespace DirRX.NNIntegration.Constants
         [Public]
         public const string Name = "Добавлять дату и время формирования задания в текст Push-уведомления";
       }
+      
+      /// <summary>
+      /// Интеграция. Перевыпуск сертификата УНЭП при синхронизации орг. структуры.
+      /// </summary>
+      [Public]
+      public static class ReissueCertificateOnOrgStructureSync
+      {
+        [Public]
+        public const string Guid = "F17EAE55-A271-4C27-922A-0BB147BA0163";
+        [Public]
+        public const string Name = "Интеграция. Перевыпуск сертификата УНЭП при синхронизации орг. структуры";
+      }
+      
+      /// <summary>
+      /// Интеграция. Проштамповка. Идентификатор шаблона штампа для УНЭП.
+      /// </summary>
+      [Public]
+      public static class TemplateIdUnqualifiedSignature
+      {
+        [Public]
+        public const string Guid = "AFC3F83D-5510-4547-ADA3-413F6C7FF7C5";
+        [Public]
+        public const string Name = "Интеграция. Проштамповка. Идентификатор шаблона штампа для УНЭП";
+      }
     }
 
     /// <summary>
@@ -777,9 +801,12 @@ namespace DirRX.NNIntegration.Constants
       // IF-S-25360. Получение списка детей работника. (АСУП -> КЭДО).
       [Public]
       public const string LrdPaymentChildren = "CE70EA72-EA83-4255-B068-225473D70432";
-      //IF-S-10399. Передача приказа на выплату по ЛНА из АСУП в КЭДО (АСУП → КЭДО).
+      // IF-S-10399. Передача приказа на выплату по ЛНА из АСУП в КЭДО (АСУП → КЭДО).
       [Public]
       public const string LrdPaymentOrder = "8FF52F2E-01D2-4939-8112-985F1D5A886C";
+      // IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО (АСУП -> КЭДО).
+      [Public]
+      public const string UpdateOrCreateWorkingTimeCalendar = "C3054A3F-2C3A-4789-9819-410196794C65";
     }
 
     /// <summary>
@@ -827,6 +854,7 @@ namespace DirRX.NNIntegration.Constants
       public const string LrdPaymentCheck = "IF-S-10400. Проверка данных по заявлению на выплату ЛНА (АСУП -> КЭДО)";
       public const string LrdPaymentChildren = "IF-S-25360. Получение списка детей работника. (АСУП -> КЭДО)";
       public const string LrdPaymentOrder = "IF-S-10399. Передача приказа на выплату по ЛНА из АСУП в КЭДО. (АСУП → КЭДО)";
+      public const string UpdateOrCreateWorkingTimeCalendar = "IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО. (АСУП → КЭДО)";
     }
 
     /// <summary>
@@ -874,6 +902,7 @@ namespace DirRX.NNIntegration.Constants
       public const string LrdPaymentCheck = "Интеграционный поток предназначен для проверки заявления на выплату ЛНА.";
       public const string LrdPaymentChildren = "Интеграционный поток предназначен для получения списка детей работника.";
       public const string LrdPaymentOrder = "Интеграционный поток предназначен для передачи приказа на выплату по ЛНА из АСУП в КЭДО.";
+      public const string UpdateOrCreateWorkingTimeCalendar = "Интеграционный поток предназначен для синхронизации календаря рабочего времени сотрудника.";
     }
 
     /// <summary>

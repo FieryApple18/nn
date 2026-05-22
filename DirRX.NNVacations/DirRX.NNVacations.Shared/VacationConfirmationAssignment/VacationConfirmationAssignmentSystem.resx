@@ -160,4 +160,10 @@
   <data name="Property_SupernikaText" xml:space="preserve">
     <value>Supernika notice text</value>
   </data>
+  <data name="Property_IsSubstitutionAllowed" xml:space="preserve">
+    <value>Execute by substitution</value>
+  </data>
+  <data name="Property_IsSubstitutionVisible" xml:space="preserve">
+    <value>Display by substitution</value>
+  </data>
 </root>

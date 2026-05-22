@@ -14,6 +14,16 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
 {
   partial class ModuleFunctions
   {
+    /// <summary>
+    /// Скачать заявление
+    /// </summary>
+    /// <param name="requestEntry">Запись из справочника заявок на выпуск УНЭП.</param>
+    /// <param name="task">Задача на выпуск сертификата.</param>
+    /// <returns>Признак, изменен ли статус в записи.</returns>
+    public override bool DownloadStatement(DirRX.SignPlatform.ICertificateRequest requestEntry, DirRX.SignPlatform.ICertificateIssueTask task)
+    {
+      return base.DownloadStatement(requestEntry, task);
+    }
 
     /// <summary>
     /// Проверить есть ли у сотрудника действующий сертификат УНЭП.
@@ -397,6 +407,10 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
     [Public]
     public override bool CheckCertificateStatus(DirRX.SignPlatform.ICertificateRequest requestEntry)
     {
+      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
+      if (!isCustomCertificateIssueProcess)
+        return base.CheckCertificateStatus(requestEntry);
+      
       Logger.DebugFormat(
         "CertificateIssue. CheckCertificateStatus(). requestEntry.RequestId={0} requestEntry.ProviderId={1} IssueStatus={2} start",
         requestEntry.RequestId,
@@ -680,11 +694,14 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
     public override DirRX.SignPlatform.Structures.Module.CertificateIssueRequest CreateCertificateIssueRequest(EssPlatformSolution.IEmployee employee, string identificationType)
     {
       var certificateIssueRequest = base.CreateCertificateIssueRequest(employee, identificationType);
-      certificateIssueRequest.PhoneNumber = DirRX.OverrideSolution.PublicFunctions.Employee.GetCertificatePhoneNumber(Employees.As(employee));
-      certificateIssueRequest.Email = string.IsNullOrEmpty(certificateIssueRequest.Email) ?
-        NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateEmail.Guid) :
-        certificateIssueRequest.Email;
-      
+      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
+      if (isCustomCertificateIssueProcess)
+      {
+        certificateIssueRequest.PhoneNumber = DirRX.OverrideSolution.PublicFunctions.Employee.GetCertificatePhoneNumber(Employees.As(employee));
+        certificateIssueRequest.Email = string.IsNullOrEmpty(certificateIssueRequest.Email) ?
+          NNCommons.PublicFunctions.Module.GetStringValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateEmail.Guid) :
+          certificateIssueRequest.Email;
+      }
       return certificateIssueRequest;
     }
 
@@ -695,9 +712,9 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
     /// <returns>Список документов удостоверяющих личность.</returns>
     public override List<DirRX.SignPlatform.Structures.Module.IdentityDocument> GetIdentityDocuments(EssPlatformSolution.IPerson person)
     {
-      
+      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
       //TODO: Seleznyov_DV. Подмена документа удостовреяющего личность.
-      if (person.IdentityDocumentKind != null)
+      if (person.IdentityDocumentKind != null || !isCustomCertificateIssueProcess)
         return base.GetIdentityDocuments(person);
       
       var identityDocuments = new List<DirRX.SignPlatform.Structures.Module.IdentityDocument>();
@@ -725,6 +742,10 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
     /// <returns>Структура запроса на создание заявления на выпуск сертификата.</returns>
     public override DirRX.SignPlatform.Structures.Module.CertificateIssueStatementRequest CreateCertificateIssueStatementRequest(DirRX.SignPlatform.ICertificateRequest requestEntry)
     {
+      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
+      if (!isCustomCertificateIssueProcess)
+        return base.CreateCertificateIssueStatementRequest(requestEntry);
+      
       var person = DirRX.EssPlatformSolution.People.Get(requestEntry.Employee.Person.Id);
 
       if (!ValidateInputData(requestEntry, person))
@@ -818,6 +839,10 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
     [Public, Remote]
     public override List<string> ValidatePersonRequiredFields(Sungero.Parties.IPerson basePerson)
     {
+      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
+      if (!isCustomCertificateIssueProcess)
+        return base.ValidatePersonRequiredFields(basePerson);
+      
       var errors = new List<string>();
       
       var person = EssPlatformSolution.People.GetAll(currentPerson => Equals(currentPerson.Id, basePerson.Id)).First();

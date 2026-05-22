@@ -170,19 +170,19 @@
     <value>Услуга в ЛК</value>
   </data>
   <data name="JobDisplayName_fa8a39b0cb454f4c842781d101c43cd4" xml:space="preserve">
-    <value>Норникель. Выбор документов для усовершенствования электронных подписей до формата CAdES-XL</value>
+    <value>Устаревший. Норникель. Выбор документов для усовершенствования электронных подписей до формата CAdES-XL</value>
   </data>
   <data name="JobDescription_fa8a39b0cb454f4c842781d101c43cd4" xml:space="preserve">
-    <value>Выбор документов, подписи которых необходимо усовершенствовать до формата CAdES-XL</value>
+    <value>Устаревший. Выбор документов, подписи которых необходимо усовершенствовать до формата CAdES-XL</value>
   </data>
   <data name="AsyncHandler_Description_eb8eba5576744bfb8078efdb03f76320" xml:space="preserve">
-    <value>Усовершенствование подписи до формата CAdES-XL</value>
+    <value>Устаревший. Усовершенствование подписи до формата CAdES-XL</value>
   </data>
   <data name="JobDisplayName_08925aa51f78437496a3320c0f4ac78c" xml:space="preserve">
-    <value>Норникель. Поиск документов с электронной подписью</value>
+    <value>Устаревший. Норникель. Поиск документов с электронной подписью</value>
   </data>
   <data name="JobDescription_08925aa51f78437496a3320c0f4ac78c" xml:space="preserve">
-    <value>Поиск документов с электронной подписью формата CadesBes и CadesT</value>
+    <value>Устаревший. Поиск документов с электронной подписью формата CadesBes и CadesT</value>
   </data>
   <data name="AsyncHandler_Description_a008f0995fb7475fa41ef5954d2d8683" xml:space="preserve">
     <value>Добавить сотрудника в роль</value>
@@ -223,5 +223,23 @@
   <data name="AsyncHandler_Description_ef783ce2f9a94872af7ed2adf8ab6d80" xml:space="preserve">
     <value>Пометка прочитанными прекращённых конкурентных заданий.
 Обход бага 446803.</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_3d8425b68830465884497f63ea8c1a40" xml:space="preserve">
+    <value>Выполнять по замещению</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_809f747802e54d11b1f67ca8cbfbf540" xml:space="preserve">
+    <value>Отображать по замещению</value>
+  </data>
+  <data name="AsyncHandler_Description_a825ff6bef2e46ab82f307c869881a9e" xml:space="preserve">
+    <value>Закрыть сертификаты ПЭП</value>
+  </data>
+  <data name="AsyncHandler_Description_e98a058e44a64d4e92171b6834b67b2c" xml:space="preserve">
+    <value>Запустить задачи на выпуск сертификатов</value>
+  </data>
+  <data name="JobDisplayName_0df2de757007482dbd16e61e67382276" xml:space="preserve">
+    <value>Норникель. Очистка частных календарей рабочего времени</value>
+  </data>
+  <data name="JobDescription_0df2de757007482dbd16e61e67382276" xml:space="preserve">
+    <value>Очистка неактуальных частных календарей рабочего времени.</value>
   </data>
 </root>

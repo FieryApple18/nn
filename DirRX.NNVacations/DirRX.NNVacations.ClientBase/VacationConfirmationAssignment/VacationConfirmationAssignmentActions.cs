@@ -36,7 +36,7 @@ namespace DirRX.NNVacations.Client
 
     public virtual bool CanShift(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return true;
+      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true;
     }
 
     public virtual void Confirm(Sungero.Workflow.Client.ExecuteResultActionArgs e)
@@ -51,7 +51,7 @@ namespace DirRX.NNVacations.Client
 
     public virtual bool CanConfirm(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return true;
+      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true;
     }
 
   }

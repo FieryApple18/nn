@@ -30,11 +30,14 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
 
     public override void ESignAssignmentBlockStartAssignment(HRPro.HRDocFlow.IESignAssignment assignment)
     {
-      var overrideAssigment = DirRX.OverrideSolution.ESignAssignments.As(assignment);
-      overrideAssigment.MassSigningDirRX = _block.MassSigningDirRX;
-      overrideAssigment.SummaryDirRX = _block.SummaryDirRX;
-      overrideAssigment.SupernikaSubjectDirRX = _block.SupernikaSubjectDirRX;
-      overrideAssigment.SupernikaTextDirRX = _block.SupernikaTextDirRX;
+      var overrideAssignment = DirRX.OverrideSolution.ESignAssignments.As(assignment);
+      
+      overrideAssignment.MassSigningDirRX = _block.MassSigningDirRX;
+      overrideAssignment.SummaryDirRX = _block.SummaryDirRX;
+      overrideAssignment.SupernikaSubjectDirRX = _block.SupernikaSubjectDirRX;
+      overrideAssignment.SupernikaTextDirRX = _block.SupernikaTextDirRX;
+      overrideAssignment.IsSubstitutionAllowedDirRX = _block.IsSubstitutionAllowedDirRX;
+      overrideAssignment.IsSubstitutionVisibleDirRX = _block.IsSubstitutionVisibleDirRX;
       
       base.ESignAssignmentBlockStartAssignment(assignment);
     }
@@ -338,7 +341,7 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
     public override void SetHRLifeCycleStateBlockExecute()
     {
       // TODO Sannikova_YS. Св-во HRLifeCycleStateHRPro устарело и не должно использоваться.
-      // В HR св-во продолжает использоваться. Есть метод SetLifeCycleStateByHRLifeCycleState который "правильно" 
+      // В HR св-во продолжает использоваться. Есть метод SetLifeCycleStateByHRLifeCycleState который "правильно"
       // синхронизирует значения из HRLifeCycleStateHRPro в LifeCycleState и InternalApprovalState.
       // Используется в HRLifeCycleStateHRProChanged официального документа.
       

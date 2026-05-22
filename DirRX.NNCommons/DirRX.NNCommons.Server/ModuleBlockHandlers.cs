@@ -117,6 +117,8 @@ namespace DirRX.NNCommons.Server.NNCommonsBlocks
       assignment.Remark = _block.Remark;
       assignment.SupernikaSubjectDirRX = _block.SupernikaSubjectDirRX;
       assignment.SupernikaTextDirRX = _block.SupernikaTextDirRX;
+      assignment.IsSubstitutionAllowed = _block.IsSubstitutionAllowed;
+      assignment.IsSubstitutionVisible = _block.IsSubstitutionVisible;
       
       // Отправить сообщение о новом задании.
       if (_block.NeedNotification.GetValueOrDefault())

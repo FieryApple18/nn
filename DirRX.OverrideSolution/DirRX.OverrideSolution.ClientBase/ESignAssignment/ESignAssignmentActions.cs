@@ -8,6 +8,49 @@ using Status = HRPro.HRDocFlow.ESignAssignment.Status;
 
 namespace DirRX.OverrideSolution.Client
 {
+  partial class ESignAssignmentActions
+  {
+    public override void ForRevision(Sungero.Workflow.Client.ExecuteResultActionArgs e)
+    {
+      base.ForRevision(e);
+    }
+
+    public override bool CanForRevision(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
+    {
+      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && 
+        _obj.IsSubstitutionAllowedDirRX.HasValue &&
+        _obj.IsSubstitutionAllowedDirRX.Value == true &&
+        base.CanForRevision(e);
+    }
+
+    public override void Refuse(Sungero.Workflow.Client.ExecuteResultActionArgs e)
+    {
+      base.Refuse(e);
+    }
+
+    public override bool CanRefuse(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
+    {
+      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && 
+        _obj.IsSubstitutionAllowedDirRX.HasValue &&
+        _obj.IsSubstitutionAllowedDirRX.Value == true &&
+        base.CanRefuse(e);
+    }
+
+    public override void Sign(Sungero.Workflow.Client.ExecuteResultActionArgs e)
+    {
+      base.Sign(e);
+    }
+
+    public override bool CanSign(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
+    {
+      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && 
+        _obj.IsSubstitutionAllowedDirRX.HasValue &&
+        _obj.IsSubstitutionAllowedDirRX.Value == true && 
+        base.CanSign(e);
+    }
+
+  }
+
   partial class ESignAssignmentCollectionActions
   {
 

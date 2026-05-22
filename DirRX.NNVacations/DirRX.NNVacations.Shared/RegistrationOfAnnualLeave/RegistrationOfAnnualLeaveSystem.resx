@@ -163,4 +163,10 @@
   <data name="Property_SubstitutionsDirRX" xml:space="preserve">
     <value>Substitutions</value>
   </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_c30ac953c8cb4e2c8812fbd327c87c40" xml:space="preserve">
+    <value>Execute by substitution</value>
+  </data>
+  <data name="Block_b38d423ef6c24bb49523eb30514520d8_Property_6618ef1865c04b56ade23007769c5ebe" xml:space="preserve">
+    <value>Display by substitution</value>
+  </data>
 </root>

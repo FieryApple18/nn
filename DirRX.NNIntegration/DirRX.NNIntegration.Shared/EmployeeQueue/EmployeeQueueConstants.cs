@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Sungero.Core;
 
 namespace DirRX.NNIntegration.Constants
@@ -66,6 +66,31 @@ namespace DirRX.NNIntegration.Constants
       /// </summary>
       [Public]
       public const string ExternalConcurr = "3";
+    }
+    
+    /// <summary>
+    /// Коды вида документа, удостоверяющего личность.
+    /// </summary>
+    [Public]
+    public static class IdentityDocumentKindCodes
+    {
+      /// <summary>
+      /// Константа кода для паспорта гражданина РФ.
+      /// </summary>
+      [Public]
+      public const string PassportRF = "PassportRF";
+      
+      /// <summary>
+      /// Константа кода для иного документа, удостоверяющего личность.
+      /// </summary>
+      [Public]
+      public const string OtherDocument = "OtherDocument";
+      
+      /// <summary>
+      /// Константа кода для иностранного паспорта.
+      /// </summary>
+      [Public]
+      public const string ForeignPassport = "ForeignPassport";
     }
   }
 }

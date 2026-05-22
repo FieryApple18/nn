@@ -767,6 +767,20 @@
       "ReturnTypeFullName": "DirRX.OverrideSolution.Module.EssPlatform.Structures.Module.ISupernikaNotifiactionParams"
     },
     {
+      "Name": "GetUidPerson",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
       "Name": "SendNewNotification",
       "Parameters": [
         {

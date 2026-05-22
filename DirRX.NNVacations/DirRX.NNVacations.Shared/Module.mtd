@@ -2719,7 +2719,7 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
-      "WebApiRequestType": "Get"
+      "WebApiRequestType": "Post"
     },
     {
       "Name": "GetHolidaysInPeriodRecall",
@@ -5153,7 +5153,7 @@
         {
           "Name": "BeginDateShift",
           "IsNullable": true,
-          "TypeFullName": "global::System.DateTime"
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
         },
         {
           "Name": "DurationShift",
@@ -5162,7 +5162,7 @@
         {
           "Name": "EndDateShift",
           "IsNullable": true,
-          "TypeFullName": "global::System.DateTime"
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
         },
         {
           "Name": "CompensationKind",
@@ -6115,7 +6115,7 @@
       "NeedShowMarkedCount": false
     }
   ],
-  "Version": "25.2.0.4",
+  "Version": "25.2.0.7",
   "Widgets": [],
   "Versions": [
     {

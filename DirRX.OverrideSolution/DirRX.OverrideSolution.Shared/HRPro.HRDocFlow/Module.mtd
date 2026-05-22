@@ -628,6 +628,18 @@
           "NameGuid": "ae43b3df-1fb4-4754-a457-9bf4787640af",
           "Name": "SupernikaTextDirRX",
           "PreviousPropertyGuid": "57813db5-1151-46d6-b0fb-8ebcd99818f7"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "e9ef2a0a-22ec-4614-ad24-ba05ebede3da",
+          "Name": "IsSubstitutionAllowedDirRX",
+          "PreviousPropertyGuid": "ae43b3df-1fb4-4754-a457-9bf4787640af"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "4935f41e-566d-448d-b6b0-ce858c1c98f9",
+          "Name": "IsSubstitutionVisibleDirRX",
+          "PreviousPropertyGuid": "e9ef2a0a-22ec-4614-ad24-ba05ebede3da"
         }
       ]
     },

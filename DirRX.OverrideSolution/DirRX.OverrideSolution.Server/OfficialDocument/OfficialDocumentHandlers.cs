@@ -14,11 +14,11 @@ namespace DirRX.OverrideSolution
     {
       base.BeforeSigning(e);
       
-      if (DirRX.NNCommons.PublicFunctions.Module.IsSimpleCertificate(e.Certificate))
+      if (DirRX.NNCommons.PublicFunctions.Module.IsSimpleSignature(e.Signature))
       {
         e.SignatureTargetFormat = SignatureAutoImproveTargetFormat.None;
         
-        Logger.Debug(DirRX.OverrideSolution.OfficialDocuments.Resources.SignatureImprovementSuppressedFormat(e.Certificate?.Issuer ?? "NULL", _obj.Id));
+        Logger.Debug(DirRX.OverrideSolution.OfficialDocuments.Resources.SignatureImprovementSuppressedFormat(e.Signature?.SignCertificate?.IssuerName ?? "NULL", _obj.Id));
       }
     }
 

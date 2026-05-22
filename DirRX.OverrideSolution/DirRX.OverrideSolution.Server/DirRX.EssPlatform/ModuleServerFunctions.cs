@@ -13,6 +13,32 @@ namespace DirRX.OverrideSolution.Module.EssPlatform.Server
 {
   partial class ModuleFunctions
   {
+    public override List<long> GetActiveEmployeeActors(long personId)
+    {
+      var userIds = new List<long>();
+      
+      userIds.AddRange(base.GetActiveEmployeeActors(personId));
+      
+      var employeeId = HRPro.HRProSolution.Employees
+        .GetAll(e => e.Person.Id == personId &&
+                ((e.EmploymentType.HasValue &&
+                  e.EmploymentType.Value == HRPro.HRProSolution.Employee.EmploymentType.MainPlace) ||
+                 !e.EmploymentType.HasValue))
+        .FirstOrDefault().Id;
+      
+      var users = Sungero.CoreEntities.Substitutions
+        .GetAll(s => s.Substitute.Id == employeeId &&
+                s.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
+                s.IsSystem == false &&
+                ((s.StartDate == null || s.StartDate <= Calendar.Now) &&
+                 (s.EndDate == null || s.EndDate >= Calendar.Now)))
+        .Select(s => HRPro.HRProSolution.Employees.As(s.User).Id)
+        .Distinct().ToList();
+      
+      userIds.AddRange(users);
+      
+      return userIds;
+    }
 
     /// <summary>
     /// Определить отношение указанной персоны к зарегистрированным ролям личного кабинета.
@@ -883,6 +909,17 @@ namespace DirRX.OverrideSolution.Module.EssPlatform.Server
         Logger.ErrorFormat("EssPlatform.ModuleServerFunctions.ActivateESSUser(). An error occurred while sending the request: {0}.", ex.Message);
         throw new Exception(ex.Message);
       }
+    }
+    
+    /// <summary>
+    /// Получить уникальный идентификатор персоны в рамках тенанта.
+    /// </summary>
+    /// <param name="personId">Ид персоны.</param>
+    /// <returns>Идентификатор.</returns>
+    [Public, Remote]
+    public virtual string GetUidPerson(long personId)
+    {
+      return Sungero.Core.TenantInfo.TenantId + "@" + personId;
     }
 
   }

@@ -248,4 +248,10 @@
   <data name="EmployeeDoesntHaveMainEmployeeError" xml:space="preserve">
     <value>Сотрудник с табельным номером: '{0}' не имеет совместителей с основным местом работы.</value>
   </data>
+  <data name="IdentityDocumentKindParseError" xml:space="preserve">
+    <value>Не удалось установить вид документа, удостоверяющего личность. Код вида документа: {0}.</value>
+  </data>
+  <data name="UtcOffsetParseError" xml:space="preserve">
+    <value>Не удалось установить часовой пояс сотрудника. Часовой пояс: {0}.</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -1744,6 +1744,132 @@ namespace DirRX.NNIntegration.Structures.Module
   
   #endregion
   
+  #region Синхронизация календарей рабочего времени.
+  
+  #region IF-S-28097. Синхронизация календарей рабочего времени из АСУП в КЭДО (АСУП -> КЭДО).
+  
+  /// <summary>
+  /// Информация о календаре рабочего времени, пришедшая из АСУП.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class IncomingWorkingTimeCalendar
+  {
+    /// <summary>
+    /// Сотрудник.
+    /// </summary>
+    public string Employee { get; set; }
+    
+    /// <summary>
+    /// Год.
+    /// </summary>
+    public int Year { get; set; }
+    
+    /// <summary>
+    /// Описание дней.
+    /// </summary>
+    public List<DirRX.NNIntegration.Structures.Module.IIncomingWorkingDayDescription> DayDisc { get; set; }
+  }
+  
+  /// <summary>
+  /// Описание дня в календаре рабочего времени, пришедшее из АСУП.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class IncomingWorkingDayDescription
+  {
+    /// <summary>
+    /// Дата.
+    /// </summary>
+    public string Date { get; set; }
+    
+    /// <summary>
+    /// Начало дня.
+    /// </summary>
+    public string DayStart { get; set; }
+    
+    /// <summary>
+    /// Окончание дня.
+    /// </summary>
+    public string DayEnd { get; set; }
+    
+    /// <summary>
+    /// Начало обеда.
+    /// </summary>
+    public string BrStart { get; set; }
+    
+    /// <summary>
+    /// Окончание обеда.
+    /// </summary>
+    public string BrEnd { get; set; }
+    
+    /// <summary>
+    /// Тип дня.
+    /// </summary>
+    public int Type { get; set; }
+  }
+  
+  /// <summary>
+  /// Информация о календаре рабочего времени.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class WorkingTimeCalendar
+  {
+    /// <summary>
+    /// Сотрудник.
+    /// </summary>
+    public string Employee { get; set; }
+    
+    /// <summary>
+    /// Год.
+    /// </summary>
+    public int Year { get; set; }
+    
+    /// <summary>
+    /// Описание дней.
+    /// </summary>
+    public List<DirRX.NNIntegration.Structures.Module.IWorkingDayDescription> DayDisc { get; set; }
+  }
+  
+  /// <summary>
+  /// Описание дня в календаре рабочего времени.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class WorkingDayDescription
+  {
+    /// <summary>
+    /// Дата.
+    /// </summary>
+    public DateTime Date { get; set; }
+    
+    /// <summary>
+    /// Начало дня.
+    /// </summary>
+    public double? DayStart { get; set; }
+    
+    /// <summary>
+    /// Окончание дня.
+    /// </summary>
+    public double? DayEnd { get; set; }
+    
+    /// <summary>
+    /// Начало обеда.
+    /// </summary>
+    public double? BrStart { get; set; }
+    
+    /// <summary>
+    /// Окончание обеда.
+    /// </summary>
+    public double? BrEnd { get; set; }
+    
+    /// <summary>
+    /// Тип дня.
+    /// </summary>
+    public int Type { get; set; }
+  }
+  
+  #endregion
+  
+  #endregion
+  
   #endregion
 
   #region Отправка Push-уведомлений в ПМД
@@ -1795,4 +1921,34 @@ namespace DirRX.NNIntegration.Structures.Module
   
   #endregion
   
+  #region Интеграция с ЛК
+  
+  /// <summary>
+  /// Данные фильтра периода ЛК.
+  /// </summary>
+  [Public (Isolated = true)]
+  partial class EssCurrentPeriod
+  {
+    /// <summary>
+    /// Длина периода. Перечисление ЛК.
+    /// 0 - 30 дней (месяц)
+    /// 1 - 90 дней (квартал)
+    /// 2 - 365 дней (год)
+    /// 3 - произвольный период
+    /// </summary>
+    public int? Length { get; set; }
+    
+    /// <summary>
+    /// Начальная дата произвольного периода.
+    /// </summary>
+    public DateTime? BeginDate { get; set; }
+    
+    /// <summary>
+    /// Конечная дата произвольного периода.
+    /// </summary>
+    public DateTime? EndDate { get; set; }
+
+  }
+  
+  #endregion
 }

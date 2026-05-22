@@ -9,6 +9,22 @@ namespace DirRX.NNCommons.Client
   public partial class ModuleFunctions
   {
     /// <summary>
+    /// Запустить задачи на выпуск сертификатов.
+    /// </summary>
+    public void MassIssueCertificates()
+    {
+      Functions.Module.Remote.MassIssueCertificates();
+    }
+    
+    /// <summary>
+    /// Закрыть сертификаты ПЭП.
+    /// </summary>
+    public void DisableSimpleCertificates()
+    {
+      Functions.Module.Remote.DisableSimpleCertificates();
+    }
+    
+    /// <summary>
     /// Сформировать отчет SLA.
     /// </summary>
     public void CreateReportSLA()
@@ -323,6 +339,32 @@ namespace DirRX.NNCommons.Client
                                                                          true,
                                                                          0);
         Dialogs.NotifyMessage(Resources.VerifyDocumentsInStorageNotificationStarted);
+      }
+    }
+    
+    /// <summary>
+    /// Выполнить измерение скорости расчёта времени с учётом календарей рабочего времени.
+    /// </summary>
+    [LocalizeFunction("WorkingTimeCalculationSpeedTest", "WorkingTimeCalculationSpeedTestDescription")]
+    public void WorkingTimeCalculationSpeedTest()
+    {
+      var dialog = Dialogs.CreateInputDialog(DirRX.NNCommons.Resources.WorkingTimeCalculationSpeedTest);
+      var employeeCount = dialog.AddInteger(DirRX.NNCommons.Resources.WorkingTimeCalculationSpeedtestDialog_EmployeeCount, true, 10);
+      var shift = dialog.AddInteger(DirRX.NNCommons.Resources.WorkingTimeCalculationSpeedtestDialog_Shift, true);
+      var shiftHours = dialog.AddBoolean(DirRX.NNCommons.Resources.WorkingTimeCalculationSpeedtestDialog_HoursShift, true);
+      var shiftDays = dialog.AddBoolean(DirRX.NNCommons.Resources.WorkingTimeCalculationSpeedtestDialog_DaysShift, false);
+      dialog.Buttons.AddOkCancel();
+      
+      shiftHours.SetOnValueChanged((h) => {if (h.NewValue.Value == true) shiftDays.Value = false;});
+      shiftDays.SetOnValueChanged((h) => {if (h.NewValue.Value == true) shiftHours.Value = false;});
+      
+      if (dialog.Show() == DialogButtons.Ok)
+      {
+        var result = PublicFunctions.Module.Remote.WorkingTimeCalculationSpeedTest(employeeCount.Value.Value,
+                                                                                   shift.Value.Value,
+                                                                                   shiftDays.Value.Value);
+        
+        Dialogs.ShowMessage(result, MessageType.None);
       }
     }
   }

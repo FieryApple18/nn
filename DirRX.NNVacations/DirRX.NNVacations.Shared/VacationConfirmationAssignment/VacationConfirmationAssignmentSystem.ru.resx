@@ -154,4 +154,10 @@
   <data name="Property_SupernikaText" xml:space="preserve">
     <value>Текст уведомления в Супернику</value>
   </data>
+  <data name="Property_IsSubstitutionAllowed" xml:space="preserve">
+    <value>Выполнять по замещению</value>
+  </data>
+  <data name="Property_IsSubstitutionVisible" xml:space="preserve">
+    <value>Отображать по замещению</value>
+  </data>
 </root>

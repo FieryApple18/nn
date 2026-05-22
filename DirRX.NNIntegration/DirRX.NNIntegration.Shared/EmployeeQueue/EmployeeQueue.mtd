@@ -19,6 +19,16 @@
   },
   "Forms": [
     {
+      "$type": "Sungero.Metadata.InplaceFormMetadata, Sungero.Metadata",
+      "NameGuid": "1f2e61a3-988f-4f20-aeee-d11af6128ef9",
+      "Name": "ErrorPage",
+      "Controls": [],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "SettingsResourceKey"
+      ]
+    },
+    {
       "$type": "Sungero.Metadata.StandaloneFormMetadata, Sungero.Metadata",
       "NameGuid": "9a6e6854-5095-467c-b50a-ada28a63feca",
       "Name": "Card",
@@ -225,7 +235,7 @@
           "ColumnSpan": 1,
           "GroupType": "WithTitleNoBorder",
           "ParentGuid": "99e8faf2-a81c-4998-8c52-feaf4ad197d0",
-          "RowNumber": 1,
+          "RowNumber": 2,
           "RowSpan": 1
         },
         {
@@ -414,11 +424,166 @@
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
           "NameGuid": "6d8f3e6d-a046-485d-a60b-2a5fcfc7f74f",
           "Name": "IsNGD",
-          "ColumnNumber": 0,
+          "ColumnNumber": 1,
           "ColumnSpan": 1,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
           "ParentGuid": "72132d1c-706a-4cc2-8af1-e0162ea6eb56",
           "PropertyGuid": "30d11237-819c-4f48-b473-2bdfd67cee5d",
+          "RowNumber": 11,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "Name": "IdentityDocument",
+          "ColumnDefinitions": [
+            {
+              "Percentage": 25.0
+            },
+            {
+              "Percentage": 25.0
+            },
+            {
+              "Percentage": 25.0
+            },
+            {
+              "Percentage": 25.0
+            }
+          ],
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "GroupType": "WithTitleNoBorder",
+          "ParentGuid": "99e8faf2-a81c-4998-8c52-feaf4ad197d0",
+          "RowNumber": 1,
+          "RowSpan": 1
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "f6386a37-7655-4c65-9480-3836c8969859",
+          "Name": "IdentityDocumentKind",
+          "ColumnNumber": 0,
+          "ColumnSpan": 4,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "c5b499ab-a12c-4a1a-a9c9-5ae30b29fc83",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "94249482-086c-4126-bfdd-e6fc4b1926e3",
+          "Name": "IdentityDocumentSeries",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "0689bf44-4fc6-41c4-be09-409b77376055",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "b2977132-966a-447e-9e49-c35b55369217",
+          "Name": "IdentityDocumentNumber",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "2e9936f4-f0bf-4a70-9eed-c1a855ef630a",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "a79d37de-0300-4dda-94c2-7ca021c654d3",
+          "Name": "IdentityDocumentIssueDate",
+          "ColumnNumber": 2,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "d76d5fc3-9b12-4ab7-b676-656ff0143719",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "a6de5be1-bc03-4d3b-b5f2-c8a7a0d89b9b",
+          "Name": "IdentityDocumentExpirationDate",
+          "ColumnNumber": 3,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "49ad565c-5839-4db9-a38b-5dd8cc79b2eb",
+          "RowNumber": 1,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "da3bf1c7-c986-47db-b281-934127d1cbb0",
+          "Name": "IdentityDocumentIssuedBy",
+          "ColumnNumber": 0,
+          "ColumnSpan": 3,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "50e8c094-e89c-4ba8-b2f7-3072f7b97efe",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "8aadc74b-5030-4b54-8f58-30e9c767e3c6",
+          "Name": "IdentityDocumentIssuerID",
+          "ColumnNumber": 3,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "5326c16e-7c4e-4e26-844e-5546ddda740f",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "f3a10fe9-069e-48b5-8339-b40c0cf3983e",
+          "Name": "IdentityDocumentBirthPlace",
+          "ColumnNumber": 0,
+          "ColumnSpan": 4,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "e68e5af8-5fa8-4ce3-8fb5-002a78517d17",
+          "PropertyGuid": "1682db8e-4351-47af-8a56-ee1dd4fd4e68",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "712648fb-f729-4faf-a1af-925a3861f574",
+          "Name": "TIN",
+          "ColumnNumber": 1,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+          "ParentGuid": "8d788adf-743b-44da-b873-778d1226bc86",
+          "PropertyGuid": "5c1cb773-a5ae-4e51-adc1-b994d640758d",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "889c0f32-af6b-45f4-a72d-98d0b88d1867",
+          "Name": "UtcOffset",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+          "ParentGuid": "72132d1c-706a-4cc2-8af1-e0162ea6eb56",
+          "PropertyGuid": "60286437-d95a-4355-8cfc-37971bdf2239",
           "RowNumber": 11,
           "RowSpan": 1,
           "Settings": []
@@ -698,6 +863,155 @@
       "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
       "PreviousPropertyGuid": "8f651fae-fed8-451c-8bc3-8ef091560d1e"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "5c1cb773-a5ae-4e51-adc1-b994d640758d",
+      "Name": "TIN",
+      "CanBeSearch": false,
+      "Code": "TIN",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 50,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "30d11237-819c-4f48-b473-2bdfd67cee5d",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c5b499ab-a12c-4a1a-a9c9-5ae30b29fc83",
+      "Name": "IdentityDocumentKind",
+      "CanBeSearch": false,
+      "Code": "IdentDocKnd",
+      "DirectValues": [
+        {
+          "NameGuid": "282230cb-dc19-4e4f-8637-4c5fc1a0c0c2",
+          "Name": "PassportRF",
+          "Code": "Passport"
+        },
+        {
+          "NameGuid": "e53693e4-8c0f-40ad-ad13-9a7592efc921",
+          "Name": "OtherDocument",
+          "Code": "OtherDocument"
+        },
+        {
+          "NameGuid": "69c3a168-b308-4047-9ca8-721c1404cc95",
+          "Name": "ForeignPassport",
+          "Code": "ForeignPassport"
+        }
+      ],
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+      "PreviousPropertyGuid": "5c1cb773-a5ae-4e51-adc1-b994d640758d",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "0689bf44-4fc6-41c4-be09-409b77376055",
+      "Name": "IdentityDocumentSeries",
+      "CanBeSearch": false,
+      "Code": "IdentDocSer",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 255,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "c5b499ab-a12c-4a1a-a9c9-5ae30b29fc83",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "2e9936f4-f0bf-4a70-9eed-c1a855ef630a",
+      "Name": "IdentityDocumentNumber",
+      "CanBeSearch": false,
+      "Code": "IdentDocNum",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 255,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "0689bf44-4fc6-41c4-be09-409b77376055",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d76d5fc3-9b12-4ab7-b676-656ff0143719",
+      "Name": "IdentityDocumentIssueDate",
+      "CanBeSearch": false,
+      "Code": "IdentDocIssDt",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "2e9936f4-f0bf-4a70-9eed-c1a855ef630a",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "50e8c094-e89c-4ba8-b2f7-3072f7b97efe",
+      "Name": "IdentityDocumentIssuedBy",
+      "CanBeSearch": false,
+      "Code": "IdentDocIssBy",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 255,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "d76d5fc3-9b12-4ab7-b676-656ff0143719",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "5326c16e-7c4e-4e26-844e-5546ddda740f",
+      "Name": "IdentityDocumentIssuerID",
+      "CanBeSearch": false,
+      "Code": "IdentDocIssId",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 6,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "50e8c094-e89c-4ba8-b2f7-3072f7b97efe",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1682db8e-4351-47af-8a56-ee1dd4fd4e68",
+      "Name": "IdentityDocumentBirthPlace",
+      "CanBeSearch": false,
+      "Code": "IdentitDocBrtP",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "5326c16e-7c4e-4e26-844e-5546ddda740f",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "49ad565c-5839-4db9-a38b-5dd8cc79b2eb",
+      "Name": "IdentityDocumentExpirationDate",
+      "CanBeSearch": false,
+      "Code": "IdentDocExpDt",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "1682db8e-4351-47af-8a56-ee1dd4fd4e68",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DoublePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "60286437-d95a-4355-8cfc-37971bdf2239",
+      "Name": "UtcOffset",
+      "CanBeSearch": false,
+      "Code": "UtcOffset",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "30d11237-819c-4f48-b473-2bdfd67cee5d"
     }
   ],
   "PublicConstants": [
@@ -709,6 +1023,15 @@
       ],
       "TypeName": "System.String",
       "Value": "\"3\""
+    },
+    {
+      "Name": "ForeignPassport",
+      "ParentClasses": [
+        "EmployeeQueue",
+        "IdentityDocumentKindCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ForeignPassport\""
     },
     {
       "Name": "InternalConcurr",
@@ -727,6 +1050,38 @@
       ],
       "TypeName": "System.String",
       "Value": "\"1\""
+    },
+    {
+      "Name": "OtherDocument",
+      "ParentClasses": [
+        "EmployeeQueue",
+        "IdentityDocumentKindCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"OtherDocument\""
+    },
+    {
+      "Name": "PassportRF",
+      "ParentClasses": [
+        "EmployeeQueue",
+        "IdentityDocumentKindCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"PassportRF\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CheckPersonIdentityDocument",
+      "Parameters": [
+        {
+          "Name": "employeeQueue",
+          "ParameterType": "global::DirRX.NNIntegration.IEmployeeQueue",
+          "ParameterTypeFullName": "DirRX.NNIntegration.IEmployeeQueue, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.String>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     }
   ],
   "PublicStructures": [],

@@ -73,6 +73,8 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
           requestEntry.RequestId,
           requestEntry.ProviderId,
           requestEntry.IssueStatus);
+        
+        var taskId = requestEntry.TaskId;
 
         // Сначала проверим на NeedConfirmEsia
         // Вдруг повезет, и если в ESIA уже подписали, то может уже и сертификат успеет выпуститься и следующеее условие это проверит
@@ -80,10 +82,41 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
           if (DirRX.OverrideSolution.Module.SignPlatform.PublicFunctions.Module.CheckCertificateConfirmByESIA(requestEntry))
             if (requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.IssVerification ||
                 requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.DocVerification ||
+                requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.Error)
+        {
+          // Потрогать задачу за активные блоки мониторинга, пусть проверит - не пора ли двигаться дальше
+          var task = Sungero.Workflow.Tasks.GetAll(x => x.Id == taskId).FirstOrDefault();
+          if (task != null)
+            task.Blocks.ExecuteAllMonitoringBlocks();
+          continue;
+        }
+
+        // проверки для этапов проверки документов и выпуска сертификата
+        if (requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.DocVerification ||
+            requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.IssVerification ||
+            requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.InProgress)
+          if (Functions.Module.CheckCertificateStatus(requestEntry))
+            if (requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.NeedDownloadSt ||
+                requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.CertCreated ||
                 requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.Error) {
           // Потрогать задачу за активные блоки мониторинга, пусть проверит - не пора ли двигаться дальше
-          NNCommons.CertificateIssueTasks.Get(requestEntry.TaskId.Value).Blocks.ExecuteAllMonitoringBlocks();
+          var certificateIssueTask = DirRX.SignPlatform.CertificateIssueTasks.GetAll(x => x.Id == taskId).FirstOrDefault();
+          if (certificateIssueTask != null)
+            certificateIssueTask.Blocks.ExecuteAllMonitoringBlocks();
           continue;
+        }
+        
+        // этап скачивания задания
+        if (requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.NeedDownloadSt)
+        {
+          var certificateIssueTask = DirRX.SignPlatform.CertificateIssueTasks.GetAll(x => x.Id == taskId).FirstOrDefault();
+          if (certificateIssueTask != null && Functions.Module.DownloadStatement(requestEntry, certificateIssueTask))
+            if (requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.NeedConfirm ||
+                requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.Error) {
+            // Потрогать задачу за активные блоки мониторинга, пусть проверит - не пора ли двигаться дальше
+            certificateIssueTask.Blocks.ExecuteAllMonitoringBlocks();
+            continue;
+          }
         }
         
         // этап сохранения сертификата в справочник "Цифровые сертификаты"
@@ -93,7 +126,9 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
             if (requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.CertRegistered ||
                 requestEntry.IssueStatus == DirRX.SignPlatform.CertificateRequest.IssueStatus.Error) {
             // Потрогать задачу за активные блоки мониторинга, пусть проверит - не пора ли двигаться дальше
-            NNCommons.CertificateIssueTasks.Get(requestEntry.TaskId.Value).Blocks.ExecuteAllMonitoringBlocks();
+            var task = Sungero.Workflow.Tasks.GetAll(x => x.Id == taskId).FirstOrDefault();
+            if (task != null)
+              task.Blocks.ExecuteAllMonitoringBlocks();
             continue;
           }
         }

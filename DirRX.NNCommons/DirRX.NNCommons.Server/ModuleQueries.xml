@@ -299,4 +299,9 @@ order by assignments.created desc;]]></postgres>
   (employee_vacatio_hrpro)
   WHERE employee_vacatio_hrpro IS NOT NULL;]]></postgres>
   </query>
+  <query key="CreateWorkingDayOnWorkingTimeIndex">
+    <postgres><![CDATA[CREATE INDEX IF NOT EXISTS {1}
+  ON {0}
+  (workingtime)]]></postgres>
+  </query>
 </queries>

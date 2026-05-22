@@ -169,4 +169,46 @@
   <data name="Property_IsNGD" xml:space="preserve">
     <value>НГД</value>
   </data>
+  <data name="Property_TIN" xml:space="preserve">
+    <value>ИНН</value>
+  </data>
+  <data name="Property_IdentityDocumentKind" xml:space="preserve">
+    <value>Вид документа</value>
+  </data>
+  <data name="Enum_IdentityDocumentKind_PassportRF" xml:space="preserve">
+    <value>Паспорт гражданина РФ</value>
+  </data>
+  <data name="Enum_IdentityDocumentKind_OtherDocument" xml:space="preserve">
+    <value>Иной документ, удостоверяющий личность</value>
+  </data>
+  <data name="Enum_IdentityDocumentKind_ForeignPassport" xml:space="preserve">
+    <value>Иностранный паспорт</value>
+  </data>
+  <data name="Property_IdentityDocumentSeries" xml:space="preserve">
+    <value>Серия</value>
+  </data>
+  <data name="Property_IdentityDocumentNumber" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Property_IdentityDocumentIssueDate" xml:space="preserve">
+    <value>Дата выдачи</value>
+  </data>
+  <data name="Property_IdentityDocumentIssuedBy" xml:space="preserve">
+    <value>Кем выдан</value>
+  </data>
+  <data name="Property_IdentityDocumentIssuerID" xml:space="preserve">
+    <value>Код подразделения</value>
+  </data>
+  <data name="Property_IdentityDocumentBirthPlace" xml:space="preserve">
+    <value>Место рождения</value>
+  </data>
+  <data name="Property_IdentityDocumentExpirationDate" xml:space="preserve">
+    <value>Срок действия</value>
+  </data>
+  <data name="ControlGroup_e68e5af85fa84ce38fb5002a78517d17" xml:space="preserve">
+    <value>Документ, удостоверяющий личность</value>
+  </data>
+  <data name="Property_UtcOffset" xml:space="preserve">
+    <value>Часовой пояс</value>
+  </data>
 </root>

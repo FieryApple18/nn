@@ -193,4 +193,7 @@
   <data name="Property_NeedCreateSubstitutionsDirRX" xml:space="preserve">
     <value>Create substitutions</value>
   </data>
+  <data name="Property_UtcOffsetDirRX" xml:space="preserve">
+    <value>Time zone</value>
+  </data>
 </root>

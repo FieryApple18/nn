@@ -21,10 +21,530 @@ namespace DirRX.NNOtherProcesses.Server
   public partial class ModuleFunctions
   {
 
+    /// <summary>
+    /// Проверить, что исполнитель задания - текущий пользователь ЛК или его совместитель.
+    /// </summary>
+    /// <param name="personId">Идентификатор персоны текущего пользователя.</param>
+    /// <param name="assignment">Задание.</param>
+    /// <returns>Если текущий пользователь исполнитель задания, либо задание выполнено - true, иначе - false.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public static bool CheckIfCurrentUserIsPerformer(long personId, long assignmentId)
+    {
+      var assignment = Sungero.Workflow.AssignmentBases.GetAll(a => a.Id == assignmentId).FirstOrDefault();
+      return HRPro.HRProSolution.Employees.As(assignment.Performer).Person.Id == personId ||
+        assignment.Status == Sungero.Workflow.AssignmentBase.Status.Completed;
+    }
+
+    /// <summary>
+    /// Проверить результат выполнения задания.
+    /// </summary>
+    /// <param name="assignment">Задание.</param>
+    /// <returns>Если свойство найдено - строка с результатом, иначе - пустая строка.</returns>
+    [Public]
+    public static string CheckAssignmentResult(Sungero.Workflow.IAssignmentBase assignment)
+    {
+      string assignmentResult;
+      try
+      {
+        assignmentResult = ((Nullable<Enumeration>)(assignment.GetPropertyValue("Result")))?.Value;
+      }
+      catch
+      {
+        assignmentResult = string.Empty;
+      }
+      
+      return assignmentResult;
+    }
+
+    /// <summary>
+    /// Проверить пользователя, который выполнил задание.
+    /// </summary>
+    /// <param name="assignment">Задание.</param>
+    /// <returns>Если свойство найдено - строка с пользователем, иначе - пустая строка.</returns>
+    [Public]
+    public static long? CheckAssignmentCompletedBy(Sungero.Workflow.IAssignmentBase assignment)
+    {
+      long? assignmentCompletedBy;
+      try
+      {
+        var user = ((IUser)(assignment.GetPropertyValue("CompletedBy")));
+        assignmentCompletedBy = HRPro.HRProSolution.Employees.As(user).Person.Id;
+      }
+      catch
+      {
+        assignmentCompletedBy = null;
+      }
+      
+      return assignmentCompletedBy;
+    }
+
+    /// <summary>
+    /// Проверить дату выполнения задания.
+    /// </summary>
+    /// <param name="assignment">Задание.</param>
+    /// <returns>Если свойство найдено - строка с датой выполнения задания, иначе - пустая строка.</returns>
+    [Public]
+    public static DateTime? CheckAssignmentCompleted(Sungero.Workflow.IAssignmentBase assignment)
+    {
+      DateTime? assignmentCompleted;
+      try
+      {
+        assignmentCompleted = ((Nullable<DateTime>)(assignment.GetPropertyValue("Completed")));
+      }
+      catch
+      {
+        assignmentCompleted = null;
+      }
+      
+      return assignmentCompleted;
+    }
+
+    /// <summary>
+    /// Возвращает значение свойства задания.
+    /// </summary>
+    /// <param name="assignment">Задание.</param>
+    /// <param name="propertyName">Свойство.</param>
+    /// <param name="defaultValue">Значение по умолчанию.</param>
+    /// <returns>Значение свойства, иначе значение по умолчанию.</returns>
+    public static bool TryGetPropertyValue(Sungero.Workflow.IAssignmentBase assignment, string propertyName, bool defaultValue)
+    {
+      bool result;
+      try
+      {
+        result = (bool)assignment.GetPropertyValue(propertyName);
+      }
+      catch
+      {
+        result = defaultValue;
+      }
+      
+      return result;
+    }
+
+    /// <summary>
+    /// Получить даты периода для фильтрации заданий/уведомлений для виджета workItemList.
+    /// </summary>
+    /// <param name="personId">Ид персоны.</param>
+    /// <returns>Период фильтрации.</returns>
+    public static Structures.Module.AssignmentItemPeriod GetFilterPeriod(long personId)
+    {
+      var now = Calendar.Now;
+      
+      // Получить профиль пользователя ЛК из БД Ess.
+      var essUserCurrentPeriod = DirRX.NNIntegration.PublicFunctions.Module.GetPersonEssCurrentPeriod(personId);
+      
+      if (essUserCurrentPeriod == null)
+        return null;
+
+      // Длина периода. Перечисление ЛК.
+      // 0 - 30 дней (месяц)
+      // 1 - 90 дней (квартал)
+      // 2 - 365 дней (год)
+      // 3 - произвольный период
+      switch (essUserCurrentPeriod.Length)
+      {
+        case 0:
+          return Structures.Module.AssignmentItemPeriod.Create(now.AddDays(-30), now.AddDays(1));
+        case 1:
+          return Structures.Module.AssignmentItemPeriod.Create(now.AddDays(-90), now.AddDays(1));
+        case 2:
+          return Structures.Module.AssignmentItemPeriod.Create(now.AddDays(-365), now.AddDays(1));
+        case 3:
+          return Structures.Module.AssignmentItemPeriod.Create(essUserCurrentPeriod.BeginDate, essUserCurrentPeriod.EndDate);
+        default:
+          return null;
+      }
+    }
+
+    /// <summary>
+    /// Возвращает список заданий/уведомлений для виджета workItemList.
+    /// </summary>
+    /// <param name="personId">Идентификатор персоны текущего пользователя.</param>
+    /// <returns>Список заданий.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public static List<DirRX.NNOtherProcesses.Structures.Module.IHistoryAssignmentItem> GetHistoryAssignmentsForWorkItemList(long personId)
+    {
+      var results = new List<DirRX.NNOtherProcesses.Structures.Module.IHistoryAssignmentItem>();
+      
+      var personIds = new List<long>();
+      
+      var employeeId = HRPro.HRProSolution.Employees
+        .GetAll(e => e.Person.Id == personId &&
+                ((e.EmploymentType.HasValue &&
+                  e.EmploymentType.Value == HRPro.HRProSolution.Employee.EmploymentType.MainPlace) ||
+                 !e.EmploymentType.HasValue))
+        .FirstOrDefault().Id;
+      
+      var substitutionPersonIds = Sungero.CoreEntities.Substitutions
+        .GetAll(s => s.Substitute.Id == employeeId &&
+                s.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
+                s.IsSystem == false &&
+                ((s.StartDate == null || s.StartDate <= Calendar.Now) &&
+                 (s.EndDate == null || s.EndDate >= Calendar.Now)))
+        .Select(s => HRPro.HRProSolution.Employees.As(s.User).Person.Id)
+        .Distinct().ToList();
+      
+      personIds.AddRange(substitutionPersonIds);
+      
+      if (!personIds.Contains(personId))
+        personIds.Add(personId);
+      
+      // Получить период для фильтрации заданий/уведомлений для виджета workItemList.
+      var filterPeriod = GetFilterPeriod(personId);
+
+      foreach (var id in personIds)
+      {
+        var assignments = Sungero.Workflow.AssignmentBases.GetAll(a =>
+                                                                  HRPro.HRProSolution.Employees.As(a.Performer).Person.Id == id &&
+                                                                  (filterPeriod == null || filterPeriod.StartDate <= a.Created && a.Created <= filterPeriod.EndDate) &&
+                                                                  ((a.Status == Sungero.Workflow.AssignmentBase.Status.Completed && a.IsRead == true) ||
+                                                                   a.Status == Sungero.Workflow.AssignmentBase.Status.Aborted));
+        foreach (var assignment in assignments)
+        {
+          if (!(DirRX.EssPlatform.PublicFunctions.Module.CheckAssignmentShowInSelfServiceOffice(assignment)))
+            continue;
+          
+          var completedBy = DirRX.NNOtherProcesses.Server.ModuleFunctions.CheckAssignmentCompletedBy(assignment);
+          if (completedBy != null && personId != completedBy)
+            continue;
+          
+          var completed = DirRX.NNOtherProcesses.Server.ModuleFunctions.CheckAssignmentCompleted(assignment);
+          var finished = (completed != null && completed.HasValue) ? completed : assignment.Modified;
+          
+          var assignmentItem = DirRX.NNOtherProcesses.Structures.Module.HistoryAssignmentItem.Create();
+          
+          assignmentItem.finished = finished?.ToString("yyyy-MM-ddTHH:mm:ss");
+
+          assignmentItem.title = assignment.Subject;
+          assignmentItem.system = "HRPro";
+          assignmentItem.name = $"I{assignment.GetEntityMetadata().IntegrationServiceName}s";
+          assignmentItem.id = assignment.Id;
+          assignmentItem.deadline = assignment.Deadline?.ToString("yyyy-MM-ddTHH:mm:ss");
+          assignmentItem.isRead = assignment.IsRead ?? false;
+          assignmentItem.isExpired = assignment.Deadline.HasValue && assignment.Deadline.Value < Calendar.Now;
+          
+          assignmentItem.status = assignment.Status?.ToString();
+          assignmentItem.assignee = assignment.Performer.Name;
+          
+          assignmentItem.icon = HRPro.HRDocFlow.HRNotices.Is(assignment) || DirRX.SignPlatform.CertificateIssueNotices.Is(assignment) ? "read-document" : "clock";
+          
+          assignmentItem.defaultActionCaption = string.Empty;
+          assignmentItem.defaultActionIcon = string.Empty;
+          assignmentItem.defaultActionName = string.Empty;
+          
+          var result = DirRX.NNOtherProcesses.Server.ModuleFunctions.CheckAssignmentResult(assignment);
+          assignmentItem.bySubstitution = id != personId;
+          
+          if (!string.IsNullOrEmpty(result))
+          {
+            if (HRPro.Vacations.VacationEmployeeSchedulingAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Complete" || result == "Completed" ? "Выполнено" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationApprovalAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Complete" ? "Согласовано" :
+                result == "ForRework" ? "Отправлено на доработку" :
+                result == "Deny" ? "Отказано" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationReworkAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "ForReapproving" ? "Выполнено" :
+                result == "Abort" ? "Прекращено" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationChangeApprovalAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Approve" ? "Согласовано" :
+                result == "ForRework" ? "Отправлено на доработку" :
+                result == "Deny" ? "Отказано" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationChangeReworkAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "ForReapproving" ? "Выполнено" :
+                result == "Abort" ? "Прекращено" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationChangeSignAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Sign" ? "Подписано" :
+                result == "Refuse" ? "Отказано" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationConfirmationAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Complete" ? "Подтверждено" :
+                result == "Shift" ? "Выполнено" : string.Empty;
+            
+            else if (HRPro.Vacations.VacationAlignDateAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "GetVacation" ? "Выполнено" :
+                result == "Skip" ? "Выполнено" : string.Empty;
+            
+            else if (DirRX.NNVacations.VacationConfirmationAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Confirm" ? "Подтверждено" : string.Empty;
+            
+            else if (HRPro.HRDocFlow.ConsentAssignments.Is(assignment) || HRPro.HRDocFlow.ESignAssignments.Is(assignment) || HRPro.HRDocFlow.HRAssignments.Is(assignment) ||
+                     HRPro.HRDocFlow.EAcquaintanceAssignments.Is(assignment) || HRPro.HRDocFlow.DocumentApprovalAssignments.Is(assignment) || HRPro.HRDocFlow.AgreementAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Complete" ? "Выполнено" :
+                result == "Approved" ? "Согласовано" :
+                result == "ForRework" ? "На доработку" :
+                result == "ForRevision" ? "На доработку" :
+                result == "Aborted" ? "Прекращено" :
+                result == "Terminate" ? "Прекращено" :
+                result == "Refuse" ? "Отказано" :
+                result == "Reject" ? "Отказано" :
+                result == "Sign" ? "Подписано" :
+                result == "Accept" ? "Принято" : string.Empty;
+            
+            else if (DirRX.NNCommons.StatementReworkAssignments.Is(assignment) || DirRX.OverrideSolution.NNStatementReworkAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "ForReapproving" ? "Выполнено" :
+                result == "Abort" ? "Прекращено" : string.Empty;
+            
+            else if (DirRX.SignPlatform.CertificateIssueStatementAcceptAssignments.Is(assignment) || DirRX.SignPlatform.GoskeyInstallAssignments.Is(assignment))
+              assignmentItem.result =
+                result == "Accept" ? "Подписано" :
+                result == "Refuse" ? "Отказано" : string.Empty;
+          }
+
+          results.Add(assignmentItem);
+        }
+      }
+
+      return results.OrderByDescending(a => a.finished).ToList();
+    }
+
+    /// <summary>
+    /// Возвращает список заданий/уведомлений для виджета workItemList.
+    /// </summary>
+    /// <param name="personId">Идентификатор персоны текущего пользователя.</param>
+    /// <returns>Список заданий.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public static List<DirRX.NNOtherProcesses.Structures.Module.IAssignmentItem> GetAssignmentsForWorkItemList(long personId)
+    {
+      var results = new List<DirRX.NNOtherProcesses.Structures.Module.IAssignmentItem>();
+      var assignments = Sungero.Workflow.AssignmentBases.GetAll(a => HRPro.HRProSolution.Employees.As(a.Performer).Person.Id == personId &&
+                                                                (a.Status == Sungero.Workflow.AssignmentBase.Status.InProcess ||
+                                                                 (a.Status == Sungero.Workflow.AssignmentBase.Status.Completed &&
+                                                                  a.IsRead == false)));
+      foreach (var assignment in assignments)
+      {
+        if (!(DirRX.EssPlatform.PublicFunctions.Module.CheckAssignmentShowInSelfServiceOffice(assignment)))
+          continue;
+
+        var assignmentItem = DirRX.NNOtherProcesses.Structures.Module.AssignmentItem.Create();
+        
+        assignmentItem.title = assignment.Subject;
+        assignmentItem.system = "HRPro";
+        assignmentItem.name = $"I{assignment.GetEntityMetadata().IntegrationServiceName}s";
+        assignmentItem.id = assignment.Id;
+        assignmentItem.icon = "clock";
+        assignmentItem.created = assignment.Created?.ToString("yyyy-MM-ddTHH:mm:ssZ");
+        assignmentItem.deadline = assignment.Deadline?.ToString("yyyy-MM-ddTHH:mm:ssZ");
+        assignmentItem.isRead = assignment.IsRead ?? false;
+        assignmentItem.isExpired = assignment.Deadline.HasValue && assignment.Deadline.Value < Calendar.Now;
+        
+        assignmentItem.status = assignment.Info.Properties.Status.GetLocalizedValue(assignment.Status);
+        assignmentItem.completed = DirRX.NNOtherProcesses.Server.ModuleFunctions.CheckAssignmentCompleted(assignment)?.ToString("yyyy-MM-ddTHH:mm:ssZ");
+        assignmentItem.result = DirRX.NNOtherProcesses.Server.ModuleFunctions.CheckAssignmentResult(assignment);
+        
+        assignmentItem.defaultActionCaption = string.Empty;
+        assignmentItem.defaultActionIcon = string.Empty;
+        assignmentItem.defaultActionName = string.Empty;
+        
+        // Vacations
+        if (HRPro.Vacations.VacationEmployeeSchedulingAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Complete";
+          assignmentItem.defaultActionCaption = "Спланировать";
+          
+        }
+        else if (HRPro.Vacations.VacationApprovalAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Complete";
+          assignmentItem.defaultActionCaption = "Согласовать";
+          
+        }
+        else if (HRPro.Vacations.VacationReworkAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Rework";
+          assignmentItem.defaultActionCaption = "Доработать";
+        }
+        else if (HRPro.Vacations.VacationChangeApprovalAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Approve";
+          assignmentItem.defaultActionCaption = "Согласовать";
+        }
+        else if (HRPro.Vacations.VacationChangeReworkAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "ForReapproving";
+          assignmentItem.defaultActionCaption = "Доработать";
+        }
+        else if (HRPro.Vacations.VacationChangeSignAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Sign";
+          assignmentItem.defaultActionCaption = "Подписать";
+        }
+        else if (HRPro.Vacations.VacationConfirmationAssignments.Is(assignment) || DirRX.NNVacations.VacationConfirmationAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Complete";
+          assignmentItem.defaultActionCaption = "Подтвердить";
+        }
+        else if (HRPro.Vacations.VacationAlignDateAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "GetVacation";
+          assignmentItem.defaultActionCaption = "Оформить отпуск";
+        }
+        
+        // HRProStatements
+        else if (HRPro.HRDocFlow.AgreementAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Accept";
+          assignmentItem.defaultActionCaption = "Принять";
+        }
+        else if (HRPro.HRDocFlow.HRAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Complete";
+          assignmentItem.defaultActionCaption = "Выполнить";
+        }
+        else if (HRPro.HRDocFlow.DocumentApprovalAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Sign";
+          assignmentItem.defaultActionCaption = "Согласовать";
+        }
+        else if (HRPro.HRDocFlow.ConsentAssignments.Is(assignment) || HRPro.HRDocFlow.ESignAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Sign";
+          assignmentItem.defaultActionCaption = "Подписать";
+        }
+        else if (HRPro.HRDocFlow.EAcquaintanceAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Acquaint";
+          assignmentItem.defaultActionCaption = "Ознакомлен";
+        }
+        else if (HRPro.HRDocFlow.HRNotices.Is(assignment))
+        {
+          assignmentItem.icon = "read-document";
+        }
+        else if (DirRX.NNCommons.StatementReworkAssignments.Is(assignment) || DirRX.OverrideSolution.NNStatementReworkAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Rework";
+          assignmentItem.defaultActionCaption = "Доработать";
+        }
+        
+        //SignPlatform
+        else if (DirRX.SignPlatform.CertificateIssueStatementAcceptAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Sign";
+          assignmentItem.defaultActionCaption = "Подписать";
+        }
+        else if (DirRX.SignPlatform.CertificateIssueNotices.Is(assignment))
+        {
+          assignmentItem.icon = "read-document";
+        }
+        else if (DirRX.SignPlatform.GoskeyInstallAssignments.Is(assignment))
+        {
+          assignmentItem.defaultActionName = "Complete";
+          assignmentItem.defaultActionCaption = "Выполнить";
+        }
+        
+        results.Add(assignmentItem);
+      }
+      
+      return results.OrderByDescending(a => a.created).ToList();
+    }
+
+    /// <summary>
+    /// Возвращает список заданий/уведомлений по замещению для виджета workItemList.
+    /// </summary>
+    /// <param name="personId">Идентификатор персоны текущего пользователя.</param>
+    /// <returns>Список заданий по замещению.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public static List<DirRX.NNOtherProcesses.Structures.Module.ISubstitutionAssignmentItem> GetSubstitutionAssignmentsForWorkItemList(long personId)
+    {
+      var results = new List<DirRX.NNOtherProcesses.Structures.Module.ISubstitutionAssignmentItem>();
+      var employeeId = HRPro.HRProSolution.Employees.GetAll(e => e.Person.Id == personId &&
+                                                            ((e.EmploymentType.HasValue &&
+                                                              e.EmploymentType.Value == HRPro.HRProSolution.Employee.EmploymentType.MainPlace) ||
+                                                             !e.EmploymentType.HasValue))
+        .FirstOrDefault().Id;
+      
+      var substitutedUsers = Sungero.CoreEntities.Substitutions.GetAll(s => s.Substitute.Id == employeeId &&
+                                                                       s.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
+                                                                       s.IsSystem == false &&
+                                                                       ((s.StartDate == null || s.StartDate <= Calendar.Now) &&
+                                                                        (s.EndDate == null || s.EndDate >= Calendar.Now)))
+        .Select (s => s.User)
+        .Distinct();
+
+      if (!substitutedUsers.Any())
+        return results;
+
+      // Получаем задания только в статусе InProcess
+      foreach (var user in substitutedUsers)
+      {
+        var assignments = Sungero.Workflow.AssignmentBases.GetAll(a => a.Performer.Equals(user) &&
+                                                                  HRPro.HRProSolution.Employees.As(a.Performer).Person.Id != personId &&
+                                                                  (a.Status == Sungero.Workflow.AssignmentBase.Status.InProcess ||
+                                                                   (a.Status == Sungero.Workflow.AssignmentBase.Status.Completed &&
+                                                                    a.IsRead == false)));
+        foreach (var assignment in assignments)
+        {
+          
+          if (!(DirRX.EssPlatform.PublicFunctions.Module.CheckAssignmentShowInSelfServiceOffice(assignment)))
+            continue;
+          
+          var isSpecial = false;
+          var isVisible = true;
+          var isExecutable = true;
+
+          if (DirRX.OverrideSolution.ESignAssignments.Is(assignment))
+          {
+            isSpecial = true;
+            isVisible = TryGetPropertyValue(assignment, "IsSubstitutionVisibleDirRX", true);
+            isExecutable = TryGetPropertyValue(assignment, "IsSubstitutionAllowedDirRX", true);
+          }
+          else if (DirRX.NNCommons.StatementReworkAssignments.Is(assignment))
+          {
+            isSpecial = true;
+            isVisible = TryGetPropertyValue(assignment, "IsSubstitutionVisible", true);
+            isExecutable = TryGetPropertyValue(assignment, "IsSubstitutionAllowed", true);
+          }
+          else if (DirRX.NNVacations.VacationConfirmationAssignments.Is(assignment))
+          {
+            isSpecial = true;
+            isVisible = TryGetPropertyValue(assignment, "IsSubstitutionVisible", true);
+            isExecutable = TryGetPropertyValue(assignment, "IsSubstitutionAllowed", true);
+          }
+
+          if (isSpecial && !isVisible)
+            continue;
+
+          var substitutionAssignmentItem = DirRX.NNOtherProcesses.Structures.Module.SubstitutionAssignmentItem.Create();
+          
+          substitutionAssignmentItem.title = assignment.Subject;
+          substitutionAssignmentItem.system = "HRPro";
+          substitutionAssignmentItem.name = $"I{assignment.GetEntityMetadata().IntegrationServiceName}s";
+          substitutionAssignmentItem.id = assignment.Id;
+          substitutionAssignmentItem.icon = Sungero.Workflow.Assignments.Is(assignment) ? "clock" : "read-document";
+          substitutionAssignmentItem.assignee = assignment.Performer.Name;
+          substitutionAssignmentItem.created = assignment.Created?.ToString("yyyy-MM-ddTHH:mm:ssZ");
+          substitutionAssignmentItem.deadline = assignment.Deadline?.ToString("yyyy-MM-ddTHH:mm:ssZ");
+          substitutionAssignmentItem.isRead = assignment.IsRead ?? false;
+          substitutionAssignmentItem.isExpired = assignment.Deadline.HasValue && assignment.Deadline.Value < Calendar.Now;;
+          substitutionAssignmentItem.isExecutable = isExecutable;
+          
+          results.Add(substitutionAssignmentItem);
+        }
+      }
+
+      return results.OrderByDescending(a => a.created).ToList();
+    }
+
     #region Общие функции.
-    
+
     #region Работа с XML.
-    
+
     /// <summary>
     /// Сериализация структуры в xml строку.
     /// </summary>
@@ -55,9 +575,9 @@ namespace DirRX.NNOtherProcesses.Server
 
       return string.Empty;
     }
-    
+
     #endregion
-    
+
     /// <summary>
     /// Создать и отправить подзадачу на подписание документа.
     /// </summary>
@@ -126,13 +646,13 @@ namespace DirRX.NNOtherProcesses.Server
       else
         return string.Empty;
     }
-    
+
     #endregion
-    
+
     #region Интеграционный сценарий «Участие в благотворительности».
 
     #region IF-S-10397. Автоматическое создание карточки документа из АСУП в КЭДО (АСУП -> КЭДО).
-    
+
     /// <summary>
     /// Обработка создания или обновления карточки "Заявление на удержание (программа личных пожертвований)".
     /// </summary>
@@ -333,7 +853,7 @@ namespace DirRX.NNOtherProcesses.Server
 
       return result;
     }
-    
+
     /// <summary>
     /// Заполнить свойства документа.
     /// </summary>
@@ -385,7 +905,7 @@ namespace DirRX.NNOtherProcesses.Server
     }
 
     #endregion
-    
+
     #region IF-S-10398. Автоматическое формирование задания на ручное разблокирование ИТ0015 в АСУП (АСУП -> КЭДО).
 
     /// <summary>
@@ -436,13 +956,13 @@ namespace DirRX.NNOtherProcesses.Server
       return result;
     }
 
-    
+
     #endregion
-    
+
     #endregion
-    
+
     #region Интеграционный сценарий «Оформление командировки».
-    
+
     #region IF-S-6374. Создание карточки согласования приказа на командировку в КЭДО из АСУП.
 
     /// <summary>
@@ -523,7 +1043,7 @@ namespace DirRX.NNOtherProcesses.Server
       result.EntityId = document?.Id;
       return result;
     }
-    
+
     /// <summary>
     /// Создать или обновить документ "Приказ на командировку".
     /// </summary>
@@ -706,7 +1226,7 @@ namespace DirRX.NNOtherProcesses.Server
       else
         return string.Empty;
     }
-    
+
     /// <summary>
     /// Получить вид документа по коду из АСУП.
     /// </summary>
@@ -728,15 +1248,15 @@ namespace DirRX.NNOtherProcesses.Server
 
       return Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(kindGuid);
     }
-    
+
     #endregion
-    
+
     #endregion
-    
+
     #region Интеграционный сценарий «Регистрация Работы ВД/ПД/СР».
-    
+
     #region IF-S-10413. Передача приказа на выход сотрудника в выходной и/или праздничный день из АСУП в КЭДО (АСУП -> КЭДО).
-    
+
     /// <summary>
     /// Обработка создания приказа на выход сотрудника в выходной и/или праздничный день.
     /// </summary>
@@ -883,7 +1403,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
     /// <summary>
     /// Получить вид документа по коду из АСУП.
     /// </summary>
@@ -909,11 +1429,11 @@ namespace DirRX.NNOtherProcesses.Server
 
       return kindGuid == Guid.Empty ? Sungero.Docflow.DocumentKinds.Null : Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(kindGuid);
     }
-    
+
     #endregion
-    
+
     #region IF-S-10412. Автоматическая проверка заявления на работу в выходной и/или праздничный день (АСУП -> КЭДО).
-    
+
     /// <summary>
     /// Проверить заявление ВД/ПД/СР во внешней системе (базовая перегрузка).
     /// </summary>
@@ -954,7 +1474,7 @@ namespace DirRX.NNOtherProcesses.Server
       Logger.DebugFormat("{0}. Конец синхронной отправки сообщения.", logPrefix);
       return response;
     }
-    
+
     /// <summary>
     /// Проверить заявление ВД/ПД/СР во внешней системе (перегрузка для RX).
     /// </summary>
@@ -1000,8 +1520,8 @@ namespace DirRX.NNOtherProcesses.Server
       
       return response;
     }
-    
-    
+
+
     /// <summary>
     /// Проверить заявление ВД/ПД/СР во внешней системе (перегрузка для ЛК).
     /// </summary>
@@ -1056,11 +1576,11 @@ namespace DirRX.NNOtherProcesses.Server
       
       return response.Employees.FirstOrDefault().ErrorText;
     }
-    
+
     #endregion
-    
+
     #region IF-S-6363. Автоматическое создание мероприятия «Регистрация работы в выходной и/или праздничный день» из КЭДО в АСУП (КЭДО -> АСУП)
-    
+
     /// <summary>
     /// Процесс создания мероприятия «Регистрация работы в выходной и/или праздничный день».
     /// </summary>
@@ -1142,11 +1662,11 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
     #endregion
-    
+
     #region IF-S-6362. Автоматическое внесение изменений в действующий приказ из КЭДО в АСУП (КЭДО -> АСУП)
-    
+
     /// <summary>
     ///  Процесс создания мероприятия «Внесение изменений в действующий приказ ВД/ПД/СР».
     /// </summary>
@@ -1220,15 +1740,15 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
     #endregion
-    
+
     #endregion
-    
+
     #region Функции для работы с личным кабинетом через сервис интеграции.
-    
+
     #region Регистрация работы в выходной и/или праздничный день
-    
+
     /// <summary>
     /// Проверить наличие превышения количества рабочих часов.
     /// </summary>
@@ -1275,7 +1795,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return string.Empty;
     }
-    
+
     /// <summary>
     /// Заполнить данные в заявлении на ВД/ПД/СР.
     /// </summary>
@@ -1348,7 +1868,7 @@ namespace DirRX.NNOtherProcesses.Server
       importedDocuments.Add(importedDocument);
       return NNCommons.IsolatedFunctions.Json.SerializeInJson(importedDocuments);
     }
-    
+
     /// <summary>
     /// Получить данные для доработки заявления на ВД/ПД/СР.
     /// </summary>
@@ -1388,7 +1908,7 @@ namespace DirRX.NNOtherProcesses.Server
       Logger.DebugFormat("GetStatementDataForReworkWeekendWork. ИД задания: {0}. Конец выполнения.", assignmentId);
       return IsolatedFunctions.Json.SerializeInJson(result);
     }
-    
+
     /// <summary>
     /// Получить список видов компенсаций.
     /// </summary>
@@ -1426,11 +1946,11 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
     #endregion
-    
+
     #region Регистрация выплат по ЛНА.
-    
+
     /// <summary>
     /// Получить список типов выплат доступных сотруднику.
     /// </summary>
@@ -1456,7 +1976,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return GetJsonPaymentTypes(paymentTypes);
     }
-    
+
     /// <summary>
     /// Получить Json, содержащий список типов выплат ЛНА для передачи в ЛК.
     /// </summary>
@@ -1485,7 +2005,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
     /// <summary>
     /// Получить настройку типа выплаты для ЛК.
     /// </summary>
@@ -1553,7 +2073,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return NNIntegration.IsolatedFunctions.Convert.SerializeInJson(structure);
     }
-    
+
     /// <summary>
     /// Получить json строку из ЛК для подстановки в источник данных параметра в ЛК.
     /// </summary>
@@ -1565,7 +2085,7 @@ namespace DirRX.NNOtherProcesses.Server
     {
       return json;
     }
-    
+
     /// <summary>
     /// Получить информацию о предыдущем заявлении для выплаты ЛНА по заданию на доработку.
     /// </summary>
@@ -1599,7 +2119,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return NNIntegration.IsolatedFunctions.Convert.SerializeInJson(assignmentInfo);
     }
-    
+
     /// <summary>
     /// Заполнить данные в заявлении на выплату по ЛНА.
     /// </summary>
@@ -1631,7 +2151,7 @@ namespace DirRX.NNOtherProcesses.Server
         Logger.ErrorFormat("{0}. Не удалось сохранить документ. Текст ошибки: {1}. StackTrace: {2}.", logPrefix, ex.Message, ex.StackTrace);
       }
     }
-    
+
     /// <summary>
     /// Получить ИД шаблона заявление на выплату по ЛНА.
     /// </summary>
@@ -1667,7 +2187,7 @@ namespace DirRX.NNOtherProcesses.Server
       Logger.DebugFormat("{0}. Конец выполнения.", logPrefix);
       return NNCommons.IsolatedFunctions.Json.SerializeInJson(result);
     }
-    
+
     /// <summary>
     /// Проверить, что тип выплаты - "Материальная помощь работнику, имеющему ребенка-инвалида в возрасте до 18 лет".
     /// </summary>
@@ -1679,22 +2199,22 @@ namespace DirRX.NNOtherProcesses.Server
       var disabledChildPaymentTypeId = NNCommons.PublicFunctions.Module.GetIdentifierValue(Constants.Module.ConstantsSetting.DisabledChildPaymentTypeId.Guid);
       return paymentTypeId == disabledChildPaymentTypeId;
     }
-    
+
     [Public(WebApiRequestType = RequestType.Get)]
     public string GetPaymentTypeNameById(long? paymentTypeId)
     {
       var paymentType = DirRX.NNOtherProcesses.LrdPaymentTypes.GetAll(x => x.Id == paymentTypeId).FirstOrDefault();
       return paymentType?.Name ?? "";
     }
-    
+
     #endregion
-    
+
     #endregion
-    
+
     #region Интеграционный сценарий «Регистрация выплат по ЛНА».
-    
+
     #region IF-S-6366. Автоматическое создание мероприятия «Регистрация выплат ЛНА» из КЭДО в АСУП (КЭДО → АСУП)
-    
+
     /// <summary>
     /// Процесс создания мероприятия «Регистрация выплат ЛНА».
     /// </summary>
@@ -1752,11 +2272,11 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
     #endregion
-    
+
     #region IF-S-10400. Проверка данных по заявлению на выплату ЛНА (АСУП → КЭДО)
-    
+
     /// <summary>
     /// Проверить заявление на выплату ЛНА во внешней системе (базовая перегрузка).
     /// </summary>
@@ -1794,7 +2314,7 @@ namespace DirRX.NNOtherProcesses.Server
       Logger.DebugFormat("{0}. Конец синхронной отправки сообщения.", logPrefix);
       return response;
     }
-    
+
     /// <summary>
     /// Проверить заявление на выплату ЛНА во внешней системе (перегрузка для ЛК).
     /// </summary>
@@ -1841,11 +2361,11 @@ namespace DirRX.NNOtherProcesses.Server
       return response.Result ? string.Empty :
         !string.IsNullOrWhiteSpace(response.RemarkText) ? response.RemarkText : Resources.CheckLrdPaymentError;
     }
-    
+
     #endregion
-    
+
     #region IF-S-25360. Получение списка детей работника (АСУП → КЭДО).
-    
+
     /// <summary>
     /// Получить информацию о детях сотрудника из внешней системы.
     /// </summary>
@@ -1893,7 +2413,7 @@ namespace DirRX.NNOtherProcesses.Server
       Logger.DebugFormat("{0} Конец синхронной отправки сообщения.", logPrefix);
       return children;
     }
-    
+
     /// <summary>
     /// Получить информацию о детях сотрудника (перегрузка для ЛК).
     /// </summary>
@@ -1918,7 +2438,7 @@ namespace DirRX.NNOtherProcesses.Server
       InsertOrUpdateChildrenResponseCache(employeeId, json);
       return json;
     }
-    
+
     /// <summary>
     /// Получить информацию о детях сотрудника из кэша (таблица в БД).
     /// </summary>
@@ -1942,7 +2462,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       return response;
     }
-    
+
     /// <summary>
     /// Обновить информацию о детях сотрудника в кэше (таблица в БД).
     /// </summary>
@@ -1970,11 +2490,11 @@ namespace DirRX.NNOtherProcesses.Server
         Logger.ErrorFormat("InsertOrUpdateChildrenResponseCache. ИД сотрудника: {0}. Ошибка: {1}, StackTrace: {2}.", employeeId, ex.Message, ex.StackTrace);
       }
     }
-    
+
     #endregion
-    
+
     #region IF-S-10399. Передача приказа на выплату по ЛНА из АСУП в КЭДО.
-    
+
     /// <summary>
     /// Изменить или создать приказ на приказа на выплату по ЛНА.
     /// </summary>
@@ -2112,9 +2632,10 @@ namespace DirRX.NNOtherProcesses.Server
       
       return result;
     }
-    
+
+    #endregion
+
     #endregion
     
-    #endregion
   }
 }
