@@ -1,0 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sungero.Core;
+using Sungero.CoreEntities;
+using DirRX.NNCommons.StatementReworkAssignment;
+
+namespace DirRX.NNCommons.Server
+{
+  partial class StatementReworkAssignmentFunctions
+  {
+
+  }
+}

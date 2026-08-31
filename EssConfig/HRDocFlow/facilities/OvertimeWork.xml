@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="f6b72778-53d2-4aea-b9aa-c620d65813a3" name="OvertimeWork">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.STATEMENTS_TILE_OVERTIMEWORK_TITLE</title>
+  <description></description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetPostListByPerson</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="AdditionalApprover" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource><![CDATA[/api/functions/GetVisibleEmployees?query={query}&takeCount={top}&skipCount={skip}]]></dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="WorkDateFrom" isRequired="true" isCollection="false" />
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDateWork" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterSelect" name="BeginDateWorkTime" defaultValue="540" isRequired="true" isCollection="false">
+      <values>
+        <value>0</value><value>30</value><value>60</value><value>90</value><value>120</value><value>150</value><value>180</value><value>210</value><value>240</value><value>270</value><value>300</value><value>330</value><value>360</value><value>390</value><value>420</value><value>450</value><value>480</value><value>510</value><value>540</value><value>570</value><value>600</value><value>630</value><value>660</value><value>690</value><value>720</value><value>750</value><value>780</value><value>810</value><value>840</value><value>870</value><value>900</value><value>930</value><value>960</value><value>990</value><value>1020</value><value>1050</value><value>1080</value><value>1110</value><value>1140</value><value>1170</value><value>1200</value><value>1230</value><value>1260</value><value>1290</value><value>1320</value><value>1350</value><value>1380</value><value>1410</value>
+      </values>
+      <captions>
+        <caption>0:00</caption><caption>0:30</caption><caption>1:00</caption><caption>1:30</caption><caption>2:00</caption><caption>2:30</caption><caption>3:00</caption><caption>3:30</caption><caption>4:00</caption><caption>4:30</caption><caption>5:00</caption><caption>5:30</caption><caption>6:00</caption><caption>6:30</caption><caption>7:00</caption><caption>7:30</caption><caption>8:00</caption><caption>8:30</caption><caption>9:00</caption><caption>9:30</caption><caption>10:00</caption><caption>10:30</caption><caption>11:00</caption><caption>11:30</caption><caption>12:00</caption><caption>12:30</caption><caption>13:00</caption><caption>13:30</caption><caption>14:00</caption><caption>14:30</caption><caption>15:00</caption><caption>15:30</caption><caption>16:00</caption><caption>16:30</caption><caption>17:00</caption><caption>17:30</caption><caption>18:00</caption><caption>18:30</caption><caption>19:00</caption><caption>19:30</caption><caption>20:00</caption><caption>20:30</caption><caption>21:00</caption><caption>21:30</caption><caption>22:00</caption><caption>22:30</caption><caption>23:00</caption><caption>23:30</caption>
+      </captions>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="WorkDateTo" isRequired="true" isCollection="false" />
+    <facilityParameter type="FacilityParameterDateTime" name="EndDateWork" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterSelect" name="EndDateWorkTime" defaultValue="1080" isRequired="true" isCollection="false">
+      <values>
+        <value>0</value><value>30</value><value>60</value><value>90</value><value>120</value><value>150</value><value>180</value><value>210</value><value>240</value><value>270</value><value>300</value><value>330</value><value>360</value><value>390</value><value>420</value><value>450</value><value>480</value><value>510</value><value>540</value><value>570</value><value>600</value><value>630</value><value>660</value><value>690</value><value>720</value><value>750</value><value>780</value><value>810</value><value>840</value><value>870</value><value>900</value><value>930</value><value>960</value><value>990</value><value>1020</value><value>1050</value><value>1080</value><value>1110</value><value>1140</value><value>1170</value><value>1200</value><value>1230</value><value>1260</value><value>1290</value><value>1320</value><value>1350</value><value>1380</value><value>1410</value>
+      </values>
+      <captions>
+        <caption>0:00</caption><caption>0:30</caption><caption>1:00</caption><caption>1:30</caption><caption>2:00</caption><caption>2:30</caption><caption>3:00</caption><caption>3:30</caption><caption>4:00</caption><caption>4:30</caption><caption>5:00</caption><caption>5:30</caption><caption>6:00</caption><caption>6:30</caption><caption>7:00</caption><caption>7:30</caption><caption>8:00</caption><caption>8:30</caption><caption>9:00</caption><caption>9:30</caption><caption>10:00</caption><caption>10:30</caption><caption>11:00</caption><caption>11:30</caption><caption>12:00</caption><caption>12:30</caption><caption>13:00</caption><caption>13:30</caption><caption>14:00</caption><caption>14:30</caption><caption>15:00</caption><caption>15:30</caption><caption>16:00</caption><caption>16:30</caption><caption>17:00</caption><caption>17:30</caption><caption>18:00</caption><caption>18:30</caption><caption>19:00</caption><caption>19:30</caption><caption>20:00</caption><caption>20:30</caption><caption>21:00</caption><caption>21:30</caption><caption>22:00</caption><caption>22:30</caption><caption>23:00</caption><caption>23:30</caption>
+      </captions>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="FirstBreakFrom" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="FirstBreakTo" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="SecondBreakFrom" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="SecondBreakTo" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="CompensationData" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterQuery" name="Compensation" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetJsonForDataSource</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="DateRestRequired" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="DateRest" defaultValue="" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="RestDateFrom" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="RestDateTo" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterDateTime" name="EndDateRest" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterSelect" name="BeginDateRestTime" defaultValue="-1" isRequired="true" isCollection="false">
+      <values>
+        <value>-1</value><value>0</value><value>30</value><value>60</value><value>90</value><value>120</value><value>150</value><value>180</value><value>210</value><value>240</value><value>270</value><value>300</value><value>330</value><value>360</value><value>390</value><value>420</value><value>450</value><value>480</value><value>510</value><value>540</value><value>570</value><value>600</value><value>630</value><value>660</value><value>690</value><value>720</value><value>750</value><value>780</value><value>810</value><value>840</value><value>870</value><value>900</value><value>930</value><value>960</value><value>990</value><value>1020</value><value>1050</value><value>1080</value><value>1110</value><value>1140</value><value>1170</value><value>1200</value><value>1230</value><value>1260</value><value>1290</value><value>1320</value><value>1350</value><value>1380</value><value>1410</value>
+      </values>
+      <captions>
+        <caption> </caption><caption>0:00</caption><caption>0:30</caption><caption>1:00</caption><caption>1:30</caption><caption>2:00</caption><caption>2:30</caption><caption>3:00</caption><caption>3:30</caption><caption>4:00</caption><caption>4:30</caption><caption>5:00</caption><caption>5:30</caption><caption>6:00</caption><caption>6:30</caption><caption>7:00</caption><caption>7:30</caption><caption>8:00</caption><caption>8:30</caption><caption>9:00</caption><caption>9:30</caption><caption>10:00</caption><caption>10:30</caption><caption>11:00</caption><caption>11:30</caption><caption>12:00</caption><caption>12:30</caption><caption>13:00</caption><caption>13:30</caption><caption>14:00</caption><caption>14:30</caption><caption>15:00</caption><caption>15:30</caption><caption>16:00</caption><caption>16:30</caption><caption>17:00</caption><caption>17:30</caption><caption>18:00</caption><caption>18:30</caption><caption>19:00</caption><caption>19:30</caption><caption>20:00</caption><caption>20:30</caption><caption>21:00</caption><caption>21:30</caption><caption>22:00</caption><caption>22:30</caption><caption>23:00</caption><caption>23:30</caption>
+      </captions>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterSelect" name="EndDateRestTime" defaultValue="-1" isRequired="true" isCollection="false">
+      <values>
+        <value>-1</value><value>0</value><value>30</value><value>60</value><value>90</value><value>120</value><value>150</value><value>180</value><value>210</value><value>240</value><value>270</value><value>300</value><value>330</value><value>360</value><value>390</value><value>420</value><value>450</value><value>480</value><value>510</value><value>540</value><value>570</value><value>600</value><value>630</value><value>660</value><value>690</value><value>720</value><value>750</value><value>780</value><value>810</value><value>840</value><value>870</value><value>900</value><value>930</value><value>960</value><value>990</value><value>1020</value><value>1050</value><value>1080</value><value>1110</value><value>1140</value><value>1170</value><value>1200</value><value>1230</value><value>1260</value><value>1290</value><value>1320</value><value>1350</value><value>1380</value><value>1410</value>
+      </values>
+      <captions>
+        <caption> </caption><caption>0:00</caption><caption>0:30</caption><caption>1:00</caption><caption>1:30</caption><caption>2:00</caption><caption>2:30</caption><caption>3:00</caption><caption>3:30</caption><caption>4:00</caption><caption>4:30</caption><caption>5:00</caption><caption>5:30</caption><caption>6:00</caption><caption>6:30</caption><caption>7:00</caption><caption>7:30</caption><caption>8:00</caption><caption>8:30</caption><caption>9:00</caption><caption>9:30</caption><caption>10:00</caption><caption>10:30</caption><caption>11:00</caption><caption>11:30</caption><caption>12:00</caption><caption>12:30</caption><caption>13:00</caption><caption>13:30</caption><caption>14:00</caption><caption>14:30</caption><caption>15:00</caption><caption>15:30</caption><caption>16:00</caption><caption>16:30</caption><caption>17:00</caption><caption>17:30</caption><caption>18:00</caption><caption>18:30</caption><caption>19:00</caption><caption>19:30</caption><caption>20:00</caption><caption>20:30</caption><caption>21:00</caption><caption>21:30</caption><caption>22:00</caption><caption>22:30</caption><caption>23:00</caption><caption>23:30</caption>
+      </captions>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterReferenceRecord" name="Reason" defaultValue="" isRequired="true" isCollection="false">
+      <systemName>HRPro</systemName>
+      <referenceName>IWeekendWorkReasons</referenceName>
+      <displayRequisite>Name</displayRequisite>
+      <storeRequisite>Id</storeRequisite>
+      <filter>Status eq 'Active'</filter>
+      <isUserQuerySupported>true</isUserQuerySupported>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ReasonDescription" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>250</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DocumentId" defaultValue="0" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="DocKindGuid" defaultValue="be02cd65-6ac9-4482-af5c-9425dab371c9" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <parameterName>Initiator</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        var initiatorId = formItem.value || functions.getValues().Initiator;
+        if (initiatorId != null) {
+          functions.removeError(window.errorInitiator);
+          ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned?employeeId=${initiatorId}`)
+          .then(function (isConsentSigned) {
+            if (isConsentSigned != true) {
+              window.errorInitiator = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+            }
+          })
+          .catch(function (error) {
+            ESS.toasts.showToast(error.message, 'danger', false);
+          });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="BeginDateWork">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label>@.FACILITIES_WEEKENDWORK_BEGINDATEWORK</label>
+      <parameterName>BeginDateWork</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        window.checkDate(formItem.name, null, ESS.L('@HRPROSTATEMENTS.FACILITIES_WEEKENDWORK_BEGINDATE_ERROR'));
+        window.checkDateRest();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormGroup" name="TimeWorkGroup" />
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label></label>
+      <parameterName>BeginDateWorkTime</parameterName>
+      <groupName>TimeWorkGroup</groupName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label></label>
+      <parameterName>EndDateWorkTime</parameterName>
+      <groupName>TimeWorkGroup</groupName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="Compensation">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label>@.FACILITIES_WEEKENDWORK_COMPENSATION</label>
+      <parameterName>Compensation</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        var compensationData = JSON.parse(functions.getValues().CompensationData);
+        var compensation = compensationData.find(item => item.Id == formItem.value);
+        var isRest = compensation.NeedRestDate;
+        var IsRestRequired = compensation.IsRestDateRequired;
+        functions.setIsItemHidden('DateRest', !isRest || IsRestRequired);
+        functions.setIsItemHidden('DateRestRequired', !isRest || !IsRestRequired);
+        functions.setIsItemHidden('BeginDateRestTime', !isRest);
+        functions.setIsItemHidden('EndDateRestTime', !isRest);
+        if (!isRest) {
+          if (functions.getValues().DateRest) {
+            functions.removeError(window[`errorDateRest`]);
+            functions.removeError(window[`errorDateRestReq`]);
+            functions.setValue('DateRest', null);
+            functions.setValue('DateRestRequired', null);
+          }
+          functions.removeError(window[`errorEndRestTime`]);
+          functions.setValue('BeginDateRestTime', -1);
+          functions.setValue('EndDateRestTime', -1);
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="DateRest">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_WEEKENDWORK_DATEREST</label>
+      <parameterName>DateRest</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        functions.setValue('DateRestRequired', formItem.value);
+        window.checkDateRest();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="DateRestRequired">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_WEEKENDWORK_DATEREST</label>
+      <parameterName>DateRestRequired</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        functions.setValue('DateRest', formItem.value);
+        window.checkDateRest();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormGroup" name="DateRestTime"/>
+    <facilityFormItem type="FacilityFormParameter" name="BeginDateRestTime">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label></label>
+      <parameterName>BeginDateRestTime</parameterName>
+      <parentName>DateRestTime</parentName>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(window.errorBeginDateRestTime);
+        window.checkEndRestTime();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="EndDateRestTime">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label></label>
+      <parameterName>EndDateRestTime</parameterName>
+      <parentName>DateRestTime</parentName>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(window.errorEndDateRestTime);
+        window.checkEndRestTime();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_WEEKENDWORK_ADDITIONALAPPROVER</label>
+      <placeholder />
+      <parameterName>AdditionalApprover</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        var additionalApproverId = formItem.value;
+        if (additionalApproverId) {
+          ESS.network.sendRequest(`/api/functions/NNGetSubstitutePositionAndJobTitle?employeeId=${additionalApproverId}`)
+          .then(function (employeePosition) {
+            functions.setValue('AdditionalApproverPosition', employeePosition);
+          })
+          .catch(function (error) {
+            ESS.toasts.showToast(error.message, 'danger', false);
+          });
+        }
+        else {
+          functions.setValue('AdditionalApproverPosition', null);
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+      {{#AdditionalApproverPosition}}
+      &nbsp;   {{{AdditionalApproverPosition}}}
+      {{/AdditionalApproverPosition}}
+      ]]></content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint></hint>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_WEEKENDWORK_REASON</label>
+      <parameterName>Reason</parameterName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint></hint>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_WEEKENDWORK_REASONDESCRIPTION</label>
+      <parameterName>ReasonDescription</parameterName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Заполнить данные в заявлении на работу в выходной и/или праздничный день." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNOtherProcesses.FillStatementDataForWeekendWork</property>
+        <property name="ExecutionMethod">Post</property>
+        <property name="docId" binding="DocumentId" type="Int" />
+        <property name="docKindGuid" binding="DocKindGuid" type="String" />
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="reasonId" binding="Reason" type="Int" />
+        <property name="compensation" binding="Compensation" type="Int" />
+        <property name="description" binding="ReasonDescription" type="String" />
+        <property name="workFrom" binding="WorkDateFrom" type="String" />
+        <property name="workTo" binding="WorkDateTo" type="String" />
+        <property name="firstBreakFrom" binding="FirstBreakFrom" type="String" />
+        <property name="firstBreakTo" binding="FirstBreakTo" type="String" />
+        <property name="secondBreakFrom" binding="SecondBreakFrom" type="String" />
+        <property name="secondBreakTo" binding="SecondBreakTo" type="String" />
+        <property name="restFrom" binding="RestDateFrom" type="String" />
+        <property name="restTo" binding="RestDateTo" type="String" />
+        <property name="additionalApproverId" binding="AdditionalApprover" type="Int" />
+        <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="1" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">2</property>
+        <property name="GroupName">DocumentGroup</property>
+        <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="2" name="StartWeekendWorkTask" title="Запустить задачу на согласование заявки" type="StartWorkProcessStep">
+        <property name="ProcessName">IWeekendWorkTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="Subject">@HRPROSTATEMENTS.FACILITIES_STATEMENTUPDATEPERSONALDATA_FLOWSTEP_STARTSTATEMENTTASK_SUBJECT</property>
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+  if (window.isFacilityRunning ?? false) {
+    reject();
+  }
+  else {
+    window.isFacilityRunning = true;
+    var initiatorId = functions.getValues().Initiator;
+    ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+    .then(function (initiatorId){
+      ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+      .then(function (employee){
+        ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned`)
+        .then(function (isConsentSigned) {
+          if (isConsentSigned != true && employee.positions.length == 1) {
+            ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+            reject();
+          }
+          else {
+            if (employee.positions.length == 1) {
+              functions.setValue('Initiator', initiatorId);
+            }
+            var docKindGuid = functions.getValues().DocKindGuid;
+            ESS.network.sendRequest(`/api/functions/GetCompensationKindsByDocKind?docKindGuid=${docKindGuid}`)
+            .then(function (compensationData) {
+              var compensationDataJSON = JSON.stringify(compensationData);
+              functions.setValue('CompensationData', compensationDataJSON);
+              functions.setDataSource('Compensation', `/api/functions/GetJsonForDataSource?json=${compensationDataJSON}`);
+              resolve();
+            });
+          }
+        })
+        .catch(function (error) {
+          ESS.toasts.showToast(error.message, 'danger', false);
+        });
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, 'danger', false);
+      });
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+    });
+  }
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[
+    window.getDateTime = function (formItemName) {
+      var date = functions.getValues().BeginDateWork;
+      if (date == null)
+        return null;
+      var minutes = functions.getValues()[`${formItemName}Time`] ?? 0;
+      var dateTime = new Date(new Date(date).setHours(0, minutes, 0, 0));
+      return dateTime;
+    }
+    
+    window.getDateTimeToString = function (formItemName) {
+      var dateTime = window.getDateTime(formItemName);
+      if (dateTime == null)
+        return '';
+      return dateTime.toLocaleString();
+    }
+    
+    window.checkDate = function (formItemName, formItemNameBegin, errorText) {
+      var formItemValue = functions.getValues()[`${formItemName}`];
+      if (formItemValue != null) {
+        var today = new Date().setHours(0, 0, 0, 0);
+        var date = window.getDateTime(formItemName);
+        var beginDate = window.getDateTime(formItemNameBegin);
+        functions.removeError(window[`errorDate${formItemName}`]);
+        if ((date.getTime() < today) || (beginDate != null && date.getTime() < beginDate.getTime())) {
+          window[`errorDate${formItemName}`] = functions.showError(errorText, undefined, ESS.enums.FormErrorType.UNSPECIFIED, formItemName);
+        }
+      }
+    }
+
+    window.checkEndRestTime = function () {
+      var beginRestTime = +functions.getValues().BeginDateRestTime;
+      var endRestTime = +functions.getValues().EndDateRestTime;
+      functions.removeError(window[`errorEndRestTime`]);
+      if (endRestTime != -1 && beginRestTime > endRestTime) {
+        window[`errorEndRestTime`] = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_WEEKENDWORK_ENDDATEREST_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, 'EndDateRestTime');
+      }
+    }
+
+    window.checkDateRest = function () {
+      var dateRest = functions.getValues().DateRest;
+      var dateWork = functions.getValues().BeginDateWork;
+      functions.removeError(window[`errorDateRest`]);
+      functions.removeError(window[`errorDateRestReq`]);
+      if (dateRest && dateWork && new Date(dateRest).getTime() != 0 && new Date(dateRest).getTime() <= new Date(dateWork).getTime()) {
+        window[`errorDateRest`] = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_WEEKENDWORK_DATEREST_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, 'DateRest');
+        window[`errorDateRestReq`] = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_WEEKENDWORK_DATEREST_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, 'DateRestRequired');
+      }
+    }
+  ]]></openedEventHandler>
+  <beforeSubmitEventHandler><![CDATA[
+    var initiatorId = functions.getValues().Initiator;
+    var docKindGuid = functions.getValues().DocKindGuid;
+    var workDateFrom = window.getDateTimeToString('BeginDateWork');
+    var workDateTo = window.getDateTimeToString('EndDateWork');
+    functions.setValue('WorkDateFrom', workDateFrom);
+    functions.setValue('WorkDateTo', workDateTo);
+
+    var restDate = functions.getValues().DateRest;
+    var beginDateRestTime = functions.getValues().BeginDateRestTime;
+    var endDateRestTime = functions.getValues().EndDateRestTime;
+    functions.removeError(window.errorBeginDateRestTime);
+    functions.removeError(window.errorEndDateRestTime);
+    if (restDate && (beginDateRestTime == -1 || endDateRestTime == -1)) {
+      if (beginDateRestTime == -1)
+        window.errorBeginDateRestTime = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_WEEKENDWORK_RESTTIME_REQUIRED_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, 'BeginDateRestTime');
+      if (endDateRestTime == -1)
+        window.errorEndDateRestTime = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_WEEKENDWORK_RESTTIME_REQUIRED_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, 'EndDateRestTime');
+      reject();
+      return;
+    }
+    var restDateFrom = '';
+    var restDateTo = '';
+    if (restDate) {
+      restDateFrom = new Date(new Date(restDate).setHours(0, beginDateRestTime, 0, 0)).toLocaleString();
+      restDateTo = new Date(new Date(restDate).setHours(0, endDateRestTime, 0, 0)).toLocaleString();
+      functions.setValue('RestDateFrom', restDateFrom);
+      functions.setValue('RestDateTo', restDateTo);
+    }
+
+    ESS.network.sendRequest(`/api/functions/ValidateWeekendWorkStatementInExternalSystem?DocKindGuid=${docKindGuid}&EmployeeId=${initiatorId}&WorkDateFrom=${workDateFrom}&WorkDateTo=${workDateTo}&RestDateFrom=${restDateFrom}&RestDateTo=${restDateTo}`)
+    .then(function (result) {
+      if (result && result.length != 0) {
+        ESS.toasts.showToast(result, 'danger', false);
+        reject();
+      }
+      else {
+        resolve();
+      }
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></beforeSubmitEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    window.isFacilityRunning = false;
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') 
+    {
+      ESS.closeElement(sender.parent); 
+      ESS.widgets.updateWidgets();
+    }
+    ]]></closedEventHandler>
+  <contractForm>True</contractForm >
+  <successMessage>@HRPROVACATIONS.FACILITIES_GETVACATION_SUCCESSMESSAGE</successMessage>
+</facility>

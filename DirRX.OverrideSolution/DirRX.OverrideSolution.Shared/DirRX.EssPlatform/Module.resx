@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SupernikaNotificationErrorSubject" xml:space="preserve">
+    <value>Error sending notification to Supernika</value>
+  </data>
+  <data name="SupernikaNotificationAsyncHandlerErrorText" xml:space="preserve">
+    <value>The task id {0} could not be found. The maximum number of JSC restarts has been reached.</value>
+  </data>
+  <data name="RoleName_ShowTileMyVacations" xml:space="preserve">
+    <value>The visibility of the tile in the "My vacation"</value>
+  </data>
+  <data name="RoleDescription_ShowTileMyVacations" xml:space="preserve">
+    <value>Provides visibility tile "My vacations".</value>
+  </data>
+  <data name="RoleName_ShowTileGetAnnualVacation" xml:space="preserve">
+    <value>The visibility of the tile in the "Get annual vacation"</value>
+  </data>
+  <data name="RoleName_ShowTileGetVacationWithoutPay" xml:space="preserve">
+    <value>The visibility of the tile in the "Get vacation without pay"</value>
+  </data>
+  <data name="RoleName_ShowTileGetOtherVacation" xml:space="preserve">
+    <value>The visibility of the tile in the "Get other vacation"</value>
+  </data>
+  <data name="RoleName_ShowTileNNShiftVacationByStatement" xml:space="preserve">
+    <value>The visibility of the tile in the "Shift vacation"</value>
+  </data>
+  <data name="RoleName_ShowTileCompensationVacation" xml:space="preserve">
+    <value>The visibility of the tile in the "Compensation vacation"</value>
+  </data>
+  <data name="RoleName_ShowTileNNRecallVacationEmployee" xml:space="preserve">
+    <value>The visibility of the tile in the "Recall vacation employee"</value>
+  </data>
+  <data name="RoleName_ShowTileNNSelfRecallVacationEmployee" xml:space="preserve">
+    <value>The visibility of the tile in the "Self recall vacation"</value>
+  </data>
+  <data name="RoleName_ShowTileStatements" xml:space="preserve">
+    <value>The visibility of the tile in the "Statements"</value>
+  </data>
+  <data name="RoleName_ShowTileWeekendWork" xml:space="preserve">
+    <value>The visibility of the tile in the "Weekend work"</value>
+  </data>
+  <data name="RoleName_ShowTileOvertimeWork" xml:space="preserve">
+    <value>The visibility of the tile in the "Overtime work"</value>
+  </data>
+  <data name="RoleName_ShowTileGetLrdPayment" xml:space="preserve">
+    <value>The visibility of the tile in the "Get lrd payment"</value>
+  </data>
+  <data name="RoleDescription_ShowTileGetAnnualVacation" xml:space="preserve">
+    <value>Provides visibility tile "Get annual vacation".</value>
+  </data>
+  <data name="RoleDescription_ShowTileGetVacationWithoutPay" xml:space="preserve">
+    <value>Provides visibility tile "Get vacation without pay".</value>
+  </data>
+  <data name="RoleDescription_ShowTileGetOtherVacation" xml:space="preserve">
+    <value>Provides visibility tile "Get other vacation".</value>
+  </data>
+  <data name="RoleDescription_ShowTileNNShiftVacationByStatement" xml:space="preserve">
+    <value>Provides visibility tile "Shift vacation".</value>
+  </data>
+  <data name="RoleDescription_ShowTileCompensationVacation" xml:space="preserve">
+    <value>Provides visibility tile "Compensation vacation".</value>
+  </data>
+  <data name="RoleDescription_ShowTileNNRecallVacationEmployee" xml:space="preserve">
+    <value>Provides visibility tile "Recall vacation employee".</value>
+  </data>
+  <data name="RoleDescription_ShowTileNNSelfRecallVacationEmployee" xml:space="preserve">
+    <value>Provides visibility tile "Self recall vacation".</value>
+  </data>
+  <data name="RoleDescription_ShowTileStatements" xml:space="preserve">
+    <value>Provides visibility tile "Statements".</value>
+  </data>
+  <data name="RoleDescription_ShowTileWeekendWork" xml:space="preserve">
+    <value>Provides visibility tile "Weekend work".</value>
+  </data>
+  <data name="RoleDescription_ShowTileOvertimeWork" xml:space="preserve">
+    <value>Provides visibility tile "Overtime work".</value>
+  </data>
+  <data name="RoleDescription_ShowTileGetLrdPayment" xml:space="preserve">
+    <value>Provides visibility tile "Get lrd payment".</value>
+  </data>
+</root>

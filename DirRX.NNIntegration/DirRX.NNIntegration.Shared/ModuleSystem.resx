@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Integration settings</value>
+  </data>
+  <data name="CoverTitle" xml:space="preserve">
+    <value>Integration settings</value>
+  </data>
+  <data name="AsyncHandler_Description_61cd9a11ca0040c2b788f7f68419a647" xml:space="preserve">
+    <value>Create and send outgoing messages</value>
+  </data>
+  <data name="JobDisplayName_64b0d5129fb94ed895b38b9bccef45d7" xml:space="preserve">
+    <value>Норникель. Updating company structure</value>
+  </data>
+  <data name="JobDescription_64b0d5129fb94ed895b38b9bccef45d7" xml:space="preserve">
+    <value>The job is designed to update the organizational structure by processing incoming data stored in the directories department queue databook, job title queue databook, employee queue databook.</value>
+  </data>
+  <data name="JobDisplayName_ac273d5c71b04acc849ac10b3ee6634c" xml:space="preserve">
+    <value>Норникель. Clearing organizational structure queues</value>
+  </data>
+  <data name="JobDescription_ac273d5c71b04acc849ac10b3ee6634c" xml:space="preserve">
+    <value>The job is designed to clear the directories Queue of the Divisions directory, Queue of the Positions directory and Queue of the Employees directory.</value>
+  </data>
+  <data name="AsyncHandler_Description_79c0b98a0407456dac712c31ae51198d" xml:space="preserve">
+    <value>Send outgoing message</value>
+  </data>
+  <data name="JobDisplayName_154d5083a7f7432da3a170e01912fa97" xml:space="preserve">
+    <value>Норникель. Cleaning the registry of integration messages</value>
+  </data>
+  <data name="JobDescription_154d5083a7f7432da3a170e01912fa97" xml:space="preserve">
+    <value>The background process is designed to clear the registry of integration messages.</value>
+  </data>
+  <data name="AsyncHandler_Description_ad6e8719f2194237a2959f99bd0b38ec" xml:space="preserve">
+    <value>Обработка входящих интеграционных сообщений</value>
+  </data>
+  <data name="Block_4ecafa0d54cc42c19b2c8add5a9a854e" xml:space="preserve">
+    <value>Sending data to external system</value>
+  </data>
+  <data name="Block_4ecafa0d54cc42c19b2c8add5a9a854e_Property_fbc9e470b03140ee81485f0bcd5590ff" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="Block_8a693c2d33b74347be5df347aa3f8709" xml:space="preserve">
+    <value>Sending documents to the SAP</value>
+  </data>
+  <data name="Block_8a693c2d33b74347be5df347aa3f8709_Property_e387a84b2d6f43769b2b77ee7cb06d78" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="AsyncHandler_Description_1431565b06ce464182cc05e34857e851" xml:space="preserve">
+    <value>Clearing accounts from part-timers</value>
+  </data>
+  <data name="JobDisplayName_d713e21267c248fe87f3a85629f139c7" xml:space="preserve">
+    <value>Норникель. Executing tasks from push notifications in Supernika</value>
+  </data>
+  <data name="JobDescription_d713e21267c248fe87f3a85629f139c7" xml:space="preserve">
+    <value>The background process is designed to perform tasks from push notifications in Supernika</value>
+  </data>
+  <data name="JobDisplayName_84e1fa9dbded497798b0ef3460bf5dd7" xml:space="preserve">
+    <value>Норникель. Supernika push notifications cleaning</value>
+  </data>
+  <data name="JobDescription_84e1fa9dbded497798b0ef3460bf5dd7" xml:space="preserve">
+    <value>The background process is designed to clean up the "Push Notification directory in Supernika"</value>
+  </data>
+  <data name="AsyncHandler_Description_296dcf96cda54e1399eb07a7fda113d3" xml:space="preserve">
+    <value>Issue a certificate asynchronously to the main employee</value>
+  </data>
+  <data name="AsyncHandler_Description_f4a5fbdbcc2a419eb0a440af14357518" xml:space="preserve">
+    <value>Reissue a certificate to an employee asynchronously</value>
+  </data>
+  <data name="AsyncHandler_Description_6ddf81c3aebb4f31b7fd89d6c0017961" xml:space="preserve">
+    <value>Saving the status of a message sent at Supernika</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_75db5fc21eb743d8aa3497e567821c55" xml:space="preserve">
+    <value>Rewrite PublicBody?</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_a84cc0e01fde40c1bf8ce425f68224e7" xml:space="preserve">
+    <value>Signature type</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_5e6d79fb15714b5589b0fc00aaf6ff6e_Enum_95d5117d177f44ca85ca830f5ea6654c" xml:space="preserve">
+    <value>Simple signature</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_5e6d79fb15714b5589b0fc00aaf6ff6e_Enum_ad51bcb493e44f398645ed8f9ac5926e" xml:space="preserve">
+    <value>EQ signature</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d" xml:space="preserve">
+    <value>Send documents to stamping</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_a84cc0e01fde40c1bf8ce425f68224e7_Enum_172f2dc103ee42d5af0125ac2e5eac7f" xml:space="preserve">
+    <value>Simple signature</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_a84cc0e01fde40c1bf8ce425f68224e7_Enum_56cbb8ea83ca47e689100289a2a98318" xml:space="preserve">
+    <value>Qualified</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_770823a974d84a98a1b25608669eaf12" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Block_d1e6d3cfecb64303b072942da1683f9d_Property_a84cc0e01fde40c1bf8ce425f68224e7_Enum_83180a61ef6d4bb29ee2ec8f870b3a56" xml:space="preserve">
+    <value>Not defined</value>
+  </data>
+  <data name="AsyncHandler_Description_1b45378285ce4db39135c5c39c1ac88b" xml:space="preserve">
+    <value>Create restamping tasks</value>
+  </data>
+  <data name="JobDisplayName_7034689ec37b453f81d01b74580cc85c" xml:space="preserve">
+    <value>Норникель. Sending messages from the Push-notifications to Supernika</value>
+  </data>
+  <data name="JobDescription_7034689ec37b453f81d01b74580cc85c" xml:space="preserve">
+    <value>The background process is responsible for sending messages from the "Push Notifications to Superniku" directory, whose scheduled date and time have already passed and which have the status "Scheduled to be sent to Message Broker." 
+If a record in the "Push Notifications to Superniku" directory is locked, the message is skipped and will be sent during the next background process run.</value>
+  </data>
+  <data name="Block_7786250a2ce54a6cb90b93c09ddd2ee3" xml:space="preserve">
+    <value>Get data from incoming message</value>
+  </data>
+  <data name="Block_7786250a2ce54a6cb90b93c09ddd2ee3_Property_b1fbaa59871b46b584b53c39dbfcb874" xml:space="preserve">
+    <value>Boolean value</value>
+  </data>
+  <data name="Block_7786250a2ce54a6cb90b93c09ddd2ee3_Property_b8ecba30e0b445ab801636810aaf08d5" xml:space="preserve">
+    <value>External system flow of outgoing message</value>
+  </data>
+  <data name="Block_7786250a2ce54a6cb90b93c09ddd2ee3_Property_66a5ffadcdbf4b92acdedae4890dc90b" xml:space="preserve">
+    <value>Task</value>
+  </data>
+</root>

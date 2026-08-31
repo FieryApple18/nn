@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="GetNotSignedAdditionalAgreementAssigments">
+    <default><![CDATA[SELECT DISTINCT perf.performer AS Performer, COUNT(ass.id) AS Count
+FROM public.dirrx_overrid_empperformers AS perf /* Исполнители виртуальных сотрудников */
+JOIN public.dirrx_overrid_hrprocesstaska AS addappr ON addappr.approverid = perf.recipient /* поле Доп. согласующие в задаче, в котором указан виртуальный сотрудник */
+JOIN public.sungero_wf_task AS task ON task.id = addappr.task /* Задачи, в которых в которых указан виртуальный сотрудник */
+JOIN public.sungero_wf_attachment AS att ON att.task = task.id /* Вложения задач */
+JOIN public.sungero_content_edoc AS doc ON doc.id = att.attachmentid /* Документы, соответствующие вложениям */
+JOIN public.sungero_wf_assignment AS ass ON ass.task =task.id /* Задания в найденных задачах */
+
+WHERE task.discriminator = '566085b8-4b6f-4f53-b03c-d082b4285e75' /*Задача на обработку документов связанных с работой */
+	AND task.status = 'InProcess'
+	AND doc.intapprstate_docflow_sungero = 'PendingSign'
+	AND doc.documentkind_docflow_sungero = {0}
+	AND ass.discriminator = '5ee48db8-f4d6-4268-8605-78a37181c858' /* Задание на подписание документов утверждающей подписью */
+	AND ass.status = 'InProcess'
+GROUP BY perf.performer]]></default>
+  </query>
+</queries>

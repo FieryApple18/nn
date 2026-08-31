@@ -1,0 +1,108 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "5a2299f0-3725-44d7-a007-f766b841d0a5",
+  "Name": "VacationNoticeDocumentVacationDataDirRX",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "VacationNotice",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "NonVisualAuthorizationMode": "FullAccess",
+  "Overridden": [
+    "AccessRightsMode",
+    "NonVisualAuthorizationMode"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "479b6d68-1c68-485a-bb51-936b828cd1b0",
+      "Name": "VacationNoticeDocument",
+      "CanBeSearch": false,
+      "Code": "EDoc",
+      "EntityGuid": "9ce75c03-7d0d-4077-9aa8-842a6db23dd2",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "70b0536d-3770-4928-aeec-da006214d08c",
+      "Name": "VacationType",
+      "CanBeSearch": false,
+      "Code": "VacationType",
+      "EntityGuid": "35e0a45e-e5a4-48cb-ac68-cbd72d281997",
+      "FlatListInStandaloneLookup": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "479b6d68-1c68-485a-bb51-936b828cd1b0",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "12a69a92-53fe-401b-bf6a-a05f50da6619",
+      "Name": "StartDate",
+      "CanBeSearch": false,
+      "Code": "StartDate",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "70b0536d-3770-4928-aeec-da006214d08c",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9fe70f12-acf5-4279-82cf-95e36e7ce4de",
+      "Name": "EndDate",
+      "CanBeSearch": false,
+      "Code": "EndDate",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "12a69a92-53fe-401b-bf6a-a05f50da6619",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1a57b195-e538-4747-89a0-10fe6078b84e",
+      "Name": "Days",
+      "CanBeSearch": false,
+      "Code": "Days",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "9fe70f12-acf5-4279-82cf-95e36e7ce4de",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9c9ac28e-0c87-44fe-b344-2798acdc3aa7",
+      "Name": "PlannedAbsence",
+      "CanBeSearch": false,
+      "Code": "PlannedAbsence",
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 4,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1a57b195-e538-4747-89a0-10fe6078b84e",
+      "Versions": []
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "fa2d33d3-8086-47d6-a4af-c81120db0586",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "63416072-4888-46db-830c-394196a93680",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

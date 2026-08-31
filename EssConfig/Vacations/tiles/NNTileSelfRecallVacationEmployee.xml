@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="NNSelfRecallVacationEmployee" index="26">
+  <authorization>
+    <allow roles="Employee" />
+    <deny roles="DenyTileNNSelfRecallVacationEmployee" />
+  </authorization>
+  <backgroundColor>#0070C8</backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_NNSELFRECALLVACATIONEMPLOYEE_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[
+    ESS.actions.facilityActions.runFacility({ id: 'ed77b69f-a742-4f6f-af3d-97a8fe63133b'});
+  ]]></clickEventHandler>
+</tile>

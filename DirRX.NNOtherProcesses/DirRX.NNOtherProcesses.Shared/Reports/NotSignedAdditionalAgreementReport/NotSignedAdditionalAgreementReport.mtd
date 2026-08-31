@@ -1,0 +1,50 @@
+{
+  "$type": "Sungero.Metadata.ReportMetadata, Sungero.Reporting.Shared",
+  "NameGuid": "d22d9385-eb1a-4e7a-a6f8-56693ed972e0",
+  "Name": "NotSignedAdditionalAgreementReport",
+  "AssociatedGuid": "a1ad1487-7b84-400d-b5ab-2bb0b2bd7c65",
+  "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
+  "DataSources": [],
+  "DefaultExportFormat": "Excel",
+  "ExportFormats": [
+    "Excel"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNOtherProcessesNotSignedAdditionalAgreementReport",
+  "Overridden": [
+    "PublicConstants",
+    "PublicStructures",
+    "DisplayName",
+    "ExportFormats",
+    "DefaultExportFormat",
+    "HandledEvents",
+    "Parameters"
+  ],
+  "Parameters": [
+    {
+      "NameGuid": "0e638d8f-3e98-4ab1-a744-269d8457b452",
+      "Name": "EmployeeId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "182209f2-05e0-42fa-950c-b4afe2d48e75",
+      "Name": "HyperlinkTemplate",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "df71289f-8d58-48b1-9707-8568ba070dae",
+      "Name": "DocKindId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "Versions": [
+    {
+      "Type": "ReportMetadata",
+      "Number": 1
+    }
+  ]
+}

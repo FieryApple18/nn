@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<solution id="21207082-9abb-4845-b4fa-9b9b07ddd538" name="SubstitutionAssignments">
+  <title>SubstitutionAssignments</title>
+  <version>1.0.0.0</version>
+  <dataSchemeVersion>1.4.60</dataSchemeVersion>
+  <facilityGroups>
+    <facilityGroup name="SubstitutionAssignmentsGroup" isVisible="true">
+      <icon>vacation</icon>
+      <title>@.FACILITYGROUP_TITLE</title>
+      <priority>0</priority>
+      <collectAllNotifications>false</collectAllNotifications>
+      <views>
+        <view device="Web" container="StackPanel">
+          <bounds>
+            <bound widgetName="SubstitutionAssignmentsWidget" />
+          </bounds>
+        </view>
+        <view device="Mobile" container="StackPanel">
+          <bounds>
+            <bound widgetName="SubstitutionAssignmentsWidget" />
+          </bounds>
+        </view>
+      </views>
+    </facilityGroup>
+  </facilityGroups>
+  <widgets>
+    <widget name="SubstitutionAssignmentsWidget" type="workItemList">
+      <title>@.WIDGET_TITLE</title>
+      <icon>clock</icon>
+      <dataSourceUrl>/api/substitutionAssignments</dataSourceUrl>
+      <properties>
+        <defaultObjectCard>Default</defaultObjectCard>
+        <workItemSubtitle>@.WIDGET_SUBTITLE</workItemSubtitle>
+      </properties>
+    </widget>
+  </widgets>
+  <projections>
+	<projection name="substitutionAssignments" title="Требуют действий">
+      <properties>
+        <property name="deadline" caption="Срок" type="DateTime" />
+        <property name="assignee" caption="Замещаемый сотрудник" type="String" />
+        <property name="created" caption="Дата создания" type="DateTime" />
+        <property name="id" caption="Идентификатор" type="String" />
+        <property name="isExpired" caption="Признак просроченности" type="Boolean" />
+        <property name="isRead" caption="Признак прочитанности" type="Boolean" />
+        <property name="name" caption="Имя" type="String" />
+        <property name="system" caption="Имя системы" type="String" />
+        <property name="title" caption="Заголовок" type="String" />
+        <property name="icon" caption="Иконка" type="String" />
+        <property name="isExecutable" caption="Признак возможности выполнения по замещению" type="Boolean" />	
+      </properties>
+	  <sources>
+	    <source path ="/api/functions/GetSubstitutionAssignmentsForWorkItemList?personId=$(CurrentUser.DirectumRX.PersonId)">
+	      <mapping>
+            <map sourceProperty="deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="assignee" destProperty="assignee" mode="PropertyToProperty" />
+            <map sourceProperty="created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="isExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="isRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="system" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="icon" destProperty="icon" mode="PropertyToProperty" />
+            <map sourceProperty="isExecutable" destProperty="isExecutable" mode="PropertyToProperty" />
+		  </mapping>
+		</source>
+	  </sources>
+    </projection>
+  </projections>
+  <functions>
+    <function name="GetSubstitutionAssignmentsForWorkItemList" type="Target" methods="GET">
+      <parameters>
+        <parameter name="personId" type="Integer" scope="Server">
+          <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+        </parameter>
+      </parameters>
+      <result type="Object" isArray="true" />
+      <target system="HRPro" function="NNOtherProcesses.GetSubstitutionAssignmentsForWorkItemList" method="GET" />
+    </function>
+  </functions>
+  <localizedStringValues>
+    <localizedStringValue code="FACILITYGROUP_TITLE" language="RU" useat="server">Задания по замещению</localizedStringValue>
+    <localizedStringValue code="FACILITYGROUP_TITLE" language="EN" useat="server">Substitution Assignments</localizedStringValue>
+    <localizedStringValue code="WIDGET_TITLE" language="RU" useat="server">Требуют действий</localizedStringValue>
+    <localizedStringValue code="WIDGET_TITLE" language="EN" useat="server">Require Actions</localizedStringValue>
+    <localizedStringValue code="WIDGET_SUBTITLE" language="RU" useat="server"><![CDATA[
+        За {{assignee}}<br/>
+        от {{#localizeDate}}{{created}}{{/localizeDate}}<br/>
+        {{#deadline}}
+          <div
+            {{#isExpired}}
+              style="
+                color: {{#getColor}}Danger50Color{{/getColor}};
+                padding: 2px 6px;
+                background-color: {{#getColor}}Danger20Color{{/getColor}};
+                border-radius: 10px;
+                display: inline-block;
+              "
+            {{/isExpired}}
+            {{^isExpired}}
+              style="
+                padding: 2px 6px;
+                display: inline-block;
+                margin-left: 2px;
+              "
+            {{/isExpired}}
+          >
+            до {{#localizeDate}}{{deadline}}{{/localizeDate}}
+          </div>
+        {{/deadline}}
+      ]]></localizedStringValue>
+    <localizedStringValue code="WIDGET_SUBTITLE" language="EN" useat="client"><![CDATA[
+        For {{assignee}}<br/>
+        from {{#localizeDate}}{{created}}{{/localizeDate}}<br/>
+        {{#deadline}}
+          <div
+            {{#isExpired}}
+              style="
+                color: {{#getColor}}Danger50Color{{/getColor}};
+                padding: 2px 6px;
+                background-color: {{#getColor}}Danger20Color{{/getColor}};
+                border-radius: 10px;
+                display: inline-block;
+              "
+            {{/isExpired}}
+            {{^isExpired}}
+              style="
+                padding: 2px 6px;
+                display: inline-block;
+                margin-left: 2px;
+              "
+            {{/isExpired}}
+          >
+            until {{#localizeDate}}{{deadline}}{{/localizeDate}}
+          </div>
+        {{/deadline}}
+      ]]></localizedStringValue>
+  </localizedStringValues>
+</solution>

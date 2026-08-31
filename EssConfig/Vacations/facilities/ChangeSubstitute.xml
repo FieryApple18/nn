@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="e1d4e6d4-1bbe-4c26-b4e1-fa143c3ee552" name="Change substitute">
+  <title>@.FACILITIES_CHANGESUBSTITUTE_TITLE</title>
+  <description></description>
+  <contractForm>true</contractForm>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterQuery" name="Substitute" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource>/</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+        <detailTemplate>
+          <![CDATA[
+            {{{BUName}}}
+            {{{DepartmentName}}}
+            {{{JobTitle}}}
+          ]]>
+        </detailTemplate>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="ItemId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="SubstituteId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="EmployeeId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint>@.FACILITIES_REFUSE_ID</hint>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>SubstituteId</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_CHANGESUBSTITUTE_SUBSTITUTE</label>
+      <placeholder />
+      <parameterName>Substitute</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        var substituteId = formItem.value;
+        var employeeId = functions.getValues().EmployeeId;
+        functions.removeError(window.errorSubstitute);
+        if (employeeId == substituteId){
+          window.errorSubstitute = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_ERROR_SUBSTITUTE'));
+        }
+
+        if (substituteId) {
+            functions.setValue('SubstituteId', substituteId);
+        }
+        else {
+          functions.setValue('SubstituteId', 0);
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <actionStep  index="0" name="CheckAssignmentInProcess"  title="Проверить, выполнено ли задание.">
+        <property name="ActionName">HRProVacations.checkAssignmentInProcess</property>
+        <property name="NextStepIndex">1</property>
+        <property name="assignmentId" binding="ItemId" type="Int" />
+      </actionStep>
+      <flowStep index="1" name="ExecuteFunction" title="Сменить замещающего в задании." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">-1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">Vacations.ChangeSubstituteInAssignment</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="assignmentId" binding="ItemId" type="Int" />
+        <property name="substituteId" binding="SubstituteId" type="Int" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    var substituteId = functions.getValues().Substitute;
+    var employeeId = functions.getValues().EmployeeId;
+    functions.setDataSource('Substitute', `/api/functions/GetEmployeesForSubstituteParameter?employeeId=${employeeId}&query={query}`);
+    if (substituteId) {
+        functions.setValue('SubstituteId', substituteId);
+        resolve();
+      } else {
+      resolve();
+    }
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+      ESS.updateElement(sender.parent);
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_CHANGESUBSTITUTE_SUCCESSMESSAGE</successMessage>
+</facility>

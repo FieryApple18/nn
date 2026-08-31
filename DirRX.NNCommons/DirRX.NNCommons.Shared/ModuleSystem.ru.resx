@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Общие настройки</value>
+  </data>
+  <data name="CoverTitle" xml:space="preserve">
+    <value>Общие настройки</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_184abb57ff1344c1bd10f99ec3941145_Enum_617e715896ba4bfbb71e54314ca49434" xml:space="preserve">
+    <value>В разработке</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_184abb57ff1344c1bd10f99ec3941145_Enum_8cf929388ac046e5912f9cfd166663c9" xml:space="preserve">
+    <value>Действующий</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_184abb57ff1344c1bd10f99ec3941145_Enum_03fa7f81c11747d7ad8f619525c29bbe" xml:space="preserve">
+    <value>Устаревший</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_8e44e8295886455fb6becbe768993735_Enum_2bed173fb6b44578af1e36287cdb9026" xml:space="preserve">
+    <value>На доработке</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_8e44e8295886455fb6becbe768993735_Enum_ac85ba414d07458aa7af79c06cf723d6" xml:space="preserve">
+    <value>На доработке</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_8e44e8295886455fb6becbe768993735_Enum_e36753b19a1d42faae2c7337223aa507" xml:space="preserve">
+    <value>На подписании</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_8e44e8295886455fb6becbe768993735_Enum_de402e6dcd8645b1a0b46233e7b275ba" xml:space="preserve">
+    <value>Подписан</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_8e44e8295886455fb6becbe768993735_Enum_6bbbc3b369fe44b289f71f652609c760" xml:space="preserve">
+    <value>Прекращено</value>
+  </data>
+  <data name="Block_89d730d6a5564fb1842109405514ea10_Property_8e44e8295886455fb6becbe768993735_Enum_ca7a1c1cd74948f691ff793c52a72668" xml:space="preserve">
+    <value>Согласован</value>
+  </data>
+  <data name="CoverAction_VerifyDocumentsInStorage" xml:space="preserve">
+    <value>Выполнить проверку документов в хранилище</value>
+  </data>
+  <data name="AsyncHandler_Description_f8a94ca646c6406a998ee373a8c6e113" xml:space="preserve">
+    <value>Проверка документов в файловом хранилище</value>
+  </data>
+  <data name="sf_ae768d64_1758_4599_936e_3f04f22151e9" xml:space="preserve">
+    <value>На подписание КЭДО</value>
+  </data>
+  <data name="FilterPanel_Tasks_fc542ae998cb42c48958b92c0a51a63b" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_Received_abb3540d2bd54bbbb492e90b6bc1e7e2" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_ThirtyDays_c280cc419f4a48748ab702ee4b0cf2ac" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_NinetyDays_ce1df4fa1f3d4e97b0a5f3eadd29ee98" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_OneHundredEightyDays_905807ff9bd14ee9a5f3afa31ee3c3a1" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_View_0d8a5e3066c240b28b5e6ce7ee6e2f1e" xml:space="preserve">
+    <value>Отобразить</value>
+  </data>
+  <data name="FilterPanel_ViewAllTasks_b3e7ac3648cf486b99c055d6e0b60f6c" xml:space="preserve">
+    <value>Все задания</value>
+  </data>
+  <data name="FilterPanel_ViewFirstHundredTasks_93f9a4799a0e46048feb8f6027770651" xml:space="preserve">
+    <value>Первые сто заданий</value>
+  </data>
+  <data name="AsyncHandler_Description_1a23a59db39341769b14e1b3a3c5933a" xml:space="preserve">
+    <value>Обновить состав участников обобщённой роли после удаления записи ограничения видимости документов.</value>
+  </data>
+  <data name="AsyncHandler_Description_db45dc09acd6422c9675e9e8ae098731" xml:space="preserve">
+    <value>Обновить состав участников обобщённой роли после изменения ограничения видимости документов.</value>
+  </data>
+  <data name="Block_b371c3ee9f41412c820ecd61a87dad35" xml:space="preserve">
+    <value>Прекращение связанной задачи</value>
+  </data>
+  <data name="Block_b371c3ee9f41412c820ecd61a87dad35_Property_fd9bcfeb4c4f444590d077053df6794a" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="Block_b0642a532e904343bdb7e8766fe5e777_Property_4ed6e1e616274aa78f7aba995826e274" xml:space="preserve">
+    <value>Тип связи</value>
+  </data>
+  <data name="Block_b0642a532e904343bdb7e8766fe5e777_Property_342e54de1780427d9f5d37ae1d0a59e1" xml:space="preserve">
+    <value>Основной документ</value>
+  </data>
+  <data name="Block_b0642a532e904343bdb7e8766fe5e777_Property_82559d0f78d94e7c923836b9e78f1c76" xml:space="preserve">
+    <value>Связанные документы</value>
+  </data>
+  <data name="Block_b0642a532e904343bdb7e8766fe5e777" xml:space="preserve">
+    <value>Добавление связей документов</value>
+  </data>
+  <data name="Block_a1f7baa6360748aa9b93cde9b2a2fe69" xml:space="preserve">
+    <value>Удаление документов</value>
+  </data>
+  <data name="Block_a1f7baa6360748aa9b93cde9b2a2fe69_Property_bebe8b39ba0143d5bac020970b233b96" xml:space="preserve">
+    <value>Документ</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3" xml:space="preserve">
+    <value>Доработка заявления</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_a62ae63805a34a1ea66cb242eb0ccb8d" xml:space="preserve">
+    <value>Замечание</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_ca072f6de93e4134bc5e15d9d1e5b25a" xml:space="preserve">
+    <value>Оповещать о новом задании</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_399eaf6e296341eaafae4ceedd268402" xml:space="preserve">
+    <value>Отображать в личном кабинете</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_bf984e7940e144b7a818d7e9171b4dda" xml:space="preserve">
+    <value>Услуга в ЛК</value>
+  </data>
+  <data name="JobDisplayName_fa8a39b0cb454f4c842781d101c43cd4" xml:space="preserve">
+    <value>Устаревший. Норникель. Выбор документов для усовершенствования электронных подписей до формата CAdES-XL</value>
+  </data>
+  <data name="JobDescription_fa8a39b0cb454f4c842781d101c43cd4" xml:space="preserve">
+    <value>Устаревший. Выбор документов, подписи которых необходимо усовершенствовать до формата CAdES-XL</value>
+  </data>
+  <data name="AsyncHandler_Description_eb8eba5576744bfb8078efdb03f76320" xml:space="preserve">
+    <value>Устаревший. Усовершенствование подписи до формата CAdES-XL</value>
+  </data>
+  <data name="JobDisplayName_08925aa51f78437496a3320c0f4ac78c" xml:space="preserve">
+    <value>Устаревший. Норникель. Поиск документов с электронной подписью</value>
+  </data>
+  <data name="JobDescription_08925aa51f78437496a3320c0f4ac78c" xml:space="preserve">
+    <value>Устаревший. Поиск документов с электронной подписью формата CadesBes и CadesT</value>
+  </data>
+  <data name="AsyncHandler_Description_a008f0995fb7475fa41ef5954d2d8683" xml:space="preserve">
+    <value>Добавить сотрудника в роль</value>
+  </data>
+  <data name="Block_be971349ab0f422ab491fe9c19e8bc03" xml:space="preserve">
+    <value>Связать документ с задачей</value>
+  </data>
+  <data name="Block_be971349ab0f422ab491fe9c19e8bc03_Property_c39a4d994eb14fb192c917642d0c0e06" xml:space="preserve">
+    <value>Документы для связывания</value>
+  </data>
+  <data name="Block_be971349ab0f422ab491fe9c19e8bc03_Property_40d005a1a0ac411fbb13dcb6058a53bf" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="Block_be971349ab0f422ab491fe9c19e8bc03_Property_ec70f1dfca7e4c178d273942a6f55e9d" xml:space="preserve">
+    <value>Документы для обновления даты отправки</value>
+  </data>
+  <data name="Block_be971349ab0f422ab491fe9c19e8bc03_Property_c6e1fca91d9741ab871b99585f4b1f4e" xml:space="preserve">
+    <value>Дата отправки</value>
+  </data>
+  <data name="JobDisplayName_1904af71e2d449ef86da9206ba21fd69" xml:space="preserve">
+    <value>Норникель. Закрытие записей справочника Виды документов</value>
+  </data>
+  <data name="AsyncHandler_Description_27193b8fbdab41cf97daac79fca05ad6" xml:space="preserve">
+    <value>Запись даты и времени подписания документов сотрудником/работодателем в соответствующие свойства.</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_13917402ef4146b7bd35769856ad512c" xml:space="preserve">
+    <value>Тема уведомления в Супернику</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_0f1361cfa6574b56a3b4be663435ab73" xml:space="preserve">
+    <value>Текст уведомления в Супернику</value>
+  </data>
+  <data name="JobDisplayName_9cdc79684ee44e50ad499a0df09e9c10" xml:space="preserve">
+    <value>Уведомление о завершении срока действия УКЭП</value>
+  </data>
+  <data name="JobDescription_9cdc79684ee44e50ad499a0df09e9c10" xml:space="preserve">
+    <value>Уведомление о завершении срока действия УКЭП</value>
+  </data>
+  <data name="AsyncHandler_Description_ef783ce2f9a94872af7ed2adf8ab6d80" xml:space="preserve">
+    <value>Пометка прочитанными прекращённых конкурентных заданий.
+Обход бага 446803.</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_3d8425b68830465884497f63ea8c1a40" xml:space="preserve">
+    <value>Выполнять по замещению</value>
+  </data>
+  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_809f747802e54d11b1f67ca8cbfbf540" xml:space="preserve">
+    <value>Отображать по замещению</value>
+  </data>
+  <data name="AsyncHandler_Description_a825ff6bef2e46ab82f307c869881a9e" xml:space="preserve">
+    <value>Закрыть сертификаты ПЭП</value>
+  </data>
+  <data name="AsyncHandler_Description_e98a058e44a64d4e92171b6834b67b2c" xml:space="preserve">
+    <value>Запустить задачи на выпуск сертификатов</value>
+  </data>
+  <data name="JobDisplayName_0df2de757007482dbd16e61e67382276" xml:space="preserve">
+    <value>Норникель. Очистка частных календарей рабочего времени</value>
+  </data>
+  <data name="JobDescription_0df2de757007482dbd16e61e67382276" xml:space="preserve">
+    <value>Очистка неактуальных частных календарей рабочего времени.</value>
+  </data>
+</root>

@@ -1,0 +1,234 @@
+{
+  "$type": "Sungero.Metadata.DocumentMetadata, Sungero.Content.Shared",
+  "NameGuid": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e",
+  "Name": "OfficialDocument",
+  "AccessRightsMode": "Both",
+  "BaseGuid": "b97a5897-baba-47e4-8ba1-571c85e5abe0",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "7322020b-3299-4fba-b9b0-4c995bd2e401",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "80d3ce1a-9a72-443a-8b6c-6c6eef0c8d0f",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true,
+    "Versions": []
+  },
+  "FormViewUuid": "2198fd15-89be-4e82-9f3b-d0e170912686",
+  "HandledEvents": [
+    "BeforeSigningServer"
+  ],
+  "IconResourcesKeys": [],
+  "IsAbstract": true,
+  "LayeredFromGuid": "58cca102-1e97-4f07-b6ac-fd866a8b7cb1",
+  "OpenCardByDefaultInCollection": true,
+  "OperationsClass": "",
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "fdcc98d0-a972-4b77-9e03-bd9a29a9b6fb",
+      "Name": "InternalApprovalState",
+      "DirectValues": [
+        {
+          "NameGuid": "3b6930dd-8db2-4dfb-af54-0357a24ab57a",
+          "Name": "Approved",
+          "Code": "Approved"
+        }
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Values",
+        "IsVisibility",
+        "CanBeSearch"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "56cbe741-880f-4e6f-9567-343d08494b59",
+      "Name": "Versions",
+      "EntityGuid": "4eacbcb7-7a95-41f1-8d95-0617aa85c8e3",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "15280407-331e-42f6-b263-041a495b66cd",
+      "Name": "Tracking",
+      "EntityGuid": "10768b80-05e6-4ac9-853f-82c9a1f83441",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "EntityGuid"
+      ],
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9589a40d-6817-49b9-8570-57a535939650",
+      "Name": "SAPApplicationNumberDirRX",
+      "CanBeSearch": false,
+      "Code": "SAPAppNumber",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "Length": 50,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "ff694b4a-752d-42e5-84ed-57c3f395fcb7"
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ae9ccc62-20f7-426a-8f4b-85dc9db4b85f",
+      "Name": "SAPEventDateDirRX",
+      "CanBeSearch": false,
+      "Code": "SAPEventDate",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "9589a40d-6817-49b9-8570-57a535939650"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CanSendToRestamping",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "officialDocument",
+          "ParameterType": "global::DirRX.OverrideSolution.IOfficialDocument",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IOfficialDocument, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CreateVersionFromBase64",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::DirRX.OverrideSolution.IOfficialDocument",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "base64",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "extension",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetSignatureForMark",
+      "Parameters": [
+        {
+          "Name": "officialDocument",
+          "ParameterType": "global::DirRX.OverrideSolution.IOfficialDocument",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "versionId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "Sungero.Domain.Shared.ISignature"
+    },
+    {
+      "Name": "GetSignatureForMarkBySignatureType",
+      "Parameters": [
+        {
+          "Name": "officialDocument",
+          "ParameterType": "global::DirRX.OverrideSolution.IOfficialDocument",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "versionId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "isSimpleSignature",
+          "ParameterType": "global::System.Nullable<global::System.Boolean>",
+          "ParameterTypeFullName": "System.Nullable"
+        }
+      ],
+      "ReturnType": "Sungero.Domain.Shared.ISignature"
+    },
+    {
+      "Name": "RewritePublicBodyForVersionDocument",
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::DirRX.OverrideSolution.IOfficialDocument",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IOfficialDocument, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "versionId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "base64",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "ConvertionToPdfError",
+    "ExpressionFuncName_HasSignatures",
+    "ExpressionFuncDesc_ReturnBool",
+    "DocNotPdf",
+    "SignatureImprovementSuppressed"
+  ],
+  "RibbonCardMetadata": {
+    "NameGuid": "433f5d32-5e30-4609-b1f0-8d9528127f95",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "1f5c91ac-a764-46d5-a521-6c412ef1d497",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "DocumentMetadata",
+      "Number": 2
+    },
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

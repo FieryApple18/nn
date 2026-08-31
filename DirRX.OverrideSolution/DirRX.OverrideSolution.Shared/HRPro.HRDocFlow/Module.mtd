@@ -1,0 +1,978 @@
+{
+  "$type": "Sungero.Metadata.LayerModuleMetadata, Sungero.Metadata",
+  "NameGuid": "76ddd591-cb95-4cf5-be8c-74bbfd39a839",
+  "Name": "HRDocFlow",
+  "AssociatedGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "AsyncHandlers": [
+    {
+      "NameGuid": "a9be6b8d-8418-4328-b573-eeb93d8d3e86",
+      "Name": "ChangeAgreementEDEStatus",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "82882ebd-0849-49b1-9abf-d76d5fab37d4",
+          "Name": "EmployeesIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "95346f08-cb40-490e-993c-d9b90115c4dd",
+          "Name": "ChangeTime",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "ca5cddbd-8c8a-40b4-b47f-f9dfa3d0b1bf",
+          "Name": "AgreementStatus",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "1a6a1d01-b6b3-4b36-bb46-c9e0edea9453",
+      "Name": "BuildAcquaintanceList",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "043030f7-2639-494c-9f91-dc383f74f771",
+          "Name": "IncludeSubDepartments",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "4b720968-3713-49fb-a599-883386d64cc3",
+          "Name": "VersionId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "7ff4fc78-41c8-4386-b996-1df639fb9d4f",
+          "Name": "ReportResultInfoId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "ab7f880f-6ec6-4c9f-84a3-dcaa0ae2b5ee",
+          "Name": "ProcessingStartTime",
+          "ParameterType": "DateTime"
+        },
+        {
+          "NameGuid": "e3ef60e9-84aa-4ee0-a46d-286b1b91c3a2",
+          "Name": "DocumentId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "f937c5c4-8c8f-409a-b049-77108d422283",
+          "Name": "DepartmentsIds",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "3e8e68b1-d74f-48dc-ade4-c703914f5abe",
+      "Name": "ConnectToEInteraction",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "09c37751-0d5e-4d3d-ac27-750fec12e6cf",
+          "Name": "departmentIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "5c46ed16-9da2-490f-ab8f-9afb93445c56",
+          "Name": "providerType",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "5f2d0c12-51f6-4496-bf83-df54e97d4b09",
+          "Name": "userId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "70d99295-6219-4c87-bc28-f553226a5b23",
+          "Name": "employeeInterface",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "8cbed853-2cb8-4465-8f40-2433d0f3a9d7",
+          "Name": "includeSubDepartments",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "8cee8fc7-b2ba-4bda-b98e-7185abaec5fd",
+          "Name": "providerId",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "8eb1f1a5-1038-4279-badb-1e879f63cf3d",
+          "Name": "identificationType",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "b1001676-134f-4f82-93f5-5efdd07141f7",
+          "Name": "isCertificateRequired",
+          "ParameterType": "Boolean"
+        },
+        {
+          "NameGuid": "c8a8423b-8e89-459d-beb5-106b2083edb1",
+          "Name": "employeeIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "cce3766f-fd63-4395-8d44-19b3aca1b933",
+          "Name": "businessUnitIds",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "176e167a-c26a-47bb-9df7-24c251bec91b",
+      "Name": "ChangeConsentAndAgreementStatusAsync",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "3d2ddebc-43bd-4aef-86a1-142bf88b3e83",
+          "Name": "EmployeesIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "79b076af-abe2-4e60-af2e-6dee9c704a80",
+          "Name": "ConsentStatus",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "827b4324-4db6-4b5c-b765-4ff73199a4cc",
+          "Name": "AgreementStatus",
+          "ParameterType": "String"
+        }
+      ]
+    },
+    {
+      "NameGuid": "d630817e-6b1f-4c2b-8e28-3b938ca3eea7",
+      "Name": "ChangeUserConsentStatus",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "45650d9b-445d-4d95-888e-b36882114eae",
+          "Name": "EmployeeId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "65964007-b032-4fd1-bde8-70d10d52a830",
+          "Name": "ConsentStatus",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c7b4984f-64c6-431d-879f-73a85cf33303",
+          "Name": "ChangeTime",
+          "ParameterType": "DateTime"
+        }
+      ]
+    },
+    {
+      "NameGuid": "230f7750-2c69-41cc-9bd2-a59d7eb89f7f",
+      "Name": "CreateSubstitutionsForPerson",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "IsHandlerGenerated": true,
+      "Overridden": [
+        "IsHandlerGenerated"
+      ],
+      "Parameters": [
+        {
+          "NameGuid": "5378396b-3d67-4252-b5e2-7843b03718ff",
+          "Name": "personId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "87d82654-4827-44cb-a202-34423689dcfd",
+      "Name": "EmployeesConsentUpdate",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "100ccc77-3b7b-42ee-8d74-3a07dafe75b3",
+          "Name": "changedEmployeeId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "5ee38281-6039-4848-9e3f-5f876028e0db",
+          "Name": "EmployeesIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "e00a8f15-5e1e-4772-b7ed-b30d7b239d18",
+          "Name": "isANewEmployee",
+          "ParameterType": "Boolean"
+        }
+      ]
+    },
+    {
+      "NameGuid": "0824ac56-5060-4787-a754-4f517b6d8680",
+      "Name": "SendNoticeAsSubtask",
+      "DelayPeriod": 15,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsAncestorMetadata": true,
+      "Parameters": [
+        {
+          "NameGuid": "57e9b29c-9b82-48e3-815d-9ce23a0e3038",
+          "Name": "recipientId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "68acbc7b-a463-49bb-b225-4688bc4494b2",
+          "Name": "parentTaskId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "7c6256d7-fa1c-49ff-83a8-dee77ca0c141",
+          "Name": "threadSubject",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "94d0c902-354e-4aa1-89a0-a714ce2bbf27",
+          "Name": "subject",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "ab78e39b-2291-4a99-ac9a-97e0d74363dd",
+          "Name": "activeText",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "db9afd38-fc14-4ca8-87a7-1c32f3c11829",
+          "Name": "authorId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "e95e553a-c193-4572-bdd9-82453dfee4fb",
+      "Name": "UpdateSubstitutionsForVirtualEmployeeDirRX",
+      "DelayPeriod": 10,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "MaxRetryCount": 30,
+      "Parameters": [
+        {
+          "NameGuid": "08d27de8-1439-411a-810c-f751d0f19fdb",
+          "Name": "EmployeeID",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    }
+  ],
+  "BaseGuid": "adf6f9ce-5127-4e7d-9e15-8312a20fed45",
+  "Blocks": [
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "a8648671-a4b4-4a9f-a02b-2715f526a3fe",
+      "Name": "HRAssignmentBlock",
+      "EntityType": "10e40680-99fc-4205-9e67-5997ff18dcc8",
+      "HandledEvents": [
+        "HRAssignmentBlockStartAssignment",
+        "HRAssignmentBlockStart",
+        "HRAssignmentBlockCompleteAssignment"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Properties",
+        "HandledEvents",
+        "IsGenerated"
+      ],
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "ec0708d4-416a-4be9-8c94-91f936f5abb1",
+          "Name": "NeedNotification",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "PreviousPropertyGuid"
+          ],
+          "PreviousPropertyGuid": "0f82171a-2ab7-4921-b8b2-6f2572cd6e35"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "0f82171a-2ab7-4921-b8b2-6f2572cd6e35",
+          "Name": "CanNotedDirRX",
+          "PreviousPropertyGuid": "c5d084ad-5995-4166-b922-97d01aca1d16"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "96b1a0e6-fecb-4336-9004-f2a456060783",
+          "Name": "CanForwardDirRX",
+          "PreviousPropertyGuid": "ec0708d4-416a-4be9-8c94-91f936f5abb1"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "a138f3ca-fc6a-4690-9d82-7960ed436759",
+          "Name": "CompetitionWorkDirRX",
+          "PreviousPropertyGuid": "96b1a0e6-fecb-4336-9004-f2a456060783"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "9c5f2b99-6b0e-445e-bf82-b09fe662993a",
+          "Name": "VirtualEmployeeDirRX",
+          "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+          "IsVisible": false,
+          "PreviousPropertyGuid": "a138f3ca-fc6a-4690-9d82-7960ed436759"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "04e132f6-225d-4bf6-ab93-4a37f83d36c9",
+          "Name": "NeedActiveTextDirRX",
+          "PreviousPropertyGuid": "9c5f2b99-6b0e-445e-bf82-b09fe662993a"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "1dc4bffb-ccfd-4cd9-ba63-20c7ef46d62f",
+          "Name": "SupernikaActionsDirRX",
+          "EntityGuid": "a96006b5-a7c7-4c80-8868-b2ad3f75e060",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "31503e89-1b08-4fd5-9724-953f16cab1cb"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "31503e89-1b08-4fd5-9724-953f16cab1cb",
+          "Name": "IsManualHoldingEventDirRX",
+          "PreviousPropertyGuid": "04e132f6-225d-4bf6-ab93-4a37f83d36c9"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "d678b29b-907f-469e-93b3-216faa93e3d2",
+          "Name": "SupernikaSubjectDirRX",
+          "PreviousPropertyGuid": "1dc4bffb-ccfd-4cd9-ba63-20c7ef46d62f"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "bdf0ef4a-7be8-465a-9c71-50357ca59569",
+          "Name": "SupernikaTextDirRX",
+          "PreviousPropertyGuid": "d678b29b-907f-469e-93b3-216faa93e3d2"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.NoticeBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "ea064af5-5bed-4973-a9b2-daae5c5da69d",
+      "Name": "HRNoticeBlock",
+      "EntityType": "4300c682-f0d8-4f4a-84e0-f3bbfe7b998f",
+      "HandledEvents": [
+        "HRNoticeBlockStartNotice",
+        "HRNoticeBlockEnd"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Properties",
+        "HandledEvents",
+        "IsGenerated"
+      ],
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "f9c79d35-b37f-4626-b2c5-290ed0e6e821",
+          "Name": "SupernikaActionsDirRX",
+          "EntityGuid": "a96006b5-a7c7-4c80-8868-b2ad3f75e060",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "64312c2c-5bfb-4edf-a553-392708551069"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "243de7f1-2684-44b3-9880-c87a679873be",
+          "Name": "SupernikaSubjectDirRX",
+          "PreviousPropertyGuid": "f9c79d35-b37f-4626-b2c5-290ed0e6e821"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "6e1b5ddd-d3cc-425f-bf23-c0f651e3e466",
+          "Name": "SupernikaTextDirRX",
+          "PreviousPropertyGuid": "243de7f1-2684-44b3-9880-c87a679873be"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "9fb5b006-16ea-483b-be93-b8f279db4fe7",
+          "Name": "NeedEmailNotificationDirRX",
+          "PreviousPropertyGuid": "6e1b5ddd-d3cc-425f-bf23-c0f651e3e466"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "35fbdb2b-0da0-4dc8-844b-94aee9b90f77",
+          "Name": "DKPSpecialistDirRX",
+          "EntityGuid": "c612fc41-44a3-428b-a97c-433c333d78e9",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "9fb5b006-16ea-483b-be93-b8f279db4fe7"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "1989fd76-7d12-460f-a3fc-7445a0e53209",
+          "Name": "DKPTextDirRX",
+          "PreviousPropertyGuid": "35fbdb2b-0da0-4dc8-844b-94aee9b90f77"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "9a961148-43c5-438a-932b-20275a6277ad",
+      "Name": "DocumentApprovalAssignmentBlock",
+      "EntityType": "5cafbfd5-2f86-4299-adab-e2536ac93817",
+      "HandledEvents": [
+        "DocumentApprovalAssignmentBlockStartAssignment",
+        "DocumentApprovalAssignmentBlockStart",
+        "DocumentApprovalAssignmentBlockCompleteAssignment"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Properties",
+        "HandledEvents",
+        "IsGenerated"
+      ],
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "caae64f2-74c6-4a5f-a2c2-c5e6f383253f",
+          "Name": "NoPerformersResult",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "PreviousPropertyGuid"
+          ],
+          "PreviousPropertyGuid": "f7f8eb6b-f76d-4f1b-b4aa-628702548258"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "181d574e-5fce-435a-8aae-c5ec56ba4bdf",
+          "Name": "CanForwardDirRX",
+          "PreviousPropertyGuid": "da86944f-3595-4f2e-b90b-cf836710a361"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "dd3e772a-ee40-44ab-b00d-18d82b8cc51a",
+          "Name": "CompetitionWorkDirRX",
+          "PreviousPropertyGuid": "181d574e-5fce-435a-8aae-c5ec56ba4bdf"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "391be6d0-08ff-4dab-b2af-1b8488ef2d5f",
+          "Name": "VirtualEmployeeDirRX",
+          "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+          "IsVisible": false,
+          "PreviousPropertyGuid": "dd3e772a-ee40-44ab-b00d-18d82b8cc51a"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "f7f8eb6b-f76d-4f1b-b4aa-628702548258",
+          "Name": "SummaryDirRX",
+          "PreviousPropertyGuid": "e30ca7e1-f61d-4f7c-a101-227c53a76cea"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "239f6aaf-6d4b-485b-9de6-7b55468f836b",
+          "Name": "ShowVacationAdvancesDirRX",
+          "PreviousPropertyGuid": "391be6d0-08ff-4dab-b2af-1b8488ef2d5f"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "968e96a8-b4cd-4951-8d78-c95390afc123",
+          "Name": "ShowSapCommentTextDirRX",
+          "PreviousPropertyGuid": "239f6aaf-6d4b-485b-9de6-7b55468f836b"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "db8667f1-c463-4db2-82eb-072071686707",
+          "Name": "AddApproverDirRX",
+          "PreviousPropertyGuid": "968e96a8-b4cd-4951-8d78-c95390afc123"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "0301cb33-d5c0-4bc1-8be9-0d19bda17a72",
+          "Name": "AllowOpinionDirRX",
+          "PreviousPropertyGuid": "db8667f1-c463-4db2-82eb-072071686707"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "e3be2231-7e76-4a5a-a2d1-e2d04aafb12f",
+          "Name": "NeedLrdPaymentInfoDirRX",
+          "PreviousPropertyGuid": "0301cb33-d5c0-4bc1-8be9-0d19bda17a72"
+        },
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "0f98ce35-6151-4a61-bc96-086d95cd4f3a",
+          "Name": "SupernikaActionsDirRX",
+          "EntityGuid": "a96006b5-a7c7-4c80-8868-b2ad3f75e060",
+          "IsCollection": true,
+          "PreviousPropertyGuid": "968e96a8-b4cd-4951-8d78-c95390afc123"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "f6e46482-270d-4efd-93d3-a565b946fbd0",
+          "Name": "SupernikaSubjectDirRX",
+          "PreviousPropertyGuid": "0f98ce35-6151-4a61-bc96-086d95cd4f3a"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "2fa198a4-a71d-447f-b39b-721419a6f905",
+          "Name": "SupernikaTextDirRX",
+          "PreviousPropertyGuid": "f6e46482-270d-4efd-93d3-a565b946fbd0"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "5e4ef537-cd5a-425a-b0a3-a9900af7625b",
+          "Name": "NeedEmailNotificationDirRX",
+          "PreviousPropertyGuid": "2fa198a4-a71d-447f-b39b-721419a6f905"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "0f8646fc-401b-4eff-922d-9b18d0c73179",
+      "Name": "DocumentReworkAssignment",
+      "EntityType": "8f06d971-4870-46b8-8905-293973423774",
+      "HandledEvents": [
+        "DocumentReworkAssignmentStartAssignment"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Properties",
+        "HandledEvents",
+        "IsGenerated"
+      ],
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "c0739d2d-31bd-41bc-85d0-9f1508f141d8",
+          "Name": "ShowInSelfServiceOfficeDirRX",
+          "PreviousPropertyGuid": "13565482-fbfc-44e6-bff1-73bd47bef889"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "db724b9a-d13b-4a8e-9145-6939e55ad762",
+          "Name": "SupernikaSubjectDirRX",
+          "PreviousPropertyGuid": "c0739d2d-31bd-41bc-85d0-9f1508f141d8"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "3368cf44-6c87-425f-97e5-c81a3cc48a98",
+          "Name": "SupernikaTextDirRX",
+          "PreviousPropertyGuid": "db724b9a-d13b-4a8e-9145-6939e55ad762"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "0e30dcbd-1cc9-4703-b593-6e10708dbe46",
+      "Name": "ESignAssignmentBlock",
+      "EntityType": "5ee48db8-f4d6-4268-8605-78a37181c858",
+      "HandledEvents": [
+        "ESignAssignmentBlockStartAssignment",
+        "ESignAssignmentBlockCompleteAssignment"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Properties",
+        "HandledEvents",
+        "IsGenerated"
+      ],
+      "ProcessStagesDisplayMode": "Show",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "caae64f2-74c6-4a5f-a2c2-c5e6f383253f",
+          "Name": "NoPerformersResult",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "PreviousPropertyGuid"
+          ],
+          "PreviousPropertyGuid": "301bd1dc-34c8-42e8-9de1-6ce07df301fb"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "de149db6-cafb-4b56-b807-42554124a672",
+          "Name": "RepeatedTaskAlerts",
+          "IsAncestorMetadata": true,
+          "Overridden": [
+            "PreviousPropertyGuid"
+          ],
+          "PreviousPropertyGuid": "dcbc94fb-4c63-42e6-821c-bdfbb22ab565"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "11697d49-ab96-44ac-937b-29823a1eaa75",
+          "Name": "MassSigningDirRX",
+          "PreviousPropertyGuid": "35da009b-2943-44b1-a4c7-135e096994c8"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "301bd1dc-34c8-42e8-9de1-6ce07df301fb",
+          "Name": "SummaryDirRX",
+          "PreviousPropertyGuid": "e30ca7e1-f61d-4f7c-a101-227c53a76cea"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "57813db5-1151-46d6-b0fb-8ebcd99818f7",
+          "Name": "SupernikaSubjectDirRX",
+          "PreviousPropertyGuid": "11697d49-ab96-44ac-937b-29823a1eaa75"
+        },
+        {
+          "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "ae43b3df-1fb4-4754-a457-9bf4787640af",
+          "Name": "SupernikaTextDirRX",
+          "PreviousPropertyGuid": "57813db5-1151-46d6-b0fb-8ebcd99818f7"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "e9ef2a0a-22ec-4614-ad24-ba05ebede3da",
+          "Name": "IsSubstitutionAllowedDirRX",
+          "PreviousPropertyGuid": "ae43b3df-1fb4-4754-a457-9bf4787640af"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "4935f41e-566d-448d-b6b0-ce858c1c98f9",
+          "Name": "IsSubstitutionVisibleDirRX",
+          "PreviousPropertyGuid": "e9ef2a0a-22ec-4614-ad24-ba05ebede3da"
+        }
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "db32b72f-d755-43e5-b131-e127a39c16e2",
+      "Name": "SetHRLifeCycleStateBlock",
+      "HandledEvents": [
+        "SetHRLifeCycleStateBlockExecute"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "Properties",
+        "HandledEvents",
+        "IsGenerated"
+      ],
+      "ProcessStagesDisplayMode": "Hide",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.EnumBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "40cc7a68-01d8-42e1-bcbd-1d0614b6fa1a",
+          "Name": "ApprovalStateDirRX",
+          "DirectValues": [
+            {
+              "NameGuid": "afe9c3df-f1ed-47d6-b6b0-16806994a844",
+              "Name": "OnApproval",
+              "Code": "OnApproval"
+            },
+            {
+              "NameGuid": "8973d00f-f91e-4fae-a952-a1796d793267",
+              "Name": "OnRework",
+              "Code": "OnRework"
+            },
+            {
+              "NameGuid": "d1b807ef-1177-4e31-b47c-de87b96adad2",
+              "Name": "PendingSign",
+              "Code": "PendingSign"
+            },
+            {
+              "NameGuid": "12aaf8b0-babd-45ea-b29c-05df65a0abeb",
+              "Name": "Signed",
+              "Code": "Signed"
+            },
+            {
+              "NameGuid": "670a332a-9fa3-49d7-9ebf-0052807b7086",
+              "Name": "Aborted",
+              "Code": "Aborted"
+            },
+            {
+              "NameGuid": "92cb459e-07c4-4aba-af28-287871084dd6",
+              "Name": "Approved",
+              "Code": "Approved"
+            }
+          ],
+          "PreviousPropertyGuid": "0b9a2ed2-99b3-4397-9f5a-64130e96da0f"
+        }
+      ]
+    }
+  ],
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.Module.HRDocFlow.ClientBase",
+  "Code": "HRDocFl",
+  "CompanyCode": "HRPro",
+  "ExplorerTreeOrder": [],
+  "Importance": "Medium",
+  "InitializationFunctions": [
+    {
+      "Name": "CreateHRDocumentKind",
+      "Parameters": [
+        {
+          "Name": "name",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "shortName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "numerationType",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "direction",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "autoFormattedName",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "autoNumerable",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "typeGuid",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "actions",
+          "ParameterType": "Sungero.Domain.Shared.IActionInfo[]"
+        },
+        {
+          "Name": "initID",
+          "ParameterType": "global::System.Guid",
+          "ParameterTypeFullName": "System.Guid"
+        },
+        {
+          "Name": "isDefault",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "approver",
+          "ParameterType": "global::Sungero.Core.Enumeration",
+          "ParameterTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
+        },
+        {
+          "Name": "daysForSignEmployee",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "daysForSignManager",
+          "ParameterType": "global::System.Nullable<global::System.Int32>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "documentKindsCodes",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "isNeedTemplatesRXHRPro",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "isNeedTemplatesLKHRPro",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
+  "IsVisible": false,
+  "Jobs": [
+    {
+      "NameGuid": "5af71f9e-6a9a-409e-b2e1-34d3d5141f55",
+      "Name": "SendAssignmentDeadlineMessage",
+      "Daily": "Custom",
+      "EndAt": "1753-01-01T20:00:00",
+      "IsAncestorMetadata": true,
+      "Monthly": "WorkingDays",
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T06:00:00",
+      "TimePeriod": 30
+    },
+    {
+      "NameGuid": "242aee64-dfd1-4a2f-b01c-54a6a9a1a4cd",
+      "Name": "SendExpiredAssignmentDeadlineMessage",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T08:30:00"
+    },
+    {
+      "NameGuid": "47256a8c-c7c1-489c-a8d9-38b5bcfda367",
+      "Name": "JobSendNotificationToWhoSubstitute",
+      "IsAncestorMetadata": true,
+      "MonthSchedule": "Monthly",
+      "StartAt": "1753-01-01T08:30:00"
+    }
+  ],
+  "LayeredFromGuid": "adf6f9ce-5127-4e7d-9e15-8312a20fed45",
+  "PublicConstants": [
+    {
+      "Name": "CompetitionWorkActionsParamName",
+      "ParentClasses": [
+        "Module",
+        "ParamKeys"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Действие конкурентной работы\""
+    },
+    {
+      "Name": "NNStatementReworkAssignment",
+      "ParentClasses": [
+        "Module",
+        "ObjectCardTypeNames"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"INNStatementReworkAssignments\""
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "CheckBaseExecutionResults",
+      "Parameters": [
+        {
+          "Name": "isCompetitionWorkOld",
+          "ParameterType": "global::System.Nullable<global::System.Boolean>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "performer",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "assignment",
+          "ParameterType": "global::Sungero.Workflow.IAssignment",
+          "ParameterTypeFullName": "Sungero.Workflow.IAssignment, Sungero.Workflow.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "CheckCompetitiveWorkActions",
+      "Parameters": [
+        {
+          "Name": "isCompetitionWork",
+          "ParameterType": "global::System.Nullable<global::System.Boolean>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "performer",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "status",
+          "ParameterType": "global::System.Nullable<global::Sungero.Core.Enumeration>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "isTakeToWork",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "GetAssignmentStateView",
+      "Parameters": [
+        {
+          "Name": "text",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::Sungero.Core.StateView",
+      "ReturnTypeFullName": "Sungero.Core.StateView, Sungero.Domain.Shared"
+    },
+    {
+      "Name": "GetHRDocumentTypesGuids",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Guid>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetLrdPaymentStatementDocumentFieldValue",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "fieldName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "StartAutoSubstitutionNotice",
+      "Parameters": [
+        {
+          "Name": "substitute",
+          "ParameterType": "global::HRPro.HRProSolution.IEmployee",
+          "ParameterTypeFullName": "HRPro.HRProSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "substitutions",
+          "ParameterType": "global::System.Collections.Generic.List<global::HRPro.HRProSolution.IEmployee>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "void",
+      "ReturnTypeFullName": "System.Void"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution.Module.HRDocFlow",
+  "ResourcesKeys": [
+    "PerformerAlreadyExists",
+    "CantForwardWithoutAddressee",
+    "UserIsSystemErrorMessage",
+    "TakeToWorkMessage",
+    "ReturnToQueueMessage",
+    "VacationDaysExcessWarning",
+    "ExpFunc_ExpandVirtualEmployeesInList_Name",
+    "ExpFunc_ExpandVirtualEmployeesInList_Desc"
+  ],
+  "SpecialFolders": [],
+  "Version": "2.7.25200.102",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "LayerModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    }
+  ]
+}

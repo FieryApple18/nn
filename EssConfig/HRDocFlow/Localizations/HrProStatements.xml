@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<localizedStringValues>
+
+  <!--Statements-->
+  <localizedStringValue code="STATEMENTS_WIDGET_TASKS" language="RU" useat="server">Отправленные заявления</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_WIDGET_STATEMENTS" language="RU" useat="server">Оформить заявление</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_TITLE_STATEMENTS" language="RU" useat="server">Заявления</localizedStringValue>
+  
+  <localizedStringValue code="STATEMENTS_WIDGET_TASKS" language="EN" useat="server">Submitted applications</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_WIDGET_STATEMENTS" language="EN" useat="server">Create Application</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_TITLE_STATEMENTS" language="EN" useat="server">Statements</localizedStringValue>
+  
+  <localizedStringValue code="STATEMENTS_WIDGET_TASKS_DETAILS" language="RU" useat="server">
+    <![CDATA[
+      <div style="display: flex;">
+        Дата создания: {{#EssBase_simplifyDate}}{{created}}{{/EssBase_simplifyDate}}
+        {{#HrProStatements_StatementsStatusConverter}}{{status}}{{/HrProStatements_StatementsStatusConverter}}
+      </div>
+    ]]>
+  </localizedStringValue>
+  <localizedStringValue code="STATEMENTS_WIDGET_TASKS_DETAILS" language="EN" useat="server">
+    <![CDATA[
+      <div style="display: flex;">
+        Created: {{#EssBase_simplifyDate}}{{created}}{{/EssBase_simplifyDate}}
+        {{#HrProStatements_StatementsStatusConverter}}{{status}}{{/HrProStatements_StatementsStatusConverter}}
+      </div>
+    ]]>
+  </localizedStringValue>
+  
+  <localizedStringValue code="STATEMENTS_DEFAULTACTIONNAME" language="RU" useat="server">Подписать</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_DEFAULTACTIONNAME" language="EN" useat="server">Sign</localizedStringValue>
+
+  <localizedStringValue code="STATEMENTS_DOCUMENTAPPROVALASSIGNMENTS_DEFAULTACTIONNAME" language="RU" useat="server">Согласовать</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_DOCUMENTAPPROVALASSIGNMENTS_DEFAULTACTIONNAME" language="EN" useat="server">Approve</localizedStringValue>
+
+  <!--facilities/RefuseAssignment-->
+  <localizedStringValue code="FACILITIES_REFUSE_TITLE" language="RU" useat="server">Отказаться от подписания?</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_REASON_LABEL" language="RU" useat="server">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_ID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_SUCCESSMESSAGE" language="RU" useat="server">Отказ отправлен</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_REFUSE_TITLE" language="EN" useat="server">Refuse to sign?</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_REASON_LABEL" language="EN" useat="server">Cause</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_ID" language="EN" useat="server">ID</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_TYPE" language="EN" useat="server">Type</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_SUCCESSMESSAGE" language="EN" useat="server">Refusal sent</localizedStringValue>
+
+  <!--facilities/RefusalToApproveDocument-->
+  <localizedStringValue code="FACILITIES_REFUSE_APPROVAL_TITLE" language="RU" useat="server">Отказать в согласовании?</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_APPROVAL_TITLE" language="EN" useat="server">Reject approval?</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_APPROVAL_BUTTON" language="RU" useat="server">Отказать</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REFUSE_APPROVAL_BUTTON" language="EN" useat="server">Reject</localizedStringValue>
+
+  <!--facilities/RejectAssignment-->
+  <localizedStringValue code="FACILITIES_REJECT_TITLE" language="RU" useat="server">Отказаться?</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_REASON_LABEL" language="RU" useat="server">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_ID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_SUCCESSMESSAGE" language="RU" useat="server">Отказ отправлен</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_REJECT" language="RU" useat="both">Отказано</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_REJECT_TITLE" language="EN" useat="server">Refuse?</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_REASON_LABEL" language="EN" useat="server">Cause</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_ID" language="EN" useat="server">ID</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_TYPE" language="EN" useat="server">Type</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REJECT_SUCCESSMESSAGE" language="EN" useat="server">Refusal sent</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_REJECT" language="EN" useat="both">Denied</localizedStringValue>
+  <!--facilities/AbortTask-->
+  <localizedStringValue code="FACILITIES_ABORTTASK_TITLE" language="RU" useat="server">Подтвердите прекращение</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_STEP_TITLE" language="RU" useat="server">Прекратить задачу</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_TEXTBLOCK_CONTENT" language="RU" useat="server">Для прекращения рассмотрения заявления нажмите кнопку "Отправить"</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_REASON" language="RU" useat="server">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_SUCCESSMESSAGE" language="RU" useat="server">Работы прекращены</localizedStringValue>
+   
+  <localizedStringValue code="FACILITIES_ABORTTASK_TITLE" language="EN" useat="server">Confirm termination</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_STEP_TITLE" language="EN" useat="server">Terminate task</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_TEXTBLOCK_CONTENT" language="EN" useat="server">To terminate the consideration of the application, click the "Submit" button</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_REASON" language="EN" useat="server">Reason</localizedStringValue>
+  <localizedStringValue code="FACILITIES_ABORTTASK_SUCCESSMESSAGE" language="EN" useat="server">Works terminated</localizedStringValue>
+
+  <!--facilities/ReworkAssignment, DocumentApprovalOnRework-->
+  <localizedStringValue code="FACILITIES_REWORK_TITLE" language="RU" useat="server">Отправка на доработку</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_REASON_LABEL" language="RU" useat="server">Замечания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_ITEMID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_STEP_COMPLETE" language="RU" useat="server">Выполнить задание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_SUCCESSMESSAGE" language="RU" useat="server">Отправлено на доработку</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_REWORK_TITLE" language="EN" useat="server">Sending for revision</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_REASON_LABEL" language="EN" useat="server">Remarks</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_TYPE" language="EN" useat="server">Type</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_ITEMID" language="EN" useat="server">ID</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_STEP_COMPLETE" language="EN" useat="server">Complete task</localizedStringValue>
+  <localizedStringValue code="FACILITIES_REWORK_SUCCESSMESSAGE" language="EN" useat="server">Sent for rework</localizedStringValue>
+
+  <!--facilities/SendStatement-->
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_TITLE" language="RU" useat="server">Оформление заявления</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_SUCCESSMESSAGE" language="RU" useat="server">Заявление отправлено</localizedStringValue> 
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_CONSENT_ERROR" language="RU" useat="both">Для оформления заявлений подпишите Согласие на КЭДО.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR" language="RU" useat="both">У вас нет действующих сертификатов электронной подписи для подписания заявления. Обратитесь к администратору системы.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_TITLE" language="EN" useat="server">Making an statement</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_SUCCESSMESSAGE" language="EN" useat="server">Statement has been sent</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_CONSENT_ERROR" language="EN" useat="both">To create applications, sign the Consent for Digital HR Document Management.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR" language="EN" useat="both">You don't have a valid electronic signature certificate required to sign the application. Contact your system administrator.</localizedStringValue>
+
+  <!--facilities/StatementUpdatePersonalData-->
+  <localizedStringValue code="FACILITIES_STATEMENTUPDATEPERSONALDATA_DOCUMENTNAMEPARAM" language="RU" useat="both">Заявление на изменение персональных данных</localizedStringValue>
+  <localizedStringValue code="FACILITIES_STATEMENTUPDATEPERSONALDATA_FLOWSTEP_STARTSTATEMENTTASK_SUBJECT" language="RU" useat="server">&lt;Тема будет сформирована автоматически&gt;</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_STATEMENTUPDATEPERSONALDATA_DOCUMENTNAMEPARAM" language="EN" useat="both">Application for changing personal data</localizedStringValue>
+  <localizedStringValue code="FACILITIES_STATEMENTUPDATEPERSONALDATA_FLOWSTEP_STARTSTATEMENTTASK_SUBJECT" language="EN" useat="server">&lt;TODO Topic will be generated automatically&gt;</localizedStringValue>
+
+  <!--facilities/TerminateAssignment-->
+  <localizedStringValue code="FACILITIES_TERMINATE_TITLE" language="RU" useat="server">Прекращение задачи</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_REASON_LABEL" language="RU" useat="server">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_TYPE" language="RU" useat="server">Тип задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_ITEMID" language="RU" useat="server">Ид задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_SUCCESSMESSAGE" language="RU" useat="server">Прекращено</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_TERMINATE_TITLE" language="EN" useat="server">Terminating a task</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_REASON_LABEL" language="EN" useat="server">Reason</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_TYPE" language="EN" useat="server">Type</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_ITEMID" language="EN" useat="server">ID</localizedStringValue>
+  <localizedStringValue code="FACILITIES_TERMINATE_SUCCESSMESSAGE" language="EN" useat="server">Terminated</localizedStringValue>
+
+  <!--objectCards/ConsentAssignmentObjectCard-->
+  <!--в <subtitle> разбивать на ключи нельзя, только блок целиком -->
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_ATTACHMENTS_AGREEMENT" language="RU" useat="server">Согласия:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_ATTACHMENTS_DOCUMENTATION" language="RU" useat="server">Положение о кадровом ЭДО:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_ATTACHMENTS_OTHER" language="RU" useat="server">Дополнительно:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_BUTTON_REFUSE" language="RU" useat="server">Отказаться</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_BUTTON_FORREWORK" language="RU" useat="server">На доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_BUTTON_SIGN" language="RU" useat="server">Подписать</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCAR_FACILITY_SUCCESSMESSAGE" language="RU" useat="both">Документы подписаны</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_ATTACHMENTS_AGREEMENT" language="EN" useat="server">Agreements:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_ATTACHMENTS_DOCUMENTATION" language="EN" useat="server">Documentation:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_ATTACHMENTS_OTHER" language="EN" useat="server">Other:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_BUTTON_REFUSE" language="EN" useat="server">Refuse</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_BUTTON_FORREWORK" language="EN" useat="server">For Rework</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCARD_BUTTON_SIGN" language="EN" useat="server">Sign</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_CONSENTASSIGNMENTOBJECTCAR_FACILITY_SUCCESSMESSAGE" language="EN" useat="both">Documents signed</localizedStringValue>
+
+  <!--objectCards/DocumentApprovalOnRework-->
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ATTACHMENTS_DOCUMENT_FOR_APPROVAL" language="RU" useat="server">Документы на согласование:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ATTACHMENTS_APPLICATIONS" language="RU" useat="server">Приложения:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ATTACHMENTS_ADDITIONALLY" language="RU" useat="server">Дополнительно:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE" language="RU" useat="both">Документы согласованы</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ATTACHMENTS_DOCUMENT_FOR_APPROVAL" language="EN" useat="server">Documents for approval:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ATTACHMENTS_APPLICATIONS" language="EN" useat="server">Applications:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_ATTACHMENTS_ADDITIONALLY" language="EN" useat="server">Additionally:</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_DOCUMENTAPPROVALASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE" language="EN" useat="both">Documents agreed</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_RESULT_COMPLETE" language="RU" useat="both">Выполнено</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_APPROVED" language="RU" useat="both">Согласовано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_FORREWORK" language="RU" useat="both">Отправлено на доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_FORREVISION" language="RU" useat="both">Отправлено на доработку</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_REFUSE" language="RU" useat="both">Отказано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_TERMINATE" language="RU" useat="both">Прекращено</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_SIGN" language="RU" useat="both">Подписано</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_VIEWED" language="RU" useat="both">Просмотрено</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_ACCEPT" language="RU" useat="both">Принято</localizedStringValue>
+  
+  <localizedStringValue code="OBJECTCARD_RESULT_COMPLETE" language="EN" useat="both">Completed</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_APPROVED" language="EN" useat="both">Approved</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_FORREWORK" language="EN" useat="both">Sent for rework</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_FORREVISION" language="EN" useat="both">Sent for rework</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_REFUSE" language="EN" useat="both">Denied</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_TERMINATE" language="EN" useat="both">Stopped</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_SIGN" language="EN" useat="both">Signed</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_VIEWED" language="EN" useat="both">Read</localizedStringValue>
+  <localizedStringValue code="OBJECTCARD_RESULT_ACCEPT" language="EN" useat="both">Accepted</localizedStringValue>
+
+
+  <!--Errors-->
+  <localizedStringValue code="ERROR_COMMON" language="RU" useat="both">Ошибка</localizedStringValue>
+  <localizedStringValue code="ERROR_COMMON" language="EN" useat="both">Error</localizedStringValue>
+  
+  <localizedStringValue code="ERROR_GET_TOP_AND_GO" language="RU" useat="both">При получении информации о сотрунике произошла ошибка. Обратитесь к администратору.</localizedStringValue>
+  <localizedStringValue code="ERROR_GET_TOP_AND_GO" language="EN" useat="both">Get top and Go value error. Contact your system administrator.</localizedStringValue>
+
+
+  <!-- Tiles -->
+
+  <localizedStringValue code="STATEMENTS_TILE_WEEKENDWORK_TITLE" language="RU" useat="server">Заявка на работу в выходной/праздничный день</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_TILE_WEEKENDWORK_TITLE" language="EN" useat="server">Application for work on a weekend/holiday</localizedStringValue>
+
+  <localizedStringValue code="STATEMENTS_TILE_OVERTIMEWORK_TITLE" language="RU" useat="server">Заявка на работу в сверхурочное время</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_TILE_OVERTIMEWORK_TITLE" language="EN" useat="server">Application for overtime work</localizedStringValue>
+
+  <localizedStringValue code="STATEMENTS_TILE_GETLRDPAYMENT_TITLE" language="RU" useat="server">Заявление на выплату по ЛНА</localizedStringValue>
+  <localizedStringValue code="STATEMENTS_TILE_GETLRDPAYMENT_TITLE" language="EN" useat="server">Application for payment of Lrd</localizedStringValue>
+
+  <!-- facilities/WeekendWork -->
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_COMPENSATION" language="RU" useat="both">Компенсация</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_COMPENSATION" language="EN" useat="both">Compensation</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_COMPENSATION_INCREASEDPAY" language="RU" useat="both">Повышенная оплата</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_COMPENSATION_INCREASEDPAY" language="EN" useat="both">Increased pay</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_COMPENSATION_ANOTHERRESTDAY" language="RU" useat="both">Предоставление другого дня отдыха</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_COMPENSATION_ANOTHERRESTDAY" language="EN" useat="both">Providing another day of rest</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BEGINDATEWORK" language="RU" useat="both">Дата работы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BEGINDATEWORK" language="EN" useat="both">Work date</localizedStringValue> 
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ENDDATEWORK" language="RU" useat="both">Дата работы по</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ENDDATEWORK" language="EN" useat="both">Work date to</localizedStringValue> 
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BREAKGROUP" language="RU" useat="both">Перерывы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BREAKGROUP" language="EN" useat="both">Breaks</localizedStringValue> 
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_FIRSTBREAK" language="RU" useat="both">Первый перерыв</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_FIRSTBREAK" language="EN" useat="both">First break</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_SECONDBREAK" language="RU" useat="both">Второй перерыв</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_SECONDBREAK" language="EN" useat="both">Second break</localizedStringValue> 
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_DATEREST" language="RU" useat="both">Дата доп. отдыха</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_DATEREST" language="EN" useat="both">Rest date</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_REASON" language="RU" useat="both">Уточнение причины</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_REASON" language="EN" useat="both">Clarification of the reason</localizedStringValue> 
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_REASONDESCRIPTION" language="RU" useat="both">Основание</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_REASONDESCRIPTION" language="EN" useat="both">Reason description</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ADDITIONALAPPROVER" language="RU" useat="both">Доп. согласующий</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ADDITIONALAPPROVER" language="EN" useat="both">Additional approver</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BEGINDATE_ERROR" language="RU" useat="both">Указанная дата не может быть меньше текущей даты</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BEGINDATE_ERROR" language="EN" useat="both">The specified date cannot be less than the current date of creation of the application</localizedStringValue> 
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ENDDATEWORK_ERROR" language="RU" useat="both">Время окончания работы не может быть меньше времени начала работы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ENDDATEWORK_ERROR" language="EN" useat="both">The end time cannot be less than the start time.</localizedStringValue> 
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_DATEREST_ERROR" language="RU" useat="both">Указанная дата не может быть меньше значения в поле Дата работы</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_DATEREST_ERROR" language="EN" useat="both">The specified date cannot be less than the value in the Date of Work field</localizedStringValue> 
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ENDDATEREST_ERROR" language="RU" useat="both">Время окончания доп. отдыха не может быть меньше времени начала доп. отдыха</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_ENDDATEREST_ERROR" language="EN" useat="both">The end time of the supplement the rest period cannot be less than the start time of the additional rest</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_RESTTIME_REQUIRED_ERROR" language="RU" useat="both">Время дополнительного отдыха должно быть обязательно указано</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_RESTTIME_REQUIRED_ERROR" language="EN" useat="both">The time of additional rest must be indicated</localizedStringValue> 
+
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BREAKTIME_ERROR" language="RU" useat="both">Время перерывов должно попадать в период выхода сотрудника</localizedStringValue>
+  <localizedStringValue code="FACILITIES_WEEKENDWORK_BREAKTIME_ERROR" language="EN" useat="both">The break time should fall within the employee's exit period</localizedStringValue> 
+
+  <!-- facilities/GetLrdPayment -->
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_PAYMENTTYPE" language="RU" useat="both">Тип выплаты</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_PAYMENTTYPE" language="EN" useat="both">Type of payment</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_REASON" language="RU" useat="both">Причина</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_REASON" language="EN" useat="both">Reason</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_REASON_HINT" language="RU" useat="both">Для типов выплат "Материальная помощь в исключительных случаях" и "Материальная помощь работнику при материальном ущербе в связи с экстремальной ситуацией (...)" необходимо заполнить поле Причина.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_REASON_HINT" language="EN" useat="both">For the types of payments "Financial assistance in exceptional cases" and "Financial assistance to an employee in case of material damage due to an extreme situation (...)" the Reason field must be filled in.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CHILD" language="RU" useat="both">ФИО ребенка</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CHILD" language="EN" useat="both">Full name of the child</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CHILD_NOTFOUND_ERROR" language="RU" useat="both">Нет необходимых данных о ребенке. Предоставьте свидетельство о рождении ребенка в службу персонала.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CHILD_NOTFOUND_ERROR" language="EN" useat="both">There is no necessary information about the child. Provide the child's birth certificate to the staff service.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CHILD_DISABLED_ERROR" language="RU" useat="both">Нет необходимых данных о ребенке. Предоставьте справку об инвалидности ребенка и копию свидетельства о рождении в службу персонала.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CHILD_DISABLED_ERROR" language="EN" useat="both">There is no necessary information about the child. Provide the child's disability certificate and a copy of the birth certificate to the staff service.</localizedStringValue>
+
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_BIRTHDATE" language="RU" useat="both">Дата рождения</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_BIRTHDATE" language="EN" useat="both">Date of birth</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_AMOUNT" language="RU" useat="both">Сумма</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_AMOUNT" language="EN" useat="both">Amount</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_AMOUNT_ERROR" language="RU" useat="both">Сумма запрошенной материальной помощи превышает максимально возможный размер выплаты по ЛНА. Максимально возможный размер выплаты по ЛНА составляет {0}.</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_AMOUNT_ERROR" language="EN" useat="both">The amount of financial assistance requested exceeds the maximum possible amount of payment under the LNA. The maximum possible amount of LNA payment is {0}.</localizedStringValue>
+  
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CONSENT" language="RU" useat="both">Подтверждаю, что на момент подачи заявления ПАО «ГМК «Норильский никель» или РОКС, входящие в Группу компаний «Норильский никель», не являются основным местом работы матери ребенка</localizedStringValue>
+  <localizedStringValue code="FACILITIES_GETLRDPAYMENT_CONSENT" language="EN" useat="both">I confirm that at the time of filing the application, PJSC MMC Norilsk Nickel or ROKS, which are part of the Norilsk Nickel Group of Companies, are not the main place of work of the child's mother</localizedStringValue>
+  
+  <!-- facilities/FillOpinionText -->
+  
+  <localizedStringValue code="FACILITIES_FILLOPINIONTEXT_TITLE" language="RU" useat="both">Введите текст задания</localizedStringValue>
+  <localizedStringValue code="FACILITIES_FILLOPINIONTEXT_TITLE" language="EN" useat="both">Enter the assignment text</localizedStringValue>
+
+  <localizedStringValue code="SUBSTITUTION_NOT_ALLOWED" language="RU" useat="both">Задание нельзя выполнить по замещению</localizedStringValue>
+  <localizedStringValue code="SUBSTITUTION_NOT_ALLOWED" language="EN" useat="both">The assignment cannot be executed by substitution</localizedStringValue>
+
+</localizedStringValues>

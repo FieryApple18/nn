@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="4649be39-3d75-46e9-bd34-66cd1537debe" name="SendStatement">
+        <authorization>
+          <allowedRoles>Employee</allowedRoles>
+        </authorization>
+        <contractForm>true</contractForm>
+        <title>@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_TITLE</title>
+        <description></description>
+        <facilityParameters>
+          <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="$(CurrentUser.DirectumRX.ActorId)" isRequired="true" isCollection="false">
+            <dataSource>/api/functions/GetPostListByPersonForSource</dataSource>
+            <dataSourceValueField>id</dataSourceValueField>
+            <dataSourceCaptionField>name</dataSourceCaptionField>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="Field_Наименование организации (и.п.)" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника (р.п.)" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="Field_Должность руководителя (д.п.)" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="Field_ФИО руководителя (д.п.)" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="ImportedApplicationLinks" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>1000</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+        </facilityParameters>
+        <facilityFormItems />
+        <facilityFormItems>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>Initiator</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[
+              var initiatorId = formItem.value || functions.getValues().Initiator;
+              if (initiatorId != null) {
+                functions.removeError(window.errorInitiator);
+                ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned?employeeId=${initiatorId}`)
+                .then(function (isConsentSigned) {
+                  if (isConsentSigned != true) {
+                    window.errorInitiator = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_CONSENT_ERROR'));
+                  }
+                })
+              }
+            ]]></valueChangedEventHandler>
+          </facilityFormItem>
+        </facilityFormItems>
+        <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+          <flowSteps>
+            <flowStep index="0" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">1</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">BUSINESS_UNIT_NAME</property>
+              <property name="Result" binding="Field_Наименование организации (и.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="1" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">2</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">CURRENT_USER_JOB_TITLE_GENITIVE</property>
+              <property name="Result" binding="Field_Должность сотрудника (р.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="2" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">3</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">CEO_JOB_TITLE_DATIVE</property>
+              <property name="Result" binding="Field_Должность руководителя (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="3" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">4</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">CEO_FULLNAME_DATIVE</property>
+              <property name="Result" binding="Field_ФИО руководителя (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="4" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">5</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">DEPARTMENT_NAME</property>
+              <property name="Result" binding="Field_Наименование отдела (и.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="5" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">6</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">CURRENT_USER_PERSONAL_PHONE</property>
+              <property name="Result" binding="Field_Личный телефон,Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="6" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">7</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">MANAGER_JOB_TITLE_DATIVE</property>
+              <property name="Result" binding="Field_Должность руководителя сотрудника (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="7" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">8</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">MANAGER_FULLNAME_DATIVE</property>
+              <property name="Result" binding="Field_ФИО руководителя сотрудника (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="8" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">9</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">BUSINESS_UNIT_NAME_GENITIVE</property>
+              <property name="Result" binding="Field_Наименование НОР (р.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="9" name="ExecuteFunction" title="Запуск прикладной функции GetEmployeeByUniqueId" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">10</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">CURRENT_USER_PERSONNEL_NUMBER</property>
+              <property name="Result" binding="Field_Табельный номер,Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="10" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">11</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">HR_DIRECOR_JOB_TITLE_DATIVE</property>
+              <property name="Result" binding="Field_Должность директора по персоналу (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="11" name="ExecuteFunction" title="Запуск прикладной функции GetDocumentFieldValue" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">12</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+              <property name="ExecutionMethod">GET</property>
+              <property name="employeeId" binding="Initiator" type="Int" />
+              <property name="fieldName">HR_DIRECTOR_FULLNAME_DATIVE</property>
+              <property name="Result" binding="Field_ФИО директора по персоналу (д.п.),Mode=PropertyToParameter"/>
+            </flowStep>
+            <flowStep index="12" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+              <property name="NextStepIndex">13</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="DocumentId" type="Int" binding="TemplateId" />
+              <property name="DocumentFormat">pdfa</property>
+              <property name="DocumentGroup">IElectronicDocuments</property>
+              <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+              <property name="DocumentName" binding="DocumentNameParam,Field_И.О. Фамилия сотрудника,#TODAY,Format={0} {1} от {2}" />
+              <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+            </flowStep>
+            <actionStep index="13" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+              <property name="NextStepIndex">14</property>
+              <property name="ActionName">HrProStatements.createSignature</property>
+              <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+              <property name="SignatureType">Approval</property>
+              <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+              <property name="employeeId" binding="Initiator" type="Int" />
+            </actionStep>
+            <flowStep index="14" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentGroupStep">
+              <property name="NextStepIndex">15</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="ImportingDocuments" binding="StoredDocument*" type="StoredDocument[]" />
+              <property name="DocumentGroup">IHRDocFlowStatementDocuments</property>
+              <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+              <property name="Actor" binding="Initiator"/>
+              <property name="DocumentKind" binding="DocumentKind,Format={{'Id':{0}}}" />
+              <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+            </flowStep>
+            <flowStep index="15" name="ImportApplicationRX" title="Импортировать приложение в RX" type="ImportDocumentGroupStep">
+              <property name="NextStepIndex">16</property>
+              <property name="TargetSystem">EssBase</property>
+              <property name="ImportingDocuments" binding="Application*" type="StoredDocument[]" />
+              <property name="DocumentGroup">ISimpleDocuments</property>
+              <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+              <property name="Actor" binding="Initiator"/>
+              <property name="ImportedDocuments" binding="ImportedApplicationLinks,Mode=PropertyToParameter" />
+            </flowStep>
+            <flowStep index="16" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+              <property name="NextStepIndex">17</property>
+              <property name="GroupName">DocumentGroup</property>
+              <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+              <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+            </flowStep>
+            <flowStep index="17" title="Сформировать группу вложений для приложений" type="CreateAttachmentGroupStep">
+              <property name="NextStepIndex">18</property>
+              <property name="GroupName">OtherGroup</property>
+              <property name="Documents" binding="ImportedApplicationLinks" type="DocumentLink[]" />
+              <property name="Result" binding="TaskAttachmentsApplications,Mode=PropertyToParameter"></property>
+            </flowStep>
+            <flowStep index="18" name="StartStatementTask" title="Запустить задачу на согласование заявления" type="StartWorkProcessStep">
+              <property name="ProcessName">IHRDocFlowStatementTasks</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="NextStepIndex">-1</property>
+              <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+              <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}"/>
+              <property name="Subject">&lt;Тема будет сформирована автоматически&gt;</property>
+              <property name="NeedsReview">False</property>
+              <property name="Importance">Normal</property>
+              <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+              <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+            </flowStep>
+          </flowSteps>
+        </facilityFlowScheme>
+        <openingEventHandler><![CDATA[
+            ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+            .then(function (employee){
+              ESS.network.sendRequest(`/api/functions/GetEmployeeCertificates`)
+              .then(function (certs){
+                if (certs.length != 0)
+                {
+                  if (employee.positions.length == 0)
+                  {
+                    ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+                    .then(function (initiatorId){
+                        functions.setValue('Initiator', initiatorId);
+                    })
+                    .catch(function (error) {
+                      ESS.toasts.showToast(error.message, 'danger', false);
+                      reject();
+                      });
+                    resolve();
+                  }
+                  if (employee.positions.length == 1)
+                  {
+                    functions.removeError(window.errorInitiator);
+                    ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+                    .then(function (initiatorId){
+                      ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned`)
+                      .then(function (isConsentSigned) {
+                        if (isConsentSigned != true) {
+                          ESS.dialogs.showMessageBox(ESS.L('@HRPROSTATEMENTS.ERROR_COMMON'), ESS.L('@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_CONSENT_ERROR'));
+                          reject();
+                        } else {
+                          resolve();
+                        }
+                      })
+                      .catch(function (error) {
+                        ESS.toasts.showToast(error.message, 'danger', false);
+                        reject();
+                      });
+                    })
+                    .catch(function (error) {
+                      ESS.toasts.showToast(error.message, 'danger', false);
+                      reject();
+                    });
+                  } else {
+                    resolve();
+                  }
+                }
+                else {
+                  ESS.dialogs.showMessageBox(ESS.L('@HRPROSTATEMENTS.ERROR_COMMON'), ESS.L('@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_NO_CERTIFICATES_ERROR'));
+                  reject();
+                }
+              })
+              .catch(function (error) {
+                ESS.toasts.showToast(error.message, 'danger', false);
+                reject();
+              });
+            })
+            .catch(function (error) {
+              ESS.toasts.showToast(error.message, 'danger', false);
+              reject();
+            });
+          ]]>
+        </openingEventHandler>
+        <openedEventHandler><![CDATA[
+          var initiatorId = functions.getValues().Initiator;
+          if (initiatorId != null) {
+            ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned?employeeId=${initiatorId}`)
+            .then(function (isConsentSigned) {
+              if (isConsentSigned != true) {
+                window.errorInitiator = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_CONSENT_ERROR'));
+              }
+            })
+          }
+        ]]></openedEventHandler>
+        <closingEventHandler><![CDATA[]]></closingEventHandler>
+        <closedEventHandler><![CDATA[
+            if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+              ESS.closeElement(sender.parent); 
+              ESS.widgets.updateWidgets();
+            }
+          ]]>
+        </closedEventHandler>
+        <successMessage>@HRPROSTATEMENTS.FACILITIES_SENDSTATEMENT_SUCCESSMESSAGE</successMessage>
+      </facility>

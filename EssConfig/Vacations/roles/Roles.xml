@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roles>
+  <role name="DenyTileMyVacations" title="Скрытие плитки Отпуска" state="Active">
+    <condition>DirectumRX.RoleId Contains "6ae7e206-0eeb-4ca9-8ffc-4ac289288fd6"</condition>
+  </role>
+  <role name="DenyTileGetAnnualVacation" title="Скрытие плитки Ежегодный отпуск" state="Active">
+    <condition>DirectumRX.RoleId Contains "7d154a6e-50af-41bb-98ea-0dc916571044"</condition>
+  </role>
+  <role name="DenyTileGetVacationWithoutPay" title="Скрытие плитки Отпуск без сохранения заработной платы" state="Active">
+    <condition>DirectumRX.RoleId Contains "834a6129-6bfc-43ff-ad78-1ba9decd688a"</condition>
+  </role>
+  <role name="DenyTileGetOtherVacation" title="Скрытие плитки Остальные отпуска" state="Active">
+    <condition>DirectumRX.RoleId Contains "0cfe5645-660f-4836-8f2a-ad84e96c5517"</condition>
+  </role>
+  <role name="DenyTileNNShiftVacationByStatement" title="Скрытие плитки Перенос отпуска" state="Active">
+    <condition>DirectumRX.RoleId Contains "bb856c9e-ab90-4515-9709-1464f39eb18f"</condition>
+  </role>
+  <role name="DenyTileCompensationVacation" title="Скрытие плитки Компенсация отпуска" state="Active">
+    <condition>DirectumRX.RoleId Contains "7de7660f-6943-42f2-8007-e8f772f9ca16"</condition>
+  </role>
+  <role name="DenyTileNNRecallVacationEmployee" title="Скрытие плитки Отзыв сотрудника из отпуска" state="Active">
+    <condition>DirectumRX.RoleId Contains "ce762776-9d83-44b1-be6c-16df02ffabed"</condition>
+  </role>
+  <role name="DenyTileNNSelfRecallVacationEmployee" title="Скрытие плитки Прерывание отпуска" state="Active">
+    <condition>DirectumRX.RoleId Contains "0e49b038-a6da-43f3-b15c-9720a1874550"</condition>
+  </role>
+</roles>

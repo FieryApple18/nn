@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<solution name="EssBase">
+  <dataSchemeVersion>1.4.63</dataSchemeVersion>
+  <title>Базовое прикладное решение</title>
+  <startPage>welcomePage</startPage>
+  <version>2.7.0.0</version>
+  <widgets>
+    <widget name="requiresActions" type="workItemList">
+      <icon>check-mark</icon>
+      <title>@.FACILITYGROUPS_WIDGET_SIGNDOCUMENTS</title>
+      <dataSourceUrl>/api/activeWorks?orderBy=created desc</dataSourceUrl>
+      <properties>
+        <defaultObjectCard>Default</defaultObjectCard>
+        <showTitleCounter>True</showTitleCounter>
+        <workItemSubtitle>@.FACILITYGROUPS_WIDGET_ACTIVEWORKS_SUBTITLE</workItemSubtitle>
+      </properties>
+    </widget>
+	
+    <widget name="requiresActionsCustom" type="workItemList">
+      <icon>check-mark</icon>
+      <title>@.FACILITYGROUPS_WIDGET_SIGNDOCUMENTS</title>
+      <dataSourceUrl>/api/activeWorksCustom</dataSourceUrl>
+      <properties>
+        <defaultObjectCard>Default</defaultObjectCard>
+        <showTitleCounter>True</showTitleCounter>
+        <workItemSubtitle>@.FACILITYGROUPS_WIDGET_ACTIVEWORKS_SUBTITLE</workItemSubtitle>
+      </properties>
+    </widget>
+
+    <widget name="history" type="workItemList">
+      <title>@.FACILITYGROUPS_WIDGET_HISTORY_TITLE</title>
+      <dataSourceUrl>/api/completedWorks?orderBy=finished desc</dataSourceUrl>
+      <properties>
+        <defaultObjectCard />
+        <showTitleCounter>False</showTitleCounter>
+        <workItemSubtitle>{{result}} {{#localizeDate}}{{finished}}{{/localizeDate}}</workItemSubtitle>
+      </properties>
+    </widget>
+	
+    <widget name="historyCustom" type="workItemList">
+      <title>@.FACILITYGROUPS_WIDGET_HISTORY_TITLE</title>
+      <dataSourceUrl>/api/completedWorksCustom</dataSourceUrl>
+      <properties>
+        <defaultObjectCard />
+        <showTitleCounter>False</showTitleCounter>
+        <workItemSubtitle>@.FACILITYGROUPS_WIDGET_HISTORY_SUBTITLE</workItemSubtitle>
+      </properties>
+    </widget>
+  </widgets>
+
+  <facilityGroups>
+    <facilityGroup name="Home">
+      <icon>home</icon>
+      <title>@.FACILITYGROUPS_TITLE_HOME</title>
+      <priority>1000</priority>
+      <isVisible>true</isVisible>
+      <collectAllNotifications>false</collectAllNotifications>
+      <views>
+        <view device="Web" container="StackPanel" name="homeWeb">
+          <orientation>Vertical</orientation>
+          <bounds>
+            <bound widgetName="requiresActionsCustom" />
+          </bounds>
+        </view>
+        <view device="Mobile" container="StackPanel" name="homeMobile">
+          <orientation>Vertical</orientation>
+          <bounds>
+            <bound widgetName="requiresActionsCustom" />
+          </bounds>
+        </view>
+      </views>
+    </facilityGroup>
+	
+    <facilityGroup name="History">
+      <icon>history</icon>
+      <title>@.FACILITYGROUPS_HISTORY</title>
+      <priority>999</priority>
+      <isVisible>false</isVisible>
+      <collectAllNotifications>false</collectAllNotifications>
+      <views>
+        <view name="homeWeb" device="Web" container="StackPanel">
+          <orientation>Vertical</orientation>
+          <bounds>
+            <bound widgetName="historyCustom" />
+          </bounds>
+        </view>
+        <view name="homeMobile" device="Mobile" container="StackPanel">
+          <orientation>Vertical</orientation>
+          <bounds>
+            <bound widgetName="historyCustom" />
+          </bounds>
+        </view>
+      </views>
+    </facilityGroup>
+
+    <!-- <facilityGroup name="HistoryCustom" isVisible="true">
+      <icon>history</icon>
+      <title>@.FACILITYGROUPS_HISTORY</title>
+      <priority>0</priority>
+      <collectAllNotifications>false</collectAllNotifications>
+      <views>
+        <view name="homeWeb" device="Web" container="StackPanel">
+          <orientation>Vertical</orientation>
+          <bounds>
+            <bound widgetName="historyCustom" />
+          </bounds>
+        </view>
+        <view name="homeMobile" device="Mobile" container="StackPanel">
+          <orientation>Vertical</orientation>
+          <bounds>
+            <bound widgetName="historyCustom" />
+          </bounds>
+        </view>
+      </views>
+    </facilityGroup> -->  
+  </facilityGroups>
+
+  <projections>
+    <projection name="activeWorks" title="Требуют действий">
+      <properties>
+        <property name="completed" caption="Дата выполнения" type="DateTime" />
+        <property name="deadline" caption="Срок" type="DateTime" />
+        <property name="finished" caption="Дата завершения" type="DateTime" />
+        <property name="created" caption="Дата создания" type="DateTime" />
+        <property name="hasAttachments" caption="Признак наличия вложений" type="Boolean" />
+        <property name="id" caption="Идентификатор" type="String" />
+        <property name="isExpired" caption="Признак просроченности" type="Boolean" />
+        <property name="isRead" caption="Признак прочитанности" type="Boolean" />
+        <property name="name" caption="Имя" type="String" />
+        <property name="processName" caption="Имя процесса" type="String" />
+        <property name="result" caption="Результат выполнения" type="String" />
+        <property name="status" caption="Состояние" type="String" />
+        <property name="system" caption="Имя системы" type="String" />
+        <property name="title" caption="Заголовок" type="String" />
+        <property name="icon" caption="Иконка" type="String" />
+        <property name="defaultActionName" caption="Имя действия" type="String" />
+        <property name="defaultActionCaption" caption="Заголовок действия" type="String" />
+        <property name="defaultActionIcon" caption="Иконка действия" type="String" />
+      </properties>
+    </projection>
+	
+	<projection name="activeWorksCustom" title="Требуют действий">
+      <properties>
+        <property name="completed" caption="Дата выполнения" type="DateTime" />
+        <property name="deadline" caption="Срок" type="DateTime" />
+        <property name="finished" caption="Дата завершения" type="DateTime" />
+        <property name="created" caption="Дата создания" type="DateTime" />
+        <property name="id" caption="Идентификатор" type="String" />
+        <property name="isExpired" caption="Признак просроченности" type="Boolean" />
+        <property name="isRead" caption="Признак прочитанности" type="Boolean" />
+        <property name="name" caption="Имя" type="String" />
+        <property name="result" caption="Результат выполнения" type="String" />
+        <property name="status" caption="Состояние" type="String" />
+        <property name="system" caption="Имя системы" type="String" />
+        <property name="title" caption="Заголовок" type="String" />
+        <property name="icon" caption="Иконка" type="String" />
+        <property name="defaultActionName" caption="Имя действия" type="String" />
+        <property name="defaultActionCaption" caption="Заголовок действия" type="String" />
+        <property name="defaultActionIcon" caption="Иконка действия" type="String" />
+      </properties>
+	  <sources>
+	    <source path ="/api/functions/GetAssignmentsForWorkItemList?personId=$(CurrentUser.DirectumRX.PersonId)">
+	      <mapping>
+		    <map sourceProperty="completed" destProperty="completed" mode="PropertyToProperty" />
+            <map sourceProperty="deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="created" destProperty="created" mode="PropertyToProperty" />
+            <map sourceProperty="id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="isExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="isRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="system" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="icon" destProperty="icon" mode="PropertyToProperty" />
+            <map sourceProperty="defaultActionName" destProperty="defaultActionName" mode="PropertyToProperty" />
+            <map sourceProperty="defaultActionCaption" destProperty="defaultActionCaption" mode="PropertyToProperty" />
+            <map sourceProperty="defaultActionIcon" destProperty="defaultActionIcon" mode="PropertyToProperty" />
+		  </mapping>
+		</source>
+	  </sources>
+    </projection>
+
+    <projection name="completedWorks" title="История">
+      <properties>
+        <property name="completed" caption="Дата выполнения" type="DateTime" />
+        <property name="deadline" caption="Срок" type="DateTime" />
+        <property name="finished" caption="Дата завершения" type="DateTime" />
+        <property name="hasAttachments" caption="Признак наличия вложений" type="Boolean" />
+        <property name="id" caption="Идентификатор" type="String" />
+        <property name="isExpired" caption="Признак просроченности" type="Boolean" />
+        <property name="isRead" caption="Признак прочитанности" type="Boolean" />
+        <property name="name" caption="Имя" type="String" />
+        <property name="processName" caption="Имя процесса" type="String" />
+        <property name="result" caption="Результат выполнения" type="String" />
+        <property name="status" caption="Состояние" type="String" />
+        <property name="system" caption="Имя системы" type="String" />
+        <property name="title" caption="Заголовок" type="String" />
+        <property name="icon" caption="Иконка" type="String" />
+        <property name="defaultActionName" caption="Имя действия" type="String" />
+        <property name="defaultActionCaption" caption="Заголовок действия" type="String" />
+        <property name="defaultActionIcon" caption="Иконка действия" type="String" />
+      </properties>
+    </projection>
+
+    <projection name="completedWorksCustom" title="История">
+      <properties>
+        <property name="deadline" caption="Срок" type="DateTime" />
+        <property name="assignee" caption="Замещаемый сотрудник" type="String" />
+        <property name="bySubstitution" caption="По замещению" type="String" />
+        <property name="finished" caption="Дата завершения" type="DateTime" />
+        <property name="id" caption="Идентификатор" type="String" />
+        <property name="isExpired" caption="Признак просроченности" type="Boolean" />
+        <property name="isRead" caption="Признак прочитанности" type="Boolean" />
+        <property name="name" caption="Имя" type="String" />
+        <property name="result" caption="Результат выполнения" type="String" />
+        <property name="status" caption="Состояние" type="String" />
+        <property name="system" caption="Имя системы" type="String" />
+        <property name="title" caption="Заголовок" type="String" />
+        <property name="icon" caption="Иконка" type="String" />
+        <property name="defaultActionName" caption="Имя действия" type="String" />
+        <property name="defaultActionCaption" caption="Заголовок действия" type="String" />
+        <property name="defaultActionIcon" caption="Иконка действия" type="String" />
+      </properties>
+	  <sources>
+	    <source path ="/api/functions/GetHistoryAssignmentsForWorkItemList?personId=$(CurrentUser.DirectumRX.PersonId)">
+	      <mapping>
+            <map sourceProperty="deadline" destProperty="deadline" mode="PropertyToProperty" />
+            <map sourceProperty="assignee" destProperty="assignee" mode="PropertyToProperty" />
+            <map sourceProperty="bySubstitution" destProperty="bySubstitution" mode="PropertyToProperty" />
+            <map sourceProperty="finished" destProperty="finished" mode="PropertyToProperty" />
+            <map sourceProperty="id" destProperty="id" mode="PropertyToProperty" />
+            <map sourceProperty="isExpired" destProperty="isExpired" mode="PropertyToProperty" />
+            <map sourceProperty="isRead" destProperty="isRead" mode="PropertyToProperty" />
+            <map sourceProperty="name" destProperty="name" mode="PropertyToProperty" />
+            <map sourceProperty="result" destProperty="result" mode="PropertyToProperty" />
+            <map sourceProperty="status" destProperty="status" mode="PropertyToProperty" />
+            <map sourceProperty="system" destProperty="system" mode="PropertyToProperty" />
+            <map sourceProperty="title" destProperty="title" mode="PropertyToProperty" />
+            <map sourceProperty="icon" destProperty="icon" mode="PropertyToProperty" />
+            <map sourceProperty="defaultActionName" destProperty="defaultActionName" mode="PropertyToProperty" />
+            <map sourceProperty="defaultActionCaption" destProperty="defaultActionCaption" mode="PropertyToProperty" />
+            <map sourceProperty="defaultActionIcon" destProperty="defaultActionIcon" mode="PropertyToProperty" />
+		  </mapping>
+		</source>
+	  </sources>
+    </projection>
+  </projections>
+
+  <pages>
+    <page name="welcomePage" title="@.PAGE_INFO">
+      <content />
+      <pageLoadedHandler>
+        <![CDATA[
+          ESS.overlay.showOverlay(123, ESS.L('@ESSBASE.PAGE_INFO'));
+
+          ESS.network.sendRequest("/api/functions/ChangePersonalAccountStatusToInviteAccepted",
+            { method: "POST", body: JSON.stringify({}) })
+            .then(function () {
+              ESS.overlay.hideOverlay(123);
+              resolve();
+            })
+            .catch(function (error) {
+              ESS.overlay.hideOverlay(123);
+              reject({message: ESS.L('@ESSBASE.PAGE_ERROR')});
+            });
+        ]]>
+      </pageLoadedHandler>
+    </page>
+  </pages>
+
+  <valueConverters>
+    <valueConverter name="toLongMonthYear" runat="Client">
+      <function>
+        <![CDATA[
+          return converters.toLongMonthYear(value);
+        ]]>
+      </function>
+    </valueConverter>
+
+    <valueConverter name="simplifyDate" runat="Client">
+      <function>
+        <![CDATA[
+          if (!value) {
+            return '';
+          }
+          const date = new Date(value);
+          const options = date.getHours() || date.getMinutes() ? { hour: '2-digit', minute: '2-digit' } : {};
+          return date.toLocaleDateString(language, options);
+        ]]>
+      </function>
+    </valueConverter>
+
+    <valueConverter name="getDeadline" runat="Client">
+      <function>
+        <![CDATA[
+          const { result, deadline, isExpired } = parameter || {};
+          if (!result && deadline) {
+            const date = converters.EssBase.simplifyDate(deadline);
+            const style = isExpired ? ' style="color: rgb(255,95,95);"' : '';
+            return `<div${style}>${date}</div>`;
+          }
+          return '';
+        ]]>
+      </function>
+    </valueConverter>
+
+    <valueConverter name="toTaskScheme" runat="Client">
+      <function>
+        <![CDATA[
+          const { status } = parameter || {};
+          const endedStatuses = [
+            ESS.enums.WorkProcessStatus.ABORTED,
+            ESS.enums.WorkProcessStatus.COMPLETED,
+          ];
+          if (endedStatuses.includes(status)) {
+            return '';
+          }
+          return `
+            <component
+              name="EssBase_Component"
+              public-name="ESS_RemoteComponent"
+              module-name="loaders"
+              loader-name="task-scheme"
+
+              get-task-scheme-function-name_comment="
+                Атрибут для указания имени функции получения маршрута.
+                В качестве дефолтного значения используется 'GetTaskScheme'."
+              get-task-scheme-function-name=""
+
+              task-id_comment="
+                Атрибут для указания идентификатора задачи.
+                Является не обязательным, если в качестве родительского элемента выступает карточка.
+                В качестве дефолтного значения для карточки используется значение 'controlInfo.data.id'."
+              task-id=""
+            />
+          `;
+        ]]>
+      </function>
+    </valueConverter>
+  </valueConverters>
+  
+  <functions>
+    <function name="GetHistoryAssignmentsForWorkItemList" type="Target" methods="GET">
+      <parameters>
+        <parameter name="personId" type="Integer" scope="Server">
+          <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+        </parameter>
+      </parameters>
+      <result type="Object" />
+      <target system="EssBase" function="NNOtherProcesses.GetHistoryAssignmentsForWorkItemList" method="GET" />
+    </function>
+  
+    <function name="GetAssignmentsForWorkItemList" type="Target" methods="GET">
+      <parameters>
+        <parameter name="personId" type="Integer" scope="Server">
+          <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+        </parameter>
+      </parameters>
+      <result type="Object" />
+      <target system="EssBase" function="NNOtherProcesses.GetAssignmentsForWorkItemList" method="GET" />
+    </function>
+
+    <function name="EssBase_GetPositionListByPerson" type="Target" methods="GET">
+      <parameters>
+        <parameter name="personId" type="Integer" scope="Server">
+          <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+        </parameter>
+      </parameters>
+      <result type="Object" />
+      <target system="EssBase" function="EssPlatform.GetPostListByPerson" method="GET" />
+    </function>
+
+    <function name="ChangePersonalAccountStatusToInviteAccepted" type="Target" methods="POST">
+      <parameters>
+        <parameter name="employeeId" type="Integer" scope="Server">
+          <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+        </parameter>
+      </parameters>
+      <target system="EssBase" function="EssPlatform.ChangePersonalAccountStatusToInviteAccepted" method="POST" />
+    </function>
+
+    <function name="GetTaskScheme" type="Target" methods="GET">
+      <parameters>
+        <parameter name="taskId" type="Integer" scope="Client" />
+      </parameters>
+      <result type="Object" isArray="true" />
+      <target system="EssBase" function="EssPlatform.GetTaskScheme" method="GET" />
+    </function>
+  </functions>
+  
+  <localizedStringValues>
+    <localizedStringValue code="FACILITYGROUPS_WIDGET_HISTORY_SUBTITLE" language="RU" useat="server">
+    <![CDATA[
+      {{#finished}}
+        {{#result}} 
+          {{result}} 
+          {{#bySubstitution}} за {{assignee}} {{/bySubstitution}} 
+        {{/result}} 
+        {{#localizeDate}}{{finished}}{{/localizeDate}}
+      {{/finished}}
+    ]]>
+    </localizedStringValue>
+    <localizedStringValue code="FACILITYGROUPS_WIDGET_HISTORY_SUBTITLE" language="EN" useat="client">
+    <![CDATA[
+      {{#finished}}
+        {{#result}} 
+          {{result}} 
+          {{#bySubstitution}} for {{assignee}} {{/bySubstitution}} 
+        {{/result}} 
+        {{#localizeDate}}{{finished}}{{/localizeDate}}
+      {{/finished}}
+    ]]>
+    </localizedStringValue>
+  </localizedStringValues>
+
+  <components>
+    <component name="EssBase_Component">
+      <remoteEntry codeFile="EssBase/Component/remoteEntry.js" />
+      <package>
+        <entry file="EssBase/Component/chunks/*.js" contentType="text/javascript" />
+      </package>
+    </component>
+  </components>
+
+  <include xmlns="http://www.w3.org/2001/XInclude" href="EssBase/Localization/Localization.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="EssBase/ObjectCards/ObjectCards.xml" />
+  <include xmlns="http://www.w3.org/2001/XInclude" href="EssBase/Scripts/Scripts.xml" />
+</solution>

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Прочие процессы</value>
+  </data>
+  <data name="CoverTitle" xml:space="preserve">
+    <value>Прочие процессы</value>
+  </data>
+  <data name="Block_55bc2751d382454981366bbc00ee460e" xml:space="preserve">
+    <value>Заполнение признака «Выход отменен» в карточке документа (Заявка на привлечение к работе в ВД/ПД/СР)</value>
+  </data>
+  <data name="JobDisplayName_490b8f70b1f74b05884cc20649251f35" xml:space="preserve">
+    <value>Актуализация признака "TOP-10/100" в документах (НЕ ЗАПУСКАТЬ)</value>
+  </data>
+  <data name="JobDescription_490b8f70b1f74b05884cc20649251f35" xml:space="preserve">
+    <value>Актуализация признака "TOP-10/100" в документах, если он не соответствует признаку НГД сотрудника.
+Рекомендуется отключить, после завершения актуализации. О завершении можно узнать из уведомления, приходящего администратору.</value>
+  </data>
+  <data name="JobDisplayName_584a90de38674888b2cc539619bf0b85" xml:space="preserve">
+    <value>Норникель. Очистка записей в справочнике "Замещение ЛК"</value>
+  </data>
+  <data name="JobDescription_584a90de38674888b2cc539619bf0b85" xml:space="preserve">
+    <value>Удаляет устаревшие записи справочника "Замещение ЛК" по истечении срока хранения, которое хранится в константе.</value>
+  </data>
+  <data name="sf_3dfd9aa5_4653_4a7c_8126_67bc25d84347" xml:space="preserve">
+    <value>Реестр дополнительных соглашений</value>
+  </data>
+  <data name="FilterPanel_LifeCycleState_6eae4274f0844417b42a13e9c14e3451" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="FilterPanel_Draft_66f0c25137874660901225a8f72fe71a" xml:space="preserve">
+    <value>В разработке</value>
+  </data>
+  <data name="FilterPanel_Active_4f2982735d59455cbbff8ecea31a8907" xml:space="preserve">
+    <value>Действующий</value>
+  </data>
+  <data name="FilterPanel_Obsolete_0174489e6ed64fc5b0915806a397cc89" xml:space="preserve">
+    <value>Устаревший</value>
+  </data>
+  <data name="FilterPanel_BusinessUnit_d47e718557f44bd7bf6107e1bc69da3f" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="FilterPanel_Period_77ae883b57264999bc3ce24b1f321949" xml:space="preserve">
+    <value>Интервал времени</value>
+  </data>
+  <data name="FilterPanel_LastWeek_50fe3c62e57346f391c9b6ca93c35329" xml:space="preserve">
+    <value>Последние 7 дней</value>
+  </data>
+  <data name="FilterPanel_LastMonth_7e736906fac04ff093bc1094ec417c1a" xml:space="preserve">
+    <value>Последние 30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_9da6d04a80cd4340b3acdb89fc46c5e3" xml:space="preserve">
+    <value>Последние 90 дней</value>
+  </data>
+  <data name="FilterPanel_ManualPeriod_eb4d1734f1614e47bd1486346c858eb3" xml:space="preserve">
+    <value>Произвольный период:</value>
+  </data>
+  <data name="FilterPanel_Department_c166c805d6c24809a1cee543be59bede" xml:space="preserve">
+    <value>Подразделение</value>
+  </data>
+  <data name="JobDisplayName_a0441e668db94d2ea13be295b97fd47d" xml:space="preserve">
+    <value>Норникель. Рассылка отчета "Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору"</value>
+  </data>
+  <data name="JobDescription_a0441e668db94d2ea13be295b97fd47d" xml:space="preserve">
+    <value>Норникель. Рассылка отчета "Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору"</value>
+  </data>
+</root>

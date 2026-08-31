@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tile name="recallVacationEmployee" index="50">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <backgroundColor>#FD91C0 </backgroundColor>
+  <foregroundColor>#FFFFFF</foregroundColor>
+  <title></title>
+  <icon>statements</icon>
+  <navigationTargetUrl></navigationTargetUrl>
+  <dataSourceUrl />
+  <contentTemplate>@.VACATIONS_TILE_VACATION_EMPLOYEE_RECALL_TITLE</contentTemplate>
+  <clickEventHandler><![CDATA[
+    ESS.network.sendRequest(`/api/functions/IsDepartmentManagerWithSubtitute`)
+    .then(function (isDepartmentManager) {
+      if (isDepartmentManager) {
+        ESS.actions.facilityActions.runFacility({ id: 'ecf47cff-7040-470b-8efb-0c4230d86622'});
+      }
+      else {
+        ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.FACILITIES_RECALLVACATIONEMPLOYEE_WARNING'), ESS.L('@HRPROVACATIONS.FACILITIES_RECALLVACATIONEMPLOYEE_ISDEPARTMENTMANAGER_ERROR'));
+      }
+    })
+    .catch(function (error) {
+              ESS.toasts.showToast(error.message, 'danger', false);
+    });
+  ]]></clickEventHandler>
+</tile>

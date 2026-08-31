@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="5154e493-54f7-4023-af00-ade29205e0e3" name="GetLrdPayment">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.STATEMENTS_TILE_GETLRDPAYMENT_TITLE</title>
+  <description></description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetPostListByPerson</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="PaymentType" defaultValue="0" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetPaymentTypesByEmployeId?employeeId=0</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Reason" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>250</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ChildData" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterQuery" name="Child" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetJsonForDataSource</dataSource>
+      <dataSourceValueField>Name</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="BirthDate" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>250</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="MaxAmount" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterNumber" name="Amount" isRequired="true" isCollection="false">
+      <isInteger>false</isInteger>
+      <precision>2</precision>
+      <minValue>0</minValue>
+      <showThousandSeparator>true</showThousandSeparator>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="Consent" defaultValue="false" isRequired="true" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Instruction" defaultValue='' isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterFile" name="AdditionalAttachment" defaultValue="" isRequired="true" isCollection="true">
+      <maxSize>15728640</maxSize>
+      <fileTypes>.doc,.docx,.pdf,.png,.jpg,.tiff,.jpeg</fileTypes>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DocumentKindId" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterNumber" name="TemplateId" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="ApplicationDocKindGuid" defaultValue="3ED918CF-3D7B-4688-9BAC-6A8BD79E9606" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterNumber" name="ApplicationDocKindId" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="ImportedApplicationLinks" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="ImportedDocumentLink" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Причина" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Тип выплаты" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Наименование организации (и.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Должность руководителя (д.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО руководителя (д.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника (р.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника (р.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника (и.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Табельный номер" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Личный телефон" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Фамилия И.О. сотрудника (р.п.)" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Фамилия И.О. сотрудника" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="Field_Дата подписи" defaultValue="#TODAY" isRequired="false" isCollection="false" />
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <parameterName>Initiator</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        var initiatorId = formItem.value || functions.getValues().Initiator;
+        if (initiatorId != null) {
+          functions.removeError(window.errorInitiator);
+		  functions.removeError(window.errorEmploymentType);
+          ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned?employeeId=${initiatorId}`)
+          .then(function (isConsentSigned) {
+            if (isConsentSigned != true) {
+              window.errorInitiator = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+            } else {
+              var paymentType = functions.getValues().PaymentType;
+              functions.setDataSource('PaymentType', `/api/functions/GetPaymentTypesByEmployeId?employeeId=${initiatorId}`, paymentType);
+            }
+			ESS.network.sendRequest(`/api/functions/CheckEmploymentTypeInitiator?employeeId=${initiatorId}`)
+			.then(function (message) {
+					  if (message != null && message.length > 0) {
+						window.errorEmploymentType = functions.showError(message);
+					  }
+					})
+          })
+          .catch(function (error) {
+            ESS.toasts.showToast(error.message, 'danger', false);
+          });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label>@.FACILITIES_GETLRDPAYMENT_PAYMENTTYPE</label>
+      <parameterName>PaymentType</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(window[`error${formItem.name}`]);
+        var paymentTypeId = formItem.value;
+        if (paymentTypeId) {
+          var initiatorId = functions.getValues().Initiator;
+          var childData = JSON.parse(functions.getValues().ChildData);
+          ESS.network.sendRequest(`/api/functions/GetPaymentTypeSetting?paymentTypeId=${paymentTypeId}&employeeId=${initiatorId}`)
+          .then(function (setting) {
+            var isChildSupport = setting.IsChildSupport;
+            var fixedAmount = setting.FixedAmount;
+            functions.setValue('Instruction', setting.Instruction);
+            functions.setValue('MaxAmount', setting.Amount);
+            functions.setIsItemDisabled('Amount', fixedAmount);
+            functions.setIsItemHidden('Child', !isChildSupport);
+            functions.setIsItemHidden('BirthDate', !isChildSupport);
+            functions.setIsItemHidden('Consent', !(isChildSupport && setting.IsMale));
+            functions.setValue('Child', null);
+            functions.setValue('BirthDate', null);
+            if (isChildSupport && (!childData || !childData.length)) {
+              window[`error${formItem.name}`] = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_GETLRDPAYMENT_CHILD_NOTFOUND_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, formItem.name);
+            }
+            if (fixedAmount && setting.Amount) {
+              functions.setValue('Amount', setting.Amount);
+            }
+            window.checkAmount();
+          });
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label>@.FACILITIES_GETLRDPAYMENT_REASON</label>
+      <parameterName>Reason</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        functions.setValue('Field_Причина', formItem.value);
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content>@HRPROSTATEMENTS.FACILITIES_GETLRDPAYMENT_REASON_HINT</content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormGroup" name="ChildGroup" />
+    <facilityFormItem type="FacilityFormParameter" name="Child">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_GETLRDPAYMENT_CHILD</label>
+      <parameterName>Child</parameterName>
+      <groupName>ChildGroup</groupName>
+      <valueChangedEventHandler><![CDATA[
+        functions.removeError(window[`error${formItem.name}`]);
+        if (formItem.value) {
+          var childData = JSON.parse(functions.getValues().ChildData);
+          var child = childData.find(item => item.Name == formItem.value);
+          functions.setValue('BirthDate', child.ChildBirthDate);
+
+          if (!child.IsDisabled) {
+            var paymentTypeId = functions.getValues().PaymentType;
+            ESS.network.sendRequest(`/api/functions/CheckForDisabledChildPaymentType?paymentTypeId=${paymentTypeId}`)
+            .then(function (isDisabledChildPaymentType) {
+              if (isDisabledChildPaymentType) {
+                window[`error${formItem.name}`] = functions.showError(ESS.L('@HRPROSTATEMENTS.FACILITIES_GETLRDPAYMENT_CHILD_DISABLED_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, formItem.name);
+              }
+            });
+          }
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="BirthDate">
+      <placeholder>ДД.ММ.ГГГГ</placeholder>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_GETLRDPAYMENT_BIRTHDATE</label>
+      <parameterName>BirthDate</parameterName>
+      <groupName>ChildGroup</groupName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="Amount">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label>@.FACILITIES_GETLRDPAYMENT_AMOUNT</label>
+      <parameterName>Amount</parameterName>
+      <valueChangedEventHandler><![CDATA[
+        window.checkAmount();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="Consent">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <label>@.FACILITIES_GETLRDPAYMENT_CONSENT</label>
+      <parameterName>Consent</parameterName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <label />
+      <parameterName>AdditionalAttachment</parameterName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content>
+        {{{Instruction}}}
+      </content>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Получить наименование НОР." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">BUSINESS_UNIT_NAME</property>
+        <property name="Result" binding="Field_Наименование организации (и.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="1" name="ExecuteFunction" title="Получить наименование должности сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">2</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_JOB_TITLE_GENITIVE</property>
+        <property name="Result" binding="Field_Должность сотрудника (р.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="2" name="ExecuteFunction" title="Получить должность руководителя НОР в дательном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">3</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetLrdPaymentStatementDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CEO_JOB_TITLE_DATIVE</property>
+        <property name="Result" binding="Field_Должность руководителя (д.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="3" name="ExecuteFunction" title="Получить ФИО руководителя НОР в дательном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">4</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetLrdPaymentStatementDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CEO_FULLNAME_DATIVE</property>
+        <property name="Result" binding="Field_ФИО руководителя (д.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="4" name="ExecuteFunction" title="Получить ФИО сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">5</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_FULLNAME_GENITIVE</property>
+        <property name="Result" binding="Field_ФИО сотрудника (р.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="5" name="ExecuteFunction" title="Получить ФИО сотрудника в именительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">6</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_FULLNAME</property>
+        <property name="Result" binding="Field_ФИО сотрудника (и.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="6" name="ExecuteFunction" title="Получить Таб. номер сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">7</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_PERSONNEL_NUMBER</property>
+        <property name="Result" binding="Field_Табельный номер,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="7" name="ExecuteFunction" title="Получить Личный телефон сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">8</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">HRDocFlow.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_PERSONAL_PHONE</property>
+        <property name="Result" binding="Field_Личный телефон,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="8" name="ExecuteFunction" title="Получить фамилию и инициалы сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">9</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME_GENITIVE</property>
+        <property name="Result" binding="Field_Фамилия И.О. сотрудника (р.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="9" name="ExecuteFunction" title="Получить имя типа выплаты." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">10</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNOtherProcesses.GetPaymentTypeNameById</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="paymentTypeId" binding="PaymentType" type="Int" />
+        <property name="Result" binding="Field_Тип выплаты,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="10" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+        <property name="NextStepIndex">11</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="DocumentId" type="Int" binding="TemplateId" />
+        <property name="DocumentFormat">pdfa</property>
+        <property name="DocumentGroup">IElectronicDocuments</property>
+        <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+        <property name="DocumentName" binding="Field_Фамилия И.О. сотрудника (р.п.),#TODAY,Format=Заявление на выплату по ЛНА {0} от {1}" />
+        <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+      </flowStep>
+      <actionStep index="11" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+        <property name="NextStepIndex">12</property>
+        <property name="ActionName">HrProStatements.createSignature</property>
+        <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="SignatureType">Approval</property>
+        <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+        <property name="employeeId" binding="Initiator" type="Int" />
+      </actionStep>
+      <flowStep index="12" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentStep">
+        <property name="NextStepIndex">13</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="ImportingDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="DocumentGroup">INNOtherProcessesLrdPaymentStatementDocuments</property>
+        <property name="EmployeeDirRX" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="PreparedBy" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="DocumentKind" binding="DocumentKindId,Format={{'Id':{0}}}" />
+        <property name="RegistrationDate" binding="#TODAY" type="DateTimeOffSet" />
+        <property name="ImportedDocument" binding="ImportedDocumentLink,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="13" title="Заполнить данные в заявлении на выплату по ЛНА" type="ExecuteFunctionStep">
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">14</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="documentId" binding="ImportedDocumentLink.Id" type="Int" />
+        <property name="paymentTypeId" binding="PaymentType" type="Int" />
+        <property name="childName" binding="Child" type="String" />
+        <property name="childBirthDate" binding="BirthDate" type="String" />
+        <property name="amount" binding="Amount" type="String" />
+        <property name="reason" binding="Reason" type="String" />
+        <property name="FunctionName">NNOtherProcesses.FillLrdPaymentData</property>
+      </flowStep>
+      <flowStep index="14" name="ExecuteFunction" title="Получить вид документа для приложения." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">15</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNCommons.GetDocumentKindId</property>
+        <property name="ExecutionMethod">Get</property>
+        <property name="guid" binding="ApplicationDocKindGuid" type="String" />
+        <property name="result" binding="ApplicationDocKindId,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="15" name="ImportApplicationRX" title="Импортировать приложение в RX" type="ImportDocumentGroupStep">
+        <property name="NextStepIndex">16</property>
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="TargetSystem">EssBase</property>
+        <property name="ImportingDocuments" binding="AdditionalAttachment" type="StoredDocument[]" />
+        <property name="DocumentGroup">INNCommonsHRSimpleDocuments</property>
+        <property name="DocumentKind" binding="ApplicationDocKindId,Format={{'Id':{0}}}" />
+        <property name="EmployeeDirRX" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="PreparedBy" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="Actor" binding="Initiator"/>
+        <property name="ImportedDocuments" binding="ImportedApplicationLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="16" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">17</property>
+        <property name="GroupName">DocumentGroup</property>
+        <property name="Documents" binding="ImportedDocumentLink" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="17" title="Сформировать группу вложений для приложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">18</property>
+        <property name="GroupName">OtherGroup</property>
+        <property name="Documents" binding="ImportedApplicationLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachmentsApplications,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="18" name="StartStatementTask" title="Запустить задачу на согласование заявления" type="StartWorkProcessStep">
+        <property name="ProcessName">IHRDocFlowStatementTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="NeedsReview">False</property>
+        <property name="Importance">Normal</property>
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+  if (window.isFacilityRunning ?? false) {
+    reject();
+  }
+  else {
+    window.isFacilityRunning = true;
+    ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+    .then(function (initiatorId){
+      ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+      .then(function (employee){
+        ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned`)
+        .then(function (isConsentSigned) {
+          if (isConsentSigned != true && employee.positions.length == 1) {
+            ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+            reject();
+          }
+          else {
+            ESS.network.sendRequest(`/api/functions/GetLrdPaymentStatementTemplateId?employeeId=${initiatorId}`)
+            .then(function (VacationStatementData) {
+              if (VacationStatementData.Error.length == 0) {
+                if (employee.positions.length == 1) {
+                  functions.setValue('Initiator', initiatorId);
+                }
+                functions.setValue('TemplateId', VacationStatementData.TemplateId);
+                functions.setValue('DocumentKindId', VacationStatementData.DocumentKindId);
+
+                ESS.network.sendRequest(`/api/functions/GetChildrenByEmployeeId?employeeId=${initiatorId}`)
+                .then(function (childData) {
+                  var childDataString = JSON.stringify(childData);
+                  functions.setValue('ChildData', childDataString);
+                  functions.setDataSource('Child', `/api/functions/GetJsonForDataSource?json=${childDataString}`);
+                  resolve();
+                });
+              }
+              else {
+                ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), VacationStatementData.Error);
+                reject();
+              }
+            })
+          }
+        })
+        .catch(function (error) {
+          ESS.toasts.showToast(error.message, 'danger', false);
+        });
+      })
+      .catch(function (error) {
+        ESS.toasts.showToast(error.message, 'danger', false);
+      });
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+    });
+  }
+  ]]></openingEventHandler>
+  <openedEventHandler><![CDATA[
+    var initiatorId = functions.getValues().Initiator;
+    functions.setDataSource('PaymentType', `/api/functions/GetPaymentTypesByEmployeId?employeeId=${initiatorId}`);
+
+    window.checkAmount = function () {
+      var amountValue = functions.getValues().Amount;
+      var maxAmountValue = functions.getValues().MaxAmount;
+      functions.removeError(window.amountError);
+      if (!amountValue || !maxAmountValue)
+        return;
+      var amount = parseFloat(amountValue.replace(",", "."));
+      var maxAmount = parseFloat(maxAmountValue.replace(",", "."));
+      if (amount > maxAmount) {
+        window.amountError = functions.showError(ESS.formatString(ESS.L('@HRPROSTATEMENTS.FACILITIES_GETLRDPAYMENT_AMOUNT_ERROR'), maxAmountValue), undefined, ESS.enums.FormErrorType.UNSPECIFIED, 'Amount');
+      }
+    }
+  ]]></openedEventHandler>
+  <beforeSubmitEventHandler><![CDATA[
+    var initiatorId = functions.getValues().Initiator;
+    var paymentTypeId = functions.getValues().PaymentType;
+    var child = functions.getValues().Child;
+    var birthDate = functions.getValues().BirthDate;
+
+    ESS.network.sendRequest(`/api/functions/CheckLrdPaymentInExternalSystem?EmployeeId=${initiatorId}&PaymentTypeId=${paymentTypeId}&ChildName=${child}&BirthDate=${birthDate}`)
+    .then(function (result) {
+      if (result && result.length != 0) {
+        ESS.toasts.showToast(result, 'danger', false);
+        reject();
+      }
+      else {
+        resolve();
+      }
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></beforeSubmitEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    window.isFacilityRunning = false;
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') 
+    {
+      ESS.closeElement(sender.parent); 
+      ESS.widgets.updateWidgets();
+    }
+    ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_GETVACATION_SUCCESSMESSAGE</successMessage>
+</facility>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<functions>
+  <!--
+  Работа с задачами и заданиями
+  -->
+  
+  <!-- Получить инструкцию для карточки отказа от подписания. -->
+  <function name="GetRefusalInstruction" type="Target" methods="GET">
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetRefusalInstruction" method="GET" />
+  </function>
+  
+  <!-- Получить инструкцию для карточки отказа от выполнения задания. -->
+  <function name="GetRejectedInstruction" type="Target" methods="GET">
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetRejectedInstruction" method="GET" />
+  </function>
+
+  <!-- Получить инструкцию для карточки отказа от согласования. -->
+  <function name="GetInstructionRefusalToApproveDocument" type="Target" methods="GET">
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetInstructionRefusalToApproveDocument" method="GET" />
+  </function>
+  
+  <!-- Получить инструкцию для карточки отправки на доработку. -->
+  <function name="GetReworkInstruction" type="Target" methods="GET">
+    <parameters>
+      <parameter name="isSigned" type="Boolean" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetReworkInstruction" method="GET" />
+  </function>
+  
+  <!-- Получить инструкцию для услуги отправки на доработку документов на согласование. -->
+  <function name="GetDocumentApprovalOnRewokInstruction" type="Target" methods="GET">
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetDocumentApprovalOnRewokInstruction" method="GET" />
+  </function>
+  
+  <!-- Получить инструкцию для карточки прекращения. -->
+  <function name="GetTerminateInstruction" type="Target" methods="GET">
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetTerminateInstruction" method="GET" />
+  </function>
+  
+  <!-- Получить текст задачи по ИД задания. -->
+  <function name="GetTaskActiveText" type="Target" methods="GET">
+    <parameters>
+      <parameter name="assignmentId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetTaskActiveText" method="GET" />
+  </function>
+  
+  <!-- Проверить, что идет подписание согласия на КЭДО. -->
+  <function name="IsDMAConsentSigning" type="Target" methods="GET">
+    <parameters>
+      <parameter name="assignmentId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="Boolean" />
+    <target system="HRPro" function="HRDocFlow.IsDMAConsentSigning" method="GET" />
+  </function>
+  
+  <!-- Получить текст уведомления. -->
+  <function name="GetNoticeActiveText" type="Target" methods="GET">
+    <parameters>
+      <parameter name="noticeId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetNoticeActiveText" method="GET" />
+  </function>
+  
+  <!-- Получить инструкцию задания для ЛК. -->
+  <function name="GetAssignmentInstructionForEss" type="Target" methods="GET">
+    <parameters>
+      <parameter name="assignmentId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="HRCommons.GetAssignmentInstructionForEss" method="GET" />
+  </function>
+  
+  <!-- Проверить, в работе ли задание. -->
+  <function name="CheckAssignmentInProcess" type="Target" methods="GET">
+    <parameters>
+      <parameter name="assignmentId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="Boolean" />
+    <target system="HRPro" function="HRDocFlow.CheckAssignmentInProcess" method="GET" />
+  </function>
+  
+  <!--
+  Заявления
+  -->
+  
+    <!-- Проверяет, что сотрудник работает по основному месту работы. -->
+  <function name="CheckEmploymentTypeInitiator" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="NNCommons.CheckEmploymentTypeInitiator" method="GET" />
+  </function>
+  
+  <!-- Собрать JSON для виджета "Заявления сотрудника". -->
+  <function name="GetJSONForStatements" type="Target" methods="GET">
+    <parameters>
+      <parameter name="userId" type="Integer" scope="Server">
+        <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+      </parameter>
+    </parameters>
+    <result type="Object" isArray="true" />
+    <target system="HRPro" function="HRDocFlow.GetJSONForStatements" method="GET" />
+  </function>
+  
+  <!-- Собрать JSON для виджета "Прочие заявления сотрудника по отпускам". -->
+  <function name="GetJSONForOtherVacationStatements" type="Target" methods="GET">
+    <parameters>
+      <parameter name="userId" type="Integer" scope="Server">
+        <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+      </parameter>
+    </parameters>
+    <result type="Object" isArray="true" />
+    <target system="HRPro" function="HRDocFlow.GetJSONForOtherVacationStatements" method="GET" />
+  </function>
+  
+  <!-- Собрать данные для виджета "Отправленные заявления". -->
+  <function name="GetStatementTasksDataForWidget" type="Target" methods="GET">
+    <parameters>
+      <parameter name="userId" type="Integer" scope="Server">
+        <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+      </parameter>
+    </parameters>
+    <result type="Object" isArray="true" />
+    <target system="HRPro" function="HRDocFlow.GetStatementTasksDataForWidget" method="GET" />
+  </function>
+
+  <!-- Получить значение макропеременной для заявления. -->
+  <function name="GetDocumentFieldValue" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Server">
+        <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+      </parameter>
+      <parameter name="fieldName" type="String" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.GetDocumentFieldValue" method="GET" />
+  </function>
+  
+  <!-- Заполнить причину отказа в задаче на рассмотрение заявлений сотрудников. -->
+  <function name="SetAbotringReasonInStatementTask" type="Target" methods="POST">
+    <parameters>
+      <parameter name="taskID" type="Integer" scope="Client" />
+      <parameter name="reason" type="String" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="HRDocFlow.SetAbotringReasonInStatementTask" method="POST" />
+  </function>
+  
+  <!--
+  Работа с ролями и пользователями
+  -->
+  
+  <!-- Получить Список сотрудников с учетом ограничения видимости орг. структуры. -->
+  <function name="GetVisibleEmployees" type="Target" methods="GET">
+    <parameters>
+      <parameter name="query" type="String" scope="Client"/>
+      <parameter name="takeCount" type="Integer" scope="Client"/>
+      <parameter name="skipCount" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNCommons.GetVisibleEmployees" method="GET"/>
+  </function>
+  
+  <!-- Проверить, подписано ли соглашение о КЭДО у сотрудника. -->
+  <function name="CheckEmployeeConsentSigned" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Client">
+        <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+      </parameter>
+    </parameters>
+    <result type="Boolean" />
+    <target system="HRPro" function="HRDocFlow.CheckEmployeeConsentSigned" method="GET" />
+  </function>
+
+  <!-- Получить список сотрудников с детальной информацией. -->
+  <function name="GetEmployeesForSubstituteParameter" type="Target" methods="GET">
+      <parameters>
+          <parameter name="employeeId" type="Integer" scope="Client"/>
+          <parameter name="query" type="String" scope="Client"/>
+      </parameters>
+      <result type="Object" />
+      <target system="HRPro" function="HRCommons.GetEmployeesForSubstituteParameter" method="GET"/>
+  </function>
+
+  <!-- Получить список ресипиентов с детальной информацией. -->
+  <function name="GetRecipientsForNotifiableParameter" type="Target" methods="GET">
+      <parameters>
+          <parameter name="query" type="String" scope="Client"/>
+          <parameter name="takeCount" type="Integer" scope="Client"/>
+          <parameter name="skipCount" type="Integer" scope="Client"/>
+      </parameters>
+      <result type="Object" />
+      <target system="HRPro" function="HRCommons.GetRecipientsForNotifiableParameter" method="GET"/>
+  </function>
+  <!-- Сборка данных для виджета "Отправленные заявления". -->
+  <function name="GetNNStatementTasksDataForWidget" type="Target" methods="GET">
+    <parameters>
+      <parameter name="userId" type="Integer" scope="Server">
+        <defaultValue>$(CurrentUser.DirectumRX.ActorId)</defaultValue>
+      </parameter>
+      <parameter name="isVacation" type="Boolean" scope="Server"> 
+        <defaultValue>false</defaultValue>
+      </parameter>
+    </parameters>
+    <result type="Object" isArray="true" />
+    <target system="HRPro" function="NNCommons.GetNNStatementTasksDataForWidget" method="GET" />
+  </function>
+
+  <!-- Проверить заявление ВД/ПД/СР во внешней системе. -->
+  <function name="ValidateWeekendWorkStatementInExternalSystem" type="Target" methods="GET">
+    <parameters>
+      <parameter name="DocKindGuid" type="String" scope="Client"/>
+      <parameter name="EmployeeId" type="Integer" scope="Client"/>
+      <parameter name="WorkDateFrom" type="String" scope="Client"/>
+      <parameter name="WorkDateTo" type="String" scope="Client"/>
+      <parameter name="RestDateFrom" type="String" scope="Client"/>
+      <parameter name="RestDateTo" type="String" scope="Client"/>
+    </parameters>
+    <result type="String"/>
+    <target system="HRPro" function="NNOtherProcesses.ValidateWeekendWorkStatementInExternalSystem" method="GET"/>
+  </function>
+
+  <!-- Получить данные для доработки заявления на работу в выходной и/или праздничный день. -->
+  <function name="GetStatementDataForReworkWeekendWork" type="Target" methods="GET">
+    <parameters>
+      <parameter name="assignmentId" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetStatementDataForReworkWeekendWork" method="GET"/>
+  </function>
+
+  <!-- Получить список типов выплат доступных сотруднику. -->
+  <function name="GetPaymentTypesByEmployeId" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetPaymentTypesByEmployeId" method="GET"/>
+  </function>
+
+  <!-- Получить имя типа выплаты по ИД типа выплаты. -->
+  <function name="GetPaymentTypeNameById" type="Target" methods="GET">
+    <parameters>
+      <parameter name="paymentTypeId" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="String"/>
+    <target system="HRPro" function="NNOtherProcesses.GetPaymentTypeNameById" method="GET"/>
+  </function>
+
+  <!-- Получить настройку типа выплаты. -->
+  <function name="GetPaymentTypeSetting" type="Target" methods="GET">
+    <parameters>
+      <parameter name="paymentTypeId" type="Integer" scope="Client"/>
+      <parameter name="employeeId" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetPaymentTypeSetting" method="GET"/>
+  </function>
+
+  <!-- Получить json для dataSource. -->
+  <function name="GetJsonForDataSource" type="Target" methods="GET">
+    <parameters>
+      <parameter name="json" type="String" scope="Client"> 
+        <defaultValue>[]</defaultValue>
+      </parameter>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetJsonForDataSource" method="POST"/>
+  </function>
+
+  <!-- Получить информацию о детях сотрудника. -->
+  <function name="GetChildrenByEmployeeId" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetChildrenByEmployeeId" method="GET"/>
+  </function>
+
+  <!-- Получить ИД шаблона заявление на выплату по ЛНА. -->
+  <function name="GetLrdPaymentStatementTemplateId" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetLrdPaymentStatementTemplateId" method="GET"/>
+  </function>
+
+  <!-- Получить данные для доработки заявления на работу в выходной и/или праздничный день. -->
+  <function name="GetLrdPaymentDataForRework" type="Target" methods="GET">
+    <parameters>
+      <parameter name="assignmentId" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetLrdPaymentDataForRework" method="GET"/>
+  </function>
+
+  <!-- Проверить, что тип выплаты - "Материальная помощь работнику, имеющему ребенка-инвалида в возрасте до 18 лет". -->
+  <function name="CheckForDisabledChildPaymentType" type="Target" methods="GET">
+    <parameters>
+      <parameter name="paymentTypeId" type="Integer" scope="Client"/>
+    </parameters>
+    <result type="Boolean"/>
+    <target system="HRPro" function="NNOtherProcesses.CheckForDisabledChildPaymentType" method="GET"/>
+  </function>
+  
+  <!-- Проверить заявление на выплату ЛНА во внешней системе. -->
+  <function name="CheckLrdPaymentInExternalSystem" type="Target" methods="GET">
+    <parameters>
+      <parameter name="EmployeeId" type="Integer" scope="Client"/>
+      <parameter name="PaymentTypeId" type="Integer" scope="Client"/>
+      <parameter name="ChildName" type="String" scope="Client"/>
+      <parameter name="BirthDate" type="String" scope="Client"/>
+    </parameters>
+    <result type="String"/>
+    <target system="HRPro" function="NNOtherProcesses.CheckLrdPaymentInExternalSystem" method="GET"/>
+  </function>
+
+  <!-- Получить список видов компенсаций. -->
+  <function name="GetCompensationKindsByDocKind" type="Target" methods="GET">
+    <parameters>
+      <parameter name="docKindGuid" type="String" scope="Client"/>
+    </parameters>
+    <result type="Object"/>
+    <target system="HRPro" function="NNOtherProcesses.GetCompensationKindsByDocKind" method="GET"/>
+  </function>
+
+  <!-- Проверить наличие превышения количества рабочих часов ВД/ПД. -->
+  <function name="ValidateWeekendWorkStatement" type="Target" methods="GET">
+    <parameters>
+      <parameter name="employeeId" type="Integer" scope="Client"/>
+      <parameter name="workFrom" type="String" scope="Client"/>
+      <parameter name="workTo" type="String" scope="Client"/>
+      <parameter name="firstBreakFrom" type="String" scope="Client"/>
+      <parameter name="firstBreakTo" type="String" scope="Client"/>
+      <parameter name="secondBreakFrom" type="String" scope="Client"/>
+      <parameter name="secondBreakTo" type="String" scope="Client"/>
+    </parameters>
+    <result type="String"/>
+    <target system="HRPro" function="NNOtherProcesses.ValidateWeekendWorkStatement" method="POST"/>
+  </function>
+  
+  <!-- Проверить, что исполнитель задания - текущий пользователь или его совместитель. -->
+  <function name="CheckIfCurrentUserIsPerformer" type="Target" methods="GET">
+    <parameters>
+      <parameter name="personId" type="Integer" scope="Server">
+        <defaultValue>$(CurrentUser.DirectumRX.PersonId)</defaultValue>
+      </parameter>
+      <parameter name="assignmentId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="Boolean" />
+    <target system="EssBase" function="NNOtherProcesses.CheckIfCurrentUserIsPerformer" method="GET" />
+  </function>
+  
+  <!-- Получить информацию, является ли сотрудник категории ТОП. -->
+  <function name="GetTopAndGoValue" type="Target" methods="GET">
+    <parameters>
+        <parameter name="employeeId" type="Integer" scope="Client" />
+    </parameters>
+    <result type="String" />
+    <target system="HRPro" function="NNCommons.GetTopAndGoValue" method="GET" />
+  </function>
+
+</functions>

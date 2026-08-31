@@ -1,0 +1,263 @@
+{
+  "$type": "Sungero.Metadata.SolutionMetadata, Sungero.Metadata",
+  "NameGuid": "b1584b0a-fd55-4691-9b27-f49b36878465",
+  "Name": "OverrideSolution",
+  "AsyncHandlers": [],
+  "ClientAssemblyName": "DirRX.OverrideSolution.Client",
+  "ClientBaseAssemblyName": "DirRX.OverrideSolution.ClientBase",
+  "ClientBaseNamespace": "DirRX.OverrideSolution.ClientBase",
+  "ClientNamespace": "DirRX.OverrideSolution.Client",
+  "Code": "Overrid",
+  "CompanyCode": "DirRX",
+  "Cover": {
+    "NameGuid": "d6c2c753-c31f-49d1-adda-615d6bef749a",
+    "Actions": [],
+    "Background": null,
+    "Footer": {
+      "NameGuid": "b89e5bd4-ac5f-4af2-aefa-5b0900fd787e",
+      "BackgroundPosition": "Stretch"
+    },
+    "Groups": [],
+    "Header": {
+      "NameGuid": "4a4c81a5-4530-49d8-b2d8-305c1b1e0e60",
+      "BackgroundPosition": "Stretch"
+    },
+    "RemoteControls": [],
+    "Tabs": []
+  },
+  "Dependencies": [
+    {
+      "Id": "1ffb80a4-929e-40c5-9370-b703b0a924eb",
+      "MaxVersion": "",
+      "MinVersion": "2.1.48138.5"
+    }
+  ],
+  "DesktopViews": [],
+  "ExplorerTreeOrder": [
+    {
+      "ItemId": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e"
+    },
+    {
+      "ItemId": "38b6af02-74b1-4bb1-978f-d95281b01dc5",
+      "PreviousItemId": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e"
+    },
+    {
+      "ItemId": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "PreviousItemId": "38b6af02-74b1-4bb1-978f-d95281b01dc5"
+    },
+    {
+      "ItemId": "114f0f21-edfa-4b43-bd7a-9202087bf256",
+      "PreviousItemId": "dbb7e59c-bb09-4ade-9183-920c381037af"
+    },
+    {
+      "ItemId": "d4770e59-9565-4b66-8143-649d2589ba0c",
+      "PreviousItemId": "114f0f21-edfa-4b43-bd7a-9202087bf256"
+    },
+    {
+      "ItemId": "f4130006-f84c-4481-9d15-be842159a945",
+      "PreviousItemId": "d4770e59-9565-4b66-8143-649d2589ba0c"
+    },
+    {
+      "ItemId": "0c317400-d24f-4f67-8d3f-01ba229f6e16",
+      "PreviousItemId": "f4130006-f84c-4481-9d15-be842159a945"
+    },
+    {
+      "ItemId": "26862c05-2b0f-48e2-beb1-2697c0ab5a4a",
+      "PreviousItemId": "0c317400-d24f-4f67-8d3f-01ba229f6e16"
+    },
+    {
+      "ItemId": "c7c53763-1fb3-44ce-95b7-6eb6c318290b",
+      "PreviousItemId": "26862c05-2b0f-48e2-beb1-2697c0ab5a4a"
+    },
+    {
+      "ItemId": "6facef67-4632-47f7-acf9-7e288676e35c",
+      "PreviousItemId": "c7c53763-1fb3-44ce-95b7-6eb6c318290b"
+    },
+    {
+      "ItemId": "44ea4e2c-3aa5-478c-85f7-5de006114fa0",
+      "PreviousItemId": "6facef67-4632-47f7-acf9-7e288676e35c"
+    },
+    {
+      "ItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988",
+      "PreviousItemId": "44ea4e2c-3aa5-478c-85f7-5de006114fa0"
+    },
+    {
+      "ItemId": "5836c650-4e0c-4631-a248-e2b965837e71",
+      "PreviousItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988"
+    },
+    {
+      "ItemId": "3790d936-0464-44cf-a46d-25aef0eb38dd",
+      "PreviousItemId": "5836c650-4e0c-4631-a248-e2b965837e71"
+    },
+    {
+      "ItemId": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e",
+      "PreviousItemId": "3790d936-0464-44cf-a46d-25aef0eb38dd"
+    },
+    {
+      "ItemId": "35e0a45e-e5a4-48cb-ac68-cbd72d281997",
+      "PreviousItemId": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e"
+    },
+    {
+      "ItemId": "9ce75c03-7d0d-4077-9aa8-842a6db23dd2",
+      "PreviousItemId": "35e0a45e-e5a4-48cb-ac68-cbd72d281997"
+    },
+    {
+      "ItemId": "3e06927c-551a-4189-b361-8b441978dc37",
+      "PreviousItemId": "9ce75c03-7d0d-4077-9aa8-842a6db23dd2"
+    },
+    {
+      "ItemId": "0bb311e0-b925-4241-ab05-6235b3a02525",
+      "PreviousItemId": "3e06927c-551a-4189-b361-8b441978dc37"
+    },
+    {
+      "ItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988",
+      "PreviousItemId": "0bb311e0-b925-4241-ab05-6235b3a02525"
+    },
+    {
+      "ItemId": "bab48523-982c-44de-9766-c8c6d4a65c65",
+      "PreviousItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988"
+    },
+    {
+      "ItemId": "2ab06c10-5ed8-4673-ba0c-0610ce411c6f",
+      "PreviousItemId": "bab48523-982c-44de-9766-c8c6d4a65c65"
+    },
+    {
+      "ItemId": "35e0a45e-e5a4-48cb-ac68-cbd72d281997",
+      "PreviousItemId": "2ab06c10-5ed8-4673-ba0c-0610ce411c6f"
+    },
+    {
+      "ItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988",
+      "PreviousItemId": "35e0a45e-e5a4-48cb-ac68-cbd72d281997"
+    },
+    {
+      "ItemId": "35e0a45e-e5a4-48cb-ac68-cbd72d281997",
+      "PreviousItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988"
+    },
+    {
+      "ItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988",
+      "PreviousItemId": "35e0a45e-e5a4-48cb-ac68-cbd72d281997"
+    },
+    {
+      "ItemId": "b47faf1f-8adb-4bc3-80bc-9d808d4afae1",
+      "PreviousItemId": "04e2bd94-344d-4c25-ad56-7b6590d35988"
+    },
+    {
+      "ItemId": "e7c27f51-9cfe-4978-88fa-4eca35510217",
+      "PreviousItemId": "b47faf1f-8adb-4bc3-80bc-9d808d4afae1"
+    },
+    {
+      "ItemId": "84ea35bd-4470-45da-92fa-1d5ba6bbd7c8",
+      "PreviousItemId": "e7c27f51-9cfe-4978-88fa-4eca35510217"
+    },
+    {
+      "ItemId": "fdd19b3c-a646-4291-ace6-a644867257a9",
+      "PreviousItemId": "84ea35bd-4470-45da-92fa-1d5ba6bbd7c8"
+    },
+    {
+      "ItemId": "d937fada-db4c-4443-b03e-7809566a3e52",
+      "PreviousItemId": "fdd19b3c-a646-4291-ace6-a644867257a9"
+    },
+    {
+      "ItemId": "2ca58ac7-3607-48d7-85ac-eb780f3db20a",
+      "PreviousItemId": "d937fada-db4c-4443-b03e-7809566a3e52"
+    },
+    {
+      "ItemId": "2dee8d12-bb10-4190-a6bc-81ce257d8e98",
+      "PreviousItemId": "2ca58ac7-3607-48d7-85ac-eb780f3db20a"
+    },
+    {
+      "ItemId": "3c7c47f0-64ae-4f1e-9eaf-523c02997c94",
+      "PreviousItemId": "2dee8d12-bb10-4190-a6bc-81ce257d8e98"
+    },
+    {
+      "ItemId": "1397d2e1-b0a7-41e2-b3a0-4d0eeacfb8fe",
+      "PreviousItemId": "3c7c47f0-64ae-4f1e-9eaf-523c02997c94"
+    },
+    {
+      "ItemId": "c9b86d60-b0f1-46a6-9fd8-0b4f75d430fc",
+      "PreviousItemId": "1397d2e1-b0a7-41e2-b3a0-4d0eeacfb8fe"
+    }
+  ],
+  "Importance": "Medium",
+  "InterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "InterfaceNamespace": "DirRX.OverrideSolution",
+  "IsolatedAssemblyName": "DirRX.OverrideSolution.Isolated",
+  "IsolatedNamespace": "DirRX.OverrideSolution.Isolated",
+  "OrderedSpecialFolders": [],
+  "PublicFunctions": [
+    {
+      "Name": "CheckDocumentLock",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "document",
+          "ParameterType": "global::DirRX.OverrideSolution.IOfficialDocument",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IOfficialDocument, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "GetCertificates",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.CoreEntities.ICertificate>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetCurrentUserActiveSubstitutions",
+      "IsRemote": true,
+      "Placement": "Shared",
+      "ReturnType": "global::System.Linq.IQueryable<global::Sungero.CoreEntities.IUser>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    }
+  ],
+  "PublicStructures": [
+    {
+      "Name": "SearchEmployeeResult",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Employee",
+          "IsEntity": true,
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.OverrideSolution.IEmployee"
+        },
+        {
+          "Name": "ErrorMessage",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.OverrideSolution.Structures.Module"
+    }
+  ],
+  "ResourceInterfaceAssemblyName": "Sungero.Domain.Interfaces",
+  "ResourceInterfaceNamespace": "DirRX.OverrideSolution",
+  "ResourcesKeys": [
+    "DocumentLockedMessage"
+  ],
+  "ServerAssemblyName": "DirRX.OverrideSolution.Server",
+  "ServerNamespace": "DirRX.OverrideSolution.Server",
+  "SharedAssemblyName": "DirRX.OverrideSolution.Shared",
+  "SharedNamespace": "DirRX.OverrideSolution.Shared",
+  "SpecialFolders": [],
+  "Version": "25.2.0.12",
+  "Widgets": [],
+  "Versions": [
+    {
+      "Type": "SolutionMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "ModuleMetadata",
+      "Number": 11
+    },
+    {
+      "Type": "DomainApi",
+      "Number": 3
+    }
+  ]
+}

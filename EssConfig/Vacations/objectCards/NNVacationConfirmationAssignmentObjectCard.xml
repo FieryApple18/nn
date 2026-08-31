@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="6dd63a1b-7296-4647-9d34-342875729a8d" name="INNVacationConfirmationAssignments" header="@.OBJECTCARD_VACATION_CONFIRMATION_ASSIGMENT_HEADER" icon="">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field><![CDATA[
+          {{^isSubstitutionAllowed}}
+            <div style="color: {{#getColor}}Danger50Color{{/getColor}}; font-weight: bold;">
+              {{isSubstitutionNotAllowedMessage}}
+            </div>
+          {{/isSubstitutionAllowed}}
+        ]]></field>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result" />
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee" />
+      </fields>
+      <content></content>
+      <attachmentsAreas>
+        <attachmentsArea title="@.DEFAULT_ATTACHMENTS_SIGNING_DOCUMENTS">
+          <documentGroups>
+            <documentGroup>DocumentGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+    <button name="Shift" isPrimary="false" isDefault="true">
+      <icon />
+      <caption>@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_SHIFT</caption>
+      <clickEventHandler><![CDATA[
+        var callback = function callback() {
+          ESS.actions.facilityActions.runFacility({id:'4ad03918-61bb-4c31-8e27-4926b7c60401'}, {parameters:{AssignmentId: data.id, PerformerId: data.performer, AssignmentType: data.name}});
+          ESS.closeElement(sender)
+        };
+        
+        var documents = data.attachments.filter(x => x.group === 'DocumentGroup').map(a => ({ id: a.id, title: a.title }));
+        if (documents !== undefined && documents.length != 0) {
+          ESS.scripts.HRProVacations.signFromObjectCard({ data, documents, callback });
+        } else {
+          callback();
+        }
+      ]]></clickEventHandler>
+    </button>
+    <button name="Complete" isPrimary="true" isDefault="true">
+    <icon>check-mark</icon>
+    <caption>@.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_BUTTON_APPROVE</caption>
+    <clickEventHandler><![CDATA[
+      var getVacationInfoFromServer = function() {
+        return new Promise(function(resolve) {
+          ESS.network.sendRequest('/api/functions/GetVacationInfoByAssignmentId?assignmentId=' + data.id)
+          .then(function(response) {
+            if (!response) {
+              resolve({ vacationKindId: 0, periods: [] });
+              return;
+            }
+            
+            var vacationKindId = response.vacationKindId || response.VacationKindId || 0;
+            var rawPeriods = response.periods || response.Periods || [];
+            
+            var normalizedPeriods = rawPeriods.map(function(p) {
+              return {
+                StartDate: p.startDate || p.StartDate,
+                EndDate: p.endDate || p.EndDate
+              };
+            });
+
+            resolve({
+              vacationKindId: vacationKindId,
+              periods: normalizedPeriods
+            });
+          })
+          .catch(function(error) {
+            resolve({ vacationKindId: 0, periods: [] });
+          });
+        });
+      };
+
+      var runSubstitutionSetup = function(vacationData) {
+        return new Promise(function(resolve) {
+          var periods = vacationData.periods;
+          var vacationKindId = vacationData.vacationKindId;
+
+          if (!periods || periods.length === 0) {
+            resolve();
+            return;
+          }
+          
+          var vacationPeriodsJson = JSON.stringify(periods);
+          
+          ESS.actions.facilityActions.runFacility(
+            { id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' },
+            {
+              parameters: {
+                InitiatorId: data.performer,
+                AssignmentId: data.id,
+                AssignmentType: data.name,
+                VacationPeriodsJson: vacationPeriodsJson,
+                CompleteAssignmentAfterSubmit: true,
+                WorkItemChangingReason: 'Confirm',
+                VacationKindId: vacationKindId
+              }
+            }
+          );
+          resolve();
+        });
+      };
+    
+      var closeCard = function() {
+        ESS.closeElement(sender);
+        ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.OBJECTCARD_VACATIONCONFIRMATIONASSIGNMENTOBJECTCARD_FACILITY_SUCCESSMESSAGE'), 'success', true);
+        ESS.widgets.updateWidgets();
+      };
+      
+      var executeFullChain = function() {        
+        getVacationInfoFromServer()
+          .then(function(vacationInfo) {
+            return runSubstitutionSetup(vacationInfo);
+          })
+          .then(function() {
+            closeCard();
+          })
+          .catch(function(error) {
+            ESS.toasts.showErrorToastWithLog('Ошибка при выполнении задания', error.message);
+          });
+      };
+      
+      var documents = data.attachments.filter(x => x.group === 'DocumentGroup').map(a => ({ id: a.id, title: a.title }));
+      
+      if (documents !== undefined && documents.length !== 0) {
+        ESS.scripts.HRProVacations.signFromObjectCard({ data: data, documents: documents, callback: executeFullChain});
+      } else {
+        executeFullChain();
+      }
+    ]]></clickEventHandler>
+  </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
+  <openedEventHandler><![CDATA[
+    var assignmentId = data.id;
+    var isSubstitutionAllowed = data.requisites.find(re => re.name == "IsSubstitutionAllowed").value ?? true;
+    ESS.network.sendRequest(`/api/functions/CheckCurrentUserIsPerformer?personId=$(CurrentUser.DirectumRX.PersonId)&assignmentId=${assignmentId}`)
+    .then(function (isPerformer){
+      if (!isPerformer){
+        if (!isSubstitutionAllowed){
+          data.isSubstitutionNotAllowedMessage = ESS.L('@HRPROVACATIONS.SUBSTITUTION_NOT_ALLOWED');
+          data.isSubstitutionAllowed = isSubstitutionAllowed;
+          functions.setVisibility(['Shift', 'Complete'], ESS.enums.Visibility.HIDDEN);
+        }
+      }
+    })
+	
+    ESS.network.sendRequest(`/api/functions/GetAssignmentInstructionForEss?assignmentId=${assignmentId}`)
+    .then(function (instruction) {
+      if (instruction)
+        configuration.content = ESS.L('@HRPROVACATIONS.COMMON_INSTRUCTION') + '<br/><br/>' + instruction;
+      resolve({configuration: configuration, data: data});
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if(data.isRead === false)
+   {
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+</objectCard>

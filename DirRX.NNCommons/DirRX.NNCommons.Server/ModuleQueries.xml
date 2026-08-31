@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="FillChangedDocsTable">
+    <postgres><![CDATA[insert into {0} (entityid, versions, processed)
+select entityid, string_agg(versionnumber::varchar, '{1}' order by versionnumber) as versions, false
+from 
+  (select distinct entityid, versionnumber
+  from sungero_content_dochistory
+  where action in ('create', 'update')
+    and (operation in ('createversion', 'updateverbody', 'import') or operation is null)
+    and versionnumber is not null
+    and '{2}'::timestamp < historydate 
+    and historydate < '{3}'::timestamp
+  order by entityid, versionnumber) as versions_table
+group by entityid
+order by entityid]]></postgres>
+  </query>
+  <query key="PrepareChangedDocsTable">
+    <postgres><![CDATA[do $$
+begin
+  if (exists (select * from information_schema.columns where table_name = '{0}'))
+  then
+   drop table {0};
+  end if;
+  
+  create table {0}
+  (id serial not null PRIMARY KEY,
+  entityid bigint null,
+  name text null,
+  hyperlink text null,
+  versions text null,
+  processed bool,
+  errorText varchar null);
+end $$;]]></postgres>
+  </query>
+  <query key="SelectFromChangedDocsTable">
+    <postgres><![CDATA[select entityid, versions, errorText
+from {0}
+where processed = false
+limit {1}]]></postgres>
+  </query>
+  <query key="UpdateRowDocsTable">
+    <postgres><![CDATA[update {0}
+set name = '{2}', hyperlink = '{3}', processed = {4}, errortext = '{5}'
+where entityid = {1};]]></postgres>
+  </query>
+  <query key="GetAllBrokenDocumentsDocsTable">
+    <postgres><![CDATA[select entityid, name, hyperlink, versions, errorText
+from {0}
+where (errortext = '') IS NOT true;]]></postgres>
+  </query>
+  <query key="GetBusinessRolesByProccessRecursive">
+    <mssql><![CDATA[BEGIN TRANSACTION;
+
+-- Установка уровня изоляции транзакции (если нужно)
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+-- Запрос с использованием рекурсивного CTE
+WITH BusinessProcessHierarchy AS (
+    SELECT 
+        br.id AS roleid, 
+        base.id, 
+        br.name, 
+        base.processgroup
+    FROM 
+        dirrx_nncommo_businessproces base
+    JOIN 
+        sungero_core_recipient br ON br.process_nncommo_dirrx = base.id
+    WHERE 
+        br.id IN (SELECT value FROM STRING_SPLIT('{0}', ','))  -- Проверяем наличие Id в переданном списке, если у вас есть строка
+
+    UNION ALL
+
+    SELECT 
+        br.id AS roleid, 
+        bp.id, 
+        bp.name, 
+        bp.processgroup
+    FROM 
+        dirrx_nncommo_businessproces bp
+    JOIN 
+        BusinessProcessHierarchy bph ON bp.id = bph.processgroup
+    JOIN 
+        sungero_core_recipient br ON br.process_nncommo_dirrx = bp.id
+    WHERE 
+        bp.id <> bph.id  -- Условие для исключения самоссылок (если такие есть)
+)
+
+-- Получение уникальных ролей из иерархии
+SELECT DISTINCT roleid FROM BusinessProcessHierarchy;
+
+COMMIT;]]></mssql>
+    <postgres><![CDATA[BEGIN;
+
+-- Установка уровня изоляции транзакции
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+-- Запрос с использованием рекурсивного CTE
+WITH RECURSIVE BusinessProcessHierarchy AS (
+    SELECT br.id AS roleid, base.id, br.name, base.processgroup
+    FROM dirrx_nncommo_businessproces base
+    JOIN sungero_core_recipient br ON br.process_nncommo_dirrx = base.id
+    WHERE br.id = ANY(STRING_TO_ARRAY('{0}', ',')::bigint[])  -- Проверяем наличие Id в переданном списке
+    
+    UNION
+    
+    SELECT br.id AS roleid, bp.id, bp.name, bp.processgroup
+    FROM dirrx_nncommo_businessproces bp
+    JOIN BusinessProcessHierarchy bph ON bp.id = bph.processgroup
+    JOIN sungero_core_recipient br ON br.process_nncommo_dirrx = bp.id
+    WHERE bp.id <> bph.id  -- Условие для исключения самоссылок (если такие есть)
+)
+
+-- Получение уникальных ролей из иерархии
+SELECT DISTINCT roleid FROM BusinessProcessHierarchy;
+
+COMMIT;]]></postgres>
+  </query>
+  <query key="PersonnelDocumentsRegister">
+    <postgres><![CDATA[-- Создание временной таблицы c ИД вида документа и признаком "Топ 10/100". 
+create temporary table temp_table (docKindId bigint, top bool);
+
+-- Вставка данных во временную таблицу. 
+insert into temp_table (docKindId, top) values {2};
+
+-- Получение данных для формирования отчета. 
+select 
+  docKinds."name",
+  docs."name",
+  '{0}' || '?type=' || docs.discriminator || '&id=' || docs.id,
+  docs.regnumber_docflow_sungero,
+  TO_CHAR(docs.created + INTERVAL '{6}' HOUR, 'dd.mm.yyyy hh24:mi'),  -- Смещение по часам
+  TO_CHAR(docs.modified + INTERVAL '{6}' HOUR, 'dd.mm.yyyy hh24:mi'),  -- Смещение по часам
+  employee."name",
+  employee.persnumber_company_sungero,
+  TO_CHAR(docs.signedbyempdat_overrid_dirrx + INTERVAL '{6}' HOUR, 'dd.mm.yyyy hh24:mi'),  -- Смещение по часам
+  TO_CHAR(docs.sentforapprova_overrid_dirrx + INTERVAL '{6}' HOUR, 'dd.mm.yyyy hh24:mi'),  -- Смещение по часам
+  signatory."name", 
+  signatory.persnumber_company_sungero,
+  TO_CHAR(docs.signedbycheifd_overrid_dirrx + INTERVAL '{6}' HOUR, 'dd.mm.yyyy hh24:mi'),  -- Смещение по часам
+  author."name",
+  author.persnumber_company_sungero,
+  department."name",
+  case 
+    when docs.hrlifecyclesta_hrproso_hrpro = 'Draft' then 'В разработке'
+    when docs.hrlifecyclesta_hrproso_hrpro = 'PendingSign' then 'На подписании'
+    when docs.hrlifecyclesta_hrproso_hrpro = 'Active' then 'Действующий'
+    when docs.hrlifecyclesta_hrproso_hrpro = 'Obsolete' then 'Устаревший'
+    when docs.hrlifecyclesta_hrproso_hrpro = 'OnDestruction' then 'На удалении'
+  end,
+  case
+    when docs.intapprstate_docflow_sungero = 'OnApproval' then 'На согласовании'
+    when docs.intapprstate_docflow_sungero = 'OnRework' then 'На доработке'
+    when docs.intapprstate_docflow_sungero = 'PendingSign' then 'На подписании'
+    when docs.intapprstate_docflow_sungero = 'Signed' then 'Подписан'
+    when docs.intapprstate_docflow_sungero = 'Aborted' then 'Прекращено'
+    when docs.intapprstate_docflow_sungero = 'Approved' then 'Согласован'
+  end
+from sungero_content_edoc as docs
+left join sungero_docflow_documentkind as docKinds on
+  docKinds.id = docs.documentkind_docflow_sungero
+left join dirrx_nnother_weekendworksta as weekendworkemployees on
+  weekendworkemployees.edoc = docs.id or weekendworkemployees.edoc = docs.weekendworksta_nnother_dirrx
+left join sungero_core_recipient as employee on
+  employee.id = docs.employeedirrx_overrid_dirrx or employee.id = weekendworkemployees.employee
+left join sungero_core_recipient as signatory on
+  signatory.id = docs.oursignatory_docflow_sungero
+left join sungero_core_recipient as author on
+  author.id = docs.author
+left join sungero_core_recipient as department on
+  department.id = author.department_company_sungero
+join temp_table on
+  docs.documentkind_docflow_sungero = temp_table.docKindId and docs.topdirrx_overrid_dirrx = temp_table.top
+where docs.businessunit_docflow_sungero = ANY(STRING_TO_ARRAY('{1}', ',')::bigint[])
+  and (nullif('{3}', '') is null or employee.id = ANY(STRING_TO_ARRAY('{3}', ',')::bigint[]))
+  and docs.created + INTERVAL '{6}' HOUR between '{4}' and '{5}'  -- Смещение по часам
+order by docs.created desc;]]></postgres>
+  </query>
+  <query key="SelectDataForSLA">
+    <postgres><![CDATA[-- Создание временной таблицы c ИД вида документа и признаком "Топ 10/100". 
+create temporary table temp_table (docKindId bigint, top bool);
+
+-- Вставка данных во временную таблицу. 
+insert into temp_table (docKindId, top) values {2};
+
+-- Получение данных для формирования отчета. 
+select
+  docKinds.name as docKindName,
+  tasks.subject as taskSubject,
+  '{0}?type=' || tasks.discriminator || '&id=' || tasks.id as taskHyperlink,
+  author.name as authorName,
+  author.persnumber_company_sungero as authorPersNumber,
+  tasks.created + INTERVAL '{9}' HOUR as taskCreated,  -- Смещение по часам для отображения данных пользователю
+  case
+    when tasks.status = 'InProcess' then 'В работе'
+    when tasks.status = 'Suspended' then 'Остановлена'
+    when tasks.status = 'Completed' then 'Завершена'
+    when tasks.status = 'Aborted' then 'Прекращена'
+    when tasks.status = 'UnderReview' then 'На приемке'
+    when tasks.status = 'Draft' then 'Черновик'
+  end as taskStatus,
+  emps.name as employeeName,
+  emps.persnumber_company_sungero as employeePersNumber,
+  case 
+    when completedby.name != performer.name then completedby.name || ' за ' || performer.name
+    else completedby.name
+  end as performerName,
+  case 
+    when completedby.name != performer.name then completedby.persnumber_company_sungero 
+    else performer.persnumber_company_sungero 
+  end as performerPersNumber,
+  assignments.created + INTERVAL '{9}' HOUR as assignmentCreated,  -- Смещение по часам
+  assignments.deadline + INTERVAL '{9}' HOUR as assignmentDeadline,  -- Смещение по часам
+  assignments.completed + INTERVAL '{9}' HOUR as assignmentCompleted,  -- Смещение по часам
+  -- Для расчетов разницы по времени в часах (без смещения часового пояса):
+  assignments.created as processingTimeStart,
+  assignments.deadline as exceedingDeadlineStart,
+  case 
+    when assignments.status = 'InProcess' then CURRENT_TIMESTAMP::timestamp
+    when assignments.status = 'Completed' then assignments.completed
+    when assignments.status = 'Aborted' then assignments.modified
+  end as processingTimeEnd,
+  case 
+    when assignments.status = 'InProcess' then CURRENT_TIMESTAMP::timestamp
+    when assignments.status = 'Completed' then assignments.completed
+    when assignments.status = 'Aborted' then assignments.modified
+  end as exceedingDeadlineEnd,
+  case
+    when assignments.result = 'Complete' then 'Выполнить'
+    when assignments.result = 'ForRevision' then 'На доработку'
+    when assignments.result = 'Approved' then 'Согласовать'
+    when assignments.result = 'Terminate' then 'Прекратить'
+    when assignments.result = 'Reject' then 'Отказать'
+    when assignments.result = 'Noted' then 'Принято к сведению'
+    when assignments.result = 'Forward' then 'Переадресовать'
+    when assignments.result = 'ForRework' then 'На доработку'
+    when assignments.result = 'Refuse' then 'Отказать'
+    when assignments.result = 'ForReapproving' then 'Исправлено'
+    when assignments.result = 'Abort' then 'Прекратить'
+    when assignments.result = 'Sign' then 'Подписать'
+    when assignments.result = 'Confirm' then 'Подтвердить'
+    when assignments.result = 'Shift' then 'Перенести отпуск'
+    when assignments.result = 'Corrected' then 'Исправлено'
+    else assignments.result
+  end as assignmentResult,
+  (select text.body from sungero_wf_text as text where text.assignment = assignments.id and (not text.isautogenerated) and text.body != coalesce(tasks.converterrorme_hrcommo_hrpro, '')) as assignmentText,
+  assignments.subject as assignmentSubject,
+  '{0}?type=' || assignments.discriminator || '&id=' || assignments.id as assignmentHyperlink 
+from sungero_wf_assignment as assignments
+  join sungero_wf_task as tasks
+    on tasks.id = assignments.task
+  join sungero_core_recipient as author
+    on author.id = tasks.author
+  join sungero_core_recipient as completedby
+    on completedby.id = (case when assignments.status = 'Completed' then assignments.completedby else assignments.performer end)
+  join sungero_core_recipient as performer
+    on performer.id = assignments.performer
+  join dirrx_overrid_doctaskids as taskIds
+    on taskIds.taskid = tasks.id
+  join sungero_content_edoc as docs
+    on taskIds.edoc = docs.id
+  join sungero_docflow_documentkind as docKinds
+    on docKinds.id = docs.documentkind_docflow_sungero
+  join temp_table
+    on docs.documentkind_docflow_sungero = temp_table.docKindId and docs.topdirrx_overrid_dirrx = temp_table.top
+  left join dirrx_nnother_weekendworksta as wws
+	  on wws.edoc = docs.id
+  left join sungero_core_recipient as emps
+	  on emps.id = coalesce(wws.employee, docs.employeedirrx_overrid_dirrx)
+where
+  (not {8} or assignments.ismanualholdin_overrid_dirrx)
+  and exists (select 1 from sungero_wf_maintaskreadaccess as taskreadaccess where taskreadaccess.entityid = assignments.maintask and taskreadaccess.recipient = any(string_to_array('{1}', ',')::bigint[]))
+  and docs.businessunit_docflow_sungero = any(string_to_array('{3}', ',')::bigint[])
+  and (nullif('{4}', '') is null or docs.employeedirrx_overrid_dirrx = any(string_to_array('{4}', ',')::bigint[]) or 
+      exists (select 1 from dirrx_nnother_weekendworksta as employees where (employees.edoc = docs.id or employees.edoc = docs.weekendworksta_nnother_dirrx) and employees.employee = any(string_to_array('{4}', ',')::bigint[])))
+  and (nullif('{5}', '') is null or performer.id = any(string_to_array('{5}', ',')::bigint[]) or completedby.id = any(string_to_array('{5}', ',')::bigint[]))
+  and (
+      (assignments.deadline + INTERVAL '{9}' HOUR) between '{6}' and '{7}' 
+      or (assignments.created + INTERVAL '{9}' HOUR) between '{6}' and '{7}' 
+      or (assignments.completed + INTERVAL '{9}' HOUR) between '{6}' and '{7}'
+  )
+order by assignments.created desc;]]></postgres>
+  </query>
+  <query key="NNDocRelatedToWorkBaseIndexQuery">
+    <postgres><![CDATA[CREATE INDEX IF NOT EXISTS {1}
+  ON {0}
+  (discriminator, externalid_docflow_sungero, secureobject)
+  WHERE externalid_docflow_sungero IS NOT NULL;]]></postgres>
+  </query>
+  <query key="NNEmployeeIndexQuery">
+    <postgres><![CDATA[CREATE INDEX IF NOT EXISTS {1}
+  ON {0}
+  (discriminator, persnumber_company_sungero, secureobject)
+  WHERE persnumber_company_sungero IS NOT NULL;]]></postgres>
+  </query>
+  <query key="CreateVacationPersonalDocumentBaseIndex">
+    <postgres><![CDATA[CREATE INDEX IF NOT EXISTS {1}
+  ON {0}
+  (employee_vacatio_hrpro)
+  WHERE employee_vacatio_hrpro IS NOT NULL;]]></postgres>
+  </query>
+  <query key="CreateWorkingDayOnWorkingTimeIndex">
+    <postgres><![CDATA[CREATE INDEX IF NOT EXISTS {1}
+  ON {0}
+  (workingtime)]]></postgres>
+  </query>
+</queries>

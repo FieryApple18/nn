@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="cbf8e1d7-d66c-4451-ac22-14865f87e8d8" name="FillOpinionText">
+  <authorization>
+    <allowedRoles>Employee</allowedRoles>
+  </authorization>
+  <title>@.FACILITIES_FILLOPINIONTEXT_TITLE</title>
+  <description></description>
+  <contractForm>true</contractForm>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterString" name="Reason" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>200</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ItemId" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="ItemName" defaultValue="" isRequired="false" isCollection="false" />
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter">
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <parameterName>Reason</parameterName>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ChangeWorkItemState" title="Выполнить задание" type="ChangeWorkItemStateStep">
+        <property name="WorkItemName" binding="ItemName" />
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="WorkItemId" binding="ItemId" />
+        <property name="State">Complete</property>
+        <property name="StateChangeReason">Complete</property>
+        <property name="ActiveText" binding="Reason" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[]]></openingEventHandler>
+  <openedEventHandler><![CDATA[]]></openedEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {ESS.closeElement(sender.parent); ESS.widgets.updateWidgets();}]]></closedEventHandler>
+  <successMessage>@HRPROSTATEMENTS.OBJECTCARD_ASSIGNMENT_SUCCESSMESSAGE</successMessage>
+</facility>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard name="Default" header="@.DEFAULTCARD_HEADER" icon="sign">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@.DEFAULTCARD_STATUS_CAPTION" binding="status" type="Status" />
+        <field caption="@.DEFAULTCARD_RESULT_CAPTION" binding="result" />
+        <field caption="@.DEFAULTCARD_PERFORMER_CAPTION" binding="performerFullName" />
+      </fields>
+      <content>
+        <![CDATA[
+          {{text}}
+          {{#proposedSolution}}
+            {{#text}}
+              <br/><br/>
+            {{/text}}
+            {{#performerFullName}}
+              {{#reduceFullName}}{{performerFullName}}{{/reduceFullName}}:
+            {{/performerFullName}}
+            {{proposedSolution}}
+          {{/proposedSolution}}
+        ]]>
+      </content>
+    </view>
+  </views>
+</objectCard>

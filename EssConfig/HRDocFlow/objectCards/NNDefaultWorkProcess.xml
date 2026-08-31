@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard name="NNDefaultWorkProcess" header="@ESSBASE.DEFAULT_WORK_PROCESS_CARD_HEADER">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULT_WORK_PROCESS_CARD_INITIATOR_CAPTION" binding="initiator" type="Employee" />
+        <field caption="@ESSBASE.DEFAULT_WORK_PROCESS_CARD_CREATED_CAPTION" binding="created" converter="EssBase.simplifyDate" />
+        <field caption="@ESSBASE.DEFAULTCARD_STATUS_CAPTION" binding="status" type="Status" />
+        <field caption="@ESSBASE.DEFAULT_WORK_PROCESS_CARD_SCHEME_CAPTION" converter="EssBase.toTaskScheme"/>
+      </fields>
+      <attachmentsAreas>
+        <attachmentsArea title="@ESSBASE.DEFAULT_WORK_PROCESS_CARD_MAIN_ATTACHMENTS">
+          <documentGroups>
+            <documentGroup>DocumentGroup</documentGroup>
+            <documentGroup>StatementAttachmentGroup</documentGroup>
+            <documentGroup>OrderAttachmentGroup</documentGroup>
+            <documentGroup>OrderGroup</documentGroup>
+            <documentGroup>ExpenseReportGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+        <attachmentsArea title="@ESSBASE.DEFAULT_WORK_PROCESS_CARD_ADDITIONAL_ATTACHMENTS">
+          <documentGroups>
+            <documentGroup>AdditionalAttachmentGroup</documentGroup>
+            <documentGroup>OtherGroup</documentGroup>
+            <documentGroup>MemoGroup</documentGroup>
+          </documentGroups>
+        </attachmentsArea>
+      </attachmentsAreas>
+    </view>
+  </views>
+  <buttons>
+    <!-- <button name="abort" isPrimary="true"> -->
+      <!-- <caption>@.ABORT</caption> -->
+      <!-- <clickEventHandler> -->
+        <!-- <![CDATA[ -->
+          <!-- ESS.scripts.EssBase.abortDefaultWorkProcess([sender, 'EssBase', data.name, data.id]); -->
+        <!-- ]]> -->
+      <!-- </clickEventHandler> -->
+    <!-- </button> -->
+  </buttons>
+  <openingEventHandler>
+    <![CDATA[
+      const handler = async () => {
+        try {
+          const { positions } = await ESS.network.sendRequest('/api/functions/EssBase_GetPositionListByPerson');
+          if (positions.length > 1) {
+            const initiator = positions.find(({ id }) => String(id) === String(data.author));
+            if (initiator) {
+              data.initiator = {
+                FullName: g_userPerson.name,
+                Position: initiator.title,
+                Department: initiator.department,
+                Organization: initiator.organization,
+              };
+            } else {
+              throw new Error(ESS.L('@ESSBASE.INITIATOR_NOT_FOUND'));
+            }
+          }
+        } catch (error) {
+          console.warn(ESS.L('@ESSBASE.GET_INITIATOR_ERROR'), error);
+        }
+        resolve(data);
+      };
+      handler();
+    ]]>
+  </openingEventHandler>
+  <openedEventHandler>
+    <![CDATA[
+      const inactiveStatuses = [
+        ESS.enums.WorkProcessStatus.ABORTED,
+        ESS.enums.WorkProcessStatus.DRAFT,
+        ESS.enums.WorkProcessStatus.COMPLETED,
+        ESS.enums.WorkProcessStatus.SUSPENDED,
+      ];
+      if (inactiveStatuses.includes(data.status)) {
+        functions.setVisibility('abort', ESS.enums.Visibility.HIDDEN);
+      }
+      resolve({ configuration, data });
+    ]]>
+  </openedEventHandler>
+</objectCard>

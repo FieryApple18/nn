@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BusinessTripOrder" xml:space="preserve">
+    <value>НН. Приказ на командировку</value>
+  </data>
+  <data name="RetentionStatement" xml:space="preserve">
+    <value>Заявление на удержание</value>
+  </data>
+  <data name="BusinessTripOrderDocKind" xml:space="preserve">
+    <value>Приказ о направлении в командировку</value>
+  </data>
+  <data name="CancelBusinessTripOrder" xml:space="preserve">
+    <value>Приказ об отмене командировки</value>
+  </data>
+  <data name="ChangeBusinessTripOrder" xml:space="preserve">
+    <value>Приказ об изменении командировки</value>
+  </data>
+  <data name="RetentionStatementDocKind" xml:space="preserve">
+    <value>Заявление на удержание</value>
+  </data>
+  <data name="ApproveComment" xml:space="preserve">
+    <value>Документ подписан служебным пользователем.</value>
+  </data>
+  <data name="SubjectTaskManualHoldingEvent" xml:space="preserve">
+    <value>Обмен данными с учетной системой</value>
+  </data>
+  <data name="BusinessProcessRegistrationBusinessTrips" xml:space="preserve">
+    <value>Регистрация командировок</value>
+  </data>
+  <data name="BusinessProcessPersonalDonationProgram" xml:space="preserve">
+    <value>Программа личных пожертвований</value>
+  </data>
+  <data name="SubjectTaskSendRetentionStatementStatus" xml:space="preserve">
+    <value>Отправка статуса документа {0} в АСУП</value>
+  </data>
+  <data name="WeekendWorkStatementDocument" xml:space="preserve">
+    <value>Заявка на привлечение к работе в ВД/ПД/СР</value>
+  </data>
+  <data name="WeekendWorkStatementDocKind" xml:space="preserve">
+    <value>Заявка на привлечение к работе в выходные или/и праздничные дни</value>
+  </data>
+  <data name="OvertimeWorkStatementDocKind" xml:space="preserve">
+    <value>Заявка на привлечение к работе в сверхурочное время</value>
+  </data>
+  <data name="WeekendWorkAgreement" xml:space="preserve">
+    <value>Согласие на работу в ВД/ПД/СР</value>
+  </data>
+  <data name="WeekendWorkAgreementDocKind" xml:space="preserve">
+    <value>Согласие на привлечение к работе в выходной и/или праздничный день</value>
+  </data>
+  <data name="OvertimeWorkAgreementDocKind" xml:space="preserve">
+    <value>Согласие на привлечение к работе в сверхурочное время</value>
+  </data>
+  <data name="WeekendWorkOrderDocKind" xml:space="preserve">
+    <value>Приказ (распоряжение) о работе в выходные/нерабочие праздничные дни</value>
+  </data>
+  <data name="WeekendWorkCancelationOrderDocKind" xml:space="preserve">
+    <value>Приказ (распоряжение) об отмене работы по приказу (распоряжению)</value>
+  </data>
+  <data name="WeekendWorkOrder" xml:space="preserve">
+    <value>Приказ (распоряжение) о работе в ВД/ПД/СР</value>
+  </data>
+  <data name="ExternalSystemValidationWeekendWorkError" xml:space="preserve">
+    <value>Процесс отправки исходящего сообщения для проведения проверок по заявке завершился с ошибкой. Обратитесь к администратору.</value>
+  </data>
+  <data name="ResponsibleWeekendWorkRoleName" xml:space="preserve">
+    <value>Ответственный за РВ и СУ</value>
+  </data>
+  <data name="ResponsibleWeekendWorkRoleDescription" xml:space="preserve">
+    <value>Пользователи, ответственные за оформление заявок по подразделениям на привлечение к работе в выходные и/или праздничные дни, а также в сверхурочное время</value>
+  </data>
+  <data name="LrdPaymentStatement" xml:space="preserve">
+    <value>Заявление на выплату по ЛНА</value>
+  </data>
+  <data name="LrdPaymentStatementDocKind" xml:space="preserve">
+    <value>Заявление на выплату по ЛНА</value>
+  </data>
+  <data name="LrdPaymentApplicationDocKind" xml:space="preserve">
+    <value>Приложение к заявлению на выплату по ЛНА</value>
+  </data>
+  <data name="LrdPaymentOrderDocKind" xml:space="preserve">
+    <value>Приказ об оформлении выплаты по ЛНА</value>
+  </data>
+  <data name="LrdOrderDocument" xml:space="preserve">
+    <value>Приказ на выплату по ЛНА</value>
+  </data>
+  <data name="ExternalSystemCheckLrdPaymentError" xml:space="preserve">
+    <value>Процесс отправки исходящего сообщения для проведения проверок по заявке завершился с ошибкой. Обратитесь к администратору.</value>
+  </data>
+  <data name="LrdPaymentTemplateNotFoundError" xml:space="preserve">
+    <value>В настройках модуля не указан шаблон {0}. Обратитесь к администратору системы.</value>
+  </data>
+  <data name="OvertimeWorkOrderDocKind" xml:space="preserve">
+    <value>Приказ (распоряжение) о сверхурочной работе</value>
+  </data>
+  <data name="ExternalSystemLrdPaymentsGetChildrenError" xml:space="preserve">
+    <value>Процесс отправки исходящего сообщения для получения списка детей работника завершился с ошибкой. Обратитесь к администратору.</value>
+  </data>
+  <data name="CheckLrdPaymentError" xml:space="preserve">
+    <value>Произошла ошибка при проверке данных по заявлению. Попробуйте оформить заявление позже.</value>
+  </data>
+  <data name="UpdateTopAttributeInDocumentsJobNoticeSubject" xml:space="preserve">
+    <value>Результат выполнения фонового процесса "Актуализация признака "TOP-10/100" в документах"</value>
+  </data>
+  <data name="UpdateTopAttributeInDocumentsJobNoticeText" xml:space="preserve">
+    <value>Работа фонового процесса "Актуализация признака "TOP-10/100" в документах" завершена.
+Рекомендуется его отключить, так как его выполнение больше не требуется.</value>
+  </data>
+  <data name="ErrorWeekendWorkHoursExceeded" xml:space="preserve">
+    <value>Для {0} {1} необходимо указать перерывы, так как рабочее время превышает {2} {3}.</value>
+  </data>
+  <data name="ErrorWeekendWorkHoursExceededEmployee" xml:space="preserve">
+    <value>сотрудника</value>
+  </data>
+  <data name="ErrorWeekendWorkHoursExceededEmployees" xml:space="preserve">
+    <value>сотрудников</value>
+  </data>
+  <data name="ErrorCheckWorkingHoursExceeded" xml:space="preserve">
+    <value>Необходимо указать перерывы, так как рабочее время превышает {0} {1}.</value>
+  </data>
+  <data name="DefaultSubstitutionSystem_Name" xml:space="preserve">
+    <value>КЭДО</value>
+  </data>
+  <data name="BusinessProcessChangeTermsEmplContract" xml:space="preserve">
+    <value>Изменение условий трудового договора</value>
+  </data>
+  <data name="ShowAdditionalAgreementListFuncName" xml:space="preserve">
+    <value>Реестр дополнительных соглашений к трудовому договору</value>
+  </data>
+  <data name="ShowAdditionalAgreementListFuncDesc" xml:space="preserve">
+    <value>Показать реестр дополнительных соглашений к трудовому договору</value>
+  </data>
+  <data name="CreateNotSignedAddtionalAgreementReportFuncDesc" xml:space="preserve">
+    <value>Сформировать отчет "Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору"</value>
+  </data>
+  <data name="CreateNotSignedAddtionalAgreementReportFuncName" xml:space="preserve">
+    <value>Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору</value>
+  </data>
+  <data name="NotSignedAddtionalAgreementReportDocKindNotFound" xml:space="preserve">
+    <value>Вид документа 'Дополнительное соглашение к трудовому договору' не найден.</value>
+  </data>
+  <data name="NotSignedAdditionalAgreementReportFileName" xml:space="preserve">
+    <value>Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору.xlsx</value>
+  </data>
+</root>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="C910C78C-A9F1-4DA6-AB15-BE36D4BAB354" name="Terminate assignment">
+        <authorization>
+          <allowedRoles>Employee</allowedRoles>
+        </authorization>
+        <title>@HRPROSTATEMENTS.FACILITIES_TERMINATE_TITLE</title>
+        <description></description>
+        <contractForm>true</contractForm>
+        <facilityParameters>
+          <facilityParameter type="FacilityParameterString" name="Reason" defaultValue="" isRequired="true" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="ItemId" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="ItemName" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="DocName" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="Instruction" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+        </facilityParameters>
+        <facilityFormItems>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint>@HRPROSTATEMENTS.FACILITIES_TERMINATE_ITEMID</hint>
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>ItemId</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint>@HRPROSTATEMENTS.FACILITIES_TERMINATE_TYPE</hint>
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>ItemName</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormTextblock">
+            <hint />
+            <content>
+              {{#DocName}}
+                {{.}}&lt;br/&gt;
+              {{/DocName}}
+              &lt;br/&gt;
+              {{#Instruction}}
+                {{.}}&lt;br/&gt;
+              {{/Instruction}}
+              </content>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>false</isHidden>
+            <showHeaders>true</showHeaders>
+            <label>@HRPROSTATEMENTS.FACILITIES_TERMINATE_REASON_LABEL</label>
+            <placeholder />
+            <parameterName>Reason</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint></hint>
+            <isReadOnly>true</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>DocName</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint></hint>
+            <isReadOnly>true</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>Instruction</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+        </facilityFormItems>
+        <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+          <flowSteps>
+            <flowStep index="0" name="ChangeWorkItemState" title="Выполнить задание" type="ChangeWorkItemStateStep">
+              <property name="WorkItemName" binding="ItemName" />
+              <property name="TargetSystem">HRPro</property>
+              <property name="NextStepIndex">-1</property>
+              <property name="WorkItemId" binding="ItemId" />
+              <property name="State">Complete</property>
+              <property name="StateChangeReason">Terminate</property>
+              <property name="ActiveText" binding="Reason" />
+            </flowStep>
+          </flowSteps>
+        </facilityFlowScheme>
+        <openingEventHandler><![CDATA[
+            ESS.network.sendRequest(`/api/functions/GetTerminateInstruction`)
+            .then(function (instruction){
+              functions.setValue('Instruction', instruction);
+              resolve();
+            })
+            .catch(function (error) {
+              ESS.toasts.showToast(error.message, 'danger', false);
+              reject();
+            });
+          ]]>
+        </openingEventHandler>
+        <openedEventHandler><![CDATA[]]></openedEventHandler>
+        <closingEventHandler><![CDATA[]]></closingEventHandler>
+        <closedEventHandler><![CDATA[
+            if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+              ESS.closeElement(sender.parent); 
+              ESS.widgets.updateWidgets();
+            }
+          ]]>
+        </closedEventHandler>
+        <successMessage>@HRPROSTATEMENTS.FACILITIES_TERMINATE_SUCCESSMESSAGE</successMessage>
+      </facility>

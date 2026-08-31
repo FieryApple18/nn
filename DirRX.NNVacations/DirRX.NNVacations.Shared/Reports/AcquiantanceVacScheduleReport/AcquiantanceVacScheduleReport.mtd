@@ -1,0 +1,165 @@
+{
+  "$type": "Sungero.Metadata.ReportMetadata, Sungero.Reporting.Shared",
+  "NameGuid": "f780b545-c2fb-45f2-8b6c-98f85f3dbadb",
+  "Name": "AcquiantanceVacScheduleReport",
+  "AssociatedGuid": "840723ee-3269-4082-939c-191dcd722a30",
+  "BaseGuid": "cef9a810-3f30-4eca-9fe3-30992af0b818",
+  "DataSources": [],
+  "DefaultExportFormat": "Excel",
+  "ExportFormats": [
+    "Excel"
+  ],
+  "HandledEvents": [
+    "BeforeExecuteServer",
+    "BeforeExecuteClient",
+    "AfterExecuteServer"
+  ],
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNVacationsAcquiantanceVacScheduleReport",
+  "Overridden": [
+    "PublicConstants",
+    "PublicStructures",
+    "DisplayName",
+    "ExportFormats",
+    "DefaultExportFormat",
+    "Parameters",
+    "HandledEvents"
+  ],
+  "Parameters": [
+    {
+      "NameGuid": "86060043-741c-401f-94b3-3c79d1a6c723",
+      "Name": "BusinessUnitIds",
+      "InternalDataTypeName": "System.String",
+      "IsRequired": true
+    },
+    {
+      "NameGuid": "69993da1-2007-4477-91fc-075e96c05f78",
+      "Name": "DepartmentIds",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "ef92ec98-381e-4afe-ae75-ff9f51f67bff",
+      "Name": "StatusAcq",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "07f3eee6-3df4-453e-8a80-99d37b63a4d6",
+      "Name": "DateAcq",
+      "InternalDataTypeName": "System.Int32",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "cbb4976c-3680-4370-b889-5f0b132dee29",
+      "Name": "DocKindId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "ee71ab0c-c269-49b8-a41d-1246159fc6a5",
+      "Name": "ReportSessionId",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "f6bcd040-ae2a-478d-bc32-358a710d54ec",
+      "Name": "BusinessUnitName",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "2d85af70-597b-4d71-96a0-6e0e7e1cc930",
+      "Name": "SignedState",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "d9c2d83e-d74e-4460-b2df-a113bb64d449",
+      "Name": "Acquainted",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "c21dfc8f-0fb4-4cdd-be75-9fe03e709ed7",
+      "Name": "NotAcquainted",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "793ae181-a4bd-4c3c-9dcd-ab2969766a76",
+      "Name": "DocTypeGuid",
+      "InternalDataTypeName": "System.String",
+      "IsRequired": true
+    },
+    {
+      "NameGuid": "09053c65-ddd8-431a-8ee7-c9f4c84f5a10",
+      "Name": "HasConsent",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "6ef27828-88f6-440d-8936-1a710a1942e8",
+      "Name": "NoConsent",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "24252563-a272-4a47-9a65-97fede742e9f",
+      "Name": "OutsideConsent",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "4d34e8e6-4836-45a7-ba65-f7cbc6520a9d",
+      "Name": "Initiator",
+      "InternalDataTypeName": "System.Int64",
+      "IsRequired": true,
+      "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "735c735e-c90f-4e97-b287-35ac017c79c2",
+      "Name": "Signed",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "8299db6c-0d15-4412-8bd8-9c24711f3f5b",
+      "Name": "PendingSignState",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "24feaae6-458b-4f4d-a900-de007872d7ed",
+      "Name": "ElectronicAcqOption",
+      "InternalDataTypeName": "System.String"
+    },
+    {
+      "NameGuid": "cd3def9c-962b-4c8a-9125-5c0b23010991",
+      "Name": "IncludeHierarchy",
+      "InternalDataTypeName": "System.Boolean",
+      "IsSimpleDataType": true
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [
+    "Department1",
+    "ReportParameters",
+    "CompanyParameter",
+    "DepartmentParameter",
+    "AcqStatusParameter",
+    "YearParameter",
+    "AcquaintedStatus",
+    "NotAcquaintedStatus",
+    "PersonnelNumber",
+    "FullName",
+    "JobTitle",
+    "Department2",
+    "Department3",
+    "Department4",
+    "AcquiantanceStatus",
+    "AcquiantanceDate",
+    "Company",
+    "SelectDepartments",
+    "SelectCompanies",
+    "KEDO",
+    "HasConsent",
+    "NoConsent",
+    "OutsideConsent",
+    "SelectSubordinateDepartments"
+  ],
+  "Versions": [
+    {
+      "Type": "ReportMetadata",
+      "Number": 1
+    }
+  ]
+}

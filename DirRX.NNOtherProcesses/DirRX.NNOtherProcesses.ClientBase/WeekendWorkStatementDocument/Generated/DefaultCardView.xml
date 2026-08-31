@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <ViewName>Default</ViewName>
+  <Collection2f5d9c9844f04cb1bef56aec942d5bda FormGuid="cd0a822e-54f1-4fb5-aca4-d51fac180837">
+    <XtraSerializer version="1.0" application="GridControl">
+      <property name="#LayoutVersion" isnull="true" />
+      <property name="$GridControl" iskey="true" value="GridControl">
+        <property name="View" isnull="true" iskey="true">
+          <property name="LinesPerRowMode">None</property>
+          <property name="ColumnChooserState" isnull="true" iskey="true">
+            <property name="Location">1007,-2</property>
+            <property name="Size">220,250</property>
+          </property>
+          <property name="AllowMoveColumnToDropArea">false</property>
+          <property name="AllowColumnMoving">true</property>
+          <property name="AllowSorting">true</property>
+          <property name="ShowTotalSummary">false</property>
+          <property name="IsRowCellMenuEnabled">false</property>
+          <property name="ShowGroupPanel">false</property>
+          <property name="AutoWidth">false</property>
+          <property name="AllowGrouping">false</property>
+        </property>
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="SortInfo" iskey="true" value="0" />
+        <property name="GroupSummary" iskey="true" value="0" />
+        <property name="GroupCount">0</property>
+        <property name="Columns" iskey="true" value="15">
+          <property name="Item1" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_Employee</property>
+            <property name="FieldName">Employee</property>
+            <property name="VisibleIndex">0</property>
+            <property name="Width">67</property>
+            <property name="ActualWidth">5*</property>
+          </property>
+          <property name="Item2" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_PersonnelNumber</property>
+            <property name="FieldName">PersonnelNumber</property>
+            <property name="VisibleIndex">1</property>
+            <property name="Width">147</property>
+            <property name="ActualWidth">11*</property>
+          </property>
+          <property name="Item3" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_Department</property>
+            <property name="FieldName">Department</property>
+            <property name="VisibleIndex">2</property>
+            <property name="Width">134</property>
+            <property name="ActualWidth">10*</property>
+          </property>
+          <property name="Item4" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_JobTitle</property>
+            <property name="FieldName">JobTitle</property>
+            <property name="VisibleIndex">3</property>
+            <property name="Width">107</property>
+            <property name="ActualWidth">8*</property>
+          </property>
+          <property name="Item5" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_WorkDateFrom</property>
+            <property name="FieldName">WorkDateFrom</property>
+            <property name="VisibleIndex">4</property>
+            <property name="Width">120</property>
+            <property name="ActualWidth">9*</property>
+          </property>
+          <property name="Item6" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_WorkDateTo</property>
+            <property name="FieldName">WorkDateTo</property>
+            <property name="VisibleIndex">5</property>
+            <property name="Width">134</property>
+            <property name="ActualWidth">10*</property>
+          </property>
+          <property name="Item7" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_FirstBreakFrom</property>
+            <property name="FieldName">FirstBreakFrom</property>
+            <property name="VisibleIndex">6</property>
+            <property name="Width">147</property>
+            <property name="ActualWidth">11*</property>
+          </property>
+          <property name="Item8" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_FirstBreakTo</property>
+            <property name="FieldName">FirstBreakTo</property>
+            <property name="VisibleIndex">7</property>
+            <property name="Width">160</property>
+            <property name="ActualWidth">12*</property>
+          </property>
+          <property name="Item9" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_SecondBreakFrom</property>
+            <property name="FieldName">SecondBreakFrom</property>
+            <property name="VisibleIndex">8</property>
+            <property name="Width">147</property>
+            <property name="ActualWidth">11*</property>
+          </property>
+          <property name="Item10" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_SecondBreakTo</property>
+            <property name="FieldName">SecondBreakTo</property>
+            <property name="VisibleIndex">9</property>
+            <property name="Width">160</property>
+            <property name="ActualWidth">12*</property>
+          </property>
+          <property name="Item11" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_Compensation</property>
+            <property name="FieldName">Compensation</property>
+            <property name="VisibleIndex">10</property>
+            <property name="Width">120</property>
+            <property name="ActualWidth">9*</property>
+          </property>
+          <property name="Item12" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_RestDateFrom</property>
+            <property name="FieldName">RestDateFrom</property>
+            <property name="VisibleIndex">11</property>
+            <property name="Width">147</property>
+            <property name="ActualWidth">11*</property>
+          </property>
+          <property name="Item13" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_RestDateTo</property>
+            <property name="FieldName">RestDateTo</property>
+            <property name="VisibleIndex">12</property>
+            <property name="Width">160</property>
+            <property name="ActualWidth">12*</property>
+          </property>
+          <property name="Item14" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_ChecksPassed</property>
+            <property name="FieldName">ChecksPassed</property>
+            <property name="VisibleIndex">13</property>
+            <property name="Width">160</property>
+            <property name="ActualWidth">12*</property>
+          </property>
+          <property name="Item15" isnull="true" iskey="true">
+            <property name="Visible">true</property>
+            <property name="Name">WeekendWorkStatementDocument_Employees_ChecksResult</property>
+            <property name="FieldName">ChecksResult</property>
+            <property name="VisibleIndex">14</property>
+            <property name="Width">160</property>
+            <property name="ActualWidth">12*</property>
+          </property>
+        </property>
+        <property name="GroupSummarySortInfo" iskey="true" value="0" />
+      </property>
+    </XtraSerializer>
+  </Collection2f5d9c9844f04cb1bef56aec942d5bda>
+  <AccessRightsAccessRightEntryCardGrid_38106a151b4548f2900c4f02ff9fa8b2>
+    <XtraSerializer version="1.0" application="GridControl">
+      <property name="#LayoutVersion" isnull="true" />
+      <property name="\$GridControl" iskey="true" value="GridControl">
+        <property name="TotalSummary" iskey="true" value="0" />
+        <property name="View" isnull="true" iskey="true">
+          <property name="AutoWidth">true</property>
+          <property name="ShowGroupPanel">false</property>
+          <property name="ShowTotalSummary">false</property>
+          <property name="LinesPerRowMode">None</property>
+        </property>
+      </property>
+    </XtraSerializer>
+  </AccessRightsAccessRightEntryCardGrid_38106a151b4548f2900c4f02ff9fa8b2>
+  <collapsableTree>
+    <Layout>
+      <IsDocked>true</IsDocked>
+      <Width>230</Width>
+    </Layout>
+  </collapsableTree>
+  <treeListLayout>
+    <GridViewSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <ColumnWidths>
+        <string>230</string>
+        <string>Auto</string>
+        <string>*</string>
+      </ColumnWidths>
+    </GridViewSettings>
+  </treeListLayout>
+</settings>

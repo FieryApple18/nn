@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objectCard id="60801ba3-7b9c-4eb3-95dd-0bdef3b105d7" name="IVacationManagerCheckAssignments" header="@.OBJECTCARD_VACATIONMANAGERCHECK_ASSIGNMENT_HEADER" icon="task">
+  <views>
+    <view deviceIdioms="All" deviceOrientations="Landscape, Portrait">
+      <fields>
+        <field caption="@ESSBASE.DEFAULTCARD_TITLE_CAPTION" binding="title" />
+        <field caption="@ESSBASE.DEFAULTCARD_DEADLINE_CAPTION" converter="EssBase.getDeadline" />
+        <field caption="@HRPROVACATIONS.OBJECTCARD_DEFAULT_RESULT_CAPTION" binding="result" />
+        <field caption="@ESSBASE.DEFAULTCARD_PERFORMER_CAPTION" binding="PerformerInfo" type="Employee" />
+      </fields>
+      <content></content>
+    </view>
+  </views>
+  <buttons>
+    <button name="Complete" isPrimary="true" isDefault="true">
+      <icon />
+      <caption>@.OBJECTCARD_VACATIONMANAGERCHECKASSIGNMENTOBJECTCARD_BUTTON_COMPLETE</caption>
+      <clickEventHandler><![CDATA[
+        ESS.actions.workProcessActions.changeWorkItemState(data, 'Complete', 'Complete');
+        ESS.closeElement(sender);
+        ESS.widgets.updateWidgets();
+      ]]></clickEventHandler>
+    </button>
+  </buttons>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="CardBadge/FormOpeningForGetPerformerVacations.xml" />
+  <openedEventHandler><![CDATA[resolve({configuration: configuration, data: data});]]></openedEventHandler>
+  <closedEventHandler><![CDATA[
+    if(data.isRead === false)
+    {
+      ESS.widgets.updateWidgets();
+    }
+  ]]></closedEventHandler>
+</objectCard>

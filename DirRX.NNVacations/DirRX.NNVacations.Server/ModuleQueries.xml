@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<queries>
+  <query key="GetEmployeesIdsForCreateIndividualLists">
+    <postgres><![CDATA[select string_agg(employee::varchar, ';') as employees
+from (
+  select distinct vacationinfo.employee
+  from dirrx_nnvacat_vacationsinfor as vacationinfo
+    join sungero_core_recipient as employee
+      on employee.id = vacationinfo.employee
+  where vacationinfo.businessunit = {0} and 
+      vacationinfo."year" = '{1}' and 
+      ({2} = 0 or vacationinfo.department = {2}) and 
+      employee.consenthrpro_hrproso_hrpro != 'Signed' and
+      employee.status = 'Active' and
+      not exists (select 1 from sungero_content_edoc as doc 
+                  where doc.documentkind_docflow_sungero = {3} and
+                  ({2} = 0 or doc.department_docflow_sungero = {2}) and
+                  doc.year_vacatio_hrpro = '{1}' and
+                  doc.employeedirrx_overrid_dirrx = vacationinfo.employee)
+  limit {4}
+) as employee]]></postgres>
+  </query>
+</queries>

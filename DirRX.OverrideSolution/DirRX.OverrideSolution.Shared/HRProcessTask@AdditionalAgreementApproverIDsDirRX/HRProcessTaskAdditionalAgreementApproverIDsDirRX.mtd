@@ -1,0 +1,57 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "48823d48-04a4-4e9c-adef-58a2578714c7",
+  "Name": "HRProcessTaskAdditionalAgreementApproverIDsDirRX",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "HRProcessTaskA",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4a18fcee-a6ef-4a91-9ae4-bd71a20507b8",
+      "Name": "HRProcessTask",
+      "CanBeSearch": false,
+      "Code": "Task",
+      "EntityGuid": "fdd19b3c-a646-4291-ace6-a644867257a9",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.LongIntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "12680f91-5468-4591-a893-cc7f444a1c36",
+      "Name": "ApproverID",
+      "CanBeSearch": false,
+      "Code": "ApproverID",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "4a18fcee-a6ef-4a91-9ae4-bd71a20507b8"
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "2be8a335-e5ed-47a1-a080-9b3c866a60a6",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "c5364a6c-fab1-4a8b-b538-0fe99c9cf3d3",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

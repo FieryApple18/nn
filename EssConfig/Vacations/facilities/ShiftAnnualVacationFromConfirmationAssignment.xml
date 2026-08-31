@@ -1,0 +1,912 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="4ad03918-61bb-4c31-8e27-4926b7c60401" name="ShiftAnnualVacationFromConfirmationAssignment">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_TITLE</title>
+  <description></description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterString" name="VacationPeriod" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>200</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="NoticeId" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="VacationsOld" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="FormattedVacationsOld" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterDateTime" name="ApprovalDate" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDateOld" defaultValue="" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDateOld" defaultValue="" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DurationOld" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>999</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AssignmentType" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AssignmentId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="PerformerId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="PerformerInfo" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>true</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Причина_отпуска" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="Duration" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>999</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationType" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetVacationTypesForShift?noticeId=0</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationStatementData" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource>/api/functions/GetVacationStatementTemplateId?employeeId=$(CurrentUser.DirectumRX.ActorId)</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="IsFromEssAccount" defaultValue="True" isRequired="false" isCollection="false">
+      <isIndeterminateAllowed>False</isIndeterminateAllowed>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Дата_начала_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Дата_окончания_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="Field_Продолжительность_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Вице_Президент" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Подразделение сотрудника" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_И.О. Фамилия сотрудника" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Фамилия И.О. сотрудника (р.п.)" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Табельный_номер" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedApplicationLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DocumentKindId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="TemplateId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="TemplateWithTableId" defaultValue="" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="IsVacationPeriodBroken" isRequired="false" isCollection="false" />
+    <facilityParameter type="FacilityParameterString" name="DateApprovalText" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SubstituteIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SystemIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StartDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="EndDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SubstitutionsInfo" isRequired="false" isCollection="false">
+      <maxLength>5000</maxLength>
+      <multiline>true</multiline>
+      <isHidden>false</isHidden>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormParameter" name="PerformerInfo">
+      <hint></hint>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_PERFORMERINFO</label>
+      <placeholder />
+      <parameterName>PerformerInfo</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+      <div style="font-size: 16px;">
+        <div style="line-height: 20px;font-weight: 700;margin-bottom: 12px;">Перенести отпуск</div>
+            {{{VacationPeriod}}}
+      </div>
+      ]]></content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTable">
+      <hint></hint>
+      <title>@.FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLE_TITLE</title>
+      <showHeaders>true</showHeaders>
+      <placeholder />
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[
+        window.checkDuration();
+        window.checkDates();
+      ]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[
+        functions.removeError(window[`errorYesterday${formItem.index}`]);
+        functions.removeError(window[`errorBeginDate${formItem.index}`]);
+        functions.removeError(window[`errorEndDate${formItem.index}`]);
+        functions.removeError(window[`errorDuration${formItem.index}`]);
+      ]]></itemRemovingEventHandler>
+      <columns>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_GETANNUALVACATION_VACATIONTYPE</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>VacationType</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            window.checkDuration();
+            window.setEndDate(formItem.index);
+          ]]></valueChangedEventHandler>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_BEGINDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>BeginDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday.setDate(today.getDate() -1);
+            var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
+            var rows = functions.getValues()[tableName];            
+            var beginDateValue = formItem.value
+            var beginDate = new Date(beginDateValue);             
+
+            functions.removeError(window[`errorYesterday${beginDate}`]);
+            functions.removeError(window[`errorYesterday${formItem.index}`]);  
+            if (beginDate.getTime() < yesterday.getTime()) {
+              window[`errorYesterday${beginDate}`] = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'), undefined, ESS.enums.FormErrorType.FORM_VALIDATION, tableName, formItem.index, 'BeginDate');
+              window[`errorYesterday${formItem.index}`] = window[`errorYesterday${beginDate}`];
+            } else {
+              var initiatorId = functions.getValues().PerformerId;
+              var documentKindId = functions.getValues().DocumentKindId;
+              var vacationType = 'Planned';
+              var oldDateStart = functions.getValues().BeginDateOld;
+              var beginDates = rows.map(x => Date.parse(x.rowValues.BeginDate));
+              var oldStart = window.toIsoDateString(oldDateStart);
+              var newStart = window.toIsoDateString(Math.min(...beginDates));
+
+              ESS.network.sendRequest(`/api/functions/GetVacationApprovalDate?employeeId=${initiatorId}&documentKindId=${documentKindId}&vacationType=${vacationType}&paymentCompleted=false&isStatement=false&oldStart=${oldStart}&newStart=${newStart}`)
+              .then((dateApproval) => {
+                 functions.setValue('ApprovalDate', dateApproval);
+                 if (dateApproval.length != 0) {
+                 var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
+                 functions.setValue('DateApprovalText', ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_NNSHIFTVACATIONBYSTATEMENT_APPROVALDATE_INFO_NEW'), dateApprovalStr));
+                 }
+              });
+            };
+            window.setEndDate(formItem.index);
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_VACATIONDURATION_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>Duration</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            window.checkDuration();
+            window.setEndDate(formItem.index);
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATIONFROMAPPROVAL_TABLECOLUMN_ENDDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>true</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>EndDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var initiatorId = functions.getValues().PerformerId;
+            var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
+            var beginDate = functions.getValues()[tableName].find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['BeginDate'];
+            var endDate = functions.getValues()[tableName].find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['EndDate'];
+            var vacationTypeId = functions.getValues()[tableName].find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationType'];
+            
+            window.checkDates();
+            
+            var url = `/api/functions/NNCheckVacationHasHoliday?periodBegin=${beginDate}&periodEnd=${endDate}&employeeId=${initiatorId}&vacationTypeId=${vacationTypeId}`
+            ESS.network.sendRequest(url).then(function (warning){
+              if(warning.length > 0)
+                ESS.toasts.showToast(warning, 'warning', true);
+            });
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+      </columns>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+		    {{#DateApprovalText}}
+        <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-top: 12px;">{{{DateApprovalText}}}</div>
+		    {{/DateApprovalText}}
+      ]]></content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint></hint>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>true</showHeaders>
+      <label>@.FACILITIES_SHIFTVACATIONFROMAPPROVAL_REASON_LABEL</label>
+      <placeholder />
+      <parameterName>Field_Причина_отпуска</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <content>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_OPTIONAL_TEXT</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>false</isHidden>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_ADD</text>
+      <icon>user</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <onClickEventHandler>
+        <![CDATA[          
+          var initiatorId = functions.getValues().PerformerId;
+          var vacationTable = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+          var vacationPeriods = [];
+          var vacationTypeId = 0;
+          
+          if (vacationTable && vacationTable.length > 0) {
+            var firstRowValues = vacationTable[0].rowValues;
+            if (firstRowValues.VacationType){
+              vacationTypeId = firstRowValues.VacationType;
+            }
+            vacationTable.forEach(function(row) {
+              if (row.rowValues.VacationType && row.rowValues.BeginDate && row.rowValues.BeginDate.trim() !='' && row.rowValues.Duration)
+                vacationPeriods.push({
+                  StartDate: row.rowValues.BeginDate,
+                  EndDate: row.rowValues.EndDate
+                });
+            });
+          }
+          
+          if (!initiatorId || vacationPeriods.length === 0 || !vacationTypeId) {
+            ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_ERROR_MISSING_DATA'), 'warning', true);
+            return;
+          }
+          
+          functions.setIsItemHidden('ShowSubstitutesButton', false);
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          
+          window.prepareSubstitutionParameters();
+          
+          var substituteIdsString = functions.getValues().SubstituteIdsString;
+          var systemIdsString = functions.getValues().SystemIdsString;
+          var startDatesString = functions.getValues().StartDatesString;
+          var endDatesString = functions.getValues().EndDatesString;
+          
+          ESS.actions.facilityActions.runFacility(
+            {
+              id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' 
+            },
+            {
+              parameters: {
+                InitiatorId: initiatorId,
+                VacationPeriodsJson: JSON.stringify(vacationPeriods),
+                SubstituteIdsString: substituteIdsString,
+                SystemIdsString: systemIdsString,
+                StartDatesString: startDatesString,
+                EndDatesString: endDatesString,
+                VacationKindId: vacationTypeId
+              }
+            }
+          );
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton" name="ShowSubstitutesButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_SHOW</text>
+      <icon>chevron-bottom</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <onClickEventHandler>
+        <![CDATA[
+          console.log('[SHOW SUBSTITUTES] Button clicked');
+          window.showSubstitutionInfo();
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock" name="SubstitutionsInfoBlock">
+      <content>{{{SubstitutionsInfo}}}</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Получить должность и ФИО Вице-президента." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">VICE_PRESIDENT</property>
+        <property name="Result" binding="Field_Вице_Президент,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="1" name="ExecuteFunction" title="Получить наименование должности сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">2</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">CURRENT_USER_JOB_TITLE_NOMINATIVE</property>
+        <property name="Result" binding="Field_Должность сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="2" name="ExecuteFunction" title="Получить наименование подразделения сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">3</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">DEPARTMENT_NAME</property>
+        <property name="Result" binding="Field_Подразделение сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="3" name="ExecuteFunction" title="Получить ФИО сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">4</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">CURRENT_USER_FULLNAME</property>
+        <property name="Result" binding="Field_ФИО сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="4" name="ExecuteFunction" title="Получить табельный номер сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">5</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">CURRENT_USER_PERSONNEL_NUMBER</property>
+        <property name="Result" binding="Field_Табельный_номер,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="5" name="ExecuteFunction" title="Получить инициалы и фамилию сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">6</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME</property>
+        <property name="Result" binding="Field_И.О. Фамилия сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="6" name="ExecuteFunction" title="Получить фамилию и инициалы сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">7</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="PerformerId" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME_GENITIVE</property>
+        <property name="Result" binding="Field_Фамилия И.О. сотрудника (р.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="7" name="ExecuteFunction" title="Получить шаблон с заполненной таблицей." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">8</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetTemplateWithTableId</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="templateId" binding="TemplateId" type="Int" />
+        <property name="templateWithTableName" binding="Field_Фамилия И.О. сотрудника (р.п.),#TODAY,Format=Временный шаблон Заявление на перенос отпуска {0} от {1}" />
+        <property name="vacationTypeIds" binding="VacationType" type="Int[]" />
+        <property name="beginDates" binding="BeginDate" type="DateTimeOffSet[]" />
+        <property name="endDates" binding="EndDate" type="DateTimeOffSet[]" />
+        <property name="durations" binding="Duration" type="Int32[]" />
+        <property name="oldVacationsJson" binding="FormattedVacationsOld" type="String" />
+        <property name="Result" binding="TemplateWithTableId,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="8" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+        <property name="NextStepIndex">9</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="DocumentId" binding="TemplateWithTableId" type="Int" />
+        <property name="DocumentFormat">pdfa</property>
+        <property name="DocumentGroup">IElectronicDocuments</property>
+        <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+        <property name="DocumentName" binding="Field_Фамилия И.О. сотрудника (р.п.),#TODAY,Format=Заявление на перенос отпуска {0} от {1}" />
+        <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+      </flowStep>
+      <actionStep index="9" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+        <property name="NextStepIndex">10</property>
+        <property name="ActionName">HrProStatements.createSignature</property>
+        <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="SignatureType">Approval</property>
+        <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+        <property name="employeeId" binding="PerformerId" type="Int" />
+      </actionStep>
+      <flowStep index="10" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentGroupStep">
+        <property name="NextStepIndex">11</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="ImportingDocuments" binding="StoredDocument*" type="StoredDocument[]" />
+        <property name="DocumentGroup">IVacationStatementDocuments</property>
+        <property name="Author" binding="PerformerId,Format={{'Id':{0}}}"/>
+        <property name="Actor" binding="Initiator"/>
+        <property name="Employee" binding="PerformerId,Format={{'Id':{0}}}" />
+        <property name="PreparedBy" binding="PerformerId,Format={{'Id':{0}}}" />
+        <property name="DocumentKind" binding="DocumentKindId,Format={{'Id':{0}}}" />
+        <property name="RegistrationDate" binding="#TODAY" type="DateTimeOffSet" />
+        <property name="ApplicationDateDirRX" binding="#TODAY" type="DateTimeOffSet" />
+        <property name="StartDateDirRX" binding="BeginDateOld" type="DateTimeOffSet" />
+        <property name="EndDateDirRX" binding="EndDateOld" type="DateTimeOffSet" />
+        <property name="DaysAmountDirRX" binding="DurationOld" type="Int32" />
+        <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="11" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">12</property>
+        <property name="GroupName">DocumentGroup</property>
+        <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="12" title="Заполнить даты текущего отпуска в документе" type="ExecuteFunctionStep">
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">13</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="document" binding="ImportedDocumentLinks" type="String" />
+        <property name="noticeId" binding="NoticeId" type="Int" />
+        <property name="FunctionName">NNVacations.FillCurrentVacationDatesForShift</property>
+      </flowStep>
+      <flowStep index="13" title="Заполнить даты новых отпусков в документе" type="ExecuteFunctionStep">
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">14</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="document" binding="ImportedDocumentLinks" type="String" />
+        <property name="vacationTypeIds" binding="VacationType" type="Int[]" />
+        <property name="beginDates" binding="BeginDate" type="DateTimeOffSet[]" />
+        <property name="endDates" binding="EndDate" type="DateTimeOffSet[]" />
+        <property name="durations" binding="Duration" type="Int32[]" />
+        <property name="isVacationPeriodBroken" binding="IsVacationPeriodBroken" type="String" />
+        <property name="reason" binding="Field_Причина_отпуска" type="String" />
+        <property name="FunctionName">NNVacations.FillNewVacationDatesForShift</property>
+      </flowStep>
+      <flowStep index="14" name="StartStatementTask" title="Запустить задачу на согласование заявления" type="StartWorkProcessStep">
+        <property name="ProcessName">IHRDocFlowStatementTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">15</property>
+        <property name="Author" binding="PerformerId,Format={{'Id':{0}}}"/>
+        <property name="StartedBy" binding="PerformerId,Format={{'Id':{0}}}"/>
+        <property name="NeedsReview">False</property>
+        <property name="Importance">Normal</property>
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="SubstituteIdsDirRX" binding="SubstituteIdsString" type="String" />
+        <property name="SystemIdsDirRX" binding="SystemIdsString" type="String" />
+        <property name="StartDatesDirRX" binding="StartDatesString" type="String" />
+        <property name="EndDatesDirRX" binding="EndDatesString" type="String" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+        <property name="AbortingDateDirRX" binding="ApprovalDate" type="DateTimeOffSet" />
+      </flowStep>
+      <flowStep index="15" name="CompleteReworkAssignment" title="Выполнить задание на подтверждение с результатом Перенос" type="ChangeWorkItemStateStep">
+        <property name="NextStepIndex">-1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="WorkItemName" binding="AssignmentType" />
+        <property name="WorkItemId" binding="AssignmentId" />
+        <property name="ShiftTaskId" binding="TaskId" type="Int" />
+        <property name="State">Complete</property>
+        <property name="StateChangeReason">Shift</property>
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+    var assignmentId = functions.getValues().AssignmentId; 
+    ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+    .then(function (employee){
+      if (employee.positions.length == 1) {
+        functions.setIsItemHidden('PerformerInfo', true);
+      }
+    });
+    ESS.network.sendRequest(`/api/functions/GetCurrentVacationInfoForShift?assignmentId=${assignmentId}`)
+    .then(function (vacationInfo) {
+	  var initiatorId = functions.getValues().PerformerId;
+      functions.setDataSource('VacationType', `/api/functions/GetVacationTypesForShift?noticeId=${vacationInfo.NoticeId}&employeeId=${initiatorId}`);
+      functions.setValue('NoticeId', vacationInfo.NoticeId);
+      functions.setValue('VacationPeriod', vacationInfo.VacationPeriod);
+      functions.setValue('BeginDateOld', vacationInfo.BeginDate);
+      functions.setValue('DurationOld', vacationInfo.Duration);
+      functions.setValue('EndDateOld', vacationInfo.EndDate);
+      functions.setValue('PerformerInfo', vacationInfo.PerformerInfo);
+      functions.setValue('VacationsOld', JSON.stringify(vacationInfo.Vacations));
+
+      ESS.network.sendRequest(`/api/functions/GetVacationStatementTemplateId?employeeId=${initiatorId}&isShiftVacation=true`)
+      .then(function (VacationStatementData) {
+        var templateId = VacationStatementData.TemplateId;
+        var docKindId = VacationStatementData.DocumentKindId;
+        functions.setValue('TemplateId', templateId);
+        functions.setValue('DocumentKindId', docKindId);
+        functions.setValue('IsFromEssAccount', true);
+      });
+      resolve();
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+  ]]></openingEventHandler>
+  <openedEventHandler>
+    <![CDATA[
+      window.setEndDate = function (rowIndex) {
+        var initiatorId = functions.getValues().PerformerId;
+        var vacationTypeId = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+          return x.rowIndex === rowIndex;
+        }).rowValues['VacationType'];
+        var beginDateValue = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+          return x.rowIndex === rowIndex;
+        }).rowValues['BeginDate'];
+        var durationValue = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+          return x.rowIndex === rowIndex;
+        }).rowValues['Duration'];
+        
+        if (durationValue != null && beginDateValue != null) {
+          ESS.network.sendRequest(`/api/functions/NNGetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${initiatorId}&vacationTypeId=${vacationTypeId}`)
+          .then(function (newEndDateValue) {
+            functions.setValue('VacationType&BeginDate&Duration&EndDateGrid', newEndDateValue, rowIndex, 'EndDate');
+          });
+        };
+      }
+
+      window.getDurationOldByType = function (vacationTypeId) {
+        var durationOld = 0;
+        var vacations = JSON.parse(functions.getValues().VacationsOld);
+        vacations.forEach(row => {
+         if (row.VacationTypeId == vacationTypeId) {
+            durationOld += +row.Duration;
+          };
+        });
+        return durationOld;
+      }
+
+      window.getDurationByType = function (vacationTypeId) {
+        var duration = 0;
+        var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+        rows.forEach(row => {
+          if (row.rowValues.Duration != null && row.rowValues.VacationType == vacationTypeId) {
+            duration += +row.rowValues.Duration;
+          };
+        });
+        return duration;
+      }
+
+      window.checkDuration = function () {
+        var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
+        var rows = functions.getValues()[tableName];
+        rows.forEach(row => {
+          if (row.rowValues.Duration != null && row.rowValues.VacationType != null) {
+            var vacationTypeId = row.rowValues.VacationType;
+            var durationOld = window.getDurationOldByType(vacationTypeId);
+            var duration = window.getDurationByType(vacationTypeId);
+            functions.removeError(window[`errorDuration${vacationTypeId}`]);
+            functions.removeError(window[`errorDuration${row.rowIndex}`]);
+            if (duration > durationOld) {
+              window[`errorDuration${vacationTypeId}`] = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_DURATION_ERROR'), undefined, ESS.enums.FormErrorType.UNSPECIFIED, tableName, row.rowIndex, 'Duration');
+              window[`errorDuration${row.rowIndex}`] = window[`errorDuration${vacationTypeId}`];
+            }
+          }
+        });
+      }
+
+      window.checkDates = function () {
+        var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
+        var rows = functions.getValues()[tableName];
+        rows.forEach(checkRow => {
+          var currentBeginDate = new Date(checkRow.rowValues.BeginDate).getTime();
+          var currentEndDate = new Date(checkRow.rowValues.EndDate).getTime();
+          var currentIndex = checkRow.rowIndex;
+          functions.removeError(window[`errorBeginDate${currentIndex}`]);
+          functions.removeError(window[`errorEndDate${currentIndex}`]);
+          rows.find(row => {
+            if (currentIndex != row.rowIndex && row.rowValues.BeginDate != null && row.rowValues.EndDate != null) {
+              var rowBeginDate = new Date(row.rowValues.BeginDate).getTime();
+              var rowEndDate = new Date(row.rowValues.EndDate).getTime();
+              var isError = false;
+              if (currentBeginDate >= rowBeginDate && currentBeginDate <= rowEndDate) {
+                window[`errorBeginDate${currentIndex}`] = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_BEGINDATE_ERROR'), undefined, ESS.enums.FormErrorType.FORM_VALIDATION, tableName, currentIndex, 'BeginDate');
+                isError = true;
+              }
+              if ((currentEndDate >= rowBeginDate && currentEndDate <= rowEndDate) || (currentBeginDate < rowEndDate && currentEndDate > rowEndDate)) {
+                window[`errorEndDate${currentIndex}`] = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_SHIFTANNUALVACATIONFROMCONFIRMATIONASSIGNMENT_BEGINDATE_ERROR'), undefined, ESS.enums.FormErrorType.FORM_VALIDATION, tableName, currentIndex, 'EndDate');
+                isError = true;
+              }
+              if (isError) {
+                return true;
+              }
+            }
+          });
+        });
+      }
+      
+      window.getSubstitutionDataFromStorage = function() {
+        try {
+          var storedData = localStorage.getItem('NNSubstitutionSetup_Data');
+          
+          if (!storedData || storedData === '' || storedData === 'null') {
+            console.log('[getSubstitutionDataFromStorage] No data in localStorage');
+            return null;
+          }
+          
+          var data = JSON.parse(storedData);
+          
+          if (!data.SubstituteIdsString || data.SubstituteIdsString === '') {
+            console.log('[getSubstitutionDataFromStorage] No substitute IDs');
+            return null;
+          }
+          
+          var result = {
+            substituteIds: data.SubstituteIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            substituteNames: data.SubstituteNamesString ? data.SubstituteNamesString.split(';') : [],
+            systemIds: data.SystemIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            systemNames: data.SystemNamesString ? data.SystemNamesString.split(';') : [],
+            startDates: data.StartDatesString.split(';').filter(function(date) { return date && date !== ''; }),
+            endDates: data.EndDatesString.split(';').filter(function(date) { return date && date !== ''; })
+          };
+          
+          console.log('[getSubstitutionDataFromStorage] Data loaded:', result.substituteIds.length, 'substitutes');
+          return result;
+        }
+        catch (e) {
+          console.error('[getSubstitutionDataFromStorage] Parse error:', e);
+          return null;
+        }
+      };
+
+      window.showSubstitutionInfo = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[showSubstitutionInfo] No data to display');
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          functions.setIsItemHidden('ShowSubstitutesButton', true);
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+        
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        functions.setIsItemHidden('SubstitutionsInfoBlock', false);
+        functions.setIsItemHidden('ShowSubstitutesButton', false);
+        
+        console.log('[showSubstitutionInfo] Info displayed');
+        return true;
+      };
+
+      window.prepareSubstitutionParameters = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[prepareSubstitutionParameters] No data to prepare');
+          
+          functions.setValue('SubstituteIdsString', '');
+          functions.setValue('SystemIdsString', '');
+          functions.setValue('StartDatesString', '');
+          functions.setValue('EndDatesString', '');
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+		
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        
+        functions.setValue('SubstituteIdsString', data.substituteIds.join(';'));
+        functions.setValue('SystemIdsString', data.systemIds.join(';'));
+        functions.setValue('StartDatesString', data.startDates.join(';'));
+        functions.setValue('EndDatesString', data.endDates.join(';'));
+        
+        console.log('[prepareSubstitutionParameters] Parameters set:', data.substituteIds.length, 'substitutes');
+        return true;
+      };
+      
+      window.toIsoDateString = function (value) {
+        var d = new Date(value);
+        if (isNaN(d.getTime())) {
+          return null;
+        }
+        var year = d.getFullYear(); 
+        var month = String(d.getMonth() + 1).padStart(2, '0'); 
+        var day = String(d.getDate()).padStart(2, '0');  
+        var result = year + "-" + month + "-" + day;
+  
+        return result;
+      }
+    ]]>
+  </openedEventHandler>
+  <beforeSubmitEventHandler><![CDATA[
+    window.prepareSubstitutionParameters();
+    
+    var initiatorId = functions.getValues().PerformerId;
+    var noticeId = functions.getValues().NoticeId;
+    var assignmentId = functions.getValues().AssignmentId;
+    var tableName = 'VacationType&BeginDate&Duration&EndDateGrid';
+    var rows = functions.getValues()[tableName];
+    var vacationTypeIdsArray = [];
+    var beginDateArray = [];
+    var endDateArray = [];
+    var durationArray = [];
+    var duration = 0;
+    rows.forEach(row => {
+      duration += +row.rowValues.Duration;
+      if (row.rowValues.BeginDate != null && row.rowValues.EndDate) {
+        vacationTypeIdsArray.push(row.rowValues.VacationType);
+        var beginDate = row.rowValues.BeginDate;
+        beginDateArray.push(beginDate);
+        var endDate = row.rowValues.EndDate;
+        endDateArray.push(endDate);
+        durationArray.push(row.rowValues.Duration);
+      };
+    });
+
+    var vacationsOld = JSON.parse(functions.getValues().VacationsOld);
+    var formattedVacationsOld = JSON.stringify(vacationsOld.map(item => {
+      return {
+        DateStart: item.BeginDate,
+        DateEnd: item.EndDate,
+        VacationTypeId: item.VacationTypeId,
+        DaysCount: item.Duration,
+      };
+    }));
+    functions.setValue('FormattedVacationsOld', formattedVacationsOld);
+    
+    var vacationType = 'Planned';
+
+    ESS.scripts.HRProVacations.validateShiftVacationData({ functions, initiatorId, statementId: 0, noticeId, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray, formattedVacationsOld, assignmentId })
+     .then((success) => {
+        var substitutionsInfo = functions.getValues().SubstitutionsInfo;
+        if (!substitutionsInfo || substitutionsInfo === '' || substitutionsInfo === 'null') {
+          resolve();
+        } else {
+          var vacationTable = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+          var vacationPeriods = [];
+          if (vacationTable && vacationTable.length > 0) {
+            vacationTable.forEach(function(row) {
+              if (row.rowValues.VacationType && row.rowValues.BeginDate && row.rowValues.BeginDate.trim() !='' && row.rowValues.Duration)
+                vacationPeriods.push({
+                  StartDate: row.rowValues.BeginDate,
+                  EndDate: row.rowValues.EndDate
+                });
+            });
+          }
+          
+          ESS.scripts.HRProVacations.validateSubstitutionDates({ VacationPeriodsJson: JSON.stringify(vacationPeriods), StartDatesString: functions.getValues().StartDatesString || '', EndDatesString: functions.getValues().EndDatesString || '', IsCallingService: true })
+          .then(function(substitutionResult) {
+            if (substitutionResult && !substitutionResult.isValid) {
+              if (substitutionResult.errors && substitutionResult.errors.length > 0) {
+                ESS.toasts.showToast(substitutionResult.errors[0].message, 'danger', true);
+                reject();
+                return;
+              }
+            }
+            resolve();
+          })
+          .catch(function (error) {
+            reject();
+          });
+        }
+      }, (error) => { reject() });
+  ]]></beforeSubmitEventHandler>
+  <closingEventHandler><![CDATA[ESS.toasts.hideToast(window.durationError); resolve();]]></closingEventHandler>
+  <closedEventHandler>
+    <![CDATA[
+      localStorage.removeItem('NNSubstitutionSetup_Data');
+      
+      if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+        ESS.closeElement(sender.parent); ESS.widgets.updateWidgets();
+      }
+    ]]>
+  </closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_SHIFTVACATIONFROMAPPROVAL_SUCCESSMESSAGE</successMessage>
+</facility>

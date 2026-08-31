@@ -1,0 +1,1236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<facility id="f6331d91-636d-4d55-b103-cc6cf63cd982" name="GetAnnualVacation">
+  <authorization>
+    <allow roles="Employee" />
+  </authorization>
+  <title>@.FACILITIES_GETANNUALVACATION_TITLE</title>
+  <description>@.FACILITIES_GETVACATION_TASKSUBJECT_DESCRIPTION</description>
+  <facilityParameters>
+    <facilityParameter type="FacilityParameterQuery" name="Initiator" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetPostListByPerson</dataSource>
+      <dataSourceValueField>id</dataSourceValueField>
+      <dataSourceCaptionField>name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationType" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetAttachableVacationTypes</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationTypeAnnual" defaultValue="" isRequired="true" isCollection="false">
+      <dataSource>/api/functions/GetVacationTypes?vacationKind=AnnualLeave</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterQuery" name="VacationStatementData" defaultValue="" isRequired="false" isCollection="false">
+      <dataSource>/api/functions/GetVacationStatementTemplateId?employeeId=$(CurrentUser.DirectumRX.ActorId)</dataSource>
+      <dataSourceValueField>Id</dataSourceValueField>
+      <dataSourceCaptionField>Name</dataSourceCaptionField>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDateAnnual" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DurationAnnual" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>99</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDateAnnual" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="BeginDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="Duration" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>99</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterDateTime" name="EndDate" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="IsFromEssAccount" defaultValue="true" isRequired="false" isCollection="false">
+      <isIndeterminateAllowed>False</isIndeterminateAllowed>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Вид_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Дата_начала_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Дата_окончания_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationReasonOptional" defaultValue="" isRequired="false" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="VacationReasonRequired" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Причина_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <showTime>false</showTime>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="Field_Продолжительность_отпуска" defaultValue="" isRequired="true" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Доп отпуска" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="DocumentKindId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ApplicationDocKindGuid" defaultValue="2D7C0296-B967-4B3E-BAF2-A0CB89C0D342" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="ApplicationDocKindId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="TemplateId" defaultValue="" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>0</minValue>
+      <maxValue>0</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Подразделение сотрудника" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Должность сотрудника" defaultValue="#CURRENT_USER_JOB_TITLE_GENITIVE" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_ФИО сотрудника" defaultValue="#CURRENT_USER_FULLNAME_GENITIVE" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_И.О. Фамилия сотрудника" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Фамилия И.О. сотрудника (р.п.)" defaultValue="#CURRENT_USER_SHORTNAME" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Вице_Президент" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Field_Табельный_номер" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StoredDocumentParam" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedDocumentLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="ImportedApplicationLinks" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachments" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskAttachmentsApplications" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>1000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AlignDateAssignmentId" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>500</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="AvailableDays" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+     <facilityParameter type="FacilityParameterString" name="DateApproval" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="Instruction" defaultValue="" isRequired="true" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterNumber" name="VacationDaysExcess" defaultValue="0" isRequired="false" isCollection="false">
+      <isInteger>true</isInteger>
+      <precision>0</precision>
+      <minValue>1</minValue>
+      <maxValue>99</maxValue>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterFile" name="AdditionalAttachment" defaultValue="" isRequired="false" isCollection="true">
+      <maxSize>15728640</maxSize>
+      <fileTypes>.doc,.docx,.pdf,.png,.jpg,.tiff,.jpeg</fileTypes>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SubstituteIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SystemIdsString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="StartDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="EndDatesString" defaultValue="" isRequired="false" isCollection="false">
+      <maxLength>10000</maxLength>
+      <multiline>false</multiline>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterString" name="SubstitutionsInfo" isRequired="false" isCollection="false">
+      <maxLength>5000</maxLength>
+      <multiline>true</multiline>
+      <isHidden>false</isHidden>
+    </facilityParameter>
+    <facilityParameter type="FacilityParameterBoolean" name="IsTop" defaultValue="false" isRequired="false" isCollection="false">
+      <isIndeterminateAllowed>false</isIndeterminateAllowed>
+      <isHidden>true</isHidden>
+    </facilityParameter>
+  </facilityParameters>
+  <facilityFormItems>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content><![CDATA[
+       {{{AvailableDays}}}<br/>
+
+		    {{#DateApproval}}
+        <div style="font-size: 16px;line-height: 20px;font-weight: 700;margin-top: 12px;">{{{DateApproval}}}</div>
+		    {{/DateApproval}}
+        ]]>
+      </content>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <showHeaders>false</showHeaders>
+      <label />
+      <placeholder />
+      <parameterName>Initiator</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        console.log('valueChangedEventHandler. Старт события. ИД текущего инициатора = ' + formItem.value);
+        functions.addPerformingAction('ChangeInitiator');
+        var initiatorId = formItem.value || functions.getValues().Initiator;
+        console.log('valueChangedEventHandler. Получение с формы текущего инициатора. ИД текущего инициатора = ' + initiatorId);
+        if (initiatorId != null) {
+          console.log('valueChangedEventHandler. Инициатор не пустой.');
+          ESS.network.sendRequest(`/api/functions/GetInstructionWithLinkLNA?employeeId=${initiatorId}`)
+          .then(function (instruction) {
+            if (typeof instruction === "string") {
+              if (instruction) {
+                functions.setValue('Instruction', instruction);
+                console.log('valueChangedEventHandler. Параметр Instruction установлен. instruction = ' + functions.getValues().Instruction);
+              }
+            } else {
+              console.log('valueChangedEventHandler. Параметр Instruction не установлен. typeof instruction = ' + typeof instruction);
+              console.log('valueChangedEventHandler. instruction = ' + instruction);
+            }
+          });
+          functions.removeError(window.errorInitiator);
+          ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned?employeeId=${initiatorId}`)
+          .then(function (isConsentSigned) {
+            console.log('valueChangedEventHandler. Результат проверки подписания согласия у инициатора = ' + isConsentSigned);
+            if (isConsentSigned != true) {
+              window.errorInitiator = functions.showError(ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+              functions.removePerformingAction();
+            } else {
+              var url = `/api/functions/GetAvailableDaysInfo?employeeId=${initiatorId}`
+              ESS.network.sendRequest(url)
+              .then(function (availableDaysInfo) {
+                functions.setValue('AvailableDays', availableDaysInfo);
+                functions.removePerformingAction();
+              });
+            }
+          })
+          .catch(function (error) {
+            functions.removePerformingAction();
+            ESS.toasts.showToast(error.message, 'danger', false);
+          });
+		  
+		  functions.setDataSource('VacationTypeAnnual', `/api/functions/GetVacationTypes?vacationKind=AnnualLeave&employeeId=${initiatorId}`);
+		  // Дополнительные отпуска
+		  functions.setDataSource('VacationType', `/api/functions/GetAttachableVacationTypes?employeeId=${initiatorId}`);
+        }
+		
+		window.UpdateEmployeeTop(initiatorId);
+        console.log('valueChangedEventHandler. Конец события. ИД текущего инициатора = ' + formItem.value);
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_GETANNUALVACATION_VACATIONTYPE</label>
+      <placeholder />
+      <parameterName>VacationTypeAnnual</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        window.setEndDateAnnual();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormGroup" name="DateGroup">
+      <hint />
+      <label></label>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <header>@.FACILITIES_GETVACATION_VACATION_BEGINDATE</header>
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_GETVACATION_VACATION_BEGINDATE</label>
+      <parameterName>BeginDateAnnual</parameterName>
+      <groupName>DateGroup</groupName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        var today = new Date();
+        var yesterday = new Date(today);
+        yesterday.setDate(today.getDate() -1);
+        var beginDateValue = formItem.value;
+        var dateFromControl = new Date(beginDateValue).getTime();
+        functions.removeError(window.errorDateAnnual);
+        if (dateFromControl < yesterday.getTime()) {
+          window.errorDateAnnual = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'));
+          functions.setValue('DateApproval', '');
+        } else {
+        var initiatorId = functions.getValues().Initiator;
+        var documentKindId = functions.getValues().DocumentKindId;
+        ESS.network.sendRequest(`/api/functions/GetDateDeadlineForApprovalLK?employeeId=${initiatorId}&documentKindId=${documentKindId}&date=${beginDateValue}`)
+          .then(function (dateApproval) {
+            if (dateApproval.length != 0) {
+            var dateApprovalStr = new Date(dateApproval).toLocaleDateString('ru-RU');
+            functions.setValue('DateApproval', ESS.formatString(ESS.L('@HRPROVACATIONS.FACILITIES_GETANNUALVACATION_APPROVALDATE_INFO'), dateApprovalStr));
+            }
+          })
+        };
+        window.setEndDateAnnual();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <header>@.FACILITIES_GETVACATION_VACATIONDAYS</header>
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER</label>
+      <parameterName>DurationAnnual</parameterName>
+      <groupName>DateGroup</groupName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        window.setEndDateAnnual();
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <header>@.FACILITIES_GETVACATION_VACATION_ENDDATE</header>
+      <hint />
+      <isReadOnly>true</isReadOnly>
+      <isHidden>false</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_GETVACATION_VACATION_ENDDATE</label>
+      <parameterName>EndDateAnnual</parameterName>
+      <groupName>DateGroup</groupName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[
+        var initiatorId = functions.getValues().Initiator;
+        var vacationTypeId = functions.getValues().VacationTypeAnnual;
+        var beginDate = functions.getValues().BeginDateAnnual;
+        var url = `/api/functions/NNCheckVacationHasHoliday?periodBegin=${beginDate}&periodEnd=${formItem.value}&employeeId=${initiatorId}&vacationTypeId=${vacationTypeId}`;
+        ESS.network.sendRequest(url).then(function (warning){
+          if(warning.length > 0)
+            ESS.toasts.showToast(warning, 'warning', true);
+        });
+
+        var endDateValue = formItem.value;
+        var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+        if (rows.length > 0) {
+          var rowIndex = rows[0].rowIndex;
+          var endDate = new Date(endDateValue);
+          var beginDate = new Date(endDate);
+          beginDate.setDate(endDate.getDate() + 1);
+          functions.setValue('VacationType&BeginDate&Duration&EndDateGrid', beginDate, rowIndex, 'BeginDate');
+        }
+      ]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="VacationReasonRequired">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_GETANNUALVACATION_VACATIONREASON_LABEL</label>
+      <placeholder />
+      <parameterName>VacationReasonRequired</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter" name="VacationReasonOptional">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showHeaders>false</showHeaders>
+      <label>@.FACILITIES_GETANNUALVACATION_VACATIONREASON_LABEL</label>
+      <placeholder />
+      <parameterName>VacationReasonOptional</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTable">
+      <hint></hint>
+      <title>@.FACILITIES_GETANNUALVACATION_TABLE_TITLE</title>
+      <showHeaders>true</showHeaders>
+      <placeholder />
+      <itemAddedEventHandler><![CDATA[
+        var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+        if (rows.length > 0) {
+          var currIndex = rows.length - 1;
+          var predIndex = currIndex - 1;
+          var rowIndex = rows[currIndex].rowIndex;
+          var endDateValue = rows.length == 1 ? functions.getValues().EndDateAnnual : rows[predIndex].rowValues.EndDate;
+          if (!window.isEmpty(endDateValue))
+          {
+            var endDate = new Date(endDateValue);
+            var beginDate = new Date(endDate);
+            beginDate.setDate(endDate.getDate() + 1);
+            functions.setValue('VacationType&BeginDate&Duration&EndDateGrid', beginDate, rowIndex, 'BeginDate');
+          }
+        }
+      ]]></itemAddedEventHandler>
+      <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+      <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+      <itemRemovingEventHandler><![CDATA[
+        var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+        if (rows.length > 1) {
+          var currRow = rows.find(function (x) {
+            return x.rowIndex === formItem.index;
+          });
+          var currIndex = rows.indexOf(currRow);
+          var predIndex = currIndex - 1;
+          var nextIndex = currIndex + 1;
+          if (nextIndex < rows.length) {
+            var rowIndex = rows[nextIndex].rowIndex;
+            var endDateValue = currIndex == 0 ? functions.getValues().EndDateAnnual : rows[predIndex].rowValues.EndDate;
+            if (!window.isEmpty(endDateValue))
+            {
+              var endDate = new Date(endDateValue);
+              var beginDate = new Date(endDate);
+              beginDate.setDate(endDate.getDate() + 1);
+              functions.setValue('VacationType&BeginDate&Duration&EndDateGrid', beginDate, rowIndex, 'BeginDate');
+            }
+          }
+        }
+        
+        resolve();
+      ]]></itemRemovingEventHandler>
+      <columns>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_GETANNUALVACATION_VACATIONTYPE</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>VacationType</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            window.setEndDate(formItem.index);
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_BEGINDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>true</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>BeginDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var today = new Date();
+            var yesterday = new Date(today);
+            yesterday.setDate(today.getDate() -1);
+            var beginDateValue = formItem.value;
+            var dateFromControl = new Date(beginDateValue).getTime();
+            functions.removeError(window.errorDate);
+            if (dateFromControl < yesterday.getTime()) {
+              window.errorDate = functions.showError(ESS.L('@HRPROVACATIONS.ERROR_DATE_BEGIN'));
+            }
+            window.setEndDate(formItem.index);
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_VACATIONDURATION_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>false</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>Duration</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            window.setEndDate(formItem.index);
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+        <column type="FacilityFormTableColumn">
+          <header>@.FACILITIES_SHIFTVACATION_TABLECOLUMN_ENDDATE_HEADER</header>
+          <isSortable>true</isSortable>
+          <isReadOnly>true</isReadOnly>
+          <isHidden>false</isHidden>
+          <parameterName>EndDate</parameterName>
+          <valueChangedEventHandler><![CDATA[
+            var initiatorId = functions.getValues().Initiator;
+            var beginDate = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['BeginDate'];
+            var endDate = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['EndDate'];
+            var vacationTypeId = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+              return x.rowIndex === formItem.index;
+            }).rowValues['VacationType'];
+
+            var checkUrl = `/api/functions/NNCheckVacationHasHoliday?periodBegin=${beginDate}&periodEnd=${formItem.value}&employeeId=${initiatorId}&vacationTypeId=${vacationTypeId}`;
+            ESS.network.sendRequest(checkUrl).then(function (warning){
+              if(warning.length > 0)
+                ESS.toasts.showToast(warning, 'warning', true);
+            });
+
+            var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+            var currRow = rows.find(function (x) {
+              return x.rowIndex === formItem.index;
+            });
+            var currIndex = rows.indexOf(currRow);
+            var nextIndex = currIndex + 1;
+            if (nextIndex < rows.length) {
+              var rowIndex = rows[nextIndex].rowIndex;
+              var endDateValue = rows[currIndex].rowValues.EndDate;
+              if (!window.isEmpty(endDateValue))
+              {
+                var endDate = new Date(endDateValue);
+                var beginDate = new Date(endDate);
+                beginDate.setDate(endDate.getDate() + 1);
+                functions.setValue('VacationType&BeginDate&Duration&EndDateGrid', beginDate, rowIndex, 'BeginDate');
+              }
+            }
+          ]]></valueChangedEventHandler>
+          <calculateFunction><![CDATA[]]></calculateFunction>
+        </column>
+      </columns>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <content>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_OPTIONAL_TEXT</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>false</isHidden>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_ADD</text>
+      <icon>user</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <onClickEventHandler>
+        <![CDATA[          
+          var initiatorId = functions.getValues().Initiator;
+          var vacationStartDate = functions.getValues().BeginDateAnnual;
+          var vacationEndDate = functions.getValues().EndDateAnnual;
+          var vacationTypeId = functions.getValues().VacationTypeAnnual;
+          
+          if (!initiatorId || !vacationStartDate || !vacationEndDate || !vacationTypeId) {
+            ESS.toasts.showToast(ESS.L('@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_ERROR_MISSING_DATA'), 'warning', true);
+            return;
+          }
+          
+          functions.setIsItemHidden('ShowSubstitutesButton', false);
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          
+          window.prepareSubstitutionParameters();
+          
+          var substituteIdsString = functions.getValues().SubstituteIdsString;
+          var systemIdsString = functions.getValues().SystemIdsString;
+          var startDatesString = functions.getValues().StartDatesString;
+          var endDatesString = functions.getValues().EndDatesString;
+          
+          ESS.actions.facilityActions.runFacility(
+            {
+              id: '2a5f2cfc-8646-4bb8-920c-a985b15da804' 
+            },
+            {
+              parameters: {
+                InitiatorId: initiatorId,
+                VacationStartDate: vacationStartDate,
+                VacationEndDate: vacationEndDate,
+                SubstituteIdsString: substituteIdsString,
+                SystemIdsString: systemIdsString,
+                StartDatesString: startDatesString,
+                EndDatesString: endDatesString,
+                VacationKindId: vacationTypeId
+              }
+            }
+          );
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormButton" name="ShowSubstitutesButton">
+      <text>@HRPROVACATIONS.FACILITIES_NN_SUBSTITUTION_SETUP_BUTTON_SHOW</text>
+      <icon>chevron-bottom</icon>
+      <isReadOnly>false</isReadOnly>
+      <isHidden>true</isHidden>
+      <onClickEventHandler>
+        <![CDATA[
+          console.log('[SHOW SUBSTITUTES] Button clicked');
+          window.showSubstitutionInfo();
+        ]]>
+      </onClickEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock" name="SubstitutionsInfoBlock">
+      <content>{{{SubstitutionsInfo}}}</content>
+      <isReadOnly>true</isReadOnly>
+      <isHidden>true</isHidden>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormParameter">
+      <hint />
+      <isReadOnly>false</isReadOnly>
+      <isHidden>false</isHidden>
+      <showTitles>true</showTitles>
+      <label>@.FACILITIES_GETANNUALVACATION_ADDITIONALATTACHMENT</label>
+      <parameterName>AdditionalAttachment</parameterName>
+      <calculateFunction><![CDATA[]]></calculateFunction>
+      <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+    </facilityFormItem>
+    <facilityFormItem type="FacilityFormTextblock">
+      <hint />
+      <content>
+        {{{Instruction}}}
+      </content>
+    </facilityFormItem>
+  </facilityFormItems>
+  <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+    <flowSteps>
+      <flowStep index="0" name="ExecuteFunction" title="Получить должность и ФИО Вице-президента." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">1</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">VICE_PRESIDENT</property>
+        <property name="Result" binding="Field_Вице_Президент,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="1" name="ExecuteFunction" title="Получить наименование должности сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">2</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_JOB_TITLE_NOMINATIVE</property>
+        <property name="Result" binding="Field_Должность сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="2" name="ExecuteFunction" title="Получить наименование подразделения сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">3</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">DEPARTMENT_NAME</property>
+        <property name="Result" binding="Field_Подразделение сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="3" name="ExecuteFunction" title="Получить ФИО сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">4</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_FULLNAME</property>
+        <property name="Result" binding="Field_ФИО сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="4" name="ExecuteFunction" title="Получить табельный номер сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">5</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_PERSONNEL_NUMBER</property>
+        <property name="Result" binding="Field_Табельный_номер,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="5" name="ExecuteFunction" title="Получить инициалы и фамилию сотрудника." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">6</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME</property>
+        <property name="Result" binding="Field_И.О. Фамилия сотрудника,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="6" name="ExecuteFunction" title="Получить фамилию и инициалы сотрудника в родительном падеже." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">7</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNVacations.GetDocumentFieldValue</property>
+        <property name="ExecutionMethod">GET</property>
+        <property name="employeeId" binding="Initiator" type="Int" />
+        <property name="fieldName">CURRENT_USER_SHORTNAME_GENITIVE</property>
+        <property name="Result" binding="Field_Фамилия И.О. сотрудника (р.п.),Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="7" name="ApplicationGeneration" title="Сгенерировать заявление" type="DocumentGenerationStep">
+        <property name="NextStepIndex">8</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="DocumentId" type="Int" binding="TemplateId" />
+        <property name="DocumentFormat">pdfa</property>
+        <property name="DocumentGroup">IElectronicDocuments</property>
+        <property name="DocumentFields" binding="Field_*" type="KeyValue[]" />
+        <property name="DocumentName" binding="Field_Фамилия И.О. сотрудника (р.п.),#TODAY,Format=Заявление на ежегодный отпуск {0} от {1}" />
+        <property name="GenerationValue" binding="StoredDocumentParam,Mode=PropertyToParameter" type="StoredDocument" />
+      </flowStep>
+      <actionStep index="8" name="CreateSignatureAction" title="Добавить подпись к документу из СХ">
+        <property name="NextStepIndex">9</property>
+        <property name="ActionName">HrProStatements.createSignature</property>
+        <property name="SigningDocument" binding="StoredDocumentParam" type="StoredDocument" />
+        <property name="SignatureType">Approval</property>
+        <property name="Result" binding="StoredDocumentParam,Mode=PropertyToParameter" />
+        <property name="employeeId" binding="Initiator" type="Int" />
+      </actionStep>
+      <flowStep index="9" name="ImportDocumentsRX" title="Импортировать сгенерированный документ в RX" type="ImportDocumentGroupStep">
+        <property name="NextStepIndex">10</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="ImportingDocuments" binding="StoredDocument*" type="StoredDocument[]" />
+        <property name="DocumentGroup">IVacationStatementDocuments</property>
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="Employee" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="PreparedBy" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="DocumentKind" binding="DocumentKindId,Format={{'Id':{0}}}" />
+        <property name="RegistrationDate" binding="#TODAY" type="DateTimeOffSet" />
+        <property name="ImportedDocuments" binding="ImportedDocumentLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="10" name="ExecuteFunction" title="Получить вид документа для приложения." type="ExecuteFunctionStep">
+        <property name="NextStepIndex">11</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="FunctionName">NNCommons.GetDocumentKindId</property>
+        <property name="ExecutionMethod">Get</property>
+        <property name="guid" binding="ApplicationDocKindGuid" type="String" />
+        <property name="result" binding="ApplicationDocKindId,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="11" name="ImportApplicationRX" title="Импортировать приложение в RX" type="ImportDocumentGroupStep">
+        <property name="NextStepIndex">12</property>
+        <property name="TargetSystem">EssBase</property>
+        <property name="ImportingDocuments" binding="AdditionalAttachment" type="StoredDocument[]" />
+        <property name="DocumentGroup">INNCommonsHRSimpleDocuments</property>
+        <property name="DocumentKind" binding="ApplicationDocKindId,Format={{'Id':{0}}}" />
+        <property name="EmployeeDirRX" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="PreparedBy" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}"/>
+        <property name="Actor" binding="Initiator"/>
+        <property name="ImportedDocuments" binding="ImportedApplicationLinks,Mode=PropertyToParameter" />
+      </flowStep>
+      <flowStep index="12" title="Сформировать группу вложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">13</property>
+        <property name="GroupName">DocumentGroup</property>
+        <property name="Documents" binding="ImportedDocumentLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachments,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="13" title="Сформировать группу вложений для приложений" type="CreateAttachmentGroupStep">
+        <property name="NextStepIndex">14</property>
+        <property name="GroupName">OtherGroup</property>
+        <property name="Documents" binding="ImportedApplicationLinks" type="DocumentLink[]" />
+        <property name="Result" binding="TaskAttachmentsApplications,Mode=PropertyToParameter"></property>
+      </flowStep>
+      <flowStep index="14" title="Заполнить даты отпусков в документе" type="ExecuteFunctionStep">
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">15</property>
+        <property name="ExecutionMethod">POST</property>
+        <property name="document" binding="ImportedDocumentLinks" type="String" />
+        <property name="vacationTypeAnnualId" binding="VacationTypeAnnual" type="Int" />
+        <property name="beginDateAnnual" binding="BeginDateAnnual" type="DateTimeOffSet" />
+        <property name="endDateAnnual" binding="EndDateAnnual" type="DateTimeOffSet" />
+        <property name="durationAnnual" binding="DurationAnnual" type="Int32" />
+        <property name="vacationDaysExcess" binding="VacationDaysExcess" type="Int32" />
+        <property name="vacationTypeIds" binding="VacationType" type="Int[]" />
+        <property name="beginDates" binding="BeginDate" type="DateTimeOffSet[]" />
+        <property name="endDates" binding="EndDate" type="DateTimeOffSet[]" />
+        <property name="durations" binding="Duration" type="Int32[]" />
+        <property name="reason" binding="Field_Причина_отпуска" type="String" />
+        <property name="FunctionName">NNVacations.FillVacationDatesForAnnual</property>
+      </flowStep>
+      <flowStep index="15" name="StartStatementTask" title="@.FACILITIES_GETVACATION_RUNVACATIONAPPROVALTASK" type="StartWorkProcessStep">
+        <property name="ProcessName">IHRDocFlowStatementTasks</property>
+        <property name="TargetSystem">HRPro</property>
+        <property name="NextStepIndex">-1</property>
+        <property name="Author" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="StartedBy" binding="Initiator,Format={{'Id':{0}}}" />
+        <property name="NeedsReview">False</property>
+        <property name="Importance">Normal</property>
+        <property name="Attachments" binding="TaskAttachments*" type="Attachment[]" />
+        <property name="SubstituteIdsDirRX" binding="SubstituteIdsString" type="String" />
+        <property name="SystemIdsDirRX" binding="SystemIdsString" type="String" />
+        <property name="StartDatesDirRX" binding="StartDatesString" type="String" />
+        <property name="EndDatesDirRX" binding="EndDatesString" type="String" />
+        <property name="Id" binding="TaskId,Mode=PropertyToParameter" type="Int" />
+      </flowStep>
+    </flowSteps>
+  </facilityFlowScheme>
+  <openingEventHandler><![CDATA[
+  // Объявление функций при открытии услуги.
+  // Получение данных IsTop.
+  window.UpdateEmployeeTop = function (initiatorId) {
+	ESS.network.sendRequest(`/api/functions/GetTopAndGoValue?employeeId=${initiatorId}`)
+	.then(function (result) {
+	  if (!result || result === '') {
+		ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROSTATEMENTS.ERROR_GET_TOP_AND_GO'));
+		reject();
+		return;
+	  }
+	  
+	  var topAndGoInfo = JSON.parse(result);
+	  var isTop = topAndGoInfo.IsTop || false;
+
+	  functions.setValue('IsTop', isTop);
+	  
+	  if (isTop) {
+		functions.setIsItemHidden('VacationReasonRequired', true);
+		functions.setIsItemHidden('VacationReasonOptional', false);
+		functions.setValue('VacationReasonRequired', '');
+	  } else {
+		functions.setIsItemHidden('VacationReasonRequired', false);
+		functions.setIsItemHidden('VacationReasonOptional', true);
+		functions.setValue('VacationReasonOptional', '');
+	  }
+	})
+	.catch(function (error) {
+	  ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROSTATEMENTS.ERROR_GET_TOP_AND_GO'));
+	  reject();
+	});
+  }
+  
+  
+  if (window.isFacilityRunning ?? false) {
+    reject();
+  }
+  else {
+    window.isFacilityRunning = true;
+    var initiatorId = functions.getValues().Initiator;
+    console.log('openingEventHandler. Старт события. ИД текущего инициатора = ' + initiatorId);
+    ESS.network.sendRequest(`/api/functions/GetInitiatorId`)
+    .then(function (initiatorId){
+      ESS.network.sendRequest(`/api/functions/GetEmployeeCertificates`)
+      .then(function (certs) {
+        if (certs.length == 0) {
+          ESS.scripts.HRProVacations.showDialogNoCertificates();
+          reject();
+        } else {
+          ESS.network.sendRequest(`/api/functions/GetPostListByPerson`)
+            .then(function (employee){
+              ESS.network.sendRequest(`/api/functions/CheckEmployeeConsentSigned`)
+                .then(function (isConsentSigned) {
+                  console.log('openingEventHandler. Проверка подписания согласия = ' + isConsentSigned);
+                  if (isConsentSigned != true && employee.positions.length == 1) {
+                    ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), ESS.L('@HRPROVACATIONS.FACILITIES_GETVACATION_CONSENT_ERROR'));
+                    reject();                    
+                  }
+                  else
+                  {
+                    console.log('openingEventHandler. Заполнение параметров услуги по умолчанию.');
+                    ESS.network.sendRequest(`/api/functions/GetVacationStatementTemplateId?employeeId=${initiatorId}&isShiftVacation=false`)
+                    .then(function (VacationStatementData) {
+                      if (VacationStatementData.Error.length == 0) {
+                        if (employee.positions.length == 1) {
+                          functions.setValue('Initiator', initiatorId);
+                        }
+                        console.log('openingEventHandler. Получение ИД инициатора. ИД = ' + initiatorId);
+                        var templateId = JSON.parse(VacationStatementData.TemplateId);
+                        var docKindId = JSON.parse(VacationStatementData.DocumentKindId);
+                        functions.setValue('TemplateId', templateId);
+                        functions.setValue('DocumentKindId', docKindId);
+                        functions.setValue('IsFromEssAccount', true);
+                        // HACK. Убрана установка значения для инициатора по рекомендации HR PRO.
+                        //functions.setValue('Initiator', initiatorId);
+                        var url = `/api/functions/GetAvailableDaysInfo?employeeId=${functions.getValues().Initiator}`
+                        ESS.network.sendRequest(url)
+                        .then(function (availableDaysInfo) {
+                          functions.setValue('AvailableDays', availableDaysInfo);
+                        });
+						
+						window.UpdateEmployeeTop(initiatorId);
+						
+						var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+                        rows.forEach(row => {
+                          var rowIndex = row.rowIndex;
+                          functions.removeItem('VacationType&BeginDate&Duration&EndDateGrid', rowIndex);
+                        });
+						
+                        ESS.network.sendRequest(`/api/functions/GetInstructionWithLinkLNA?employeeId=${initiatorId}`)
+                        .then(function (instruction) {
+                          if (typeof instruction === "string") {
+                            if (instruction) {
+                              functions.setValue('Instruction', instruction);
+                              console.log('openingEventHandler. Параметр Instruction установлен. instruction = ' + functions.getValues().Instruction);
+                            }
+                          } else {
+                            console.log('openingEventHandler. Параметр Instruction не установлен. typeof instruction = ' + typeof instruction);
+                            console.log('openingEventHandler. instruction = ' + instruction);
+                          }
+                        });
+						
+                        ESS.network.sendRequest(`/api/functions/GetVacationTypes?vacationKind=AnnualLeave&employeeId=${initiatorId}`)
+                        .then(function (annualVacationTypes) {
+                          if (annualVacationTypes.length == 1) {
+                            functions.setValue('VacationTypeAnnual', annualVacationTypes[0]['Id']);
+                          }
+                        });
+						
+						functions.setDataSource('VacationTypeAnnual', `/api/functions/GetVacationTypes?vacationKind=AnnualLeave&employeeId=${initiatorId}`);
+						// Дополнительные отпуска
+						functions.setDataSource('VacationType', `/api/functions/GetAttachableVacationTypes?employeeId=${initiatorId}`);
+		  
+                        resolve();
+                        console.log('openingEventHandler. Конец события. ИД инициатора в услуге = ' + functions.getValues().Initiator);
+                      } else {
+                        ESS.dialogs.showMessageBox(ESS.L('@HRPROVACATIONS.ERROR_COMMON'), VacationStatementData.Error);
+                      }
+                    })
+                    .catch(function (error) {
+                      ESS.toasts.showToast(error.message, 'danger', false);
+                    });
+                  }
+                })
+                .catch(function (error) {
+                  ESS.toasts.showToast(error.message, 'danger', false);
+                });
+              })
+              .catch(function (error) {
+                ESS.toasts.showToast(error.message, 'danger', false);
+              });
+            }
+          })
+        });
+  }
+  ]]></openingEventHandler>
+  <openedEventHandler>
+    <![CDATA[
+      console.log('openedEventHandler. Старт события. ИД текущего инициатора = ' + functions.getValues().Initiator);
+      window.isEmpty = function (value) {
+        return (value == null || value.length === 0);
+      }
+
+      window.setEndDateAnnual = function () {
+        var initiatorId = functions.getValues().Initiator;
+        var vacationTypeId = functions.getValues().VacationTypeAnnual;
+        var beginDate = functions.getValues().BeginDateAnnual;
+        var duration = functions.getValues().DurationAnnual;
+        if (duration != null && beginDate != null) {
+          ESS.network.sendRequest(`/api/functions/NNGetVacationEndDate?dateBegin=${beginDate}&duration=${duration}&userId=${initiatorId}&vacationTypeId=${vacationTypeId}`)
+          .then(function (newEndDateValue) {
+            functions.setValue('EndDateAnnual', newEndDateValue);
+          });
+        }
+      }
+
+      window.toIsoDateString = function (value) {
+        var d = new Date(value);
+        if (isNaN(d.getTime())) {
+          return null;
+        }	  
+        var year = d.getFullYear(); 
+        var month = String(d.getMonth() + 1).padStart(2, '0'); 
+        var day = String(d.getDate()).padStart(2, '0');  
+        var result = year + "-" + month + "-" + day;
+  
+        return result;
+      }
+
+      window.setEndDate = function (rowIndex) {
+        var initiatorId = functions.getValues().Initiator;
+        var vacationTypeId = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+          return x.rowIndex === rowIndex;
+        }).rowValues['VacationType'];
+        var beginDateValue = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+          return x.rowIndex === rowIndex;
+        }).rowValues['BeginDate'];
+        var durationValue = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'].find(function (x) {
+          return x.rowIndex === rowIndex;
+        }).rowValues['Duration'];
+        
+        if (durationValue != null && beginDateValue != null) {
+          ESS.network.sendRequest(`/api/functions/NNGetVacationEndDate?dateBegin=${beginDateValue}&duration=${durationValue}&userId=${initiatorId}&vacationTypeId=${vacationTypeId}`)
+          .then(function (newEndDateValue) {
+            functions.setValue('VacationType&BeginDate&Duration&EndDateGrid', newEndDateValue, rowIndex, 'EndDate');
+          });
+        };
+      }      
+      window.getSubstitutionDataFromStorage = function() {
+        try {
+          var storedData = localStorage.getItem('NNSubstitutionSetup_Data');
+          
+          if (!storedData || storedData === '' || storedData === 'null') {
+            console.log('[getSubstitutionDataFromStorage] No data in localStorage');
+            return null;
+          }
+          
+          var data = JSON.parse(storedData);
+          
+          if (!data.SubstituteIdsString || data.SubstituteIdsString === '') {
+            console.log('[getSubstitutionDataFromStorage] No substitute IDs');
+            return null;
+          }
+          
+          var result = {
+            substituteIds: data.SubstituteIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            substituteNames: data.SubstituteNamesString ? data.SubstituteNamesString.split(';') : [],
+            systemIds: data.SystemIdsString.split(';').filter(function(id) { return id && id !== ''; }),
+            systemNames: data.SystemNamesString ? data.SystemNamesString.split(';') : [],
+            startDates: data.StartDatesString.split(';').filter(function(date) { return date && date !== ''; }),
+            endDates: data.EndDatesString.split(';').filter(function(date) { return date && date !== ''; })
+          };
+          
+          console.log('[getSubstitutionDataFromStorage] Data loaded:', result.substituteIds.length, 'substitutes');
+          return result;
+        }
+        catch (e) {
+          console.error('[getSubstitutionDataFromStorage] Parse error:', e);
+          return null;
+        }
+      };
+
+      window.showSubstitutionInfo = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[showSubstitutionInfo] No data to display');
+          functions.setIsItemHidden('SubstitutionsInfoBlock', true);
+          functions.setIsItemHidden('ShowSubstitutesButton', true);
+          functions.setValue('SubstitutionsInfo', '');
+          return false;
+        }
+        
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        functions.setIsItemHidden('SubstitutionsInfoBlock', false);
+        functions.setIsItemHidden('ShowSubstitutesButton', false);
+        
+        console.log('[showSubstitutionInfo] Info displayed');
+        return true;
+      };
+
+      window.prepareSubstitutionParameters = function() {
+        var data = window.getSubstitutionDataFromStorage();
+        
+        if (!data || data.substituteIds.length === 0) {
+          console.log('[prepareSubstitutionParameters] No data to prepare');
+          
+          functions.setValue('SubstituteIdsString', '');
+          functions.setValue('SystemIdsString', '');
+          functions.setValue('StartDatesString', '');
+          functions.setValue('EndDatesString', '');
+          functions.setValue('SubstitutionsInfo', '');
+          
+          return false;
+        }
+        var infoText = ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_HEADER')) + '<br/><br/>';
+        
+        for (var i = 0; i < data.substituteIds.length; i++) {
+          var startDate = data.startDates[i] ? new Date(data.startDates[i]).toLocaleDateString('ru-RU') : '?';
+          var endDate = data.endDates[i] ? new Date(data.endDates[i]).toLocaleDateString('ru-RU') : '?';
+          var subName = data.substituteNames[i];
+          var sysName = data.systemNames[i];
+          
+          infoText += ESS.formatString(ESS.L('@HRPROVACATIONS.SUBSTITUTION_INFO_ITEM_TEMPLATE'),(i + 1), subName, sysName , startDate, endDate) + '<br/>';
+        }
+        
+        functions.setValue('SubstitutionsInfo', infoText);
+        
+        functions.setValue('SubstituteIdsString', data.substituteIds.join(';'));
+        functions.setValue('SystemIdsString', data.systemIds.join(';'));
+        functions.setValue('StartDatesString', data.startDates.join(';'));
+        functions.setValue('EndDatesString', data.endDates.join(';'));
+        
+        console.log('[prepareSubstitutionParameters] Parameters set:', data.substituteIds.length, 'substitutes');
+        return true;
+      };
+      
+      console.log('openedEventHandler. Конец события. ИД текущего инициатора = ' + functions.getValues().Initiator);
+    ]]>
+  </openedEventHandler>
+  <beforeSubmitEventHandler><![CDATA[
+    console.log('beforeSubmitEventHandler. Старт события.');
+    console.log('beforeSubmitEventHandler. functions.getValues() = ');
+    console.log(JSON.stringify(functions.getValues()));
+    
+    window.prepareSubstitutionParameters();
+    
+    var initiatorId = functions.getValues().Initiator;
+    var documentKindId = functions.getValues().DocumentKindId;
+    var vacationTypeId = functions.getValues().VacationTypeAnnual;
+    var beginDate = functions.getValues().BeginDateAnnual;
+    var endDate = functions.getValues().EndDateAnnual;
+    var duration = functions.getValues().DurationAnnual;
+    var isTop = functions.getValues().IsTop || false;
+      
+    // Синхронизация причины отпуска
+    var vacationReason = '';
+    if (isTop) {
+	  vacationReason = functions.getValues().VacationReasonOptional || '';
+    } else {
+      vacationReason = functions.getValues().VacationReasonRequired || '';
+    }
+    
+    // Сохраняем в поле для документа
+    functions.setValue('Field_Причина_отпуска', vacationReason);
+	var reasonFieldValue = functions.getValues().Field_Причина_отпуска;
+	console.log('Field_Причина_отпуска = ', reasonFieldValue);
+
+    var rows = functions.getValues()['VacationType&BeginDate&Duration&EndDateGrid'];
+    var vacationTypeIdsArray = [];
+    var beginDateArray = [];
+    var endDateArray = [];
+    var durationArray = [];
+    rows.forEach(row => {
+      if (row.rowValues.VacationType != null && row.rowValues.BeginDate != null && row.rowValues.EndDate && row.rowValues.Duration) {
+        vacationTypeIdsArray.push(row.rowValues.VacationType);
+        var beginDate = row.rowValues.BeginDate;
+        beginDateArray.push(beginDate);
+        durationArray.push(row.rowValues.Duration);
+        var endDate = row.rowValues.EndDate;
+        endDateArray.push(endDate);
+      };
+    });
+    
+    var body = JSON.stringify({
+      employeeId : new Number(initiatorId),
+      vacationTypeIds : vacationTypeIdsArray,
+      beginDates : beginDateArray,
+      endDates : endDateArray,
+      durations : durationArray
+    });
+
+    var getAttachableVacationsInfo = ESS.network.sendRequest('/api/functions/GetAttachableVacationsInfo', { body: body, method: 'POST' })
+    .then(function (attachableVacationsInfo) {
+      functions.setValue('Field_Доп отпуска', attachableVacationsInfo);
+      var durationFromControl = functions.getValues().DurationAnnual;
+      functions.setValue('Field_Продолжительность_отпуска', durationFromControl);
+      var beginDate = JSON.stringify(window.toIsoDateString(functions.getValues().BeginDateAnnual));
+      var endDate = JSON.stringify(window.toIsoDateString(functions.getValues().EndDateAnnual));
+      var dates = [];
+      dates.push(beginDate);
+      dates.push(endDate);
+      ESS.network.sendRequest(`/api/functions/GetFormatDates?employeeId=${initiatorId}&dates=[${dates}]`)
+      .then(function (dates) {
+        functions.setValue('Field_Дата_начала_отпуска', dates[0]);
+        functions.setValue('Field_Дата_окончания_отпуска', dates[1]);
+      });
+    })
+    .catch(function (error) {
+      ESS.toasts.showToast(error.message, 'danger', false);
+      reject();
+    });
+    
+    // Добавить основной отпуск к списку.
+    vacationTypeIdsArray.push(vacationTypeId);
+    beginDateArray.push(beginDate);
+    durationArray.push(duration);
+    endDateArray.push(endDate);
+    var validateVacationData = ESS.scripts.HRProVacations.validateVacationData({ functions, initiatorId, documentKindId, statementId: 0, vacationTypeIdsArray, beginDateArray, endDateArray, durationArray });
+    
+    var validateSubstitutionDates = function() {
+      var substitutionsInfo = functions.getValues().SubstitutionsInfo;
+      
+      if (!substitutionsInfo || substitutionsInfo === '' || substitutionsInfo === 'null') {
+        return Promise.resolve({ isValid: true, errors: [] });
+      }
+      
+      var vacationPeriodsJson = '';
+      if (beginDate && endDate) {
+        var periods = [{ StartDate: beginDate, EndDate: endDate }];
+        vacationPeriodsJson = JSON.stringify(periods);
+      }
+	  
+      return ESS.scripts.HRProVacations.validateSubstitutionDates({ VacationPeriodsJson: vacationPeriodsJson, StartDatesString: functions.getValues().StartDatesString || '', EndDatesString: functions.getValues().EndDatesString || '', IsCallingService: true });
+    };
+    
+    console.log('beforeSubmitEventHandler. Начало выполнения запросов getAttachableVacationsInfo, validateVacationData, validateSubstitutionDates. initiatorId = ' + initiatorId + '. documentKindId = ' + documentKindId);
+    
+    Promise.all([getAttachableVacationsInfo, validateVacationData, validateSubstitutionDates()])
+    .then(function(results) {
+      var substitutionResult = results[2];
+      if (substitutionResult && !substitutionResult.isValid) {
+        if (substitutionResult.errors && substitutionResult.errors.length > 0) {
+          ESS.toasts.showToast(substitutionResult.errors[0].message, 'danger', true);
+        }
+        reject();
+        return;
+      }
+      console.log('beforeSubmitEventHandler. Успешное завершение события.');
+      resolve();
+    })
+    .catch(function(error) {
+      console.log('beforeSubmitEventHandler. Завершение события с ошибкой.');
+      functions.setValue('DateApproval', '');
+      reject();
+    });
+  ]]></beforeSubmitEventHandler>
+  <closingEventHandler><![CDATA[]]></closingEventHandler>
+  <closedEventHandler><![CDATA[
+    window.isFacilityRunning = false;
+    
+    localStorage.removeItem('NNSubstitutionSetup_Data');
+    
+    if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') 
+    {
+      ESS.closeElement(sender.parent); 
+      ESS.widgets.updateWidgets();
+    }
+    delete window.isEmpty;
+    ]]></closedEventHandler>
+  <successMessage>@HRPROVACATIONS.FACILITIES_GETVACATION_SUCCESSMESSAGE</successMessage>
+</facility>

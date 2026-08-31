@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<facility id="2ff7107a-8b18-41ad-9405-889f51e34a0e" name="AbortTask">
+        <authorization>
+          <allowedRoles>Employee</allowedRoles>
+        </authorization>
+        <title>@HRPROSTATEMENTS.FACILITIES_ABORTTASK_TITLE</title>
+        <description></description>
+        <contractForm>true</contractForm>
+        <facilityParameters>
+          <facilityParameter type="FacilityParameterNumber" name="TaskId" defaultValue="" isRequired="false" isCollection="false">
+            <isInteger>true</isInteger>
+            <precision>0</precision>
+            <minValue>0</minValue>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="ProcessName" defaultValue="" isRequired="false" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+          <facilityParameter type="FacilityParameterString" name="Reason" defaultValue="" isRequired="true" isCollection="false">
+            <maxLength>200</maxLength>
+            <multiline>false</multiline>
+          </facilityParameter>
+        </facilityParameters>
+        <facilityFormItems>
+          <facilityFormItem type="FacilityFormTextblock">
+            <hint />
+            <content>@HRPROSTATEMENTS.FACILITIES_ABORTTASK_TEXTBLOCK_CONTENT</content>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>TaskId</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>true</isHidden>
+            <showHeaders>false</showHeaders>
+            <label />
+            <placeholder />
+            <parameterName>ProcessName</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+          <facilityFormItem type="FacilityFormParameter">
+            <hint />
+            <isReadOnly>false</isReadOnly>
+            <isHidden>false</isHidden>
+            <showHeaders>true</showHeaders>
+            <label>@HRPROSTATEMENTS.FACILITIES_ABORTTASK_REASON</label>
+            <placeholder />
+            <parameterName>Reason</parameterName>
+            <calculateFunction><![CDATA[]]></calculateFunction>
+            <itemAddedEventHandler><![CDATA[]]></itemAddedEventHandler>
+            <itemAddingEventHandler><![CDATA[]]></itemAddingEventHandler>
+            <itemRemovedEventHandler><![CDATA[]]></itemRemovedEventHandler>
+            <itemRemovingEventHandler><![CDATA[]]></itemRemovingEventHandler>
+            <valueChangedEventHandler><![CDATA[]]></valueChangedEventHandler>
+          </facilityFormItem>
+        </facilityFormItems>
+        <facilityFlowScheme firstStepIndex="0" lastStepIndex="-1">
+          <flowSteps>
+            <flowStep index="0" name="ExecuteFunction" title="Запуск прикладной функции SetAbotringReasonInStatementTask" type="ExecuteFunctionStep">
+              <property name="NextStepIndex">1</property>
+              <property name="TargetSystem">HRPro</property>
+              <property name="FunctionName">HRDocFlow.SetAbotringReasonInStatementTask</property>
+              <property name="ExecutionMethod">POST</property>
+              <property name="taskID" binding = "TaskId" type="Int" />
+              <property name="reason" binding = "Reason" />
+            </flowStep>
+            <flowStep index="1" name="AbortTask" title="@HRPROSTATEMENTS.FACILITIES_ABORTTASK_STEP_TITLE" type="StopWorkProcessStep">
+              <property name="ProcessName" binding="ProcessName" />
+              <property name="TargetSystem">HRPro</property>
+              <property name="NextStepIndex">-1</property>
+              <property name="ProcessId" binding="TaskId" />
+            </flowStep>
+          </flowSteps>
+        </facilityFlowScheme>
+        <openingEventHandler><![CDATA[]]></openingEventHandler>
+        <openedEventHandler><![CDATA[]]></openedEventHandler>
+        <closingEventHandler><![CDATA[]]></closingEventHandler>
+        <closedEventHandler><![CDATA[
+            if (sender.performingAction === 'SUBMIT_FACILITY_PARAMETERS') {
+              ESS.closeElement(sender.parent); 
+              ESS.widgets.updateWidgets();
+            }
+          ]]>
+        </closedEventHandler>
+        <successMessage>@HRPROSTATEMENTS.FACILITIES_ABORTTASK_SUCCESSMESSAGE</successMessage>
+      </facility>

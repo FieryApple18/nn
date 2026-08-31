@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Property_DaysBeforeRegistrationDirRX" xml:space="preserve">
+    <value>Крайний срок оформления, дней</value>
+  </data>
+  <data name="Property_VacationKindDirRX" xml:space="preserve">
+    <value>Вид отпуска</value>
+  </data>
+  <data name="Enum_VacationKindDirRX_AnnualLeave" xml:space="preserve">
+    <value>Ежегодный отпуск</value>
+  </data>
+  <data name="Enum_VacationKindDirRX_LeaveWithoutPay" xml:space="preserve">
+    <value>Отпуск без сохранения заработной платы</value>
+  </data>
+  <data name="Enum_VacationKindDirRX_OtherLeave" xml:space="preserve">
+    <value>Остальные отпуска</value>
+  </data>
+  <data name="ControlGroup_433702218edb49929d7d8df89ddb2d53" xml:space="preserve">
+    <value>Коды видов отсутствий</value>
+  </data>
+  <data name="Property_AttachableDirRX" xml:space="preserve">
+    <value>Присоединяемый</value>
+  </data>
+  <data name="Property_BusinessUnitsDirRX" xml:space="preserve">
+    <value>Наши организации</value>
+  </data>
+  <data name="ControlGroup_a73a6a26ac35496cb2c21fccfc16ee02" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_4e9cb3399ec946d2b4f876c1c49e76af" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_4e9cb3399ec946d2b4f876c1c49e76af_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_234c4cf9588243ae96f6d0aba2d3eb82" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Control_234c4cf9588243ae96f6d0aba2d3eb82_EmptyText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Resource_de531b8664144f2ab58da47c7d2eba5b" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlGroup_2d31d8340a7846b883920274eee9de69" xml:space="preserve">
+    <value>Параметры отпуска</value>
+  </data>
+  <data name="ControlGroup_278172a1536e47958bca101b0e0af338" xml:space="preserve">
+    <value>Возможность брать авансом</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Типы отпусков</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Тип отпуска</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Тип отпуска</value>
+  </data>
+  <data name="Property_RelevantForTOPDirRX" xml:space="preserve">
+    <value>Актуально для ТОП</value>
+  </data>
+  <data name="Property_SAPIdDirRX" xml:space="preserve">
+    <value>Фактическое отсутствие</value>
+  </data>
+  <data name="Property_PlannedAbsenceDirRX" xml:space="preserve">
+    <value>Плановое отсутствие</value>
+  </data>
+  <data name="Property_PlannedAbsenceShiftDirRX" xml:space="preserve">
+    <value>Плановое отсутствие (перенос)</value>
+  </data>
+  <data name="Property_ActualAbsenceDirRX" xml:space="preserve">
+    <value>Фактическое отсутствие</value>
+  </data>
+  <data name="Property_CalculationDaysDirRX" xml:space="preserve">
+    <value>Расчет дней</value>
+  </data>
+  <data name="Enum_CalculationDaysDirRX_WithHoliday" xml:space="preserve">
+    <value>КД со сдвигом на праздничные дни</value>
+  </data>
+  <data name="Enum_CalculationDaysDirRX_WithoutHoliday" xml:space="preserve">
+    <value>КД</value>
+  </data>
+  <data name="Property_IsCompensatedDirRX" xml:space="preserve">
+    <value>Компенсируемый</value>
+  </data>
+  <data name="Enum_VacationKindDirRX_RecallVacation" xml:space="preserve">
+    <value>Отзыв из отпуска</value>
+  </data>
+  <data name="Property_DaysBeforeTransferringDirRX" xml:space="preserve">
+    <value>Крайний срок переноса оплаченного отпуска, дней</value>
+  </data>
+  <data name="Property_CanBeTransferredSeparatelyDirRX" xml:space="preserve">
+    <value>Отпуск можно переносить отдельно</value>
+  </data>
+  <data name="Property_NeedsTransferredCompletelyDirRX" xml:space="preserve">
+    <value>Отпуск необходимо перенести полностью</value>
+  </data>
+  <data name="ControlGroup_c9a6b231c3474c728cc89a1e7f37ce76" xml:space="preserve">
+    <value>Перенос отпуска по заявлению</value>
+  </data>
+  <data name="Property_RequireShiftDaysWhenRecallDirRX" xml:space="preserve">
+    <value>Требовать перенос отпуска при прерывании/отзыве</value>
+  </data>
+  <data name="Property_BusinessUnitDirRX" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="Property_CanTakeAdvanceDirRX" xml:space="preserve">
+    <value>Можно брать авансом</value>
+  </data>
+  <data name="Property_DaysBeforeRegistrationTopDirRX" xml:space="preserve">
+    <value>Крайний срок оформления, дней (ТОП)</value>
+  </data>
+  <data name="Property_DaysBeforeTransferringTopDirRX" xml:space="preserve">
+    <value>Крайний срок переноса оплаченного отпуска, дней (ТОП)</value>
+  </data>
+  <data name="Property_IsStudyDirRX" xml:space="preserve">
+    <value>Учебный</value>
+  </data>
+</root>

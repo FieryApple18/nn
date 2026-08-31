@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;FastReport.Compat.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;FastReport.DataVisualization.dll&#13;&#10;Sungero.Domain.Shared&#13;&#10;Sungero.CoreEntities.Shared&#13;&#10;Sungero.Reporting.Shared&#13;&#10;CommonLibrary&#13;&#10;Sungero.Localization&#13;&#10;Sungero.Declension&#13;&#10;Sungero.Domain.Interfaces&#13;&#10;DirRX.NNOtherProcesses.Shared&#13;&#10;DirRX.NNOtherProcesses.Server" ReportInfo.CreatorVersion="2024.2.19.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using Sungero.Domain.Shared;
+using Sungero.CoreEntities;
+using Sungero.Core;
+using Resources = DirRX.NNOtherProcesses.Reports.Resources;
+
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+  }
+}
+  </ScriptText>
+  <Dictionary>
+    <SungeroSqlDataConnection Name="Sungero_Connection" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties" ConnectionStringExpression="[SungeroConnectionString]" CommandTimeout="120">
+      <TableDataSource Name="Table" Alias="AssignmentsQuery" DataType="System.Int32" Enabled="true" CanEdit="true" SelectCommand="${AssignmentsQuery}">
+        <Column Name="Name" DataType="System.String" PropName="Column"/>
+        <Column Name="PersonnelNumber" DataType="System.String" PropName="Column"/>
+        <Column Name="Top" DataType="System.Boolean" PropName="Column" BindableControl="CheckBox"/>
+        <Column Name="JobTitle" DataType="System.String" PropName="Column"/>
+        <Column Name="Department" DataType="System.String" PropName="Column"/>
+        <Column Name="DocumentDate" DataType="System.DateTime" PropName="Column"/>
+        <Column Name="Deadline" DataType="System.DateTime" PropName="Column"/>
+        <Column Name="Hyperlink" DataType="System.String" PropName="Column"/>
+        <Column Name="HyperlinkDiscriminator" DataType="System.String" PropName="Column"/>
+        <Column Name="HyperlinkItemId" DataType="System.String" PropName="Column"/>
+        <CommandParameter Name="EmployeeId" DataType="12" IsDbType="true" Expression="[EmployeeId]"/>
+        <CommandParameter Name="DocKindId" DataType="12" IsDbType="true" Expression="[DocKindId]"/>
+      </TableDataSource>
+    </SungeroSqlDataConnection>
+    <SungeroParameter Name="SungeroConnectionString" Restrictions="DontModify, DontEdit, DontDelete, HideAllProperties, DontShow" AsString="" Id="6e541945-9a8b-4636-93e3-6cc02707cfd4" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="EmployeeId" AsString="" Id="0e638d8f-3e98-4ab1-a744-269d8457b452" IsRequired="false" IsCollection="false" InternalDataType="System.Int64" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="HyperlinkTemplate" AsString="" Id="182209f2-05e0-42fa-950c-b4afe2d48e75" IsRequired="false" IsCollection="false" InternalDataType="System.String" IsSimpleDataType="false" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+    <SungeroParameter Name="DocKindId" AsString="" Id="df71289f-8d58-48b1-9707-8568ba070dae" IsRequired="false" IsCollection="false" InternalDataType="System.Int64" IsSimpleDataType="true" EntityTypeId="00000000-0000-0000-0000-000000000000"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text16" Width="1048.95" Height="37.8" Border.Lines="All" Text="Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1047.06" Height="37.8">
+      <TextObject Name="Text2" Width="151.2" Height="37.8" Border.Lines="All" Text="ФИО" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="151.2" Width="94.5" Height="37.8" Border.Lines="All" Text="Табельный номер" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="245.7" Width="37.8" Height="37.8" Border.Lines="All" Text="НГД" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="283.5" Width="122.85" Height="37.8" Border.Lines="All" Text="Должность" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="406.35" Width="122.85" Height="37.8" Border.Lines="All" Text="Подразделение" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="529.2" Width="94.5" Height="37.8" Border.Lines="All" Text="Дата документа" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="623.7" Width="94.5" Height="37.8" Border.Lines="All" Text="Срок выполнения" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text15" Left="718.2" Width="330.75" Height="37.8" Border.Lines="All" Text="Ссылка на задание" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="83.6" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text1" Width="151.2" Height="18.9" Border.Lines="All" Text="[AssignmentsQuery.Name]" Font="Arial, 10pt"/>
+      <TextObject Name="Text3" Left="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[AssignmentsQuery.PersonnelNumber]" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Left="283.5" Width="122.85" Height="18.9" Border.Lines="All" Text="[AssignmentsQuery.JobTitle]" Font="Arial, 10pt"/>
+      <TextObject Name="Text8" Left="406.35" Width="122.85" Height="18.9" Border.Lines="All" Text="[AssignmentsQuery.Department]" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[AssignmentsQuery.DocumentDate]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[AssignmentsQuery.Deadline]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text14" Left="718.2" Width="330.75" Height="18.9" Border.Lines="All" Cursor="Hand" Hyperlink.Expression="Format(&quot;{0}{1}&amp;id={2}&quot;,[HyperlinkTemplate],[AssignmentsQuery.HyperlinkDiscriminator], [AssignmentsQuery.HyperlinkItemId])" Text="[AssignmentsQuery.Hyperlink]" Font="Arial, 10pt, style=Underline" TextFill.Color="Blue"/>
+      <TextObject Name="Text17" Left="245.7" Width="37.8" Height="18.9" Border.Lines="All" Text="[IIf([AssignmentsQuery.Top]==true, &quot;Да&quot;, &quot;Нет&quot;)]" HorzAlign="Center" Font="Arial, 10pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="106.5" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>

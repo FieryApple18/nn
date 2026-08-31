@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scripts>
+    <script name="printHintReschedulingDates" runat="Client" codeFile="scripts/printHintReschedulingDates.js" />
+    <script name="printErrorReschedulingDates" runat="Client" codeFile="scripts/printErrorReschedulingDates.js" />
+    <script name="checkEmployeeConsentSigned" runat="Client" codeFile="scripts/checkEmployeeConsentSigned.js" />
+    <script name="exportDocument" runat="Client" codeFile="scripts/exportDocument.js" />
+    <script name="signDocuments" runat="Client" codeFile="scripts/signDocuments.js" />
+    <script name="checkAssignmentInProcess" runat="Client" codeFile="scripts/checkAssignmentInProcess.js" />
+    <script name="updateWidgetMyVacations" runat="Client" codeFile="scripts/updateWidgetMyVacations.js" />
+    <script name="validateVacationData" runat="Client" codeFile="scripts/validateVacationData.js" />
+    <script name="validateOtherVacationData" runat="Client" codeFile="scripts/validateOtherVacationData.js" />
+    <script name="validateShiftVacationData" runat="Client" codeFile="scripts/validateShiftVacationData.js" />
+    <script name="validateShiftByStatementVacationData" runat="Client" codeFile="scripts/validateShiftByStatementVacationData.js" />
+    <script name="validateRecallVacationData" runat="Client" codeFile="scripts/validateRecallVacationData.js" />
+    <script name="signFromObjectCard" runat="Client" codeFile="scripts/signFromObjectCard.js" />
+    <script name="validateSubstitutionDates" runat="Client" codeFile="scripts/validateSubstitutionDates.js" />
+    <script name="showDialogNoCertificates" runat="Client" codeFile="scripts/showDialogNoCertificates.js" />
+</scripts>

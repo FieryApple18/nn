@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CompensationValidationError" xml:space="preserve">
+    <value>Для сотрудников с видом компенсации "{0}" должно быть заполнено поле "Дата доп. отдыха".</value>
+  </data>
+  <data name="FillEmployeesDialogTitle" xml:space="preserve">
+    <value>Добавить сотрудников в заявку</value>
+  </data>
+  <data name="FillEmployeesAddButtonName" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="FillEmployeesAddHyperlinkName" xml:space="preserve">
+    <value>Добавить сотрудников</value>
+  </data>
+  <data name="FillEmployeesDeleteHyperlinkName" xml:space="preserve">
+    <value>Исключить сотрудников</value>
+  </data>
+  <data name="FillEmployeesEmployeesAmounError" xml:space="preserve">
+    <value>Число сотрудников в заявке превышает 100 записей. Сократите количество работников в поле Сотрудники</value>
+  </data>
+  <data name="FillEmployeesDialogDatesError" xml:space="preserve">
+    <value>Даты работы и Даты перерывов должны попадать в период выхода сотрудников из заявки</value>
+  </data>
+  <data name="FillEmployeesAddHyperlinkListTitle" xml:space="preserve">
+    <value>Выберите сотрудников для добавления</value>
+  </data>
+  <data name="FillEmployeesDeleteHyperlinkListTitle" xml:space="preserve">
+    <value>Выберите исполнителей для исключения</value>
+  </data>
+  <data name="FillEmployeesRestDateFromError" xml:space="preserve">
+    <value>"Дата доп. отдыха с" не может быть меньше значения в поле "Дата работы с"</value>
+  </data>
+  <data name="FillEmployeesRestDateToError" xml:space="preserve">
+    <value>"Дата доп. отдыха по" не может быть меньше значения в поле "Дата доп. отдыха с"</value>
+  </data>
+  <data name="WeekendWorkStatementValidationError" xml:space="preserve">
+    <value>Заявка не прошла автоматическую проверку в SAP. Подробности в таблице Данные о сотрудниках.</value>
+  </data>
+  <data name="WeekendWorkStatementValidationNoInfoError" xml:space="preserve">
+    <value>По работнику не пришла информация об ошибке из внешней системы.</value>
+  </data>
+  <data name="WorkDateValidationError" xml:space="preserve">
+    <value>Заявка может быть оформлена строго на 1 день. Даты в полях "Дата работы с" и "Дата работы по" должны совпадать.</value>
+  </data>
+  <data name="WorkTimeValidationError" xml:space="preserve">
+    <value>Время в поле "Дата работы по" должна быть строго больше времени в поле "Даты работы с".</value>
+  </data>
+  <data name="FillEmployeesNGDGroupValidationError" xml:space="preserve">
+    <value>Заявка может быть оформлена на работников, с одинаковым признаком НГД. Удалите работников из табличной части с отличающимся признаком НГД и создайте по ним отдельную заявку.</value>
+  </data>
+  <data name="NGDGroupValidationError" xml:space="preserve">
+    <value>Заявка может быть оформлена на работников, с одинаковым признаком НГД. Удалите работников из табличной части с отличающимся признаком НГД и создайте по ним отдельную заявку.</value>
+  </data>
+  <data name="EditEmployeeDialogTitle" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="WorkDateOneDayError" xml:space="preserve">
+    <value>{0} может быть оформлена только на один день, скорректируйте даты выхода.</value>
+  </data>
+  <data name="FillEmployeesRestDateTitle" xml:space="preserve">
+    <value>Дата доп. отдыха</value>
+  </data>
+  <data name="FillEmployeesRestDateError" xml:space="preserve">
+    <value>"Дата доп. отдыха" не может быть меньше значения в поле "Дата работы с"</value>
+  </data>
+  <data name="FillEmployeesRestDateOneDayError" xml:space="preserve">
+    <value>Доп. отдых может быть оформлен только на один день, скорректируйте даты доп. отдыха.</value>
+  </data>
+  <data name="FillEmployeesRestDateEqualError" xml:space="preserve">
+    <value>"Дата доп. отдыха с" и "Дата доп. отдыха по" должны быть строго равны.</value>
+  </data>
+  <data name="WorkDateCurrentDayError" xml:space="preserve">
+    <value>"Дата работы с" не может быть меньше текущей даты</value>
+  </data>
+  <data name="ExpFunc_GetEmployeesWithoutRejected_Name" xml:space="preserve">
+    <value>Есть сотрудники, передаваемые в АСУП?</value>
+  </data>
+  <data name="ExpFunc_GetEmployeesWithoutRejected_Desc" xml:space="preserve">
+    <value>Определяет наличие сотрудников для проведения мероприятия в АСУП.</value>
+  </data>
+  <data name="RestDateFromIsEnableMessage" xml:space="preserve">
+    <value>Для вида компенсации "{0}" значение в поле "Дата доп. отдыха" не указывается.</value>
+  </data>
+  <data name="HoursDeclensionOne" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="HoursDeclensionTwo" xml:space="preserve">
+    <value>часа</value>
+  </data>
+  <data name="HoursDeclensionDefault" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="BreakIncompleteValidationError" xml:space="preserve">
+    <value>При указании перерыва, заполните его начало и окончание.</value>
+  </data>
+</root>

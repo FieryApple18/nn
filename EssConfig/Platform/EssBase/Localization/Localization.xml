@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<localizedStringValues>
+  <localizedStringValue code="FACILITYGROUPS_TITLE_HOME" language="EN">Home</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_TITLE_HOME" language="RU">Главная</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_HISTORY" language="EN">History</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_HISTORY" language="RU">История</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_WIDGET_SIGNDOCUMENTS" language="EN">In Work</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_WIDGET_SIGNDOCUMENTS" language="RU">Требуют действий</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_WIDGET_HISTORY_TITLE" language="EN">Completed Work Items</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_WIDGET_HISTORY_TITLE" language="RU">Выполненные задания</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_TITLE_CAPTION" language="RU">Тема</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_TITLE_CAPTION" language="EN">Theme</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_DEADLINE_CAPTION" language="RU">Срок</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_DEADLINE_CAPTION" language="EN">Deadline</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_STATUS_CAPTION" language="RU">Статус</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_STATUS_CAPTION" language="EN">Status</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_RESULT_CAPTION" language="RU">Результат</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_RESULT_CAPTION" language="EN">Result</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_PERFORMER_CAPTION" language="RU">Исполнитель</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_PERFORMER_CAPTION" language="EN">Performer</localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_WIDGET_ACTIVEWORKS_SUBTITLE" language="RU">
+    <![CDATA[
+      {{#deadline}}
+        <div
+          {{#isExpired}}
+            style="
+              color: {{#getColor}}Danger50Color{{/getColor}};
+              padding: 2px 6px;
+              background-color: {{#getColor}}Danger20Color{{/getColor}};
+              border-radius: 10px;
+            "
+          {{/isExpired}}
+        >
+          до {{#localizeDate}}{{deadline}}{{/localizeDate}}
+        </div>
+      {{/deadline}}
+    ]]>
+  </localizedStringValue>
+  <localizedStringValue code="FACILITYGROUPS_WIDGET_ACTIVEWORKS_SUBTITLE" language="EN">
+    <![CDATA[
+      {{#deadline}}
+        <div
+          {{#isExpired}}
+            style="
+              color: {{#getColor}}Danger50Color{{/getColor}};
+              padding: 2px 6px;
+              background-color: {{#getColor}}Danger20Color{{/getColor}};
+              border-radius: 10px;
+            "
+          {{/isExpired}}
+        >
+          until {{#localizeDate}}{{deadline}}{{/localizeDate}}
+        </div>
+      {{/deadline}}
+    ]]>
+  </localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_HEADER" language="RU">Объект</localizedStringValue>
+  <localizedStringValue code="DEFAULTCARD_HEADER" language="EN">Object</localizedStringValue>
+  <localizedStringValue code="PAGE_INFO" language="RU" useat="both">Завершение регистрации</localizedStringValue>
+  <localizedStringValue code="PAGE_INFO" language="EN" useat="both">Completing Registration</localizedStringValue>
+  <localizedStringValue code="PAGE_ERROR" language="RU" useat="client">Произошла ошибка при подтверждении приглашения. Обратитесь к администратору системы.</localizedStringValue>
+  <localizedStringValue code="PAGE_ERROR" language="EN" useat="client">An error occurred when sending the invitation. Contact your system administrator.</localizedStringValue>
+  <localizedStringValue code="ABORT" language="RU" useat="both">Прекратить</localizedStringValue>
+  <localizedStringValue code="ABORT" language="EN" useat="both">Abort</localizedStringValue>
+  <localizedStringValue code="ABORT_DEFAULT_WORK_PROCESS_TEXT" language="RU" useat="client">Прекратить задачу?</localizedStringValue>
+  <localizedStringValue code="ABORT_DEFAULT_WORK_PROCESS_TEXT" language="EN" useat="client">Abort the task?</localizedStringValue>
+  <localizedStringValue code="ABORT_DEFAULT_WORK_PROCESS_SUCCESS_MESSAGE" language="RU" useat="client">Задача прекращена</localizedStringValue>
+  <localizedStringValue code="ABORT_DEFAULT_WORK_PROCESS_SUCCESS_MESSAGE" language="EN" useat="client">Task aborted</localizedStringValue>
+  <localizedStringValue code="ABORT_DEFAULT_WORK_PROCESS_ERROR" language="RU" useat="client">При прекращении задачи возникла ошибка. Обратитесь к администратору системы.</localizedStringValue>
+  <localizedStringValue code="ABORT_DEFAULT_WORK_PROCESS_ERROR" language="EN" useat="client">An error occurred when aborting the task. Contact your system administrator.</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_HEADER" language="RU" useat="server">Задача</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_HEADER" language="EN" useat="server">Task</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_INITIATOR_CAPTION" language="RU" useat="server">Инициатор</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_INITIATOR_CAPTION" language="EN" useat="server">Initiator</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_CREATED_CAPTION" language="RU" useat="server">Дата создания</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_CREATED_CAPTION" language="EN" useat="server">Created</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_SCHEME_CAPTION" language="RU" useat="server">Маршрут</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_SCHEME_CAPTION" language="EN" useat="server">Route</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_MAIN_ATTACHMENTS" language="RU" useat="server">Основные документы</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_MAIN_ATTACHMENTS" language="EN" useat="server">Main Documents</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_ADDITIONAL_ATTACHMENTS" language="RU" useat="server">Дополнительно</localizedStringValue>
+  <localizedStringValue code="DEFAULT_WORK_PROCESS_CARD_ADDITIONAL_ATTACHMENTS" language="EN" useat="server">More</localizedStringValue>
+  <localizedStringValue code="INITIATOR_NOT_FOUND" language="RU" useat="server">Совместитель не найден в списке.</localizedStringValue>
+  <localizedStringValue code="INITIATOR_NOT_FOUND" language="EN" useat="server">The employee's additional job position is not found in the list.</localizedStringValue>
+  <localizedStringValue code="GET_INITIATOR_ERROR" language="RU" useat="server">Не удалось определить инициатора.</localizedStringValue>
+  <localizedStringValue code="GET_INITIATOR_ERROR" language="EN" useat="server">Cannot define the initiator.</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_STAGE" language="RU" useat="client">Этап</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_STAGE" language="EN" useat="client">Stage</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_COMPLETED_STATE" language="RU" useat="client">Выполнено</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_COMPLETED_STATE" language="EN" useat="client">Completed</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_IN_PROCESS_STATE" language="RU" useat="client">В работе</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_IN_PROCESS_STATE" language="EN" useat="client">In work</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_ABORTED_STATE" language="RU" useat="client">Прекращено</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_ABORTED_STATE" language="EN" useat="client">Aborted</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_SUSPENDED_STATE" language="RU" useat="client">Приостановлено</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_SUSPENDED_STATE" language="EN" useat="client">Suspended</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_DONE" language="RU" useat="client">Выполнено: {0}</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_DONE" language="EN" useat="client">Completed: {0}</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_EXPECTED_DEADLINE" language="RU" useat="client">Ожидаемый срок: {0}</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_EXPECTED_DEADLINE" language="EN" useat="client">Deadline: {0}</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_NO_TASK_ID_ERROR" language="RU" useat="client">Отсутствует идентификатор задачи.</localizedStringValue>
+  <localizedStringValue code="TASK_SCHEME_NO_TASK_ID_ERROR" language="EN" useat="client">Task ID is missing.</localizedStringValue>
+</localizedStringValues>
