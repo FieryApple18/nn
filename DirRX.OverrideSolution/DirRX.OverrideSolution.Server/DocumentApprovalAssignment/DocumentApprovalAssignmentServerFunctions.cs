@@ -11,6 +11,31 @@ namespace DirRX.OverrideSolution.Server
   {
 
     /// <summary>
+    /// Получить доп.согласующих из предыдущего задания данного блока.
+    /// </summary>
+    /// <param name="taskId">ИД задачи.</param>
+    /// <param name="blockUid">ИД блока.</param>
+    /// <param name="performer">Исполнитель задания.</param>
+    /// <param name="startId">Количество стартов задачи.</param>
+    /// <returns>Значение поля "Добавить дополнительных согласующих".</returns>
+    public static List<IEmployee> GetLastAdditionalApproversFromAssignment(long taskId, string blockUid, IUser performer, int? startId)
+    {
+      var result = new List<IEmployee>();
+      var lastIter = DocumentApprovalAssignments.GetAll()
+        .Where(a => a.Task.Id == taskId && a.BlockUid == blockUid && a.TaskStartId == startId && Employees.Equals(a.Performer, performer))
+        .OrderByDescending(a => a.IterationId)
+        .FirstOrDefault();
+      
+      if (lastIter != null)
+      {
+        Logger.DebugFormat("GetLastAdditionalApproversFromAssignment. TaskId: {0}, BlockUid: {1}, StartId: {2}. Задание на согласование документов. ИД: {3}", taskId, blockUid, startId, lastIter.Id);
+        result = lastIter.AdditionalApproversDirRX.Select(x => x.Employee).ToList();
+      }
+      
+      return result;
+    }
+    
+    /// <summary>
     /// Является ли исполнитель задания доп. согласущим?
     /// </summary>
     [Remote]
@@ -211,5 +236,32 @@ namespace DirRX.OverrideSolution.Server
       return subTask;
     }
 
+    /// <summary>
+    /// Получить исполнителей других блоков заданий на согласование в текущей задаче на текущем круге согласования.
+    /// </summary>
+    /// <param name="taskId">ИД задачи.</param>
+    /// <param name="blockUid">ИД блока.</param>
+    /// <param name="startId">Количество стартов задачи.</param>
+    /// <returns>Исполнители других блоков заданий на согласование.</returns>
+    public static IQueryable<IUser> GetOtherBlockPerformers(long taskId, string blockUid, int? startId)
+    {
+      var lastIter = DocumentApprovalAssignments.GetAll()
+        .Where(a => a.Task.Id == taskId && a.BlockUid == blockUid && a.TaskStartId == startId)
+        .OrderByDescending(a => a.IterationId)
+        .Select(a => a.IterationId)
+        .FirstOrDefault();
+      
+      // При первом круге iterationId - null, т.к. нет заданий.
+      // Потом вернет номер итерации, он всегда положительный: 1, 2 и тд.
+      // Добавление 1 нужно для того, чтобы получить номер текущей итерации, и уже в рамках текущей итерации искать исполнителей.
+      var iterationId = lastIter != null ? lastIter + 1 : 1;
+      
+      return DocumentApprovalAssignments.GetAll()
+          .Where(a => a.Task.Id == taskId &&
+               a.TaskStartId == startId &&
+               a.BlockUid != blockUid &&
+               a.IterationId == iterationId)
+          .Select(x => x.CompletedBy);
+    }
   }
 }

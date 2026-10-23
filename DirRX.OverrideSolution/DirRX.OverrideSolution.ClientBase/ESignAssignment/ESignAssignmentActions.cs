@@ -17,9 +17,8 @@ namespace DirRX.OverrideSolution.Client
 
     public override bool CanForRevision(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && 
-        _obj.IsSubstitutionAllowedDirRX.HasValue &&
-        _obj.IsSubstitutionAllowedDirRX.Value == true &&
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowedDirRX.HasValue && _obj.IsSubstitutionAllowedDirRX.Value == true)) &&
         base.CanForRevision(e);
     }
 
@@ -30,9 +29,8 @@ namespace DirRX.OverrideSolution.Client
 
     public override bool CanRefuse(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && 
-        _obj.IsSubstitutionAllowedDirRX.HasValue &&
-        _obj.IsSubstitutionAllowedDirRX.Value == true &&
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowedDirRX.HasValue && _obj.IsSubstitutionAllowedDirRX.Value == true)) &&
         base.CanRefuse(e);
     }
 
@@ -43,9 +41,8 @@ namespace DirRX.OverrideSolution.Client
 
     public override bool CanSign(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && 
-        _obj.IsSubstitutionAllowedDirRX.HasValue &&
-        _obj.IsSubstitutionAllowedDirRX.Value == true && 
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowedDirRX.HasValue && _obj.IsSubstitutionAllowedDirRX.Value == true)) &&
         base.CanSign(e);
     }
 

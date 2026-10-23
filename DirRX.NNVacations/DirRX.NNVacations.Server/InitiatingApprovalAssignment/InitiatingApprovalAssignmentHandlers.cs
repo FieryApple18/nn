@@ -9,6 +9,13 @@ namespace DirRX.NNVacations
 {
   partial class InitiatingApprovalAssignmentServerHandlers
   {
+
+    public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
+    {
+      if (_obj.TradeUnionOpinion.Count > DirRX.OverrideSolution.PublicConstants.Vacations.VacationScheduleDocument.MaxTradeUnionOpinionsCount)
+        e.AddError(DirRX.OverrideSolution.VacationScheduleDocuments.Resources.MaxTradeUnionOpinionsCountError);
+    }
+    
     public override void BeforeComplete(Sungero.Workflow.Server.BeforeCompleteEventArgs e)
     {
       var doc = _obj.DocumentGroup.VacationScheduleDocuments.FirstOrDefault();

@@ -5,6 +5,199 @@ namespace DirRX.NNCommons.Constants
 {
   public static class Module
   {
+
+    /// <summary>
+    /// Формат строкового представления даты и времени для SQL запросов.
+    /// </summary>
+    public const string SQLDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    
+    #region Константы для формирования отчета проверки корректности маршрутов.
+    
+    /// <summary>
+    /// Константы для формирования отчета проверки корректности маршрутов
+    /// </summary>
+    [Public]
+    public static class PredctedSchemeReport
+    {
+      // Типы задач
+      public static class TaskType
+      {
+        /// <summary>
+        /// Задача на исполнение поручения.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string ActionItemExecutionTask = "ActionItemExecutionTask";
+        
+        /// <summary>
+        /// Задача на согласование.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string ApprovalTask = "ApprovalTask";
+
+        /// <summary>
+        /// Задача на рассмотрение заявления.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string StatementTask = "StatementTask";
+        
+        /// <summary>
+        /// Оформление работы в ВД/ПД/СР.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string WeekendWorkTask = "WeekendWorkTask";
+      }
+      
+      /// <summary>
+      /// Типы документов.
+      /// </summary>
+      [Public]
+      public static class DocumentType
+      {
+        /// <summary>
+        /// Простой документ.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string SimpleDocument = "SimpleDocument";
+
+        /// <summary>
+        /// Служебная записка.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string Memo = "Memo";
+
+        /// <summary>
+        /// Договорной документ.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string ContractualDocument = "ContractualDocument";
+
+        /// <summary>
+        /// Заявление сотрудника.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string StatementDocument = "StatementDocument";
+        
+        /// <summary>
+        /// Заявление и согласие по отпуску.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string DocumentType_VacationStatementDocument = "VacationStatementDocument";
+        
+        /// <summary>
+        /// Заявление на выплату по ЛНА.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string LrdPaymentStatementDocument = "LrdPaymentStatementDocument";
+        
+        /// <summary>
+        /// Заявка на привлечение к работе в ВД/ПД/СР.
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string WeekendWorkStatementDocument = "WeekendWorkStatementDocument";
+      }
+
+      /// <summary>
+      /// Гуиды типов документов.
+      /// </summary>
+      [Public]
+      public static class DocumentTypeGuid
+      {
+        /// <summary>
+        /// ClassTypeGuid типа «Простой документ» (Sungero.Docflow.ISimpleDocument).
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string SimpleDocument = "09584896-81e2-4c83-8f6c-70eb8321e1d0";
+
+        /// <summary>
+        /// ClassTypeGuid типа «Служебная записка» (Sungero.Docflow.IMemo).
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string Memo = "95af409b-83fe-4697-a805-5a86ceec33f5";
+
+        /// <summary>
+        /// ClassTypeGuid типа «Договорной документ» (Sungero.Contracts.IContractualDocument).
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string ContractualDocument = "59079f7f-a326-4947-bbd6-0ae6dfb5f59b";
+
+        /// <summary>
+        /// ClassTypeGuid типа «Заявление сотрудника» (HRPro.HRDocFlow.IStatementDocument).
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string StatementDocument = "e28980a6-7132-485c-bed7-24ce0b3ac595";
+
+        /// <summary>
+        /// ClassTypeGuid типа «Заявление и согласие по отпуску».
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string VacationStatementDocument = "7c87491f-92fb-4703-ba3b-6d17ba9e785f";
+        
+        /// <summary>
+        /// ClassTypeGuid типа «Заявление на выплату по ЛНА.»
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string LrdPaymentStatementDocument = "578f6cfb-5fe7-4aec-ad13-94ecf361ac09";
+        
+        /// <summary>
+        /// ClassTypeGuid типа «Заявка на привлечение к работе в ВД/ПД/СР.»
+        /// </summary>
+        [Sungero.Core.Public]
+        public const string WeekendWorkStatementDocument = "c4470d2c-11b0-4e0b-bac0-d560ec1398e7";
+        
+      }
+
+      /// <summary>
+      /// Ключ параметра «Вид документа» в строке DocumentParameters.
+      /// </summary>
+      [Sungero.Core.Public]
+      public const string DocumentParameter_DocumentKind = "Вид документа";
+
+      /// <summary>
+      /// Ключ параметра «Наша организация» в строке DocumentParameters.
+      /// </summary>
+      [Sungero.Core.Public]
+      public const string DocumentParameter_OurOrganization = "Наша организация";
+
+      /// <summary>
+      /// Ключ параметра «Автор» в строке DocumentParameters.
+      /// </summary>
+      [Sungero.Core.Public]
+      public const string DocumentParameter_Author = "Автор";
+
+      /// <summary>
+      /// Размер обработки сотрудников.
+      /// </summary>
+      [Sungero.Core.Public]
+      public const int SizeBatch = 500;
+      
+      /// <summary>
+      /// ИД шаблона по умолчанию.
+      /// </summary>
+      [Sungero.Core.Public]
+      public const long ReportTamplateId = 0;
+      
+      /// <summary>
+      /// Расширение файла для отчета.
+      /// </summary>
+      [Public]
+      public const string ReportExtension = "xlsx";
+      
+      /// <summary>
+      /// Имя тестового документа.
+      /// </summary>
+      [Public]
+      public const string NameDocumentTest = "ТЕСТ_Схема_{0}";
+      
+      /// <summary>
+      /// Тестовая тема задачи.
+      /// </summary>
+      [Public]
+      public const string SubjectTest = "Тестовый";
+    }
+    
+    #endregion
+    
+    
     /// <summary>
     /// Количество обрабатываемых записей в АО "Запустить задачи на выпуск сертификатов" в одной итерации.
     /// </summary>
@@ -19,6 +212,16 @@ namespace DirRX.NNCommons.Constants
     /// Кол-во записей справочника Сотрудники, которое возвращается при открытии справочника из ЛК.
     /// </summary>
     public const int DefaultRecordCountForOpeningEmployees = 26;
+    
+    /// <summary>
+    /// Количество попыток перезапуска блока задачи при возникновении ошибки.
+    /// </summary>
+    public const int DefaultBlockRetryCount = 5;
+    
+    /// <summary>
+    /// Количество минут для перезапуска блока задачи при возникновении ошибки.
+    /// </summary>
+    public const int DefaultBlockNextRetryTime = 2;
 
     /// <summary>
     /// Guid типа реципиента - сотрудники.
@@ -242,6 +445,16 @@ namespace DirRX.NNCommons.Constants
         public const string Name = "Организационная структура";
       }
       
+      /// <summary>
+      ///  Отчет. Проверка корректности маршрутов.
+      /// </summary>
+      [Public]
+      public static class PredctedSchemeReport
+      {
+        [Public]
+        public const string Guid = "05900FD1-12FE-45F7-955C-FDEEE3EB49F6";
+        public const string Name = " Отчеты. Проверка корректности маршрутов";
+      }
     }
     #endregion
     
@@ -497,6 +710,54 @@ namespace DirRX.NNCommons.Constants
         [Public]
         public const string Guid = "59286C73-0B96-4899-8EB0-AFE1107690B3";
         public const string Name = "Общее. Количество дней для хранения ЧКРВ после Нового года";
+      }
+      
+      /// <summary>
+      /// Общее. SAP ИД Подразделения инфраструктуры ЗФ.
+      /// </summary>
+      [Public]
+      public static class InfrastructureZFSapCode
+      {
+        [Public]
+        public const string Guid = "A145BF70-3E62-4F85-AB5C-77C9D87342CC";
+        [Public]
+        public const string Name = "ИД Подразделения инфраструктуры ЗФ";
+      }
+      
+      /// <summary>
+      /// Отчеты. Проверка корректности маршрутов.
+      /// </summary>
+      [Public]
+      public static class PredctedSchemeReportTemplate
+      {
+        [Public]
+        public const string Guid = "E5E74004-946E-4D34-9D7A-D8C4F215382E";
+        [Public]
+        public const string Name = "ИД Шаблона для отчета \"Проверка корректности маршрута\"";
+      }
+      
+      /// <summary>
+      /// Отчеты. Проверка корректности маршрутов.
+      /// </summary>
+      [Public]
+      public static class PredctedSchemeReportSizeBatch
+      {
+        [Public]
+        public const string Guid = "856C057C-24F6-4C97-B004-B10D8EDCFBF0";
+        [Public]
+        public const string Name = "Количество сотрудников в одном отчете";
+      }
+      
+      /// <summary>
+      /// Общее. Сертификаты. Кол-во рабочих дней для выполнения задания по подписанию заявления на выпуск сертификата ЭП.
+      /// </summary>
+      [Public]
+      public static class CertificateIssueAssingmentDeadlineDays
+      {
+        [Public]
+        public const string Guid = "3418484A-E29D-4B00-951C-D80A8ADD9358";
+        [Public]
+        public const string Name = "Общее. Сертификаты. Кол-во рабочих дней для выполнения задания по подписанию заявления на выпуск сертификата ЭП";
       }
     }
     
@@ -840,6 +1101,13 @@ namespace DirRX.NNCommons.Constants
     /// </summary>
     [Public]
     public const string LastTaskOfCloudCertificatesExpiration = "LastTaskOfCloudCertificatesExpiration";
+    
+    /// <summary>
+    /// Кол-во рабочих дней для выполнения задания по подписанию заявления на выпуск сертификата ЭП.
+    /// </summary>
+    [Public]
+    public const int DefaultCertificateIssueAssingmentDeadlineDays = 1;
+    
     #endregion
     
     #region Константы необходимые для сравнения версий документов.
@@ -892,9 +1160,14 @@ namespace DirRX.NNCommons.Constants
     public const double CalendarDayBeginning = 0.0;
     
     /// <summary>
-    /// Время окончания календарного дня рабочего времени.
+    /// Время окончания календарного дня рабочего времени вида 23.98.
     /// </summary>
     public const double CalendarDayEnding = 23.98;
+    
+    /// <summary>
+    /// Время окончания календарного дня рабочего времени вида 24.0.
+    /// </summary>
+    public const double CalendarDayEnding24 = 24.0;
     
     /// <summary>
     /// Десятичное представление минуты по отношении к часу.

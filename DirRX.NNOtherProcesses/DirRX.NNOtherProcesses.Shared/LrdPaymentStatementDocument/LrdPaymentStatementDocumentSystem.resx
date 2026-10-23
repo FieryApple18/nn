@@ -133,4 +133,19 @@
   <data name="Property_CodeVO" xml:space="preserve">
     <value>CodeVO</value>
   </data>
+  <data name="Property_INILA" xml:space="preserve">
+    <value>INILA</value>
+  </data>
+  <data name="Property_Experience" xml:space="preserve">
+    <value>Experience</value>
+  </data>
+  <data name="Property_Retiree" xml:space="preserve">
+    <value>Retiree</value>
+  </data>
+  <data name="Property_Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Property_FireDate" xml:space="preserve">
+    <value>Fire date</value>
+  </data>
 </root>

@@ -31,7 +31,8 @@
   },
   "FormViewUuid": "5183ff9f-e90c-4480-bfa3-911fd73816f4",
   "HandledEvents": [
-    "AfterSuspendServer"
+    "AfterSuspendServer",
+    "BeforeStartServer"
   ],
   "IconResourcesKeys": [],
   "IsVisibleThreadText": true,

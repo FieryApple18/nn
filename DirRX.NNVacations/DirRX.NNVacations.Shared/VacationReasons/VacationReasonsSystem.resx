@@ -94,4 +94,13 @@
   <data name="Property_DaysBeforeRegistrationTop" xml:space="preserve">
     <value>Deadline for registration, days (TOP)</value>
   </data>
+  <data name="Property_RefinementReason" xml:space="preserve">
+    <value>Refinement reason</value>
+  </data>
+  <data name="Property_AddAnnualLeave" xml:space="preserve">
+    <value>Add annual leave</value>
+  </data>
+  <data name="Property_AttachDocuments" xml:space="preserve">
+    <value>Attach documents</value>
+  </data>
 </root>

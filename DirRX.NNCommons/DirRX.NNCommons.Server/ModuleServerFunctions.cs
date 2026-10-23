@@ -8,11 +8,1133 @@ using Sungero.Core;
 using Sungero.CoreEntities;
 using Sungero.Docflow;
 using Sungero.Domain.Shared;
+using Newtonsoft.Json;
+using Sungero.Workflow.Server;
+using Sungero.Workflow.Interfaces;
+using Sungero.Workflow.Interfaces.ProcessKind;
+using Sungero.Workflow.Interfaces.WorkflowComponents;
+using Sungero.Workflow.Shared;
+using Sungero.Domain;
+using Sungero.Domain.SessionExtensions;
+using Sungero.Workflow;
+using Sungero.Workflow.Server.NoCode;
+using Sungero.Workflow.Server.PublishedScheme;
 
 namespace DirRX.NNCommons.Server
 {
   public partial class ModuleFunctions
   {
+
+    #region Логика по формированию отчета проверки корректности маршрутов.
+    
+    /// <summary>
+    /// Формирует предсказнную схему для отчета.
+    /// </summary>
+    /// <param name="requests">Данные для формирования задачи и документа.</param>
+    /// <returns>Данные для формирования отчета.</returns>
+    [Public]
+    public virtual List<Structures.Module.IProcessKindSchemeResult> ExportPredictedSchemes(List<Structures.Module.IExportPredictedSchemeRequest> requests)
+    {
+      if (requests == null || requests.Count == 0)
+        throw AppliedCodeException.Create("Тело запроса пустое или не содержит элементов.");
+
+      var createdTasks = new List<Sungero.Workflow.ITask>();
+      var createdDocuments = new List<Sungero.Docflow.IOfficialDocument>();
+      var result = new List<Structures.Module.IProcessKindSchemeResult>();
+
+      // Документ и задача всегда одного типа: создаются один раз по данным
+      // первого запроса и переиспользуются для всего пакета.
+      var firstRequest = requests[0];
+      var taskTypeName = string.IsNullOrWhiteSpace(firstRequest.TaskTypeName)
+        ? Constants.Module.PredctedSchemeReport.TaskType.ActionItemExecutionTask
+        : firstRequest.TaskTypeName;
+
+      try
+      {
+        // --- 1. Создание тестового документа и задачи один раз (по первому запросу) ---
+        // Ошибка создания ресурсов не прерывает обработку пакета:
+        // ошибка фиксируется и выдаётся в результатах всех запросов.
+        var assignedByfirst = Sungero.Company.Employees.Get(firstRequest.AssignedById);
+        if (assignedByfirst == null)
+          throw AppliedCodeException.Create($"Сотрудник (AssignedBy) с Id={firstRequest.AssignedById} не найден.");
+
+        var assigneefirst = Sungero.Company.Employees.Get(firstRequest.AssigneeId);
+        
+        if (assigneefirst == null)
+          throw AppliedCodeException.Create($"Сотрудник (Assignee) с Id={firstRequest.AssigneeId} не найден.");
+
+        // Создаём тестовый документ
+        var testDocument = CreateTestDocument(firstRequest);
+        // Создаём тестовую задачу - отключено, см. ниже обяснение.
+        //var task = CreateTestTask(testDocument, assignedByfirst, assigneefirst, taskTypeName);
+
+        // --- 2. Обработка каждого элемента пакета с переиспользованием ---
+        foreach (var req in requests)
+        {
+          var itemResult = Structures.Module.ProcessKindSchemeResult.Create();
+
+          try
+          {
+            var assignedBy = OverrideSolution.Employees.Get(req.AssignedById);
+            if (assignedBy == null)
+              throw AppliedCodeException.Create($"Сотрудник (AssignedBy) с Id={req.AssignedById} не найден.");
+
+            var assignee = OverrideSolution.Employees.Get(req.AssigneeId);
+            if (assignee == null)
+              throw AppliedCodeException.Create($"Сотрудник (Assignee) с Id={req.AssigneeId} не найден.");
+            
+            // Обновить поля существующего тестового документа на основании параметров запроса.
+            UpdateTestDocument(testDocument, req);
+
+            // Убираем документ из вложения задачи и добавляем его обратно:
+            // при сохранении задачи перегенерируется предсказанная схема.
+            //ReplaceTaskDocument(task, testDocument);
+
+            // Обновляем исполнителей на переиспользуемой задаче
+            //UpdateTaskAssignees(task, assignedBy, assignee, taskTypeName);
+
+            // HACK: временное решение, баг https://rxtfs.directum.ru/is-builder8/Kotlin/_workitems/edit/444216
+            var task = CreateTestTask(testDocument, assignedBy, assignee, taskTypeName);
+
+            var processKind = ProcessKinds.GetAllMatches(task).FirstOrDefault();
+            task.ProcessKind = processKind;
+            
+            itemResult.ProcessKindId = processKind != null ? processKind.Id : 0;
+            itemResult.ProcessKindName = processKind != null ? processKind.Name : string.Empty;
+            
+            task.Save();
+            
+            // Собираем информацию о схеме
+            itemResult.Scheme = BuildSchemeInfo(task, assignedBy);
+
+            // --- Заполнение данных из карточки сотрудника (assignee) ---
+            itemResult.OrganizationName = assignee.Department != null && assignee.Department.BusinessUnit != null
+              ? assignee.Department.BusinessUnit.Name
+              : "";
+
+            if (assignee != null && assignee.PersonnelSectionDirRX != null)
+            {
+              itemResult.PersonnelSectionId = assignee.PersonnelSectionDirRX.Id;
+              itemResult.PersonnelSectionName = assignee.PersonnelSectionDirRX.Name;
+            }
+
+            itemResult.PersonnelNumber = assignee.PersonnelNumber ?? string.Empty;
+            itemResult.EmployeeName = assignee.Person != null ? assignee.Person.Name : string.Empty;
+            itemResult.SapIdJobTitle = OverrideSolution.JobTitles.As(assignee.JobTitle)?.SapIdDirRX;
+            itemResult.JobTitleName = assignee.JobTitle != null ? assignee.JobTitle.Name : string.Empty;
+            itemResult.SapIdDepartment = OverrideSolution.Departments.As(assignee.Department)?.SapIdDirRX;
+            itemResult.DepartmentName = assignee.Department != null ? assignee.Department.Name : string.Empty;
+
+            // Формируем строки маршрута согласования и пропущенных этапов
+            BuildRouteStrings(itemResult);
+
+            // Если вариант процесса не подобрался, схема будет пустой
+            if (itemResult.Scheme.Blocks.Count == 0)
+              itemResult.Error = DirRX.NNCommons.Resources.SchemeNotFound;
+            try
+            {
+              Sungero.Workflow.Tasks.Delete(task);
+            }
+            catch (AppliedCodeException ex)
+            {
+              Logger.ErrorFormat("Не удалось удалить тестовую задачу {0}.", ex, task.Id);
+            }
+          }
+          catch (AppliedCodeException ex)
+          {
+            itemResult.Error = ex.Message;
+          }
+
+          result.Add(itemResult);
+        }
+        
+        if (result.Any())
+          result = result.OrderBy(r => r.EmployeeName).ToList();
+
+        try
+        {
+          Sungero.Docflow.OfficialDocuments.Delete(testDocument);
+        }
+        catch (AppliedCodeException ex)
+        {
+          Logger.ErrorFormat("Не удалось удалить тестовый документ {0}.", ex, testDocument.Id);
+        }
+
+        return result;
+      }
+      catch (AppliedCodeException ex)
+      {
+        Logger.Error($"Не удалось сформировать схему", ex);
+      }
+      
+      return result;
+    }
+
+    // =================================================================================
+    // Вспомогательные методы
+    // =================================================================================
+
+
+
+    /// <summary>
+    /// Формирует Excel-отчёт на основе шаблона.
+    /// Первая строка — заголовки (сохраняется без изменений).
+    /// Данные заполняются начиная со второй строки.
+    /// Колонки: A=Организация, B=Раздел персонала, C=Табельный номер, D=Сотрудник,
+    /// E=ID должности, F=Должность, G=ID подразделения, H=Подразделение,
+    /// I=Вариант процесса, J=Маршрут согласования, K=Пропущенные этапы.
+    /// </summary>
+    /// <param name="results">Данные для формирования отчета.</param>
+    /// <returns>Поток сформированного отчета.</returns>
+    public System.IO.MemoryStream GetExcelReport(
+      List<Structures.Module.IProcessKindSchemeResult> results)
+    {
+      
+      // Получаем шаблон документа по ID
+      var reportTemplateId = NNCommons.PublicFunctions.Module.GetIdentifierValue(Constants.Module.ConstantsSetting.PredctedSchemeReportTemplate.Guid);
+      
+      var template = Sungero.Content.ElectronicDocumentTemplates.GetAll(e => e.Id == reportTemplateId).FirstOrDefault();
+      if (template == null || template.LastVersion == null)
+        throw AppliedCodeException.Create($"Шаблон отчёта с Id={reportTemplateId} не найден или не имеет версий.");
+
+      var templateBody = template.LastVersion.Body;
+      if (templateBody == null)
+        throw AppliedCodeException.Create($"Тело шаблона отчёта с Id={reportTemplateId} пустое.");
+
+      var templateBytes = templateBody.Read();
+      var report = IsolatedFunctions.OpenXML.BuildExcelReport(results, templateBytes);
+      
+      var memoryStream = new MemoryStream();
+
+      report.CopyTo(memoryStream);
+      memoryStream.Position = 0;
+      
+      return memoryStream;
+    }
+    
+    /// <summary>
+    /// Создание тестового документа для предсказания схемы.
+    /// </summary>
+    /// <param name="documentParameters">Параметры документа.</param>
+    /// <returns>Документ.</returns>
+    private Sungero.Docflow.IOfficialDocument CreateTestDocument(Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      if (documentParameters == null || !documentParameters.DocDocumentKind.HasValue)
+        throw AppliedCodeException.Create("Параметр DocDocumentKind не указан в documentParameters.");
+
+      long documentKindId = documentParameters.DocDocumentKind.Value;
+      var documentKind = Sungero.Docflow.DocumentKinds.Get(documentKindId);
+      if (documentKind == null)
+        throw AppliedCodeException.Create($"Вид документа с Id={documentKindId} не найден.");
+
+      // Определяем конкретный тип документа по сущности вида (DocumentTypeGuid)
+      // и сопоставляем его с обработчиком создания.
+      var typeGuid = documentKind.DocumentType != null
+        ? documentKind.DocumentType.DocumentTypeGuid
+        : null;
+      if (typeGuid == null)
+        throw AppliedCodeException.Create($"У вида документа с Id={documentKindId} не задан тип документа.");
+
+      IOfficialDocument document = null;
+      
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.SimpleDocument)
+        document = CreateSimpleDocument(documentKind, documentParameters);
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.ContractualDocument)
+        document = CreateContractualDocument(documentKind, documentParameters);
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.Memo)
+        document = CreateMemoDocument(documentKind, documentParameters);
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.StatementDocument)
+        document = CreateStatementDocument(documentKind, documentParameters);
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.VacationStatementDocument)
+        document = CreateVacationStatementDocument(documentKind, documentParameters);
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.LrdPaymentStatementDocument)
+        document = CreateLrdPaymentStatementDocument(documentKind, documentParameters);
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.WeekendWorkStatementDocument)
+        document = CreateWeekendWorkStatementDocument(documentKind, documentParameters);
+      
+      if (document == null)
+        throw AppliedCodeException.Create($"Неподдерживаемый тип документа: {typeGuid}.");
+      
+      // Отключаем АО по выдаче прав, чтобы не сработала блокировка в момент удаления.
+      var documentParams = ((Sungero.Domain.Shared.IExtendedEntity)document).Params;
+      documentParams.Remove(Sungero.Docflow.PublicConstants.OfficialDocument.GrantAccessRightsToDocumentAsync);
+      document.Save();
+      
+      return document;
+    }
+
+    /// <summary>
+    /// Обновляет поля существующего тестового документа из параметров запроса
+    /// и пересохраняет его.
+    /// </summary>
+    private void UpdateTestDocument(Sungero.Docflow.IOfficialDocument document, Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      if (Sungero.Docflow.Memos.Is(document))
+      {
+        var memo = Sungero.Docflow.Memos.As(document);
+        ApplyMemoParameters(memo, documentParameters);
+      }
+
+      if (HRPro.HRDocFlow.StatementDocuments.Is(document))
+      {
+        var statement = HRPro.HRDocFlow.StatementDocuments.As(document);
+        ApplyStatementParameters(statement, documentParameters);
+      }
+      
+      if (OverrideSolution.VacationStatementDocuments.Is(document))
+      {
+        var vacationStatementDocument = OverrideSolution.VacationStatementDocuments.As(document);
+        ApplyVacationStatementDocumentParameters(vacationStatementDocument, documentParameters);
+      }
+      
+      if (NNOtherProcesses.LrdPaymentStatementDocuments.Is(document))
+      {
+        var lrdPaymentStatementDocument = NNOtherProcesses.LrdPaymentStatementDocuments.As(document);
+        ApplyLrdPaymentStatementDocumentParameters(lrdPaymentStatementDocument, documentParameters);
+      }
+      
+      if (NNOtherProcesses.WeekendWorkStatementDocuments.Is(document))
+      {
+        var weekendWorkStatementDocument = NNOtherProcesses.WeekendWorkStatementDocuments.As(document);
+        ApplyWeekendWorkStatementDocumentParameters(weekendWorkStatementDocument, documentParameters);
+      }
+
+      // Отключаем АО по выдаче прав, чтобы не сработала блокировка в момент удаления.
+      var documentParams = ((Sungero.Domain.Shared.IExtendedEntity)document).Params;
+      documentParams.Remove(Sungero.Docflow.PublicConstants.OfficialDocument.GrantAccessRightsToDocumentAsync);
+      document.Save();
+    }
+
+    /// <summary>
+    /// Создаёт тестовый документ SimpleDocument.
+    /// </summary>
+    /// <param name="documentKind">Вид документа</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Простой документ.</returns>
+    private Sungero.Docflow.IOfficialDocument CreateSimpleDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = Sungero.Docflow.SimpleDocuments.Create();
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+
+      return document;
+    }
+
+
+    /// <summary>
+    /// Создаёт тестовый документ Договорной документ.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Договорной документ.</returns>
+    private Sungero.Docflow.IOfficialDocument CreateContractualDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = Sungero.Contracts.ContractualDocuments.Create();
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+
+      return document;
+    }
+
+    /// <summary>
+    /// Создаёт тестовый документ Служебная записка с заполнением специфичных полей.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Служебная записка.</returns>
+    private Sungero.Docflow.IOfficialDocument CreateMemoDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = Sungero.Docflow.Memos.Create();
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+      document.Subject = PublicConstants.Module.PredctedSchemeReport.SubjectTest;
+
+      ApplyMemoParameters(document, documentParameters);
+
+      return document;
+    }
+    
+    /// <summary>
+    /// Создаёт тестовый документ Заявление и согласие по отпуску.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Заявление и согласие по отпуску.</returns>
+    private OverrideSolution.IVacationStatementDocument CreateVacationStatementDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = OverrideSolution.VacationStatementDocuments.Create();
+      
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+      document.Subject = PublicConstants.Module.PredctedSchemeReport.SubjectTest;
+      
+      ApplyVacationStatementDocumentParameters(document, documentParameters);
+      
+      return document;
+    }
+    
+    /// <summary>
+    /// Создает тестовый документ Заявление на выплату по ЛНА.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Заявление на выплату по ЛНА.</returns>
+    private NNOtherProcesses.ILrdPaymentStatementDocument CreateLrdPaymentStatementDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = NNOtherProcesses.LrdPaymentStatementDocuments.Create();
+      
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+      document.Subject = PublicConstants.Module.PredctedSchemeReport.SubjectTest;
+      
+      ApplyLrdPaymentStatementDocumentParameters(document, documentParameters);
+      
+      return document;
+    }
+    
+    /// <summary>
+    /// Создает тестовый документ Заявка на привлечение к работе в ВД/ПД/СР.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Заявка на привлечение к работе в ВД/ПД/СР</returns>
+    private NNOtherProcesses.IWeekendWorkStatementDocument CreateWeekendWorkStatementDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = NNOtherProcesses.WeekendWorkStatementDocuments.Create();
+      
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+      document.Subject = PublicConstants.Module.PredctedSchemeReport.SubjectTest;
+      
+      ApplyWeekendWorkStatementDocumentParameters(document, documentParameters);
+      
+      return document;
+    }
+    
+    /// <summary>
+    /// Заполнение полей для документа Заявка на привлечение к работе в ВД/ПД/СР.
+    /// </summary>
+    /// <param name="document">Документ.</param>
+    /// <param name="dp">Данные для документа.</param>
+    private void ApplyWeekendWorkStatementDocumentParameters(
+      NNOtherProcesses.IWeekendWorkStatementDocument document,
+      Structures.Module.IExportPredictedSchemeRequest dp)
+    {
+      var employee = OverrideSolution.Employees.GetAll(e => e.Id == dp.AssignedById).FirstOrDefault();
+      document.PreparedBy = employee;
+      document.Department = employee.Department;
+      document.BusinessUnit = employee.BusinessUnit;
+      document.PersonnelSectionDirRX = employee.PersonnelSectionDirRX;
+      
+      var workDate = Calendar.BeginningOfDay(Calendar.EndOfWeek(Calendar.Now));
+      document.WorkDateFrom = workDate.AddHours(8);
+      document.WorkDateTo = workDate.AddHours(16);
+      document.Reason = NNOtherProcesses.WeekendWorkReasons.GetAll(w => w.Status == NNOtherProcesses.WeekendWorkReason.Status.Active).FirstOrDefault();
+      
+      document.Employees.Clear();
+      
+      var record = document.Employees.AddNew();
+      record.Employee = employee;
+      record.Compensation = NNOtherProcesses.WeekendWorkCompensationKinds.GetAll(w => Equals(w.DocumentKind, document.DocumentKind)).FirstOrDefault();
+      record.WorkDateFrom = document.WorkDateFrom;
+      record.WorkDateTo = document.WorkDateTo;
+      record.FirstBreakFrom = workDate.AddHours(12);
+      record.FirstBreakTo = workDate.AddHours(13);
+      record.PaidBreak = false;
+    }
+    
+    /// <summary>
+    /// Заполнение полей для документа Заявление на выплату по ЛНА.
+    /// </summary>
+    /// <param name="document">Документ.</param>
+    /// <param name="dp">Данные для документа.</param>
+    private void ApplyLrdPaymentStatementDocumentParameters(
+      NNOtherProcesses.ILrdPaymentStatementDocument document,
+      Structures.Module.IExportPredictedSchemeRequest dp)
+    {
+      var employee = OverrideSolution.Employees.GetAll(e => e.Id == dp.AssignedById).FirstOrDefault();
+      document.EmployeeDirRX = employee;
+      document.PreparedBy = employee;
+    }
+    
+    /// <summary>
+    /// Заполнение полей для документа Заявление и согласие по отпуску
+    /// </summary>
+    /// <param name="document">Документ.</param>
+    /// <param name="dp">Данные для документа.</param>
+    private void ApplyVacationStatementDocumentParameters(
+      OverrideSolution.IVacationStatementDocument document,
+      Structures.Module.IExportPredictedSchemeRequest dp)
+    {
+      var employee = OverrideSolution.Employees.GetAll(e => e.Id == dp.AssignedById).FirstOrDefault();
+      document.Employee = employee;
+      document.PersonnelNumberDirRX = !string.IsNullOrEmpty(employee.PersonnelNumber) ? employee.PersonnelNumber : "1";
+      document.IsShiftByStatementDirRX = true;
+    }
+
+    /// <summary>
+    /// Заполняет специфичные поля Memo из параметров.
+    /// </summary>
+    private void ApplyMemoParameters(
+      Sungero.Docflow.IMemo memo,
+      Structures.Module.IExportPredictedSchemeRequest dp)
+    {
+      // Устанавливаем Addressee из параметра "Адресат" (ID сотрудника)
+      SetEmployeeParameter(dp.AssignedById, (employee) => { memo.Addressee = employee; });
+
+      // Устанавливаем BusinessUnit из параметра "Наша организация" (ID BusinessUnit)
+      SetBusinessUnitParameter(dp.DocBusinessUnit, (businessUnit) => { memo.BusinessUnit = businessUnit; });
+
+      // Устанавливаем OurSignatory из параметра "Подписал" (ID сотрудника)
+      SetEmployeeParameter(dp.DocSignatory, (employee) => { memo.OurSignatory = employee; });
+
+      // Устанавливаем PreparedBy из параметра "Подготовил" (ID сотрудника)
+      SetEmployeeParameter(dp.DocPreparedBy, (employee) => { memo.PreparedBy = employee; });
+
+      // Устанавливаем Department из параметра "Подразделение" (ID подразделения)
+      SetDepartmentParameter(dp.DocDepartment, (department) => { memo.Department = department; });
+    }
+
+    /// <summary>
+    /// Создаёт тестовый документ StatementDocument с заполнением обязательных и специфичных полей.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="documentParameters">Параметры для документа.</param>
+    /// <returns>Документ.</returns>
+    private Sungero.Docflow.IOfficialDocument CreateStatementDocument(
+      Sungero.Docflow.IDocumentKind documentKind,
+      Structures.Module.IExportPredictedSchemeRequest documentParameters)
+    {
+      var document = HRPro.HRDocFlow.StatementDocuments.Create();
+      document.DocumentKind = documentKind;
+      document.Name = string.Format(PublicConstants.Module.PredctedSchemeReport.NameDocumentTest, Guid.NewGuid().ToString("N")).Substring(0, 30);
+
+      ApplyStatementParameters(document, documentParameters);
+
+      document.Save();
+      return document;
+    }
+
+    /// <summary>
+    /// Заполняет специфичные поля для Заявления из параметров.
+    /// </summary>
+    /// <param name="statement">Заявление</param>
+    /// <param name="dp"></param>
+    private void ApplyStatementParameters(
+      HRPro.HRDocFlow.IStatementDocument statement,
+      Structures.Module.IExportPredictedSchemeRequest dp)
+    {
+      // Обязательное поле: Author (Автор) — сотрудник
+      SetEmployeeParameter(dp.AssignedById, (employee) => { statement.Author = employee; });
+
+      // Опциональные поля из параметров
+      SetEmployeeParameter(dp.AssignedById, (employee) => { statement.PreparedBy = employee; });
+      SetBusinessUnitParameter(dp.DocBusinessUnit, (businessUnit) => { statement.BusinessUnit = businessUnit; });
+      SetEmployeeParameter(dp.DocSignatory, (employee) => { statement.OurSignatory = employee; });
+      SetDepartmentParameter(dp.DocDepartment, (department) => { statement.Department = department; });
+    }
+
+    /// <summary>
+    /// Получает сотрудника по Id и применяет действие, если сотрудник найден.
+    /// </summary>
+    private void SetEmployeeParameter(
+      long? employeeId,
+      Action<Sungero.Company.IEmployee> setter)
+    {
+      if (!employeeId.HasValue)
+        return;
+
+      var employee = Sungero.Company.Employees.Get(employeeId.Value);
+      if (employee != null)
+        setter(employee);
+      else
+        Logger.Debug($"Сотрудник с Id={employeeId.Value} не найден.");
+    }
+
+    /// <summary>
+    /// Получает BusinessUnit по Id и применяет действие, если организация найдена.
+    /// </summary>
+    /// <param name="businessUnitId">Id нашей орагнизации.</param>
+    /// <param name="setter">Делегат для заполнения св-ва</param>
+    private void SetBusinessUnitParameter(
+      long? businessUnitId,
+      Action<Sungero.Company.IBusinessUnit> setter)
+    {
+      if (!businessUnitId.HasValue)
+        return;
+
+      var businessUnit = Sungero.Company.BusinessUnits.Get(businessUnitId.Value);
+      if (businessUnit != null)
+        setter(businessUnit);
+      else
+        Logger.Debug($"Наша организация с Id={businessUnitId.Value} не найдена.");
+    }
+
+    /// <summary>
+    /// Получает Department по Id и применяет действие, если подразделение найдено.
+    /// </summary>
+    /// <param name="businessUnitId">Id нашей орагнизации.</param>
+    /// <param name="setter">Делегат для заполнения св-ва.</param>
+    private void SetDepartmentParameter(
+      long? departmentId,
+      Action<Sungero.Company.IDepartment> setter)
+    {
+      if (!departmentId.HasValue)
+        return;
+
+      var department = Sungero.Company.Departments.Get(departmentId.Value);
+      if (department != null)
+        setter(department);
+      else
+        Logger.Debug($"Подразделение с Id={departmentId.Value} не найдено.");
+    }
+
+    /// <summary>
+    /// Создает тестовую задачу для предсказания маршрута.
+    /// </summary>
+    /// <param name="document">Документ.</param>
+    /// <param name="assignedBy">Выдал.</param>
+    /// <param name="assignee">Исполнитель.</param>
+    /// <param name="taskTypeName">Тип задачи.</param>
+    /// <returns>Задача.</returns>
+    private Sungero.Workflow.ITask CreateTestTask(
+      Sungero.Docflow.IOfficialDocument document,
+      Sungero.Company.IEmployee assignedBy,
+      Sungero.Company.IEmployee assignee,
+      string taskTypeName = Constants.Module.PredctedSchemeReport.TaskType.ActionItemExecutionTask)
+    {
+      switch (taskTypeName)
+      {
+        case Constants.Module.PredctedSchemeReport.TaskType.StatementTask:
+          {
+            var statementTask = OverrideSolution.StatementTasks.Create();
+
+            statementTask.Subject = DirRX.NNCommons.Resources.TestTaskSubject;
+            statementTask.ActiveText = DirRX.NNCommons.Resources.TestTaskSubject;
+            statementTask.Author = assignedBy;
+
+            // Привязка документа StatementDocument к задаче
+            if (document != null && !statementTask.DocumentGroup.StatementDocuments.Any())
+              statementTask.DocumentGroup.DocRelatedToWorkBases.Add(OverrideSolution.DocRelatedToWorkBases.As(document));
+            return Sungero.Workflow.Tasks.As(statementTask);
+          }
+        case Constants.Module.PredctedSchemeReport.TaskType.WeekendWorkTask:
+          {
+            var weekendTask = NNOtherProcesses.WeekendWorkTasks.Create();
+            
+            weekendTask.Subject = DirRX.NNCommons.Resources.TestTaskSubject;
+            weekendTask.ActiveText = DirRX.NNCommons.Resources.TestTaskSubject;
+            weekendTask.Author = assignedBy;
+            
+            weekendTask.DocumentGroup.OfficialDocuments.Add(OverrideSolution.OfficialDocuments.As(document));
+            
+            return Sungero.Workflow.Tasks.As(weekendTask);
+          }
+        default:
+          {
+            var actionItemTask = Sungero.RecordManagement.ActionItemExecutionTasks.Create();
+
+            actionItemTask.ActionItem = DirRX.NNCommons.Resources.TestActionItemTaskSubject;
+            actionItemTask.Assignee = assignee;
+            actionItemTask.AssignedBy = assignedBy;
+            actionItemTask.HasIndefiniteDeadline = false;
+            actionItemTask.Deadline = Calendar.Now.AddWorkingDays(5);
+            actionItemTask.ActiveText = DirRX.NNCommons.Resources.TestActionItemTaskSubject;
+
+            if (document != null && !actionItemTask.DocumentsGroup.OfficialDocuments.Any())
+              actionItemTask.DocumentsGroup.OfficialDocuments.Add(document);
+
+            return Sungero.Workflow.Tasks.As(actionItemTask);
+          }
+      }
+    }
+
+    /// <summary>
+    /// Обновляет исполнителей на существующей задаче без создания новой.
+    /// </summary>
+    /// <param name="task">Задача.</param>
+    /// <param name="assignedBy">Выдал.</param>
+    /// <param name="assignee">Исполнитель.</param>
+    /// <param name="taskTypeName">Тип задачи.</param>
+    private void UpdateTaskAssignees(
+      Sungero.Workflow.ITask task,
+      Sungero.Company.IEmployee assignedBy,
+      Sungero.Company.IEmployee assignee,
+      string taskTypeName)
+    {
+      task.Author = assignedBy;
+
+      if (HRPro.HRDocFlow.StatementTasks.Is(task))
+      {
+        var statementTask = HRPro.HRDocFlow.StatementTasks.As(task);
+        if (statementTask != null)
+          statementTask.Author = assignedBy;
+      }
+
+      if (Sungero.RecordManagement.ActionItemExecutionTasks.Is(task))
+      {
+        var actionItemTask = Sungero.RecordManagement.ActionItemExecutionTasks.As(task);
+        if (actionItemTask != null)
+        {
+          actionItemTask.Assignee = assignee;
+          actionItemTask.AssignedBy = assignedBy;
+        }
+      }
+    }
+
+    /// <summary>
+    /// Убирает документ из вложения задачи и добавляет его обратно.
+    /// При последующем сохранении задачи перегенерируется предсказанная схема.
+    /// </summary>
+    /// <param name="task">Задача.</param>
+    /// <param name="document">Документ.</param>
+    private void ReplaceTaskDocument(
+      Sungero.Workflow.ITask task,
+      Sungero.Docflow.IOfficialDocument document)
+    {
+      if (HRPro.HRDocFlow.StatementTasks.Is(task))
+      {
+        var statementTask = HRPro.HRDocFlow.StatementTasks.As(task);
+        var statementDocument = HRPro.HRDocFlow.StatementDocuments.As(document);
+        if (statementTask != null && statementDocument != null)
+        {
+          statementTask.DocumentGroup.All.Clear();
+          statementTask.Save();
+          statementTask.DocumentGroup.StatementDocuments.Add(statementDocument);
+          statementTask.Save();
+        }
+      }
+
+      if (Sungero.RecordManagement.ActionItemExecutionTasks.Is(task))
+      {
+        var actionItemTask = Sungero.RecordManagement.ActionItemExecutionTasks.As(task);
+        if (actionItemTask != null)
+        {
+          actionItemTask.DocumentsGroup.All.Clear();
+          actionItemTask.Save();
+          actionItemTask.DocumentsGroup.OfficialDocuments.Add(document);
+          actionItemTask.Save();
+        }
+      }
+    }
+    
+    /// <summary>
+    /// Получаем информацию о исполнителях из блоков заданий и уведомлений.
+    /// </summary>
+    /// <param name="task">Задача.</param>
+    /// <param name="assignedBy">Выдал.</param>
+    /// <returns>Данные по блокам.</returns>
+    private Structures.Module.ISchemeExportInfo BuildSchemeInfo(Sungero.Workflow.ITask task, Sungero.Company.IEmployee assignedBy)
+    {
+      var schemeInfo = Structures.Module.SchemeExportInfo.Create();
+      schemeInfo.TaskId = task.Id;
+      schemeInfo.Blocks = new List<Structures.Module.ISchemeBlockInfo>();
+
+      var predictedScheme = task.PredictedScheme;
+      if (predictedScheme == null)
+        return schemeInfo;
+
+      var scheme = task.Scheme;
+      
+      // Получаем вычисленные блоки по предполагаемому маршруту.
+      var blocks = Sungero.Core.SchemeBlocks.GetAll(predictedScheme);
+
+      // Обрабатываем только блоки типа задание и уведомление и их наследников.
+      foreach (var block in blocks.Where(x => Sungero.Core.AssignmentSchemeBlocks.Is(x) || Sungero.Core.NoticeSchemeBlocks.Is(x)))
+      {
+        // Собираем всех исполнителей блока.
+        List<string> performerNames = null;
+
+        if (Sungero.Core.AssignmentSchemeBlocks.Is(block))
+        {
+          var assignmentBlock = Sungero.Core.AssignmentSchemeBlocks.As(block);
+          if (assignmentBlock.Performers != null && assignmentBlock.Performers.Any())
+            performerNames = GetPerformerNames(assignmentBlock.Performers, assignedBy);
+        }
+        else if (Sungero.Core.NoticeSchemeBlocks.Is(block))
+        {
+          var noticeBlock = Sungero.Core.NoticeSchemeBlocks.As(block);
+          if (noticeBlock.Performers != null && noticeBlock.Performers.Any())
+            performerNames = GetPerformerNames(noticeBlock.Performers, assignedBy);
+        }
+
+        // Если по блоку не удалось установить исполнителей, фиксируем блок с пустым списком.
+        if (performerNames == null || performerNames.Count == 0)
+          performerNames = new List<string>();
+
+        var blockInfo = Structures.Module.SchemeBlockInfo.Create();
+        blockInfo.Id = block.Id;
+        blockInfo.Title = block.Title;
+        blockInfo.BlockType = block.GetType().Name;
+        blockInfo.Description = block.Description;
+        blockInfo.PredictedDeadline = block.PredictedDeadline.Absolute;
+        blockInfo.PredictedPerformers = performerNames;
+        blockInfo.OutputEdges = new List<Structures.Module.ISchemeEdgeInfo>();
+
+        if (scheme != null)
+        {
+          // Получаем "тот же" блок, но уже из обычной схемы, чтобы у него был доступен
+          // GetOutputEdges.
+          var schemeBlock = Sungero.Core.SchemeBlocks.Get(scheme, block.Id);
+          if (schemeBlock != null)
+          {
+            foreach (var edge in scheme.GetOutputEdges(schemeBlock))
+            {
+              var edgeInfo = Structures.Module.SchemeEdgeInfo.Create();
+              edgeInfo.Unconditional = edge.Unconditional;
+              edgeInfo.Another = edge.Else;
+              edgeInfo.Value = edge.Value.ToString();
+
+              blockInfo.OutputEdges.Add(edgeInfo);
+            }
+          }
+        }
+
+        schemeInfo.Blocks.Add(blockInfo);
+      }
+
+      return schemeInfo;
+    }
+
+    /// <summary>
+    /// Получает список имён исполнителей из перформеров блока схемы.
+    /// </summary>
+    /// <param name="performers">Исполнители.</param>
+    /// <param name="assignedBy">Выдал.</param>
+    /// <returns>Список имен.</returns>
+    private List<string> GetPerformerNames(IEnumerable<Sungero.CoreEntities.IRecipient> performers, Sungero.Company.IEmployee assignedBy)
+    {
+      var names = new List<string>();
+
+      foreach (var performer in performers)
+      {
+        // Пытаемся привести перформера к сотруднику.
+        var employee = Sungero.Company.Employees.As(performer);
+        if (employee == null)
+        {
+          // Если перформер — не сотрудник (например, роль или группа), используем его имя.
+          names.Add(performer.Name);
+          continue;
+        }
+
+        names.Add(GetEmployeeDisplayName(employee));
+      }
+
+      // Заменяем все вхождения "Administrator" на имя assignedBy.
+      return ReplaceAdministratorNames(names, assignedBy);
+    }
+
+    /// <summary>
+    /// Возвращает отображаемое имя сотрудника. Если у сотрудника на текущую дату
+    /// есть активное замещение (Substitution, где сотрудник — замещаемый),
+    /// к имени добавляется в скобках имя замещающего:
+    /// "Иванов Иван Иванович (замещает Петров Петр Петрович)".
+    /// </summary>
+    /// <param name="employee">Сотрудник.</param>
+    /// <returns>Инфорация по замещению.</returns>
+    private string GetEmployeeDisplayName(Sungero.Company.IEmployee employee)
+    {
+      var name = employee.Name;
+
+      var user = Sungero.CoreEntities.Users.As(employee);
+      if (user == null)
+        return name;
+
+      // Ищем замещение, активное на текущую дату, где сотрудник — замещаемый (User).
+      // Системные замещения (IsSystem) не учитываем — по конвенции проекта.
+      var substitution = Sungero.CoreEntities.Substitutions.GetAll(s =>
+                                                                   Sungero.CoreEntities.Users.Equals(s.User, user) &&
+                                                                   s.IsSystem != true &&
+                                                                   s.Status == Sungero.CoreEntities.DatabookEntry.Status.Active &&
+                                                                   (s.StartDate == null || s.StartDate.Value <= Calendar.Today) &&
+                                                                   (s.EndDate == null || s.EndDate.Value >= Calendar.Today))
+        .FirstOrDefault();
+
+      if (substitution == null || substitution.Substitute == null)
+        return name;
+
+      var substituteEmployee = Sungero.Company.Employees.As(substitution.Substitute);
+      var substituteName = substituteEmployee != null ? substituteEmployee.Name : substitution.Substitute.Name;
+
+      return $"{name} (замещает {substituteName})";
+    }
+
+    /// <summary>
+    /// Заменяет все вхождения имени "Administrator" на имя сотрудника assignedBy.
+    /// </summary>
+    /// <param name="names">Имена.</param>
+    /// <param name="assignedBy">Выдал.</param>
+    /// <returns>Имена.</returns>
+    private List<string> ReplaceAdministratorNames(List<string> names, Sungero.Company.IEmployee assignedBy)
+    {
+      var assignedByName = assignedBy != null ? assignedBy.Name : null;
+      if (assignedByName == null)
+        return names;
+
+      for (int i = 0; i < names.Count; i++)
+      {
+        if (names[i] == "Administrator" || names[i] == "Service User" || names[i] == "Integration Service")
+          names[i] = assignedByName;
+      }
+
+      return names;
+    }
+
+    /// <summary>
+    /// Возвращает виды документов поддерживаемых типов:
+    /// </summary>
+    [Remote(IsPure = true)]
+    public IQueryable<Sungero.Docflow.IDocumentKind> GetSupportedDocumentKinds()
+    {
+      var vacationStatementDocument = Constants.Module.PredctedSchemeReport.DocumentTypeGuid.VacationStatementDocument;
+      var lrdPaymentStatementDocument = Constants.Module.PredctedSchemeReport.DocumentTypeGuid.LrdPaymentStatementDocument;
+      var weekendWorkStatementDocument = Constants.Module.PredctedSchemeReport.DocumentTypeGuid.WeekendWorkStatementDocument;
+      
+      return Sungero.Docflow.DocumentKinds.GetAll(k => k.Status == Sungero.Docflow.DocumentKind.Status.Active &&
+                                                  k.DocumentType != null &&
+                                                  (k.DocumentType.DocumentTypeGuid == vacationStatementDocument ||
+                                                   k.DocumentType.DocumentTypeGuid == lrdPaymentStatementDocument ||
+                                                   k.DocumentType.DocumentTypeGuid == weekendWorkStatementDocument));
+    }
+    
+    /// <summary>
+    /// Возвращает разделы персон.
+    /// </summary>
+    /// <param name="businessUnit">Наша организация.</param>
+    /// <returns>Разделы персон.</returns>
+    [Remote(IsPure = true)]
+    public IQueryable<NNCommons.IPersonnelSection> GetFilteredPersonalSection(Sungero.Company.IBusinessUnit businessUnit)
+    {
+      return NNCommons.PersonnelSections.GetAll(p => Equals(p.BusinessUnit, businessUnit));
+    }
+
+    /// <summary>
+    /// Фильтрация сотрудников для диалога.
+    /// </summary>
+    /// <param name="businessUnit">Наша организация.</param>
+    /// <param name="personnelSections">Раздел персонала.</param>
+    /// <returns>Сотрудники.</returns>
+    [Remote(IsPure = true)]
+    public IQueryable<OverrideSolution.IEmployee> GetFilteredEmployees(
+      Sungero.Company.IBusinessUnit businessUnit,
+      List<long> personnelSectionIds)
+    {
+      var employees = OverrideSolution.Employees.GetAll(e => e.Status == OverrideSolution.Employee.Status.Active);
+      
+      if (businessUnit == null)
+        return employees.Where(e => false);
+
+      if (personnelSectionIds.Any())
+      {
+        return employees.Where(e => e.PersonnelSectionDirRX != null
+                               && personnelSectionIds.Contains(e.PersonnelSectionDirRX.Id));
+      }
+
+
+      return employees.Where(e => OverrideSolution.BusinessUnits.Equals(e.BusinessUnit, businessUnit));
+    }
+    
+    /// <summary>
+    /// Фильтрация сотрудников для диалога.
+    /// </summary>
+    /// <param name="businessUnit">Наша организация.</param>
+    /// <param name="personnelSections">Раздел персонала.</param>
+    /// <returns>Сотрудники.</returns>
+    [Remote(IsPure = true)]
+    public List<long> GetFilteredEmployeeIds(
+      Sungero.Company.IBusinessUnit businessUnit,
+      List<long> personnelSectionIds)
+    {
+      return GetFilteredEmployees(businessUnit, personnelSectionIds).Select(c => c.Id).ToList();
+    }
+    
+    /// <summary>
+    /// Возвращает имя типа документа по сущности вида документа.
+    /// </summary>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <returns>Тип документа.</returns>
+    private string GetDocumentTypeName(Sungero.Docflow.IDocumentKind documentKind)
+    {
+      var typeGuid = documentKind != null && documentKind.DocumentType != null
+        ? documentKind.DocumentType.DocumentTypeGuid
+        : null;
+      if (typeGuid == null)
+        return null;
+
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.SimpleDocument)
+        return Constants.Module.PredctedSchemeReport.DocumentType.SimpleDocument;
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.Memo)
+        return Constants.Module.PredctedSchemeReport.DocumentType.Memo;
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.ContractualDocument)
+        return Constants.Module.PredctedSchemeReport.DocumentType.ContractualDocument;
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.StatementDocument)
+        return Constants.Module.PredctedSchemeReport.DocumentType.StatementDocument;
+
+      return null;
+    }
+    
+    /// <summary>
+    /// Подготовка данных для формирования тестовых задач и документов.
+    /// </summary>
+    /// <param name="taskTypeName">Тип задачи.</param>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="organization">Наша организация.</param>
+    /// <param name="employees">Сотрудники.</param>
+    /// <returns>Данные для формирования задачи и документа.</returns>
+    public List<Structures.Module.IExportPredictedSchemeRequest> BuildRequests(
+      string taskTypeName,
+      Sungero.Docflow.IDocumentKind documentKind,
+      Sungero.Company.IBusinessUnit organization,
+      List<Sungero.Company.IEmployee> employees)
+    {
+      if (employees == null || employees.Count == 0)
+        return null;
+
+      if (documentKind == null)
+        return null;
+
+      var documentTypeName = GetDocumentTypeName(documentKind);
+
+      var requests = new List<Structures.Module.IExportPredictedSchemeRequest>();
+
+      foreach (var emp in employees)
+      {
+        var request = Structures.Module.ExportPredictedSchemeRequest.Create();
+        request.AssignedById = emp.Id; // INFO: Учитывать при доработке логики, если потребуется добавить в диалог дополнительное поле для инициатора и исполнителя.
+        request.AssigneeId = emp.Id;
+        request.DocumentTypeName = documentTypeName;
+        request.DocDocumentKind = documentKind.Id;
+        if (organization != null)
+          request.DocBusinessUnit = organization.Id;
+        if (documentTypeName == Constants.Module.PredctedSchemeReport.DocumentType.StatementDocument)
+          request.DocAuthor = emp.Id;
+        request.TaskTypeName = taskTypeName;
+        requests.Add(request);
+      }
+
+      return requests;
+    }
+
+    /// <summary>
+    /// Создает АО для формирования отчета.
+    /// </summary>
+    /// <param name="taskTypeName">Тип задачи.</param>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="organization">Наша организация.</param>
+    /// <param name="employees">Сотрудники.</param>
+    [Remote]
+    public void CreatePredctedSchemeReport(string taskTypeName,
+                                           string taskTypeLocalizeName,
+                                           Sungero.Docflow.IDocumentKind documentKind,
+                                           Sungero.Company.IBusinessUnit organization,
+                                           List<long> employees)
+    {
+
+      var batchSize = NNCommons.PublicFunctions.Module.GetIntValue(Constants.Module.ConstantsSetting.PredctedSchemeReportSizeBatch.Guid);
+      
+      if (batchSize == null || batchSize == 0)
+      {
+        Logger.ErrorFormat("Установите значение в константе Размер обрабатываемых сотрудников");
+        return;
+      }
+      
+      var totalBatches = (int)Math.Ceiling(employees.Count / (double)batchSize.Value);
+
+      // Обрабатываем порцонно сотрудников, чтобы не выгружать в память большое кол-во сущностей.
+      for (int i = 0; i < employees.Count; i += batchSize.Value)
+      {
+        var batch = employees.Skip(i).Take(batchSize.Value).ToList();
+        var batchNumber = (i / batchSize.Value) + 1;
+
+        Logger.DebugFormat(
+          "CreatePredctedSchemeReport. Запуск АО. Блок {0}/{1}, записей: {2}.",
+          batchNumber,
+          totalBatches,
+          batch.Count);
+
+        // для определения, что отчет сформируется только 1. Исходя из этого в АО скорректируется наименование отчета.
+        if (batchSize >= employees.Count)
+          batchNumber = 0;
+        
+        var asyncHandler = DirRX.NNCommons.AsyncHandlers.CreatePredctedSchemeReportAsync.Create();
+        asyncHandler.CurrentUserId = Users.Current != null ? Users.Current.Id : 0;
+        asyncHandler.BusinessUnitId = organization.Id;
+        asyncHandler.EmployeeIds = string.Join(",", batch);
+        asyncHandler.DocumentKindId = documentKind.Id;
+        asyncHandler.TaskTypeName = taskTypeName;
+        asyncHandler.NumberReport = batchNumber;
+        asyncHandler.TaskTypeLocalizeName = taskTypeLocalizeName;
+        asyncHandler.ExecuteAsync();
+      }
+
+      Logger.DebugFormat(
+        "CreatePredctedSchemeReport. Итого запущено АО: {0}.",
+        totalBatches);
+    }
+
+    /// <summary>
+    /// Формирует строки маршрута согласования (этапы с исполнителями) и пропущенных этапов (без исполнителей).
+    /// </summary>
+    /// <param name="itemResult">Данные по схеме.</param>
+    private void BuildRouteStrings(Structures.Module.IProcessKindSchemeResult itemResult)
+    {
+      if (itemResult.Scheme == null || itemResult.Scheme.Blocks == null || itemResult.Scheme.Blocks.Count == 0)
+      {
+        itemResult.ApprovalRoute = "";
+        itemResult.MissingSteps = "";
+        return;
+      }
+
+      var approvalLines = new List<string>();
+      var missingLines = new List<string>();
+
+      // формируем строки для отчета в формате Название блока - Исполнители.
+      // если исполнителя нет, то просто название блока.
+      foreach (var block in itemResult.Scheme.Blocks)
+      {
+        var title = block.Title ?? "";
+        if (block.PredictedPerformers != null && block.PredictedPerformers.Count > 0)
+        {
+          approvalLines.Add($"{title} — {string.Join(", ", block.PredictedPerformers)}");
+        }
+        else
+        {
+          missingLines.Add(title);
+        }
+      }
+
+      itemResult.ApprovalRoute = approvalLines.Count > 0 ? string.Join("\n", approvalLines) : string.Empty;
+      itemResult.MissingSteps = missingLines.Count > 0 ? string.Join("\n", missingLines) : string.Empty;
+    }
+
+    #endregion
+    
+    /// <summary>
+    /// Парсит строку c идентификаторами в список идентификаторов.
+    /// </summary>
+    /// <param name="input">Строка с идентификаторами.</param>
+    /// <returns>Список с идентификаторами.</returns>
+    [Public]
+    public List<long> ParseStringToListLong(string input)
+    {
+      if (!string.IsNullOrEmpty(input))
+        return input.Trim().Split(',').Select(c => long.Parse(c)).ToList();
+      
+      return new List<long>();
+    }
+    
     /// <summary>
     /// Возвращает Нашe организации у сотрудника
     /// </summary>
@@ -232,6 +1354,16 @@ namespace DirRX.NNCommons.Server
       var employeesIdsForReadAccess = Substitutions.ActiveSubstitutedUsers.Select(x => x.Id).ToList();
       employeesIdsForReadAccess.Add(initiator.Id);
       
+      // Получить доступные разделы персонала для сотрудника.
+      var currentEmployee = DirRX.OverrideSolution.Employees.Current;
+      var availiableSectionsIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation.GetAvailablePersonnelSections(currentEmployee, businessUnitsIds);
+      
+      var businessUnitsWithoutGeneralLimitationIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetBusinessUnitsWithoutGeneralLimitation(currentEmployee, businessUnitsIds);
+      
+      var businessUnitsWithGeneralLimitation = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetBusinessUnitsWithGeneralLimitation(currentEmployee, businessUnitsIds);
+      
       // Для формирования гиперссылок получить хост.
       var task = Sungero.Workflow.Tasks.GetAll().FirstOrDefault();
       if (task == null)
@@ -282,8 +1414,12 @@ namespace DirRX.NNCommons.Server
                                               string.Join(Constants.Module.Separator.ToString(), businessUnitsIds),
                                               string.Join(Constants.Module.Separator.ToString(), employeesIds),
                                               string.Join(Constants.Module.Separator.ToString(), performersIds),
-                                              beginDate.ToString("yyyy-MM-dd HH:mm:ss"), endDate.EndOfDay().ToString("yyyy-MM-dd HH:mm:ss"),
-                                              isManualHoldingEvent, offsetHours);
+                                              beginDate.ToString(Constants.Module.SQLDateTimeFormat),
+                                              endDate.EndOfDay().ToString(Constants.Module.SQLDateTimeFormat),
+                                              isManualHoldingEvent, offsetHours,
+                                              string.Join(Constants.Module.Separator.ToString(), availiableSectionsIds),
+                                              string.Join(Constants.Module.Separator.ToString(), businessUnitsWithoutGeneralLimitationIds),
+                                              string.Join(Constants.Module.Separator.ToString(), businessUnitsWithGeneralLimitation));
           Logger.DebugFormat("GenerateReportSLA. Запрос на получение данных: {0}", command.CommandText);
           using(var reader = command.ExecuteReader())
           {
@@ -384,6 +1520,16 @@ namespace DirRX.NNCommons.Server
       var excelDocument = new Aspose.Cells.Workbook(memoryStream);
       var workSheet = excelDocument.Worksheets.FirstOrDefault();
       
+      // Получить доступные разделы персонала для сотрудника.
+      var currentEmployee = DirRX.OverrideSolution.Employees.Current;
+      var availiableSectionsIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation.GetAvailablePersonnelSections(currentEmployee, businessUnitsIds);
+      
+      var businessUnitsWithoutGeneralLimitationIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetBusinessUnitsWithoutGeneralLimitation(currentEmployee, businessUnitsIds);
+      
+      var businessUnitsWithGeneralLimitation = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetBusinessUnitsWithGeneralLimitation(currentEmployee, businessUnitsIds);
+      
       // Заполнить дату формирования и ФИО сформировавшего отчет сотрудника.
       workSheet.Cells[1, 1].Value = string.Format("{0} {1}", Calendar.UserNow.ToShortDateString(), Calendar.UserNow.ToShortTimeString());
       workSheet.Cells[2, 1].Value = initiator.Name;
@@ -404,8 +1550,12 @@ namespace DirRX.NNCommons.Server
                                               string.Join(NNCommons.PublicConstants.Module.Separator.ToString(), businessUnitsIds),
                                               string.Join(NNCommons.PublicConstants.Module.Separator.ToString(), docKindsInfo),
                                               string.Join(NNCommons.PublicConstants.Module.Separator.ToString(), employeesIds),
-                                              beginDate.ToString("yyyy-MM-dd HH:mm:ss"), endDate.EndOfDay().ToString("yyyy-MM-dd HH:mm:ss"),
-                                              offsetHours);
+                                              beginDate.ToString(Constants.Module.SQLDateTimeFormat),
+                                              endDate.EndOfDay().ToString(Constants.Module.SQLDateTimeFormat),
+                                              offsetHours,
+                                              string.Join(Constants.Module.Separator.ToString(), availiableSectionsIds),
+                                              string.Join(Constants.Module.Separator.ToString(), businessUnitsWithoutGeneralLimitationIds),
+                                              string.Join(Constants.Module.Separator.ToString(), businessUnitsWithGeneralLimitation));
           
           using(var reader = command.ExecuteReader())
           {
@@ -561,7 +1711,7 @@ namespace DirRX.NNCommons.Server
 
     #endregion
     
-     /// <summary>
+    /// <summary>
     /// Проверяет, что сотрудник работает по основному месту работы.
     /// </summary>
     /// <param name="employeeId">Ид сотрудника.</param>
@@ -621,11 +1771,7 @@ namespace DirRX.NNCommons.Server
         
         var employeeGoAndTopInfo = Structures.Module.EmployeeGoAndTopInfo.Create();
         employeeGoAndTopInfo.IsGo = OverrideSolution.BusinessUnits.As(employee.BusinessUnit)?.SapLegalEntityCodeDirRX == goBusinessUnitSapId;
-        
-        // TODO: SeleznyovDV. Адаптировать под новый признак ТОП, при реализации ЗНИ "CHG00141295. Корректировка признаков НГД и ТОП" (GAP 69).
-        var evaluationGroup = OverrideSolution.JobTitles.As(employee.JobTitle).EvaluationGroupDirRX;
-        employeeGoAndTopInfo.IsTop = evaluationGroup == OverrideSolution.JobTitle.EvaluationGroupDirRX.Top10 ||
-          evaluationGroup == OverrideSolution.JobTitle.EvaluationGroupDirRX.Top100;
+        employeeGoAndTopInfo.IsTop = OverrideSolution.JobTitles.As(employee.JobTitle)?.IsTopDirRX == true;
         
         result = IsolatedFunctions.Json.SerializeInJson(employeeGoAndTopInfo);
       }
@@ -638,14 +1784,51 @@ namespace DirRX.NNCommons.Server
     }
     
     /// <summary>
+    /// Получение ИД Нашей организации сотрудника.
+    /// </summary>
+    /// <param name="employeeId">ИД сотрудника.</param>
+    /// <returns>ИД Нашей организации сотрудника.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public long GetBusinessUnitId(long employeeId)
+    {
+      Logger.DebugFormat("GetBusinessUnitId. EmployeeId: '{0}'. Получен запрос из ЛК для получения информации о НОР сотрудника.", employeeId);
+      var result = 0;
+      
+      try
+      {
+        var employee = DirRX.OverrideSolution.Employees.GetAll(x => x.Id == employeeId).FirstOrDefault();
+        if (employee == null)
+        {
+          Logger.ErrorFormat("GetBusinessUnitId. EmployeeId: '{0}'. Не найден сотрудник по ИД.", employeeId);
+          return result;
+        }
+        
+        if (employee.BusinessUnit == null)
+        {
+          Logger.ErrorFormat("GetBusinessUnitId. EmployeeId: '{0}'. В карточке сотрудника не заполнено поле 'Наша организация'.", employeeId);
+          return result;
+        }
+        
+        return employee.BusinessUnit.Id;
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("GetBusinessUnitId. EmployeeId: '{0}'. Ошибка: '{1}'. StackTrace: '{2}'.", employeeId, ex.Message, ex.StackTrace);
+      }
+      
+      return result;
+    }
+    
+    /// <summary>
     /// Получить список доступных сотрудников с учетом настроек ограничения видимости орг. структуры.
     /// </summary>
-    /// <param name="query">Условие для поиска по имени сотрудника.</param>
+    /// <param name="queryName">Условие для поиска по имени сотрудника.</param>
+    /// <param name="queryIds">Условие для поиска по ИД сотрудника.</param>
     /// <param name="takeCount">Количество записей, которое необходимо вернуть. Если передано 0, то возвращаются все доступные записи.</param>
     /// <param name="skipCount">Количество записей, которое необходимо пропустить.</param>
     /// <returns>Cписок доступных сотрудников.</returns>
     [Public(WebApiRequestType = RequestType.Get)]
-    public List<Structures.Module.IEmployeeInfo> GetVisibleEmployees(string query, int takeCount, int skipCount)
+    public List<Structures.Module.IEmployeeInfo> GetVisibleEmployees(string queryByName, string queryByIds, int takeCount, int skipCount)
     {
       var employees = OverrideSolution.Employees.GetAll().Where(e => e.Status != null && e.Status == OverrideSolution.Employee.Status.Active);
       var employeesInfo = new List<Structures.Module.IEmployeeInfo>();
@@ -656,8 +1839,14 @@ namespace DirRX.NNCommons.Server
         employees = employees.Where(e => visibleEmployeesIds.Contains(e.Id));
       }
       
-      if (!string.IsNullOrEmpty(query))
-        employees = employees.Where(e => e.Name != null && e.Name.ToLower().Contains(query.ToLower()));
+      if (!string.IsNullOrEmpty(queryByName))
+        employees = employees.Where(e => e.Name != null && e.Name.ToLower().Contains(queryByName.ToLower()));
+      
+      if (!string.IsNullOrEmpty(queryByIds))
+      {
+        var idsForFilter = queryByIds.Split(',').ToList();
+        employees = employees.Where(e => idsForFilter.Contains(e.Id.ToString()));
+      }
       
       if (takeCount <= 0)
         takeCount = Constants.Module.DefaultRecordCountForOpeningEmployees;
@@ -909,18 +2098,43 @@ namespace DirRX.NNCommons.Server
     [Public, Remote(IsPure = true)]
     public virtual bool HasRightsOnEDoc(DirRX.OverrideSolution.IEmployee employee, DirRX.OverrideSolution.IDocRelatedToWorkBase document)
     {
+      // Проверить необходимость фильтрации документов по ролевой модели для текущего пользователя.
       var needDocumentFiltration = NeedDocumentsFiltration();
       if (!needDocumentFiltration)
         return true;
+
+      // Наша организация.
+      var businessUnit = DirRX.OverrideSolution.BusinessUnits.As(document.BusinessUnit);
+      // Раздел персонала.
+      var personnelSection = document.PersonnelSectionDirRX;
+
+      // Получить ограничения видимости на сотрудника и НОР документа.
+      var limitations = PublicFunctions.DocumentsVisabilityLimitation
+        .GetDocumentsVisabilityLimitations(employee, businessUnit);
+
+      // Отфильтровать ограничения видимости по разделу персонала из документа.
+      limitations = PublicFunctions.DocumentsVisabilityLimitation
+        .FilterLimitationsByPersonnelSection(limitations, personnelSection);
+
+      // Проверка 1: Есть ли ограничение, дающее доступ к этому документу?
+      var hasLimitation = limitations.Any();
       
-      var businessUnits = Functions.DocumentsVisabilityLimitation.GetAvailableBusinessUnits(employee, DirRX.OverrideSolution.BusinessUnits.As(document.BusinessUnit));
-      if (businessUnits.Count() > 0 ||
-          (OverrideSolution.BusinessUnits.Equals(document.BusinessUnit, employee.BusinessUnit) &&
-           (document.AccessRights.Current.Any(a => a.Recipient.Id == employee.Id && a.AccessRightsType != DefaultAccessRightsTypes.Forbidden))))
+      // Проверка 2: Есть ли экземплярные права на документ?
+      var hasInstanceRights = document.AccessRights.Current
+        .Any(a => a.Recipient.Id == employee.Id && a.AccessRightsType != DefaultAccessRightsTypes.Forbidden);
+
+      // Проверка 3: Совпадает ли НОР документа с НОР сотрудника?
+      var isSameBusinessUnit = OverrideSolution.BusinessUnits.Equals(document.BusinessUnit, employee.BusinessUnit);
+
+      // Доступ есть, если:
+      // 1. Есть ограничение, дающее доступ к документу (с учетом раздела) ИЛИ
+      // 2. Есть экземплярные права И НОР документа совпадает с НОР сотрудника
+      if (hasLimitation || (isSameBusinessUnit && hasInstanceRights))
         return true;
-      
+
       return false;
     }
+
 
     /// <summary>
     /// Проверить доступ к запуску АО Проверка документов в файловом хранилище.
@@ -1482,6 +2696,37 @@ namespace DirRX.NNCommons.Server
       
       return null;
     }
+    
+    /// <summary>
+    /// Получить список Id из константы.
+    /// </summary>
+    /// <param name="guid">Guid константы.</param>
+    /// <returns>Список Id.</returns>
+    [Public]
+    public virtual List<long> GetIdsListValue(string guid, string prefix)
+    {
+      var idsList = new List<long>();
+      var constant = DirRX.NNCommons.PublicFunctions.Module.GetStringValue(guid);
+      if (string.IsNullOrEmpty(constant))
+      {
+        Logger.DebugFormat("{0}. Прикладная константа '{1}' не заполнена.", prefix, guid);
+        return idsList;
+      }
+      
+      try
+      {
+        idsList = constant.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(id => long.Parse(id.Trim())).ToList();
+      }
+      catch (Exception ex)
+      {
+        Logger.DebugFormat("{0}. Не удалось извлечь список ИД из прикладной константы: {1}. Текст ошибки: {2}. StackTrace: {3}.",
+                           prefix, guid,
+                           ex.Message, ex.StackTrace);
+        return new List<long>();
+      }
+      
+      return idsList;
+    }
 
     /// <summary>
     /// Получить константу.
@@ -1830,8 +3075,8 @@ namespace DirRX.NNCommons.Server
       try
       {
         var daysCountOfTargetYear = Calendar.GetDate(year, 1, 1).EndOfYear().DayOfYear;
-        var copyFromGlobalCalendar = model.DayDisc.Select(d => d.Date).Distinct().Count() != daysCountOfTargetYear;
-        userCalendar = GetOrCreatePrivateWorkingTimeCalendar(year, employee, copyFromGlobalCalendar, logPrefix);
+        var isAllDaysInModel = model.DayDisc.Select(d => d.Date).Distinct().Count() == daysCountOfTargetYear;
+        userCalendar = GetOrCreatePrivateWorkingTimeCalendar(year, employee, !isAllDaysInModel, logPrefix);
 
         if (!userCalendar.State.IsInserted && !Locks.TryLock(userCalendar))
         {
@@ -1871,10 +3116,10 @@ namespace DirRX.NNCommons.Server
     /// </summary>
     /// <param name="year">Год.</param>
     /// <param name="employee">Сотрудник.</param>
-    /// <param name="needCopyFromGlobalCalendar">Признак необходимости заполнения создаваемого календаря из вышестоящего (НОР, либо общий).</param>
+    /// <param name="needFilledCalendar">Признак необходимости вернуть календарь с заполненными днями.</param>
     /// <param name="logPrefix">Префикс для записи логов.</param>
     /// <returns>Существующий или созданный календарь.</returns>
-    public IPrivateWorkingTimeCalendar GetOrCreatePrivateWorkingTimeCalendar(int year, OverrideSolution.IEmployee employee, bool copyFromGlobalCalendar, string logPrefix)
+    public IPrivateWorkingTimeCalendar GetOrCreatePrivateWorkingTimeCalendar(int year, OverrideSolution.IEmployee employee, bool needFilledCalendar, string logPrefix)
     {
       var userCalendar = GetPrivateWorkingCalendar(year, employee);
       
@@ -1889,7 +3134,7 @@ namespace DirRX.NNCommons.Server
         var calendarRecipient = userCalendar.Recipients.AddNew();
         calendarRecipient.Recipient = employee;
         
-        if(copyFromGlobalCalendar)
+        if(needFilledCalendar)
         {
           // Ищем частный календарь по НОР.
           var globalUserCalendar = WorkingTime.Null;
@@ -1907,6 +3152,11 @@ namespace DirRX.NNCommons.Server
           foreach (var day in globalUserCalendar.Day)
             userCalendar.Day.AddCopy(day);
         }
+      }
+      else
+      {
+        if (!needFilledCalendar)
+          userCalendar.Day.Clear();
       }
       
       return userCalendar;
@@ -1927,18 +3177,22 @@ namespace DirRX.NNCommons.Server
       if (calendarDay == null)
         return String.Format("Не удалось обработать дату {0}.", targetDate.Date);
       
+      var dayBeginning = dayModel.DayStart;
+      var dayEnding = dayModel.DayEnd.HasValue ? NormalizeRightBoundaryOfTime(dayModel.DayEnd.Value) : dayModel.DayEnd;
+      var lunchBreakBeginning = dayModel.BrStart;
+      var lunchBreakEnding = dayModel.BrEnd.HasValue ? NormalizeRightBoundaryOfTime(dayModel.BrEnd.Value) : dayModel.BrEnd;
+      
       var previousCalendarDay = GetOrCreateWorkingTimeDay(calendar, targetDate.AddDays(-1));
       var previousCalendarDayIsTransit = false;
       if (previousCalendarDay != null)
         previousCalendarDayIsTransit = previousCalendarDay.DayEnding == Constants.Module.CalendarDayEnding &&
           calendarDay.DayBeginning == Constants.Module.CalendarDayBeginning;
       
-      var nextDate = targetDate.AddDays(1);
-      var nextCalendarDay = GetOrCreateWorkingTimeDay(calendar, nextDate);
+      var nextCalendarDay = GetOrCreateWorkingTimeDay(calendar, targetDate.AddDays(1));
       var calendarDayIsTransit = nextCalendarDay != null &&
         calendarDay.DayEnding == Constants.Module.CalendarDayEnding &&
         nextCalendarDay.DayBeginning == Constants.Module.CalendarDayBeginning;
-      var dayModelIsTransit = dayModel.DayStart >= dayModel.DayEnd;
+      var dayModelIsTransit = dayBeginning >= dayEnding;
       
       #region Тип дня.
       
@@ -1982,11 +3236,6 @@ namespace DirRX.NNCommons.Server
       
       #endregion
       
-      var dayBeginning = dayModel.DayStart;
-      var dayEnding = dayModel.DayEnd;
-      var lunchBreakBeginning = dayModel.BrStart;
-      var lunchBreakEnding = dayModel.BrEnd;
-      
       #region Переходность предыдущего дня.
       
       if (previousCalendarDayIsTransit)
@@ -2023,10 +3272,10 @@ namespace DirRX.NNCommons.Server
         {
           // Если следующий день не совмещал смен.
           if (nextCalendarDay.LunchBreakBeginning == null)
-            nextCalendarDay.DayEnding = dayModel.DayEnd;
+            nextCalendarDay.DayEnding = dayEnding;
           else
           {
-            nextCalendarDay.LunchBreakBeginning = dayModel.DayEnd;
+            nextCalendarDay.LunchBreakBeginning = dayEnding;
             
             NormalizeWorkingTimeCalendarDay(nextCalendarDay);
           }
@@ -2041,11 +3290,11 @@ namespace DirRX.NNCommons.Server
             nextCalendarDay.Kind = null;
             nextCalendarDay.LunchBreakBeginning = null;
             nextCalendarDay.LunchBreakEnding = null;
-            nextCalendarDay.DayEnding = dayModel.DayEnd;
+            nextCalendarDay.DayEnding = dayEnding;
           }
           else
           {
-            nextCalendarDay.LunchBreakBeginning = dayModel.DayEnd;
+            nextCalendarDay.LunchBreakBeginning = dayEnding;
             nextCalendarDay.LunchBreakEnding = nextCalendarDay.DayBeginning;
             
             NormalizeWorkingTimeCalendarDay(nextCalendarDay);
@@ -2133,11 +3382,23 @@ namespace DirRX.NNCommons.Server
     /// Нормализация дня календаря рабочего времени.
     /// </summary>
     /// <param name="calendarDay">День календаря рабочего времени.</param>
-    /// <returns>Нормализованный день календаря рабочего времени.</returns>
     public void NormalizeWorkingTimeCalendarDay(IWorkingTimeCalendarDay calendarDay)
     {
       if (calendarDay.LunchBreakBeginning >= calendarDay.LunchBreakEnding)
-        calendarDay.LunchBreakBeginning = calendarDay.LunchBreakEnding - Constants.Module.CalendarDayMinute;
+        calendarDay.LunchBreakEnding = calendarDay.LunchBreakBeginning + Constants.Module.CalendarDayMinute;
+    }
+    
+    /// <summary>
+    /// Нормализация правой границы времени.
+    /// </summary>
+    /// <param name="time">Время.</param>
+    /// <returns>Нормализованная правая граница времени.</returns>
+    public double NormalizeRightBoundaryOfTime(double time)
+    {
+      if (time == Constants.Module.CalendarDayBeginning || time == Constants.Module.CalendarDayEnding24)
+        time = Constants.Module.CalendarDayEnding;
+      
+      return time;
     }
     
     /// <summary>
@@ -2298,5 +3559,49 @@ namespace DirRX.NNCommons.Server
     
     #endregion
     
+    /// <summary>
+    /// Возврат GUID-ов индивидуальных типов кадровых документов.
+    /// </summary>
+    /// <returns>Список Guid-ов типов документов.</returns>
+    public List<Guid> GetHRDocumentTypes()
+    {
+      var hrDocumentTypes = new List<Guid>()
+      {
+        // Заявление на удержание (программа личных пожертвований).
+        NNOtherProcesses.PublicConstants.Module.DocumentType.NNRetentionStatementDocument,
+        // Простой кадровый документ.
+        NNOtherProcesses.PublicConstants.Module.DocumentType.HRSimpleDocument,
+        // Приказ на выплату по ЛНА.
+        NNOtherProcesses.PublicConstants.Module.DocumentType.LrdPaymentOrderDocument,
+        // Согласие на работу в ВД/ПД/СР.
+        NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkAgreementDocument,
+        // Заявление на выплату по ЛНА
+        NNOtherProcesses.PublicConstants.Module.DocumentType.LrdPaymentStatementDocument,
+        // Приказ (распоряжение) о работе в ВД/ПД/СР.
+        NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkOrderDocument,
+        // НН. Приказ на командировку.
+        NNOtherProcesses.PublicConstants.Module.DocumentType.NNBusinessTripOrderDocument,
+        // Документ, связанный с работой, коробочный guid.
+        HRPro.HRDocFlow.PublicConstants.Module.EntityTypeGuid.DocRelatedToWork,
+        // Извещение об отпуске, коробочный guid.
+        HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationNoticeDocument,
+        // Приказ об отпуске, коробочный guid.
+        HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationOrderDocument,
+        // Заявление и согласие по отпуску, коробочный guid.
+        HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationStatementDocument,
+        // Согласие сотрудника.
+        HRPro.HRDocFlow.PublicConstants.Module.EntityTypeGuid.ConsentDocument,
+        // Извещение работника работодателем при выплате заработной платы.
+        HRPro.HRDocFlow.PublicConstants.Module.EntityTypeGuid.SalarySlip,
+        // Заявление сотрудника.
+        HRPro.HRDocFlow.PublicConstants.Module.EntityTypeGuid.StatementDocument,
+        // Индивидуальный лист ознакомления.
+        HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationIndividualAcquaintanceDocument,
+        // Приказ по командировке.
+        HRPro.BusinessTrips.PublicConstants.Module.EntityTypeGuid.BusinessTripOrder
+      };
+
+      return hrDocumentTypes;
+    }
   }
 }

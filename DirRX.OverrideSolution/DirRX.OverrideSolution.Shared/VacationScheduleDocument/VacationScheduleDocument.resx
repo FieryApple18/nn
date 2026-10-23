@@ -68,6 +68,12 @@
     <value>#OPPG</value>
   </data>
   <data name="Template_UnionOpinion" xml:space="preserve">
-    <value>Мнение выборного профсоюза от "{0}" {1}\n№{2} учтено</value>
+    <value>Trade union opinion {0} №{1} registered</value>
+  </data>
+  <data name="MaxTradeUnionOpinionsCountError" xml:space="preserve">
+    <value>Maximum trade union opinions count matched.</value>
+  </data>
+  <data name="Template_SocialCouncilOpinion" xml:space="preserve">
+    <value>Social council opinion {0} №{1} registered</value>
   </data>
 </root>

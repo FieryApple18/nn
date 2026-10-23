@@ -11,6 +11,35 @@ namespace DirRX.NNCommons.Server
   {
 
     /// <summary>
+    /// ФП по актуализации признака "TOП" в документах.
+    /// </summary>
+    public virtual void UpdateTopAttributeJob()
+    {
+      var logPrefix = "UpdateTopAttributeInDocumentsJob";
+      
+      Logger.DebugFormat("{0}. Старт фонового процесса \"Актуализация признака \"TOП\"\".", logPrefix);
+      
+      var hrDocumentTypes = Functions.Module.GetHRDocumentTypes();
+      var hrDocumentTypesStr = string.Join(",", hrDocumentTypes.Select(guid => $"'{guid}'"));
+      
+      var commandText = string.Format(Queries.Module.UpdateTopAttributeQuery, hrDocumentTypesStr);
+      using(var command = SQL.GetCurrentConnection().CreateCommand())
+      {
+        try
+        {
+          command.CommandText = commandText;
+          command.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+          Logger.DebugFormat("{0}. При выполнении запроса возникла ошибка. Ошибка: {1}", logPrefix, ex);
+        }
+      }
+      
+      Logger.DebugFormat("{0}. Завершение фонового процесса \"Актуализация признака \"TOП\"\".", logPrefix);
+    }
+
+    /// <summary>
     /// Норникель. Очистка частных календарей рабочего времени.
     /// </summary>
     public virtual void PrivateWorkingTimeCalendarsCleaningJob()

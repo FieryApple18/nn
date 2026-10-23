@@ -97,4 +97,22 @@
   <data name="Property_IsEmployeeExistsDirRX" xml:space="preserve">
     <value>Is employee exists</value>
   </data>
+  <data name="Property_IsTopDirRX" xml:space="preserve">
+    <value>TOP</value>
+  </data>
+  <data name="Property_PositionLevelDirRX" xml:space="preserve">
+    <value>Position level</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN1" xml:space="preserve">
+    <value>N-1</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN2" xml:space="preserve">
+    <value>N-2</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN2Lower" xml:space="preserve">
+    <value>N-2 lower</value>
+  </data>
 </root>

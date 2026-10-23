@@ -121,4 +121,10 @@
   <data name="Property_IsEmployeeExists" xml:space="preserve">
     <value>Есть сотрудники на должности</value>
   </data>
+  <data name="Property_IsTop" xml:space="preserve">
+    <value>ТОП</value>
+  </data>
+  <data name="Property_PositionLevel" xml:space="preserve">
+    <value>Уровень штатной должности</value>
+  </data>
 </root>

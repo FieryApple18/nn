@@ -7,6 +7,238 @@ using Sungero.CoreEntities;
 namespace DirRX.NNCommons.Structures.Module
 {
 
+  #region Структуры для формирования отчета проверки корректности маршрутов.
+  
+  /// <summary>
+  /// Структура входных параметров для пакетного запроса экспорта схем.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class ExportPredictedSchemeRequest
+  {
+    /// <summary>
+    /// Выдал ид
+    /// </summary>
+    public long AssignedById { get; set; }
+    
+    /// <summary>
+    /// Исполнитель.
+    /// </summary>
+    public long AssigneeId { get; set; }
+    
+    /// <summary>
+    /// Тип документа.
+    /// </summary>
+    public string DocumentTypeName { get; set; }
+    
+    /// <summary>Id вида документа.</summary>
+    public long? DocDocumentKind { get; set; }
+
+    /// <summary>Id автора (Author).</summary>
+    public long? DocAuthor { get; set; }
+
+    /// <summary>Id нашей организации (BusinessUnit).</summary>
+    public long? DocBusinessUnit { get; set; }
+
+    /// <summary>Id подразделения (Department).</summary>
+    public long? DocDepartment { get; set; }
+
+    /// <summary>Id подписанта (Signatory / OurSignatory).</summary>
+    public long? DocSignatory { get; set; }
+
+    /// <summary>Id создателя / подготовившего (CreatedBy / PreparedBy).</summary>
+    public long? DocCreatedBy { get; set; }
+
+    /// <summary>Id адресата (Addressee) — для Memo.</summary>
+    public long? DocAddressee { get; set; }
+
+    /// <summary>Id подготовившего (PreparedBy) — отдельное поле для Memo/Statement.</summary>
+    public long? DocPreparedBy { get; set; }
+    
+    /// <summary>
+    /// Тип задачи.
+    /// </summary>
+    public string TaskTypeName { get; set; }
+  }
+
+  /// <summary>
+  /// Данные для формирования отчета.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class ProcessKindSchemeResult
+  {
+    /// <summary>
+    /// Ид варианта процесса.
+    /// </summary>
+    public long ProcessKindId { get; set; }
+    
+    /// <summary>
+    /// Имя варианта процесса.
+    /// </summary>
+    public string ProcessKindName { get; set; }
+    
+    /// <summary>
+    /// Список блоков схемы.
+    /// </summary>
+    public DirRX.NNCommons.Structures.Module.ISchemeExportInfo Scheme { get; set; }
+    
+    /// <summary>
+    /// Ошибки.
+    /// </summary>
+    public string Error { get; set; }
+
+    // --- Данные из карточки сотрудника ---
+    
+    /// <summary>
+    /// Имя нашей организации.
+    /// </summary>
+    public string OrganizationName { get; set; }
+    
+    /// <summary>
+    /// Ид раздела персоны.
+    /// </summary>
+    public long? PersonnelSectionId { get; set; }
+    
+    /// <summary>
+    /// Имя раздела персоны.
+    /// </summary>
+    public string PersonnelSectionName { get; set; }
+    
+    /// <summary>
+    /// Код раздела персоны.
+    /// </summary>
+    public string PersonnelNumber { get; set; }
+    
+    /// <summary>
+    /// Имя сотрудника.
+    /// </summary>
+    public string EmployeeName { get; set; }
+    
+    /// <summary>
+    /// Sap Ид должности.
+    /// </summary>
+    public string SapIdJobTitle { get; set; }
+    
+    /// <summary>
+    /// Имя должности.
+    /// </summary>
+    public string JobTitleName { get; set; }
+    
+    /// <summary>
+    /// Sap Ид подразделения.
+    /// </summary>
+    public string SapIdDepartment { get; set; }
+    
+    /// <summary>
+    /// Имя подразделения.
+    /// </summary>
+    public string DepartmentName { get; set; }
+
+    // --- Сформированные строки маршрута ---
+    
+    /// <summary>
+    /// Найденный маршрут.
+    /// </summary>
+    public string ApprovalRoute { get; set; }
+    
+    /// <summary>
+    /// Ненайденный маршрут.
+    /// </summary>
+    public string MissingSteps { get; set; }
+    
+  }
+  
+  /// <summary>
+  /// Информация о блоках для задачи.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class SchemeExportInfo
+  {
+    /// <summary>
+    /// Ид задачи.
+    /// </summary>
+    public long TaskId { get; set; }
+    
+    /// <summary>
+    /// Список блоков.
+    /// </summary>
+    public List<DirRX.NNCommons.Structures.Module.ISchemeBlockInfo> Blocks { get; set; }
+  }
+
+  /// <summary>
+  /// Информация о блоке.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class SchemeBlockInfo
+  {
+    /// <summary>
+    /// Ид.
+    /// </summary>
+    public string Id { get; set; }
+
+    /// <summary>
+    /// Название блока.
+    /// </summary>
+    public string Title { get; set; }
+    
+    /// <summary>
+    /// Тип блока.
+    /// </summary>
+    public string BlockType { get; set; }
+    
+    /// <summary>
+    /// Описание.
+    /// </summary>
+    public string Description { get; set; }
+    
+    /// <summary>
+    /// Срок исполнения.
+    /// </summary>
+    public DateTime? PredictedDeadline { get; set; }
+    
+    /// <summary>
+    /// Исполнители.
+    /// </summary>
+    public List<string> PredictedPerformers { get; set; }
+
+    /// <summary>
+    /// Список переходов.
+    /// </summary>
+    public List<DirRX.NNCommons.Structures.Module.ISchemeEdgeInfo> OutputEdges { get; set; }
+  }
+  
+  /// <summary>
+  /// Информация о переходе
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class SchemeEdgeInfo
+  {
+    /// <summary>
+    /// Переход безусловный.
+    /// </summary>
+    public bool Unconditional { get; set; }
+    
+    /// <summary>
+    /// Признак перехода Иначе.
+    /// </summary>
+    public bool Another { get; set; }
+    
+    /// <summary>
+    /// Значение перехода.
+    /// </summary>
+    public string Value { get; set; }
+  }
+
+  /// <summary>
+  /// Хранит пару предсозданных тестовых ресурсов (документ + задача) для переиспользования.
+  /// </summary>
+  partial class TestResource
+  {
+    public Sungero.Docflow.IOfficialDocument Document { get; set; }
+    public Sungero.Workflow.ITask Task { get; set; }
+  }
+  
+  #endregion
+  
   /// <summary>
   /// Структура для передачи информации о сотруднике в ЛК.
   /// </summary>

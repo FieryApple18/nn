@@ -29,7 +29,7 @@ namespace DirRX.NNOtherProcesses
       if (!WeekendWorkStatementDocuments.Equals(e.NewValue, e.OldValue))
       {
         _obj.IsGroup = e.NewValue?.IsGroup;
-        _obj.TopDirRX = e.NewValue?.TopDirRX;
+        _obj.IsNGDDirRX = e.NewValue?.IsNGDDirRX;
         Functions.WeekendWorkOrderDocument.FillName(_obj);
       }
     }

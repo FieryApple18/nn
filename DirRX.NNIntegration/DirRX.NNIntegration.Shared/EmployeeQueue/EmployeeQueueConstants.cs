@@ -92,5 +92,44 @@ namespace DirRX.NNIntegration.Constants
       [Public]
       public const string ForeignPassport = "ForeignPassport";
     }
+    
+    /// <summary>
+    /// Коды категорий сотрудника.
+    /// </summary>
+    public static class CategoryCodes
+    {
+      /// <summary>
+      /// Руководители.
+      /// </summary>
+      public const string Manager = "10";
+      /// <summary>
+      /// Руководители ЧТС.
+      /// </summary>
+      public const string ManagerCHTS = "11";
+      /// <summary>
+      /// Специалисты.
+      /// </summary>
+      public const string Specialist = "20";
+      /// <summary>
+      /// Специалисты ЧТС.
+      /// </summary>
+      public const string SpecialistCHTS = "21";
+      /// <summary>
+      /// Служащие.
+      /// </summary>
+      public const string Clerk = "30";
+      /// <summary>
+      /// Служащие ЧТС.
+      /// </summary>
+      public const string ClerkCHTS = "31";
+      /// <summary>
+      /// Рабочие.
+      /// </summary>
+      public const string Worker = "40";
+      /// <summary>
+      /// Рабочие ЧТС.
+      /// </summary>
+      public const string WorkerCHTS = "41";
+    }
   }
 }

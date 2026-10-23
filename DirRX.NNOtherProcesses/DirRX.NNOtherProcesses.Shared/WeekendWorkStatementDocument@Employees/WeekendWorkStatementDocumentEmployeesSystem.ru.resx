@@ -77,16 +77,16 @@
     <value>Дата работы по</value>
   </data>
   <data name="Property_FirstBreakFrom" xml:space="preserve">
-    <value>Первый перерыв с</value>
+    <value>Неоплачиваемый первый перерыв с</value>
   </data>
   <data name="Property_FirstBreakTo" xml:space="preserve">
-    <value>Первый перерыв по</value>
+    <value>Неоплачиваемый первый перерыв по</value>
   </data>
   <data name="Property_SecondBreakFrom" xml:space="preserve">
-    <value>Второй перерыв с</value>
+    <value>Неоплачиваемый второй перерыв с</value>
   </data>
   <data name="Property_SecondBreakTo" xml:space="preserve">
-    <value>Второй перерыв по</value>
+    <value>Неоплачиваемый второй перерыв по</value>
   </data>
   <data name="Property_Compensation" xml:space="preserve">
     <value>Компенсация</value>
@@ -114,5 +114,26 @@
   </data>
   <data name="Property_ChecksResult" xml:space="preserve">
     <value>Результат проверок</value>
+  </data>
+  <data name="Property_PaidBreak" xml:space="preserve">
+    <value>Полагается оплачиваемый перерыв</value>
+  </data>
+  <data name="Property_HoursCount" xml:space="preserve">
+    <value>Кол-во часов</value>
+  </data>
+  <data name="Property_PresenceCode" xml:space="preserve">
+    <value>Код присутствия</value>
+  </data>
+  <data name="Property_RestDateCanceled" xml:space="preserve">
+    <value>Доп. день отдыха отменен</value>
+  </data>
+  <data name="Property_Order" xml:space="preserve">
+    <value>Заказ</value>
+  </data>
+  <data name="Property_SppElement" xml:space="preserve">
+    <value>СПП-элемент</value>
+  </data>
+  <data name="Property_OtherRM" xml:space="preserve">
+    <value>Другое РМ</value>
   </data>
 </root>

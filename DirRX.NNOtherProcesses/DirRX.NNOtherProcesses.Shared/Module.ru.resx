@@ -179,8 +179,38 @@
   <data name="DefaultSubstitutionSystem_Name" xml:space="preserve">
     <value>КЭДО</value>
   </data>
+  <data name="NoINILAdata" xml:space="preserve">
+    <value>Нет данных о СНИЛС ребенка, обратитесь в кадровую службу</value>
+  </data>
+  <data name="TextMark_DueTo" xml:space="preserve">
+    <value>#DUETO</value>
+  </data>
+  <data name="TextMark_ExecControl" xml:space="preserve">
+    <value>#EXECCONTROL</value>
+  </data>
+  <data name="WeekendWorkRestStatementDocKind" xml:space="preserve">
+    <value>Заявление на доп. день отдыха за РВД</value>
+  </data>
+  <data name="WeekendWorkRestStatementDocument" xml:space="preserve">
+    <value>Заявление на доп. день отдыха</value>
+  </data>
+  <data name="WeekendWorkRestOrderDocument" xml:space="preserve">
+    <value>Приказ на доп. день отдыха</value>
+  </data>
+  <data name="GrantRestOrderDocKind" xml:space="preserve">
+    <value>Приказ на предоставление доп. дня отдыха</value>
+  </data>
+  <data name="CancelationRestOrderDocKind" xml:space="preserve">
+    <value>Приказ об отмене доп. дня отдыха</value>
+  </data>
   <data name="BusinessProcessChangeTermsEmplContract" xml:space="preserve">
     <value>Изменение условий трудового договора</value>
+  </data>
+  <data name="StatementSubmittedCurrentPeriod" xml:space="preserve">
+    <value>Заявление на выплату по ребенку уже оформлено в текущем периоде</value>
+  </data>
+  <data name="ExistStatementError" xml:space="preserve">
+    <value>Заявление на выплату уже оформлено и находится в работе.</value>
   </data>
   <data name="ShowAdditionalAgreementListFuncName" xml:space="preserve">
     <value>Реестр дополнительных соглашений к трудовому договору</value>
@@ -194,10 +224,34 @@
   <data name="CreateNotSignedAddtionalAgreementReportFuncName" xml:space="preserve">
     <value>Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору</value>
   </data>
+  <data name="WeekendWorkRestStatementDocKind" xml:space="preserve">
+    <value>Заявление на доп. день отдыха за РВД</value>
+  </data>
+  <data name="WeekendWorkRestStatementDocument" xml:space="preserve">
+    <value>Заявление на доп. день отдыха</value>
+  </data>
+  <data name="WeekendWorkRestOrderDocument" xml:space="preserve">
+    <value>Приказ на доп. день отдыха</value>
+  </data>
+  <data name="GrantRestOrderDocKind" xml:space="preserve">
+    <value>Приказ на предоставление доп. дня отдыха</value>
+  </data>
+  <data name="CancelationRestOrderDocKind" xml:space="preserve">
+    <value>Приказ об отмене доп. дня отдыха</value>
+  </data>
   <data name="NotSignedAddtionalAgreementReportDocKindNotFound" xml:space="preserve">
     <value>Вид документа 'Дополнительное соглашение к трудовому договору' не найден.</value>
   </data>
   <data name="NotSignedAdditionalAgreementReportFileName" xml:space="preserve">
     <value>Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору.xlsx</value>
+  </data>
+  <data name="StatementSubmittedInWork" xml:space="preserve">
+    <value>Заявление на выплату по ребенку уже оформлено и находится в работе</value>
+  </data>
+  <data name="ResponsibleTransferProcessRoleName" xml:space="preserve">
+    <value>Инициатор перевода</value>
+  </data>
+  <data name="ResponsibleTransferProcessRoleDescription" xml:space="preserve">
+    <value>Инициатор перевода</value>
   </data>
 </root>

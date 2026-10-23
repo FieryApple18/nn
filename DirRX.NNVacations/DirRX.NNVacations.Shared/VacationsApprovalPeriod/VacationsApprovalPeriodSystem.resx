@@ -89,7 +89,7 @@
     <value>Payment completed</value>
   </data>
   <data name="Property_Top" xml:space="preserve">
-    <value>TOP-10/100</value>
+    <value>TOP</value>
   </data>
   <data name="Property_NextVacationDays" xml:space="preserve">
     <value>Next vacation days</value>

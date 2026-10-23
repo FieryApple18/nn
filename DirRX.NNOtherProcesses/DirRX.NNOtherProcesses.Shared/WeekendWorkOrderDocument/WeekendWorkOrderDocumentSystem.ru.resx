@@ -169,4 +169,10 @@
   <data name="Action_CancelOrderDescription" xml:space="preserve">
     <value>Внесение изменений в действующий приказ (распоряжение) о работе в ВД/ПД/СР</value>
   </data>
+  <data name="Property_DueTo" xml:space="preserve">
+    <value>В связи с</value>
+  </data>
+  <data name="Property_ExecutionControl" xml:space="preserve">
+    <value>Контроль исполнения за</value>
+  </data>
 </root>

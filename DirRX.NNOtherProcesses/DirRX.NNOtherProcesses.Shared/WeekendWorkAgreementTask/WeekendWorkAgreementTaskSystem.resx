@@ -91,4 +91,16 @@
   <data name="Block_51147be031f242e8aeadaaa26d6ea526" xml:space="preserve">
     <value>Set rejected status for employee</value>
   </data>
+  <data name="AttachmentGroup_OtherGroupTitle" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="AttachmentGroup_OtherGroupInformationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AttachmentGroup_AddendaGroupTitle" xml:space="preserve">
+    <value>Addenda</value>
+  </data>
+  <data name="AttachmentGroup_AddendaGroupInformationMessage" xml:space="preserve">
+    <value />
+  </data>
 </root>

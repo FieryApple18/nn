@@ -67,13 +67,6 @@
   <data name="Block_55bc2751d382454981366bbc00ee460e" xml:space="preserve">
     <value>Заполнение признака «Выход отменен» в карточке документа (Заявка на привлечение к работе в ВД/ПД/СР)</value>
   </data>
-  <data name="JobDisplayName_490b8f70b1f74b05884cc20649251f35" xml:space="preserve">
-    <value>Актуализация признака "TOP-10/100" в документах (НЕ ЗАПУСКАТЬ)</value>
-  </data>
-  <data name="JobDescription_490b8f70b1f74b05884cc20649251f35" xml:space="preserve">
-    <value>Актуализация признака "TOP-10/100" в документах, если он не соответствует признаку НГД сотрудника.
-Рекомендуется отключить, после завершения актуализации. О завершении можно узнать из уведомления, приходящего администратору.</value>
-  </data>
   <data name="JobDisplayName_584a90de38674888b2cc539619bf0b85" xml:space="preserve">
     <value>Норникель. Очистка записей в справочнике "Замещение ЛК"</value>
   </data>
@@ -121,5 +114,29 @@
   </data>
   <data name="JobDescription_a0441e668db94d2ea13be295b97fd47d" xml:space="preserve">
     <value>Норникель. Рассылка отчета "Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору"</value>
+  </data>
+  <data name="Block_504d8201628040728e2b6a86b53a7dc7" xml:space="preserve">
+    <value>Создание заявление на доп. день отдыха</value>
+  </data>
+  <data name="Block_504d8201628040728e2b6a86b53a7dc7_Property_8ab0141f4c5f44689646195ce57490f0" xml:space="preserve">
+    <value>Сотрудник</value>
+  </data>
+  <data name="Block_504d8201628040728e2b6a86b53a7dc7_Property_9aee532844a54b4a8aa5121fa64000b8" xml:space="preserve">
+    <value>Заявка на привлечение к работе в ВД/ПД/СР</value>
+  </data>
+  <data name="Block_504d8201628040728e2b6a86b53a7dc7_Property_8ddf0de94c39450f99d839f53f211681" xml:space="preserve">
+    <value>Заявление на доп. день отдыха</value>
+  </data>
+  <data name="Block_15a179126ad74ac9a9dfd3efb45dd8d4" xml:space="preserve">
+    <value>Заполнение признака «Доп. день отдыха отменен» в карточке документа (Заявка на привлечение к работе в ВД/ПД/СР)</value>
+  </data>
+  <data name="Block_15a179126ad74ac9a9dfd3efb45dd8d4_Description" xml:space="preserve">
+    <value>Скрипт ищет основную задачу типа «Оформление отмены работы в ВД/ПД/СР». В заявке, связанной с приказом, устанавливает признак «Доп. день отдыха отменен» во всех сотрудниках из табличной части, указанных в поле «Работники» задачи.</value>
+  </data>
+  <data name="Block_10929aff4398430eae9f87ed9d4bba49" xml:space="preserve">
+    <value>Установка реквизитов в документе</value>
+  </data>
+  <data name="Block_10929aff4398430eae9f87ed9d4bba49_Property_bdff51bf44a5428b86577168456cf781_Enum_b33ca4b41b3f447993976c3308d3e0a4" xml:space="preserve">
+    <value>Ошибка блокировки</value>
   </data>
 </root>

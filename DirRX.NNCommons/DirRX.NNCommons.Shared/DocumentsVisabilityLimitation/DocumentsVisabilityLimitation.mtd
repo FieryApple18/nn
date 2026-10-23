@@ -103,7 +103,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
           "ParentGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
           "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
-          "RowNumber": 3,
+          "RowNumber": 4,
           "RowSpan": 1,
           "Settings": []
         },
@@ -118,6 +118,19 @@
           "ParentGuid": "2ce696a3-aa25-49ba-8db7-7b58c773367e",
           "PropertyGuid": "552f76cf-4555-42f6-a30d-409e357d704a",
           "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5485fa96-7c88-42d4-8b96-0ed356ea87c5",
+          "Name": "PersonnelSection",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "15b68b8f-4c70-4e40-a188-65c100d91427",
+          "PropertyGuid": "f115a8b9-7672-42a7-a40d-c4fd2ced169e",
+          "RowNumber": 3,
           "RowSpan": 1,
           "Settings": []
         }
@@ -200,6 +213,21 @@
       "EntityGuid": "3cecd3b3-1299-455f-a6a4-c946ed159e4d",
       "IsShowedInList": false,
       "PreviousPropertyGuid": "d33f8bde-39da-432e-9377-6bf218572d6f"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "f115a8b9-7672-42a7-a40d-c4fd2ced169e",
+      "Name": "PersonnelSection",
+      "CanBeSearch": false,
+      "Code": "PersSection",
+      "EntityGuid": "96584b38-af29-4141-bfb0-0b9907f1d536",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
+      "LeaderGuid": "d33f8bde-39da-432e-9377-6bf218572d6f",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "552f76cf-4555-42f6-a30d-409e357d704a",
+      "RelatedGuid": "bb817427-5582-4c8e-bec7-43c9a3b5cdb1"
     }
   ],
   "PublicFunctions": [
@@ -247,6 +275,45 @@
       "Placement": "Shared",
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "FilterLimitationsByPersonnelSection",
+      "Parameters": [
+        {
+          "Name": "limitations",
+          "ParameterType": "global::System.Linq.IQueryable<global::DirRX.NNCommons.IDocumentsVisabilityLimitation>",
+          "ParameterTypeFullName": "System.Linq.IQueryable"
+        },
+        {
+          "Name": "personnelSection",
+          "ParameterType": "global::DirRX.NNCommons.IPersonnelSection",
+          "ParameterTypeFullName": "DirRX.NNCommons.IPersonnelSection, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Linq.IQueryable<global::DirRX.NNCommons.IDocumentsVisabilityLimitation>",
+      "ReturnTypeFullName": "System.Linq.IQueryable"
+    },
+    {
+      "Name": "GetAllowedPersonnelSectionIds",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "availableBusinessUnits",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "businessUnitsWithGeneralLimitation",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
       "Name": "GetAvailableBusinessUnits",
@@ -301,6 +368,57 @@
         }
       ],
       "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.DocumentsVisabilityLimitation.IDocumentKindsInfo>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetAvailablePersonnelSections",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "availableBusinessUnits",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetBusinessUnitsWithGeneralLimitation",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "availableBusinessUnits",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetBusinessUnitsWithoutGeneralLimitation",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "availableBusinessUnits",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.Int64>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
       "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {

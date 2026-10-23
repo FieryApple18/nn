@@ -12,7 +12,9 @@ namespace DirRX.NNVacations.Client
   {
     public virtual bool CanStartShiftTask(Sungero.Domain.Client.CanExecuteActionArgs e)
     {
-      return _obj.Status == Sungero.Workflow.AssignmentBase.Status.InProcess;
+      return _obj.Status == Sungero.Workflow.AssignmentBase.Status.InProcess &&
+        (_obj.Performer.Equals(Users.Current) ||
+         (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true));
     }
 
     public virtual void StartShiftTask(Sungero.Domain.Client.ExecuteActionArgs e)
@@ -36,7 +38,8 @@ namespace DirRX.NNVacations.Client
 
     public virtual bool CanShift(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true;
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true));
     }
 
     public virtual void Confirm(Sungero.Workflow.Client.ExecuteResultActionArgs e)
@@ -51,7 +54,8 @@ namespace DirRX.NNVacations.Client
 
     public virtual bool CanConfirm(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true;
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true));
     }
 
   }

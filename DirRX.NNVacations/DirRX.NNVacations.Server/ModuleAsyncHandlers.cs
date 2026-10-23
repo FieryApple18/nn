@@ -10,6 +10,75 @@ namespace DirRX.NNVacations.Server
 {
   public partial class ModuleAsyncHandlers
   {
+
+    /// <summary>
+    /// Закрыть все записи спр. Информация по отпускам, связанные с графиком отпусков.
+    /// Запускается порционно.
+    /// </summary>
+    /// <param name="args">InformationIds - ИД записей для закрытия.</param>
+    public virtual void CloseVacationInformations(DirRX.NNVacations.Server.AsyncHandlerInvokeArgs.CloseVacationInformationsInvokeArgs args)
+    {
+      var logPrefix = "CloseVacationInformations";
+      Logger.DebugFormat("{0}.Список ИД записей: {1}. Итерация: {2}. Начало выполнения.", logPrefix, args.InformationIds, args.RetryIteration);
+      
+      var allInfoIds = args.InformationIds.Split(Constants.Module.ListIdsDelimiter).Select(x => long.Parse(x)).ToList();
+      var processedInfoIds = new List<long>();
+      foreach (var infoId in allInfoIds)
+      {
+        var info = VacationsInformations.GetAll().Where(i => i.Id == infoId).FirstOrDefault();
+        if (info != null && info.Status != NNVacations.VacationsInformation.Status.Closed)
+        {
+          try
+          {
+            if (!Locks.TryLock(info))
+            {
+              Logger.DebugFormat("{0}. ИД информации по отпуску: {1} заблокирован.", logPrefix, info.Id);
+              continue;
+            }
+            
+            info.Status = NNVacations.VacationsInformation.Status.Closed;
+            info.Save();
+            processedInfoIds.Add(infoId);
+          }
+          catch (Exception ex)
+          {
+            Logger.ErrorFormat("{0}. ИД информации по отпуску: {1}. Ошибка при сохранении элемента: {2}. StackTrace: {3}.",
+                               logPrefix, infoId, ex.Message, ex.StackTrace);
+          }
+          finally
+          {
+            if (Locks.GetLockInfo(info).IsLockedByMe)
+              Locks.Unlock(info);
+          }
+        }
+        else
+        {
+          processedInfoIds.Add(infoId);
+          Logger.DebugFormat("{0}. ИД информации по отпуску: {1}. Элемент пропущен.", logPrefix, infoId);
+        }
+      }
+      var remainingIds = allInfoIds.Except(processedInfoIds);
+      args.Retry = remainingIds.Any();
+      if (args.Retry && args.RetryIteration >= args.MaxRetryCount)
+      {
+        Logger.ErrorFormat("{0}. Превышено количество попыток. ИД необработанных записей: {1}", logPrefix, string.Join(Constants.Module.ListIdsDelimiter.ToString(), remainingIds.Select(x => x.ToString())));
+        args.Retry = false;
+        var document = VacationScheduleDocuments.GetAll().Where(x => x.Id == args.VacationScheduleDocumentId).FirstOrDefault();
+        var notice = Sungero.Workflow.SimpleTasks.CreateWithNotices(DirRX.NNVacations.Resources.CloseVacationInformationErrorNoticeSubject, document?.ScheduleResponsibleDirRX);
+        notice.ActiveText = DirRX.NNVacations.Resources.CloseVacationInformationErrorNoticeActiveTextFormat(string.Join(Constants.Module.ListIdsDelimiter.ToString(), remainingIds.Select(x => x.ToString())));
+        notice.Start();
+      }
+      else if (args.Retry)
+      {
+        args.InformationIds = string.Join(Constants.Module.ListIdsDelimiter.ToString(), remainingIds);
+        Logger.DebugFormat("{0}. Конец выполнения итерации. Асинхронный обработчик будет запущен повторно", logPrefix);
+      }
+      else
+      {
+        Logger.DebugFormat("{0}. Завершение работы Асинхронного обработчика.", logPrefix);
+      }
+    }
+    
     /// <summary>
     /// Создать и запустить задачу Ведение графика отпусков.
     /// </summary>
@@ -51,6 +120,7 @@ namespace DirRX.NNVacations.Server
         Constants.Module.ConstantsDefaultValues.CountCreateVacationInfoAndStartTaskInIteration;
       var vacInformations = vacScheduleDocInfoFromSAP.Employees;
       var partVacInformations = vacInformations.Skip(step * args.StepNumber).Take(step).ToList();
+      
       foreach (var vacInfo in partVacInformations)
       {
         Logger.DebugFormat("{0}. Табельный номер сотрудника: {1}. Начало обработки.", logPrefix, vacInfo.EmplPersNum);
@@ -66,15 +136,6 @@ namespace DirRX.NNVacations.Server
                                                     logPrefix, vacInfo.EmplPersNum, ex.Message, ex.StackTrace);
                                }
                              });
-      }
-      
-      var errorSearchVacationKinds = NNVacations.PublicFunctions.Module.CheckHasVacationKind(logPrefix, partVacInformations);
-      if (errorSearchVacationKinds.Any())
-      {
-        var activeText = string.Join(Environment.NewLine, errorSearchVacationKinds);
-        NNCommons.PublicFunctions.Module.SendSimpleTask(Roles.Administrators,
-                                                        DirRX.NNVacations.RegistrationOfAnnualLeaves.Resources.NotFoundTypeVacation,
-                                                        activeText);
       }
       
       if (partVacInformations.Count != 0)
@@ -97,6 +158,9 @@ namespace DirRX.NNVacations.Server
                  v.Year.Value.Year == vacationScheduleDocument.Year.Value.Year)
           .Select(v => v.Employee.PersonnelNumber);
         
+        //Собираем список ошибок неудачных созданий информации об отпуске чтобы потом отправить уведомление ответственному.
+        var errors = new List<string>();
+        
         var unprocessedEmployees = vacInformations.Select(v => v.EmplPersNum).Except(processedEmployees).ToList();
         if (unprocessedEmployees.Any())
         {
@@ -114,14 +178,23 @@ namespace DirRX.NNVacations.Server
                                    {
                                      Logger.ErrorFormat("{0}. Табельный номер сотрудника: {1}. Ошибка при сохранении информации по отпуску: {2}. StackTrace: {3}.",
                                                         logPrefix, vacInfo.EmplPersNum, ex.Message, ex.StackTrace);
+                                     errors.Add(DirRX.NNVacations.Resources.CreateVacationsInformationErrorFormat(vacInfo.EmplPersNum, ex.Message));
                                      args.Retry = true;
                                    }
                                  });
           }
         }
         
-        if (!args.Retry)
+        var retryExceeded = args.Retry && args.RetryIteration >= args.MaxRetryCount;
+        if (retryExceeded)
+          Logger.ErrorFormat("{0}. Превышено количество попыток создания записей справочника Информация по отпуску.", logPrefix);
+        
+        if (!args.Retry || retryExceeded)
         {
+          args.Retry = false;
+          
+          var errorsText = string.Join(Environment.NewLine, errors);
+          
           Logger.DebugFormat("{0}. Начало создания задачи Ведение графика отпусков.", logPrefix);
           Transactions.Execute(() =>
                                {
@@ -133,28 +206,24 @@ namespace DirRX.NNVacations.Server
                                    task.Department = Departments.As(vacationScheduleDocument.Department);
                                    task.Year = vacationScheduleDocument.Year;
                                    task.DocumentGroup.VacationScheduleDocuments.Add(vacationScheduleDocument);
+                                   task.LoadingErrorMessage = errorsText;
                                    task.Save();
                                    task.Start();
                                    Logger.DebugFormat("{0}. Ид задачи Ведение графика отпусков: {1}. Задача успешно запущена.", logPrefix, task.Id);
                                  }
                                  catch (Exception ex)
                                  {
-                                   Logger.ErrorFormat("{0}. Ошибка при запуске задачи Ведение графика отпусков: {1}. StackTrace: {2}.",
+                                   var errorFormat = string.Format("{0}. Ошибка при запуске задачи Ведение графика отпусков: {1}. StackTrace: {2}.",
                                                       logPrefix, ex.Message, ex.StackTrace);
-                                   args.Retry = true;
+                                   
+                                   Logger.ErrorFormat(errorFormat);
+                                   var errorSendNotifyText = NNIntegration.PublicFunctions.Module.SendNotificationAboutErrors(Resources.CreateVacationInfoAndStartTaskSubject, errorFormat, true, incomingMessage);
+                                   if (string.IsNullOrEmpty(errorSendNotifyText))
+                                     Logger.DebugFormat("{0}. Уведомление ответственному за ошибки успешно отправлено.", logPrefix);
+                                   else
+                                     Logger.ErrorFormat("{0}. {1}.", logPrefix, errorSendNotifyText);
                                  }
                                });
-        }
-
-        if (args.Retry && args.RetryIteration >= args.MaxRetryCount)
-        {
-          Logger.ErrorFormat("{0}. Превышено количество попыток создания записей справочника Информация по отпуску и формирования задачи.", logPrefix);
-          args.Retry = false;
-          var errorSendNotifyText = NNIntegration.PublicFunctions.Module.SendNotificationAboutErrors(Resources.CreateVacationInfoAndStartTaskSubject, string.Empty, true, incomingMessage);
-          if (string.IsNullOrEmpty(errorSendNotifyText))
-            Logger.DebugFormat("{0}. Уведомление ответственному за ошибки успешно отправлено.", logPrefix);
-          else
-            Logger.ErrorFormat("{0}. {1}.", logPrefix, errorSendNotifyText);
         }
       }
       
@@ -175,14 +244,9 @@ namespace DirRX.NNVacations.Server
     {
       var errorMessage = string.Empty;
       var employee = Employees.GetAll(e => e.PersonnelNumber == vacInfo.EmplPersNum).FirstOrDefault();
-      var vacationType = VacationKinds.GetAll(v => v.PlannedAbsenceDirRX == vacInfo.TypeVacation &&
-                                              Equals(v.BusinessUnitDirRX, employee.BusinessUnit))
-        .FirstOrDefault();
       
       if (employee == null)
         errorMessage += "Не найден Сотрудник. ";
-      if (vacationType == null)
-        errorMessage += string.Format("Тип отпуска: {0}. Не найден Тип отпуска. ", vacInfo.TypeVacation);
       if (!vacInfo.DateStart.HasValue)
         errorMessage += "Не заполнена Дата начала. ";
       if (!vacInfo.DateEnd.HasValue)
@@ -195,6 +259,13 @@ namespace DirRX.NNVacations.Server
       }
       else
       {
+        var vacationType = VacationKinds.GetAll(v => v.PlannedAbsenceDirRX == vacInfo.TypeVacation &&
+                                                Equals(v.BusinessUnitDirRX, employee.BusinessUnit))
+          .FirstOrDefault();
+        
+        if (vacationType == null)
+          throw AppliedCodeException.Create(string.Format("Тип отпуска: {0}. Не найден Тип отпуска. ", vacInfo.TypeVacation));
+        
         var vacationsInformation = VacationsInformations.Create();
         vacationsInformation.BusinessUnit = BusinessUnits.As(vacationScheduleDocument.BusinessUnit);
         vacationsInformation.Department = Departments.As(employee.Department);
@@ -204,6 +275,8 @@ namespace DirRX.NNVacations.Server
         vacationsInformation.StartDate = vacInfo.DateStart;
         vacationsInformation.EndDate = vacInfo.DateEnd;
         vacationsInformation.DaysAmount = vacInfo.DayCount;
+        vacationsInformation.VacationSchedule = vacationScheduleDocument;
+        vacationsInformation.ConsentHRPro = employee.ConsentHRPro == DirRX.OverrideSolution.Employee.ConsentHRPro.Signed;
         vacationsInformation.Save();
         Logger.DebugFormat("{0}. Табельный номер сотрудника: {1}. Запись справочника Информация по отпуску успешно создана.", logPrefix, vacInfo.EmplPersNum);
       }
@@ -325,7 +398,7 @@ namespace DirRX.NNVacations.Server
         try
         {
           Logger.DebugFormat("{0}. Начало выполнения SQL-запроса получения ид сотрудников.", logPrefix);
-          var command = string.Format(Queries.Module.GetEmployeesIdsForCreateIndividualLists, task.BusinessUnit.Id, year.Value.ToString("yyyy-MM-dd"), departmentId, docKind.Id, countCreateAcquiantanceListsInIteration);
+          var command = string.Format(Queries.Module.GetEmployeesIdsForCreateIndividualLists, vacationScheduleDocument.Id, docKind.Id, countCreateAcquiantanceListsInIteration);
           var commandExecutionResult = Sungero.Docflow.PublicFunctions.Module.ExecuteScalarSQLCommand(command);
           if (!(commandExecutionResult is DBNull) && commandExecutionResult != null)
           {
@@ -357,6 +430,7 @@ namespace DirRX.NNVacations.Server
                                    document.ConsentDirRX = consent;
                                    document.RegistrationNumber = vacationScheduleDocument.RegistrationNumber;
                                    document.RegistrationDate = vacationScheduleDocument.RegistrationDate;
+                                   document.VacationScheduleDocumentDirRX = vacationScheduleDocument;
                                    document.AccessRights.Grant(performer, DefaultAccessRightsTypes.Change);
                                    document.UpdateTemplateParameters();
                                    document.Save();
@@ -454,7 +528,8 @@ namespace DirRX.NNVacations.Server
                                                                      Departments.Equals(v.Department, department) &&
                                                                      v.Year.Value.Year == year &&
                                                                      v.ConsentDirRX == consent &&
-                                                                     v.AcquiantanceOptionDirRX == acquiantanceOption).Any())
+                                                                     v.AcquiantanceOptionDirRX == acquiantanceOption &&
+                                                                     v.VacationScheduleDocumentDirRX == vacationScheduleDocument).Any())
                                {
                                  try
                                  {
@@ -467,6 +542,7 @@ namespace DirRX.NNVacations.Server
                                    document.RegistrationNumber = vacationScheduleDocument.RegistrationNumber;
                                    document.RegistrationDate = vacationScheduleDocument.RegistrationDate;
                                    document.ApprovalDateDirRX = vacationScheduleDocument.ApprovalDateDirRX;
+                                   document.VacationScheduleDocumentDirRX = vacationScheduleDocument;
                                    document.AccessRights.Grant(performer, DefaultAccessRightsTypes.Change);
                                    
                                    var report = Reports.GetGroupAcquiantanceVacScheduleReport();
@@ -477,6 +553,11 @@ namespace DirRX.NNVacations.Server
                                    report.ApprovalDate = vacationScheduleDocument.ApprovalDateDirRX;
                                    report.RegDate = vacationScheduleDocument.RegistrationDate;
                                    report.RegNumber = vacationScheduleDocument.RegistrationNumber;
+                                   report.VacationScheduleId = vacationScheduleDocument.Id;
+                                   Logger.DebugFormat("BusinessUnitId: {0}. DepartmentId: {1}. Consent: {2}. Year: {3}. ApprovalDate: {4}. RegDate: {5}. RegNumber: {6}",
+                                                      vacationScheduleDocument.BusinessUnit.Id, department.Id, consent, year, vacationScheduleDocument.ApprovalDateDirRX,
+                                                      vacationScheduleDocument.RegistrationDate, vacationScheduleDocument.RegistrationNumber);
+                                   
                                    report.ExportTo(document);
                                    document.Save();
                                    processedDepartmentsIds.Add(allDepartmentIds[i]);
@@ -581,40 +662,147 @@ namespace DirRX.NNVacations.Server
     /// <param name="args">IncomingMessageId - ИД записи справочника очереди входящих сообщений интеграции.</param>
     public virtual void CreateVacationNoticesAndStartTasks(DirRX.NNVacations.Server.AsyncHandlerInvokeArgs.CreateVacationNoticesAndStartTasksInvokeArgs args)
     {
-      var logPrefix = string.Format("CreateVacationNoticesAndStartTasks. Ид записи: {0}", args.IncomingMessageId);
+      var logPrefix = string.Format("CreateVacationNoticesAndStartTasks. Ид входящего сообщения: {0}", args.IncomingMessageId);
       Logger.DebugFormat("{0}. Итерация: {1}. Начало выполнения.", logPrefix, args.RetryIteration);
       
-      var messageText = string.Empty;
-      var vacationsInfo = DirRX.NNIntegration.Structures.Module.VacationsInfo.Create();
-      var incomingMessage = NNIntegration.IncomingMessages.Null;
-      var errorEmployees = new List<NNIntegration.Structures.Module.IVacationInfoDateTime>();
+      var sapLegalEntityCodeDirRX = string.Empty;
+      var dateStart = Calendar.Now;
+          
       try
       {
-        incomingMessage = NNIntegration.IncomingMessages.GetAll(m => m.Id == args.IncomingMessageId).FirstOrDefault();
-        messageText = NNIntegration.PublicFunctions.IncomingMessage.Remote.GetIncomingMessageText(incomingMessage);
-        vacationsInfo = NNIntegration.IsolatedFunctions.Convert.DeserializeInStruct(messageText, vacationsInfo);
-        
-        var errorText = string.Empty;
-        var persNumbers = vacationsInfo.EmployeesVacationsInfo.Select(v => v.PersonnelNumber);
-        var employees = Employees.GetAll(e => persNumbers.Contains(e.PersonnelNumber)).Select(e => e.PersonnelNumber);
-        errorEmployees = vacationsInfo.EmployeesVacationsInfo.Where(v => !employees.Contains(v.PersonnelNumber)).ToList();
-        if (errorEmployees.Any())
+        //Загружаем входящее сообщение.
+        var incomingMessage = NNIntegration.IncomingMessages.GetAll(m => m.Id == args.IncomingMessageId).FirstOrDefault();
+        if (incomingMessage == null)
         {
-          vacationsInfo.EmployeesVacationsInfo = vacationsInfo.EmployeesVacationsInfo.Except(errorEmployees).ToList();
-          errorText = string.Format("Не найдены сотрудники с данными табельными номерами: {0}", string.Join(Constants.Module.ListIdsDelimiter.ToString() + " ", errorEmployees.Select(e => e.PersonnelNumber)));
+          Logger.ErrorFormat("{0}. Входящее сообщение не найдено.", logPrefix);
+          return;
         }
         
-        if (args.RetryIteration == 0)
-        {
-          if (!string.IsNullOrEmpty(vacationsInfo.ErrorText))
-            errorText += !string.IsNullOrEmpty(errorText) ? Environment.NewLine + vacationsInfo.ErrorText : vacationsInfo.ErrorText;
+        //Получаем данные по отпускам (десериализуем JSON входящего сообщения).
+        var messageText = NNIntegration.PublicFunctions.IncomingMessage.Remote.GetIncomingMessageText(incomingMessage);
+        var vacationsInfo = DirRX.NNIntegration.Structures.Module.VacationsInfo.Create();
+        //TODO: DeserializeInStruct имеет проверку: если DateStart и DateEnd не заполнены - запись не прошла десериализацию,
+        //в vacationsInfo заполнится ErrorText.
+        vacationsInfo = NNIntegration.IsolatedFunctions.Convert.DeserializeInStruct(messageText, vacationsInfo);
+        
+        //Если в vacationsInfo заполнено ErrorText. По таким ТН не отправляем статус в sap, только логируем.
+        if(!string.IsNullOrEmpty(vacationsInfo.ErrorText))
+          Logger.ErrorFormat("{0}. {1}.", logPrefix, vacationsInfo.ErrorText);
+        
+        var totalEmployeesCount = vacationsInfo.EmployeesVacationsInfo
+          .Select(v => v.PersonnelNumber)
+          .Distinct()
+          .Count();
           
-          if (!string.IsNullOrEmpty(errorText))
+        Logger.DebugFormat("{0}. Итерация: {1}. Всего получено табельных номеров: {2}. Всего отпусков: {3}.", logPrefix, args.RetryIteration, totalEmployeesCount, vacationsInfo.EmployeesVacationsInfo.Count);
+        
+        #region Проверяем наличие сотрудника по ТН и наличие типа отпуска.
+        //Проверяем наличие сотрудника по ТН.
+        var errorPersNumVacInfo = vacationsInfo.EmployeesVacationsInfo
+          .Where(v => !OverrideSolution.Employees.GetAll(e => e.PersonnelNumber == v.PersonnelNumber).Any())
+          .ToList();
+        
+        if (errorPersNumVacInfo.Any())
+        {
+          foreach (var errorVacInfo in errorPersNumVacInfo)
+            Functions.Module.SendingStatusVacationNoticeToSap(errorVacInfo, Constants.Module.CreateVacationNoticeResult.Error, "Не найден сотрудник по ТН");
+          
+          //Удаляем ошибочные записи, чтобы не проверять их дальше.
+          vacationsInfo.EmployeesVacationsInfo = vacationsInfo.EmployeesVacationsInfo.Except(errorPersNumVacInfo).ToList();
+        }
+        
+        //Проверяем наличие типа отпуска.
+        var personnelNumbers = vacationsInfo.EmployeesVacationsInfo.Select(v => v.PersonnelNumber).Distinct().ToList();
+        var employeeBusinessUnits = OverrideSolution.Employees.GetAll(e => personnelNumbers.Contains(e.PersonnelNumber) && e.BusinessUnitDirRX != null)
+          .Select(e => new NNVacations.Structures.Module.EmployeeBusinessUnitInfo
+                  {
+                    PersonnelNumber = e.PersonnelNumber,
+                    BusinessUnitDirRXId = e.BusinessUnitDirRX.Id
+                  })
+          .ToList()
+          .ToDictionary(e => e.PersonnelNumber, e=> e.BusinessUnitDirRXId);
+        
+        var errorVacKindVacInfo = vacationsInfo.EmployeesVacationsInfo
+          .Where(v => employeeBusinessUnits.ContainsKey(v.PersonnelNumber) &&
+                 !OverrideSolution.VacationKinds
+                 .GetAll(x => (x.PlannedAbsenceDirRX == v.TypeVacation ||
+                               x.PlannedAbsenceShiftDirRX == v.TypeVacation ||
+                               x.SAPIdDirRX == v.TypeVacation ||
+                               x.ActualAbsenceDirRX.Select(a => a.ActualAbsence).Contains(v.TypeVacation)) &&
+                         x.BusinessUnitDirRX != null &&
+                         x.BusinessUnitDirRX.Id == employeeBusinessUnits[v.PersonnelNumber])
+                 .Any())
+          .ToList();
+        
+        if (errorVacKindVacInfo.Any())
+        {
+          foreach (var errorVacInfo in errorVacKindVacInfo)
+            Functions.Module.SendingStatusVacationNoticeToSap(errorVacInfo, Constants.Module.CreateVacationNoticeResult.Error, "Не найден тип отпуска по ТН");
+          
+          //Удаляем ошибочные записи, чтобы не обрабатывать их дальше.
+          vacationsInfo.EmployeesVacationsInfo = vacationsInfo.EmployeesVacationsInfo.Except(errorVacKindVacInfo).ToList();
+        }
+        
+        //Отправляем результаты проверки на почту (Email приходит не всегда).
+        var emails = vacationsInfo.Emails?.Select(x => x.Email).ToList();
+        if ((emails != null && emails.Count > 0)
+            && (errorPersNumVacInfo.Any() || errorVacKindVacInfo.Any()))
+        {
+          if (employeeBusinessUnits.Any())
           {
-            var responsible = NNIntegration.PublicFunctions.Module.GetFlowResponsible(NNIntegration.PublicConstants.Module.ExternalSystemsFlowGuids.SendingVacationNotice);
-            var subject = Resources.CreateVacationNoticesAndStartTasksSubject;
-            DirRX.NNIntegration.PublicFunctions.Module.SendNotificationToResponsible(responsible, subject, errorText);
+            var employeeBusinessUnit = employeeBusinessUnits.First();
+            var businessUnit = OverrideSolution.BusinessUnits.Get(employeeBusinessUnit.Value);
+            sapLegalEntityCodeDirRX = businessUnit.SapLegalEntityCodeDirRX;
+            
+            var employeesVacationsInfo = vacationsInfo.EmployeesVacationsInfo.Where(x => x.PersonnelNumber == employeeBusinessUnit.Key).FirstOrDefault();
+            if (employeesVacationsInfo != null)
+              dateStart = employeesVacationsInfo.DateStart;
           }
+          
+          Functions.Module.SendVacationNoticeErrorToEmail(errorPersNumVacInfo, errorVacKindVacInfo, emails, sapLegalEntityCodeDirRX, dateStart);
+        }
+        #endregion
+        
+        //Разбиваем валидные отпуска на пачки по 100 ТН.
+        var uniqueValidEmployees = vacationsInfo.EmployeesVacationsInfo
+          .Select(v => v.PersonnelNumber)
+          .Distinct()
+          .ToList();
+        
+        Logger.DebugFormat("{0}. Итерация: {1}. Всего валидных табельных номеров {2}.", logPrefix, args.RetryIteration, uniqueValidEmployees.Count);
+   
+        for (int batchNumber = 0; batchNumber < uniqueValidEmployees.Count; batchNumber+= NNVacations.Constants.Module.DefaultCountInIterationAO)
+        {
+          // Берём 100 элементов или меньше (если это последняя пачка).
+          int count = Math.Min(NNVacations.Constants.Module.DefaultCountInIterationAO, uniqueValidEmployees.Count - batchNumber);
+          List<string> batchPersonalNumbersList = uniqueValidEmployees.GetRange(batchNumber, count);
+          
+          // Диапазон обрабатываемых ТН сотрудников.
+          var firstPersonnelNumber = batchNumber + 1;
+          var lastPersonnelNumber = batchNumber + count;
+          var batchNumberString = string.Format("{0}-{1}", firstPersonnelNumber, lastPersonnelNumber);
+          
+          // Создаём и запускаем АО.
+          Logger.DebugFormat("{0}. Создан асинхронный обработчик CreateVacationBatchProcessingTasks. Пачка: {1}.", logPrefix, batchNumberString);
+          var async = NNVacations.AsyncHandlers.CreateVacationBatchProcessingTasks.Create();
+          async.IncomingMessageId = args.IncomingMessageId;
+          async.PersonnelNumbers = string.Join(Constants.Module.ListIdsDelimiter.ToString(), batchPersonalNumbersList.ToArray());
+          async.BatchNumber = batchNumberString;
+          async.ExecuteAsync();
+          Logger.DebugFormat("{0}. Старт асинхронного обработчика CreateVacationBatchProcessingTasks. Пачка: {1}.", logPrefix, batchNumberString);
+        }
+        
+        var persNumbers = vacationsInfo.EmployeesVacationsInfo.Select(v => v.PersonnelNumber);
+        
+        //Собираем данные для текста письма по необработанным сотрудникам.
+        var employeeWithBU = Employees.GetAll(e => persNumbers.Contains(e.PersonnelNumber) && e.BusinessUnit != null).FirstOrDefault();
+        if (employeeWithBU != null)
+        {
+          sapLegalEntityCodeDirRX = OverrideSolution.BusinessUnits.As(employeeWithBU.BusinessUnit)?.SapLegalEntityCodeDirRX ?? string.Empty;
+          
+          var employeesVacationsInfo = vacationsInfo.EmployeesVacationsInfo.Where(x => x.PersonnelNumber == employeeWithBU.PersonnelNumber).FirstOrDefault();
+          if (employeesVacationsInfo != null)
+            dateStart = employeesVacationsInfo.DateStart;
         }
       }
       catch (Exception ex)
@@ -627,68 +815,137 @@ namespace DirRX.NNVacations.Server
         else
         {
           Logger.ErrorFormat("{0}. Ошибка выполнения. Асинхронный обработчик будет приостановлен. Текст ошибки: {1}. StackTrace: {2}.", logPrefix, ex.Message, ex.StackTrace);
-          var responsible = NNIntegration.PublicFunctions.Module.GetFlowResponsible(NNIntegration.PublicConstants.Module.ExternalSystemsFlowGuids.SendingVacationNotice);
-          var subject = Resources.CreateVacationNoticesAndStartTasksSubject;
-          DirRX.NNIntegration.PublicFunctions.Module.SendNotificationToResponsible(responsible, subject, ex.Message);
+          
+          NNCommons.PublicFunctions.Module.SendSimpleTask(Roles.Administrators,
+                                                          Resources.CreateVacationNoticesAndStartTasksSubject,
+                                                          ex.Message);
           args.Retry = false;
         }
-        return;
       }
       
-      var step = NNVacations.Constants.Module.DefaultCountInIterationAO;
-      var partVacationsInfo = vacationsInfo.EmployeesVacationsInfo.GroupBy(v => v.PersonnelNumber).Skip(step * args.RetryIteration).Take(step);
+      if (!args.Retry)
+        Logger.DebugFormat("{0}. Завершение асинхронного обработчика.", logPrefix);
+    }
+    
+    /// <summary>
+    /// Запустить задачу Регистрация ежегодного отпуска.
+    /// </summary>
+    /// <param name="args">IncomingMessageId - ИД записи справочника очереди входящих сообщений интеграции, PersonalNumbers - список ТН из очереди, по которым надо запустить задачу.</param>
+    public virtual void CreateVacationBatchProcessingTasks(DirRX.NNVacations.Server.AsyncHandlerInvokeArgs.CreateVacationBatchProcessingTasksInvokeArgs args)
+    {
+      var logPrefix = string.Format("CreateVacationBatchProcessingTasks. Ид входящего сообщения: {0}. Номер пачки: {1}", args.IncomingMessageId, args.BatchNumber);
+      Logger.DebugFormat("{0}. Итерация: {1}. Начало выполнения.", logPrefix, args.RetryIteration);
       
-      foreach (var vacInfo in partVacationsInfo)
+      try
       {
-        var errorVacInfo = Functions.RegistrationOfAnnualLeave.CreateRegistrationOfAnnualLeaveTask(logPrefix, vacInfo.ToList(), true);
-        if (errorVacInfo.Any())
-          Logger.ErrorFormat("{0}. Табельный номер сотрудника: {1}. Ошибка выполнения. Для сотрудника будет запущена повторная обработка.", logPrefix, errorVacInfo.First().PersonnelNumber);
-      }
-      
-      if (partVacationsInfo.Count() == step)
-      {
-        args.Retry = true;
-        return;
-      }
-      else
-      {
-        var employeePersonnelNumbers = RegistrationOfAnnualLeaves.GetAll(x => x.Started != null && x.Started > incomingMessage.ReceivedDate.Value).Select(t => t.Employee.PersonnelNumber);
-        
-        var unprocessedEmployees = vacationsInfo.EmployeesVacationsInfo.Select(v => v.PersonnelNumber).Except(employeePersonnelNumbers);
-        var remainingEmployees = new List<NNIntegration.Structures.Module.IVacationInfoDateTime>();
-        if (unprocessedEmployees.Any())
+        //Загружаем входящее сообщение.
+        var incomingMessage = NNIntegration.IncomingMessages.GetAll(m => m.Id == args.IncomingMessageId).FirstOrDefault();
+        if (incomingMessage == null)
         {
-          var unprocessedVacInformations = vacationsInfo.EmployeesVacationsInfo.Where(v => unprocessedEmployees.Contains(v.PersonnelNumber)).GroupBy(v => v.PersonnelNumber);
+          Logger.ErrorFormat("{0}. Входящее сообщение не найдено.", logPrefix);
+          return;
+        }
+        
+        //Получаем данные по отпускам (десериализуем JSON входящего сообщения).
+        var messageText = NNIntegration.PublicFunctions.IncomingMessage.Remote.GetIncomingMessageText(incomingMessage);
+        var vacationsInfo = DirRX.NNIntegration.Structures.Module.VacationsInfo.Create();
+        //TODO: DeserializeInStruct имеет проверку: если DateStart и DateEnd не заполнены - запись не прошла десериализацию,
+        //в vacationsInfo заполнится ErrorText.
+        vacationsInfo = NNIntegration.IsolatedFunctions.Convert.DeserializeInStruct(messageText, vacationsInfo);
+        
+        //Парсим табельные номера из args.
+        List<string> personnelNumbers = args.PersonnelNumbers
+          .Split(new [] { Constants.Module.ListIdsDelimiter.ToString() }, StringSplitOptions.RemoveEmptyEntries)
+          .Select(p => p.Trim())
+          .ToList();
+        
+        //Фильтруем записи и группируем по ТН.
+        var filteredVacations = vacationsInfo.EmployeesVacationsInfo.Where(v => personnelNumbers.Contains(v.PersonnelNumber));
+        
+        Logger.DebugFormat("{0}. Итерация: {1}. Список обрабатываемых ТН {2}.", logPrefix, args.RetryIteration, args.PersonnelNumbers);
+        
+        var groupedVacations = filteredVacations
+          .GroupBy(v => v.PersonnelNumber)
+          .ToList();
+        
+        foreach (var vacInfo in groupedVacations)
+        {
+          var errorVacInfo = Functions.RegistrationOfAnnualLeave.CreateRegistrationOfAnnualLeaveTask(logPrefix, vacInfo.ToList());
+          if (errorVacInfo.Any())
+            Logger.ErrorFormat("{0}. Табельный номер сотрудника: {1}. Ошибка выполнения. Для сотрудника будет запущена повторная обработка.", logPrefix, errorVacInfo.First().PersonnelNumber);
+        }
+        
+        //Определяем, кто уже обработан, а кто нет.
+        var employeePersonnelNumbers = RegistrationOfAnnualLeaves
+          .GetAll(x => x.Started != null && x.Started >  incomingMessage.ReceivedDate.Value)
+          .Select(t => t.Employee.PersonnelNumber)
+          .ToList();
+        
+        Logger.DebugFormat("{0}. Итерация: {1}. Список обработанных ТН {2}.", logPrefix, args.RetryIteration, string.Join(Constants.Module.ListIdsDelimiter.ToString(), employeePersonnelNumbers.ToArray()));
+        
+        var unprocessedPersonnelNumbers = filteredVacations
+          .Select(v => v.PersonnelNumber)
+          .Except(employeePersonnelNumbers)
+          .ToList();
+        
+        Logger.DebugFormat("{0}. Итерация: {1}. Список необработанных ТН {2}.", logPrefix, args.RetryIteration, string.Join(Constants.Module.ListIdsDelimiter.ToString(), unprocessedPersonnelNumbers.ToArray()));
+        
+        var remainingVacationsInfo = new List<NNIntegration.Structures.Module.IVacationInfoDateTime>();
+        
+        if (unprocessedPersonnelNumbers.Any())
+        {
+          var unprocessedVacInformations = filteredVacations
+            .Where(v => unprocessedPersonnelNumbers.Contains(v.PersonnelNumber))
+            .GroupBy(v => v.PersonnelNumber);
+          
           foreach (var vacInfo in unprocessedVacInformations)
           {
             Logger.DebugFormat("{0}. Начало повторной обработки.", logPrefix);
-            var errorVacInfo = Functions.RegistrationOfAnnualLeave.CreateRegistrationOfAnnualLeaveTask(logPrefix, vacInfo.ToList(), false);
-            if (errorVacInfo.Any())
-              remainingEmployees.AddRange(errorVacInfo);
+            
+            var errorVacInfoRepeat = Functions.RegistrationOfAnnualLeave.CreateRegistrationOfAnnualLeaveTask(logPrefix, vacInfo.ToList());
+            if (errorVacInfoRepeat.Any())
+              remainingVacationsInfo.AddRange(errorVacInfoRepeat);
+            
             Logger.DebugFormat("{0}. Повторная обработка завершена.", logPrefix);
           }
           
-          // Уведомить администратора.
-          var responsible = NNIntegration.PublicFunctions.Module.GetFlowResponsible(NNIntegration.PublicConstants.Module.ExternalSystemsFlowGuids.SendingVacationNotice);
-          if (remainingEmployees.Any() && responsible != null)
+          //Уведомить администратора о необработанных записях.
+          if (remainingVacationsInfo.Any())
           {
-            var subject = Resources.CreateVacationNoticesAndStartTasksSubject;
-            var text = string.Format(Resources.CreateVacationNoticesAndStartTasksActiveText, string.Join(", ", remainingEmployees.Select(e => e.PersonnelNumber)));
-            DirRX.NNIntegration.PublicFunctions.Module.SendNotificationToResponsible(responsible, subject, text);
+            var text = string.Format(Resources.CreateVacationNoticesAndStartTasksActiveText, string.Join(", ", remainingVacationsInfo.Select(e => e.PersonnelNumber)));
+            NNCommons.PublicFunctions.Module.SendSimpleTask(Roles.Administrators,
+                                                            Resources.CreateVacationNoticesAndStartTasksSubject,
+                                                            text);
           }
         }
         
-        var processedEmployees = vacationsInfo.EmployeesVacationsInfo.Where(v => !(errorEmployees.Contains(v) || remainingEmployees.Contains(v)));
-        foreach (var employeeVacInfo in processedEmployees)
-          Functions.Module.SendingStatusVacationNoticeToSap(employeeVacInfo, Constants.Module.CreateVacationNoticeResult.Successfully, string.Empty);
-        foreach (var employeeVacInfo in errorEmployees)
-          Functions.Module.SendingStatusVacationNoticeToSap(employeeVacInfo, Constants.Module.CreateVacationNoticeResult.Error, "Не найден сотрудник по ТН");
-        foreach (var employeeVacInfo in remainingEmployees)
-          Functions.Module.SendingStatusVacationNoticeToSap(employeeVacInfo, Constants.Module.CreateVacationNoticeResult.Error, "Ошибка при отправке уведомления");
+        //Отправляем статус в SAP о успешной отправке или об ошибке.
+        var processedEmployees = filteredVacations.Where(v => !remainingVacationsInfo.Contains(v)).ToList();
+        foreach (var vacInfo in processedEmployees)
+          Functions.Module.SendingStatusVacationNoticeToSap(vacInfo, Constants.Module.CreateVacationNoticeResult.Successfully, string.Empty);
+        foreach (var vacInfo in remainingVacationsInfo)
+          Functions.Module.SendingStatusVacationNoticeToSap(vacInfo, Constants.Module.CreateVacationNoticeResult.Error, "Ошибка при отправке уведомления");
         
-        if (errorEmployees.Any() || remainingEmployees.Any())
-          Functions.Module.SendVacationNoticeErrorToEmail(errorEmployees, remainingEmployees, vacationsInfo.Email);
+        Logger.DebugFormat("{0}. Успешно обработанно {1} записей.", logPrefix, processedEmployees.Count);
+        Logger.DebugFormat("{0}. Не обработано {1} записей. Ошибки при отправке уведомлений.", logPrefix, remainingVacationsInfo.Count);
+      }
+      catch (Exception ex)
+      {
         
+        if (args.RetryIteration < Constants.Module.CreateVacationNoticesAndStartTasksCountIterationError)
+        {
+          Logger.ErrorFormat("{0}. Ошибка выполнения. Асинхронный обработчик будет запущен повторно. Текст ошибки: {1}. StackTrace: {2}.", logPrefix, ex.Message, ex.StackTrace);
+          args.Retry = true;
+        }
+        else
+        {
+          Logger.ErrorFormat("{0}. Ошибка выполнения. Асинхронный обработчик будет приостановлен. Текст ошибки: {1}. StackTrace: {2}.", logPrefix, ex.Message, ex.StackTrace);
+          
+          NNCommons.PublicFunctions.Module.SendSimpleTask(Roles.Administrators,
+                                                          Resources.CreateVacationNoticesAndStartTasksSubject,
+                                                          ex.Message);
+          args.Retry = false;
+        }
       }
       
       if (!args.Retry)

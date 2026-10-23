@@ -7,32 +7,57 @@ using DirRX.OverrideSolution.DocRelatedToWorkBase;
 
 namespace DirRX.OverrideSolution
 {
+  partial class DocRelatedToWorkBasePersonnelSectionDirRXPropertyFilteringServerHandler<T>
+  {
+
+    public virtual IQueryable<T> PersonnelSectionDirRXFiltering(IQueryable<T> query, Sungero.Domain.PropertyFilteringEventArgs e)
+    {
+      if (_obj.PreparedBy != null)
+        query = query.Where(q => Equals(q.BusinessUnit, _obj.PreparedBy.BusinessUnit));
+      
+      return query;
+    }
+  }
+
   partial class DocRelatedToWorkBaseFilteringServerHandler<T>
   {
 
     public override IQueryable<T> Filtering(IQueryable<T> query, Sungero.Domain.FilteringEventArgs e)
     {
-      if (Employees.Current == null)
+      var needDisableFiltering = PublicFunctions.DocRelatedToWorkBase.NeedDisableFilteringForRoleModel();
+      
+      if (Employees.Current == null || needDisableFiltering)
         return base.Filtering(query, e);
       
+      // Проверяем, есть ли параметр, указывающий на отсутствие доступа к своей НОР сотрудника.
+      // Параметр добавляется в методе Prefiltering, если НОР сотрудника отсутствует в списке доступных НОР.
       var employeeParams = ((Sungero.Domain.Shared.IExtendedEntity)Employees.Current).Params;
       object paramValue;
-      
       if (employeeParams.TryGetValue(string.Format(NNCommons.PublicConstants.Module.RoleModel.AccessToBusinesUnitParamName, Employees.Current.Id), out paramValue))
       {
+        // Если доступа к своей НОР нет, то применяем специальную фильтрацию
         var hasAccessToBusinessUnit = (bool)paramValue;
-        
         if (!hasAccessToBusinessUnit)
         {
+          var businessUnitsIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+            .GetAvailableBusinessUnits(Employees.Current);
+          
+          var businessUnitsWithGeneralLimitation = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+            .GetBusinessUnitsWithGeneralLimitation(Employees.Current, businessUnitsIds);
+          
+          var allowedSectionIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+            .GetAllowedPersonnelSectionIds(Employees.Current, businessUnitsIds, businessUnitsWithGeneralLimitation);
+          
           // Получить список ИД документов, на которые у пользователя есть явные права в рамках его НОР.
           //HACK: Seleznyov_DV. Используется нелегальный LINQ запрос к таблице EdocReadAcess для ускорения работы фильтрации.
           var session = Sungero.Domain.Session.Current;
           
           if(Employees.Current != null && Employees.Current.Department != null)
-            query = query.Where(x => !BusinessUnits.Equals(x.BusinessUnit, Employees.Current.Department.BusinessUnit) ||
+            query = query.Where(x => (x.PersonnelSectionDirRX != null && allowedSectionIds.Contains(x.PersonnelSectionDirRX.Id)) || !BusinessUnits.Equals(x.BusinessUnit, Employees.Current.Department.BusinessUnit) ||
                                 (BusinessUnits.Equals(x.BusinessUnit, Employees.Current.Department.BusinessUnit) &&
                                  session.GetAll<Sungero.Content.Server.IDocumentReadAccess>().Any(r => r.EntityId == x.Id && r.RecipientId == Employees.Current.Id)));
           
+          // Удаляем параметр после использования, чтобы он не влиял на последующие запросы
           employeeParams.Remove(string.Format(NNCommons.PublicConstants.Module.RoleModel.AccessToBusinesUnitParamName, Users.Current.Id));
           
           return query;
@@ -45,18 +70,45 @@ namespace DirRX.OverrideSolution
     public override IQueryable<T> PreFiltering(IQueryable<T> query, Sungero.Domain.PreFilteringEventArgs e)
     {
       var needFiltering = NNCommons.PublicFunctions.Module.NeedDocumentsFiltration();
-      
-      if (!needFiltering || Employees.Current == null)
+      var employee = Employees.Current;
+      if (!needFiltering || employee == null)
         return base.PreFiltering(query, e);
+
+      // 1. Получаем доступные НОР
+      var businessUnitsIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetAvailableBusinessUnits(employee);
+
+      // 2. Фильтрация по НОР
+      query = query.Where(x => x.BusinessUnit != null &&
+                          (businessUnitsIds.Contains(x.BusinessUnit.Id) || x.BusinessUnit.Id == employee.BusinessUnit.Id));
+
+      // 3. Определяем НОР с общим ограничением (без раздела)
+      var businessUnitsWithGeneralLimitation = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetBusinessUnitsWithGeneralLimitation(employee, businessUnitsIds);
+
+      // 4. Получаем все разрешенные разделы
+      var allowedSectionIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation
+        .GetAllowedPersonnelSectionIds(employee, businessUnitsIds, businessUnitsWithGeneralLimitation);
+
+      // 5. Если НОР сотрудника нет в общих ограничениях, добавляем параметр
+      if (!businessUnitsWithGeneralLimitation.Any(id => id == employee.BusinessUnit.Id))
+        ((Sungero.Domain.Shared.IExtendedEntity)employee).Params
+          .Add(string.Format(NNCommons.PublicConstants.Module.RoleModel.AccessToBusinesUnitParamName, employee.Id), false);
       
-      var businessUnitsIds = NNCommons.PublicFunctions.DocumentsVisabilityLimitation.GetAvailableBusinessUnits(Employees.Current);
-      
-      if (!businessUnitsIds.Any(id => id == Employees.Current.BusinessUnit.Id))
-        ((Sungero.Domain.Shared.IExtendedEntity)Employees.Current).Params
-          .Add(string.Format(NNCommons.PublicConstants.Module.RoleModel.AccessToBusinesUnitParamName, Employees.Current.Id), false);
-      
-      return query.Where(x => x.BusinessUnit != null &&
-                         (businessUnitsIds.Contains(x.BusinessUnit.Id) || x.BusinessUnit.Id == Employees.Current.BusinessUnit.Id));
+      // 6. Фильтрация по разделам.
+      query = query.Where(x =>
+                          // Фильтруем по НОР сотрудника на случай, если есть экземплярные права.
+                          employee.BusinessUnit.Id == x.BusinessUnit.Id ||
+                          
+                          // НОР с общим ограничением -> все разделы доступны
+                          businessUnitsWithGeneralLimitation.Contains(x.BusinessUnit.Id) ||
+                          
+                          // Для остальных НОР -> проверяем по списку разрешенных разделов
+                          (x.PersonnelSectionDirRX != null &&
+                           allowedSectionIds.Contains(x.PersonnelSectionDirRX.Id))
+                         );
+
+      return query;
     }
   }
 
@@ -78,12 +130,11 @@ namespace DirRX.OverrideSolution
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
       base.Created(e);
-      
-      // В HR св-во продолжает использоваться. Есть метод SetLifeCycleStateByHRLifeCycleState который "правильно" 
+      // В HR св-во продолжает использоваться. Есть метод SetLifeCycleStateByHRLifeCycleState который "правильно"
       // синхронизирует значения из HRLifeCycleStateHRPro в LifeCycleState и InternalApprovalState.
       // Используется в HRLifeCycleStateHRProChanged официального документа.
       _obj.HRLifeCycleStateHRPro = DocRelatedToWorkBase.HRLifeCycleStateHRPro.Draft;
-      _obj.TopDirRX = false;
+      _obj.IsNGDDirRX = false;
       
       // HACK: Seleznyov_DV. Обход очистки НОР для ненумеруемых документов.
       // При сохранении документа вызывается коробочная разделяемая функция ClearBusinessUnit() официального документа,

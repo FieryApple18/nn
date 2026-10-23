@@ -16,6 +16,30 @@
         }
       ],
       "IsEnabled": false
+    },
+    {
+      "NameGuid": "87847bbb-fa91-475a-95e9-8f8d6d3acfd0",
+      "Name": "AddendaGroup",
+      "Constraints": [
+        {
+          "NameGuid": "6bd65cc6-5738-4d94-9f4d-766763e0af1d",
+          "Name": "OfficialDocuments",
+          "ConstraintTypeId": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e"
+        }
+      ],
+      "PreviousGroupId": "c05d7a2a-be88-4403-862c-bc0dc69dda7a"
+    },
+    {
+      "NameGuid": "3542653e-37da-4d19-be90-9bf221ff6d61",
+      "Name": "OtherGroup",
+      "Constraints": [
+        {
+          "NameGuid": "976e33a3-b7ec-41d9-ba00-44304d3d3fbf",
+          "Name": "OfficialDocuments",
+          "ConstraintTypeId": "ad73f9d0-d9c1-4c0f-bb2a-e98e3a90af1e"
+        }
+      ],
+      "PreviousGroupId": "87847bbb-fa91-475a-95e9-8f8d6d3acfd0"
     }
   ],
   "BaseGuid": "d795d1f6-45c1-4e5e-9677-b53fb7280c7e",

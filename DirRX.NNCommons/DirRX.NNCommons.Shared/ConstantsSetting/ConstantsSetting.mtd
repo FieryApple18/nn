@@ -119,7 +119,7 @@
           "NameGuid": "374f05f5-feee-4105-9f65-450395f9bf41",
           "Name": "StringValue",
           "ColumnNumber": 0,
-          "ColumnSpan": 1,
+          "ColumnSpan": 3,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
           "ParentGuid": "733d9f32-b58b-40ef-aa06-57fdbe106051",
           "PropertyGuid": "c3bb6a28-a42f-49b7-8e8d-9be968e3e39e",
@@ -376,6 +376,7 @@
       "Name": "StringValue",
       "Code": "StringValue",
       "IsShowedInList": false,
+      "Length": 1000,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "f7614c77-4c51-4dfc-bedf-04af70c1e904"
     },
@@ -423,6 +424,7 @@
       "NameGuid": "b5b1971f-0b6a-4e6a-bcfb-08aff335578f",
       "Name": "PublicValue",
       "Code": "PublicValue",
+      "Length": 1000,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "5bb0d056-123e-41ed-af84-b10fe206be79"
     },
@@ -481,7 +483,7 @@
       "NameGuid": "105bb4aa-acf6-4640-b880-0f85c9f3a18c",
       "Name": "Note",
       "Code": "Note",
-      "Length": 255,
+      "Length": 1000,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "cd0b6c53-6d07-4830-a240-81d6c02776b3"
     },

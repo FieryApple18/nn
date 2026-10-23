@@ -67,7 +67,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
           "ParentGuid": "e7f90b5f-5376-4c82-b706-ddfc629cda5d",
           "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
-          "RowNumber": 2,
+          "RowNumber": 3,
           "RowSpan": 1,
           "Settings": [],
           "Versions": []
@@ -107,7 +107,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
           "ParentGuid": "e7f90b5f-5376-4c82-b706-ddfc629cda5d",
           "PropertyGuid": "ae6a7162-428b-4701-a315-2df425e5620e",
-          "RowNumber": 2,
+          "RowNumber": 3,
           "RowSpan": 1,
           "Settings": []
         },
@@ -120,7 +120,20 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
           "ParentGuid": "e7f90b5f-5376-4c82-b706-ddfc629cda5d",
           "PropertyGuid": "96e10803-29b6-4875-bc0e-a105a937d36b",
-          "RowNumber": 3,
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "b5bf700c-201a-4e78-b4c1-aea6a986455c",
+          "Name": "PositionLevelDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "e7f90b5f-5376-4c82-b706-ddfc629cda5d",
+          "PropertyGuid": "ff2a3b85-fc2e-4171-bafb-cd26a4609bcf",
+          "RowNumber": 2,
           "RowSpan": 1,
           "Settings": []
         }
@@ -153,6 +166,7 @@
       "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
       "NameGuid": "41e8d271-f739-4544-a569-24b3aa5dea61",
       "Name": "EvaluationGroupDirRX",
+      "CanBeSearch": false,
       "Code": "EvaluationGr",
       "DirectValues": [
         {
@@ -171,6 +185,8 @@
           "Code": "OutOfCategories"
         }
       ],
+      "IsEnabled": false,
+      "IsShowedInList": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
       "PreviousPropertyGuid": "ae6a7162-428b-4701-a315-2df425e5620e"
     },
@@ -200,6 +216,67 @@
       "Code": "IsEmployeeExis",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
       "PreviousPropertyGuid": "6eb80c16-5a04-43c9-8914-f712748e6a4e"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "84806f27-5b59-46e9-9ba0-5c9c05b45a61",
+      "Name": "IsTopDirRX",
+      "Code": "IsTopDirRX",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "96e10803-29b6-4875-bc0e-a105a937d36b"
+    },
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ff2a3b85-fc2e-4171-bafb-cd26a4609bcf",
+      "Name": "PositionLevelDirRX",
+      "Code": "PositionLevelD",
+      "DirectValues": [
+        {
+          "NameGuid": "9dcdd6be-8c62-4b23-a9f8-38971d71ce98",
+          "Name": "RCCN",
+          "Code": "RCCN"
+        },
+        {
+          "NameGuid": "7f899c49-fe97-49cb-94af-99f2aa674711",
+          "Name": "RCCN1",
+          "Code": "RCCN1"
+        },
+        {
+          "NameGuid": "80fee7c5-0016-40cc-a4e3-bbaa6b7e89c4",
+          "Name": "RCCN2",
+          "Code": "RCCN2"
+        },
+        {
+          "NameGuid": "f18ee804-ce2e-4d68-a9a4-d9bb7a1bd4e8",
+          "Name": "RCCN2Lower",
+          "Code": "RCCN2Lower"
+        }
+      ],
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+      "PreviousPropertyGuid": "84806f27-5b59-46e9-9ba0-5c9c05b45a61"
+    }
+  ],
+  "PublicFunctions": [
+    {
+      "Name": "GetJobTitlePositionLevel",
+      "Parameters": [
+        {
+          "Name": "jobTitle",
+          "ParameterType": "global::DirRX.OverrideSolution.IJobTitle",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IJobTitle, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "positionLevel",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::Sungero.Core.Enumeration",
+      "ReturnTypeFullName": "Sungero.Core.Enumeration, Sungero.Domain.Shared"
     }
   ],
   "PublicStructures": [],

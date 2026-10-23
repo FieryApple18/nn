@@ -13,6 +13,55 @@ namespace DirRX.OverrideSolution.Module.EssPlatform.Server
 {
   partial class ModuleFunctions
   {
+    /// <summary>
+    /// Получить список сотрудников персоны, отсортированный по виду занятости.
+    /// HACK: коробочная копипаста с доработкой, чтобы не учитывался заполненный логин.
+    /// Сотрудники сортируются в порядке:
+    /// 1. Вид занятости (по убыв.) - сначала Основное место работы
+    /// 2. Ид (по возр.) - сначала сотрудники, созданные раньше.
+    /// После сортировки Основным местом работы считается сотрудник, указанный первым в списке.
+    /// </summary>
+    /// <param name="personId">Идентификатор персоны.</param>
+    /// <param name="activeOnly">Только действующие.</param>
+    /// <returns>Список сотрудников.</returns>
+    private IOrderedQueryable<EssPlatformSolution.IEmployee> EmployeesByPersonIdWithoutLogin(long personId, bool activeOnly)
+    {
+      var employees = EssPlatformSolution.Employees.GetAll()
+        .Where(w => (activeOnly && w.Status == Sungero.Company.Employee.Status.Active) || !activeOnly)
+        .Where(w => w.Person != null)
+        .Where(w => w.Person.Id == personId)
+        .OrderByDescending(e => e.EmploymentType != null)
+        // cортирует по виду занятости в следующем порядке: Основное место -> Внешнее совместительство -> Внутреннее совместительство;
+        // делает это таким образом, потому что естественный порядок сортировки EmploymentType другой, а компаратор использовать нельзя
+        .ThenBy(e => e.EmploymentType != DirRX.EssPlatformSolution.Employee.EmploymentType.MainPlace)
+        .ThenBy(e => e.EmploymentType != DirRX.EssPlatformSolution.Employee.EmploymentType.ExternalConcurr)
+        .ThenBy(e => e.EmploymentType != DirRX.EssPlatformSolution.Employee.EmploymentType.InternalConcurr)
+        .ThenBy(e => e.Id);
+      
+      return employees;
+    }
+    
+    /// <summary>
+    /// Возвращает список идентификаторов сотрудников, у которых настроены замещения.
+    /// Перекрывать не стали, т.к. много где используется. Нужен более подробный анализ, в том числе и в платформе ЛК.
+    /// </summary>
+    /// <param name="personId">Ид персоны.</param>
+    /// <returns>Список идентификаторов сотрудников.
+    /// Если у персоны нет замещений, возвращется список из одного идентификатора.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public virtual List<long> GetPersonEmployeeIdsNN(long personId)
+    {
+      var userIds = new List<long>();
+      
+      // Сделано для того, чтобы в Actors в первом элементе передавался сотрудник по основному месту работы.
+      // В коробочной логике сотрудник с заполненным логином мог быть не по основному месту работы.
+      var employeeIds = EmployeesByPersonIdWithoutLogin(personId, true).Select(c => c.Id).ToList();
+      
+      userIds.AddRange(employeeIds);
+      userIds.AddRange(base.GetPersonCandidateIds(personId));
+      return userIds;
+    }
+    
     public override List<long> GetActiveEmployeeActors(long personId)
     {
       // Коробочная логика. Исключаются сотрудники, для которых есть действующий кандидат.
@@ -21,7 +70,7 @@ namespace DirRX.OverrideSolution.Module.EssPlatform.Server
       
       // HACK: Исправлен дефект с сортировкой списка действующих акторов с учётом совместительства.
       // Используется коробочная функция, которая возвращает действующих сотрудников, отсортированных по приоритету.
-      var employeeIds = this.GetPersonEmployeeIds(personId);
+      var employeeIds = this.GetPersonEmployeeIdsNN(personId);
       Logger.DebugFormat("GetActiveEmployeeActors. ИД персоны: '{0}.' Отфильтрованный список сотрудников персоны: {1}.", personId, string.Join(",", employeeIds));
       
       // ЗНИ по работе с замещениями в ЛК.

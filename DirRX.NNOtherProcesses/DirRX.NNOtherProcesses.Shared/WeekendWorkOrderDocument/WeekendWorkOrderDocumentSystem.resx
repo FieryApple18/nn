@@ -175,4 +175,10 @@
   <data name="Action_CancelOrderConfirmationDescription" xml:space="preserve">
     <value />
   </data>
+  <data name="Property_DueTo" xml:space="preserve">
+    <value>Due to</value>
+  </data>
+  <data name="Property_ExecutionControl" xml:space="preserve">
+    <value>Execution control</value>
+  </data>
 </root>

@@ -190,4 +190,7 @@
   <data name="Property_WorkDate" xml:space="preserve">
     <value>Дата работы</value>
   </data>
+  <data name="Property_PaidBreakConditions" xml:space="preserve">
+    <value>Условия оплачиваемого перерыва</value>
+  </data>
 </root>

@@ -40,7 +40,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
-          "Name": "LeftGroup",
+          "Name": "LeftGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -51,7 +51,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "28a6d4a8-a26a-467b-8fe6-da426092ec4a",
-          "Name": "RightGroup",
+          "Name": "RightGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -401,6 +401,19 @@
           "RowNumber": 2,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "ab1f8296-1efa-41e2-ab0e-596b6fcd70fd",
+          "Name": "IsNGDDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "3d411ab8-967c-43b4-ab77-0240b19d9921",
+          "PropertyGuid": "17301247-79c2-4647-b0f5-f1bd3f866d20",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
         }
       ],
       "IsAncestorMetadata": true,
@@ -415,11 +428,9 @@
     "BeforeSaveServer",
     "ShowingClient"
   ],
-  "HideFromCreationArea": true,
   "HideFromNavigationEditorCreationArea": true,
   "IconResourcesKeys": [],
   "IntegrationServiceName": "NNOtherProcessesWeekendWorkOrderDocument",
-  "IsAutoCreated": true,
   "IsVisible": false,
   "OpenCardByDefaultInCollection": true,
   "OperationsClass": "",
@@ -515,6 +526,24 @@
       "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "eeeb62ec-9e9b-4666-9b49-d165a99efffe"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "869c73ba-b13f-40f1-8fc8-4f510328bbf9",
+      "Name": "DueTo",
+      "Code": "DueTo1",
+      "Length": 1000,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "3a6ed903-3e4d-4d00-9996-811ffcb18d0e"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "b5b12b60-8a72-4bcc-be80-5d8c46cec8fe",
+      "Name": "ExecutionControl",
+      "Code": "ExecutionCont1",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "869c73ba-b13f-40f1-8fc8-4f510328bbf9"
     }
   ],
   "PublicFunctions": [

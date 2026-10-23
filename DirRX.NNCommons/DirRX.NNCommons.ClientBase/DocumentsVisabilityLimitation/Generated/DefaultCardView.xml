@@ -30,6 +30,7 @@
             <property name="Name">DocumentsVisabilityLimitation_Employees_Employee</property>
             <property name="FieldName">Employee</property>
             <property name="VisibleIndex">0</property>
+            <property name="Width">91</property>
             <property name="ActualWidth">10*</property>
           </property>
         </property>

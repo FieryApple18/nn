@@ -61,8 +61,8 @@
   <data name="NameTemplate" xml:space="preserve">
     <value>{0}. {1}</value>
   </data>
-  <data name="TopName" xml:space="preserve">
-    <value>ТОП</value>
+  <data name="NGDName" xml:space="preserve">
+    <value>НГД</value>
   </data>
   <data name="FindDuplicatesError" xml:space="preserve">
     <value>Обнаружены дублирующие записи.</value>
@@ -70,7 +70,7 @@
   <data name="RecordNameAutotext" xml:space="preserve">
     <value>&lt;Имя будет сформировано автоматически по реквизитам записи&gt;</value>
   </data>
-  <data name="NotTopName" xml:space="preserve">
-    <value>Не ТОП</value>
+  <data name="NotNGDName" xml:space="preserve">
+    <value>Не НГД</value>
   </data>
 </root>

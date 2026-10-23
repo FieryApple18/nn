@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -12,7 +12,12 @@ namespace DirRX.OverrideSolution
 
     public override void EmployeeDirRXChanged(DirRX.OverrideSolution.Shared.DocRelatedToWorkBaseEmployeeDirRXChangedEventArgs e)
     {
+      // Не должно заполняться св-во ТОП.
+      var top = _obj.IsTopDirRX;
       base.EmployeeDirRXChanged(e);
+      if (_obj.IsTopDirRX != top)
+        _obj.IsTopDirRX = top;
+      
       this.FillName();
     }
 

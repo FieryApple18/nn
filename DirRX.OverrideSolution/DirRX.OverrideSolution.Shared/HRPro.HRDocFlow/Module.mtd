@@ -496,7 +496,7 @@
           "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
           "NameGuid": "0301cb33-d5c0-4bc1-8be9-0d19bda17a72",
           "Name": "AllowOpinionDirRX",
-          "PreviousPropertyGuid": "db8667f1-c463-4db2-82eb-072071686707"
+          "PreviousPropertyGuid": "2d4117cc-1930-437e-98ff-eb1bd4bf937f"
         },
         {
           "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
@@ -510,7 +510,7 @@
           "Name": "SupernikaActionsDirRX",
           "EntityGuid": "a96006b5-a7c7-4c80-8868-b2ad3f75e060",
           "IsCollection": true,
-          "PreviousPropertyGuid": "968e96a8-b4cd-4951-8d78-c95390afc123"
+          "PreviousPropertyGuid": "e3be2231-7e76-4a5a-a2d1-e2d04aafb12f"
         },
         {
           "$type": "Sungero.Metadata.StringBlockPropertyMetadata, Sungero.Metadata",
@@ -529,6 +529,18 @@
           "NameGuid": "5e4ef537-cd5a-425a-b0a3-a9900af7625b",
           "Name": "NeedEmailNotificationDirRX",
           "PreviousPropertyGuid": "2fa198a4-a71d-447f-b39b-721419a6f905"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "3aaf31fa-4013-48e5-8c0c-45d4cc412212",
+          "Name": "NotSendIfApprovedDirRX",
+          "PreviousPropertyGuid": "e3be2231-7e76-4a5a-a2d1-e2d04aafb12f"
+        },
+        {
+          "$type": "Sungero.Metadata.BooleanBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "2d4117cc-1930-437e-98ff-eb1bd4bf937f",
+          "Name": "ShowAddApproversDirRX",
+          "PreviousPropertyGuid": "3aaf31fa-4013-48e5-8c0c-45d4cc412212"
         }
       ]
     },

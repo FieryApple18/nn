@@ -17,7 +17,7 @@ namespace DirRX.NNIntegration
 
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
-      _obj.ProcessingStatus = CompanyQueueBase.ProcessingStatus.Created;
+      _obj.ProcessingStatus = CompanyQueueBase.ProcessingStatus.Recent;
       _obj.ReceivedDate = Calendar.Now;
       _obj.RecordStartDate = Calendar.Now;
     }

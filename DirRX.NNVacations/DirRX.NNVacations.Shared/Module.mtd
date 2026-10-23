@@ -111,7 +111,7 @@
       "DelayPeriod": 10,
       "DelayStrategy": "RegularDelayStrategy",
       "IsHandlerGenerated": true,
-      "MaxRetryCount": 5,
+      "MaxRetryCount": 2,
       "Parameters": [
         {
           "NameGuid": "0beb26b7-13d3-4145-b089-40c03d828d1e",
@@ -126,6 +126,51 @@
         {
           "NameGuid": "916a39b8-b962-472d-9c9a-f9f4909bd402",
           "Name": "VacationScheduleDocumentId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "c61a3be0-0e49-4862-93f8-af0445f68979",
+      "Name": "CloseVacationInformations",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "MaxRetryCount": 10,
+      "Parameters": [
+        {
+          "NameGuid": "1f71de72-0a42-44fb-a629-1ad2ee804283",
+          "Name": "InformationIds",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "70f77c66-f74b-474b-b720-040317197927",
+          "Name": "VacationScheduleDocumentId",
+          "ParameterType": "LongInteger"
+        }
+      ]
+    },
+    {
+      "NameGuid": "bd2e5eed-bc46-45d7-908c-44af5b7e386f",
+      "Name": "CreateVacationBatchProcessingTasks",
+      "DelayPeriod": 5,
+      "DelayStrategy": "RegularDelayStrategy",
+      "IsHandlerGenerated": true,
+      "MaxRetryCount": 5,
+      "Parameters": [
+        {
+          "NameGuid": "4c279ae5-b320-48d9-975e-e4479a26225e",
+          "Name": "BatchNumber",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "d983702b-61c6-4428-8257-88e00419261c",
+          "Name": "PersonnelNumbers",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "f003b435-a5a6-4a53-b57f-8da26db4c137",
+          "Name": "IncomingMessageId",
           "ParameterType": "LongInteger"
         }
       ]
@@ -257,8 +302,12 @@
       "PreviousItemId": "a52b6fcf-1b97-4d9a-8dc5-19bee7e5d0ec"
     },
     {
-      "ItemId": "f780b545-c2fb-45f2-8b6c-98f85f3dbadb",
+      "ItemId": "c21a7dad-ce25-426a-87a0-c7d78a511844",
       "PreviousItemId": "a8e0524f-16f7-4909-abe1-7c8c6099b1d5"
+    },
+    {
+      "ItemId": "f780b545-c2fb-45f2-8b6c-98f85f3dbadb",
+      "PreviousItemId": "c21a7dad-ce25-426a-87a0-c7d78a511844"
     },
     {
       "ItemId": "9e7ae797-0477-4ccb-bbe3-cefd4cc335af",
@@ -411,6 +460,30 @@
       ],
       "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IFormattedVacationForShiftByStatement>",
       "ReturnTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNVacations.Structures.Module.IFormattedVacationForShiftByStatement, Sungero.Domain.Interfaces]]"
+    },
+    {
+      "NameGuid": "8a69bb35-0930-4b7d-b143-b2bf3bacf290",
+      "Name": "DeserializeInStruct",
+      "IsolatedAreaId": "2afcf68b-4f12-4a2e-a225-a7895fb64448",
+      "Parameters": [
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "vacationDataForShiftByStatement",
+          "ParameterType": "global::DirRX.NNVacations.Structures.Module.IVacationDataForShiftByStatement",
+          "ParameterTypeFullName": "DirRX.NNVacations.Structures.Module.IVacationDataForShiftByStatement, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNVacations.Structures.Module.IFormattedVacationForShiftByStatement",
+          "ParameterTypeFullName": "DirRX.NNVacations.Structures.Module.IFormattedVacationForShiftByStatement, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNVacations.Structures.Module.IVacationDataForShiftByStatement",
+      "ReturnTypeFullName": "DirRX.NNVacations.Structures.Module.IVacationDataForShiftByStatement, Sungero.Domain.Interfaces"
     },
     {
       "NameGuid": "7d3be338-ca20-46c9-b8b3-80898ccb65f1",
@@ -906,6 +979,20 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "e78ddfce-2a4f-4191-bc66-19661cc93fac",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "2afcf68b-4f12-4a2e-a225-a7895fb64448",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNVacations.Structures.Module.IVacationScheduleProcessStatus",
+          "ParameterTypeFullName": "DirRX.NNVacations.Structures.Module.IVacationScheduleProcessStatus, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
     }
   ],
   "IsolatedNamespace": "DirRX.NNVacations.Isolated",
@@ -985,6 +1072,24 @@
       "Value": "\"29\""
     },
     {
+      "Name": "ChangingDatesVacationOrder",
+      "ParentClasses": [
+        "Module",
+        "DocumentKind"
+      ],
+      "TypeName": "System.Guid",
+      "Value": "new System.Guid(\"E7A68605-6589-4A6C-8415-7656440C1F81\")"
+    },
+    {
+      "Name": "ChangingDatesVacationOrder",
+      "ParentClasses": [
+        "Module",
+        "SapKindsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"35\""
+    },
+    {
       "Name": "CompensationAdditionalVacationKind",
       "ParentClasses": [
         "Module",
@@ -1053,7 +1158,7 @@
         "Module"
       ],
       "TypeName": "System.Int32",
-      "Value": "200"
+      "Value": "100"
     },
     {
       "Name": "DelimiterNewLineForLK",
@@ -1127,6 +1232,26 @@
       ],
       "TypeName": "System.String",
       "Value": "\"53abf78d-bf15-4960-940c-24f1fb4cf63\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "StudyWithSalaryVacationTypeId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"B7A29AD7-48C2-4A44-9580-CA3F18800670\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "StudyWithoutSalaryVacationTypeId"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"B1C359A5-5EE1-43F1-8DD0-4465919147FE\""
     },
     {
       "Name": "Guid",
@@ -1277,6 +1402,16 @@
       ],
       "TypeName": "System.String",
       "Value": "\"FF028D51-8D5B-40B4-A025-38B0CAEE0CB8\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "DonorVacationsCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"C13FE157-2F8C-4F8C-9BE7-5B02E1257E7E\""
     },
     {
       "Name": "IndividualAcquiantanceVacScheduleListKind",
@@ -1583,7 +1718,33 @@
   ],
   "PublicFunctions": [
     {
+      "Name": "CheckAttachDocuments",
+      "Parameters": [
+        {
+          "Name": "vacationTypeIds",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.String>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "CheckForStudyVacationType",
+      "Parameters": [
+        {
+          "Name": "vacationTypeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean",
+      "WebApiRequestType": "Get"
+    },
+    {
+      "Name": "CheckForStudyWithSalaryVacationType",
       "Parameters": [
         {
           "Name": "vacationTypeId",
@@ -1640,40 +1801,6 @@
       "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
-      "Name": "CheckHasVacationKind",
-      "Parameters": [
-        {
-          "Name": "logPrefix",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "vacationInfoDateTimes",
-          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoDateTimeFromSAP>",
-          "ParameterTypeFullName": "System.Collections.Generic.List"
-        }
-      ],
-      "ReturnType": "global::System.Collections.Generic.List<global::System.String>",
-      "ReturnTypeFullName": "System.Collections.Generic.List"
-    },
-    {
-      "Name": "CheckHasVacationKind",
-      "Parameters": [
-        {
-          "Name": "logPrefix",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
-        },
-        {
-          "Name": "vacationInfoDateTimes",
-          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime>",
-          "ParameterTypeFullName": "System.Collections.Generic.List"
-        }
-      ],
-      "ReturnType": "global::System.Collections.Generic.List<global::System.String>",
-      "ReturnTypeFullName": "System.Collections.Generic.List"
-    },
-    {
       "Name": "CheckRequireShiftDaysWhenRecall",
       "Parameters": [
         {
@@ -1695,6 +1822,28 @@
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String",
       "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "CheckVacationDurationsRestriction",
+      "Parameters": [
+        {
+          "Name": "vacations",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IVerificationVacationData>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "oldVacations",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNVacations.Structures.Module.IFormattedVacationForShiftByStatement>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNVacations.Structures.Module.IValidateVacationResult",
+      "ReturnTypeFullName": "DirRX.NNVacations.Structures.Module.IValidateVacationResult"
     },
     {
       "Name": "CheckVacationHasHoliday",
@@ -2129,6 +2278,16 @@
           "Name": "sapCommentText",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "daysSelectedVut",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "availableDaysVut",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "ReturnType": "void",
@@ -2175,6 +2334,11 @@
         },
         {
           "Name": "reason",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "vacationData",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         }
@@ -2237,9 +2401,9 @@
           "ParameterTypeFullName": "System.Nullable"
         },
         {
-          "Name": "compensationKind",
-          "ParameterType": "global::System.Nullable<global::System.Int32>",
-          "ParameterTypeFullName": "System.Nullable"
+          "Name": "replaceWithPayment",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
         },
         {
           "Name": "dayCountCompensation",
@@ -2348,6 +2512,23 @@
           "Name": "employeeId",
           "ParameterType": "global::System.Int64",
           "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText"
+    },
+    {
+      "Name": "GenerateStructForSendingStatusVacationScheduleDoc",
+      "Parameters": [
+        {
+          "Name": "documentId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "guidMessage",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
@@ -2532,10 +2713,20 @@
           "Name": "daysSelected",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "daysSelectedVut",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText",
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResultGenerateRequestText"
+    },
+    {
+      "Name": "GetAnnualVacationsTypes",
+      "ReturnType": "global::System.Collections.Generic.List<global::System.String>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
       "Name": "GetAttachableVacationsInfo",
@@ -3296,6 +3487,19 @@
       "WebApiRequestType": "Get"
     },
     {
+      "Name": "GetVacationDataWithoutPay",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "GetVacationEndDate",
       "Parameters": [
         {
@@ -3475,18 +3679,6 @@
       "WebApiRequestType": "Post"
     },
     {
-      "Name": "HasStudyVacationType",
-      "Parameters": [
-        {
-          "Name": "vacationType",
-          "ParameterType": "global::DirRX.OverrideSolution.IVacationKind",
-          "ParameterTypeFullName": "DirRX.OverrideSolution.IVacationKind, Sungero.Domain.Interfaces"
-        }
-      ],
-      "ReturnType": "global::System.Boolean",
-      "ReturnTypeFullName": "System.Boolean"
-    },
-    {
       "Name": "GetValueFromIFS28542",
       "Parameters": [
         {
@@ -3502,6 +3694,18 @@
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IIncomingMessageValue",
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IIncomingMessageValue"
+    },
+    {
+      "Name": "HasStudyVacationType",
+      "Parameters": [
+        {
+          "Name": "vacationType",
+          "ParameterType": "global::DirRX.OverrideSolution.IVacationKind",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IVacationKind, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
     },
     {
       "Name": "IsLineManager",
@@ -3675,19 +3879,29 @@
       "Name": "SendVacationNoticeErrorToEmail",
       "Parameters": [
         {
-          "Name": "errorEmployees",
+          "Name": "errorPersNumVacInfo",
           "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime>",
           "ParameterTypeFullName": "System.Collections.Generic.List"
         },
         {
-          "Name": "remainingEmployees",
+          "Name": "errorVacKindVacInfo",
           "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime>",
           "ParameterTypeFullName": "System.Collections.Generic.List"
         },
         {
-          "Name": "email",
+          "Name": "emails",
+          "ParameterType": "global::System.Collections.Generic.List<global::System.String>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "sapLegalEntityCodeDirRX",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "dateStart",
+          "ParameterType": "global::System.DateTime",
+          "ParameterTypeFullName": "System.DateTime"
         }
       ],
       "ReturnType": "void",
@@ -4088,6 +4302,11 @@
           "Name": "daysSelected",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "daysSelectedVut",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
         }
       ],
       "ReturnType": "global::System.String",
@@ -4104,6 +4323,11 @@
         },
         {
           "Name": "daysSelected",
+          "ParameterType": "global::System.Int32",
+          "ParameterTypeFullName": "System.Int32"
+        },
+        {
+          "Name": "daysSelectedVut",
           "ParameterType": "global::System.Int32",
           "ParameterTypeFullName": "System.Int32"
         }
@@ -4250,6 +4474,14 @@
           "TypeFullName": "global::System.String"
         },
         {
+          "Name": "DayCountVut",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "DaysOnApprovingVut",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
           "Name": "Result",
           "TypeFullName": "global::System.Boolean"
         },
@@ -4257,6 +4489,14 @@
           "Name": "ResultText",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "AvailableDays",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "AvailableDaysVut",
+          "TypeFullName": "global::System.Int32"
         }
       ],
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
@@ -4288,6 +4528,10 @@
         {
           "Name": "TaskID",
           "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "DaysSelectedVut",
+          "TypeFullName": "global::System.Int32"
         }
       ],
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
@@ -4503,6 +4747,22 @@
           "Name": "Name",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
+      "Name": "EmployeeBusinessUnitInfo",
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "PersonnelNumber",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "BusinessUnitDirRXId",
+          "TypeFullName": "global::System.Int64"
         }
       ],
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
@@ -5016,6 +5276,11 @@
           "TypeFullName": "global::System.String"
         },
         {
+          "Name": "RefinementCode",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
           "Name": "DateStart",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
@@ -5164,6 +5429,10 @@
         },
         {
           "Name": "DaysSelected",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "DaysSelectedVut",
           "TypeFullName": "global::System.Int32"
         }
       ],
@@ -5476,6 +5745,11 @@
           "Name": "CompensationKind",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ReplaceWithPayment",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Boolean>"
         },
         {
           "Name": "Reason",
@@ -5961,6 +6235,29 @@
       "StructureNamespace": "DirRX.NNVacations.Structures.Module"
     },
     {
+      "Name": "VacationScheduleProcessStatus",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "RequestCode",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SAPID",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Status",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNVacations.Structures.Module"
+    },
+    {
       "Name": "VacationStatementData",
       "IsIsolated": true,
       "IsPublic": true,
@@ -6049,6 +6346,10 @@
         },
         {
           "Name": "Numbr",
+          "TypeFullName": "global::System.Int32"
+        },
+        {
+          "Name": "NumberVut",
           "TypeFullName": "global::System.Int32"
         }
       ],
@@ -6257,7 +6558,25 @@
     "SubstitutionNote_AutoCreated",
     "SubstituteCollisionError",
     "SubstituteCheckError",
-    "VacationKindNotFoundError"
+    "VacationKindNotFoundError",
+    "EmployeeNotFoundByPN",
+    "ErrorSendingNotification",
+    "GetMinVacationStartDateFunctionName",
+    "GetMinVacationStartDateFunctionDescription",
+    "ValidateShiftVacationAttachedToAnnualError",
+    "ValidateVacationDonorDaysError",
+    "NotFoundEmployee",
+    "CreateVacationsInformationError",
+    "DuplicateRecordFound",
+    "EmployeeNotFoundVacTypeByPN",
+    "ChangingDatesVacationOrderKindName",
+    "AdjustNumberDays",
+    "NumberDaysDuringTransferMustOriginalNumber",
+    "YouCannotRescheduleMoreDays",
+    "YouCannotRescheduleFewerDays",
+    "RescheduleOneDayAnnualVacation",
+    "CloseVacationInformationErrorNoticeSubject",
+    "CloseVacationInformationErrorNoticeActiveText"
   ],
   "ServerAssemblyName": "DirRX.NNVacations.Server",
   "ServerNamespace": "DirRX.NNVacations.Server",
@@ -6477,7 +6796,7 @@
       "NeedShowMarkedCount": false
     }
   ],
-  "Version": "25.2.0.12",
+  "Version": "25.2.0.24",
   "Widgets": [],
   "Versions": [
     {

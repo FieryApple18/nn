@@ -10,5 +10,11 @@ namespace DirRX.OverrideSolution
   partial class JobTitleSharedHandlers
   {
 
+    public virtual void IsTopDirRXChanged(Sungero.Domain.Shared.BooleanPropertyChangedEventArgs e)
+    {
+      if (e.NewValue != null && !Equals(e.NewValue, e.OriginalValue))
+        _obj.EvaluationGroupDirRX = e.NewValue == true ? OverrideSolution.JobTitle.EvaluationGroupDirRX.Top100 : OverrideSolution.JobTitle.EvaluationGroupDirRX.OutOfCategories;
+    }
+
   }
 }

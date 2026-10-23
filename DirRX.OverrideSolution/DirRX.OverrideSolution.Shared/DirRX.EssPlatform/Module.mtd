@@ -750,6 +750,19 @@
       "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
+      "Name": "GetPersonEmployeeIdsNN",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "GetSupernikaPushContent",
       "Parameters": [
         {

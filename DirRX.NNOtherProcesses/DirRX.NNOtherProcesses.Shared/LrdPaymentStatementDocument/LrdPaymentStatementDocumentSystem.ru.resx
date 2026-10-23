@@ -133,4 +133,19 @@
   <data name="Property_CodeVO" xml:space="preserve">
     <value>Код ВО</value>
   </data>
+  <data name="Property_INILA" xml:space="preserve">
+    <value>СНИЛС</value>
+  </data>
+  <data name="Property_Experience" xml:space="preserve">
+    <value>Стаж</value>
+  </data>
+  <data name="Property_Retiree" xml:space="preserve">
+    <value>Пенсионер</value>
+  </data>
+  <data name="Property_Disable" xml:space="preserve">
+    <value>Инвалид</value>
+  </data>
+  <data name="Property_FireDate" xml:space="preserve">
+    <value>Дата увольнения</value>
+  </data>
 </root>

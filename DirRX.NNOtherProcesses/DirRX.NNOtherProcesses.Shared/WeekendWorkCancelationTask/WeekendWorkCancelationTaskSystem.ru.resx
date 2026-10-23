@@ -106,4 +106,10 @@
   <data name="Property_Employees" xml:space="preserve">
     <value>Работники</value>
   </data>
+  <data name="Property_CancelationReason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Block_2f41da45ccfd46c0ac2e1e4af41c0cd8" xml:space="preserve">
+    <value>Доработка отмены работы в ВД/ПД/СР</value>
+  </data>
 </root>

@@ -168,6 +168,20 @@
           "ParentGuid": "99e8faf2-a81c-4998-8c52-feaf4ad197d0",
           "RowNumber": 0,
           "RowSpan": 1
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "7b0ae85d-9f3b-4dec-b034-69479d3ba3ea",
+          "Name": "RetryReason",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.TextEditorToTextBinder",
+          "HeaderLocation": "Top",
+          "ParentGuid": "fe7a3b3d-2938-4741-bfb5-b949b51aed05",
+          "PropertyGuid": "c620a26c-d32d-495d-92de-981729e6caf0",
+          "RowNumber": 5,
+          "RowSpan": 1,
+          "Settings": []
         }
       ]
     },
@@ -235,6 +249,7 @@
       "IsDisplayValue": true,
       "IsEnabled": false,
       "IsQuickSearchAllowed": true,
+      "Length": 300,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1"
     },
@@ -278,7 +293,7 @@
       "DirectValues": [
         {
           "NameGuid": "eff33579-6526-43ad-933e-e2df3beeeefa",
-          "Name": "Created",
+          "Name": "Recent",
           "Code": "Recent"
         },
         {
@@ -326,6 +341,15 @@
       "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "6eb7e5de-4587-4266-b52a-7ccf156ff9ce"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c620a26c-d32d-495d-92de-981729e6caf0",
+      "Name": "RetryReason",
+      "Code": "RetryReason",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "1c399578-b043-413a-bda7-619cd1182799"
     }
   ],
   "PublicStructures": [],

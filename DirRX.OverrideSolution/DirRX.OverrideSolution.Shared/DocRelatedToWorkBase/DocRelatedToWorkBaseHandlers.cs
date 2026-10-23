@@ -50,7 +50,9 @@ namespace DirRX.OverrideSolution
         {
           _obj.PersonnelNumberDirRX = e.NewValue.PersonnelNumber;
           _obj.BusinessUnit = e.NewValue.BusinessUnit;
-          _obj.TopDirRX = e.NewValue.IsNGDDirRX;
+          _obj.IsNGDDirRX = e.NewValue.IsNGDDirRX;
+          _obj.IsTopDirRX = OverrideSolution.JobTitles.As(e.NewValue.JobTitle)?.IsTopDirRX;
+          _obj.PersonnelSectionDirRX = e.NewValue.PersonnelSectionDirRX;
         }
       }
     }

@@ -58,4 +58,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Template_UnionOpinion" xml:space="preserve">
+    <value>Мнение профсоюзного органа от {0} №{1} учтено</value>
+  </data>
+  <data name="MaxTradeUnionOpinionsCountError" xml:space="preserve">
+    <value>Превышено максимальное количество строк в табличной части "Мнения профсоюзов и СТС".</value>
+  </data>
+  <data name="Template_SocialCouncilOpinion" xml:space="preserve">
+    <value>Мнение социально-трудового совета от {0} №{1} учтено</value>
+  </data>
 </root>

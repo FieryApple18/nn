@@ -17,10 +17,14 @@ namespace DirRX.NNVacations.Server
     /// <param name="vacationSchedule">График отпусков.</param>
     /// <returns>Запрос данных справочника "Информация по отпускам".</returns>
     [Public]
-    public static IQueryable<NNVacations.IVacationsInformation> GetVacationInfo(IVacationScheduleDocument vacationSchedule)
+    public static IQueryable<NNVacations.IVacationsInformation> GetVacationInfo(IEmployee employee, IVacationScheduleDocument vacationSchedule)
     {
-      return NNVacations.VacationsInformations.GetAll(v => v.Employee.Equals(vacationSchedule.EmployeeDirRX) && v.Year == vacationSchedule.Year
-                                                      && v.Department.Equals(vacationSchedule.Department) && v.BusinessUnit.Equals(vacationSchedule.BusinessUnit));
+      if (employee == null || vacationSchedule == null)
+        return Enumerable.Empty<NNVacations.IVacationsInformation>().AsQueryable();
+        
+      return NNVacations.VacationsInformations.GetAll(v => Employees.Equals(v.Employee, employee) &&
+                                                      VacationScheduleDocuments.Equals(v.VacationSchedule, vacationSchedule) &&
+                                                      v.Status == DirRX.NNVacations.VacationsInformation.Status.Active);
     }
 
   }

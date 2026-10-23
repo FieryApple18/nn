@@ -148,4 +148,7 @@
   <data name="Property_SupernikaTextDirRX" xml:space="preserve">
     <value>Supernika notice text</value>
   </data>
+  <data name="Property_DocForManualHoldingEventDirRX" xml:space="preserve">
+    <value>Document for manual holding event</value>
+  </data>
 </root>

@@ -213,5 +213,40 @@ namespace DirRX.NNIntegration.Server
         empType == Constants.EmployeeQueue.EmploymentTypeCodes.InternalConcurr ||
         empType == Constants.EmployeeQueue.EmploymentTypeCodes.ExternalConcurr;
     }
+    
+    /// <summary>
+    /// Получить значение перечисления "Категория сотрудника" по его коду.
+    /// </summary>
+    /// <param name="categoryCode">Код категории сотрудника.</param>
+    /// <returns>Значение перечисления "Категория сотрудника".</returns>
+    public Sungero.Core.Enumeration? GetEmployeeCategory(string categoryCode)
+    {
+      if (categoryCode == Constants.EmployeeQueue.CategoryCodes.Manager || categoryCode == Constants.EmployeeQueue.CategoryCodes.ManagerCHTS)
+        return DirRX.OverrideSolution.Employee.CategoryDirRX.Manager;
+      else if (categoryCode == Constants.EmployeeQueue.CategoryCodes.Specialist || categoryCode == Constants.EmployeeQueue.CategoryCodes.SpecialistCHTS)
+        return DirRX.OverrideSolution.Employee.CategoryDirRX.Specialist;
+      else if (categoryCode == Constants.EmployeeQueue.CategoryCodes.Clerk || categoryCode == Constants.EmployeeQueue.CategoryCodes.ClerkCHTS)
+        return DirRX.OverrideSolution.Employee.CategoryDirRX.Clerk;
+      else if (categoryCode == Constants.EmployeeQueue.CategoryCodes.Worker || categoryCode == Constants.EmployeeQueue.CategoryCodes.WorkerCHTS)
+        return DirRX.OverrideSolution.Employee.CategoryDirRX.Worker;
+
+      return null;
+    }
+    
+    /// <summary>
+    /// Проверить Категорию сотрудника.
+    /// </summary>
+    /// <returns>Ошибка.</returns>
+    public string CheckEmployeeCategory()
+    {
+      if (string.IsNullOrEmpty(_obj.PersCategory))
+        return DirRX.NNIntegration.EmployeeQueues.Resources.EmployeeCategoryIsEmptyError;
+      
+      var category = GetEmployeeCategory(_obj.PersCategory);
+      if (category == null)
+        return DirRX.NNIntegration.EmployeeQueues.Resources.EmployeeCategoryIsInvalidErrorFormat(_obj.PersCategory);
+      
+      return string.Empty;
+    }
   }
 }

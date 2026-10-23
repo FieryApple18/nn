@@ -30,7 +30,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "03fde417-8254-4f08-950c-d543871033a8",
-          "Name": "MainGroup",
+          "Name": "MainGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -392,6 +392,19 @@
           "ParentGuid": "1b194ce3-c440-4887-9f0d-1cdc4303c583",
           "PropertyGuid": "fdcc98d0-a972-4b77-9e03-bd9a29a9b6fb",
           "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "91e2e355-23aa-492f-b6ec-ac1ce614909c",
+          "Name": "IsNGDDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "3d411ab8-967c-43b4-ab77-0240b19d9921",
+          "PropertyGuid": "17301247-79c2-4647-b0f5-f1bd3f866d20",
+          "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
         }

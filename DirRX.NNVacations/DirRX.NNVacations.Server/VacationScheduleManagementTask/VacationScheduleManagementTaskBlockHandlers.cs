@@ -89,6 +89,27 @@ namespace DirRX.NNVacations.Server.VacationScheduleManagementTaskBlocks
         doc.Department = assignment.Department;
         doc.RegistrationNumber = assignment.RegistrationNumber;
         doc.RegistrationDate = assignment.RegistrationDate;
+        
+        // Заполнение ТЧ Мнение профсоюзов в документе.
+        var opinionIds = new List<long>();
+        foreach (var opinion in assignment.TradeUnionOpinion)
+        {
+          var oldOpinion = doc.TradeUnionOpinionDirRX.Where(x => x.Kind.Equals(opinion.Kind) && x.StatementNumber.Equals(opinion.StatementNumber) && x.StatementDate.Equals(opinion.StatementDate)).FirstOrDefault();
+          if (oldOpinion == null)
+          {
+            var newOpinion = doc.TradeUnionOpinionDirRX.AddNew();
+            newOpinion.Kind = opinion.Kind;
+            newOpinion.StatementNumber = opinion.StatementNumber;
+            newOpinion.StatementDate = opinion.StatementDate;
+            opinionIds.Add(newOpinion.Id);
+          }
+          else
+            opinionIds.Add(oldOpinion.Id);
+        }
+        var removeOpinions = doc.TradeUnionOpinionDirRX.Where(x => !opinionIds.Contains(x.Id)).ToList();
+        foreach (var removeOpinion in removeOpinions)
+          doc.TradeUnionOpinionDirRX.Remove(removeOpinion);
+
         doc.Save();
       }
     }
@@ -126,6 +147,10 @@ namespace DirRX.NNVacations.Server.VacationScheduleManagementTaskBlocks
       assignmentHR.CanForward = _block.CanForward;
       assignmentHR.BusinessUnit = _obj.BusinessUnit;
       assignmentHR.Year = _obj.Year?.Year;
+      assignmentHR.LoadingErrorMessage = _obj.LoadingErrorMessage;
+      
+      var vacationSchedule = _obj.DocumentGroup.VacationScheduleDocuments.FirstOrDefault();
+      assignmentHR.ScheduleResponsible = vacationSchedule?.ScheduleResponsibleDirRX ?? _obj.BusinessUnit?.VacationScheduleResponsibleDirRX;
       
       var previousAssigment = _obj.LastInitiatingApprovalAssignment;
       if (previousAssigment != null)
@@ -147,6 +172,13 @@ namespace DirRX.NNVacations.Server.VacationScheduleManagementTaskBlocks
         assignmentHR.AssertingApprovalDeadline = previousAssigment.AssertingApprovalDeadline;
         assignmentHR.EmployeeAcquaintancePeriod = previousAssigment.EmployeeAcquaintancePeriod;
         assignmentHR.DaysToRemind = previousAssigment.DaysToRemind;
+        foreach (var unionOpinion in previousAssigment.TradeUnionOpinion)
+        {
+          var row = assignmentHR.TradeUnionOpinion.AddNew();
+          row.Kind = unionOpinion.Kind;
+          row.StatementNumber = unionOpinion.StatementNumber;
+          row.StatementDate = unionOpinion.StatementDate;
+        }
       }
     }
 

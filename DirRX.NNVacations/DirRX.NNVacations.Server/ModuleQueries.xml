@@ -7,17 +7,15 @@ from (
   from dirrx_nnvacat_vacationsinfor as vacationinfo
     join sungero_core_recipient as employee
       on employee.id = vacationinfo.employee
-  where vacationinfo.businessunit = {0} and 
-      vacationinfo."year" = '{1}' and 
-      ({2} = 0 or vacationinfo.department = {2}) and 
-      employee.consenthrpro_hrproso_hrpro != 'Signed' and
+  where vacationinfo.vacationschedu = {0} and
+      (not vacationinfo.consenthrpro or vacationinfo.consenthrpro is null) and
+	    vacationinfo.status = 'Active' and
       employee.status = 'Active' and
       not exists (select 1 from sungero_content_edoc as doc 
-                  where doc.documentkind_docflow_sungero = {3} and
-                  ({2} = 0 or doc.department_docflow_sungero = {2}) and
-                  doc.year_vacatio_hrpro = '{1}' and
+                  where doc.documentkind_docflow_sungero = {1} and
+                  doc.vacationschedu_overrid_dirrx = {0} and
                   doc.employeedirrx_overrid_dirrx = vacationinfo.employee)
-  limit {4}
+  limit {2}
 ) as employee]]></postgres>
   </query>
 </queries>

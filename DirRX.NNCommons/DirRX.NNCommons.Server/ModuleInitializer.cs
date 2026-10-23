@@ -203,15 +203,21 @@ namespace DirRX.NNCommons.Server
       InitializationLogger.Debug("Init NNCommons module: Create GeneralRoles.");
       
       string[] generalRoleNames = {"КЭДО. Специалисты ОКА",
-        "КЭДО. Специалисты ОКА. ТОП",
+        "КЭДО. Специалисты ОКА. НГД",
         "КЭДО. Специалисты ОТиЗ",
-        "КЭДО. Специалисты ОТиЗ. ТОП",
+        "КЭДО. Специалисты ОТиЗ. НГД",
         "КЭДО. Специалисты УЭД",
-        "КЭДО. Специалисты УЭД. ТОП",
+        "КЭДО. Специалисты УЭД. НГД",
         "КЭДО. Операторы группы КА",
-        "КЭДО. Операторы группы КА. ТОП",
+        "КЭДО. Операторы группы КА. НГД",
         "КЭДО. Операторы группы РсП",
-        "КЭДО. Операторы группы РсП. ТОП"};
+        "КЭДО. Операторы группы РсП. НГД",
+        "КЭДО. Просмотр. Заявление на доп. день отдыха за РВД",
+        "КЭДО. Просмотр. Заявление на доп. день отдыха за РВД. НГД",
+        "КЭДО. Просмотр. Приказ на предоставление доп. дня отдыха",
+        "КЭДО. Просмотр. Приказ на предоставление доп. дня отдыха. НГД",
+        "КЭДО. Просмотр. Приказ об отмене доп. дня отдыха",
+        "КЭДО. Просмотр. Приказ об отмене доп. дня отдыха. НГД"};
       
       foreach (var generalRoleName in generalRoleNames)
         Functions.Module.CreateGeneralRole(generalRoleName);
@@ -251,6 +257,12 @@ namespace DirRX.NNCommons.Server
       
       ConstantsGroups.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
       ConstantsGroups.AccessRights.Save();
+      
+      PersonnelSections.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
+      PersonnelSections.AccessRights.Save();
+      
+      PersonnelSubSections.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
+      PersonnelSubSections.AccessRights.Save();
     }
     
     /// <summary>
@@ -333,12 +345,17 @@ namespace DirRX.NNCommons.Server
       Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.IssuerNamesUnqualifiedSignature.Name, true, string.Empty,
                                       Constants.Module.ConstantsSetting.IssuerNamesUnqualifiedSignature.Guid,
                                       Constants.Module.ConstantsGroup.IntegrationWithKss.Guid);
-                                      
+      
+      
       // SAP код ГО.
       Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.GoSapCode.Name, true, string.Empty,
                                       Constants.Module.ConstantsSetting.GoSapCode.Guid,
                                       Constants.Module.ConstantsGroup.OrgStructure.Guid);
-      
+      // SAP ИД Подразделения инфраструктуры ЗФ.
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.InfrastructureZFSapCode.Name, true, string.Empty,
+                                      Constants.Module.ConstantsSetting.InfrastructureZFSapCode.Guid,
+                                      Constants.Module.ConstantsGroup.OrgStructure.Guid);
+
       #region Группа констант "Параметры подключения к БД"
       
       // Адрес сервера СУБД Ess.
@@ -388,6 +405,24 @@ namespace DirRX.NNCommons.Server
                                       Constants.Module.DefaultCountDaysAfterNewYearToDeleteWorkingTimeCalendars,
                                       Constants.Module.ConstantsSetting.CountDaysAfterNewYearToDeleteWorkingTimeCalendars.Guid,
                                       Constants.Module.ConstantsGroup.WorkingTimeCalendars.Guid);
+      
+      // Отчет Проверка корректности маршрутов. Ид шаблона
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.PredctedSchemeReportTemplate.Name, true,
+                                      Constants.Module.PredctedSchemeReport.ReportTamplateId,
+                                      Constants.Module.ConstantsSetting.PredctedSchemeReportTemplate.Guid,
+                                      Constants.Module.ConstantsGroup.PredctedSchemeReport.Guid);
+      
+      // Отчет Проверка корректности маршрутов. Размер обработки сотрудников.
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.PredctedSchemeReportSizeBatch.Name, true,
+                                      Constants.Module.PredctedSchemeReport.SizeBatch,
+                                      Constants.Module.ConstantsSetting.PredctedSchemeReportSizeBatch.Guid,
+                                      Constants.Module.ConstantsGroup.PredctedSchemeReport.Guid);
+      
+      // Общее. Сертификаты. Кол-во рабочих дней для выполнения задания по подписанию заявления на выпуск сертификата ЭП.
+      Functions.Module.CreateConstant(Constants.Module.ConstantsSetting.CertificateIssueAssingmentDeadlineDays.Name, true, 
+                                      Constants.Module.DefaultCertificateIssueAssingmentDeadlineDays,
+                                      Constants.Module.ConstantsSetting.CertificateIssueAssingmentDeadlineDays.Guid,
+                                      Constants.Module.ConstantsGroup.IssueOfEPCertificates.Guid);
     }
     
     /// <summary>
@@ -403,6 +438,7 @@ namespace DirRX.NNCommons.Server
       Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.DbConnectionSettings.Name, Constants.Module.ConstantsGroup.DbConnectionSettings.Guid);
       Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.WorkingTimeCalendars.Name, Constants.Module.ConstantsGroup.WorkingTimeCalendars.Guid);
       Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.OrgStructure.Name, Constants.Module.ConstantsGroup.OrgStructure.Guid);
+      Functions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.PredctedSchemeReport.Name, Constants.Module.ConstantsGroup.PredctedSchemeReport.Guid);
     }
     
     /// <summary>
@@ -435,6 +471,9 @@ namespace DirRX.NNCommons.Server
                                               bool isNeedTemplatesRXHRPro, bool isNeedTemplatesLKHRPro, bool needCancelAction, IBusinessProcess businessProcess, bool transferBody, string sapKindCode)
     {
       InitializationLogger.DebugFormat("Init: Создание вида документа: {0}.", name);
+      
+      var existingKindLink = Sungero.Docflow.PublicFunctions.Module.GetExternalLink(Constants.Module.DataBooks.DocumentKindTypeGuid, initID);
+      
       HRPro.HRDocFlow.PublicInitializationFunctions.Module.CreateHRDocumentKind(name, shortName, numerationType, direction, autoFormattedName,
                                                                                 autoNumerable, typeGuid, actions, initID, isDefault, approver,
                                                                                 daysForSignEmployee, daysForSignManager, documentKindsCodes,
@@ -446,11 +485,23 @@ namespace DirRX.NNCommons.Server
         if (link != null)
         {
           var documentKind = DirRX.OverrideSolution.DocumentKinds.GetAll(r => r.Id == link.EntityId).FirstOrDefault();
-          documentKind.NeedCancelActionDirRX = needCancelAction;
-          documentKind.BusinessProcessDirRX = businessProcess;
-          documentKind.TransferBody = transferBody;
-          documentKind.SAPCodeDirRX = sapKindCode;
-          documentKind.Save();
+          
+          if (existingKindLink == null)
+          {
+            documentKind.NeedCancelActionDirRX = needCancelAction;
+            documentKind.TransferBody = transferBody;
+            documentKind.SAPCodeDirRX = sapKindCode;
+          }
+          
+          if (!BusinessProcesses.Equals(documentKind.BusinessProcessDirRX, businessProcess))
+          {
+            documentKind.BusinessProcessDirRX = businessProcess;
+          }
+          
+          if (documentKind.State.IsChanged)
+          {
+            documentKind.Save();
+          }
           
           Functions.Module.CreateBusinessRole(NNCommons.BusinessRole.RoleType.ByKind, null, documentKind, true);
           Functions.Module.CreateBusinessRole(NNCommons.BusinessRole.RoleType.ByKind, null, documentKind, false);

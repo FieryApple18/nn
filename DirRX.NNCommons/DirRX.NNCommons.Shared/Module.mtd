@@ -183,6 +183,50 @@
           "ParameterType": "String"
         }
       ]
+    },
+    {
+      "NameGuid": "077cc4f2-c983-4b3d-b6d9-7d1e01066eb3",
+      "Name": "CreatePredctedSchemeReportAsync",
+      "DelayPeriod": 15,
+      "DelayStrategy": "ExponentialDelayStrategy",
+      "IsHandlerGenerated": true,
+      "Parameters": [
+        {
+          "NameGuid": "14e9b0cb-363c-4b67-b67d-e8283835f012",
+          "Name": "NumberReport",
+          "ParameterType": "Integer"
+        },
+        {
+          "NameGuid": "34b064a2-018d-4a9e-9e91-fb992f35bc9c",
+          "Name": "DocumentKindId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "537f7c10-d1df-48a4-9fff-952fd2c001ea",
+          "Name": "BusinessUnitId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "7a3d41fe-4226-480c-93ff-8aa43212408d",
+          "Name": "CurrentUserId",
+          "ParameterType": "LongInteger"
+        },
+        {
+          "NameGuid": "a2aeeda9-a4b2-4a77-abe7-d621a21eda9b",
+          "Name": "TaskTypeName",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "c4861bff-836a-41c0-8194-d869986eceab",
+          "Name": "TaskTypeLocalizeName",
+          "ParameterType": "String"
+        },
+        {
+          "NameGuid": "e15484f8-d197-4996-8aae-b8582166d78f",
+          "Name": "EmployeeIds",
+          "ParameterType": "String"
+        }
+      ]
     }
   ],
   "Blocks": [
@@ -380,6 +424,26 @@
           "PreviousPropertyGuid": "ec70f1df-ca7e-4c17-8d27-3942a6f55e9d"
         }
       ]
+    },
+    {
+      "$type": "Sungero.Metadata.ScriptBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "601d1682-a809-455c-92f7-71dd8653d11d",
+      "Name": "ExecuteActiveMonitoringsBlock",
+      "HandledEvents": [
+        "ExecuteActiveMonitoringsBlockExecute"
+      ],
+      "ProcessStagesDisplayMode": "Hide",
+      "Properties": [
+        {
+          "$type": "Sungero.Metadata.NavigationBlockPropertyMetadata, Sungero.Metadata",
+          "NameGuid": "a5eb0b4c-316d-47eb-8eb2-8e22da13271c",
+          "Name": "Tasks",
+          "EntityGuid": "d795d1f6-45c1-4e5e-9677-b53fb7280c7e",
+          "IsCollection": true,
+          "IsRequired": true,
+          "PreviousPropertyGuid": "4750b044-d69b-4098-b9b2-f1be7e62176a"
+        }
+      ]
     }
   ],
   "ClientAssemblyName": "DirRX.NNCommons.Client",
@@ -483,6 +547,14 @@
     {
       "ItemId": "69047a55-e4ad-47d9-9638-f0e664466d7c",
       "PreviousItemId": "58e39401-dfa2-4ddc-8db2-3888da86f078"
+    },
+    {
+      "ItemId": "96584b38-af29-4141-bfb0-0b9907f1d536",
+      "PreviousItemId": "69047a55-e4ad-47d9-9638-f0e664466d7c"
+    },
+    {
+      "ItemId": "5c9f9dde-5fcb-4cbb-952a-f92026fe48bb",
+      "PreviousItemId": "96584b38-af29-4141-bfb0-0b9907f1d536"
     }
   ],
   "HandledEvents": [
@@ -619,10 +691,33 @@
     {
       "NameGuid": "1ef7e803-e10b-4949-9be4-594735fc1d1d",
       "Name": "SetTextIntoDocument"
+    },
+    {
+      "NameGuid": "577dbc47-61a5-4235-b31f-c5903c1261a1",
+      "Name": "OpenXML"
     }
   ],
   "IsolatedAssemblyName": "DirRX.NNCommons.Isolated",
   "IsolatedFunctions": [
+    {
+      "NameGuid": "bedd8221-07ab-4d50-a745-63cb04d4d011",
+      "Name": "BuildExcelReport",
+      "IsolatedAreaId": "577dbc47-61a5-4235-b31f-c5903c1261a1",
+      "Parameters": [
+        {
+          "Name": "results",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IProcessKindSchemeResult>",
+          "ParameterTypeFullName": "System.Collections.Generic.List`1[[DirRX.NNCommons.Structures.Module.IProcessKindSchemeResult, Sungero.Domain.Interfaces]]"
+        },
+        {
+          "Name": "bytes",
+          "ParameterType": "global::System.IO.Stream",
+          "ParameterTypeFullName": "System.IO.Stream"
+        }
+      ],
+      "ReturnType": "global::System.IO.Stream",
+      "ReturnTypeFullName": "System.IO.Stream"
+    },
     {
       "NameGuid": "5d625cd7-7f59-43b2-b8e1-6a6b08c83b96",
       "Name": "BuildVerifyDocumentsReport",
@@ -845,6 +940,16 @@
       "GenerateHandler": true,
       "MonthSchedule": "Monthly",
       "StartAt": "1753-01-01T00:00:00"
+    },
+    {
+      "NameGuid": "a934fbbe-9374-4b41-a931-de8cdc4be8fe",
+      "Name": "UpdateTopAttributeJob",
+      "DaysOfMonthSchedule": "1",
+      "GenerateHandler": true,
+      "IsEnabled": false,
+      "Monthly": "DaysOfMonth",
+      "MonthSchedule": "March",
+      "StartAt": "1753-01-01T08:30:00"
     }
   ],
   "Libraries": [
@@ -879,6 +984,16 @@
       "Value": "\"AccessToBusinesUnit:{0}\""
     },
     {
+      "Name": "ActionItemExecutionTask",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "TaskType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ActionItemExecutionTask\""
+    },
+    {
       "Name": "AirlineLetter",
       "ParentClasses": [
         "Module",
@@ -895,6 +1010,16 @@
       ],
       "TypeName": "System.String",
       "Value": "\"\""
+    },
+    {
+      "Name": "ApprovalTask",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "TaskType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ApprovalTask\""
     },
     {
       "Name": "AssignmentCreatedIndex",
@@ -1023,6 +1148,26 @@
       "Value": "\"ConfirmationRetryTooFastException\""
     },
     {
+      "Name": "ContractualDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ContractualDocument\""
+    },
+    {
+      "Name": "ContractualDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"59079f7f-a326-4947-bbd6-0ae6dfb5f59b\""
+    },
+    {
       "Name": "CreateCertificate",
       "ParentClasses": [
         "Module",
@@ -1057,6 +1202,14 @@
       ],
       "TypeName": "System.Int32",
       "Value": "3"
+    },
+    {
+      "Name": "DefaultCertificateIssueAssingmentDeadlineDays",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "1"
     },
     {
       "Name": "DefaultDocsCountInIteration",
@@ -1141,6 +1294,43 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"14a59623-89a2-4ea8-b6e9-2ad4365f358c\")"
+    },
+    {
+      "Name": "DocumentParameter_Author",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Автор\""
+    },
+    {
+      "Name": "DocumentParameter_DocumentKind",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Вид документа\""
+    },
+    {
+      "Name": "DocumentParameter_OurOrganization",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Наша организация\""
+    },
+    {
+      "Name": "DocumentType_VacationStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"VacationStatementDocument\""
     },
     {
       "Name": "Docx",
@@ -1287,6 +1477,16 @@
       "ParentClasses": [
         "Module",
         "ConstantsGroup",
+        "WorkingTimeCalendars"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"937007e4-3469-4c75-9ec1-0cd52db4a1f9\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsGroup",
         "OrgStructure"
       ],
       "TypeName": "System.String",
@@ -1297,10 +1497,10 @@
       "ParentClasses": [
         "Module",
         "ConstantsGroup",
-        "WorkingTimeCalendars"
+        "PredctedSchemeReport"
       ],
       "TypeName": "System.String",
-      "Value": "\"937007e4-3469-4c75-9ec1-0cd52db4a1f9\""
+      "Value": "\"05900FD1-12FE-45F7-955C-FDEEE3EB49F6\""
     },
     {
       "Name": "Guid",
@@ -1513,6 +1713,46 @@
       "Value": "\"59286C73-0B96-4899-8EB0-AFE1107690B3\""
     },
     {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "InfrastructureZFSapCode"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"A145BF70-3E62-4F85-AB5C-77C9D87342CC\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PredctedSchemeReportTemplate"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"E5E74004-946E-4D34-9D7A-D8C4F215382E\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PredctedSchemeReportSizeBatch"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"856C057C-24F6-4C97-B004-B10D8EDCFBF0\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateIssueAssingmentDeadlineDays"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"3418484A-E29D-4B00-951C-D80A8ADD9358\""
+    },
+    {
       "Name": "HostNotFound",
       "ParentClasses": [
         "Module",
@@ -1546,6 +1786,46 @@
       ],
       "TypeName": "System.Guid",
       "Value": "new System.Guid(\"86629D80-CB0D-44BC-8BE5-956299D592D6\")"
+    },
+    {
+      "Name": "LrdPaymentStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"LrdPaymentStatementDocument\""
+    },
+    {
+      "Name": "LrdPaymentStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"578f6cfb-5fe7-4aec-ad13-94ecf361ac09\""
+    },
+    {
+      "Name": "Memo",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Memo\""
+    },
+    {
+      "Name": "Memo",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"95af409b-83fe-4697-a805-5a86ceec33f5\""
     },
     {
       "Name": "Name",
@@ -1612,6 +1892,16 @@
       "ParentClasses": [
         "Module",
         "ConstantsSetting",
+        "IssuerNamesUnqualifiedSignature"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. Имена издателей УНЭП (указываются через ',')\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
         "GoSapCode"
       ],
       "TypeName": "System.String",
@@ -1622,10 +1912,49 @@
       "ParentClasses": [
         "Module",
         "ConstantsSetting",
-        "IssuerNamesUnqualifiedSignature"
+        "InfrastructureZFSapCode"
       ],
       "TypeName": "System.String",
-      "Value": "\"Общее. Имена издателей УНЭП (указываются через ',')\""
+      "Value": "\"ИД Подразделения инфраструктуры ЗФ\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PredctedSchemeReportTemplate"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ИД Шаблона для отчета \\\"Проверка корректности маршрута\\\"\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "PredctedSchemeReportSizeBatch"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Количество сотрудников в одном отчете\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CertificateIssueAssingmentDeadlineDays"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Общее. Сертификаты. Кол-во рабочих дней для выполнения задания по подписанию заявления на выпуск сертификата ЭП\""
+    },
+    {
+      "Name": "NameDocumentTest",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"ТЕСТ_Схема_{0}\""
     },
     {
       "Name": "OfficialProviderNameDefaultValue",
@@ -1681,6 +2010,24 @@
       "Value": "14"
     },
     {
+      "Name": "ReportExtension",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"xlsx\""
+    },
+    {
+      "Name": "ReportTamplateId",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.Int64",
+      "Value": "0"
+    },
+    {
       "Name": "RevocationRequest",
       "ParentClasses": [
         "Module",
@@ -1732,6 +2079,35 @@
       "Value": "\"health\""
     },
     {
+      "Name": "SimpleDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"SimpleDocument\""
+    },
+    {
+      "Name": "SimpleDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"09584896-81e2-4c83-8f6c-70eb8321e1d0\""
+    },
+    {
+      "Name": "SizeBatch",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "500"
+    },
+    {
       "Name": "SpecialistDKP",
       "ParentClasses": [
         "Module",
@@ -1741,6 +2117,26 @@
       "Value": "new System.Guid(\"04D53BC7-75EC-4F34-9C3B-66A39B8D96FA\")"
     },
     {
+      "Name": "StatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"StatementDocument\""
+    },
+    {
+      "Name": "StatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"e28980a6-7132-485c-bed7-24ce0b3ac595\""
+    },
+    {
       "Name": "StatementReworkAssignment",
       "ParentClasses": [
         "Module",
@@ -1748,6 +2144,25 @@
       ],
       "TypeName": "System.String",
       "Value": "\"INNCommonsStatementReworkAssignments\""
+    },
+    {
+      "Name": "StatementTask",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "TaskType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"StatementTask\""
+    },
+    {
+      "Name": "SubjectTest",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Тестовый\""
     },
     {
       "Name": "Success",
@@ -1867,12 +2282,52 @@
       "Value": "\"v1A\""
     },
     {
+      "Name": "VacationStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"7c87491f-92fb-4703-ba3b-6d17ba9e785f\""
+    },
+    {
       "Name": "VerifyRepordDocExtension",
       "ParentClasses": [
         "Module"
       ],
       "TypeName": "System.String",
       "Value": "\"xlsx\""
+    },
+    {
+      "Name": "WeekendWorkStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"WeekendWorkStatementDocument\""
+    },
+    {
+      "Name": "WeekendWorkStatementDocument",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "DocumentTypeGuid"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"c4470d2c-11b0-4e0b-bac0-d560ec1398e7\""
+    },
+    {
+      "Name": "WeekendWorkTask",
+      "ParentClasses": [
+        "Module",
+        "PredctedSchemeReport",
+        "TaskType"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"WeekendWorkTask\""
     },
     {
       "Name": "WrongConfirmationCode",
@@ -2406,6 +2861,18 @@
       "ReturnTypeFullName": "System.Void"
     },
     {
+      "Name": "ExportPredictedSchemes",
+      "Parameters": [
+        {
+          "Name": "requests",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IExportPredictedSchemeRequest>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.IProcessKindSchemeResult>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
       "Name": "GeneratePeronnelDocumentsRegister",
       "IsRemote": true,
       "Parameters": [
@@ -2587,6 +3054,19 @@
       "ReturnTypeFullName": "DirRX.OverrideSolution.IBusinessUnit, Sungero.Domain.Interfaces"
     },
     {
+      "Name": "GetBusinessUnitId",
+      "Parameters": [
+        {
+          "Name": "employeeId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::System.Int64",
+      "ReturnTypeFullName": "System.Int64",
+      "WebApiRequestType": "Get"
+    },
+    {
       "Name": "GetBusinessUnitValue",
       "IsRemote": true,
       "Parameters": [
@@ -2716,6 +3196,23 @@
       "ReturnTypeFullName": "System.Nullable"
     },
     {
+      "Name": "GetIdsListValue",
+      "Parameters": [
+        {
+          "Name": "guid",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "prefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
       "Name": "GetIntValue",
       "Parameters": [
         {
@@ -2829,7 +3326,12 @@
       "Name": "GetVisibleEmployees",
       "Parameters": [
         {
-          "Name": "query",
+          "Name": "queryByName",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "queryByIds",
           "ParameterType": "global::System.String",
           "ParameterTypeFullName": "System.String"
         },
@@ -2929,6 +3431,18 @@
       "Name": "NeedDocumentsFiltration",
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "ParseStringToListLong",
+      "Parameters": [
+        {
+          "Name": "input",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::System.Int64>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
     },
     {
       "Name": "SendSimpleTask",
@@ -3195,6 +3709,72 @@
       "StructureNamespace": "DirRX.NNCommons.Structures.Module"
     },
     {
+      "Name": "ExportPredictedSchemeRequest",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "AssignedById",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "AssigneeId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "DocumentTypeName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "DocDocumentKind",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocAuthor",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocBusinessUnit",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocDepartment",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocSignatory",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocCreatedBy",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocAddressee",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "DocPreparedBy",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "TaskTypeName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
       "Name": "GeneralRoleInfo",
       "IsPublic": true,
       "Properties": [
@@ -3223,6 +3803,172 @@
           "Name": "DisplayValue",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "ProcessKindSchemeResult",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "ProcessKindId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "ProcessKindName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Scheme",
+          "IsNullable": true,
+          "TypeFullName": "global::DirRX.NNCommons.Structures.Module.ISchemeExportInfo"
+        },
+        {
+          "Name": "Error",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "OrganizationName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "PersonnelSectionId",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
+        },
+        {
+          "Name": "PersonnelSectionName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "PersonnelNumber",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "EmployeeName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SapIdJobTitle",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "JobTitleName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SapIdDepartment",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "DepartmentName",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ApprovalRoute",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "MissingSteps",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "SchemeBlockInfo",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Id",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Title",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "BlockType",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Description",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "PredictedDeadline",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "PredictedPerformers",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::System.String>"
+        },
+        {
+          "Name": "OutputEdges",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.ISchemeEdgeInfo>"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "SchemeEdgeInfo",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Unconditional",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Another",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Value",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNCommons.Structures.Module"
+    },
+    {
+      "Name": "SchemeExportInfo",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "TaskId",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "Blocks",
+          "IsList": true,
+          "IsNullable": true,
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNCommons.Structures.Module.ISchemeBlockInfo>"
         }
       ],
       "StructureNamespace": "DirRX.NNCommons.Structures.Module"
@@ -3439,7 +4185,26 @@
     "WorkingTimeCalculationSpeedtestDialog_Shift",
     "WorkingTimeCalculationSpeedtestDialog_HoursShift",
     "WorkingTimeCalculationSpeedtestDialog_DaysShift",
-    "WorkingTimeCalculationSpeedtestResult"
+    "WorkingTimeCalculationSpeedtestResult",
+    "ExportPredictedSchemesDialogTitle",
+    "ExportPredictedSchemesDialogTaskType",
+    "ExportPredictedSchemesDialogDocumentKind",
+    "ExportPredictedSchemesDialogOrganization",
+    "ExportPredictedSchemesDialogPersonnelSections",
+    "ExportPredictedSchemesDialogEmployees",
+    "ExportPredictedSchemesDialogSuccess",
+    "ExportPredictedSchemesDialogError",
+    "TaskTypeActionItemExecutionTask",
+    "TaskTypeApprovalTask",
+    "TaskTypeStatementTask",
+    "ExportPredictedSchemesDialogSelectEmployee",
+    "ExportPredictedSchemesDialogEmptyResult",
+    "WeekendWorkTask",
+    "SchemeNotFound",
+    "TestTaskSubject",
+    "TestActionItemTaskSubject",
+    "GenerateReportApprovalRoutes",
+    "ActiveTextTest"
   ],
   "ServerAssemblyName": "DirRX.NNCommons.Server",
   "ServerNamespace": "DirRX.NNCommons.Server",
@@ -3552,7 +4317,7 @@
       "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
     }
   ],
-  "Version": "25.2.0.12",
+  "Version": "25.2.0.24",
   "Widgets": [],
   "Versions": [
     {

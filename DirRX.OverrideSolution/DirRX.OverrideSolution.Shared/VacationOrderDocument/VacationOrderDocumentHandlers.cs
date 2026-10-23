@@ -10,9 +10,9 @@ namespace DirRX.OverrideSolution
   partial class VacationOrderDocumentSharedHandlers
   {
 
-    public override void OurSignatoryChanged(Sungero.Docflow.Shared.OfficialDocumentOurSignatoryChangedEventArgs e)
+    public override void EmployeeChanged(HRPro.Vacations.Shared.VacationPersonalDocumentBaseEmployeeChangedEventArgs e)
     {
-      base.OurSignatoryChanged(e);
+      base.EmployeeChanged(e);
       
       if (e.NewValue != null)
       {

@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using Sungero.CoreEntities.Login;
 using DirRX.OverrideSolution.Employee;
 using DirRX.NNOtherProcesses.NNBusinessTripOrderDocument;
+using System.Text.RegularExpressions;
 
 namespace DirRX.NNIntegration.Server
 {
@@ -162,6 +163,61 @@ namespace DirRX.NNIntegration.Server
       if (!Functions.JobTitleQueue.TryParseJobTitleEvalutionGroup(queueRecord, SHRP1222ZATTRIB))
       {
         error = DirRX.NNIntegration.Resources.EvalutionGroupParseErrorFormat(SHRP1222ZATTRIB);
+        Logger.ErrorFormat("CreateJobTitleQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", SHRP1000OBJID, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Вернуть ошибки валидации запроса в КСИП.
+      if (!string.IsNullOrEmpty(validationErrors))
+      {
+        Logger.ErrorFormat("CreateJobTitleQueueRecord. SAP ID: {0}. Запись справочника \"Очередь сообщений справочника Должности\" не создана из-за ошибок валидации.", SHRP1000OBJID);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, validationErrors);
+      }
+      
+      try
+      {
+        queueRecord.Save();
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("CreateJobTitleQueueRecord. SAP ID подразделения: {0}. Ошибка при сохранении записи справочника \"Очередь сообщений справочника Должности\". Текст ошибки: {1}, StackTrace: {2}.",
+                           queueRecord.SapId, ex.Message, ex.StackTrace);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, ex.Message);
+      }
+      
+      return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty);
+    }
+    
+    /// <summary>
+    /// Создать запись справочника "Очередь сообщений справочника Должности".
+    /// </summary>
+    /// <param name="SHRP1000STEXT">Наименование.</param>
+    /// <param name="SHRP1000OBJID">SAP ID.</param>
+    /// <param name="Division">Подразделение.</param>
+    /// <param name="SHRP1001BEGDA">Дата начала действия записи.</param>
+    /// <param name="SHRP1001ENDDA">Дата окончания действия записи.</param>
+    /// <param name="PP0001ZZPERNR_TOP">ТОП.</param>
+    /// <param name="IsEmployeeExists">Есть сотрудники на должности.</param>
+    /// <param name="Z_POS_LVL">Уровень штатной должности.</param>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public virtual IResponseToExternalSystemRequest CreateJobTitleQueueRecordV3(string SHRP1000STEXT, string SHRP1000OBJID, string Division, string SHRP1001BEGDA,
+                                                                                string SHRP1001ENDDA, bool PP0001ZZPERNR_TOP, bool IsEmployeeExists, string Z_POS_LVL)
+    {
+      Logger.DebugFormat("CreateJobTitleQueueRecord. SAP ID: {0}. Получен запрос на создание записи очереди справочника Должности.", SHRP1000OBJID);
+      var queueRecord = JobTitleQueues.Create();
+      queueRecord.Name = SHRP1000STEXT;
+      queueRecord.SapId = SHRP1000OBJID;
+      queueRecord.DepartmentCode = Division;
+      queueRecord.IsEmployeeExists = IsEmployeeExists;
+      queueRecord.IsTop = PP0001ZZPERNR_TOP;
+      queueRecord.PositionLevel = Z_POS_LVL;
+      
+      var validationErrors = string.Empty;
+      
+      // Проверка периода действия записи.
+      var error = Functions.CompanyQueueBase.SetRecordDatePeriod(queueRecord, SHRP1001BEGDA, SHRP1001ENDDA);
+      if (!string.IsNullOrEmpty(error))
+      {
         Logger.ErrorFormat("CreateJobTitleQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", SHRP1000OBJID, error);
         validationErrors = string.Join(" ", error, validationErrors);
       }
@@ -478,6 +534,207 @@ namespace DirRX.NNIntegration.Server
       
       return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty);
     }
+    
+    /// <summary>
+    /// Создать запись справочника "Очередь сообщений справочника Сотрудники".
+    /// </summary>
+    /// <param name="PP0002NACHN">Фамилия.</param>
+    /// <param name="PP0002VORNA">Имя.</param>
+    /// <param name="PP0002MIDNM">Отчество.</param>
+    /// <param name="PP0002GBDAT">Дата рождения.</param>
+    /// <param name="PP0290ICCD">СНИЛС.</param>
+    /// <param name="PP0002GESCH">Пол.</param>
+    /// <param name="Region">Регион.</param>
+    /// <param name="PP0006ORT01">Населенный пункт.</param>
+    /// <param name="RegistrationAddress">Адрес регистрации.</param>
+    /// <param name="PostalAddress">Почтовый адрес.</param>
+    /// <param name="Phones">Телефоны.</param>
+    /// <param name="Division">Подразделение.</param>
+    /// <param name="PP0001PLANS">Должность.</param>
+    /// <param name="PP0001ZZPERNR_MNG">Линейный руководитель.</param>
+    /// <param name="PP0001PERSG">Вид занятости.</param>
+    /// <param name="PP0000PERNR">Табельный номер.</param>
+    /// <param name="Email">Эл. почта (рабочая).</param>
+    /// <param name="PP0000BEGDA">Дата начала действия записи.</param>
+    /// <param name="PP0000ENDDA">Дата окончания действия записи.</param>
+    /// <param name="MPGroup">Группа МР.</param>
+    /// <param name="PP0001VDSK1">НГД.</param>
+    /// <param name="TIN">ИНН.</param>
+    /// <param name="IdentityDocumentKind">Вид документа.</param>
+    /// <param name="IdentityDocumentSeries">Серия.</param>
+    /// <param name="IdentityDocumentNumber">Номер.</param>
+    /// <param name="IdentityDocumentIssueDate">Дата выдачи.</param>
+    /// <param name="IdentityDocumentIssuedBy">Кем выдан.</param>
+    /// <param name="IdentityDocumentIssuerID">Код подразделения.</param>
+    /// <param name="IdentityDocumentBirthPlace">Место рождения.</param>
+    /// <param name="IdentityDocumentExpirationDate">Срок действия.</param>
+    /// <param name="UtcOffset">Часовой пояс.</param>
+    /// <param name="WERKS">Код раздела персонала..</param>
+    /// <param name="BTRTL">Код подраздела персонала.</param>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public virtual IResponseToExternalSystemRequest CreateEmployeeQueueRecordV3(string PP0002NACHN, string PP0002VORNA, string PP0002MIDNM, string PP0002GBDAT, string PP0290ICCD, string PP0002GESCH, string Region,
+                                                                                string PP0006ORT01, string RegistrationAddress, string PostalAddress, string Phones, string Division, string PP0001PLANS, string PP0001ZZPERNR_MNG,
+                                                                                string PP0001PERSG, string PP0000PERNR, string Email, string PP0000BEGDA, string PP0000ENDDA,
+                                                                                string MPGroup, string PP0001VDSK1,
+                                                                                string TIN, string IdentityDocumentKind, string IdentityDocumentSeries, string IdentityDocumentNumber, string IdentityDocumentIssueDate,
+                                                                                string IdentityDocumentIssuedBy, string IdentityDocumentIssuerID, string IdentityDocumentBirthPlace, string IdentityDocumentExpirationDate,
+                                                                                string UtcOffset, string WERKS, string BTRTL,
+                                                                                string InfoManager, string ManagerLevel2, string VSPManager, string SPManager, string PERSK)
+    {
+      Logger.DebugFormat("CreateEmployeeQueueRecord. Табельный номер: {0}. Получен запрос на создание записи очереди справочника Сотрудники.", PP0000PERNR);
+      var queueRecord = EmployeeQueues.Create();
+      queueRecord.LastName = PP0002NACHN;
+      queueRecord.FirstName = PP0002VORNA;
+      queueRecord.MiddleName = PP0002MIDNM;
+      queueRecord.INILA = PP0290ICCD;
+      queueRecord.Region = Region;
+      queueRecord.City = PP0006ORT01;
+      queueRecord.LegalAddress = RegistrationAddress;
+      queueRecord.PostalAddress = PostalAddress;
+      queueRecord.Phones = Phones;
+      queueRecord.DepartmentCode = Division;
+      queueRecord.JobTitleCode = PP0001PLANS;
+      queueRecord.LineManagerCode = PP0001ZZPERNR_MNG;
+      queueRecord.EmploymentType = PP0001PERSG;
+      queueRecord.PersonnelNumber = PP0000PERNR;
+      queueRecord.PersonnelSectionCode = WERKS;
+      queueRecord.PersonnelSubSectionCode = BTRTL;
+      queueRecord.Email = Email;
+      queueRecord.MPGroup = MPGroup;
+      queueRecord.TIN = TIN;
+      queueRecord.IdentityDocumentSeries = IdentityDocumentSeries;
+      queueRecord.IdentityDocumentNumber = IdentityDocumentNumber;
+      queueRecord.IdentityDocumentIssuedBy = IdentityDocumentIssuedBy;
+      queueRecord.IdentityDocumentIssuerID = Regex.Replace(IdentityDocumentIssuerID ?? string.Empty, @"[^\d]", string.Empty);
+      queueRecord.IdentityDocumentBirthPlace = IdentityDocumentBirthPlace;
+      queueRecord.InfoManager = InfoManager;
+      queueRecord.ManagerLevel2 = ManagerLevel2;
+      queueRecord.VSPManager = VSPManager;
+      queueRecord.SPManager = SPManager;
+      queueRecord.PersCategory = PERSK;
+      
+      var validationErrors = string.Empty;
+      
+      // Проверка периода действия записи.
+      var error = Functions.CompanyQueueBase.SetRecordDatePeriod(queueRecord, PP0000BEGDA, PP0000ENDDA);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка СНИЛС.
+      error = Functions.EmployeeQueue.CheckInila(queueRecord);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1} СНИЛС: {2}.", PP0000PERNR, error, queueRecord.INILA);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка кода вида занятости сотрудника.
+      if (!Functions.EmployeeQueue.CheckEmployemntType(queueRecord.EmploymentType))
+      {
+        error = DirRX.NNIntegration.Resources.EmployeeEmployemntTypeParseErrorFormat(queueRecord.EmploymentType);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка кода пола персоны.
+      if (!Functions.EmployeeQueue.TryParsePersonSex(queueRecord, PP0002GESCH))
+      {
+        error = DirRX.NNIntegration.Resources.SexParseErrorFormat(PP0002GESCH);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка Группы МР.
+      error = Functions.EmployeeQueue.CheckMPGroup(queueRecord);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      //Проверка признака НГД.
+      if (!Functions.EmployeeQueue.TrySetNGD(queueRecord, PP0001VDSK1))
+      {
+        error = DirRX.NNIntegration.Resources.NGDParseErrorFormat(PP0001VDSK1);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка вида документа, удостоверяющего личность.
+      if (!string.IsNullOrEmpty(IdentityDocumentKind) && !Functions.EmployeeQueue.TryParseIdentityDocumentKind(queueRecord, IdentityDocumentKind))
+      {
+        error = DirRX.NNIntegration.Resources.IdentityDocumentKindParseErrorFormat(IdentityDocumentKind);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка раздела персонала.
+      if (string.IsNullOrEmpty(queueRecord.PersonnelSectionCode))
+      {
+        error = DirRX.NNIntegration.EmployeeQueues.Resources.PersonnelSectionIsEmptyError;
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Проверка подраздела персонала.
+      if (string.IsNullOrEmpty(queueRecord.PersonnelSubSectionCode))
+      {
+        error = DirRX.NNIntegration.EmployeeQueues.Resources.PersonnelSubSectionIsEmptyError;
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      var culture = new System.Globalization.CultureInfo("ru-RU");
+      if (!string.IsNullOrEmpty(PP0002GBDAT))
+        queueRecord.DateOfBirth = DateTime.Parse(PP0002GBDAT, culture);
+      if (!string.IsNullOrEmpty(IdentityDocumentIssueDate))
+        queueRecord.IdentityDocumentIssueDate = DateTime.Parse(IdentityDocumentIssueDate, culture);
+      if (!string.IsNullOrEmpty(IdentityDocumentExpirationDate))
+        queueRecord.IdentityDocumentExpirationDate = DateTime.Parse(IdentityDocumentExpirationDate, culture);
+      
+      // Проверка формата часового пояса.
+      var utcOffset = 0.0;
+      if (!double.TryParse(UtcOffset, out utcOffset))
+      {
+        error = DirRX.NNIntegration.Resources.UtcOffsetParseErrorFormat(UtcOffset);
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PP0000PERNR, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      else
+        queueRecord.UtcOffset = utcOffset;
+      
+      // Проверка категории сотрудника.
+      error = Functions.EmployeeQueue.CheckEmployeeCategory(queueRecord);
+      if (!string.IsNullOrEmpty(error))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. SAP ID: {0}. Ошибка валидации запроса: {1}", PERSK, error);
+        validationErrors = string.Join(" ", error, validationErrors);
+      }
+      
+      // Вернуть ошибки валидации запроса в КСИП.
+      if (!string.IsNullOrEmpty(validationErrors))
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. Таб. номер сотрудника: {0}. Запись справочника \"Очередь сообщений справочника Сотрудники\" не создана из-за ошибок валидации.",
+                           queueRecord.PersonnelNumber);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, validationErrors);
+      }
+      
+      try
+      {
+        queueRecord.Save();
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("CreateEmployeeQueueRecord. Таб. номер сотрудника: {0}. Ошибка при сохранении записи справочника \"Очередь сообщений справочника Сотрудники\". Текст ошибки: {1}, StackTrace: {2}.",
+                           queueRecord.PersonnelNumber, ex.Message, ex.StackTrace);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, ex.Message);
+      }
+      
+      return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty);
+    }
     #endregion
     
     #region Функции синхронизации справочников орг. структуры.
@@ -531,12 +788,12 @@ namespace DirRX.NNIntegration.Server
       // Поиск записей очереди справочника Подразделения.
       var departmentQueueRecords = DepartmentQueues.GetAll(x => !oldRecords.Any(o => CompanyQueueBases.Equals(o, x)))
         .Where(x =>
-               x.ProcessingStatus == DirRX.NNIntegration.DepartmentQueue.ProcessingStatus.Created ||
+               x.ProcessingStatus == DirRX.NNIntegration.DepartmentQueue.ProcessingStatus.Recent ||
                x.ProcessingStatus == DirRX.NNIntegration.DepartmentQueue.ProcessingStatus.Retry)
         .OrderBy(x => x.ProcessingStatus);
       
       Logger.DebugFormat("{0}. {1}. Начало обработки. Всего новых записей: {2}. Всего записей на повторной обработке: {3}.", logPrefix, DepartmentQueues.Info.LocalizedName,
-                         departmentQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Created).Count(),
+                         departmentQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Recent).Count(),
                          departmentQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Retry).Count());
       
       // Обработка записей очереди справочника Подразделения.
@@ -754,6 +1011,8 @@ namespace DirRX.NNIntegration.Server
         {
           if (record.ProcessingStatus != DirRX.NNIntegration.CompanyQueueBase.ProcessingStatus.Retry)
             record.ProcessingStatus = DirRX.NNIntegration.CompanyQueueBase.ProcessingStatus.Retry;
+          if (record.RetryReason != jobState.RetryMessage)
+            record.RetryReason = jobState.RetryMessage;
           
           Logger.DebugFormat("{0}. {1}. ID записи: {2}. SAP ID: {3}. {4}. Обработка повторится при следующем запуске фонового процесса.", logPrefix, DepartmentQueues.Info.LocalizedName, record.Id, record.SapId, jobState.RetryMessage);
         }
@@ -763,6 +1022,7 @@ namespace DirRX.NNIntegration.Server
         #endregion
         
         // Сохранение записи очереди.
+        record.RetryReason = jobState.RetryMessage;
         if (!Functions.Module.CompanyQueueRecordSave(record, logPrefix))
           Logger.ErrorFormat("{0}. {1}. ID записи: {2}. SAP ID: {3}. Cтатус записи не был изменён на \"{4}\" из-за ошибки сохранения.",
                              logPrefix, DepartmentQueues.Info.LocalizedName, record.Id, record.SapId,
@@ -790,12 +1050,12 @@ namespace DirRX.NNIntegration.Server
       
       // Поиск записей очереди справочника Должности.
       var jobTitleQueueRecords = JobTitleQueues.GetAll(x => !oldRecords.Any(o => CompanyQueueBases.Equals(o, x)))
-        .Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Created ||
+        .Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Recent ||
                x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Retry)
         .OrderBy(x => x.ProcessingStatus);
       
       Logger.DebugFormat("{0}. {1}. Начало обработки. Всего новых записей: {2}. Всего записей на повторной обработке: {3}.", logPrefix, JobTitleQueues.Info.LocalizedName,
-                         jobTitleQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Created).Count(),
+                         jobTitleQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Recent).Count(),
                          jobTitleQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.JobTitleQueue.ProcessingStatus.Retry).Count());
       
       // Обработка записей очереди справочника Должности.
@@ -854,10 +1114,19 @@ namespace DirRX.NNIntegration.Server
                                        jobTitle.RecordStartDateDirRX = record.RecordStartDate;
                                      if (jobTitle.State.IsInserted || jobTitle.RecordExpirationDateDirRX != record.RecordEndDate)
                                        jobTitle.RecordExpirationDateDirRX = record.RecordEndDate;
+                                     
+                                     // Свойство устарело, теперь используется свойство IsTopDirRX.
                                      if (jobTitle.State.IsInserted || jobTitle.EvaluationGroupDirRX != record.EvaluationGroup)
                                        jobTitle.EvaluationGroupDirRX = record.EvaluationGroup;
+                                     
                                      if (string.IsNullOrEmpty(jobTitle.SapIdDirRX))
                                        jobTitle.SapIdDirRX = record.SapId;
+                                     if (jobTitle.State.IsInserted || jobTitle.IsTopDirRX != record.IsTop)
+                                       jobTitle.IsTopDirRX = record.IsTop;
+                                     
+                                     var positionLevel = OverrideSolution.PublicFunctions.JobTitle.GetJobTitlePositionLevel(jobTitle, record.PositionLevel);
+                                     if (jobTitle.State.IsInserted || !jobTitle.PositionLevelDirRX.Equals(positionLevel))
+                                       jobTitle.PositionLevelDirRX = positionLevel;
                                      
                                      #region Изменение признака наличия сотрудников на должности.
                                      // Если изменился признак или запись попала в повторную обработку.
@@ -992,6 +1261,8 @@ namespace DirRX.NNIntegration.Server
         {
           if (record.ProcessingStatus != DirRX.NNIntegration.CompanyQueueBase.ProcessingStatus.Retry)
             record.ProcessingStatus = DirRX.NNIntegration.CompanyQueueBase.ProcessingStatus.Retry;
+          if (record.RetryReason != jobState.RetryMessage)
+            record.RetryReason = jobState.RetryMessage;
           
           Logger.DebugFormat("{0}. {1}. ID записи: {2}. SAP ID: {3}. {4}. Обработка повторится при следующем запуске фонового процесса.", logPrefix, JobTitleQueues.Info.LocalizedName, record.Id, record.SapId, jobState.RetryMessage);
         }
@@ -1028,14 +1299,14 @@ namespace DirRX.NNIntegration.Server
       
       // Поиск записей очереди справочника Сотрудники.
       var employeeQueueRecords = EmployeeQueues.GetAll(x => !oldRecords.Any(o => CompanyQueueBases.Equals(o, x)))
-        .Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Created ||
+        .Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Recent ||
                x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Retry)
         .OrderBy(x => x.ProcessingStatus);
       // Получение ответственного из справочника "Потоки внешних систем" по guid потока.
       var responsible = Functions.Module.GetFlowResponsible(Constants.Module.ExternalSystemsFlowGuids.CompanySynchronization);
       
       Logger.DebugFormat("{0}. {1}. Начало обработки. Всего новых записей: {2}. Всего записей на повторной обработке: {3}.", logPrefix, EmployeeQueues.Info.LocalizedName,
-                         employeeQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Created).Count(),
+                         employeeQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Recent).Count(),
                          employeeQueueRecords.Where(x => x.ProcessingStatus == DirRX.NNIntegration.EmployeeQueue.ProcessingStatus.Retry).Count());
       
       // Обработка записей очереди справочника Сотрудники.
@@ -1104,7 +1375,7 @@ namespace DirRX.NNIntegration.Server
                                      {
                                        if (string.IsNullOrEmpty(jobState.RetryMessage))
                                        {
-                                         if (person.FirstName != record.FirstName || person.LastName != record.LastName || person.MiddleName != record.MiddleName)
+                                         if (!person.State.IsInserted && (person.FirstName != record.FirstName || person.LastName != record.LastName || person.MiddleName != record.MiddleName))
                                            needIssueCertificate = true;
                                          
                                          if (person.State.IsInserted || person.FirstName != record.FirstName)
@@ -1285,6 +1556,9 @@ namespace DirRX.NNIntegration.Server
         
         if (string.IsNullOrEmpty(jobState.ErrorMessage) && string.IsNullOrEmpty(jobState.RetryMessage))
         {
+          var oldJobTitle = OverrideSolution.JobTitles.Null;
+          var isUpdateJobTitle = false;
+          
           employeeExecutionResult =
             Transactions.Execute(() =>
                                  {
@@ -1358,6 +1632,25 @@ namespace DirRX.NNIntegration.Server
                                        // Таб. номер сотрудника.
                                        if (string.IsNullOrEmpty(employee.PersonnelNumber))
                                          employee.PersonnelNumber = record.PersonnelNumber;
+                                       
+                                       #region Раздел и подраздел персонала.
+                                       if (string.IsNullOrEmpty(jobState.ErrorMessage))
+                                       {
+                                         var personnelSection = NNCommons.PublicFunctions.PersonnelSection.Remote.GetPersonnelSectionByCode(record.PersonnelSectionCode);
+                                         if (personnelSection == null)
+                                           jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. {2}", employee.Id, record.PersonnelNumber,
+                                                                                 EmployeeQueues.Resources.PersonnelSectionNotFoundErrorFormat(record.PersonnelSectionCode));
+                                         else if (employee.State.IsInserted || !NNCommons.PersonnelSections.Equals(employee.PersonnelSectionDirRX, personnelSection))
+                                           employee.PersonnelSectionDirRX = personnelSection;
+                                         
+                                         var personnelSubSection = NNCommons.PublicFunctions.PersonnelSubSection.Remote.GetPersonnelSubSectionByCode(record.PersonnelSubSectionCode);
+                                         if (personnelSubSection == null)
+                                           jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. {2}", employee.Id, record.PersonnelNumber,
+                                                                                 EmployeeQueues.Resources.PersonnelSubSectionNotFoundErrorFormat(record.PersonnelSubSectionCode));
+                                         else if (employee.State.IsInserted || !NNCommons.PersonnelSubSections.Equals(employee.PersonnelSubSectionDirRX, personnelSubSection))
+                                           employee.PersonnelSubSectionDirRX = personnelSubSection;
+                                       }
+                                       #endregion
                                        
                                        #region Email.
                                        if (employee.State.IsInserted || employee.Email != record.Email)
@@ -1528,11 +1821,20 @@ namespace DirRX.NNIntegration.Server
                                            if (jobTitle == null)
                                              jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не найдена должность по SAP ID: {2}", employee.Id, record.PersonnelNumber,  record.JobTitleCode);
                                            else
+                                           {
+                                             oldJobTitle = OverrideSolution.JobTitles.As(employee.JobTitle);
                                              employee.JobTitle = jobTitle;
+                                             isUpdateJobTitle = true;
+                                           }
                                          }
                                          // Второй случай. Пришёл пустой SAP ID должности, а у сотрудника заполнена должность.
                                          else if (string.IsNullOrEmpty(record.JobTitleCode) && employee.JobTitle != null)
+                                         {
+                                           oldJobTitle = OverrideSolution.JobTitles.As(employee.JobTitle);
                                            employee.JobTitle = JobTitles.Null;
+                                           isUpdateJobTitle = true;
+                                         }
+                                         
                                        }
                                        #endregion
                                        
@@ -1565,6 +1867,98 @@ namespace DirRX.NNIntegration.Server
                                        #region Часовой пояс
                                        if (record.UtcOffset != employee.UtcOffsetDirRX)
                                          employee.UtcOffsetDirRX = record.UtcOffset;
+                                       #endregion
+                                       
+                                       #region Линейный руководитель для информирования.
+                                       if (string.IsNullOrEmpty(jobState.ErrorMessage))
+                                       {
+                                         // Изменение лин. руководителя для информирования. Всего две причины для изменения поля в справочнике.
+                                         // Первый случай. Пришёл не пустой SAP ID лин. руководителя для информирования, и он не совпадает с тем, который уже указан в записи сотрудника.
+                                         if (!string.IsNullOrEmpty(record.InfoManager) && employee.InfoManagerDirRX?.PersonnelNumber != record.InfoManager)
+                                         {
+                                           var infoManager = GetEmployeeByPersonnelNumber(record.InfoManager);
+                                           // Если не найден лин. руководитель для информирования, то отправляем запись на повторную обработку.
+                                           if (infoManager == null)
+                                             jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не найден лин. руководитель для информирования по таб. номеру: {2}", employee.Id, record.PersonnelNumber, record.InfoManager);
+                                           else
+                                             employee.InfoManagerDirRX = infoManager;
+                                         }
+                                         // Второй случай. Пришёл пустой SAP ID лин. руководителя для информирования, а у сотрудника заполнен лин. руководитель.
+                                         else if (string.IsNullOrEmpty(record.InfoManager) && employee.InfoManagerDirRX != null)
+                                           employee.InfoManagerDirRX = Employees.Null;
+                                       }
+                                       #endregion
+                                       
+                                       #region Линейный руководитель(2 уровень).
+                                       if (string.IsNullOrEmpty(jobState.ErrorMessage))
+                                       {
+                                         // Изменение лин. руководителя (2 уровня). Всего две причины для изменения поля в справочнике.
+                                         // Первый случай. Пришёл не пустой SAP ID лин. руководителя (2 уровня) для информирования, и он не совпадает с тем, который уже указан в записи сотрудника.
+                                         if (!string.IsNullOrEmpty(record.ManagerLevel2) && employee.ManagerLevel2DirRX?.PersonnelNumber != record.ManagerLevel2)
+                                         {
+                                           var managerLevel2 = GetEmployeeByPersonnelNumber(record.ManagerLevel2);
+                                           // Если не найден лин. руководитель (2 уровень), то отправляем запись на повторную обработку.
+                                           if (managerLevel2 == null)
+                                             jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не найден лин. руководитель (2 уровень) по таб. номеру: {2}",
+                                                                                   employee.Id, record.PersonnelNumber, record.ManagerLevel2);
+                                           else
+                                             employee.ManagerLevel2DirRX = managerLevel2;
+                                         }
+                                         // Второй случай. Пришёл пустой SAP ID лин. руководителя (2 уровень), а у сотрудника заполнен лин. руководитель.
+                                         else if (string.IsNullOrEmpty(record.ManagerLevel2) && employee.ManagerLevel2DirRX != null)
+                                           employee.ManagerLevel2DirRX = Employees.Null;
+                                       }
+                                       #endregion
+                                       
+                                       #region Руководитель ВСП.
+                                       if (string.IsNullOrEmpty(jobState.ErrorMessage))
+                                       {
+                                         // Изменение Руководителя ВСП. Всего две причины для изменения поля в справочнике.
+                                         // Первый случай. Пришёл не пустой SAP ID Руководителя ВСП, и он не совпадает с тем, который уже указан в записи сотрудника.
+                                         if (!string.IsNullOrEmpty(record.VSPManager) && employee.VSPManagerDirRX?.PersonnelNumber != record.VSPManager)
+                                         {
+                                           var vspManager = GetEmployeeByPersonnelNumber(record.VSPManager);
+                                           // Если не найден лин. руководитель для информирования, то отправляем запись на повторную обработку.
+                                           if (vspManager == null)
+                                             jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не найден Руководителя ВСП по таб. номеру: {2}",
+                                                                                   employee.Id, record.PersonnelNumber, record.VSPManager);
+                                           else
+                                             employee.VSPManagerDirRX = vspManager;
+                                         }
+                                         // Второй случай. Пришёл пустой SAP ID Руководителя ВСП, а у сотрудника заполнен лин. руководитель.
+                                         else if (string.IsNullOrEmpty(record.VSPManager) && employee.VSPManagerDirRX != null)
+                                           employee.VSPManagerDirRX = Employees.Null;
+                                       }
+                                       #endregion
+                                       
+                                       #region Руководитель СП.
+                                       if (string.IsNullOrEmpty(jobState.ErrorMessage))
+                                       {
+                                         // Изменение Руководителя СП. Всего две причины для изменения поля в справочнике.
+                                         // Первый случай. Пришёл не пустой SAP ID Руководителя СП, и он не совпадает с тем, который уже указан в записи сотрудника.
+                                         if (!string.IsNullOrEmpty(record.SPManager) && employee.SPManagerDirRX?.PersonnelNumber != record.SPManager)
+                                         {
+                                           var spManager = GetEmployeeByPersonnelNumber(record.SPManager);
+                                           // Если не найден лин. руководитель для информирования, то отправляем запись на повторную обработку.
+                                           if (spManager == null)
+                                             jobState.RetryMessage = string.Format("ID сотрудника: {0}. Таб. номер: {1}. Не найден Руководителя СП по таб. номеру: {2}",
+                                                                                   employee.Id, record.PersonnelNumber, record.SPManager);
+                                           else
+                                             employee.SPManagerDirRX = spManager;
+                                         }
+                                         // Второй случай. Пришёл пустой SAP ID Руководителя ВСП, а у сотрудника заполнен лин. руководитель.
+                                         else if (string.IsNullOrEmpty(record.SPManager) && employee.SPManagerDirRX != null)
+                                           employee.SPManagerDirRX = Employees.Null;
+                                       }
+                                       #endregion
+                                       
+                                       #region Категория сотрудника.
+                                       if (string.IsNullOrEmpty(jobState.ErrorMessage))
+                                       {
+                                         var category = Functions.EmployeeQueue.GetEmployeeCategory(record, record.PersCategory);
+                                         if (!employee.CategoryDirRX.Equals(category))
+                                           employee.CategoryDirRX = category;
+                                       }
                                        #endregion
                                        
                                        Logger.DebugFormat("{0}. {1}. ID записи: {2}. ID сотрудника: {3}. Таб. номер: {4}. Итоговый статус действия сотрудника перед сохранением: {5}.",
@@ -1603,10 +1997,14 @@ namespace DirRX.NNIntegration.Server
                                    }
                                  });
           
-          if (oldDepartmentIsLocked)
+          // Если должность поменялась, нужно проверить, руководящая ли она, и обновить руководителей подразделений.
+          if (employeeExecutionResult && isUpdateJobTitle)
+            Functions.Module.UpdateDepartmentManagers(logPrefix, employee, oldJobTitle);
+          
+          if (oldDepartmentIsLocked && Locks.GetLockInfo(oldDepartment).IsLockedByMe)
             Locks.Unlock(oldDepartment);
           
-          if (newDepartmentIsLocked && department != null && !department.State.IsInserted)
+          if (newDepartmentIsLocked && department != null && !department.State.IsInserted && Locks.GetLockInfo(department).IsLockedByMe)
             Locks.Unlock(department);
           
           // Если транзакция завершилась с ошибкой, то выполняем поиск сотрудника.
@@ -1615,8 +2013,10 @@ namespace DirRX.NNIntegration.Server
           else
           {
             var isReissueCertificateOnOrgStructureSync = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(Constants.Module.ConstantsSetting.ReissueCertificateOnOrgStructureSync.Guid);
-            // Выпустить сертификат, если изменился номер телефона или адрес эл. почты.
-            if ((isReissueCertificateOnOrgStructureSync == true) && needIssueCertificate && string.IsNullOrEmpty(jobState.ErrorMessage))
+            var isAccountConnected = employee.PersonalAccountStatusDirRX == OverrideSolution.Employee.PersonalAccountStatusDirRX.InviteAccepted &&
+              employee.ConsentHRPro == OverrideSolution.Employee.ConsentHRPro.Signed;
+            // Выпустить сертификат, если изменился номер телефона или адрес эл. почты или ФИО, а сам сотрудник подключен к ЛК и у него подписано согласие.
+            if ((isReissueCertificateOnOrgStructureSync == true) && isAccountConnected && needIssueCertificate && string.IsNullOrEmpty(jobState.ErrorMessage))
               DirRX.OverrideSolution.PublicFunctions.Employee.ReissueCertificate(employee);
             
             if (!Employees.Equals(record.Employee, employee))
@@ -1672,6 +2072,8 @@ namespace DirRX.NNIntegration.Server
         {
           if (record.ProcessingStatus != DirRX.NNIntegration.CompanyQueueBase.ProcessingStatus.Retry)
             record.ProcessingStatus = DirRX.NNIntegration.CompanyQueueBase.ProcessingStatus.Retry;
+          if (record.RetryReason != jobState.RetryMessage)
+            record.RetryReason = jobState.RetryMessage;
           
           Logger.DebugFormat("{0}. {1}. ID записи: {2}. Таб. номер: {3}. {4}. Обработка повторится при следующем запуске фонового процесса.", logPrefix, EmployeeQueues.Info.LocalizedName, record.Id, record.PersonnelNumber, jobState.RetryMessage);
         }
@@ -2856,7 +3258,59 @@ namespace DirRX.NNIntegration.Server
       
       return city;
     }
-
+    
+    /// <summary>
+    /// Обновление руководителей подразделений при смене должности сотрудника.
+    /// </summary>
+    /// <param name="logPrefix">Префикс для логирования.</param>
+    /// <param name="employee">Сотрудник.</param>
+    /// <param name="oldJobTitle">Должность сотрудника до обновления.</param>
+    /// <remarks>Если должность сотрудника поменялась, и он был/будет руководителем, то нужно обновить руководителя в соответствующем подразделении.</remarks>
+    public void UpdateDepartmentManagers(string logPrefix, OverrideSolution.IEmployee employee, OverrideSolution.IJobTitle oldJobTitle)
+    {
+      if (oldJobTitle != null)
+        SetDepartmentManagerByJobTitle(logPrefix, null, oldJobTitle.SapIdDirRX);
+      
+      var newJobTitle = OverrideSolution.JobTitles.As(employee.JobTitle);
+      if(newJobTitle != null)
+        SetDepartmentManagerByJobTitle(logPrefix, employee, newJobTitle.SapIdDirRX);
+    }
+    
+    /// <summary>
+    /// Установка нового руководителя подразделения по SapID руководящей должности.
+    /// </summary>
+    /// <param name="logPrefix">Префикс для логирования.</param>
+    /// <param name="newManager">Новый руководитель (если известен).</param>
+    /// <param name="jobTitleSapID">SapID должности.</param>
+    public void SetDepartmentManagerByJobTitle(string logPrefix, OverrideSolution.IEmployee newManager, string jobTitleSapID)
+    {
+      var jobTitleDepartment = Functions.Module.GetDepartmentByManagerJobTitleSAPId(jobTitleSapID);
+      if (jobTitleDepartment != null)
+      {
+        Logger.DebugFormat("{0}. Изменение руководителя подразделения с SapID: {1}.", logPrefix, jobTitleDepartment.SapIdDirRX);
+        
+        if (newManager == null)
+          newManager = Functions.Module.GetDepartmentManagerBySAPId(jobTitleSapID);
+        
+        var oldManager = jobTitleDepartment.Manager;
+        if (!Equals(oldManager, newManager))
+        {
+          try
+          {
+            jobTitleDepartment.Manager = newManager;
+            jobTitleDepartment.Save();
+            Logger.DebugFormat("{0}. Руководитель изменен. Таб. номер предыдущего руководителя: {1}. Таб. номер нового руководителя: {2}",
+                               logPrefix, oldManager?.PersonnelNumber, newManager?.PersonnelNumber);
+          }
+          catch (Exception ex)
+          {
+            Logger.ErrorFormat("{0}. Не удалось сохранить запись справочника Подразделения. SapID: {1}. Ошибка: {2}. StackTrace: {3}.",
+                               logPrefix, jobTitleDepartment.SapIdDirRX, ex.Message, ex.StackTrace);
+          }
+        }
+      }
+    }
+    
     #endregion
     
     #region Обработка УЗ.
@@ -3295,6 +3749,10 @@ namespace DirRX.NNIntegration.Server
         case Constants.Module.ExternalSystemsFlowGuids.SendVacationsForPaymentChecking:
           result = NNVacations.PublicFunctions.Module.GenerateStructForSendingVacationsForPaymentChecking(entityId, guidMessage);
           break;
+          // IF-S-29000. Передача статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП.
+        case Constants.Module.ExternalSystemsFlowGuids.VacationScheduleProcessStatus:
+          result = NNVacations.PublicFunctions.Module.GenerateStructForSendingStatusVacationScheduleDoc(entityId, guidMessage);
+          break;
         default:
           result.ErrorText = "Поток с переданным guid не найден.";
           break;
@@ -3697,6 +4155,10 @@ namespace DirRX.NNIntegration.Server
           // IF-S-28097. Синхронизация календарей рабочего времени.
         case Constants.Module.ExternalSystemsFlowGuids.UpdateOrCreateWorkingTimeCalendar:
           result = DirRX.NNCommons.PublicFunctions.Module.UpdateOrCreateWorkingTimeCalendar(idIncomingMessage);
+          break;
+          // IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+        case Constants.Module.ExternalSystemsFlowGuids.CreateWeekendWorkRestOrderDocument:
+          result = DirRX.NNOtherProcesses.PublicFunctions.Module.CreateWeekendWorkRestOrderDocumentHandler(idIncomingMessage);
           break;
           // IF-S-28542 Данные по оплатам отсутствий из АСУП в КЭДО (АСУП → КЭДО).
         case Constants.Module.ExternalSystemsFlowGuids.VacationsPaymentInfo:
@@ -4133,7 +4595,29 @@ namespace DirRX.NNIntegration.Server
           doc.LifeCycleState == HRPro.HRProSolution.OfficialDocument.LifeCycleState.Active)
         approval = Constants.Module.ApprovalStatusDoc.Sign;
       
-      var needCancelAction = docKind.NeedCancelActionDirRX == true && approval == Constants.Module.ApprovalStatusDoc.Reject;
+      var grantRestOrderDocumentKind = Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(NNOtherProcesses.PublicConstants.Module.DocumentKind.GrantRestOrderDocument);
+      
+      var needCancelAction = true;
+      
+      if (DocumentKinds.Equals(doc.DocumentKind, grantRestOrderDocumentKind))
+      {
+        var order = NNOtherProcesses.WeekendWorkRestOrderDocuments.As(doc)?.Statement;
+        var statement = NNOtherProcesses.WeekendWorkRestStatementDocuments.As(order);
+        
+        if (statement != null &&
+            statement.SourceDocument != null &&
+            statement.SourceDocument.Employees != null)
+        {
+          var employeeInfo = statement.SourceDocument.Employees
+            .Where(em => Equals(em.Employee, doc.EmployeeDirRX))
+            .FirstOrDefault();
+          
+          if (employeeInfo != null)
+            needCancelAction = !(employeeInfo.RejectedByOrder == true);
+        }
+      }
+      else
+        needCancelAction = docKind.NeedCancelActionDirRX == true;
       
       var model = DirRX.NNIntegration.Structures.Module.StatusDocToSAPInfo.Create(
         messageGuid,
@@ -4188,10 +4672,10 @@ namespace DirRX.NNIntegration.Server
     /// Передать уведомление об отпуске.
     /// </summary>
     /// <param name="Employees">Информация об отпусках.</param>
-    /// <param name="Email">Адрес эл. почты.</param>
+    /// <param name="Emails">Адреса эл. почты.</param>
     /// <returns>Ответ в Json.</returns>
     [Public(WebApiRequestType = RequestType.Post)]
-    public IResponseToExternalSystemRequest SendVacationNotice(List<DirRX.NNIntegration.Structures.Module.IVacationInfo> Employees, string Email)
+    public IResponseToExternalSystemRequest SendVacationNotice(List<DirRX.NNIntegration.Structures.Module.IVacationInfo> Employees, List<DirRX.NNIntegration.Structures.Module.IEmails> Emails)
     {
       var errorMessage = string.Empty;
       if (Employees == null)
@@ -4201,7 +4685,7 @@ namespace DirRX.NNIntegration.Server
         return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
       }
       
-      var model = Structures.Module.IncomingVacationsInfo.Create(Employees, Email);
+      var model = Structures.Module.IncomingVacationsInfo.Create(Employees, Emails);
       foreach (var vacationInfo in model.EmployeesVacationsInfo)
       {
         vacationInfo.Employee = vacationInfo.Employee.Trim().TrimStart('0');
@@ -4283,7 +4767,24 @@ namespace DirRX.NNIntegration.Server
     [ExpressionElement("ExpressionFuncName_GetMessageSentByTask", "ExpressionFuncDesc_GetMessageSentByTask")]
     public static IOutgoingMessage GetMessageSentByTask(Sungero.Workflow.ITask task)
     {
-      return OutgoingMessages.GetAll(x => x.EntityId == task.Id).OrderByDescending(x => x.Id).FirstOrDefault();
+      var messages = OutgoingMessages.GetAll(x => x.EntityId == task.Id).ToList();
+      var entityId = messages.ToDictionary(x => x.Id, x => GetCreateDateDatabookEntry(x)).OrderByDescending(x => x.Value).FirstOrDefault().Key;
+      
+      return messages.Where(x => x.Id == entityId).FirstOrDefault();
+    }
+    
+    /// <summary>
+    /// Получить дату создания записи справочника.
+    /// </summary>
+    /// <param name="record">Запись справочника.</param>
+    /// <returns>Дата создания.</returns>
+    [Public]
+    public static DateTime? GetCreateDateDatabookEntry(Sungero.CoreEntities.IDatabookEntry databookEntry)
+    {
+      return databookEntry.History.GetAll().OrderBy(h => h.HistoryDate)
+        .Where(h => h.Action == Sungero.CoreEntities.History.Action.Create)
+        .Select(h => h.HistoryDate)
+        .FirstOrDefault();
     }
 
     /// <summary>
@@ -5199,9 +5700,10 @@ namespace DirRX.NNIntegration.Server
     /// <param name="Year">На год.</param>
     /// <param name="SAPID">Идентификатор документа в SAP.</param>
     /// <param name="Employees">Список работников.</param>
+    /// <param name="RespEmployee">Ответственный за График отпусков.</param>
     /// <returns>Результат обработки.</returns>
     [Public(WebApiRequestType = RequestType.Post)]
-    public IResponseToExternalSystemRequest CreateVacationScheduleDocument(string Body, string OrgType, string OrgCode, string Year, string SAPID, List<Structures.Module.IVacationInfoFromSAP> Employees)
+    public IResponseToExternalSystemRequest CreateVacationScheduleDocument(string Body, string OrgType, string OrgCode, string Year, string SAPID, List<Structures.Module.IVacationInfoFromSAP> Employees, string RespEmployee)
     {
       var errorMessage = string.Empty;
       var businessUnit = NNIntegration.PublicFunctions.Module.GetBusinessUnitBySAPId(OrgType + OrgCode);
@@ -5234,7 +5736,15 @@ namespace DirRX.NNIntegration.Server
         employeeInfo.Employee = employeeInfo.Employee.Trim().TrimStart('0');
       }
       
-      var model = Structures.Module.IncomingVacationScheduleDocumentInfoFromSAP.Create(Body, OrgType, OrgCode, Year, SAPID, Employees);
+      var model = Structures.Module.IncomingVacationScheduleDocumentInfoFromSAP.Create();
+      model.Body = Body;
+      model.OrgType = OrgType;
+      model.OrgCode = OrgCode;
+      model.Year = Year;
+      model.SAPID = SAPID;
+      model.Employees = Employees;
+      model.Responsible = RespEmployee;
+      
       var responseBody = string.Empty;
       try
       {
@@ -5252,6 +5762,54 @@ namespace DirRX.NNIntegration.Server
       return string.IsNullOrEmpty(errorMessage)
         ? CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty)
         : CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+    }
+
+    #endregion
+    
+    #region IF-S-29001. Проверка УЗ Ответственного за график отпусков в КЭДО.
+
+    /// <summary>
+    /// Проверить УЗ Ответственного за график отпусков в КЭДО.
+    /// </summary>
+    /// <param name="PP0000PERNR">Табельный номер.</param>
+    /// <returns>Результат обработки.</returns>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public ICheckKedoLoginResult CheckKedoLogin(string PP0000PERNR)
+    {
+      var result = Structures.Module.CheckKedoLoginResult.Create();
+      result.Result = false;
+      
+      var errorMessage = string.Empty; 
+      try
+      {
+        if (string.IsNullOrEmpty(PP0000PERNR))
+          Logger.Error("CheckKedoLogin. Не заполнен Табельный номер.");
+        else
+        {
+          var employee = NNIntegration.Functions.Module.GetEmployeeByPersonnelNumber(PP0000PERNR);
+          if (employee == null)
+            Logger.ErrorFormat("CheckKedoLogin. Не найден Сотрудник по ТН: {0}.", PP0000PERNR);
+          else
+          {
+            var login = employee.Login;
+            if (login == null)
+              Logger.ErrorFormat("CheckKedoLogin. У сотрудника ИД: {0} не заполнена Учетная запись.", employee.Id);
+            else
+            {
+              if (login.Status != Sungero.CoreEntities.DatabookEntry.Status.Active)
+                Logger.ErrorFormat("CheckKedoLogin. Учетная запись ИД: {0} не является действующей.", login.Id);
+              else
+                result.Result = !login.LoginName.Contains(Constants.Module.HRProLoginPrefix);
+            }
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("CheckKedoLogin. Возникла ошибка при обработке запроса. Текст ошибки: {0}. StackTrace: {1}.", ex.Message, ex.StackTrace);
+      }
+      
+      return result;
     }
 
     #endregion
@@ -5293,8 +5851,29 @@ namespace DirRX.NNIntegration.Server
       var mainEmployee = Employees.As(DirRX.EssPlatform.PublicFunctions.Module.Remote.GetPersonMainEmployee(employee.Person.Id, null));
       
       if (mainEmployee == null)
-        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error,
-                                              DirRX.NNIntegration.Resources.EmployeeDoesntHaveMainEmployeeErrorFormat(model.Employee));
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, DirRX.NNIntegration.Resources.EmployeeDoesntHaveMainEmployeeErrorFormat(model.Employee));
+      
+      Logger.DebugFormat("{0}. Найден сотрудник с ИД={1} в НОР с ИД={2}, основной сотрудник с ИД={3} в НОР с ИД={4}.",
+                         logPrefix, employee.Id.ToString(), employee.BusinessUnit.Id.ToString(), mainEmployee.Id.ToString(), mainEmployee.BusinessUnit.Id.ToString());
+      
+      // Сохраняем ИД НОР сотрудника, по которому пришел запрос из АСУП.
+      model.BusinessUnitId = employee.BusinessUnit.Id;
+      
+      // Анализируем изменение значения св-ва "Согласие на КЭДО" сотрудника, по которому пришёл запрос из АСУП.
+      model.ConsentChangeFlag = Constants.Module.CreateAccount.ConsentChangeType.None;
+
+      if (model.IsKEDO && employee.ConsentHRPro != DirRX.OverrideSolution.Employee.ConsentHRPro.Signed)
+        model.ConsentChangeFlag = Constants.Module.CreateAccount.ConsentChangeType.BecameSigned;
+      else if (!model.IsKEDO && employee.ConsentHRPro == DirRX.OverrideSolution.Employee.ConsentHRPro.Signed)
+        model.ConsentChangeFlag = Constants.Module.CreateAccount.ConsentChangeType.BecameUnsigned;
+      
+      // Анализируем изменение значения св-ва "Согласие на КЭДО" сотрудника, по которому пришёл запрос из АСУП.
+      model.ConsentChangeFlag = Constants.Module.CreateAccount.ConsentChangeType.None;
+
+      if (model.IsKEDO && employee.ConsentHRPro != DirRX.OverrideSolution.Employee.ConsentHRPro.Signed)
+        model.ConsentChangeFlag = Constants.Module.CreateAccount.ConsentChangeType.BecameSigned;
+      else if (!model.IsKEDO && employee.ConsentHRPro == DirRX.OverrideSolution.Employee.ConsentHRPro.Signed)
+        model.ConsentChangeFlag = Constants.Module.CreateAccount.ConsentChangeType.BecameUnsigned;
       
       // Согласие меняем у сотрудника, по которому пришёл запрос.
       processingError.ErrorText = DirRX.OverrideSolution.PublicFunctions.Employee.ChangeConsent(employee, model.IsKEDO);
@@ -5309,8 +5888,22 @@ namespace DirRX.NNIntegration.Server
             processingError = RxAccountProcessing(model, mainEmployee);
             break;
           case Constants.Module.CreateAccount.AccountType.Kedo:
-            Logger.DebugFormat("{0}. Запуск создания УЗ ЛК HRPro.", logPrefix);
-            processingError = KedoAccountProcessing(model, mainEmployee);
+            // Асинхронное создание УЗ через ФП.
+            if (NNCommons.PublicFunctions.Module.Remote.GetBoolValue(Constants.Module.ConstantsSetting.AsyncCreateESSUserAccount.Guid) == true)
+            {
+              Logger.DebugFormat("{0}. Создание записи очереди для создания УЗ ЛК HRPro.", logPrefix);
+              var queueItem = ESSUserAccountQueues.Create();
+              queueItem.PersonnelNumber = Employee;
+              queueItem.Login = Login;
+              queueItem.IsKEDO = IsKEDO;
+              queueItem.ConsentChangeType = model.ConsentChangeFlag;
+              queueItem.Save();
+            }
+            else
+            {
+              Logger.DebugFormat("{0}. Запуск создания УЗ ЛК HRPro.", logPrefix);
+              processingError = KedoAccountProcessing(model, mainEmployee);
+            }
             break;
         }
       }
@@ -5520,7 +6113,7 @@ namespace DirRX.NNIntegration.Server
     #region Создание УЗ для ЛК.
 
     /// <summary>
-    /// Создание УЗ для ЛК.
+    /// Создание УЗ для ЛК. Перегрузка с необхоимостью создать УЗ в RX и добавить в роль "Неинтерактивные пользователи".
     /// </summary>
     /// <param name="model">Данные с интеграции.</param>
     /// <param name="employee">Сотрудник.</param>
@@ -5528,8 +6121,22 @@ namespace DirRX.NNIntegration.Server
     [Public]
     public virtual IProcessingErrorStruct KedoAccountProcessing(ICreateAccountStruct model, IEmployee employee)
     {
+      return KedoAccountProcessing(model, employee, true);
+    }
+    
+    /// <summary>
+    /// Создание УЗ для ЛК.
+    /// </summary>
+    /// <param name="model">Данные с интеграции.</param>
+    /// <param name="employee">Сотрудник.</param>
+    /// <param name="needIncludeToNonInteractiveUsersRole">Нужно ли создать УЗ в RX и добавить в роль "Неинтерактивные пользователи".</param>
+    /// <returns>Структура ошибок.</returns>
+    [Public]
+    public virtual IProcessingErrorStruct KedoAccountProcessing(ICreateAccountStruct model, IEmployee employee, bool needIncludeToNonInteractiveUsersRole)
+    {
       var logPrefix = "KedoAccountProcessing";
       var processingError = ProcessingErrorStruct.Create();
+      var needReissueCertificate = false;
       
       // Валидация сотрудника, персоны и номера телефона.
       processingError.ErrorText = OverrideSolution.PublicFunctions.Employee.Validate(employee, model.Login);
@@ -5540,10 +6147,10 @@ namespace DirRX.NNIntegration.Server
       // Если номер телефона отличается от номера телефона, указанного в сотруднике – то создавать УЗ с номером полученном в запросе.
       var requestPhone = OverrideSolution.PublicFunctions.Employee.GetFormatPhoneNumber(employee, model.Login);
       var phoneIsChanged = employee.PersonalPhoneDirRX != requestPhone;
+      
       if (phoneIsChanged)
       {
-        Logger.DebugFormat("{0}. ИД cотрудника: {1}. Номер телефона в запросе не соответсвует номеру личного телефона сотрудника. Телефон сотрудника будет обновлён и он будет использоваться при создании УЗ.",
-                           logPrefix, employee.Id);
+        Logger.DebugFormat("{0}. ИД cотрудника: {1}. Номер телефона в запросе не соответсвует номеру личного телефона сотрудника. Телефон сотрудника будет обновлён и он будет использоваться при создании УЗ.", logPrefix, employee.Id);
         // Если номер телефона был изменён, то в событии "После сохранения" в справочнике Сотрудники будет запущен АО, который синхронизирует новый номер в совместителей.
         employee.PersonalPhoneDirRX = requestPhone;
       }
@@ -5572,39 +6179,88 @@ namespace DirRX.NNIntegration.Server
       if (phoneIsChanged)
         DirRX.OverrideSolution.PublicFunctions.Employee.CheckEmployeesCertificatePhone(employee);
       
+      var isConsentSigned = DirRX.OverrideSolution.PublicFunctions.Employee.Remote.CheckConsentSigned(employee, true);
+      var hasModelData = model.ConsentChangeFlag != null && model.BusinessUnitId != null;
+      var isConsentUnchangedAndSigned = model.ConsentChangeFlag == Constants.Module.CreateAccount.ConsentChangeType.None && isConsentSigned;
+      var isConsentBecameSigned = model.ConsentChangeFlag == Constants.Module.CreateAccount.ConsentChangeType.BecameSigned;
+      var isConsentBecameUnsigned = model.ConsentChangeFlag == Constants.Module.CreateAccount.ConsentChangeType.BecameUnsigned;
+      
       try
       {
         // Если сотрудник не подключен к ЛК, то создаём УЗ и активируем её в ЛК.
         if (employee.PersonalAccountStatusDirRX == OverrideSolution.Employee.PersonalAccountStatusDirRX.InviteIsNotSent)
         {
-          
           // Создание УЗ в RX и добавление в роль "Неинтерактивные пользователи".
-          DirRX.EssPlatform.PublicFunctions.Module.Remote.FillAccountAndIncludeNonInteractiveUsersRoles(employee.Id);
-          
+          // Если Асинхронное создание УЗ через ФП, то это делается в ФП. 
+          if (needIncludeToNonInteractiveUsersRole)
+            DirRX.EssPlatform.PublicFunctions.Module.Remote.FillAccountAndIncludeNonInteractiveUsersRoles(employee.Id);
           // Создание и активация УЗ в ЛК.
           DirRX.OverrideSolution.PublicFunctions.Employee.ActivateEssEmployee(employee);
-          Logger.DebugFormat("{0}. ИД cотрудника: {1}. Учётна запись сотрудника ЛК успешно создана.", logPrefix, employee.Id);
+          Logger.DebugFormat("{0}. ИД cотрудника: {1}. Сотрудник не был подключен к ЛК. Учётная запись сотрудника ЛК успешно создана.", logPrefix, employee.Id);
         }
         // Если сотрудник подключен к ЛК и изменился телефон, то необходимо его обновить в ЛК.
         else if (phoneIsChanged)
         {
           processingError.ErrorText = ChangeEmployeePhoneNumber(logPrefix, employee, string.Empty);
+          
           if (!string.IsNullOrEmpty(processingError.ErrorText))
           {
             Logger.ErrorFormat("{0}. ИД cотрудника {1}. {2}.", logPrefix, employee.Id, processingError.ErrorText);
             return processingError;
           }
-          
-          if (employee.ConsentHRPro == DirRX.OverrideSolution.Employee.ConsentHRPro.Signed)
+          // Перевыпуск при смене номера возможен только если согласие подписано:
+          // 1. Из CreateAccount: изменения не было, но есть хотя бы один сотрудник с подписанным согласием.
+          // 2. Из CreateAccount: изменение было с "Не подписано" на "Подписано".
+          // 3. Из CreateAccount: изменение было с "Подписано" на "Не подписано", но есть хотя бы один внешний сотрудник с подписанным согласием.
+          // 4. Не из CreateAccount - есть хотя бы один сотрудник с подписанным согласием.
+          if (hasModelData && (isConsentUnchangedAndSigned || isConsentBecameSigned || (isConsentBecameUnsigned && HasSignedConsentExcludingBusinessUnit(employee.Person.Id, model.BusinessUnitId.Value))) || isConsentSigned)
           {
+            needReissueCertificate = true;
             Logger.DebugFormat("{0}. ИД cотрудника: {1}. У сотрудника изменился телефон и подписано согласие на КЭДО. Необходимо перевыпустить сертификат.", logPrefix, employee.Id);
-            var asyncHandler = DirRX.NNIntegration.AsyncHandlers.ReissueCertificateAsync.Create();
-            asyncHandler.EmployeeId = employee.Id;
-            asyncHandler.ExecuteAsync();
           }
+          // Необходимо прекратить задачу и закрыть сертификат из CreateAccount при условии что
+          // изменение было с "Подписано" на "Не подписано", и нет ни одного внешнего сотрудника с подписанным согласием.
+          else if (hasModelData && (isConsentBecameUnsigned && !HasSignedConsentExcludingBusinessUnit(employee.Person.Id, model.BusinessUnitId.Value)))
+          {
+            Logger.DebugFormat("{0}. ИД cотрудника: {1}. У сотрудника изменился телефон и изменилось согласие на КЭДО с Подписано на Не подписано. Необходимо прекратить действующую задачу и закрыть сертификат.", logPrefix, employee.Id);
+            
+            AbortActiveCertificateIssueTaskForPerson(employee.Person.Id, logPrefix);
+            DisableCertificateForPerson(employee.Person.Id, logPrefix);
+          }
+        }
+        // Если сотрудник подключен к ЛК и телефон не изменился, но изменилось согласие c Не подписано на Подписано,
+        // то необходимо перевыпустить сертификат, если действующей задачи на выпуск или самого сертификата еще нет.
+        else if (hasModelData && isConsentBecameSigned && !HasActiveCertificateIssueTaskOrCertificateForPerson(employee.Person.Id))
+        {
+          Logger.DebugFormat("{0}. ИД cотрудника: {1}. У сотрудника изменилось согласие на КЭДО с Не подписано на Подписано. Необходимо перевыпустить сертификат.", logPrefix, employee.Id);
+          needReissueCertificate = true;
+        }
+        // Если сотрудник подключен к ЛК и телефон не изменился, но изменилось согласие c Подписано на Не подписано,
+        // то необходимо прекратить действующую задачу на выпуск, закрыть сертификат, если больше нет сотрудников, у которых согл. подписано.
+        else if (hasModelData && isConsentBecameUnsigned && !HasSignedConsentExcludingBusinessUnit(employee.Person.Id, model.BusinessUnitId.Value))
+        {
+          Logger.DebugFormat("{0}. ИД cотрудника: {1}. У сотрудника изменилось согласие на КЭДО с Подписано на Не подписано. Необходимо прекратить действующую задачу и закрыть сертификат.", logPrefix, employee.Id);
+          
+          AbortActiveCertificateIssueTaskForPerson(employee.Person.Id, logPrefix);
+          DisableCertificateForPerson(employee.Person.Id, logPrefix);
+        }
+        // Тут окажемся в рамках вызова из ФП при обработке Линейных руководителей, либо подключении к Лк из карточки сотрудника,
+        // поэтому если признак изменения не пришел, идем просто перевыпускать серт при подписанном согласии.
+        else if (!hasModelData && isConsentSigned)
+        {
+          Logger.DebugFormat("{0}. ИД cотрудника: {1}. У сотрудника согласие на КЭДО Подписано. Необходимо перевыпустить сертификат.", logPrefix, employee.Id);
+          needReissueCertificate = true;
         }
         else
           Logger.DebugFormat("{0}. ИД cотрудника: {1}. У сотрудника уже создана УЗ для ЛК.", logPrefix, employee.Id);
+        
+        if (needReissueCertificate)
+        {
+          Logger.DebugFormat("{0}. ИД cотрудника: {1}. Запущен АО ReissueCertificateAsync.", logPrefix, employee.Id);
+          var asyncHandler = DirRX.NNIntegration.AsyncHandlers.ReissueCertificateAsync.Create();
+          asyncHandler.EmployeeId = employee.Id;
+          asyncHandler.ExecuteAsync();
+        }
       }
       catch (Exception ex)
       {
@@ -5677,6 +6333,8 @@ namespace DirRX.NNIntegration.Server
         structure.Type = type;
         structure.IsKEDO = isKedo;
         structure.Provider = provider;
+        structure.ConsentChangeFlag = null;
+        structure.BusinessUnitId = null;
 
         return structure;
       }
@@ -5789,7 +6447,117 @@ namespace DirRX.NNIntegration.Server
       
       return true;
     }
+
+    /// <summary>
+    /// Проверить наличие действующей задачи на выпуск сертификата или действующего сертификата по персоне.
+    /// </summary>
+    /// <param name="personId">ИД персоны.</param>
+    /// <returns>True - есть действующая задача или сертификат, иначе - нет.</returns>
+    public bool HasActiveCertificateIssueTaskOrCertificateForPerson(long personId)
+    {
+      var task = GetActiveCertificateIssueTaskForPerson(personId);
+      var certificate = DirRX.NNCommons.PublicFunctions.Module.Remote.GetEssCertificates(personId).FirstOrDefault();
+      
+      if (task != null || certificate != null)
+        return true;
+      
+      return false;
+    }
     
+    /// <summary>
+    /// Получить действующую задачу на выпуск сертификата электронной подписи по персоне.
+    /// </summary>
+    /// <param name="personId">ИД персоны.</param>
+    /// <returns>Задача.</returns>
+    public Sungero.Workflow.ITask GetActiveCertificateIssueTaskForPerson(long personId)
+    {
+      var task = Sungero.Workflow.Tasks.Null;
+      
+      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
+      
+      if (isCustomCertificateIssueProcess)
+        task = NNCommons.CertificateIssueTasks.GetAll(c => c.Employee.Person.Id == personId && c.Status == Sungero.Workflow.Task.Status.InProcess).FirstOrDefault();
+      else
+        task = DirRX.SignPlatform.CertificateIssueTasks.GetAll(c => c.Employee.Person.Id == personId && c.Status == Sungero.Workflow.Task.Status.InProcess).FirstOrDefault();
+      
+      return task;
+    }
+    
+    /// <summary>
+    /// Прекратить активную задачу на выпуск сертификата для персоны.
+    /// </summary>
+    /// <param name="personId">ИД персоны.</param>
+    /// <param name="logPrefix">Префикс для логирования.</param>
+    /// <returns>Пустая строка если нет ошибок, иначе текст ошибки.</returns>
+    [Public]
+    public string AbortActiveCertificateIssueTaskForPerson(long personId, string logPrefix)
+    {
+      var result = string.Empty;
+      var task = GetActiveCertificateIssueTaskForPerson(personId);
+      
+      if (task != null)
+      {
+        try
+        {
+          Logger.DebugFormat("{0}. AbortActiveCertificateIssueTaskForPerson. Найдена устаревшая задача для выпуска сертификата ИД={1} для персоны ИД={2}. Задача будет прекращена.", logPrefix, task.Id, personId.ToString());
+          task.Abort();
+        }
+        catch (Exception ex)
+        {
+          result = ex.Message;
+          Logger.ErrorFormat("{0}. AbortActiveCertificateIssueTaskForPerson. Произошла ошибка при прекращении задачи {0}: {1}", logPrefix, task.Id, ex.Message);
+        }
+      }
+      
+      return result;
+    }
+
+    /// <summary>
+    /// Закрыть сертификат для персоны.
+    /// </summary>
+    /// <param name="personId">ИД персоны.</param>
+    /// <param name="logPrefix">Префикс для логирования.</param>
+    /// <returns>Пустая строка если нет ошибок, иначе текст ошибки.</returns>
+    [Public]
+    public string DisableCertificateForPerson(long personId, string logPrefix)
+    {
+      var result = string.Empty;
+      
+      // Найти устаревший сертификат
+      var certificate = DirRX.NNCommons.PublicFunctions.Module.Remote.GetEssCertificates(personId).FirstOrDefault();
+      
+      if (certificate != null)
+      {
+        try
+        {
+          certificate.Enabled = false;
+          Logger.DebugFormat("{0}. DisableCertificateForPerson. Найден устаревший сертификат ИД={1} для персоны ИД={2}. Сертификат будет закрыт.", logPrefix, personId.ToString(), certificate.Id);
+          certificate.Save();
+        }
+        catch (Exception ex)
+        {
+          result = ex.Message;
+          Logger.ErrorFormat("{0}. DisableCertificateForPerson. Произошла ошибка при закрытии сертификата ИД={1}: {2}", logPrefix, certificate.Id, ex.Message);
+        }
+      }
+      
+      return result;
+    }
+
+    /// <summary>
+    /// Проверить, есть ли у персоны сотрудник с подписанным Согласие на КЭДО в любой НОР, кроме указанной.
+    /// </summary>
+    /// <param name="personId">ИД персоны.</param>
+    /// <param name="bUnitId">ИД НОР, которую необходимо исключить из поиска.</param>
+    /// <returns>True - есть есть сотрудник с согласием в другой НОР, иначе - нет.</returns>
+    public bool HasSignedConsentExcludingBusinessUnit(long personId, long bUnitId)
+    {
+      return DirRX.OverrideSolution.Employees.GetAll().Any(e => e.Person.Id == personId &&
+                                                           e.Status == Sungero.Company.Employee.Status.Active &&
+                                                           e.BusinessUnit.Id != bUnitId &&
+                                                           e.ConsentHRPro == DirRX.OverrideSolution.Employee.ConsentHRPro.Signed);
+    }
+
     #endregion
 
     #endregion
@@ -6194,6 +6962,115 @@ namespace DirRX.NNIntegration.Server
     
     #endregion
     
+    #region IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+    
+    /// <summary>
+    /// Создать приказ на дополнительный день отдыха за РВД.
+    /// </summary>
+    /// <param name="Employee">Сотрудник.</param>
+    /// <param name="Kind">Вид документа.</param>
+    /// <param name="Signed">Подписал.</param>
+    /// <param name="Prepared">Подготовил.</param>
+    /// <param name="CancelsNumber">Номер отменяемого приказа.</param>
+    /// <param name="CancelsDate">Дата отменяемого приказа.</param>
+    /// <param name="RegNumber">Регистрационный номер.</param>
+    /// <param name="Date">Дата документа.</param>
+    /// <param name="DateEvent">Дата мероприятия.</param>
+    /// <param name="Body">Тело документа.</param>
+    /// <param name="SAPID">SAP ID</param>
+    /// <param name="TaskId">ИД задачи.</param>
+    /// <returns>Результат обработки.</returns>
+    [Public(WebApiRequestType = RequestType.Post)]
+    public virtual IResponseToExternalSystemRequest CreateWeekendWorkRestOrderCard( string Employee, string Kind, string Signed, string Prepared, string CancelsNumber, string CancelsDate,
+                                                                                   string RegNumber, string Date, string DateEvent, string Body, string SAPID, long TaskID)
+    {
+      var errorMessage = string.Empty;
+      if (string.IsNullOrWhiteSpace(Kind))
+        errorMessage += "Не заполнено поле Вид документа. ";
+      if (string.IsNullOrWhiteSpace(Signed))
+        errorMessage += "Не заполнено поле Подписал. ";
+      if (string.IsNullOrWhiteSpace(Prepared))
+        errorMessage += "Не заполнено поле Подготовил. ";
+      if (string.IsNullOrWhiteSpace(RegNumber))
+        errorMessage += "Не заполнен Регистрационный номер. ";
+      if (string.IsNullOrWhiteSpace(Date))
+        errorMessage += "Не заполнена Дата документа. ";
+      if (string.IsNullOrWhiteSpace(DateEvent))
+        errorMessage += "Не заполнена Дата мероприятия. ";
+      if (string.IsNullOrWhiteSpace(Body))
+        errorMessage += "Не заполнено содержимое документа в формате base64. ";
+      
+      if (!IsWeekendWorkRestOrderKindValid(Kind))
+        errorMessage += "Не удалось определить вид документа по переданному коду. ";
+      
+      // Для приказа на отмену должны быть заполнены Номер отменяемого приказа и Дата отменяемого приказа.
+      DateTime? cancelsDate = null;
+      if (Kind == Constants.Module.WeekendWorkRestOrderKindCodes.CancelationRestOrder)
+      {
+        if (string.IsNullOrWhiteSpace(CancelsNumber))
+          errorMessage += "Не заполнен Номер отменяемого приказа. ";
+        if (!string.IsNullOrWhiteSpace(CancelsDate))
+        {
+          cancelsDate = ParseStringToDate(CancelsDate);
+          if (!cancelsDate.HasValue)
+            errorMessage += string.Format("Не удалось обработать переданную дату отменяемого приказа: {0}", Date);
+        }
+        else
+          errorMessage += "Не заполнена Дата отменяемого приказа. ";
+      }
+      
+      var date = ParseStringToDate(Date);
+      if (!date.HasValue)
+        errorMessage += string.Format("Не удалось обработать переданную дату: {0}", Date);
+      
+      var dateEvent = ParseStringToDate(DateEvent);
+      if (!dateEvent.HasValue)
+        errorMessage += string.Format("Не удалось обработать переданную дату мероприятия: {0}", DateEvent);
+      
+      if (string.IsNullOrWhiteSpace(Employee))
+        errorMessage += "Не заполнен Сотрудник. ";
+      
+      if (!string.IsNullOrWhiteSpace(errorMessage.Trim()))
+      {
+        Logger.ErrorFormat("CreateWeekendWorkRestOrderCard. {0}. SAPID: {1}.", errorMessage, SAPID);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+      }
+      
+      var model = Structures.Module.CreateWeekendWorkRestOrderStructure.Create(Kind, Signed, Prepared, CancelsNumber, cancelsDate, RegNumber,
+                                                                               date.Value, dateEvent.Value, Body, TaskID, SAPID, Employee);
+      var responseBody = string.Empty;
+      
+      try
+      {
+        responseBody = IsolatedFunctions.Convert.SerializeInJson(model);
+      }
+      catch (Exception ex)
+      {
+        errorMessage = "Ошибка сериализации в Json строку.";
+        Logger.ErrorFormat("CreateWeekendWorkRestOrderCard. {0} Текст ошибки: {1}. StackTrace: {2}.", errorMessage, ex.Message, ex.StackTrace);
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+      }
+      
+      errorMessage = CreateIncomingMessage(Constants.Module.ExternalSystemsFlowGuids.CreateWeekendWorkRestOrderDocument, "CreateWeekendWorkRestOrderCard", responseBody, string.Empty);
+      
+      if (!string.IsNullOrWhiteSpace(errorMessage))
+        return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Error, errorMessage);
+      
+      return CreateResponseToExternalSystem(Constants.Module.Request.ResultCode.Successfully, string.Empty);
+    }
+    
+    /// <summary>
+    /// Валидация кода вида приказа на дополнительный день отдыха за РВД.
+    /// </summary>
+    /// <param name="kind">Код вида приказа.</param>
+    /// <returns>True - данный вид входит в список возможных значений. False - неизвестный вид приказа.</returns>
+    public static bool IsWeekendWorkRestOrderKindValid(string kind)
+    {
+      return kind == Constants.Module.WeekendWorkRestOrderKindCodes.GrantRestOrder || kind == Constants.Module.WeekendWorkRestOrderKindCodes.CancelationRestOrder;
+    }
+    
+    #endregion
+    
     #endregion
     
     #region Интеграционный сценарий "Выплаты по ЛНА".
@@ -6289,7 +7166,7 @@ namespace DirRX.NNIntegration.Server
     /// <returns>Результат.</returns>
     [Public(WebApiRequestType = RequestType.Post)]
     public IResponseToExternalSystemRequest CreateEmploymentContractAdditionalAgreement(string RegNumber, string Date, string Kind, string Employee,
-                                                                    string Supervisor, string Prepared, string Body, string SAPID)
+                                                                                        string Supervisor, string Prepared, string Body, string SAPID)
     {
       var errorMessage = string.Empty;
       if (string.IsNullOrEmpty(Date))
@@ -6822,7 +7699,7 @@ namespace DirRX.NNIntegration.Server
         Logger.DebugFormat("GetPerosnEssCurrentPeriod. PersonId: {0}. Не удалось получить данные фильтра из профиля пользователя в Ess. Подробности в лог файле изолированной области модуля. Период фильтрации будет составлять 30 дней.", personId);
         essCurrentPeriod = DirRX.NNIntegration.Structures.Module.EssCurrentPeriod.Create();
         essCurrentPeriod.Length = 0;
-      }       
+      }
       
       return essCurrentPeriod;
     }

@@ -47,7 +47,28 @@ namespace DirRX.NNVacations.Constants
     [Public]
     public static class ConstantsSetting
     {
-      
+      /// <summary>
+      /// Отпуска. Код типа отпуска Учебный (с сохранением ЗП).
+      /// </summary>
+      [Public]
+      public static class StudyWithSalaryVacationTypeId
+      {
+        [Public]
+        public const string Guid = "B7A29AD7-48C2-4A44-9580-CA3F18800670";
+        public const string Name = "Отпуска. Код типа отпуска Учебный (с сохранением ЗП)";
+      }
+
+      /// <summary>
+      /// Отпуска. Код типа отпуска Учебный (без сохранения ЗП).
+      /// </summary>
+      [Public]
+      public static class StudyWithoutSalaryVacationTypeId
+      {
+        [Public]
+        public const string Guid = "B1C359A5-5EE1-43F1-8DD0-4465919147FE";
+        public const string Name = "Отпуска. Код типа отпуска Учебный (без сохранения ЗП)";
+      }
+
       /// <summary>
       /// Отпуска. Список ИД причин отпуска, для которых необходимо указывать уточнение причины.
       /// </summary>
@@ -212,6 +233,17 @@ namespace DirRX.NNVacations.Constants
         public const string Guid = "FF028D51-8D5B-40B4-A025-38B0CAEE0CB8";
         public const string Name = "Отпуска. ИД варианта процесса для уведомления ответственных за ошибки настройки сроков согласования отпусков";
       }
+      
+      /// <summary>
+      /// Отпуска. Дополнительные выходные дни донорам.
+      /// </summary>
+      [Public]
+      public static class DonorVacationsCodes
+      {
+        [Public]
+        public const string Guid = "C13FE157-2F8C-4F8C-9BE7-5B02E1257E7E";
+        public const string Name = "Отпуска. Коды дополнительных выходных дней донорам";
+      }
     }
 
     /// <summary>
@@ -312,11 +344,18 @@ namespace DirRX.NNVacations.Constants
       /// </summary>
       [Public]
       public static readonly Guid ChangeVacationPeriodOrder = Guid.Parse("efa778d2-bb96-4c5c-9408-3906511ce7ee");
+      
       /// <summary>
       /// Guid вида документа "Приказ об отмене приказа".
       /// </summary>
       [Public]
       public static readonly Guid CancelVacationOrder = Guid.Parse("da512715-2126-4200-8b60-f9d22b566bf1");
+      
+      /// <summary>
+      /// Guid вида документа "Приказ (распоряжение) об изменении сроков отпуска без сохранения заработной платы".
+      /// </summary>
+      [Public]
+      public static readonly Guid ChangingDatesVacationOrder = Guid.Parse("E7A68605-6589-4A6C-8415-7656440C1F81");
     }
     
     /// <summary>
@@ -391,10 +430,10 @@ namespace DirRX.NNVacations.Constants
     public const string MyVacationsCacheKey = "MyVacationsCacheKey_{0}";
     
     /// <summary>
-    /// Количество обрабатываемых записей по умолчанию в АО в одной итерации.
+    /// Количество обрабатываемых ТН по умолчанию в АО в одной итерации.
     /// </summary>
     [Public]
-    public const int DefaultCountInIterationAO = 200;
+    public const int DefaultCountInIterationAO = 100;
     
     /// <summary>
     /// Количество итераций в АО "Автоматическое формирование задач на подтверждение отпуска".
@@ -597,6 +636,11 @@ namespace DirRX.NNVacations.Constants
       /// </summary>
       [Public]
       public const string CancelVacationOrder = "30";
+      /// <summary>
+      /// Код вида документа "Приказ (распоряжение) об изменении сроков отпуска без сохранения заработной платы".
+      /// </summary>
+      [Public]
+      public const string ChangingDatesVacationOrder = "35";
     }
     
     /// <summary>
@@ -609,5 +653,16 @@ namespace DirRX.NNVacations.Constants
     /// </summary>
     [Public]
     public const string PatternValidTime = @"^([01]?[0-9]|2[0-3]):([0-5][0-9])$";
+    
+    /// <summary>
+    /// Cтатусы по процессу «Ведение графика отпусков» для передачи в SAP.
+    /// </summary>
+    public static class VacationScheduleProcessStatuses
+    {
+      /// <summary>
+      /// Отклонено.
+      /// </summary>
+      public const string Rejected = "1";
+    }
   }
 }

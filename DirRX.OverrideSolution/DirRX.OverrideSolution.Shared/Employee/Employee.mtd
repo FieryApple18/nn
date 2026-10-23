@@ -266,7 +266,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
           "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
           "PropertyGuid": "b1e1a563-ac9e-479f-915c-e53bacb53883",
-          "RowNumber": 8,
+          "RowNumber": 13,
           "RowSpan": 1,
           "Settings": []
         },
@@ -279,7 +279,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
           "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
           "PropertyGuid": "1dcedc29-5140-4770-ac92-eabc212326a1",
-          "RowNumber": 9,
+          "RowNumber": 16,
           "RowSpan": 1,
           "Settings": [],
           "Versions": []
@@ -306,7 +306,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
           "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
           "PropertyGuid": "ed9b584f-3106-42f3-8204-85df55c0bf02",
-          "RowNumber": 7,
+          "RowNumber": 12,
           "RowSpan": 1,
           "Settings": []
         },
@@ -332,7 +332,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
           "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
           "PropertyGuid": "07a08a2b-9399-4a3f-839b-e1eb54cfbae1",
-          "RowNumber": 6,
+          "RowNumber": 7,
           "RowSpan": 1,
           "Settings": []
         },
@@ -372,6 +372,97 @@
           "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
           "PropertyGuid": "332c2056-8390-4796-8a82-9b9fbdd6007a",
           "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "19f885a9-d633-4ed2-acbb-7ef8f207345a",
+          "Name": "PersonnelSectionDirRXDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "423b4801-bd13-4488-8645-0c26bf0a8fe5",
+          "RowNumber": 14,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "c83be0a0-8a56-4384-8e8d-abfa2241cfb7",
+          "Name": "PersonnelSubSectionDirRXDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "c0d061ae-a64c-4670-bf74-516cfce2d49e",
+          "RowNumber": 15,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "5b3023b4-ac9e-4104-b61d-8b64db28d9f4",
+          "Name": "CategoryDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "9c3014b2-6aa3-4a8c-b7c4-68a7356b7e70",
+          "RowNumber": 6,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "06eafe28-24ff-45d3-81bd-1d69fbdf5955",
+          "Name": "InfoManagerDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "584eee1c-3cfb-4cb4-9dbe-ed4d30cb3f27",
+          "RowNumber": 8,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "fa49a9b6-76a5-4744-ba3e-4267c7678eb5",
+          "Name": "ManagerLevel2DirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "5a371765-e1a1-4cd6-861f-7f9cfdca27af",
+          "RowNumber": 9,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "64f462b9-1efc-432a-9728-17d8b3f8defe",
+          "Name": "VSPManagerDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "9f6c5143-abc9-42a9-b667-5a0b5574f425",
+          "RowNumber": 10,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "ab29439b-c1a1-4940-bbfc-9faacf56c93e",
+          "Name": "SPManagerDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "0b3bb168-6122-49a5-9633-c5b81742ae05",
+          "PropertyGuid": "535767be-abe2-4e49-a42f-fef683dd4f52",
+          "RowNumber": 11,
           "RowSpan": 1,
           "Settings": []
         }
@@ -614,6 +705,92 @@
       "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "b06364af-2637-4cc5-87dd-20282d5594de"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "423b4801-bd13-4488-8645-0c26bf0a8fe5",
+      "Name": "PersonnelSectionDirRX",
+      "Code": "PersonnelSecti",
+      "EntityGuid": "96584b38-af29-4141-bfb0-0b9907f1d536",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "332c2056-8390-4796-8a82-9b9fbdd6007a"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c0d061ae-a64c-4670-bf74-516cfce2d49e",
+      "Name": "PersonnelSubSectionDirRX",
+      "Code": "PersonnelSubSe",
+      "EntityGuid": "5c9f9dde-5fcb-4cbb-952a-f92026fe48bb",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "423b4801-bd13-4488-8645-0c26bf0a8fe5"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "584eee1c-3cfb-4cb4-9dbe-ed4d30cb3f27",
+      "Name": "InfoManagerDirRX",
+      "Code": "InfoManagerDir",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "c0d061ae-a64c-4670-bf74-516cfce2d49e"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "5a371765-e1a1-4cd6-861f-7f9cfdca27af",
+      "Name": "ManagerLevel2DirRX",
+      "Code": "ManagerLevel2D",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "584eee1c-3cfb-4cb4-9dbe-ed4d30cb3f27"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9f6c5143-abc9-42a9-b667-5a0b5574f425",
+      "Name": "VSPManagerDirRX",
+      "Code": "VSPManagerDirR",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "5a371765-e1a1-4cd6-861f-7f9cfdca27af"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "535767be-abe2-4e49-a42f-fef683dd4f52",
+      "Name": "SPManagerDirRX",
+      "Code": "SPManagerDirRX",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "9f6c5143-abc9-42a9-b667-5a0b5574f425"
+    },
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "9c3014b2-6aa3-4a8c-b7c4-68a7356b7e70",
+      "Name": "CategoryDirRX",
+      "Code": "CategoryDirRX",
+      "DirectValues": [
+        {
+          "NameGuid": "818c6218-4137-46f7-b94f-d8c61086401b",
+          "Name": "Manager",
+          "Code": "Manager"
+        },
+        {
+          "NameGuid": "50139d63-c8a3-450b-ae32-ab8edfa73e2a",
+          "Name": "Specialist",
+          "Code": "Specialist"
+        },
+        {
+          "NameGuid": "7dfd1f8b-0e60-45e4-9713-64a9dc15a03a",
+          "Name": "Clerk",
+          "Code": "Clerk"
+        },
+        {
+          "NameGuid": "b1a39c87-1aab-4f1f-abd8-729916f68772",
+          "Name": "Worker",
+          "Code": "Worker"
+        }
+      ],
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+      "PreviousPropertyGuid": "535767be-abe2-4e49-a42f-fef683dd4f52"
     }
   ],
   "PublicFunctions": [
@@ -861,6 +1038,18 @@
         }
       ],
       "Placement": "Shared",
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    },
+    {
+      "Name": "IsCategoryRSS",
+      "Parameters": [
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
       "ReturnType": "global::System.Boolean",
       "ReturnTypeFullName": "System.Boolean"
     },

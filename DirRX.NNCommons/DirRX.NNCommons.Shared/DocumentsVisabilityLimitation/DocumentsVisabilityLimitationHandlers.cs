@@ -10,6 +10,12 @@ namespace DirRX.NNCommons
   partial class DocumentsVisabilityLimitationSharedHandlers
   {
 
+    public virtual void PersonnelSectionChanged(DirRX.NNCommons.Shared.DocumentsVisabilityLimitationPersonnelSectionChangedEventArgs e)
+    {
+      if (e.NewValue != e.OldValue)
+        PublicFunctions.DocumentsVisabilityLimitation.FillName(_obj);
+    }
+
     public virtual void BusinessUnitChanged(DirRX.NNCommons.Shared.DocumentsVisabilityLimitationBusinessUnitChangedEventArgs e)
     {
       if (e.NewValue != e.OldValue)

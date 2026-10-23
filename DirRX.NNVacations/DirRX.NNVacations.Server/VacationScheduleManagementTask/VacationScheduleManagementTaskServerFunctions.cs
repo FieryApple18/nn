@@ -21,10 +21,12 @@ namespace DirRX.NNVacations.Server
     [Public, Remote(IsPure = true), ExpressionElement("ExpFunc_GetEmployeesWithConsent_Name", "ExpFunc_GetEmployeesWithConsent_Desc", "")]
     public static List<IEmployee> GetEmployeesWithConsent(IVacationScheduleManagementTask task)
     {
-      return VacationsInformations.GetAll().Where(v => v.Year == task.Year)
+      var schedule = task.DocumentGroup.VacationScheduleDocuments.FirstOrDefault();
+      return VacationsInformations.GetAll().Where(v => VacationScheduleDocuments.Equals(v.VacationSchedule, schedule) 
+                                                  && v.ConsentHRPro == true
+                                                  && v.Status == DirRX.NNVacations.VacationsInformation.Status.Active)
         .Select(v => v.Employee)
         .Where(x => x.Status == DirRX.OverrideSolution.Employee.Status.Active
-               && x.ConsentHRPro == DirRX.OverrideSolution.Employee.ConsentHRPro.Signed
                && Equals(x.BusinessUnit, task.BusinessUnit)
                && (task.Department == null || Equals(x.Department, task.Department)))
         .Distinct()
@@ -39,10 +41,12 @@ namespace DirRX.NNVacations.Server
     [Public, Remote(IsPure = true), ExpressionElement("ExpFunc_GetEmployeesWithoutConsent_Name", "ExpFunc_GetEmployeesWithoutConsent_Desc", "")]
     public static List<IEmployee> GetEmployeesWithoutConsent(IVacationScheduleManagementTask task)
     {
-      return VacationsInformations.GetAll().Where(v => v.Year == task.Year)
+      var schedule = task.DocumentGroup.VacationScheduleDocuments.FirstOrDefault();
+      return VacationsInformations.GetAll().Where(v => VacationScheduleDocuments.Equals(v.VacationSchedule, schedule)
+                                                  && v.ConsentHRPro != true
+                                                  && v.Status == DirRX.NNVacations.VacationsInformation.Status.Active)
         .Select(v => v.Employee)
         .Where(x => x.Status == DirRX.OverrideSolution.Employee.Status.Active
-               && x.ConsentHRPro != DirRX.OverrideSolution.Employee.ConsentHRPro.Signed
                && Equals(x.BusinessUnit, task.BusinessUnit)
                && (task.Department == null || Equals(x.Department, task.Department)))
         .Distinct()

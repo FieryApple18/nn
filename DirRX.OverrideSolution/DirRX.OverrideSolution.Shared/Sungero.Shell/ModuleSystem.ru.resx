@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FilterPanel_DocumentsDirRX_8da5743b85944ecd8409754ff1510f65" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="FilterPanel_BusinessUnitDirRX_efa22afc048d4e3ab853e42c50d48125" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="FilterPanel_DocumentKindDirRX_94b61864927a41f4a9d8fd0f594c3893" xml:space="preserve">
+    <value>Вид документа</value>
+  </data>
+  <data name="FilterPanel_BusinessProcessDirRX_e61b1c10a3cb496a99a786f44482b1d8" xml:space="preserve">
+    <value>Бизнес-процесс</value>
+  </data>
+  <data name="FilterPanel_NGDDirRX_8379bf1b1f0e4768a8004228e6ba05b8" xml:space="preserve">
+    <value>НГД</value>
+  </data>
+  <data name="FilterPanel_NotNGDDirRX_b3d813fa041a4521bf0f5759b742244f" xml:space="preserve">
+    <value>Не НГД</value>
+  </data>
+  <data name="FilterPanel_AllCategoriesDirRX_faf9381086344f6d9e6f06d92444b131" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+  <data name="FilterPanel_PersonnelSectionDirRX_01090125283f4ea8943752c5a5e7ea7a" xml:space="preserve">
+    <value>Раздел персонала</value>
+  </data>
+  <data name="sf_8bccd266_0c5b_4f54_bf9c_3b6047ae6cca" xml:space="preserve">
+    <value>На проведение мероприятия</value>
+  </data>
+  <data name="FilterPanel_DocumentsDirRX_ce1f26698f314b4095c1154621a5edd4" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="FilterPanel_BusinessUnitDirRX_4883f9d32a284427b8243407512acfeb" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="FilterPanel_BusinessProcessDirRX_110e44e50e01436fbd14af49738d60b7" xml:space="preserve">
+    <value>Бизнес-процесс</value>
+  </data>
+  <data name="FilterPanel_NGDDirRX_eb7789f26a6347ab87259722ba16a005" xml:space="preserve">
+    <value>НГД</value>
+  </data>
+  <data name="FilterPanel_NotNGDDirRX_bb720632f41a4f00970a430d164f24ab" xml:space="preserve">
+    <value>Не НГД</value>
+  </data>
+  <data name="FilterPanel_AllCategoriesDirRX_795382fc8e204536853a6cc3f324b6e3" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+  <data name="FilterPanel_PersonnelSectionDirRX_d117713e53c24b5ea4d9174ef36fccb4" xml:space="preserve">
+    <value>Раздел персонала</value>
+  </data>
+  <data name="FilterPanel_DocumentKindDirRX_99fc8e663100431ca51e2defbc64a1ee" xml:space="preserve">
+    <value>Вид документа</value>
+  </data>
+  <data name="FilterPanel_StateGroup_b54241b2d7dc47f4b70e18ec914e85c8" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_InProcess_d78d2c9619794d1580d349a7a3664496" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_b90ac9bdbfbf482e94ba64a2b2c5a716" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_5f8c1a32883b4f83a95c0a48474e59ec" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_bf0f999196494a8e98f5f944db30e77b" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_03cf1d01b56549719a1df591096008c7" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_d0640cd06fa044ecb91d21da32ec7859" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_DocumentsTypeGroup_de9e8746c9d044f7b3512c1eec470eb5" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="FilterPanel_Incoming_6c98c7b01415499c9d3fc5f7e3f13507" xml:space="preserve">
+    <value>Входящие</value>
+  </data>
+  <data name="FilterPanel_Inner_3ea7652454a045fb8206299f804a7ad0" xml:space="preserve">
+    <value>Прочие</value>
+  </data>
+  <data name="FilterPanel_InProcess_2efd2c9a881946618a4680adcfe73a2c" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_96d0a5e763994a97bd75304d06592ae3" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_Last30Days_3ea90968aed243dfb3525bd94ffd0a03" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_9bb247b9f38a4b8a9cc042f1539d623e" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_21f256bce17e4fbaa56b092f4bc35e3e" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_StateGroup_670a883612d749c3a816a4ed7269659e" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_8d888799a1374f6791a981e6aa42e5ba" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_AsgTypeGroup_d2d7ccfa9de54b5a8380740ad319914d" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="FilterPanel_ConfirmSigning_5e30401692b94e48b8e6734446810cfc" xml:space="preserve">
+    <value>Подтвер. подписания</value>
+  </data>
+  <data name="FilterPanel_ProcessResolution_e7efc972bbfc4acf97777f0027951f9e" xml:space="preserve">
+    <value>Обработка резолюции</value>
+  </data>
+  <data name="FilterPanel_SendActionItem_537491d2370e4be49881bdb1494bd0bb" xml:space="preserve">
+    <value>Отправка поручений</value>
+  </data>
+  <data name="FilterPanel_Send_4521795d3d604972ad0ba1013156c520" xml:space="preserve">
+    <value>Отправка контрагенту</value>
+  </data>
+  <data name="FilterPanel_CheckReturn_af1b7526b4954464b2096ea003876fef" xml:space="preserve">
+    <value>Контроль возврата</value>
+  </data>
+  <data name="FilterPanel_Other_2c6a31f438cc4cf4a786629a86611ab8" xml:space="preserve">
+    <value>Прочие задания</value>
+  </data>
+  <data name="FilterPanel_StateGroup_fe16ad1ddd5a4f04bb993f1fcaa83678" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_InProcess_33ee6a0a7d604891b1385b4fd099e7d5" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_55b6ce51274148be9702bb17030aa552" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_5ec0581b07df4d2486e8b247bd0c3e0d" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_8edf2ff1f90f4228970085d9561dbf19" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_d544da6c5a424772b54ee2dafeeb542a" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_d35109ab9675429d9d03f34c294ca33c" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_ApprovalTypeGroup_d2cdb7dfa12e407c9ac35879143cc1e3" xml:space="preserve">
+    <value>Согласование</value>
+  </data>
+  <data name="FilterPanel_InProcess_29ef9eadb5dd47ad9d52b761b2101e68" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_Completed_8e9550d885de443b84b9f96b40e10ad7" xml:space="preserve">
+    <value>Выполненные</value>
+  </data>
+  <data name="FilterPanel_Last90Days_fbf2eb9c24b3436f839299159f4e07e3" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last30Days_9130f239d0374d5cb50496d326f0365c" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last365Days_2911a8a5223746e0a3e490f0bf7d3bd1" xml:space="preserve">
+    <value>Последние 365 дней</value>
+  </data>
+  <data name="FilterPanel_StateGroup_33e1e25e770d4b32a6cea7bcaec41880" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_005a7ea22b554203a64eaf32f069b1b7" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_ChekingGroup_09b74140690547aca29614721e864932" xml:space="preserve">
+    <value>Приемка</value>
+  </data>
+  <data name="FilterPanel_ActionItem_f92e72edf8464126988b9fba7820a6d5" xml:space="preserve">
+    <value>Поручений</value>
+  </data>
+  <data name="FilterPanel_Other_ecd537d8271c4c1da17045a17e8c2048" xml:space="preserve">
+    <value>Прочих задач</value>
+  </data>
+  <data name="FilterPanel_InProcess_ed6d2099223a44799a3ca2c2a16f4f47" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_6048fa69ce124729abad2b2393e82f6b" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_Last30Days_7ac32c5c120f45359b5018fc1bc6b0b8" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_28fc4774daa14e4fbf591200657e6c9b" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_768d470c7d9b4162937d355d2f2390ba" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_AsgType_d2d7ccfa9de54b5a8380740ad319914d" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="FilterPanel_StateGroup_9d1aca23616e4fd5878de57a50e11a15" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_7fc3fc52396f406fbf69df9102ad1f71" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_22c915ee01264caeb1030ce87e1d8699" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_2b61b7ac5f8944e0bc9dd5223c06c288" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_debc89638e314a8fb742b4268489d51a" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_InProcess_a9150fc504f649f692899006c7503abb" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_afc93f56380242d58efc73e183c01904" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_StateGroup_ce4c984fa42b4015b7b78462e21e899c" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_InProcess_855e776da7094f56a571763e98a82dac" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_d44e613e4bfe4953931b3ba96234d269" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_8dce188d760e454ba2f90b750241fb7f" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_c3f999c61d8643a481c45281a734491f" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_17f75b5463044f5aa0b2751528d56d64" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_1ff2a955751a4107b00bb98da2ade343" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_StateGroup_514adb571e2841d7bf019399f16dc974" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_InProcess_35cda5daccc0457db9d9e8360d705d47" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_4c02518156824d9b974990edac37c45a" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_52faff93fe894c039219f2202764ad44" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_61c3f09e4772442ea05b7d1d2dd35481" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_11c84f5365ff41b7b755674bab0147c1" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_41c8c0dfaae9475f86626d1eed720557" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_ApprovalType_41c0c5354c2a4479b18b0a05a546a4fa" xml:space="preserve">
+    <value>Согласование</value>
+  </data>
+  <data name="FilterPanel_RuleBased_c24eae7816e145cc8917086affdc0e13" xml:space="preserve">
+    <value>По регламенту</value>
+  </data>
+  <data name="FilterPanel_Free_7157de651cc24d72bd3e567117b87bda" xml:space="preserve">
+    <value>Свободное</value>
+  </data>
+  <data name="FilterPanel_StateGroup_8b3453f849044751bdd61f9d94eb11e7" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="FilterPanel_InProcess_1d9621b7539544b6bbc2cb898f1060ed" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_5a6579eacbc242e3b6de87d0b435a52a" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_9fcf03fd95f0495c9cdbad4d013f6f19" xml:space="preserve">
+    <value>Отправлены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_dba28e552b7d4f0b8b9cbc42dfaafa39" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_e37753b060b3497f96813818d7cf319a" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_02d977c92c8d4dfc8c5c8f197218db12" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_ShowGroup_8172c9a9bbd744d0ae0fa304afca546c" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="FilterPanel_IsRead_5c4af52b40bc4b8d8f072957a505c6b2" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_IsNotRead_6fb41fdfaf734e7e9cfaec413d66863d" xml:space="preserve">
+    <value>Непрочитанные</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_b66f12e567544e8880b977c406bd9bea" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_a68758532fc6437eb6b8829f5841a9f8" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_63cb8083a732489e98556199b2d219dd" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_ead259a3edc843419f809d5fe1d01542" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_18c779c334d94f868c7c848dbeb5686b" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_StateGroup_fdca1f03b44e4d57ad681f3843829082" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_InProcess_7ace6523479d48e0905a71276d9d722c" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_7c38c0b546354fd0a6fa2ddb553259f5" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_Last180Days_fd864de4c2f6459885782cb7378ebf23" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_5fa6568eeda84dcdb45ddbf34616e952" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_Last30Days_ed9add38a3c9425eba51ebef196f05e9" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_StateGroup_1b44d77dce164755ab3be9cdd8b099b3" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_9b4c331a7e474710b26075d42b352e4a" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_8e2d5fb702e74f9a90c83a3317c44c4f" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_d9bbbc0f33bf4007b4699e8787be1a91" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_6f291aadccb843a6b3d03f9c885d8d44" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_InProcess_1750665d796c4e89b7a08dbd433174a7" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_7fbad9d79d3f4119b006fe3e4c3c15ff" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_StateGroup_cd84b9c6ed5f44efae30d42c9463f6ed" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_be0f6af9171843fd837aeb37ae0245b5" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_Last30Days_609f99d46d8e4db4b7a0c2b92849b66e" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last180Days_c31ade172a0744ffbf0c19f7a22bf707" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_9474d3648d1c4f06b56827d61ece85e1" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+  <data name="FilterPanel_InProcess_7aa05ad7d12c4d3faffd36f0e0d6d132" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_bab49f86fe33470e96d190d290b1bbbd" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_ProcessBased_5ae8daf15a5b48fea732035d81ec90e8" xml:space="preserve">
+    <value>По процессу</value>
+  </data>
+  <data name="FilterPanel_DocumentsDirRX_175f8c6e4fb74cf988af82edc283d670" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="FilterPanel_BusinessUnitDirRX_3f6064f0bcc64806af31edd8fbb11c6e" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="FilterPanel_DocumentKindDirRX_d4c7708f81664cb8a178ece0dd895c94" xml:space="preserve">
+    <value>Вид документа</value>
+  </data>
+  <data name="FilterPanel_BusinessProcessDirRX_95da2c21c4a8492b8a649c4c676832d7" xml:space="preserve">
+    <value>Бизнес-процесс</value>
+  </data>
+  <data name="FilterPanel_NGDDirRX_2ddd460b8dc34c709c397257ef1042c2" xml:space="preserve">
+    <value>НГД</value>
+  </data>
+  <data name="FilterPanel_NotNGDDirRX_03c66ebf1aa84743b11c7f62ee05f10b" xml:space="preserve">
+    <value>Не НГД</value>
+  </data>
+  <data name="FilterPanel_AllCategoriesDirRX_08d7d23c432e497cbb1bfba34c47eb3c" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+  <data name="FilterPanel_PersonnelSectionDirRX_f3d6c270acfe41e48e2d6b288105aa17" xml:space="preserve">
+    <value>Раздел персонала</value>
+  </data>
+  <data name="FilterPanel_StateGroup_911ffe3629c042e6ae0f8e32701f691a" xml:space="preserve">
+    <value>Задания</value>
+  </data>
+  <data name="FilterPanel_PeriodGroup_7229c28eeca54baf82a3426d16772168" xml:space="preserve">
+    <value>Получены за последние</value>
+  </data>
+  <data name="FilterPanel_InProcess_27424a65fcbd479dac7cb5aaf86def34" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="FilterPanel_All_102bd944a655412cb1deb3abc542356a" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="FilterPanel_Last180Days_4d228bf6aead463faa4ba176a90f5436" xml:space="preserve">
+    <value>180 дней</value>
+  </data>
+  <data name="FilterPanel_Last30Days_a6a70cb6bd7147b3860c58969b7acea4" xml:space="preserve">
+    <value>30 дней</value>
+  </data>
+  <data name="FilterPanel_Last90Days_1f935fe8a73645709eec6fc72b651416" xml:space="preserve">
+    <value>90 дней</value>
+  </data>
+</root>

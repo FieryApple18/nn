@@ -118,4 +118,10 @@
   <data name="Block_aa529d65717544adb05f3171ae210a85" xml:space="preserve">
     <value>Закрыть замещения</value>
   </data>
+  <data name="AsyncHandler_Description_c61a3be00e49486293f8af0445f68979" xml:space="preserve">
+    <value>AsyncHandler</value>
+  </data>
+  <data name="AsyncHandler_Description_bd2e5eedbc4645d7908c44af5b7e386f" xml:space="preserve">
+    <value>AsyncHandler</value>
+  </data>
 </root>

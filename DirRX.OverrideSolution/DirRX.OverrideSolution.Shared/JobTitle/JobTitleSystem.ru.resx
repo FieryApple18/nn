@@ -94,4 +94,22 @@
   <data name="Property_IsEmployeeExistsDirRX" xml:space="preserve">
     <value>Есть сотрудники на должности</value>
   </data>
+  <data name="Property_IsTopDirRX" xml:space="preserve">
+    <value>ТОП</value>
+  </data>
+  <data name="Property_PositionLevelDirRX" xml:space="preserve">
+    <value>Уровень штатной должности</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN1" xml:space="preserve">
+    <value>N-1</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN2" xml:space="preserve">
+    <value>N-2</value>
+  </data>
+  <data name="Enum_PositionLevelDirRX_RCCN2Lower" xml:space="preserve">
+    <value>Ниже N-2</value>
+  </data>
 </root>

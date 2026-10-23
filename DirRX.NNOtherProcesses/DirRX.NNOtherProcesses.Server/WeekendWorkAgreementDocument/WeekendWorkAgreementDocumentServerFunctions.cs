@@ -24,8 +24,11 @@ namespace DirRX.NNOtherProcesses.Server
         Sungero.Docflow.PublicFunctions.Module.GetDocumentKindIdByGuid(WeekendWorkAgreementDocument.ClassTypeGuid,
                                                                        Constants.Module.DocumentKind.OvertimeWorkAgreementDocument) :
         Sungero.Docflow.PublicFunctions.Module.GetDocumentKindIdByGuid(WeekendWorkAgreementDocument.ClassTypeGuid,
-                                                                       
                                                                        Constants.Module.DocumentKind.WeekendWorkAgreementDocument);
+      // HACK: Обход коробочного ограничения для корректного отображения времени в документах.
+      // При передаче в SAP необходимо привести время к формату часового пояса инициатора на момент заполнения им карточки.
+      var initiatorTimeZoneDiff = DirRX.NNOtherProcesses.PublicFunctions.WeekendWorkStatementDocument.Remote.GetInitiatorTimeZoneDiff(statement);
+      
       agreement.DocumentKind = OverrideSolution.DocumentKinds.Get(documentKindId);
       agreement.EmployeeDirRX = employee;
       agreement.OurSignatory = employee;
@@ -34,14 +37,21 @@ namespace DirRX.NNOtherProcesses.Server
       agreement.BaseDocument = statement;
       agreement.Relations.AddFrom(Sungero.Docflow.PublicConstants.Module.AddendumRelationName, statement);
       agreement.WorkDate = agreementEmployeeInfo.WorkDateFrom.HasValue? agreementEmployeeInfo.WorkDateFrom.Value.ToString("dd.MM.yyyy") : string.Empty;
-      agreement.WorkDateFrom = agreementEmployeeInfo.WorkDateFrom.HasValue? agreementEmployeeInfo.WorkDateFrom.Value.ToString("HH:mm") : string.Empty;
-      agreement.WorkDateTo = agreementEmployeeInfo.WorkDateTo.HasValue? agreementEmployeeInfo.WorkDateTo.Value.ToString("HH:mm") : string.Empty;
-      agreement.FirstBreakFrom = agreementEmployeeInfo.FirstBreakFrom.HasValue? agreementEmployeeInfo.FirstBreakFrom.Value.ToString("HH:mm"): string.Empty;
-      agreement.FirstBreakTo =  agreementEmployeeInfo.FirstBreakTo.HasValue? agreementEmployeeInfo.FirstBreakTo.Value.ToString("HH:mm") : string.Empty;
-      agreement.SecondBreakFrom = agreementEmployeeInfo.SecondBreakFrom.HasValue? agreementEmployeeInfo.SecondBreakFrom.Value.ToString("HH:mm") : string.Empty;
-      agreement.SecondBreakTo = agreementEmployeeInfo.SecondBreakTo.HasValue? agreementEmployeeInfo.SecondBreakTo.Value.ToString("HH:mm") : string.Empty;
+      agreement.WorkDateFrom = agreementEmployeeInfo.WorkDateFrom.HasValue? agreementEmployeeInfo.WorkDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
+      agreement.WorkDateTo = agreementEmployeeInfo.WorkDateTo.HasValue? agreementEmployeeInfo.WorkDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
+      agreement.FirstBreakFrom = agreementEmployeeInfo.FirstBreakFrom.HasValue? agreementEmployeeInfo.FirstBreakFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm"): string.Empty;
+      agreement.FirstBreakTo =  agreementEmployeeInfo.FirstBreakTo.HasValue? agreementEmployeeInfo.FirstBreakTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
+      agreement.SecondBreakFrom = agreementEmployeeInfo.SecondBreakFrom.HasValue? agreementEmployeeInfo.SecondBreakFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
+      agreement.SecondBreakTo = agreementEmployeeInfo.SecondBreakTo.HasValue? agreementEmployeeInfo.SecondBreakTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
       agreement.Compensation = agreementEmployeeInfo.Compensation;
       agreement.RestDateFrom = agreementEmployeeInfo.RestDateFrom.HasValue? agreementEmployeeInfo.RestDateFrom.Value.ToString("dd.MM.yyyy") : string.Empty;
+      
+      // Получаем текст условия оплачиваемого перерыва из константы "Оплачиваемый перерыв".
+      var paidBreakConstantValue = DirRX.NNCommons.PublicFunctions.Module.GetStringValue(Constants.Module.ConstantsSetting.PaidBreak.Guid);
+      if (string.IsNullOrEmpty(paidBreakConstantValue))
+        paidBreakConstantValue = Constants.Module.ConstantsDefaultValues.PaidBreak;
+      
+      agreement.PaidBreakConditions = agreementEmployeeInfo.PaidBreak == true ? paidBreakConstantValue : string.Empty;
       
       var template = NNCommons.PublicFunctions.Module.Remote.GetTemplateByKind(agreement.DocumentKind, agreement.BusinessUnit);
       if (template == null)

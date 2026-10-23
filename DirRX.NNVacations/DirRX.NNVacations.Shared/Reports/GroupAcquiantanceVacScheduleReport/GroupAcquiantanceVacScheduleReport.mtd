@@ -76,6 +76,12 @@
       "Name": "DocKindId",
       "InternalDataTypeName": "System.Int64",
       "IsSimpleDataType": true
+    },
+    {
+      "NameGuid": "5ea903b7-0183-4d68-ac76-a53409f6df04",
+      "Name": "VacationScheduleId",
+      "InternalDataTypeName": "System.Int64",
+      "IsSimpleDataType": true
     }
   ],
   "PublicStructures": [],

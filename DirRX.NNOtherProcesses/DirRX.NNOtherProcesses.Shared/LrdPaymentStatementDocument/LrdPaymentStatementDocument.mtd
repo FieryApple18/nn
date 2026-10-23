@@ -31,7 +31,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
-          "Name": "Main",
+          "Name": "MainDirRX",
           "ColumnDefinitions": [
             {
               "Percentage": 50.0
@@ -51,7 +51,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "4e1d78fc-6f6c-4c81-bf9a-a1fa2031a46b",
-          "Name": "Registration",
+          "Name": "RegistrationDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "Overridden": [
@@ -62,7 +62,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "696a8bb8-3e12-44c8-927a-37d955cfbf0f",
-          "Name": "File",
+          "Name": "FileDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "IsVisible": false,
@@ -74,7 +74,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "1b194ce3-c440-4887-9f0d-1cdc4303c583",
-          "Name": "State",
+          "Name": "StateDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "Overridden": [
@@ -85,7 +85,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "3d411ab8-967c-43b4-ab77-0240b19d9921",
-          "Name": "Main",
+          "Name": "MainDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -342,6 +342,19 @@
           "RowNumber": 3,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "24811c84-7092-42c4-81a0-eaaf48ec9805",
+          "Name": "IsNGDDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "3d411ab8-967c-43b4-ab77-0240b19d9921",
+          "PropertyGuid": "17301247-79c2-4647-b0f5-f1bd3f866d20",
+          "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
         }
       ],
       "IsAncestorMetadata": true,
@@ -507,6 +520,56 @@
       "IsEnabled": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "3596b7bf-04c3-4f25-8cd6-4fc2fb754e2d"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "970a8351-d1a9-4983-b8cc-f70837c427cc",
+      "Name": "INILA",
+      "CanBeSearch": false,
+      "Code": "INILA",
+      "IsShowedInList": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "e19e754a-3adf-4d2d-8d46-30d52397a9ed",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "bfbf074c-935f-4f00-8be8-7bd2bb4405a5",
+      "Name": "Experience",
+      "CanBeSearch": false,
+      "Code": "Experience",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "e19e754a-3adf-4d2d-8d46-30d52397a9ed"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "02bc6516-d408-44fd-8daa-d8c0c78d0c42",
+      "Name": "Retiree",
+      "CanBeSearch": false,
+      "Code": "Retiree",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "bfbf074c-935f-4f00-8be8-7bd2bb4405a5"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "507e0201-bd3d-440f-b1fd-4c6686e0648f",
+      "Name": "Disable",
+      "CanBeSearch": false,
+      "Code": "Disable",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "02bc6516-d408-44fd-8daa-d8c0c78d0c42"
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "a68c6a0a-7b21-457e-b8c6-7f6dbc15ed22",
+      "Name": "FireDate",
+      "CanBeSearch": false,
+      "Code": "FireDate",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "507e0201-bd3d-440f-b1fd-4c6686e0648f"
     }
   ],
   "PublicFunctions": [

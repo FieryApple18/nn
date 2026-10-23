@@ -61,6 +61,9 @@
       "Name": "Days",
       "CanBeSearch": false,
       "Code": "Days",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
       "PreviousPropertyGuid": "f0d8dd9b-2da2-4476-9690-7be119cf4c36",
       "Versions": []

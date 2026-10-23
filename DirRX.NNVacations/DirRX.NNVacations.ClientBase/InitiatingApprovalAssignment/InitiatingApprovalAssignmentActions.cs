@@ -92,7 +92,9 @@ namespace DirRX.NNVacations.Client
 
     public virtual bool CanComplete(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return Employees.As(_obj.Performer).IsVirtualDirRX != true && _obj.CanComplete.GetValueOrDefault();
+      var hasLoadError = !string.IsNullOrEmpty(_obj.LoadingErrorMessage);
+      
+      return Employees.As(_obj.Performer).IsVirtualDirRX != true && _obj.CanComplete.GetValueOrDefault() && !hasLoadError;
     }
 
   }

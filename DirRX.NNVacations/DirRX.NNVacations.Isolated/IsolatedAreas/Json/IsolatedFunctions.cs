@@ -560,6 +560,22 @@ namespace DirRX.NNVacations.Isolated.Json
     }
     
     /// <summary>
+    /// Десериализация строки json в структуру.
+    /// </summary>
+    /// <param name="json">Json строка.</param>
+    /// <returns>Структура.</returns>
+    [Public]
+    public static IVacationDataForShiftByStatement DeserializeInStruct(string json, IVacationDataForShiftByStatement vacationDataForShiftByStatement, IFormattedVacationForShiftByStatement structure)
+    {
+      // Строка приходит дважды сериализованная.
+      var firstDeserialize = JsonConvert.DeserializeObject<string>(json);
+      // Для десериализации вложенного списка интерфейсов нужен конвертер.
+      var settings = new JsonSerializerSettings();
+      settings.Converters.Add(new VacationDataForShiftByStatementConverter());
+      return JsonConvert.DeserializeObject<DirRX.NNVacations.Structures.Module.VacationDataForShiftByStatement>(firstDeserialize, settings);
+    }
+    
+    /// <summary>
     /// Сериализация структуры в json строку.
     /// </summary>
     /// <param name="structure">Структура.</param>
@@ -623,6 +639,21 @@ namespace DirRX.NNVacations.Isolated.Json
       var settings = new JsonSerializerSettings();
       settings.Converters.Add(new EmployeeVacationsIFS28542Converter());
       return JsonConvert.DeserializeObject<EmployeeVacationsIFS28542>(json, settings);
+    }
+    
+    #endregion
+    
+    #region IF-S-29000. Передача статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП.
+    
+    /// <summary>
+    /// Сериализация структуры в json строку.
+    /// </summary>
+    /// <param name="structure">Структура.</param>
+    /// <returns>Json строка.</returns>
+    [Public]
+    public static string SerializeInJson(IVacationScheduleProcessStatus structure)
+    {
+      return JsonConvert.SerializeObject(structure);
     }
     
     #endregion

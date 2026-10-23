@@ -156,7 +156,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
-          "Name": "LeftGroup",
+          "Name": "LeftGroupDirRX",
           "ColumnDefinitions": [
             {
               "Percentage": 50.0
@@ -176,7 +176,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "28a6d4a8-a26a-467b-8fe6-da426092ec4a",
-          "Name": "RightGroup",
+          "Name": "RightGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -463,7 +463,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
           "PropertyGuid": "3375e272-d48d-460d-925a-bc2013b4d331",
-          "RowNumber": 3,
+          "RowNumber": 4,
           "RowSpan": 1,
           "Settings": []
         },
@@ -476,27 +476,14 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
           "ParentGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
           "PropertyGuid": "53eaab69-d17a-4a49-a749-369519508aab",
-          "RowNumber": 3,
-          "RowSpan": 1,
-          "Settings": []
-        },
-        {
-          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
-          "NameGuid": "1cce92b4-4432-435d-9c84-870be6b0ff68",
-          "Name": "AdditionalApprover",
-          "ColumnNumber": 0,
-          "ColumnSpan": 2,
-          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
-          "ParentGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
-          "PropertyGuid": "aa4dc9f1-692f-4512-b882-def5111e2de4",
           "RowNumber": 4,
           "RowSpan": 1,
           "Settings": []
         },
         {
           "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
-          "NameGuid": "08942077-5681-4af9-be6e-91619c1e4ec7",
-          "Name": "TopDirRX",
+          "NameGuid": "8cc90b3c-077d-434b-b419-0f31278d529f",
+          "Name": "IsNGDDirRX",
           "ColumnNumber": 1,
           "ColumnSpan": 1,
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
@@ -505,6 +492,24 @@
           "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "a3cad9e4-b851-4988-85e8-593242b83a96",
+          "Name": "AdditionalApprovers",
+          "ColumnNumber": 0,
+          "ColumnSpan": 2,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.MultiSelectFromListEditorToCollectionBinder",
+          "ParentGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
+          "PropertyGuid": "c6c895e5-8160-4d81-b8ea-f0b405da4cc5",
+          "RowNumber": 3,
+          "RowSpan": 1,
+          "Settings": [
+            {
+              "Name": "NavigationPropertyGuid",
+              "Value": "be201b53-a4af-4964-adc0-a9e4b0c439e6"
+            }
+          ]
         }
       ],
       "IsAncestorMetadata": true,
@@ -565,6 +570,30 @@
   ],
   "Properties": [
     {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "26032389-ea58-45df-bf3c-e6da49091b85",
+      "Name": "PersonnelSectionDirRX",
+      "HandledEvents": [
+        "ValueInputClient"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "HandledEvents"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "a8c35fbf-8218-4289-8f45-9b6d3ad7342b",
+      "Name": "EmployeeDirRX",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "HandledEvents"
+      ]
+    },
+    {
       "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
       "NameGuid": "ec082683-e3d8-4cf2-8cfa-1461ee0e6fc0",
       "Name": "LifeCycleState",
@@ -600,7 +629,7 @@
     {
       "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
       "NameGuid": "17301247-79c2-4647-b0f5-f1bd3f866d20",
-      "Name": "TopDirRX",
+      "Name": "IsNGDDirRX",
       "HandledEvents": [
         "ValueInputClient"
       ],
@@ -690,6 +719,7 @@
       "CanBeSearch": false,
       "Code": "AdditionalAppr",
       "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "IsShowedInList": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "53eaab69-d17a-4a49-a749-369519508aab"
     },
@@ -726,6 +756,33 @@
       "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToTextBinder",
       "PreviousPropertyGuid": "aa4dc9f1-692f-4512-b882-def5111e2de4"
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c6c895e5-8160-4d81-b8ea-f0b405da4cc5",
+      "Name": "AdditionalApprovers",
+      "Code": "WeekendWorkSt1",
+      "EntityGuid": "f34568a9-6beb-462c-80fb-c028dcf879d9",
+      "IsShowedInList": false,
+      "PreviousPropertyGuid": "5fa1d41e-bede-4828-a672-60dfdb44b7b6"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "92f4fda8-47eb-4586-9749-1c68ced23c27",
+      "Name": "DueTo",
+      "Code": "DueTo",
+      "Length": 1000,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "c6c895e5-8160-4d81-b8ea-f0b405da4cc5"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4ab3e982-2ee2-4b05-9f48-534b6e6d71f5",
+      "Name": "ExecutionControl",
+      "Code": "ExecutionContr",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "92f4fda8-47eb-4586-9749-1c68ced23c27"
     }
   ],
   "PublicConstants": [
@@ -799,6 +856,44 @@
       "ReturnTypeFullName": "System.String"
     },
     {
+      "Name": "GetInitiatorTimeZoneDiff",
+      "IsRemote": true,
+      "Parameters": [
+        {
+          "Name": "weekendWorkStatementDocument",
+          "ParameterType": "global::DirRX.NNOtherProcesses.IWeekendWorkStatementDocument",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.IWeekendWorkStatementDocument, Sungero.Domain.Interfaces"
+        }
+      ],
+      "Placement": "Shared",
+      "ReturnType": "global::System.Double",
+      "ReturnTypeFullName": "System.Double"
+    },
+    {
+      "Name": "GetTaskForSignWeekendWorkRestOrder",
+      "Parameters": [
+        {
+          "Name": "statement",
+          "ParameterType": "global::DirRX.NNOtherProcesses.IWeekendWorkStatementDocument",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.IWeekendWorkStatementDocument, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Collections.Generic.List<global::HRPro.HRDocFlow.IHRProcessTask>",
+      "ReturnTypeFullName": "System.Collections.Generic.List"
+    },
+    {
+      "Name": "GetWeekendWorkOrder",
+      "Parameters": [
+        {
+          "Name": "statement",
+          "ParameterType": "global::DirRX.NNOtherProcesses.IWeekendWorkStatementDocument",
+          "ParameterTypeFullName": "DirRX.NNOtherProcesses.IWeekendWorkStatementDocument, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNOtherProcesses.IWeekendWorkOrderDocument",
+      "ReturnTypeFullName": "DirRX.NNOtherProcesses.IWeekendWorkOrderDocument, Sungero.Domain.Interfaces"
+    },
+    {
       "Name": "HighlightEmployeesDataErrors",
       "Parameters": [
         {
@@ -843,6 +938,11 @@
         {
           "Name": "secondBreakFrom",
           "ParameterType": "global::System.Nullable<global::System.DateTime>",
+          "ParameterTypeFullName": "System.Nullable"
+        },
+        {
+          "Name": "paidBreak",
+          "ParameterType": "global::System.Nullable<global::System.Boolean>",
           "ParameterTypeFullName": "System.Nullable"
         }
       ],
@@ -910,7 +1010,17 @@
     "HoursDeclensionOne",
     "HoursDeclensionTwo",
     "HoursDeclensionDefault",
-    "BreakIncompleteValidationError"
+    "BreakIncompleteValidationError",
+    "AdditionalApproversCountError",
+    "GetWeekendWorkOrderFuncName",
+    "GetWeekendWorkOrderFuncDesc",
+    "GetTaskForSignWeekendWorkRestOrderFuncName",
+    "GetTaskForSignWeekendWorkRestOrderFuncDesc",
+    "FillEmployeesOrderTitle",
+    "FillEmployeesSppElementTitle",
+    "FillEmployeesOtherRMTitle",
+    "RemoveEmployeeWithWrongPersonnelSection",
+    "InitiatorTimeZoneWarning"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "1a603803-bdd2-44d6-a120-349aed0e8571",

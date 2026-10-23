@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -9,6 +9,30 @@ namespace DirRX.NNOtherProcesses.Shared
 {
   partial class WeekendWorkStatementDocumentFunctions
   {
+    /// <summary>
+    /// Вычисляет кол-во рабочих чаcов.
+    /// </summary>
+    /// <param name="employee">Данные о работнике.</param>
+    /// <returns>Кол-во часов.</returns>
+    public static double CalculateCountHours(IWeekendWorkStatementDocumentEmployees employee)
+    {
+      double workHours = 0;
+      double firstBreakHours = 0;
+      double secondBreakHours = 0;
+      
+      if (employee.WorkDateTo.HasValue && employee.WorkDateFrom.HasValue)
+        workHours = ((TimeSpan)(employee.WorkDateTo.Value - employee.WorkDateFrom.Value)).TotalHours;
+      
+      if (employee.FirstBreakTo.HasValue && employee.FirstBreakFrom.HasValue)
+        firstBreakHours = ((TimeSpan)(employee.FirstBreakTo.Value - employee.FirstBreakFrom.Value)).TotalHours;
+      
+      if (employee.SecondBreakTo.HasValue && employee.SecondBreakFrom.HasValue)
+        secondBreakHours = ((TimeSpan)(employee.SecondBreakTo.Value - employee.SecondBreakFrom.Value)).TotalHours;
+      
+      double resultHours = workHours - (firstBreakHours + secondBreakHours);
+      
+      return Math.Round(resultHours, 2);
+    }
     
     #region Выделение цветом данных по ошибкам в табличной части заявки ВД/ПД/СР
 
@@ -91,6 +115,21 @@ namespace DirRX.NNOtherProcesses.Shared
     #region Логика валидации табличной части Работники.
     
     /// <summary>
+    /// Сопоставляет Раздел персонала  с разделами у сотрудников.
+    /// </summary>
+    /// <param name="personnelSection">Раздел персонала.</param>
+    /// <returns>true - разделы одинаковые, иначе false.</returns>
+    public virtual bool CheckPersonnelSectionInEmployee(NNCommons.IPersonnelSection personnelSection)
+    {
+      var personnelSections = _obj.Employees.Where(v => v.Employee != null).Select(с => с.Employee.PersonnelSectionDirRX);
+      
+      if (personnelSection == null)
+        return true;
+      
+      return personnelSections.All(p => Equals(p, personnelSection));
+    }
+    
+    /// <summary>
     /// Валидация количества рабочих часов.
     /// </summary>
     /// <returns>Записи ТЧ, которе не прошли валидацию.</returns>
@@ -103,7 +142,8 @@ namespace DirRX.NNOtherProcesses.Shared
         var workDateFrom = employee.WorkDateFrom.HasValue ? employee.WorkDateFrom.Value : _obj.WorkDateFrom.Value;
         var workDateTo = employee.WorkDateTo.HasValue ? employee.WorkDateTo.Value : _obj.WorkDateTo.Value;
         var isWorkingHoursExceeded = Functions.WeekendWorkStatementDocument.Remote.IsWorkingHoursExceeded(businessUnit, workDateFrom, workDateTo,
-                                                                                                          employee.FirstBreakFrom, employee.SecondBreakFrom);
+                                                                                                          employee.FirstBreakFrom, employee.SecondBreakFrom,
+                                                                                                          employee.PaidBreak);
         if (isWorkingHoursExceeded)
           errorRecords.Add(employee);
       }
@@ -261,9 +301,13 @@ namespace DirRX.NNOtherProcesses.Shared
     /// <param name="firstBreakTo">Первый перерыв по.</param>
     /// <param name="secondBreakFrom">Второй перерыв с.</param>
     /// <param name="secondBreakTo">Второй перерыв по.</param>
+    /// <param name="paidBreak">Оплачиваемый перерыв.</param>
+    /// <param name="order">Заказ.</param>.</param>
+    /// <param name="sppElement">СПП-элемент.</param>
+    /// <param name="otherRM">Другое РМ.</param>
     public virtual void AddEmployes(List<Structures.WeekendWorkStatementDocument.EmployeeInfo> employeesInfo, IWeekendWorkCompensationKind compensation, DateTime? workDateFrom, DateTime? workDateTo,
                                     DateTime? restDateFrom, DateTime? restDateTo, DateTime? firstBreakFrom, DateTime? firstBreakTo,
-                                    DateTime? secondBreakFrom, DateTime? secondBreakTo)
+                                    DateTime? secondBreakFrom, DateTime? secondBreakTo, bool? paidBreak, string order, string sppElement, string otherRM)
     {
       var employees = Functions.WeekendWorkStatementDocument.Remote.GetEmployees(employeesInfo);
       foreach (var employee in employees)
@@ -279,6 +323,10 @@ namespace DirRX.NNOtherProcesses.Shared
         record.FirstBreakTo = firstBreakTo;
         record.SecondBreakFrom = secondBreakFrom;
         record.SecondBreakTo = secondBreakTo;
+        record.Order = order;
+        record.SppElement = sppElement;
+        record.OtherRM = otherRM;
+        record.PaidBreak = paidBreak;
       }
     }
     
@@ -361,12 +409,23 @@ namespace DirRX.NNOtherProcesses.Shared
       {
         // Вид документа - Сверхурочная работа.
         var isOvertimeWork = (bool)paramValue;
-        _obj.State.Properties.Reason.IsVisible = !isOvertimeWork;
-        _obj.State.Properties.Reason.IsRequired = !isOvertimeWork;
+        
         _obj.State.Properties.Employees.Properties.FirstBreakFrom.IsVisible = !isOvertimeWork;
         _obj.State.Properties.Employees.Properties.FirstBreakTo.IsVisible = !isOvertimeWork;
         _obj.State.Properties.Employees.Properties.SecondBreakFrom.IsVisible = !isOvertimeWork;
         _obj.State.Properties.Employees.Properties.SecondBreakTo.IsVisible = !isOvertimeWork;
+        _obj.State.Properties.Employees.Properties.PaidBreak.IsVisible = !isOvertimeWork;
+        _obj.State.Properties.Employees.Properties.RestDateFrom.IsVisible = !isOvertimeWork;
+
+        // Код Главного офиса.
+        var goBusinessUnitSapId = string.Empty;
+        if (entityParams.TryGetValue(string.Format(Constants.WeekendWorkStatementDocument.GoSapCodeParamName, _obj.Id), out paramValue))
+          goBusinessUnitSapId = (string)paramValue;
+        
+        var isGo = DirRX.OverrideSolution.BusinessUnits.As(_obj.BusinessUnit)?.SapLegalEntityCodeDirRX == goBusinessUnitSapId;
+        
+        _obj.State.Properties.Reason.IsVisible = !isOvertimeWork && isGo;
+        _obj.State.Properties.Reason.IsRequired = !isOvertimeWork && isGo;
       }
     }
     
@@ -391,8 +450,8 @@ namespace DirRX.NNOtherProcesses.Shared
       
       // Вид документа.
       _obj.State.Properties.DocumentKind.IsEnabled = _obj.State.IsEnabled && !isApproved;
-      // ТОП-10/100.
-      _obj.State.Properties.TopDirRX.IsEnabled = _obj.State.IsEnabled && !isApproved;
+      // НГД.
+      _obj.State.Properties.IsNGDDirRX.IsEnabled = _obj.State.IsEnabled && !isApproved;
       // Основание.
       _obj.State.Properties.ReasonDescription.IsEnabled = _obj.State.IsEnabled && !isApproved;
       // Уточнение причины.
@@ -429,8 +488,10 @@ namespace DirRX.NNOtherProcesses.Shared
       // Даты доп. отдыха.
       _obj.State.Properties.Employees.Properties.RestDateFrom.IsEnabled = _obj.State.IsEnabled && !isApproved;
       _obj.State.Properties.Employees.Properties.RestDateTo.IsEnabled = _obj.State.IsEnabled && !isApproved;
-      // Отклонено. Поле дооступно для изменения при условии, что заявка - cогласована.после.
+      // Отклонено. Поле доступно для изменения при условии, что заявка - cогласована после.
       _obj.State.Properties.Employees.Properties.RejectedByApproval.IsEnabled = _obj.State.IsEnabled && isApproved;
+      // Доп. день отдыха отменен. Поле доступно для изменения при условии, что заявка - cогласована после.
+      _obj.State.Properties.Employees.Properties.RestDateCanceled.IsEnabled = _obj.State.IsEnabled && isApproved;
       
       #endregion
       

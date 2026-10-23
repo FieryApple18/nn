@@ -97,4 +97,13 @@
   <data name="Property_StructuralDepartment" xml:space="preserve">
     <value>Structural department</value>
   </data>
+  <data name="Property_VacationSchedule" xml:space="preserve">
+    <value>VacationSchedule</value>
+  </data>
+  <data name="Property_ConsentHRPro" xml:space="preserve">
+    <value>Consent HRPro</value>
+  </data>
+  <data name="Property_VacationScheduleSapId" xml:space="preserve">
+    <value>Vacation schedule SAP ID</value>
+  </data>
 </root>

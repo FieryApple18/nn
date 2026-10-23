@@ -190,4 +190,7 @@
   <data name="Block_5ace995e7e7945e684e5ff82c14c8258_Property_bdff51bf44a5428b86577168456cf781_Enum_fdd5a36f3e654c0f9d2c90bb46534272" xml:space="preserve">
     <value>Locked error</value>
   </data>
+  <data name="Property_LoadingErrorMessage" xml:space="preserve">
+    <value>Data loading error message</value>
+  </data>
 </root>

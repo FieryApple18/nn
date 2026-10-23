@@ -15,6 +15,30 @@ namespace DirRX.OverrideSolution.Module.SignPlatform.Server
   partial class ModuleFunctions
   {
 
+    public override void SaveStatement(DirRX.EssPlatform.Structures.Module.IHttpRequestResult response, DirRX.SignPlatform.ICertificateIssueTask task, DirRX.SignPlatform.ICertificateRequest requestEntry)
+    {
+      var result = JsonConvert.DeserializeObject<DirRX.SignPlatform.Structures.Module.CertificateIssueStatementResponse>(response.RequestMessage);
+      var content = System.Convert.FromBase64String(result.Base64Content);
+      
+      var document = requestEntry.DocumentID.HasValue
+        ? DirRX.SignPlatform.CertificateIssueStatementDocuments.Get(requestEntry.DocumentID.Value)
+        : DirRX.SignPlatform.CertificateIssueStatementDocuments.Create();
+      
+      document.Name = Resources.CertificateIssueStatementDocumentNameFormat(task.Employee.Person.DisplayValue);
+      
+      document.DocumentKind = Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(DirRX.SignPlatform.Constants.Module.DocumentKind.CertificateIssueKind);
+      
+      using (var memory = new System.IO.MemoryStream(content))
+      {
+        document.CreateVersionFrom(memory, "pdf");
+        document.AccessRights.Grant(task.Employee, DefaultAccessRightsTypes.FullAccess);
+        document.AccessRights.Grant(task.Author, DefaultAccessRightsTypes.FullAccess);
+        document.Save();
+        
+        requestEntry.DocumentID = document.Id;
+      }
+    }
+
     /// <summary>
     /// Отправить уведомление об ошибке/ошибках сотрудникам роли "Администраторы выпуска сертификатов электронных подписей".
     /// </summary>

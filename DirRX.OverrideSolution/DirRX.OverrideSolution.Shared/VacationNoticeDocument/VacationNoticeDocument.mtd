@@ -29,7 +29,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
-          "Name": "LeftGroup",
+          "Name": "LeftGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls",
@@ -41,7 +41,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "28a6d4a8-a26a-467b-8fe6-da426092ec4a",
-          "Name": "RightGroup",
+          "Name": "RightGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "ColumnDefinitions",

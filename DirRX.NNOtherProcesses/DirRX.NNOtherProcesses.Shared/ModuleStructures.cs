@@ -6,7 +6,23 @@ using Sungero.CoreEntities;
 
 namespace DirRX.NNOtherProcesses.Structures.Module
 {
-
+  /// <summary>
+  /// Результат проверки ранее оформленного заявления.
+  /// </summary>
+  [Public]
+  partial class VerificationResultPayment
+  {
+    /// <summary>
+    /// Результат проверки.
+    /// </summary>
+    public bool VerificationResult { get; set; }
+    
+    /// <summary>
+    /// Текст замечания.
+    /// </summary>
+    public string CommentText { get; set; }
+  }
+  
   /// <summary>
   /// Период заданий/уведомлений по замещению для виджета workItemList.
   /// </summary>
@@ -303,9 +319,9 @@ namespace DirRX.NNOtherProcesses.Structures.Module
     public string PerformerInfo { get; set; }
     
     /// <summary>
-    /// ИД доп. согласующего.
+    /// ИД доп. согласующих через запятую.
     /// </summary>
-    public long AdditionalApproverId { get; set; }
+    public string AdditionalApproverIds { get; set; }
     
     /// <summary>
     /// ИД заявления.

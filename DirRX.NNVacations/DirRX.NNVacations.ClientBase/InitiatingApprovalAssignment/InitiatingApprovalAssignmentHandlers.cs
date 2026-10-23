@@ -26,13 +26,14 @@ namespace DirRX.NNVacations
     {
       // TODO Nikitin_II. Старая конкурентная работа.
       // Можно убрать, когда завершатся все задачи, запущенные до обновления на 25.2/2.7.
-      
       var isOldCompetition = _obj.IsCompetitionWork.HasValue && _obj.IsCompetitionWork.Value;
       var isCompetition = _obj.IsCompetitive.HasValue && _obj.IsCompetitive.Value;
       if ((!isOldCompetition && !isCompetition) ||
           (isOldCompetition && Employees.As(_obj.Performer)?.IsVirtualDirRX != true) ||
           (isCompetition && _obj.IsCompetitiveWorkStarted.Value))
         Functions.InitiatingApprovalAssignment.SetPropertiesIsRequired(_obj, true);
+      
+      _obj.State.Pages.Errors.IsVisible = !string.IsNullOrEmpty(_obj.LoadingErrorMessage);
     }
 
     public virtual void AssertingApproverValueInput(DirRX.NNVacations.Client.InitiatingApprovalAssignmentAssertingApproverValueInputEventArgs e)

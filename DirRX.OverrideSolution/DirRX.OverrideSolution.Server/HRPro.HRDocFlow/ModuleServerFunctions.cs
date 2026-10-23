@@ -4,6 +4,8 @@ using System.Linq;
 using Sungero.Core;
 using Sungero.CoreEntities;
 using Sungero.Domain.LinqExpressions;
+using Sungero.Domain.Shared;
+using Sungero.Metadata;
 
 namespace DirRX.OverrideSolution.Module.HRDocFlow.Server
 {
@@ -138,7 +140,9 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server
                        DirRX.NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkAgreementDocument,
                        DirRX.NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkOrderDocument,
                        DirRX.NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkStatementDocument,
-                       HRPro.HRDocFlow.PublicConstants.Module.EntityTypeGuid.DocRelatedToWork
+                       HRPro.HRDocFlow.PublicConstants.Module.EntityTypeGuid.DocRelatedToWork,
+                       DirRX.NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkRestStatementDocument,
+                       DirRX.NNOtherProcesses.PublicConstants.Module.DocumentType.WeekendWorkRestOrderDocument
                      });
 
       return guids;
@@ -200,6 +204,5 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server
           return string.Empty;
       }
     }
-
   }
 }

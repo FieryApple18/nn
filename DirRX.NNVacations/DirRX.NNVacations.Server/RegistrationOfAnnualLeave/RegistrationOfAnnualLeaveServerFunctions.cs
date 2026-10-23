@@ -65,12 +65,12 @@ namespace DirRX.NNVacations.Server
     /// <summary>
     /// Создание задачи с типом Регистрация ежегодного отпуска.
     /// </summary>
+    /// <param name="logPrefix">Префикс логирования.</param>
     /// <param name="vacationsInfo">Структура с информацией по отпуску сотрудника.</param>
-    /// <param name="sendAdministrator">Отправить задачу администратору оо не найденным типам отпусков.</param>
     /// <returns>Структура с информацией по отпуску сотрудника.</returns>
     public static List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime> CreateRegistrationOfAnnualLeaveTask(string logPrefix,
-                                                                                                                        List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime> vacationsInfo,
-                                                                                                                        bool sendAdministrator)
+                                                                                                                        List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime> vacationsInfo)
+
     {
       var errorVacations = new List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime>();
       var personnelNumber = vacationsInfo.First().PersonnelNumber;
@@ -92,62 +92,47 @@ namespace DirRX.NNVacations.Server
       }
       vacationsList.Add(vacationsGroup);
       
-      var errorSearchVacationKinds = new List<string>();
-      
       foreach (var vacGroup in vacationsList)
       {
-        var newErrorSearchVacationKinds = NNVacations.PublicFunctions.Module.CheckHasVacationKind(logPrefix, vacGroup);
-        
-        if (newErrorSearchVacationKinds.Any())
-          errorSearchVacationKinds.AddRange(newErrorSearchVacationKinds);
-        else
-        {
-          Transactions.Execute(() =>
+
+        Transactions.Execute(() =>
+                             {
+                               try
                                {
-                                 try
+                                 var task = RegistrationOfAnnualLeaves.Create();
+                                 var dateStart = vacGroup.OrderBy(v => v.DateStart).First().DateStart;
+                                 var dateEnd = vacGroup.OrderByDescending(v => v.DateEnd).First().DateEnd;
+                                 task.Subject = RegistrationOfAnnualLeaves.Resources.RegistrationOfAnnualLeaveSubjectFormat(employee, dateStart.ToShortDateString(), dateEnd.ToShortDateString());
+                                 task.Employee = employee;
+                                 task.StartDate = dateStart;
+                                 task.EndDate = dateEnd;
+                                 foreach (var vacInfo in vacGroup)
                                  {
-                                   var task = RegistrationOfAnnualLeaves.Create();
-                                   var dateStart = vacGroup.OrderBy(v => v.DateStart).First().DateStart;
-                                   var dateEnd = vacGroup.OrderByDescending(v => v.DateEnd).First().DateEnd;
-                                   task.Subject = RegistrationOfAnnualLeaves.Resources.RegistrationOfAnnualLeaveSubjectFormat(employee, dateStart.ToShortDateString(), dateEnd.ToShortDateString());
-                                   task.Employee = employee;
-                                   task.StartDate = dateStart;
-                                   task.EndDate = dateEnd;
-                                   foreach (var vacInfo in vacGroup)
-                                   {
-                                     var vacationType = OverrideSolution.VacationKinds.GetAll(x => (x.PlannedAbsenceDirRX == vacInfo.TypeVacation ||
-                                                                                                    x.PlannedAbsenceShiftDirRX == vacInfo.TypeVacation) &&
-                                                                                              Equals(x.BusinessUnitDirRX, employee.BusinessUnit))
-                                       .FirstOrDefault();
-                                     
-                                     var vacationData = task.VacationData.AddNew();
-                                     vacationData.VacationType = vacationType;
-                                     vacationData.PlannedAbsence = vacInfo.TypeVacation;
-                                     vacationData.StartDate = vacInfo.DateStart;
-                                     vacationData.EndDate = vacInfo.DateEnd;
-                                     vacationData.Days = Functions.Module.DurationInCalendarDaysWithoutHoliday(vacInfo.DateStart, vacInfo.DateEnd, employee, vacationData.VacationType, null);
-                                   }
+                                   var vacationType = OverrideSolution.VacationKinds.GetAll(x => (x.PlannedAbsenceDirRX == vacInfo.TypeVacation ||
+                                                                                                  x.PlannedAbsenceShiftDirRX == vacInfo.TypeVacation) &&
+                                                                                                    x.VacationKindDirRX == OverrideSolution.VacationKind.VacationKindDirRX.AnnualLeave &&
+                                                                                            Equals(x.BusinessUnitDirRX, employee.BusinessUnit))
+                                     .FirstOrDefault();
                                    
-                                   task.Start();
-                                   Logger.DebugFormat("{0}. Табельный номер сотрудника: {1}. Создана и отправлена задача Регистрация ежегодного отпуска с ИД: {2}.",
-                                                      logPrefix, personnelNumber, task.Id);
+                                   var vacationData = task.VacationData.AddNew();
+                                   vacationData.VacationType = vacationType;
+                                   vacationData.PlannedAbsence = vacInfo.TypeVacation;
+                                   vacationData.StartDate = vacInfo.DateStart;
+                                   vacationData.EndDate = vacInfo.DateEnd;
+                                   vacationData.Days = Functions.Module.DurationInCalendarDaysWithoutHoliday(vacInfo.DateStart, vacInfo.DateEnd, employee, vacationData.VacationType, null);
                                  }
-                                 catch (Exception ex)
-                                 {
-                                   Logger.ErrorFormat("{0}. Табельный номер сотрудника: {1}. Ошибка выполнения: {2}. StackStrace: {3}.",
-                                                      logPrefix, personnelNumber, ex.Message, ex.StackTrace);
-                                   errorVacations.AddRange(vacGroup);
-                                 }
-                               });
-        }
-      }
-      
-      if (errorSearchVacationKinds.Any() && sendAdministrator)
-      {
-        var activeText = string.Join(Environment.NewLine, errorSearchVacationKinds);
-        NNCommons.PublicFunctions.Module.SendSimpleTask(Roles.Administrators,
-                                                        DirRX.NNVacations.RegistrationOfAnnualLeaves.Resources.NotFoundTypeVacation,
-                                                        activeText);
+                                 
+                                 task.Start();
+                                 Logger.DebugFormat("{0}. Табельный номер сотрудника: {1}. Создана и отправлена задача Регистрация ежегодного отпуска с ИД: {2}.",
+                                                    logPrefix, personnelNumber, task.Id);
+                               }
+                               catch (Exception ex)
+                               {
+                                 Logger.ErrorFormat("{0}. Табельный номер сотрудника: {1}. Ошибка выполнения: {2}. StackStrace: {3}.",
+                                                    logPrefix, personnelNumber, ex.Message, ex.StackTrace);
+                                 errorVacations.AddRange(vacGroup);
+                               }
+                             });
       }
       
       return errorVacations;

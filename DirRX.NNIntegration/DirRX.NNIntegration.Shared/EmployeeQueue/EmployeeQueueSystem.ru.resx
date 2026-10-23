@@ -211,4 +211,25 @@
   <data name="Property_UtcOffset" xml:space="preserve">
     <value>Часовой пояс</value>
   </data>
+  <data name="Property_PersonnelSectionCode" xml:space="preserve">
+    <value>Код раздела персонала</value>
+  </data>
+  <data name="Property_PersonnelSubSectionCode" xml:space="preserve">
+    <value>Код подраздела персонала</value>
+  </data>
+  <data name="Property_InfoManager" xml:space="preserve">
+    <value>Линейный руководитель для информирования</value>
+  </data>
+  <data name="Property_ManagerLevel2" xml:space="preserve">
+    <value>Линейный руководитель (2 уровень)</value>
+  </data>
+  <data name="Property_VSPManager" xml:space="preserve">
+    <value>Руководитель ВСП</value>
+  </data>
+  <data name="Property_SPManager" xml:space="preserve">
+    <value>Руководитель СП</value>
+  </data>
+  <data name="Property_PersCategory" xml:space="preserve">
+    <value>Категория сотрудника</value>
+  </data>
 </root>

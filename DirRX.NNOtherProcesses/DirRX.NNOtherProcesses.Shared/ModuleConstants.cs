@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Sungero.Core;
 
 namespace DirRX.NNOtherProcesses.Constants
@@ -7,6 +7,24 @@ namespace DirRX.NNOtherProcesses.Constants
   public static class Module
   {
 
+    /// <summary>
+    /// Ключ для необходимости фильтрации.
+    /// </summary>
+    [Public]
+    public const string FilterLrdPaymentInRX = "CheckLrdPaymentInRX{0}";
+    
+    /// <summary>
+    /// Вариант передачи пустого СНИЛСа.
+    /// </summary>
+    [Public]
+    public const string EmptyInilaV1 = "000-000-000 00";
+    
+    /// <summary>
+    /// Вариант передачи пустого СНИЛСа.
+    /// </summary>
+    [Public]
+    public const string EmptyInilaV2 = "000 000 000 00";
+    
     /// <summary>
     /// Количество документов, обрабатываемых за раз фоновым процессом UpdateTopAttributeInDocumentsJob.
     /// </summary>
@@ -99,6 +117,12 @@ namespace DirRX.NNOtherProcesses.Constants
       /// </summary>
       [Public]
       public static readonly Guid ResponsibleWeekendWork = Guid.Parse("0ADDEFB4-0457-4BF1-987F-133849D63C40");
+      
+      /// <summary>
+      /// Инициатор перевода.
+      /// </summary>
+      [Public]
+      public static readonly Guid ResponsibleTransferProcess = Guid.Parse("7776512C-7D1D-4521-9FB7-BF6D34C9A19C");
     }
     
     /// <summary>
@@ -130,6 +154,12 @@ namespace DirRX.NNOtherProcesses.Constants
       // Приказ на выплату по ЛНА.
       [Public]
       public static readonly Guid LrdPaymentOrderDocument = Guid.Parse("a62e018b-df7f-4c54-a5c4-2c9f0b02810a");
+      // Заявление на доп. день отдыха.
+      [Public]
+      public static readonly Guid WeekendWorkRestStatementDocument = Guid.Parse("d03d2b52-ffdb-4984-9e0b-48204e17ed2f");
+      // Приказ на доп. день отдыха.
+      [Public]
+      public static readonly Guid WeekendWorkRestOrderDocument = Guid.Parse("300f4e3f-c4ce-4a6d-b710-c21273226ffa");
     }
     
     /// <summary>
@@ -179,6 +209,15 @@ namespace DirRX.NNOtherProcesses.Constants
       // Дополнительное соглашение к трудовому договору.
       [Public]
       public static readonly Guid AdditionalAgreementKind = Guid.Parse("78348fc9-0e4f-498f-82f5-812989723356");
+      // Заявление на доп. день отдыха за РВД.
+      [Public]
+      public static readonly Guid WeekendWorkRestStatementDocument = Guid.Parse("2C444D26-ED9A-4120-B2D2-2E4CF43AFB76");
+      // Приказ на предоставление доп. дня отдыха.
+      [Public]
+      public static readonly Guid GrantRestOrderDocument = Guid.Parse("03FEF5A9-512C-4CF8-97E9-63B9F880AAD8");
+      // Приказ об отмене доп. дня отдыха.
+      [Public]
+      public static readonly Guid CancelationRestOrderDocument = Guid.Parse("06CF32E1-4F04-4B8E-92D3-70B9C8973CC4");
     }
 
     /// <summary>
@@ -278,6 +317,21 @@ namespace DirRX.NNOtherProcesses.Constants
       /// </summary>
       [Public]
       public const string AdditionalAgreementDocKind = "31";
+      /// <summary>
+      /// Код вида документа "Заявление на доп. день отдыха за РВД".
+      /// </summary>
+      [Public]
+      public const string WeekendWorkRestStatementDocKind = "714";
+      /// <summary>
+      /// Код вида документа "Приказ на предоставление доп. дня отдыха".
+      /// </summary>
+      [Public]
+      public const string GrantRestOrderDocKind = "32";
+      /// <summary>
+      /// Код вида документа "Приказ об отмене доп. дня отдыха".
+      /// </summary>
+      [Public]
+      public const string CancelationRestOrderDocKind = "33";
     }
 
     /// <summary>
@@ -288,6 +342,17 @@ namespace DirRX.NNOtherProcesses.Constants
     [Public]
     public static class ConstantsSetting
     {
+      /// <summary>
+      /// Максимальное количество доп. согласующих.
+      /// </summary>
+      [Public]
+      public static class MaxNumberAdditionalMatchingElement
+      {
+        [Public]
+        public const string Guid = "644ED187-F181-4758-B959-44558F8C69EF";
+        public const string Name = "Максимальное количество доп. согласующих";
+      }
+    
       /// <summary>
       /// Общее. Оформление заявления по основному месту работы.
       /// </summary>
@@ -433,6 +498,28 @@ namespace DirRX.NNOtherProcesses.Constants
       }
       
       /// <summary>
+      /// ИД типа выплаты, на рождение ребенка, а также усыновление детей-сирот и детей, оставшихся без попечения родителей.
+      /// </summary>
+      [Public]
+      public static class ChildBirthPaymentTypeId
+      {
+        [Public]
+        public const string Guid = "CF88E192-D33B-4BC9-8C4A-B7384FDFAFDE";
+        public const string Name = "Выплаты по ЛНА. ИД типа выплаты, на рождение ребенка, а также усыновление детей-сирот и детей, оставшихся без попечения родителей";
+      }
+      
+      /// <summary>
+      /// ИД типа выплаты, для которого в заявлении необходимо указывать дату увольнения.
+      /// </summary>
+      [Public]
+      public static class RetirementPaymentTypeIds
+      {
+        [Public]
+        public const string Guid = "0ba50b7b-710b-419f-b83f-9687a8e74d9c";
+        public const string Name = "Выплаты по ЛНА. Список ИД типов выплат, для которых в заявлении необходимо указывать дату увольнения";
+      }
+      
+      /// <summary>
       /// Ид варианта процесса для запроса мнений.
       /// </summary>
       [Public]
@@ -541,6 +628,39 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "53497B11-4D4C-47F8-9E1A-684EBAB1584B";
         public const string Name = "ДС. Тема письма Специалистам ОКА";
       }
+      
+      /// <summary>
+      /// ИД видов компенсации, для которых необходимо создавать заявление на доп. день отдыха.
+      /// </summary>
+      [Public]
+      public static class WeekendWorkCompensationKindsForRestStatement
+      {
+        [Public]
+        public const string Guid = "A38A8C1F-6132-4366-A851-80AC16FA75D4";
+        public const string Name = "Регистрация работы ВД/ПД/СР. ИД видов компенсации, для которых необходимо создавать заявление на доп. день отдыха";
+      }
+      
+      /// <summary>
+      /// Формат документа "Приказ на доп. день отдыха".
+      /// </summary>
+      [Public]
+      public static class WeekendWorkRestOrderExtension
+      {
+        [Public]
+        public const string Guid = "F7F35F11-7898-487B-B0A8-30A6CE299930";
+        public const string Name = "Интеграция. Формат файла для документа \"Приказ на доп. день отдыха\", принимаемый из АСУП";
+      }
+      
+      /// <summary>
+      /// Оплачиваемый перерыв.
+      /// </summary>
+      [Public]
+      public static class PaidBreak
+      {
+        [Public]
+        public const string Guid = "53FADA99-A3AB-4361-9311-9D3D2B36042B";
+        public const string Name = "Оплачиваемый перерыв";
+      }
     }
 
     /// <summary>
@@ -549,6 +669,10 @@ namespace DirRX.NNOtherProcesses.Constants
     [Public]
     public static class ConstantsDefaultValues
     {
+      /// <summary>
+      /// Максимальное количество доп. согласующих по умолчанию.
+      /// </summary>
+      public const int MaxNumberAdditionalMatchingElement = 2;
       /// <summary>
       /// Значение по умолчанию. Общее. Оформление заявления по основному месту работы.
       /// </summary>
@@ -611,6 +735,11 @@ namespace DirRX.NNOtherProcesses.Constants
       public const string SubstitutionSystemKedoSystemId = "IS0000098";
       
       /// <summary>
+      /// Значение по умолчанию. Оплачиваемый перерыв.
+      /// </summary>
+      public const string PaidBreak = "Перерыв для отдыха и питания предусмотрен при условии работы более 4 часов в день (на работах, где по условиям производства (работы) предоставление перерыва для отдыха и питания невозможно, работодатель обязан обеспечить работнику возможность отдыха и приема пищи в рабочее время. Перечень таких работ, а также места для отдыха и приема пищи устанавливаются правилами внутреннего трудового распорядка).";
+      
+      /// <summary>
       /// Значение по умолчанию. Формат документа "Дополнительное соглашение к трудовому договору".
       /// </summary>
       public const string EmploymentContractAdditionalAgreementExtension = "doc";
@@ -618,6 +747,16 @@ namespace DirRX.NNOtherProcesses.Constants
       /// Значение по умолчанию. ДС. Тема письма Специалистам ОКА.
       /// </summary>
       public const string NotSignedAdditionalAgreementLetterSubject = "Сотрудники, не подписавшие Дополнительные соглашения к трудовому договору";
+      
+      /// <summary>
+      /// ИД видов компенсации, для которых необходимо создавать заявление на доп. день отдыха.
+      /// </summary>
+      [Public]
+      public const string WeekendWorkCompensationKindsForRestStatement = "";
+      /// <summary>
+      /// Значение по умолчанию. Формат документа "Приказ на доп. день отдыха".
+      /// </summary>
+      public const string WeekendWorkRestOrderExtension = "doc";
     }
     
     #endregion

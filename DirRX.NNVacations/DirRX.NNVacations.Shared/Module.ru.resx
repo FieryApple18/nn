@@ -263,22 +263,22 @@
     <value>&lt;html&gt;
 &lt;head&gt; {0} &lt;/head&gt;
 &lt;body&gt;
- &lt;div style='margin-bottom: 10px'&gt; Произошли ошибки при отправке уведомлений об отпуске по следующим сотрудникам: &lt;/div&gt;
- &lt;table width='100%'&gt; {1} &lt;/table&gt;
+ &lt;div style='margin-bottom: 10px'&gt;БЕ {1}. {2}. Произошли ошибки при отправке уведомлений об отпуске по следующим сотрудникам: &lt;/div&gt;
+ &lt;table width='100%'&gt; {3} &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
   <data name="VacationNoticeMessageSubject" xml:space="preserve">
-    <value>Произошли ошибки при отправке уведомлений об отпуске</value>
+    <value>БЕ {0}. {1}. Произошли ошибки при отправке уведомлений об отпуске</value>
   </data>
   <data name="VacationNoticeMessageRow" xml:space="preserve">
-    <value>&lt;tr&gt;&lt;td&gt;{0}&lt;/td&gt;&lt;td&gt;{1}&lt;/td&gt;&lt;td&gt;{2}&lt;/td&gt;&lt;/tr&gt;</value>
+    <value>&lt;tr&gt;&lt;td&gt;{0}&lt;/td&gt;&lt;td&gt;{1}&lt;/td&gt;&lt;td&gt;{2}&lt;/td&gt;&lt;td&gt;{3}&lt;/td&gt;&lt;td&gt;{4}&lt;/td&gt;&lt;td&gt;{5}&lt;/td&gt;&lt;/tr&gt;</value>
   </data>
   <data name="ShiftVacationReason" xml:space="preserve">
     <value>Перенос в связи с: </value>
   </data>
   <data name="VacationNoticeMessageHeader" xml:space="preserve">
-    <value>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Табельный номер&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;ФИО Сотрудника&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Ошибка&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</value>
+    <value>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Табельный номер&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;ФИО Сотрудника&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Раздел персонала&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Дата начала отпуска&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Дата окончания отпуска&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Ошибка&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</value>
   </data>
   <data name="VacationConfirmationAssignmentError" xml:space="preserve">
     <value>Перенос данного планового отпуска больше не доступен. Отпуск будет предоставлен в первоначальные даты.</value>
@@ -314,7 +314,7 @@
     <value>Количество дней перенесенного ежегодного отпуска не соответствуют количеству дней первоначального отпуска</value>
   </data>
   <data name="ValidateVacationAttachedToAnnualError" xml:space="preserve">
-    <value>Присоедините дни на проезд к месту отдыха к ежегодному отпуску</value>
+    <value>{0} можно присодинить только после ежегодного отпуска.</value>
   </data>
   <data name="ShiftVacationStatementDuplicateError" xml:space="preserve">
     <value>Заявление на перенос данного отпуска уже оформлено.</value>
@@ -323,7 +323,7 @@
     <value>У вас в работе находится Уведомление об этом отпуске. Зайдите в уведомление, чтобы оформить перенос.</value>
   </data>
   <data name="VacationApprovalPeriodNotFoundMessage" xml:space="preserve">
-    <value>Не найдена запись справочника "Сроки согласования отпусков". Параметры для поиска: ИД НОР: {0}, ИД вида документа: {1}, Тип отпуска: {2}, Отпуск оплачен: {3}, Топ-10/100: {4}</value>
+    <value>Не найдена запись справочника "Сроки согласования отпусков". Параметры для поиска: ИД НОР: {0}, ИД вида документа: {1}, Тип отпуска: {2}, Отпуск оплачен: {3}, ТОП: {4}</value>
   </data>
   <data name="VacationApprovalPeriodNotFoundSubject" xml:space="preserve">
     <value>Не найдена запись справочника "Сроки согласования отпусков"</value>
@@ -369,5 +369,59 @@
   </data>
   <data name="VacationKindNotFoundError" xml:space="preserve">
     <value>Не удалось найти вид отпуска</value>
+  </data>
+  <data name="EmployeeNotFoundByPN" xml:space="preserve">
+    <value>Не найден сотрудник по ТН</value>
+  </data>
+  <data name="ErrorSendingNotification" xml:space="preserve">
+    <value>Ошибка при отправке уведомления</value>
+  </data>
+  <data name="GetMinVacationStartDateFunctionName" xml:space="preserve">
+    <value>Получить минимальную дату начала отпуска</value>
+  </data>
+  <data name="GetMinVacationStartDateFunctionDescription" xml:space="preserve">
+    <value>Возвращает минимальную дату начала отпуска</value>
+  </data>
+  <data name="ValidateShiftVacationAttachedToAnnualError" xml:space="preserve">
+    <value>Присоедините дни на проезд к месту отдыха к ежегодному отпуску.</value>
+  </data>
+  <data name="ValidateVacationDonorDaysError" xml:space="preserve">
+    <value>Перенос дополнительных выходных дней донорам невозможен. Необходимо отменить отпуск и оформить заново, обратитесь в отдел кадрового администрирования.</value>
+  </data>
+  <data name="NotFoundEmployee" xml:space="preserve">
+    <value>Табельный номер сотрудника: {0}. Не удалось найти сотрудника.</value>
+  </data>
+  <data name="CreateVacationsInformationError" xml:space="preserve">
+    <value>Табельный номер сотрудника: {0}. {1}</value>
+  </data>
+  <data name="DuplicateRecordFound" xml:space="preserve">
+    <value>Обнаружены дублирующие записи.</value>
+  </data>
+  <data name="EmployeeNotFoundVacTypeByPN" xml:space="preserve">
+    <value>Не найден тип отпуска по ТН</value>
+  </data>
+  <data name="ChangingDatesVacationOrderKindName" xml:space="preserve">
+    <value>Приказ (распоряжение) об изменении сроков отпуска без сохранения заработной платы</value>
+  </data>
+  <data name="AdjustNumberDays" xml:space="preserve">
+    <value>Для типа отпуска {0} {1}. Скорректируйте количество дней.</value>
+  </data>
+  <data name="NumberDaysDuringTransferMustOriginalNumber" xml:space="preserve">
+    <value>количество дней при переносе должно совпадать с первоначальным</value>
+  </data>
+  <data name="YouCannotRescheduleMoreDays" xml:space="preserve">
+    <value>нельзя перенести больше дней, чем было в первоначальном отпуске</value>
+  </data>
+  <data name="YouCannotRescheduleFewerDays" xml:space="preserve">
+    <value>нельзя перенести меньше дней, чем было в первоначальном отпуске</value>
+  </data>
+  <data name="RescheduleOneDayAnnualVacation" xml:space="preserve">
+    <value>Перенесите хотя бы 1 день ежегодного отпуска</value>
+  </data>
+  <data name="CloseVacationInformationErrorNoticeSubject" xml:space="preserve">
+    <value>Закрытие информации по отпускам завершилось с ошибками</value>
+  </data>
+  <data name="CloseVacationInformationErrorNoticeActiveText" xml:space="preserve">
+    <value>Не удалось обработать некоторые элементы. ИД элементов: {0}</value>
   </data>
 </root>

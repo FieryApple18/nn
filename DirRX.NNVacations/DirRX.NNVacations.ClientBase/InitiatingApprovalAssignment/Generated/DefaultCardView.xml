@@ -8,7 +8,7 @@
         <property name="View" isnull="true" iskey="true">
           <property name="LinesPerRowMode">None</property>
           <property name="ColumnChooserState" isnull="true" iskey="true">
-            <property name="Location">684,-132</property>
+            <property name="Location">651,-132</property>
             <property name="Size">220,250</property>
           </property>
           <property name="AllowMoveColumnToDropArea">false</property>
@@ -30,7 +30,6 @@
             <property name="Name">InitiatingApprovalAssignment_Approvers_Approver</property>
             <property name="FieldName">Approver</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">150</property>
             <property name="ActualWidth">17*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
@@ -38,7 +37,6 @@
             <property name="Name">InitiatingApprovalAssignment_Approvers_ApproverJobTitle</property>
             <property name="FieldName">ApproverJobTitle</property>
             <property name="VisibleIndex">1</property>
-            <property name="Width">97</property>
             <property name="ActualWidth">11*</property>
           </property>
         </property>

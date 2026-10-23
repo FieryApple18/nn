@@ -1,0 +1,102 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "d64e335a-763e-46c3-8c24-c46218a7c2ed",
+  "Name": "ESSUserAccountQueue",
+  "BaseGuid": "0c04b6f8-9b51-4e41-a398-e11448f03b72",
+  "CanBeNavigationPropertyType": true,
+  "CreationAreaMetadata": {
+    "NameGuid": "f7766750-eee2-4fcd-8003-5c06a90d1f44",
+    "Name": "CreationArea",
+    "Buttons": [],
+    "IsAncestorMetadata": true
+  },
+  "ExtraSearchProperties": [],
+  "FilterPanel": {
+    "NameGuid": "b0125fbd-3b91-4dbb-914a-689276216404",
+    "Name": "FilterPanel",
+    "Controls": [],
+    "IsAncestorMetadata": true
+  },
+  "FormViewUuid": "20104e57-a207-488f-adc2-eab682508c2c",
+  "IconResourcesKeys": [],
+  "IntegrationServiceName": "NNIntegrationESSUserAccountQueue",
+  "IsAutoCreated": true,
+  "OperationsClass": "",
+  "Overridden": [
+    "IsVisible",
+    "IsAutoCreated",
+    "NeedWriteHistory"
+  ],
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "1d644e61-cae6-428f-ab3a-a61041b5cdb7",
+      "Name": "ProcessingStatus",
+      "IsAncestorMetadata": true,
+      "Overridden": [
+        "IsEnabled"
+      ]
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "8ed97d3b-8863-4ddc-a136-54f3f2860384",
+      "Name": "Login",
+      "Code": "Login",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "c620a26c-d32d-495d-92de-981729e6caf0"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "904ba2f9-3b73-4edc-b4a9-cb61933b56ab",
+      "Name": "IsKEDO",
+      "Code": "IsKEDO",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "8ed97d3b-8863-4ddc-a136-54f3f2860384"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "a9ab3f60-477c-4777-926a-0e1dfc1f84a1",
+      "Name": "PersonnelNumber",
+      "Code": "PersonnelNumbe",
+      "IsRequired": true,
+      "Length": 8,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "904ba2f9-3b73-4edc-b4a9-cb61933b56ab"
+    },
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "3969c393-5f7c-4327-8563-652e38c73fe5",
+      "Name": "ConsentChangeType",
+      "Code": "ConsentChangeT",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "a9ab3f60-477c-4777-926a-0e1dfc1f84a1"
+    }
+  ],
+  "PublicStructures": [],
+  "ResourcesKeys": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "7dff354d-3dd6-41ae-92c8-c246e162c62a",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "acb99439-53f4-4e0b-bc24-9a58d74283c3",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

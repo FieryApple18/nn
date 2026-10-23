@@ -88,4 +88,7 @@
   <data name="Property_IsRestDateRequired" xml:space="preserve">
     <value>Дата доп. отдыха обязательна для заполнения</value>
   </data>
+  <data name="Property_PresenceCode" xml:space="preserve">
+    <value>Код присутствия</value>
+  </data>
 </root>

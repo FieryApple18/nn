@@ -16,7 +16,8 @@ namespace DirRX.NNCommons.Client
 
     public virtual bool CanAbort(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true;
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true));
     }
 
     public virtual void ForReapproving(Sungero.Workflow.Client.ExecuteResultActionArgs e)
@@ -37,7 +38,8 @@ namespace DirRX.NNCommons.Client
 
     public virtual bool CanForReapproving(Sungero.Workflow.Client.CanExecuteResultActionArgs e)
     {
-      return HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true;
+      return (_obj.Performer.Equals(Users.Current) ||
+              (HRPro.HRDocFlow.PublicFunctions.Module.Remote.IsPerformer(_obj.Performer) && _obj.IsSubstitutionAllowed.HasValue && _obj.IsSubstitutionAllowed.Value == true));
     }
 
   }

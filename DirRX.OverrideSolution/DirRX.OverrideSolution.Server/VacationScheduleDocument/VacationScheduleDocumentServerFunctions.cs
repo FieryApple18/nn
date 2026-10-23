@@ -17,11 +17,7 @@ namespace DirRX.OverrideSolution.Server
     /// <returns>Список структур для замены меток в документе.</returns>
     [Public]
     public List<NNCommons.Structures.Module.ITextReplacement> PrepareDataForInsertingIntoDocument()
-    {
-      var mounthGenetiveNamesCulture = (System.Globalization.CultureInfo) TenantInfo.Culture.Clone();
-      mounthGenetiveNamesCulture.DateTimeFormat.MonthNames = mounthGenetiveNamesCulture.DateTimeFormat.MonthGenitiveNames;
-      mounthGenetiveNamesCulture.DateTimeFormat.AbbreviatedMonthNames = mounthGenetiveNamesCulture.DateTimeFormat.AbbreviatedMonthGenitiveNames;
-      
+    {      
       #region Номер документа.
       
       var registrationNumber = _obj.RegistrationNumber ?? string.Empty;
@@ -36,12 +32,14 @@ namespace DirRX.OverrideSolution.Server
       
       #region Мнение профсоюзного органа.
       
-      var opinionDay = _obj.StatementDateDirRX.HasValue ? _obj.StatementDateDirRX.Value.Day.ToString() : string.Empty;
-      var opinionMouthYear = _obj.StatementDateDirRX.HasValue ? _obj.StatementDateDirRX.Value.ToString("MMMM yyyyг.", mounthGenetiveNamesCulture) : string.Empty;
-      var opinionNumber = !string.IsNullOrEmpty(_obj.StatementNumberDirRX) ? _obj.StatementNumberDirRX : string.Empty;
-      var opinion = !string.IsNullOrEmpty(opinionDay) && !string.IsNullOrEmpty(opinionMouthYear) && !string.IsNullOrEmpty(opinionNumber)
-        ? VacationScheduleDocuments.Resources.Template_UnionOpinionFormat(opinionDay, opinionMouthYear, opinionNumber)
-        : string.Empty;
+      var opinionStr = string.Empty;
+      foreach (var opinion in _obj.TradeUnionOpinionDirRX)
+      {
+        var template = opinion.Kind.Equals(OverrideSolution.VacationScheduleDocumentTradeUnionOpinionDirRX.Kind.TradeUnion) ?
+          VacationScheduleDocuments.Resources.Template_UnionOpinion :
+          VacationScheduleDocuments.Resources.Template_SocialCouncilOpinion;
+        opinionStr += "\n" + string.Format(template, opinion.StatementDate.HasValue ? opinion.StatementDate.Value.ToString("dd.MM.yyyy") : string.Empty, opinion.StatementNumber);
+      }
       
       #endregion
       
@@ -54,7 +52,7 @@ namespace DirRX.OverrideSolution.Server
                                                                     registrationDate,
                                                                     false));
       result.Add(NNCommons.Structures.Module.TextReplacement.Create(VacationScheduleDocuments.Resources.TextMark_UnionOpinion,
-                                                                    opinion,
+                                                                    opinionStr,
                                                                     true));
       
       return result;
@@ -67,7 +65,7 @@ namespace DirRX.OverrideSolution.Server
     [Public, Remote]
     public void CreateFromTemplate(string logPrefix)
     {
-      var vacationInfoList = NNVacations.PublicFunctions.VacationsInformation.GetVacationInfo(_obj).OrderBy(v => v.StartDate.Value);
+      var vacationInfoList = NNVacations.PublicFunctions.VacationsInformation.GetVacationInfo(_obj.EmployeeDirRX, _obj.VacationScheduleDocumentDirRX).OrderBy(v => v.StartDate.Value);
       var tableData = NNCommons.Structures.Module.TableData.Create();
       tableData.NumberKey = TableDataKeys.Table;
       tableData.Values = new List<Dictionary<string, string>>();

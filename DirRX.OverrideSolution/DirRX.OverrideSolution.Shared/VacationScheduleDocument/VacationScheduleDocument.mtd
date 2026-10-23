@@ -29,7 +29,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "01dd99f5-db49-480e-b699-28488f2653fb",
-          "Name": "LeftGroup",
+          "Name": "LeftGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -40,7 +40,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "28a6d4a8-a26a-467b-8fe6-da426092ec4a",
-          "Name": "RightGroup",
+          "Name": "RightGroupDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls",
@@ -250,6 +250,32 @@
           "RowNumber": 1,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "7fef7142-ae49-4949-a70a-d0c800c2c29f",
+          "Name": "VacationScheduleDocumentDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+          "ParentGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
+          "PropertyGuid": "3a44d62d-e257-429d-9cdd-9e2d06cdb3a6",
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "337c30df-f251-429e-beb9-615870a9cd29",
+          "Name": "IsNGDDirRXDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
+          "PropertyGuid": "17301247-79c2-4647-b0f5-f1bd3f866d20",
+          "RowNumber": 4,
+          "RowSpan": 1,
+          "Settings": []
         }
       ],
       "IsAncestorMetadata": true,
@@ -261,7 +287,8 @@
   ],
   "FormViewUuid": "439880fe-bfad-46e4-8164-baa87d1f32ea",
   "HandledEvents": [
-    "CreatedServer"
+    "CreatedServer",
+    "BeforeSaveServer"
   ],
   "HideFromCreationArea": true,
   "IconResourcesKeys": [],
@@ -509,6 +536,45 @@
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "6679fe10-8e66-4020-b225-5278a16cd492",
       "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "f6cafc54-2d9d-4a12-8e32-8ed0b815ba03",
+      "Name": "ScheduleResponsibleDirRX",
+      "Code": "ScheduleRespon",
+      "EntityGuid": "dbb7e59c-bb09-4ade-9183-920c381037af",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "acd27ddc-de97-49b5-a61d-05bab87189af"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "3a44d62d-e257-429d-9cdd-9e2d06cdb3a6",
+      "Name": "VacationScheduleDocumentDirRX",
+      "Code": "VacationSchedu",
+      "EntityGuid": "d4770e59-9565-4b66-8143-649d2589ba0c",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "f6cafc54-2d9d-4a12-8e32-8ed0b815ba03"
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "413080a9-65b4-4ed8-9b06-129b5e354b88",
+      "Name": "TradeUnionOpinionDirRX",
+      "Code": "VacScheOpinion",
+      "EntityGuid": "a824e43d-d16e-4bb3-b383-870db1d7d2f0",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "PreviousPropertyGuid": "acd27ddc-de97-49b5-a61d-05bab87189af"
+    }
+  ],
+  "PublicConstants": [
+    {
+      "Name": "MaxTradeUnionOpinionsCount",
+      "ParentClasses": [
+        "VacationScheduleDocument"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "6"
     }
   ],
   "PublicFunctions": [
@@ -549,7 +615,9 @@
     "TextMark_RegistrationNumber",
     "TextMark_RegistrationDate",
     "TextMark_UnionOpinion",
-    "Template_UnionOpinion"
+    "Template_UnionOpinion",
+    "MaxTradeUnionOpinionsCountError",
+    "Template_SocialCouncilOpinion"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "9eba9c9a-e713-4731-a596-b7acb71c6a8e",

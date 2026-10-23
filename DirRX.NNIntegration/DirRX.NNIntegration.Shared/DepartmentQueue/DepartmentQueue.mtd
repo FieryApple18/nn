@@ -244,6 +244,20 @@
           "RowNumber": 5,
           "RowSpan": 1,
           "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "7a94d5a8-139d-4617-96ce-163ad77d6d6e",
+          "Name": "RetryReason",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.TextEditorToTextBinder",
+          "HeaderLocation": "Top",
+          "ParentGuid": "fe7a3b3d-2938-4741-bfb5-b949b51aed05",
+          "PropertyGuid": "c620a26c-d32d-495d-92de-981729e6caf0",
+          "RowNumber": 5,
+          "RowSpan": 1,
+          "Settings": []
         }
       ],
       "IsAncestorMetadata": true,

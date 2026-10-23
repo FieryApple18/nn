@@ -8,7 +8,7 @@
         <property name="View" isnull="true" iskey="true">
           <property name="LinesPerRowMode">None</property>
           <property name="ColumnChooserState" isnull="true" iskey="true">
-            <property name="Location">464,-127</property>
+            <property name="Location">464,-147.6</property>
             <property name="Size">220,250</property>
           </property>
           <property name="AllowMoveColumnToDropArea">false</property>
@@ -30,32 +30,32 @@
             <property name="Name">VacationStatementDocument_AdditionalVacationDirRX_VacationType</property>
             <property name="FieldName">VacationType</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">100</property>
-            <property name="ActualWidth">15*</property>
+            <property name="Width">106</property>
+            <property name="ActualWidth">16*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">VacationStatementDocument_AdditionalVacationDirRX_StartDate</property>
             <property name="FieldName">StartDate</property>
             <property name="VisibleIndex">1</property>
-            <property name="Width">100</property>
-            <property name="ActualWidth">15*</property>
+            <property name="Width">106</property>
+            <property name="ActualWidth">16*</property>
           </property>
           <property name="Item3" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">VacationStatementDocument_AdditionalVacationDirRX_EndDate</property>
             <property name="FieldName">EndDate</property>
             <property name="VisibleIndex">2</property>
-            <property name="Width">120</property>
-            <property name="ActualWidth">18*</property>
+            <property name="Width">127</property>
+            <property name="ActualWidth">19*</property>
           </property>
           <property name="Item4" isnull="true" iskey="true">
             <property name="Visible">true</property>
             <property name="Name">VacationStatementDocument_AdditionalVacationDirRX_Days</property>
             <property name="FieldName">Days</property>
             <property name="VisibleIndex">3</property>
-            <property name="Width">100</property>
-            <property name="ActualWidth">15*</property>
+            <property name="Width">106</property>
+            <property name="ActualWidth">16*</property>
           </property>
         </property>
         <property name="GroupSummarySortInfo" iskey="true" value="0" />

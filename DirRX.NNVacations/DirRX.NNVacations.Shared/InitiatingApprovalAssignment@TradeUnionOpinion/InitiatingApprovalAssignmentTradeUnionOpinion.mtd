@@ -1,0 +1,91 @@
+{
+  "$type": "Sungero.Metadata.EntityMetadata, Sungero.Metadata",
+  "NameGuid": "877d4043-eecf-4739-a060-4885249359ff",
+  "Name": "InitiatingApprovalAssignmentTradeUnionOpinion",
+  "BaseGuid": "a3d38bf5-0414-41f6-bb33-a4621d2e5a60",
+  "CanBeNavigationPropertyType": true,
+  "Code": "IniApprOpinion",
+  "ExtraSearchProperties": [],
+  "IsChildEntity": true,
+  "Properties": [
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "a09dec03-9d12-4345-ba4d-31dd5be56017",
+      "Name": "InitiatingApprovalAssignment",
+      "CanBeSearch": false,
+      "Code": "Assignment",
+      "EntityGuid": "d4b5451f-855b-4a31-a74a-a22e976599cf",
+      "IsReferenceToRootEntity": true,
+      "IsShowedInList": false
+    },
+    {
+      "$type": "Sungero.Metadata.EnumPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "5c08feae-99a9-404b-a4b0-130afb81568b",
+      "Name": "Kind",
+      "CanBeSearch": false,
+      "Code": "Kind",
+      "DirectValues": [
+        {
+          "NameGuid": "0d4ce4e7-235a-4f10-8ea1-1e1fb6e8d5f9",
+          "Name": "TradeUnion",
+          "Code": "TradeUnion"
+        },
+        {
+          "NameGuid": "033ec0dc-9e53-4cc5-a0f0-198c812c1df9",
+          "Name": "SocialCouncil",
+          "Code": "SocialCouncil"
+        }
+      ],
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
+      "PreviousPropertyGuid": "a09dec03-9d12-4345-ba4d-31dd5be56017"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "ca6fee82-051b-46cf-ac94-2404a571e003",
+      "Name": "StatementNumber",
+      "CanBeSearch": false,
+      "Code": "StatementNumbe",
+      "IsRequired": true,
+      "Length": 50,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "5c08feae-99a9-404b-a4b0-130afb81568b"
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d7012681-fb4f-4c13-bef3-20db5b4616df",
+      "Name": "StatementDate",
+      "CanBeSearch": false,
+      "Code": "StatementDate",
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "ca6fee82-051b-46cf-ac94-2404a571e003"
+    }
+  ],
+  "PublicStructures": [],
+  "RibbonCardMetadata": {
+    "NameGuid": "9db551a1-64c3-4e91-8313-daef703da09d",
+    "Name": "RibbonCard",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": [],
+    "RibbonKind": "Card"
+  },
+  "RibbonCollectionMetadata": {
+    "NameGuid": "c4c04800-369f-45bf-a3e2-393607668160",
+    "Name": "RibbonCollection",
+    "Categories": [],
+    "Elements": [],
+    "Groups": [],
+    "IsAncestorMetadata": true,
+    "Pages": []
+  },
+  "Versions": [
+    {
+      "Type": "EntityMetadata",
+      "Number": 13
+    }
+  ]
+}

@@ -81,6 +81,9 @@
       "CanBeSearch": false,
       "Code": "WorkDateFrom",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "d7b39799-3716-42de-9cc6-e658f317e633"
     },
@@ -91,6 +94,9 @@
       "CanBeSearch": false,
       "Code": "WorkDateTo",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "ef8bd0ba-a605-483e-b19b-a4065887f5e4"
     },
@@ -101,6 +107,9 @@
       "CanBeSearch": false,
       "Code": "FirstBreakFrom",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "f9969e86-5713-48e9-8937-2473463631d3"
     },
@@ -111,6 +120,9 @@
       "CanBeSearch": false,
       "Code": "FirstBreakTo",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "0e37ccde-c448-4b55-a906-2e37b4cdf494"
     },
@@ -121,6 +133,9 @@
       "CanBeSearch": false,
       "Code": "SecondBreakFro",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "e91cf64e-173e-4002-9ff3-b3445d536841"
     },
@@ -131,6 +146,9 @@
       "CanBeSearch": false,
       "Code": "SecondBreakTo",
       "DateTimeFormat": "DateTime",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "02a5ceba-19d2-4dac-a323-3792947306ad"
     },
@@ -159,7 +177,6 @@
       "Name": "RestDateFrom",
       "CanBeSearch": false,
       "Code": "RestDateFrom",
-      "DateTimeFormat": "DateTime",
       "HandledEvents": [
         "ValueInputClient",
         "ChangedShared"
@@ -217,6 +234,74 @@
       "Length": 500,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "b522fb43-517c-4cb0-b649-5eb4799dfb08"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "fe839dee-7992-4e30-a1b0-a2a8a3514bec",
+      "Name": "PaidBreak",
+      "CanBeSearch": false,
+      "Code": "PaidBreak",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "e547c4f1-425e-494d-8298-31a23bfcceb3"
+    },
+    {
+      "$type": "Sungero.Metadata.BooleanPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "4e1cd718-3580-4f10-adba-ac91cbf4bf59",
+      "Name": "RestDateCanceled",
+      "CanBeSearch": false,
+      "Code": "RestDateCancel",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+      "PreviousPropertyGuid": "fe839dee-7992-4e30-a1b0-a2a8a3514bec"
+    },
+    {
+      "$type": "Sungero.Metadata.DoublePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "8a7a5796-09e6-4429-84f2-1c5cdbb5fcc3",
+      "Name": "HoursCount",
+      "CanBeSearch": false,
+      "Code": "HoursCount",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "4e1cd718-3580-4f10-adba-ac91cbf4bf59"
+    },
+    {
+      "$type": "Sungero.Metadata.IntegerPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c461383c-6919-4f60-afbd-7e1bb8547ebc",
+      "Name": "PresenceCode",
+      "CanBeSearch": false,
+      "Code": "PresenceCode",
+      "IsEnabled": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "8a7a5796-09e6-4429-84f2-1c5cdbb5fcc3"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "e64dcada-61ac-4aeb-b569-713f846a0d70",
+      "Name": "Order",
+      "CanBeSearch": false,
+      "Code": "Order",
+      "Length": 12,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "c461383c-6919-4f60-afbd-7e1bb8547ebc"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "19332fa2-a968-47de-98d2-0977e32206b4",
+      "Name": "SppElement",
+      "CanBeSearch": false,
+      "Code": "SppElement",
+      "Length": 24,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "e64dcada-61ac-4aeb-b569-713f846a0d70"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "fe8da8c7-5ca9-4009-b037-5f2608e3ee31",
+      "Name": "OtherRM",
+      "CanBeSearch": false,
+      "Code": "OtherRM",
+      "Length": 8,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "19332fa2-a968-47de-98d2-0977e32206b4"
     }
   ],
   "PublicStructures": [],

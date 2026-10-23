@@ -8,7 +8,7 @@
         <property name="View" isnull="true" iskey="true">
           <property name="LinesPerRowMode">OneLineMode</property>
           <property name="ColumnChooserState" isnull="true" iskey="true">
-            <property name="Location">699,-111</property>
+            <property name="Location">699,-350</property>
             <property name="Size">220,250</property>
           </property>
           <property name="WaitIndicatorType">Panel</property>
@@ -26,7 +26,7 @@
         </property>
         <property name="GroupSummary" iskey="true" value="0" />
         <property name="GroupCount">0</property>
-        <property name="Columns" iskey="true" value="22">
+        <property name="Columns" iskey="true" value="30">
           <property name="Item1" isnull="true" iskey="true">
             <property name="MinWidth">32</property>
             <property name="FixedWidth">true</property>
@@ -165,6 +165,42 @@
           </property>
           <property name="Item16" isnull="true" iskey="true">
             <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Equals</property>
+            <property name="Name">Boolean_Created_as_competitive</property>
+            <property name="FieldName">Boolean_Created_as_competitive</property>
+            <property name="VisibleIndex">15</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item17" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Equals</property>
+            <property name="Name">Boolean_Work_started_by_competitor</property>
+            <property name="FieldName">Boolean_Work_started_by_competitor</property>
+            <property name="VisibleIndex">16</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item18" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Equals</property>
+            <property name="Name">Boolean_Use_absences</property>
+            <property name="FieldName">Boolean_Use_absences</property>
+            <property name="VisibleIndex">17</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item19" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Equals</property>
+            <property name="Name">DateTime_Returned_as_uncompleted</property>
+            <property name="FieldName">DateTime_Returned_as_uncompleted</property>
+            <property name="VisibleIndex">18</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item20" isnull="true" iskey="true">
+            <property name="Visible">false</property>
             <property name="AutoFilterCondition">Contains</property>
             <property name="Name">Enumeration_Result_Result_91cbfdc85d5d465e95a43235b8c01d5b</property>
             <property name="FieldName">Enumeration_Result_Result_91cbfdc85d5d465e95a43235b8c01d5b</property>
@@ -172,7 +208,7 @@
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">14*</property>
           </property>
-          <property name="Item17" isnull="true" iskey="true">
+          <property name="Item21" isnull="true" iskey="true">
             <property name="Visible">false</property>
             <property name="AutoFilterCondition">Equals</property>
             <property name="Name">Boolean_Signing_by_the_employer</property>
@@ -181,7 +217,7 @@
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">NaN</property>
           </property>
-          <property name="Item18" isnull="true" iskey="true">
+          <property name="Item22" isnull="true" iskey="true">
             <property name="Visible">false</property>
             <property name="AutoFilterCondition">Equals</property>
             <property name="Name">Boolean_Result__34_Sign_34__available</property>
@@ -190,7 +226,7 @@
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">NaN</property>
           </property>
-          <property name="Item19" isnull="true" iskey="true">
+          <property name="Item23" isnull="true" iskey="true">
             <property name="Visible">false</property>
             <property name="AutoFilterCondition">Equals</property>
             <property name="Name">Boolean_Result__34_For_rework_34__available</property>
@@ -199,7 +235,7 @@
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">NaN</property>
           </property>
-          <property name="Item20" isnull="true" iskey="true">
+          <property name="Item24" isnull="true" iskey="true">
             <property name="Visible">false</property>
             <property name="AutoFilterCondition">Equals</property>
             <property name="Name">Boolean_Result__34_Reject_34__available</property>
@@ -208,7 +244,7 @@
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">NaN</property>
           </property>
-          <property name="Item21" isnull="true" iskey="true">
+          <property name="Item25" isnull="true" iskey="true">
             <property name="Visible">false</property>
             <property name="AutoFilterCondition">Equals</property>
             <property name="Name">Boolean_Enable_notifications_about_deadlines</property>
@@ -217,12 +253,48 @@
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">NaN</property>
           </property>
-          <property name="Item22" isnull="true" iskey="true">
+          <property name="Item26" isnull="true" iskey="true">
             <property name="Visible">false</property>
             <property name="AutoFilterCondition">Equals</property>
             <property name="Name">Boolean_Mass_signing_is_available</property>
             <property name="FieldName">Boolean_Mass_signing_is_available</property>
             <property name="VisibleIndex">21</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item27" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Contains</property>
+            <property name="Name">String_Supernika_notice_subject</property>
+            <property name="FieldName">String_Supernika_notice_subject</property>
+            <property name="VisibleIndex">26</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item28" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Contains</property>
+            <property name="Name">Text_Supernika_notice_text</property>
+            <property name="FieldName">Text_Supernika_notice_text</property>
+            <property name="VisibleIndex">27</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item29" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Equals</property>
+            <property name="Name">Boolean_Execute_by_substitution_13__10_</property>
+            <property name="FieldName">Boolean_Execute_by_substitution_13__10_</property>
+            <property name="VisibleIndex">28</property>
+            <property name="SortMode">Custom</property>
+            <property name="ActualWidth">NaN</property>
+          </property>
+          <property name="Item30" isnull="true" iskey="true">
+            <property name="Visible">false</property>
+            <property name="AutoFilterCondition">Equals</property>
+            <property name="Name">Boolean_Display_by_substitution</property>
+            <property name="FieldName">Boolean_Display_by_substitution</property>
+            <property name="VisibleIndex">29</property>
             <property name="SortMode">Custom</property>
             <property name="ActualWidth">NaN</property>
           </property>

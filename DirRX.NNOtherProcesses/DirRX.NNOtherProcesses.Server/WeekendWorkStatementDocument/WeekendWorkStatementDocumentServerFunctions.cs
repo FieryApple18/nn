@@ -10,6 +10,18 @@ namespace DirRX.NNOtherProcesses.Server
 {
   partial class WeekendWorkStatementDocumentFunctions
   {
+
+    /// <summary>
+    /// Получить разницу во времени между иницатором и сервером приложения.
+    /// </summary>
+    [Public, Remote(IsPure = true)]
+    public virtual double GetInitiatorTimeZoneDiff()
+    {
+      // HACK: Обход коробочного ограничения для корректного отображения времени в документах.
+      var initiatorUtcOffset = TimeZones.GetUtcOffsetByRecipient(_obj.PreparedBy);
+      return initiatorUtcOffset.Value - Calendar.UtcOffset.Hours;
+    }
+    
     /// <summary>
     /// Проверить наличие превышения количества рабочих часов.
     /// </summary>
@@ -18,12 +30,18 @@ namespace DirRX.NNOtherProcesses.Server
     /// <param name="workDateTo">Дата работы по.</param>
     /// <param name="firstBreakFrom">Первый перерыв с.</param>
     /// <param name="secondBreakFrom">Второй перерыв с.</param>
+    /// <param name="paidBreak">Оплачиваемый перерыв.</param>
     /// <returns>Результат проверки.</returns>
     [Public, Remote(IsPure = true)]
     public static bool IsWorkingHoursExceeded(OverrideSolution.IBusinessUnit businessUnit,
                                               DateTime workDateFrom, DateTime workDateTo,
-                                              DateTime? firstBreakFrom, DateTime? secondBreakFrom)
+                                              DateTime? firstBreakFrom, DateTime? secondBreakFrom,
+                                              bool? paidBreak)
     {
+      //Если установлен признак "Оплачиваемый перерыв" то проверка не проводится.
+      if (paidBreak == true)
+        return false;
+      
       var workingHoursWithoutBreak = businessUnit?.WorkingHoursWithoutBreakDirRX ?? 0.0;
       
       // Если не требуется контроль перерывов или не заполнено возможное количество часов без перерыва.
@@ -148,7 +166,8 @@ namespace DirRX.NNOtherProcesses.Server
         .Where(e => e.Status == OverrideSolution.Employee.Status.Active && !selectedEmployees.Contains(e.Id) &&
                e.ConsentHRPro == OverrideSolution.Employee.ConsentHRPro.Signed &&
                OverrideSolution.BusinessUnits.Equals(e.BusinessUnit, _obj.PreparedBy.Department.BusinessUnit) &&
-               (_obj.TopDirRX == true ? e.IsNGDDirRX.Value : !e.IsNGDDirRX.Value));
+               (_obj.IsNGDDirRX == true ? e.IsNGDDirRX.Value : !e.IsNGDDirRX.Value) &&
+               (_obj.PersonnelSectionDirRX == null || Equals(_obj.PersonnelSectionDirRX, e.PersonnelSectionDirRX)));
     }
     
     /// <summary>
@@ -193,13 +212,18 @@ namespace DirRX.NNOtherProcesses.Server
       tableData.Values = new List<Dictionary<string, string>>();
       var isOvertimeWork = IsOvertimeWork(_obj.DocumentKind);
       var number = 0;
+      
+      // HACK: Обход коробочного ограничения для корректного отображения времени в документах.
+      // При генерации тела документа необходимо привести время к формату часового пояса инициатора на момент заполнения им карточки.
+      var initiatorTimeZoneDiff = DirRX.NNOtherProcesses.PublicFunctions.WeekendWorkStatementDocument.Remote.GetInitiatorTimeZoneDiff(_obj);
+      
       foreach (var employeeInfo in _obj.Employees)
       {
         number++;
         if (isOvertimeWork)
-          tableData.Values.Add(FormDataForOvertimeWorkStatement(employeeInfo, number));
+          tableData.Values.Add(FormDataForOvertimeWorkStatement(employeeInfo, number, initiatorTimeZoneDiff));
         else
-          tableData.Values.Add(FormDataForWeekendWorkStatement(employeeInfo, number));
+          tableData.Values.Add(FormDataForWeekendWorkStatement(employeeInfo, number, initiatorTimeZoneDiff));
       }
       
       using (var memory = new System.IO.MemoryStream())
@@ -229,8 +253,9 @@ namespace DirRX.NNOtherProcesses.Server
     /// Сформировать данные по сотруднику для вставки в шаблон для вида документа "Заявка на привлечение к работе в выходные или/и праздничные дни".
     /// </summary>
     /// <param name="IWeekendWorkStatementDocumentEmployeesemployeeInfo">Информация по сотруднику из табличной части.</param>
+    /// <param name="initiatorTimeZoneDiff">Разницу в часах между иницатором и сервером приложения.</param>
     /// <returns>Словарь, данные по сотруднику для вставки в шаблон.</returns>
-    private Dictionary<string, string> FormDataForWeekendWorkStatement(IWeekendWorkStatementDocumentEmployees employeeInfo, int number)
+    private Dictionary<string, string> FormDataForWeekendWorkStatement(IWeekendWorkStatementDocumentEmployees employeeInfo, int number, double initiatorTimeZoneDiff)
     {
       var tableLineDictionary = new Dictionary<string, string>();
       var fioWithPersonnelNumber = string.Format("{0},\n{1}", employeeInfo.PersonnelNumber, employeeInfo.Employee);
@@ -248,21 +273,25 @@ namespace DirRX.NNOtherProcesses.Server
       // Дата работы в выходные и (или) нерабочие праздничные дни.
       tableLineDictionary.Add("WorkDate", employeeInfo.WorkDateFrom.HasValue? employeeInfo.WorkDateFrom.Value.ToString("dd.MM.yyyy") : string.Empty);
       // Период работы с.
-      tableLineDictionary.Add("WorkDateFrom", employeeInfo.WorkDateFrom.HasValue? employeeInfo.WorkDateFrom.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("WorkDateFrom", employeeInfo.WorkDateFrom.HasValue? employeeInfo.WorkDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Период работы по.
-      tableLineDictionary.Add("WorkDateTo", employeeInfo.WorkDateTo.HasValue? employeeInfo.WorkDateTo.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("WorkDateTo", employeeInfo.WorkDateTo.HasValue? employeeInfo.WorkDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Первый перерыв с.
-      tableLineDictionary.Add("FirstBreakFrom", employeeInfo.FirstBreakFrom.HasValue? employeeInfo.FirstBreakFrom.Value.ToString("HH:mm"): string.Empty);
+      tableLineDictionary.Add("FirstBreakFrom", employeeInfo.FirstBreakFrom.HasValue? employeeInfo.FirstBreakFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm"): string.Empty);
       // Первый перерыв по.
-      tableLineDictionary.Add("FirstBreakTo", employeeInfo.FirstBreakTo.HasValue? employeeInfo.FirstBreakTo.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("FirstBreakTo", employeeInfo.FirstBreakTo.HasValue? employeeInfo.FirstBreakTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Второй перерыв с.
-      tableLineDictionary.Add("SecondBreakFrom", employeeInfo.SecondBreakFrom.HasValue? employeeInfo.SecondBreakFrom.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("SecondBreakFrom", employeeInfo.SecondBreakFrom.HasValue? employeeInfo.SecondBreakFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Второй перерыв по.
-      tableLineDictionary.Add("SecondBreakTo", employeeInfo.SecondBreakTo.HasValue? employeeInfo.SecondBreakTo.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("SecondBreakTo", employeeInfo.SecondBreakTo.HasValue? employeeInfo.SecondBreakTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Вид компенсации.
       tableLineDictionary.Add("Compensation", employeeInfo.Compensation.DisplayValue);
       // Дополнительный день отдыха.
       tableLineDictionary.Add("RestDate", employeeInfo.RestDateFrom.HasValue? employeeInfo.RestDateFrom.Value.ToString("dd.MM.yyyy") : string.Empty);
+      // Кол-во часов.
+      tableLineDictionary.Add("HoursCount", employeeInfo.HoursCount.HasValue? employeeInfo.HoursCount.Value.ToString() : string.Empty);
+      // Код присутствия.
+      tableLineDictionary.Add("PresenceCode", employeeInfo.PresenceCode.HasValue? employeeInfo.PresenceCode.Value.ToString() : string.Empty);
       
       return tableLineDictionary;
     }
@@ -271,8 +300,9 @@ namespace DirRX.NNOtherProcesses.Server
     /// Сформировать данные по сотруднику для вставки в шаблон для вида документа "Заявка на привлечение к работе в сверхурочное время".
     /// </summary>
     /// <param name="IWeekendWorkStatementDocumentEmployeesemployeeInfo">Информация по сотруднику из табличной части.</param>
+    /// <param name="initiatorTimeZoneDiff">Разницу в часах между иницатором и сервером приложения.</param>
     /// <returns>Словарь, данные по сотруднику для вставки в шаблон.</returns>
-    private Dictionary<string, string> FormDataForOvertimeWorkStatement(IWeekendWorkStatementDocumentEmployees employeeInfo, int number)
+    private Dictionary<string, string> FormDataForOvertimeWorkStatement(IWeekendWorkStatementDocumentEmployees employeeInfo, int number, double initiatorTimeZoneDiff)
     {
       var tableLineDictionary = new Dictionary<string, string>();
       
@@ -289,11 +319,15 @@ namespace DirRX.NNOtherProcesses.Server
       // Дата работы в сверхурочное время.
       tableLineDictionary.Add("WorkDate", employeeInfo.WorkDateFrom.HasValue? employeeInfo.WorkDateFrom.Value.ToString("dd.MM.yyyy") : string.Empty);
       // Период работы с.
-      tableLineDictionary.Add("WorkDateFrom", employeeInfo.WorkDateFrom.HasValue? employeeInfo.WorkDateFrom.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("WorkDateFrom", employeeInfo.WorkDateFrom.HasValue? employeeInfo.WorkDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Период работы по.
-      tableLineDictionary.Add("WorkDateTo", employeeInfo.WorkDateTo.HasValue? employeeInfo.WorkDateTo.Value.ToString("HH:mm") : string.Empty);
+      tableLineDictionary.Add("WorkDateTo", employeeInfo.WorkDateTo.HasValue? employeeInfo.WorkDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty);
       // Вид компенсации.
       tableLineDictionary.Add("Compensation", employeeInfo.Compensation.DisplayValue);
+      // Кол-во часов.
+      tableLineDictionary.Add("HoursCount", employeeInfo.HoursCount.HasValue? employeeInfo.HoursCount.Value.ToString() : string.Empty);
+      // Код присутствия.
+      tableLineDictionary.Add("PresenceCode", employeeInfo.PresenceCode.HasValue? employeeInfo.PresenceCode.Value.ToString() : string.Empty);
       
       return tableLineDictionary;
     }
@@ -341,6 +375,43 @@ namespace DirRX.NNOtherProcesses.Server
     public static IWeekendWorkStatementDocument CreateWeekendWorkStatement()
     {
       return WeekendWorkStatementDocuments.Create();
+    }
+    
+    /// <summary>
+    /// Получает приказ о работе в ВД/ПД/СР, в котором указана данная заявка.
+    /// Функция вычисляемого выражения.
+    /// </summary>
+    /// <param name="statement">Заявка на привлечение к работе в ВД/ПД/СР.</param>
+    /// <returns>Приказ о работе в ВД/ПД/СР.</returns>
+    [Public, ExpressionElement("GetWeekendWorkOrderFuncName", "GetWeekendWorkOrderFuncDesc")]
+    public static IWeekendWorkOrderDocument GetWeekendWorkOrder(IWeekendWorkStatementDocument statement)
+    {
+      return WeekendWorkOrderDocuments.GetAll().Where(x => x.WeekendWorkStatement.Equals(statement)).FirstOrDefault();
+    }
+    
+    /// <summary>
+    /// Получает задачи на подписание приказа на доп. день отдыха по заявке.
+    /// Функция вычисляемого выражения.
+    /// </summary>
+    /// <param name="statement">Заявка на привлечение к работе в ВД/ПД/СР.</param>
+    /// <returns>Задачи на подписание приказа на доп. день отдыха.</returns>
+    [Public, ExpressionElement("GetTaskForSignWeekendWorkRestOrderFuncName", "GetTaskForSignWeekendWorkRestOrderFuncDesc")]
+    public static List<HRPro.HRDocFlow.IHRProcessTask> GetTaskForSignWeekendWorkRestOrder(IWeekendWorkStatementDocument statement)
+    {
+      var result = new List<HRPro.HRDocFlow.IHRProcessTask>();
+      
+      var restStatements = WeekendWorkRestStatementDocuments.GetAll().Where(x => WeekendWorkStatementDocuments.Equals(x.SourceDocument, statement));
+      foreach (var restStatement in restStatements)
+      {
+        var restOrders = WeekendWorkRestOrderDocuments.GetAll().Where(x => OverrideSolution.DocRelatedToWorks.Equals(x.Statement, restStatement));
+        foreach (var restOrder in restOrders)
+        {
+          var tasks = HRPro.HRDocFlow.HRProcessTasks.GetAll().Where(t => t.Status == Sungero.Workflow.Task.Status.InProcess && OfficialDocuments.Equals(t.MainDoc, restOrder)).ToList();
+          result.AddRange(tasks);
+        }
+      }
+      
+      return result;
     }
   }
 }

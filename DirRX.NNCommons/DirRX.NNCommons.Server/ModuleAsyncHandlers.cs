@@ -10,7 +10,124 @@ namespace DirRX.NNCommons.Server
 {
   public partial class ModuleAsyncHandlers
   {
+    /// <summary>
+    /// АО. Подготовка отчета по предсказанным схемам
+    /// </summary>
+    /// <param name="args">Аргументы.</param>
+    public virtual void CreatePredctedSchemeReportAsync(DirRX.NNCommons.Server.AsyncHandlerInvokeArgs.CreatePredctedSchemeReportAsyncInvokeArgs args)
+    {
+      args.Retry = false;
 
+      Logger.DebugFormat("CreatePredctedSchemeReportAsync. Старт. CurrentUserId: {0}. ID выбранных сотрудников: {1}. ID вида документа: {2}. ID нашей организации: {3}. Тип задачи: {4}",
+                         args.CurrentUserId,
+                         args.EmployeeIds,
+                         args.DocumentKindId,
+                         args.BusinessUnitId,
+                         args.TaskTypeName);
+
+      
+      List<Structures.Module.IExportPredictedSchemeRequest> requests;
+      
+      var documentKind = Sungero.Docflow.DocumentKinds.GetAll(d => d.Id == args.DocumentKindId).FirstOrDefault();
+      var businessUnit = Sungero.Company.BusinessUnits.GetAll(d => d.Id == args.BusinessUnitId).FirstOrDefault();
+      
+      try
+      {
+        var ids = args.EmployeeIds.Split(Constants.Module.Separator).Select(x => long.Parse(x)).ToList();
+        var employees = Sungero.Company.Employees.GetAll(e => ids.Contains(e.Id)).ToList();
+        
+        requests = Functions.Module.BuildRequests(args.TaskTypeName, documentKind, businessUnit, employees);
+        
+        if (requests == null || requests.Count == 0)
+        {
+          Logger.Debug("CreatePredctedSchemeReport. Запросов для обработки нет.");
+          return;
+        }
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat(
+          "CreatePredctedSchemeReportAsync. Ошибка десериализации запросов.", ex);
+        return;
+      }
+
+      List<Structures.Module.IProcessKindSchemeResult> results;
+      try
+      {
+        results = Functions.Module.ExportPredictedSchemes(requests);
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat(
+          "CreatePredctedSchemeReportAsync. Ошибка десериализации результатов.", ex);
+        return;
+      }
+
+      if (results == null || results.Count == 0)
+      {
+        Logger.Debug("CreatePredctedSchemeReportAsync. Результаты пустые.");
+        return;
+      }
+
+      // --- 3. Формирование Excel-отчёта ---
+      var reportStream = Functions.Module.GetExcelReport(results);
+
+      // --- 4. Получение сотрудника ---
+      var employee = Sungero.Company.Employees.GetAll(e => e.Id == args.CurrentUserId).FirstOrDefault();
+      if (employee == null)
+      {
+        Logger.ErrorFormat(
+          "CreatePredctedSchemeReportAsync. Сотрудник с Id={0} не найден.",
+          args.CurrentUserId);
+        return;
+      }
+
+      // --- 5. Создание документа с отчётом ---
+      var document = Sungero.Docflow.SimpleDocuments.Create();
+      
+      if (args.NumberReport == 0)
+        document.Name = string.Format("Отчёт о прогнозируемых маршрутах согласования {0:yyyy-MM-dd HH-mm}", Calendar.UserNow);
+      else
+        document.Name = string.Format("Отчёт о прогнозируемых маршрутах согласования {0:yyyy-MM-dd HH-mm}. Часть {1}", Calendar.UserNow, args.NumberReport);
+      
+      if (!document.AccessRights.IsGrantedDirectly(DefaultAccessRightsTypes.Change, employee))
+      {
+        document.AccessRights.Grant(employee, DefaultAccessRightsTypes.Change);
+        document.AccessRights.Save();
+      }
+      
+      document.Save();
+      document.CreateVersionFrom(reportStream, PublicConstants.Module.PredctedSchemeReport.ReportExtension);
+      
+      reportStream.Close();
+
+      // --- 6. Создание и отправка простого задания ---
+      var task = Sungero.Workflow.SimpleTasks.Create(
+        string.Format("Ознакомьтесь {0}", document.Name),
+        employee);
+
+      var errorCount = results.Count(r => !string.IsNullOrWhiteSpace(r.Error));
+      var successCount = results.Count - errorCount;
+
+      task.ActiveText = DirRX.NNCommons.Resources.ActiveTextTestFormat(
+        args.TaskTypeLocalizeName,
+        documentKind?.Name,
+        businessUnit?.Name,
+        results.Count,
+        successCount,
+        errorCount);
+
+      task.NeedsReview = false;
+      task.Attachments.Add(document);
+      task.Start();
+
+      Logger.DebugFormat(
+        "CreatePredctedSchemeReportAsync. Готово. Задание Id={0}, документ Id={1}.",
+        task.Id,
+        document.Id);
+      
+    }
+    
     /// <remarks>
     /// АО для обхода бага 446803, который выводил в счётчике прекращённые непрочитанные задания в папке потока.
     /// </remarks>
@@ -594,7 +711,7 @@ namespace DirRX.NNCommons.Server
             
             errorText = string.Join("; ", versionInfoList.Where(x => !x.Valid).Select(x => string.Format("{0}. {1}", x.Number, x.Error)));
             docName = document.Name;
-            hyperlink = Hyperlinks.Get(document);
+            hyperlink = Sungero.Core.Hyperlinks.Get(document);
           }
           else
           {

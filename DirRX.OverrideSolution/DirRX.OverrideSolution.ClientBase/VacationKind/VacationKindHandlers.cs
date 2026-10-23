@@ -9,7 +9,6 @@ namespace DirRX.OverrideSolution
 {
   partial class VacationKindClientHandlers
   {
-
     public virtual void IsStudyDirRXValueInput(Sungero.Presentation.BooleanValueInputEventArgs e)
     {
       if (e.NewValue != e.OldValue)

@@ -183,7 +183,12 @@
   "InterfaceNamespace": "DirRX.OverrideSolution",
   "IsolatedAssemblyName": "DirRX.OverrideSolution.Isolated",
   "IsolatedNamespace": "DirRX.OverrideSolution.Isolated",
-  "OrderedSpecialFolders": [],
+  "OrderedSpecialFolders": [
+    {
+      "NameGuid": "8bccd266-0c5b-4f54-bf9c-3b6047ae6cca",
+      "ParentFolderId": "eb72a985-606c-4647-ba0c-1389928a4e17"
+    }
+  ],
   "PublicFunctions": [
     {
       "Name": "CheckDocumentLock",
@@ -244,7 +249,7 @@
   "SharedAssemblyName": "DirRX.OverrideSolution.Shared",
   "SharedNamespace": "DirRX.OverrideSolution.Shared",
   "SpecialFolders": [],
-  "Version": "25.2.0.12",
+  "Version": "25.2.0.24",
   "Widgets": [],
   "Versions": [
     {

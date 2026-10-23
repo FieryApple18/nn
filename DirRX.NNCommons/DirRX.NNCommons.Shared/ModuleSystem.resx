@@ -243,12 +243,6 @@
 HACK BUG 446803.</value>
   </data>
   <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_3d8425b68830465884497f63ea8c1a40" xml:space="preserve">
-    <value>Execute by substitution</value>
-  </data>
-  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_809f747802e54d11b1f67ca8cbfbf540" xml:space="preserve">
-    <value>Display by substitution</value>
-  </data>
-  <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_3d8425b68830465884497f63ea8c1a40" xml:space="preserve">
     <value>IsSubstitutionAllowed</value>
   </data>
   <data name="Block_840fac787f09439ba22c608986bc2ff3_Property_809f747802e54d11b1f67ca8cbfbf540" xml:space="preserve">
@@ -265,5 +259,23 @@ HACK BUG 446803.</value>
   </data>
   <data name="JobDescription_0df2de757007482dbd16e61e67382276" xml:space="preserve">
     <value>Cleaning irrelevant private working time calendars.</value>
+  </data>
+  <data name="JobDisplayName_a934fbbe93744b41a931de8cdc4be8fe" xml:space="preserve">
+    <value>Updating "TOP" attribute</value>
+  </data>
+  <data name="JobDescription_a934fbbe93744b41a931de8cdc4be8fe" xml:space="preserve">
+    <value>Updating the "TOP" attribute in documents</value>
+  </data>
+  <data name="Block_601d1682a809455c92f771dd8653d11d" xml:space="preserve">
+    <value>Execute active monitoring blocks</value>
+  </data>
+  <data name="Block_601d1682a809455c92f771dd8653d11d_Description" xml:space="preserve">
+    <value>Script executes active monitoring blocks in the task.</value>
+  </data>
+  <data name="Block_601d1682a809455c92f771dd8653d11d_Property_a5eb0b4c316d47eb8eb28e22da13271c" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="AsyncHandler_Description_077cc4f2c9834b3db6d97d1e01066eb3" xml:space="preserve">
+    <value>Подготовка отчета по предсказанным схемам</value>
   </data>
 </root>

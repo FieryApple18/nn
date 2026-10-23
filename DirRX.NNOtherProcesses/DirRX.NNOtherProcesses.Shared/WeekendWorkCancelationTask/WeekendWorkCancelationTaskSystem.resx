@@ -115,4 +115,10 @@
   <data name="Property_Employees" xml:space="preserve">
     <value>Employees</value>
   </data>
+  <data name="Property_CancelationReason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Block_2f41da45ccfd46c0ac2e1e4af41c0cd8" xml:space="preserve">
+    <value>Rework weekend work cancelation</value>
+  </data>
 </root>

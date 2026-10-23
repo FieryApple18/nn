@@ -88,4 +88,10 @@
   <data name="Block_51147be031f242e8aeadaaa26d6ea526" xml:space="preserve">
     <value>Заполнение признака «Отклонено» в карточке документа (Заявка на привлечение к работе в ВД/ПД/СР)</value>
   </data>
+  <data name="AttachmentGroup_OtherGroupTitle" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="AttachmentGroup_AddendaGroupTitle" xml:space="preserve">
+    <value>Приложения</value>
+  </data>
 </root>

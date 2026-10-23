@@ -88,4 +88,7 @@
   <data name="Property_IsRestDateRequired" xml:space="preserve">
     <value>Rest date is required</value>
   </data>
+  <data name="Property_PresenceCode" xml:space="preserve">
+    <value>Presence code</value>
+  </data>
 </root>

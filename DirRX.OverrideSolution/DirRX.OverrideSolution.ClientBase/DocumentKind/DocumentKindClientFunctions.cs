@@ -18,6 +18,7 @@ namespace DirRX.OverrideSolution.Client
     {
       var templatesPropertiesIsVisible = _obj.DocumentType != null &&
         (_obj.DocumentType.DocumentTypeGuid == NNOtherProcesses.Server.LrdPaymentStatementDocument.ClassTypeGuid.ToString() ||
+         _obj.DocumentType.DocumentTypeGuid == NNOtherProcesses.Server.WeekendWorkRestStatementDocument.ClassTypeGuid.ToString() ||
          _obj.DocumentType.DocumentTypeGuid == HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationStatementDocument.ToString() ||
          _obj.DocumentType.DocumentTypeGuid == HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationScheduleDocument.ToString() ||
          _obj.DocumentType.DocumentTypeGuid == HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationOrderDocument.ToString() ||

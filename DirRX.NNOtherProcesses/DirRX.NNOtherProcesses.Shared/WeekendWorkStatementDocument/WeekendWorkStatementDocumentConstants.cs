@@ -24,6 +24,11 @@ namespace DirRX.NNOtherProcesses.Constants
     /// </summary>
     public const string DocKindParamName = "DocKind:{0}";
     
+    /// <summary>
+    /// Наименование параметра для кода Главного офиса.
+    /// </summary>
+    public const string GoSapCodeParamName = "GoSapCode:{0}";
+    
     #region Диалог заполнения сотрудников в заявке ВД/ПД/СР.
     
     // Высота контрола заполнения сотрудников.

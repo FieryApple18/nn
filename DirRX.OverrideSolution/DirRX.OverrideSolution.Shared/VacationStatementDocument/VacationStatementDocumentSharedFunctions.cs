@@ -9,7 +9,39 @@ namespace DirRX.OverrideSolution.Shared
 {
   partial class VacationStatementDocumentFunctions
   {
-
+    /// <summary>
+    /// Заполнение поля Отклонение по дням ежегодного оплачиваемого отпуска.
+    /// </summary>
+    public void SetAnnualVacDeviationDaysDirRX()
+    {
+      var annualVacationsConstantValue = NNCommons.PublicFunctions.Module.GetStringValue(NNVacations.PublicConstants.Module.ConstantsSetting.AnnualVacationsCodes.Guid);
+      var annualVacationsTypes = annualVacationsConstantValue
+        .Split(',')
+        .Select(x => x.Trim())
+        .ToList();
+      
+      if (annualVacationsTypes.Any() && _obj.VacationDataDirRX.Any() && _obj.AdditionalVacationDirRX.Any())
+      {
+        var vacationDuration = _obj.VacationDataDirRX
+          .Where(v => v.Days.HasValue &&
+                 (annualVacationsTypes.Contains(v.VacationType.PlannedAbsenceDirRX) ||
+                  annualVacationsTypes.Contains(v.VacationType.PlannedAbsenceShiftDirRX) ||
+                  annualVacationsTypes.Contains(v.VacationType.SAPIdDirRX)))
+          .Select(c => c.Days.Value)
+          .Sum();
+        
+        var additionalVacationDuration = _obj.AdditionalVacationDirRX
+          .Where(v => v.Days.HasValue &&
+                 (annualVacationsTypes.Contains(v.VacationType.PlannedAbsenceDirRX) ||
+                  annualVacationsTypes.Contains(v.VacationType.PlannedAbsenceShiftDirRX) ||
+                  annualVacationsTypes.Contains(v.VacationType.SAPIdDirRX)))
+          .Select(c => c.Days.Value)
+          .Sum();
+        
+        _obj.AnnualVacDeviationDaysDirRX = additionalVacationDuration - vacationDuration;
+      }
+    }
+    
     /// <summary>
     /// Сформировать имя документа.
     /// </summary>

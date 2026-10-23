@@ -176,4 +176,16 @@ If a record in the "Push Notifications to Superniku" directory is locked, the me
   <data name="Block_7786250a2ce54a6cb90b93c09ddd2ee3_Property_66a5ffadcdbf4b92acdedae4890dc90b" xml:space="preserve">
     <value>Task</value>
   </data>
+  <data name="JobDisplayName_1fb889442adf49e9a88ccd04776867a2" xml:space="preserve">
+    <value>Норникель. Create ESS user accounts</value>
+  </data>
+  <data name="JobDescription_1fb889442adf49e9a88ccd04776867a2" xml:space="preserve">
+    <value>The background process is responsible for creating kedo accounts by processing incoming data stored in the directory queue.</value>
+  </data>
+  <data name="JobDisplayName_6e3443cf770d4a2388d21d4dad93e023" xml:space="preserve">
+    <value>Nornikel. Exclude non interactive users from role</value>
+  </data>
+  <data name="JobDescription_6e3443cf770d4a2388d21d4dad93e023" xml:space="preserve">
+    <value>Фоновый процесс предназначен для исключения проф. пользователей из роли неинтерактивные пользователи</value>
+  </data>
 </root>

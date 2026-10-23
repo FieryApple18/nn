@@ -152,4 +152,34 @@
   <data name="BreakIncompleteValidationError" xml:space="preserve">
     <value>When you specify a break, fill in the beginning and end of it.</value>
   </data>
+  <data name="AdditionalApproversCountError" xml:space="preserve">
+    <value>The number of additional approvers cannot exceed {0}.</value>
+  </data>
+  <data name="GetWeekendWorkOrderFuncName" xml:space="preserve">
+    <value>Weekend work order</value>
+  </data>
+  <data name="GetWeekendWorkOrderFuncDesc" xml:space="preserve">
+    <value>Get weekend work order for this statement</value>
+  </data>
+  <data name="GetTaskForSignWeekendWorkRestOrderFuncName" xml:space="preserve">
+    <value>Tasks for sign weekend work rest order</value>
+  </data>
+  <data name="GetTaskForSignWeekendWorkRestOrderFuncDesc" xml:space="preserve">
+    <value>Get tasks for sign weekend work rest order</value>
+  </data>
+  <data name="FillEmployeesOrderTitle" xml:space="preserve">
+    <value>Order (not required)</value>
+  </data>
+  <data name="FillEmployeesSppElementTitle" xml:space="preserve">
+    <value>SPP element (not required)</value>
+  </data>
+  <data name="FillEmployeesOtherRMTitle" xml:space="preserve">
+    <value>Other RM (not required)</value>
+  </data>
+  <data name="RemoveEmployeeWithWrongPersonnelSection" xml:space="preserve">
+    <value>The application can be submitted for employees belonging to a single personnel section. Remove the employees from the table part with a different personnel section and create a separate application for them.</value>
+  </data>
+  <data name="InitiatorTimeZoneWarning" xml:space="preserve">
+    <value>Your time zone may differ from the employees' time zone. The current date and time of the employees' check-in (in their time zone) are displayed in the nested document.</value>
+  </data>
 </root>

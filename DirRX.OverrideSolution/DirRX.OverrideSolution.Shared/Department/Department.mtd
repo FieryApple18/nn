@@ -276,8 +276,25 @@
       "PreviousPropertyGuid": "eb45eddf-6eb9-4b90-9cf7-a6d38fb39375"
     }
   ],
+  "PublicFunctions": [
+    {
+      "Name": "IsIncludedInInfrastructureZF",
+      "Parameters": [
+        {
+          "Name": "department",
+          "ParameterType": "global::DirRX.OverrideSolution.IDepartment",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IDepartment, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.Boolean",
+      "ReturnTypeFullName": "System.Boolean"
+    }
+  ],
   "PublicStructures": [],
-  "ResourcesKeys": [],
+  "ResourcesKeys": [
+    "ExpFunc_IsIncludedInInfrastructureZF_Name",
+    "ExpFunc_IsIncludedInInfrastructureZF_Desc"
+  ],
   "RibbonCardMetadata": {
     "NameGuid": "ee029dc2-7486-44b2-9f28-ee0cb968e788",
     "Name": "RibbonCard",

@@ -11,6 +11,299 @@ namespace DirRX.NNIntegration.Server
   {
 
     /// <summary>
+    /// Норникель. Исключение проф. пользователей из роли неинтерактивные пользователи.
+    /// </summary>
+    public virtual void ExcludeNonInteractiveUsersRoleJob()
+    {
+      var logPrefix = "ExcludeNonInteractiveUsersRoleJob";
+      Logger.DebugFormat("{0}. Старт фонового процесса", logPrefix);
+      
+      // Получить число обрабатываемых сотрудников за одну итерацию ФП.
+      var itemsCount = NNCommons.PublicFunctions.Module.GetIntValue(Constants.Module.ConstantsSetting.ExcludeNonInteractiveUsersRole.Guid) ??
+        Constants.Module.ConstantsDefaultValues.ExcludeNonInteractiveUsersRoleCount;
+      
+      Logger.DebugFormat("{0}. Старт исключения проф. пользователей из роли Неинтерактивные пользователи.", logPrefix);
+      
+      var nonInteractiveUsersRoles = Sungero.CoreEntities.Roles.GetAll(a => a.Sid == Sungero.Domain.Shared.SystemRoleSid.NonInteractiveUsers).FirstOrDefault();
+      if (!Locks.TryLock(nonInteractiveUsersRoles))
+      {
+        var lockInfo = Locks.GetLockInfo(nonInteractiveUsersRoles);
+        Logger.DebugFormat("{0}. Не удалось установить блокировку на роль Неинтерактивные пользователи. Запись заблокирована пользователем: {1}. Время установки блокировки: {2}",
+                           logPrefix, lockInfo.OwnerName, lockInfo.LockTime);
+        return;
+      }
+      
+      try
+      {
+        // Получение проф. сотрудников из роли.
+        var interactiveEmployees = nonInteractiveUsersRoles.RecipientLinks
+          .Where(x => DirRX.OverrideSolution.Employees.Is(x.Member) &&
+                 DirRX.OverrideSolution.Employees.As(x.Member).Login != null &&
+                 !DirRX.OverrideSolution.Employees.As(x.Member).Login.LoginName.StartsWith("hrpro"));
+        
+        Logger.DebugFormat("{0}. Всего проф. пользователей в роли: {1}.", logPrefix, interactiveEmployees.Count());
+        var excludeInteractiveEmployees = interactiveEmployees.Take(itemsCount).ToList();
+        if (excludeInteractiveEmployees.Count() > 0)
+        {
+          Logger.DebugFormat("{0}. Будет исключено {1} проф. пользователей из роли за итерацию.", logPrefix, excludeInteractiveEmployees.Count());
+          
+          foreach (var recipient in excludeInteractiveEmployees)
+          {
+            var employee = DirRX.OverrideSolution.Employees.As(recipient.Member);
+            Logger.DebugFormat("{0}. ИД сотрудника: {1}. Таб. номер сотрудника: {2}. УЗ: {3}. Исключение сотрудника из роли.", logPrefix, employee.Id, employee.PersonnelNumber, employee.Login.LoginName);
+            nonInteractiveUsersRoles.RecipientLinks.Remove(recipient);
+          }
+          
+          Logger.DebugFormat("{0}. Начало сохранения роли Неинтерактивные пользователи", logPrefix);
+          nonInteractiveUsersRoles.Save();
+          
+          Logger.DebugFormat("{0}. Роль Неинтерактивные пользователи сохранена", logPrefix);
+        }
+        else
+        {
+          Logger.DebugFormat("{0}. Изменений для роли нет", logPrefix);
+        }
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("{0}. Ошибка при сохранении роли Неинтерактивные пользователи. Текст ошибки: {1}, StackTrace: {2}",
+                           logPrefix, ex.Message, ex.StackTrace);
+      }
+      finally
+      {
+        Locks.Unlock(nonInteractiveUsersRoles);
+      }
+
+      Logger.DebugFormat("{0}. Окончание фонового процесса", logPrefix);
+    }
+    
+    /// <summary>
+    /// Норникель. Создание учетных записей в КЭДО.
+    /// </summary>
+    public virtual void CreateESSUserAccountJob()
+    {
+      var logPrefix = "CreateESSUserAccountJob";
+      Logger.DebugFormat("{0}. Старт фонового процесса", logPrefix);
+      
+      var itemsCount = NNCommons.PublicFunctions.Module.GetIntValue(Constants.Module.ConstantsSetting.CreateESSUserAccountMessageCount.Guid) ??
+        Constants.Module.ConstantsDefaultValues.CreateESSUserAccountMessageCount;
+      
+      // Список записей очереди, в которых возникла ошибка обработки.
+      var errors = new List<ICompanyQueueBase>();
+      
+      // Получение ответственного из справочника "Потоки внешних систем" по guid потока.
+      // var responsible = Functions.Module.GetFlowResponsible(Constants.Module.ExternalSystemsFlowGuids.CompanySynchronization);
+
+      try
+      {
+        // Поиск записей очереди.
+        var queueRecords = ESSUserAccountQueues.GetAll()
+          .Where(x =>
+                 x.ProcessingStatus == DirRX.NNIntegration.ESSUserAccountQueue.ProcessingStatus.Recent ||
+                 x.ProcessingStatus == DirRX.NNIntegration.ESSUserAccountQueue.ProcessingStatus.Retry)
+          .OrderBy(x => x.ProcessingStatus)
+          .Take(itemsCount);
+        
+        #region Создание УЗ и добавление в роль "Неинтерактивные пользователи"
+        
+        // Делается до основной обработки, чтобы не занимать лицензии.
+        Logger.DebugFormat("{0}. Начало создания УЗ и добавление в роль Неинтерактивные пользователи", logPrefix);
+        
+        var nonInteractiveUsersRoles = Sungero.CoreEntities.Roles.GetAll(a => a.Sid == Sungero.Domain.Shared.SystemRoleSid.NonInteractiveUsers).FirstOrDefault();
+        if (!Locks.TryLock(nonInteractiveUsersRoles))
+        {
+          var lockInfo = Locks.GetLockInfo(nonInteractiveUsersRoles);
+          Logger.DebugFormat("{0}. Не удалось установить блокировку на роль Неинтерактивные пользователи. Запись заблокирована пользователем: {1}. Время установки блокировки: {2}",
+                             logPrefix, lockInfo.OwnerName, lockInfo.LockTime);
+          return;
+        }
+        
+        foreach (var record in queueRecords)
+        {
+          Logger.DebugFormat("{0}. ID записи: {1}. Начало создания УЗ", logPrefix, record.Id);
+          var processingError = Structures.Module.ProcessingErrorStruct.Create();
+          
+          try
+          {
+            var employee = DirRX.OverrideSolution.PublicFunctions.Employee.GetAvailabilityEmployee(record.PersonnelNumber, processingError);
+            if (employee != null)
+            {
+              Logger.DebugFormat("{0}. ID записи: {1}. Создание УЗ для сотрудника ID: {2}", logPrefix, record.Id, employee.Id);
+              var newAccount = EssPlatform.PublicFunctions.Module.ChangeOrCreateMainEmployeesAccount(employee.Id);
+              if (newAccount != null)
+              {
+                if (!employee.IncludedIn(nonInteractiveUsersRoles))
+                {
+                  nonInteractiveUsersRoles.RecipientLinks.AddNew().Member = employee;
+                  Logger.DebugFormat("{0}. ID записи: {1}. Сотрудник добавлен в роль Неинтерактивные пользователи", logPrefix, record.Id);
+                }
+                
+                employee.Login = newAccount;
+                employee.Save();
+                Logger.DebugFormat("{0}. ID записи: {1}. УЗ для сотрудника ID: {2} создана", logPrefix, record.Id, employee.Id);
+              }
+              else
+              {
+                Logger.DebugFormat("{0}. ID записи: {1}. Не удалось создать УЗ для сотрудника ID: {2}", logPrefix, record.Id, employee.Id);
+              }
+            }
+            else
+            {
+              Logger.DebugFormat("{0}. ID записи: {1}. Не найден сотрудник по Табельному номеру: {2}", logPrefix, record.Id, record.PersonnelNumber);
+            }
+          }
+          catch (Exception ex)
+          {
+            Logger.ErrorFormat("{0}. ID записи: {1}. Ошибка при создании УЗ. Текст ошибки: {2}, StackTrace: {3}",
+                               logPrefix, record.Id, ex.Message, ex.StackTrace);
+            processingError.ErrorText = string.Format("Ошибка при создании УЗ. Текст ошибки: {0}", ex.Message);
+          }
+          
+          // Если во время обработки возникла ошибка, то добавить запись в список ошибок и установить статус - Ошибка обработки.
+          if (!string.IsNullOrEmpty(processingError.ErrorText))
+          {
+            if (!processingError.isBlock)
+            {
+              try
+              {
+                record.ProcessingStatus = DirRX.NNIntegration.ESSUserAccountQueue.ProcessingStatus.Error;
+                record.ErrorMessage = processingError.ErrorText;
+                record.Save();
+              }
+              catch (Exception ex)
+              {
+                Logger.ErrorFormat("{0}. ID записи: {1}. Ошибка при сохранении записи. Текст ошибки: {2}, StackTrace: {3}",
+                                   logPrefix, record.Id, ex.Message, ex.StackTrace);
+              }
+            }
+            errors.Add(record);
+          }
+        }
+        Logger.DebugFormat("{0}. Начало сохранения роли Неинтерактивные пользователи", logPrefix);
+        nonInteractiveUsersRoles.Save();
+        Locks.Unlock(nonInteractiveUsersRoles);
+        Logger.DebugFormat("{0}. Роль Неинтерактивные пользователи сохранена", logPrefix);
+        
+        #endregion
+        
+        #region Основная обработка
+        
+        foreach (var record in queueRecords)
+        {
+          Logger.DebugFormat("{0}. ID записи: {1}. Начало обработки записи очереди.", logPrefix, record.Id);
+          
+          // Переполучение записи, т.к. статус мог измениться.
+          record.Reload();
+          if (record.ProcessingStatus == DirRX.NNIntegration.ESSUserAccountQueue.ProcessingStatus.Error)
+          {
+            Logger.DebugFormat("{0}. ID записи: {1}. Запись имеет статус Ошибка.", logPrefix, record.Id);
+            continue;
+          }
+          
+          // Блокировка записи очереди.
+          var isRecordLocked = Locks.TryLock(record);
+          if (!isRecordLocked)
+          {
+            var lockInfo = Locks.GetLockInfo(record);
+            Logger.DebugFormat("{0}. ID записи: {1}. Не удалось установить блокировку на запись. Запись заблокирована пользователем: {2}. Время установки блокировки: {3}. Обработка повторится при следующем запуске фонового процесса.",
+                               logPrefix, record.Id, lockInfo.OwnerName, lockInfo.LockTime);
+            continue;
+          }
+          
+          // Зафиксировать дату обработки записи.
+          if (record.LastProcessingDate != Calendar.Now)
+            record.LastProcessingDate = Calendar.Now;
+          
+          var processingError = Structures.Module.ProcessingErrorStruct.Create();
+          var model = Structures.Module.CreateAccountStruct.Create();
+          model.Employee = record.PersonnelNumber;
+          model.Login = record.Login;
+          model.IsKEDO = record.IsKEDO == true;
+          model.Type = Constants.Module.CreateAccount.AccountType.Kedo;
+          model.ConsentChangeFlag = record.ConsentChangeType;
+          
+          try
+          {
+            var employee = DirRX.OverrideSolution.PublicFunctions.Employee.GetAvailabilityEmployee(model.Employee, processingError);
+            
+            if (employee != null)
+            {
+              // Подключаем основного сотрудника.
+              Logger.DebugFormat("{0}. ID записи: {1}. Подключение к ЛК сотрудника ID: {2}", logPrefix, record.Id, employee.Id);
+              var mainEmployee = Employees.As(DirRX.EssPlatform.PublicFunctions.Module.Remote.GetPersonMainEmployee(employee.Person.Id, null));
+              
+              // Сохраняем ИД НОР сотрудника, по которому пришел запрос из АСУП.
+              model.BusinessUnitId = employee.BusinessUnit.Id;
+
+              processingError = Functions.Module.KedoAccountProcessing(model, mainEmployee, false);
+            }
+            else
+            {
+              Logger.DebugFormat("{0}. ID записи: {1}. Не найден сотрудник по Табельному номеру: {2}", logPrefix, record.Id, record.PersonnelNumber);
+            }
+          }
+          catch (Exception ex)
+          {
+            Logger.ErrorFormat("{0}. ID записи: {1}. Ошибка при обработке записи. Текст ошибки: {2}, StackTrace: {3}.",
+                               logPrefix, record.Id, ex.Message, ex.StackTrace);
+            processingError.ErrorText = string.Format("Ошибка при обработке записи. Текст ошибки: {0}", ex.Message);
+          }
+          
+          // Если во время обработки возникла ошибка, то добавить запись в список ошибок и установить статус - Ошибка обработки.
+          if (!string.IsNullOrEmpty(processingError.ErrorText))
+          {
+            if (!processingError.isBlock)
+            {
+              record.ProcessingStatus = DirRX.NNIntegration.ESSUserAccountQueue.ProcessingStatus.Error;
+              record.ErrorMessage = processingError.ErrorText;
+            }
+            errors.Add(record);
+          }
+          // Иначе установить статус - Обработано.
+          else
+          {
+            record.ProcessingStatus = DirRX.NNIntegration.ESSUserAccountQueue.ProcessingStatus.Processed;
+          }
+          Logger.DebugFormat("{0}. ID записи: {1}. Сохранение записи очереди", logPrefix, record.Id);
+          try
+          {
+            record.Save();
+            Logger.DebugFormat("{0}. ID записи: {1}. Запись очереди успешно сохранена", logPrefix, record.Id);
+          }
+          catch (Exception ex)
+          {
+            Logger.ErrorFormat("{0}. ID записи: {1}. Ошибка при сохранении записи. Текст ошибки: {2}, StackTrace: {3}",
+                               logPrefix, record.Id, ex.Message, ex.StackTrace);
+          }
+          finally
+          {
+            Locks.Unlock(record);
+          }
+          Logger.DebugFormat("{0}. ID записи: {1}. Конец обработки записи очереди", logPrefix, record.Id);
+        }
+        
+        #endregion
+        
+        // Обработка ошибок.
+        if (errors.Any())
+        {
+          Logger.DebugFormat("{0}. Ошибочных записей: {1}", logPrefix, errors.Count);
+          //Functions.Module.SendCompanySynchronizationErrorsNotification(responsible, logPrefix, errors);
+        }
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("{0}. Ошибка при выполнении фонового процесса. Текст ошибки: {1}, StackTrace: {2}",
+                           logPrefix, ex.Message, ex.StackTrace);
+        
+        //if (responsible != null)
+        //  Functions.Module.SendNotificationToResponsible(responsible, DirRX.NNIntegration.Resources.CompanySynchronizationJobErrorSubjectFormat(Calendar.Now),
+        //                                                 DirRX.NNIntegration.Resources.CompanySynchronizationJobErrorTextFormat(ex.Message));
+      }
+      Logger.DebugFormat("{0}. Конец выполнения фонового процесса", logPrefix);
+    }
+
+    /// <summary>
     /// Отправка сообщений из справочника Push-уведомления в Супернику.
     /// </summary>
     public virtual void SupernikaPushNotificationsSending()
@@ -73,15 +366,15 @@ namespace DirRX.NNIntegration.Server
               {
                 Logger.DebugFormat("{0} Уведомление будет продублировано на эл. почту исполнителя.", logPrefix);
                 
-                var objectTypeName = notification.IsNotification == true ? 
-                  HRPro.HRDocFlow.PublicConstants.Module.ObjectCardTypeNames.HRNotice : 
+                var objectTypeName = notification.IsNotification == true ?
+                  HRPro.HRDocFlow.PublicConstants.Module.ObjectCardTypeNames.HRNotice :
                   HRPro.HRDocFlow.PublicConstants.Module.ObjectCardTypeNames.DocumentApprovalAssignment;
                 
                 // Url-ссылка на задание/уведомление.
-                var url = DirRX.OverrideSolution.Module.EssPlatform.PublicFunctions.Module.CreateHyperLinkToSelfOffice(HRPro.HRProSolution.PublicConstants.Module.TargetNameSpace, 
-                                                                                                                 DirRX.EssPlatform.PublicConstants.Module.SelfOfficeObjectTypes.WorkItems, 
-                                                                                                                 objectTypeName, 
-                                                                                                                 notification.EntityId.ToString());
+                var url = DirRX.OverrideSolution.Module.EssPlatform.PublicFunctions.Module.CreateHyperLinkToSelfOffice(HRPro.HRProSolution.PublicConstants.Module.TargetNameSpace,
+                                                                                                                       DirRX.EssPlatform.PublicConstants.Module.SelfOfficeObjectTypes.WorkItems,
+                                                                                                                       objectTypeName,
+                                                                                                                       notification.EntityId.ToString());
                 var textForHyperlink = NNCommons.PublicFunctions.Module.GetStringValue(NNIntegration.PublicConstants.Module.ConstantsSetting.TextForHyperlink.Guid);
                 var htmlUrl = string.Format("<a href=\"{0}\">{1}</a>", url, textForHyperlink);
                 var emailBody = string.Format("{0}{1}{2}", notificationParams.Text, Environment.NewLine, htmlUrl);
@@ -501,7 +794,7 @@ namespace DirRX.NNIntegration.Server
       }
       catch (Exception ex)
       {
-        Logger.ErrorFormat("{0}. Ошибка при выполненнии фонового процесса \"Обновление организационной структуры\". Текст ошибки: {1}, StackTrace: {2}.",
+        Logger.ErrorFormat("{0}. Ошибка при выполнении фонового процесса \"Обновление организационной структуры\". Текст ошибки: {1}, StackTrace: {2}.",
                            logPrefix, ex.Message, ex.StackTrace);
         
         if (responsible != null)

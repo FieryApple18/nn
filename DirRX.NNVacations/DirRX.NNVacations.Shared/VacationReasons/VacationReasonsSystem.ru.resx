@@ -91,4 +91,13 @@
   <data name="Property_DaysBeforeRegistrationTop" xml:space="preserve">
     <value>Крайний срок оформления, дней (ТОП)</value>
   </data>
+  <data name="Property_RefinementReason" xml:space="preserve">
+    <value>Уточнение причины</value>
+  </data>
+  <data name="Property_AddAnnualLeave" xml:space="preserve">
+    <value>Присоединять к ежегодному отпуску</value>
+  </data>
+  <data name="Property_AttachDocuments" xml:space="preserve">
+    <value>Требовать приложить документы</value>
+  </data>
 </root>

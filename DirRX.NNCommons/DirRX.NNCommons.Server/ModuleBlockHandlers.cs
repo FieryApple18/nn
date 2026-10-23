@@ -9,6 +9,24 @@ using Sungero.Workflow;
 
 namespace DirRX.NNCommons.Server.NNCommonsBlocks
 {
+  partial class ExecuteActiveMonitoringsBlockHandlers
+  {
+
+    public virtual void ExecuteActiveMonitoringsBlockExecute()
+    {
+      var logPrefix = string.Format("ExecuteActiveMonitorings. ИД задачи {0}", _obj.Id);
+      Logger.DebugFormat("{0}. Начало выполнения.", logPrefix);
+      
+      foreach (var task in _block.Tasks)
+      {
+        Logger.DebugFormat("{0}. Выполнение блоков мониторинга в задаче ИД: {1}.", logPrefix, task.Id);
+        task.Blocks.ExecuteAllMonitoringBlocks();
+      }
+      
+      Logger.DebugFormat("{0}. Конец выполнения.", logPrefix);
+    }
+  }
+
   partial class LinkDocumentToTaskBlockHandlers
   {
     public virtual void LinkDocumentToTaskBlockExecute()
@@ -117,8 +135,8 @@ namespace DirRX.NNCommons.Server.NNCommonsBlocks
       assignment.Remark = _block.Remark;
       assignment.SupernikaSubjectDirRX = _block.SupernikaSubjectDirRX;
       assignment.SupernikaTextDirRX = _block.SupernikaTextDirRX;
-      assignment.IsSubstitutionAllowed = _block.IsSubstitutionAllowed;
-      assignment.IsSubstitutionVisible = _block.IsSubstitutionVisible;
+      assignment.IsSubstitutionAllowed = _block.IsSubstitutionAllowed ?? false;
+      assignment.IsSubstitutionVisible = _block.IsSubstitutionVisible ?? false;
       
       // Отправить сообщение о новом задании.
       if (_block.NeedNotification.GetValueOrDefault())

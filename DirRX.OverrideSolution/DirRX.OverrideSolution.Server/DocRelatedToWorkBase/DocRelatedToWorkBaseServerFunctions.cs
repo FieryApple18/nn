@@ -9,7 +9,28 @@ using DirRX.NNCommons;
 namespace DirRX.OverrideSolution.Server
 {
   partial class DocRelatedToWorkBaseFunctions
-  {
+  { 
+    /// <summary>
+    /// Отключение фильтрации для частных случаев. 
+    /// </summary>
+    /// <returns>true - фильтрация должна быть отключена, иначе false.</returns>
+    /// Поиск частных случаев можно осуществить по ключу, который используется в параметре.
+    [Public]
+    public static bool NeedDisableFilteringForRoleModel()
+    {
+      var toFilter = false;
+      
+      if (Employees.Current != null)
+      {
+        var employeeParams = ((Sungero.Domain.Shared.IExtendedEntity)Employees.Current).Params;
+        object paramValue;
+        
+        if (employeeParams.TryGetValue(string.Format(NNOtherProcesses.PublicConstants.Module.FilterLrdPaymentInRX, Employees.Current.Id), out paramValue))
+          toFilter = (bool)paramValue;
+      }
+      
+      return toFilter;
+    }
 
     /// <summary>
     /// Запустить АО по запуску задач для повторной проштамповки документов.
@@ -87,7 +108,7 @@ namespace DirRX.OverrideSolution.Server
     public virtual IQueryable<IBusinessRole> GetBusinessRolesByDocumentKind()
     {
       return BusinessRoles.GetAll().Where(x => x.Status == NNCommons.BusinessRole.Status.Active &&
-                                          x.Top == _obj.TopDirRX &&
+                                          x.Top == _obj.IsNGDDirRX &&
                                           x.RoleType == NNCommons.BusinessRole.RoleType.ByKind &&
                                           DocumentKinds.Equals(x.DocumentKind, _obj.DocumentKind));
     }
@@ -98,7 +119,7 @@ namespace DirRX.OverrideSolution.Server
     public virtual IQueryable<IBusinessRole> GetBusinessRolesByProcess()
     {
       var businessRolesByProcess = BusinessRoles.GetAll().Where(x => x.Status == NNCommons.BusinessRole.Status.Active &&
-                                                                x.Top == _obj.TopDirRX &&
+                                                                x.Top == _obj.IsNGDDirRX &&
                                                                 x.RoleType == NNCommons.BusinessRole.RoleType.ByProcess &&
                                                                 BusinessProcesses.Equals(x.Process, DocumentKinds.As(_obj.DocumentKind).BusinessProcessDirRX));
       
@@ -106,7 +127,7 @@ namespace DirRX.OverrideSolution.Server
       if (businessRolesByProcess.Any())
       {
         var businessRolesIds = NNCommons.PublicFunctions.BusinessRole.GetBusinessRolesByProccessHierarchy(businessRolesByProcess.Select(x => x.Id).ToList());
-        businessRolesByProcess = BusinessRoles.GetAll(x => businessRolesIds.Contains(x.Id) && x.Top == _obj.TopDirRX);
+        businessRolesByProcess = BusinessRoles.GetAll(x => businessRolesIds.Contains(x.Id) && x.Top == _obj.IsNGDDirRX);
       }
       
       return businessRolesByProcess;

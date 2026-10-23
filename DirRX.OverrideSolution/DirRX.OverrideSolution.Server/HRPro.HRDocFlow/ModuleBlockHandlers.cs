@@ -36,8 +36,8 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
       overrideAssignment.SummaryDirRX = _block.SummaryDirRX;
       overrideAssignment.SupernikaSubjectDirRX = _block.SupernikaSubjectDirRX;
       overrideAssignment.SupernikaTextDirRX = _block.SupernikaTextDirRX;
-      overrideAssignment.IsSubstitutionAllowedDirRX = _block.IsSubstitutionAllowedDirRX;
-      overrideAssignment.IsSubstitutionVisibleDirRX = _block.IsSubstitutionVisibleDirRX;
+      overrideAssignment.IsSubstitutionAllowedDirRX = _block.IsSubstitutionAllowedDirRX ?? false;
+      overrideAssignment.IsSubstitutionVisibleDirRX = _block.IsSubstitutionVisibleDirRX ?? false;
       
       base.ESignAssignmentBlockStartAssignment(assignment);
     }
@@ -104,6 +104,12 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
       assignmentHR.IsManualHoldingEventDirRX = _block.IsManualHoldingEventDirRX;
       assignmentHR.SupernikaSubjectDirRX = _block.SupernikaSubjectDirRX;
       assignmentHR.SupernikaTextDirRX = _block.SupernikaTextDirRX;
+      
+      // Документ для фильтрации заданий в папке "На ручное проведение мероприятия".
+      var document = assignmentHR.DocumentGroup.OfficialDocuments.FirstOrDefault(d => DocRelatedToWorkBases.Is(d));
+      var docRelatedToWork = DocRelatedToWorkBases.As(document);
+      if (docRelatedToWork != null)
+        assignmentHR.DocForManualHoldingEventDirRX = docRelatedToWork;
       
       // Добавить дейcтвия push сообщений в Супернику для задания.
       if (_block.SupernikaActionsDirRX.Any())
@@ -186,6 +192,24 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
                              _obj.Id, _block.Id, completedAssignment.Id);
       }
       
+      // Заполнение доп.согласующих в задаче.
+      if (completedAssignment.Result == DocumentApprovalAssignment.Result.Approved && _block.ShowAddApproversDirRX == true)
+      {
+        var task = StatementTasks.As(_obj);
+        if (task == null)
+          Logger.ErrorFormat("DocumentApprovalAssignmentBlockCompleteAssignment. TaskId: {0}, BlockUid: {1}. CompletedAssignmentId: {2}. Задача не является задачей на рассмотрение заявлений сотрудников.",
+                             _obj.Id, _block.Id, completedAssignment.Id);
+        else
+        {
+          task.AdditionalApproveResponsiblesDirRX.Clear();
+          foreach (var addApprover in completedAssignment.AdditionalApproversDirRX)
+          {
+            var newAddApprover = task.AdditionalApproveResponsiblesDirRX.AddNew();
+            newAddApprover.Employee = addApprover.Employee;
+          }
+        }
+      }
+      
       base.DocumentApprovalAssignmentBlockCompleteAssignment(assignment);
     }
 
@@ -211,6 +235,47 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
           foreach (var lastPerformer in performers)
             _block.Performers.Add(lastPerformer);
         }
+      }
+      
+      if (_block.NotSendIfApprovedDirRX == true)
+      {
+        // Икслючить из исполнителей тех, кто уже выполнил задания на согласование в других блоках задачи. Учитываем совместительство через паерсону.
+        var oldPerformers = DirRX.OverrideSolution.Functions.DocumentApprovalAssignment.GetOtherBlockPerformers(_obj.Id, _block.Id, _obj.StartId).ToList();
+        var performers = new List<IRecipient>();
+        performers.AddRange(_block.Performers);
+        _block.Performers.Clear();
+        
+        var oldPersons = oldPerformers.Where(c => OverrideSolution.Employees.Is(c)).Select(p => OverrideSolution.Employees.As(p).Person);
+        
+        foreach (var performer in performers)
+        {
+          // Если в исполнителях указывают роль или группу, то получаем из нее всех исполнителей и исключаем тех, кто уже участвовал в согласовании.
+          if (Sungero.CoreEntities.Groups.Is(performer))
+          {
+            var group = Sungero.CoreEntities.Groups.As(performer);
+            var employees = Sungero.CoreEntities.Groups.GetAllUsersInGroup(group)
+              .Where(c => OverrideSolution.Employees.Is(c))
+              .Cast<OverrideSolution.IEmployee>()
+              .ToList();
+            
+            var newPerformers = employees.Where(c => !oldPersons.Contains(c.Person)).ToList();
+            
+            foreach (var newPerformer in newPerformers)
+              _block.Performers.Add(newPerformer);
+          }
+          else
+          {
+            var person = OverrideSolution.Employees.As(performer)?.Person;
+            
+            if (!oldPersons.Contains(person))
+              _block.Performers.Add(performer);
+            else
+              Logger.DebugFormat("DocumentApprovalAssignmentBlockStart. TaskId: {0}, BlockUid: {1}. Исключение уже назначенных исполнителей из исполнителей блока. Исключен сотрудник: {2}.",
+                                 _obj.Id, _block.Id, performer.Id);
+          }
+        }
+        
+        _block.Performers.Distinct();
       }
     }
 
@@ -242,7 +307,7 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
       var statement = VacationStatementDocuments.As(document);
       if (statement != null)
       {
-        // TODO: SeleznyovDV. Перевести с AsupCheckResultDirRX на поле SapCommentText типа документа DocRelatedToWork. 
+        // TODO: SeleznyovDV. Перевести с AsupCheckResultDirRX на поле SapCommentText типа документа DocRelatedToWork.
         if (_block.ShowSapCommentTextDirRX.GetValueOrDefault() && !string.IsNullOrEmpty(statement.AsupCheckResultDirRX))
           summaryList.Add(statement.AsupCheckResultDirRX);
         
@@ -254,6 +319,12 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
         }
       }
       
+      // Документ для фильтрации заданий в папке "На согласование".
+      document = assignmentHR.DocumentGroup.OfficialDocuments.FirstOrDefault(d => DocRelatedToWorkBases.Is(d));
+      var approvalDocument = DocRelatedToWorkBases.As(document);
+      if (approvalDocument != null)
+        assignmentHR.ApprovalDocumentDirRX = approvalDocument;
+      
       var summary = string.Join(Environment.NewLine + Environment.NewLine, summaryList);
       var summaryLength = assignmentHR.Info.Properties.SummaryDirRX.Length;
       assignmentHR.SummaryDirRX = summary.Length > summaryLength ? summary.Substring(0, summaryLength) : summary;
@@ -262,6 +333,17 @@ namespace DirRX.OverrideSolution.Module.HRDocFlow.Server.HRDocFlowBlocks
       if (_block.SupernikaActionsDirRX.Any())
         foreach (var action in _block.SupernikaActionsDirRX)
           assignmentHR.SupernikaActionsDirRX.AddNew().Action = action;
+      
+      // Заполнить доп.согласующих из предыдущего задания данного блока.
+      if (_block.ShowAddApproversDirRX == true)
+      {
+        var addApprovers = DirRX.OverrideSolution.Functions.DocumentApprovalAssignment.GetLastAdditionalApproversFromAssignment(_obj.Id, _block.Id, assignmentHR.Performer, _obj.StartId);
+        foreach (var addApprover in addApprovers)
+        {
+          var newAddApprover = assignmentHR.AdditionalApproversDirRX.AddNew();
+          newAddApprover.Employee = addApprover;
+        }
+      }
     }
 
   }

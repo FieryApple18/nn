@@ -414,12 +414,50 @@
       "Overridden": [
         "SettingsResourceKey"
       ]
+    },
+    {
+      "$type": "Sungero.Metadata.InplaceFormMetadata, Sungero.Metadata",
+      "NameGuid": "0a502ecc-2a17-4b53-8351-366396368de0",
+      "Name": "Errors",
+      "Controls": [
+        {
+          "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
+          "NameGuid": "a71b8c18-521a-4ec6-ac98-96af7b8e3814",
+          "Name": "ErrorList",
+          "GroupType": "WithTitleNoBorder"
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "33905e07-f3e6-4fe6-bcee-c10b0506a6c8",
+          "Name": "ErrorMessage",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.TextEditorToTextBinder",
+          "HeaderLocation": "None",
+          "ParentGuid": "a71b8c18-521a-4ec6-ac98-96af7b8e3814",
+          "PropertyGuid": "e5a772a9-34e6-4c42-98f4-40744dcb62b7",
+          "RowNumber": 0,
+          "RowSpan": 1,
+          "Settings": [
+            {
+              "Name": "NeedExpand",
+              "Value": true
+            },
+            {
+              "Name": "NeedAutosize",
+              "Value": false
+            }
+          ]
+        }
+      ],
+      "ParentFormGuid": "e0de95d5-b9a6-4bbc-ac00-8fe44115acf6"
     }
   ],
   "FormViewUuid": "a82caa86-f8c1-49f9-aafe-91e3b639bc25",
   "HandledEvents": [
     "BeforeCompleteServer",
-    "RefreshClient"
+    "RefreshClient",
+    "BeforeSaveServer"
   ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "NNVacationsInitiatingApprovalVacationScheduleAssignment",
@@ -703,6 +741,26 @@
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "e2d91132-7e87-4cb9-9faa-9608f25c1838",
       "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.CollectionPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "c7b6f6d6-8ff7-41b8-b3b7-2081e2496e1e",
+      "Name": "TradeUnionOpinion",
+      "Code": "IniApprOpinion",
+      "EntityGuid": "877d4043-eecf-4739-a060-4885249359ff",
+      "IsShowedInList": false,
+      "PreviousPropertyGuid": "e349ae2e-71f9-4f87-be0b-bbec6f60edbe"
+    },
+    {
+      "$type": "Sungero.Metadata.TextPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "e5a772a9-34e6-4c42-98f4-40744dcb62b7",
+      "Name": "LoadingErrorMessage",
+      "CanBeSearch": false,
+      "Code": "LoadingErrorMe",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToTextBinder",
+      "PreviousPropertyGuid": "e349ae2e-71f9-4f87-be0b-bbec6f60edbe"
     }
   ],
   "PublicStructures": [],

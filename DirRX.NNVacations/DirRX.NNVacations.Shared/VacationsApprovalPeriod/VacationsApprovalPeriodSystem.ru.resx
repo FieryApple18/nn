@@ -89,7 +89,7 @@
     <value>Оплата проведена</value>
   </data>
   <data name="Property_Top" xml:space="preserve">
-    <value>ТОП-10/100</value>
+    <value>ТОП</value>
   </data>
   <data name="Property_NextVacationDays" xml:space="preserve">
     <value>Дней до нового отпуска</value>

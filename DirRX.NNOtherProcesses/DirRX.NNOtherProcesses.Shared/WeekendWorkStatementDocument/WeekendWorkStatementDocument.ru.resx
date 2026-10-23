@@ -151,4 +151,34 @@
   <data name="BreakIncompleteValidationError" xml:space="preserve">
     <value>При указании перерыва, заполните его начало и окончание.</value>
   </data>
+  <data name="AdditionalApproversCountError" xml:space="preserve">
+    <value>Количество дополнительных согласующих не может превышать {0}.</value>
+  </data>
+  <data name="GetWeekendWorkOrderFuncName" xml:space="preserve">
+    <value>Приказ о работе в ВД/ПД/СР</value>
+  </data>
+  <data name="GetWeekendWorkOrderFuncDesc" xml:space="preserve">
+    <value>Получает приказ о работе в ВД/ПД/СР, в котором указана данная заявка</value>
+  </data>
+  <data name="GetTaskForSignWeekendWorkRestOrderFuncName" xml:space="preserve">
+    <value>Задачи на подписание приказа на доп. день отдыха</value>
+  </data>
+  <data name="GetTaskForSignWeekendWorkRestOrderFuncDesc" xml:space="preserve">
+    <value>Получает задачи на подписание приказа на доп. день отдыха по заявке</value>
+  </data>
+  <data name="FillEmployeesOrderTitle" xml:space="preserve">
+    <value>Заказ (необязательно)</value>
+  </data>
+  <data name="FillEmployeesSppElementTitle" xml:space="preserve">
+    <value>СПП-элемент (необязательно)</value>
+  </data>
+  <data name="FillEmployeesOtherRMTitle" xml:space="preserve">
+    <value>Другое РМ (необязательно)</value>
+  </data>
+  <data name="RemoveEmployeeWithWrongPersonnelSection" xml:space="preserve">
+    <value>Заявка может быть оформлена на работников одного раздела персонала. Удалите работников из табличной части с отличающимся разделом персонала и создайте по ним отдельную заявку</value>
+  </data>
+  <data name="InitiatorTimeZoneWarning" xml:space="preserve">
+    <value>Ваш часовой пояс может отличаться от часового пояса работников. Актуальные дата и время выхода работников (в их часовом поясе) отображаются во вложенном документе</value>
+  </data>
 </root>

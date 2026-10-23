@@ -15,6 +15,6 @@ namespace DirRX.OverrideSolution.Constants.HRProSolution
     /// Наименование параметра для исключения сотрудника из часового пояса.
     /// </summary>
     public const string NeedExcludeEmployeeFromTimeZone = "NeedExcludeEmployeeFromTimeZone";
-
+    
   }
 }

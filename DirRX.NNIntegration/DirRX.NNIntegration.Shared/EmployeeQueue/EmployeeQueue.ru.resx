@@ -67,4 +67,22 @@
   <data name="MPGroupIsEmptyError" xml:space="preserve">
     <value>Не заполнен код группы МР для сотрудника.</value>
   </data>
+  <data name="PersonnelSectionIsEmptyError" xml:space="preserve">
+    <value>Не заполнен код Раздела персонала для сотрудника.</value>
+  </data>
+  <data name="PersonnelSectionNotFoundError" xml:space="preserve">
+    <value>Не найден Раздел персонала сотрудника по коду: {0}</value>
+  </data>
+  <data name="PersonnelSubSectionIsEmptyError" xml:space="preserve">
+    <value>Не заполнен код Подраздела персонала для сотрудника.</value>
+  </data>
+  <data name="PersonnelSubSectionNotFoundError" xml:space="preserve">
+    <value>Не найден Подраздел персонала сотрудника по коду: {0}</value>
+  </data>
+  <data name="EmployeeCategoryIsEmptyError" xml:space="preserve">
+    <value>Не заполнена Категория сотрудника.</value>
+  </data>
+  <data name="EmployeeCategoryIsInvalidError" xml:space="preserve">
+    <value>Не удалось установить Категорию сотрудника по коду: {0}</value>
+  </data>
 </root>

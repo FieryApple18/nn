@@ -87,26 +87,26 @@
       "Name": "CreateGroupAcquiantanceVacScheduleLists",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
+      "LargeIconName": "Action_CreateGroupAcquiantanceVacScheduleLists_large_51efdfaa70e94157a28e274d4779e225.png",
       "NeedConfirmation": true,
-      "SmallIconName": null
+      "SmallIconName": "Action_CreateGroupAcquiantanceVacScheduleLists_small_51efdfaa70e94157a28e274d4779e225.png"
     },
     {
       "NameGuid": "be3532e0-7af8-45e8-88a5-b4ddb3b79078",
       "Name": "CreateIndividualAcquiantanceVacScheduleLists",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
+      "LargeIconName": "Action_CreateIndividualAcquiantanceVacScheduleLists_large_be3532e07af845e888a5b4ddb3b79078.png",
       "NeedConfirmation": true,
-      "SmallIconName": null
+      "SmallIconName": "Action_CreateIndividualAcquiantanceVacScheduleLists_small_be3532e07af845e888a5b4ddb3b79078.png"
     },
     {
       "NameGuid": "a93dc9fc-a664-4667-8074-cc141443c2f5",
       "Name": "VacationScheduleAcquaintanceLists",
       "ActionArea": "Card",
       "GenerateHandler": true,
-      "LargeIconName": null,
-      "SmallIconName": null
+      "LargeIconName": "Action_VacationScheduleAcquaintanceLists_large_a93dc9fca66446678074cc141443c2f5.png",
+      "SmallIconName": "Action_VacationScheduleAcquaintanceLists_small_a93dc9fca66446678074cc141443c2f5.png"
     }
   ],
   "AssociatedGuid": "2ed31a9c-1c09-419b-8b46-29127562d8de",

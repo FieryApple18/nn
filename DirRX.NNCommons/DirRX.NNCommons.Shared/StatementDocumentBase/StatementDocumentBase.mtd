@@ -59,6 +59,32 @@
       "Code": "PreparationDat",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
       "PreviousPropertyGuid": "34c47624-406f-44c7-b83e-8c713e9122d2"
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "0827df38-01d1-4349-a171-7f6ae4dc96ca",
+      "Name": "TransferStartDate",
+      "CanBeSearch": false,
+      "Code": "TransferStartD",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "fc81f96d-8831-4abe-ae90-a7583e2b6c09",
+      "Versions": []
+    },
+    {
+      "$type": "Sungero.Metadata.DateTimePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "f3d238ef-2a69-445e-80ee-ee5fd28f1851",
+      "Name": "TransferEndDate",
+      "CanBeSearch": false,
+      "Code": "TransferEndDat",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DateTimeEditorToDateTimeBinder",
+      "PreviousPropertyGuid": "0827df38-01d1-4349-a171-7f6ae4dc96ca",
+      "Versions": []
     }
   ],
   "PublicStructures": [],

@@ -80,7 +80,7 @@
     <value>Дата работы по</value>
   </data>
   <data name="Property_AdditionalApprover" xml:space="preserve">
-    <value>Доп. согласующий</value>
+    <value>Доп. согласующий (Устаревшее)</value>
   </data>
   <data name="Property_ReasonDescription" xml:space="preserve">
     <value>Основание</value>
@@ -126,9 +126,6 @@
   </data>
   <data name="ControlGroup_4e1d78fc6f6c4c81bf9aa1fa2031a46b" xml:space="preserve">
     <value>Дата и номер</value>
-  </data>
-  <data name="ControlGroup_2cf357f49e0d4e838920a09720cad45d" xml:space="preserve">
-    <value />
   </data>
   <data name="ControlGroup_5ed4d4a9d0be47c7a642679213e31156" xml:space="preserve">
     <value />
@@ -270,5 +267,14 @@
   </data>
   <data name="Action_ValidateWeekendWorkHoursExceededDescription" xml:space="preserve">
     <value>Показать ошибки</value>
+  </data>
+  <data name="Property_AdditionalApprovers" xml:space="preserve">
+    <value>Доп. согласующие</value>
+  </data>
+  <data name="Property_DueTo" xml:space="preserve">
+    <value>В связи с</value>
+  </data>
+  <data name="Property_ExecutionControl" xml:space="preserve">
+    <value>Контроль исполнения за</value>
   </data>
 </root>

@@ -70,4 +70,10 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Базовые типы заявлений</value>
   </data>
+  <data name="Property_TransferStartDate" xml:space="preserve">
+    <value>Дата начала перевода</value>
+  </data>
+  <data name="Property_TransferEndDate" xml:space="preserve">
+    <value>Дата окончания перевода</value>
+  </data>
 </root>

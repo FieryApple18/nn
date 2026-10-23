@@ -61,8 +61,8 @@
   <data name="NameTemplate" xml:space="preserve">
     <value>{0}. {1}</value>
   </data>
-  <data name="TopName" xml:space="preserve">
-    <value>TOP</value>
+  <data name="NGDName" xml:space="preserve">
+    <value>NGD</value>
   </data>
   <data name="FindDuplicatesError" xml:space="preserve">
     <value>Duplicate entries detected.</value>
@@ -70,7 +70,7 @@
   <data name="RecordNameAutotext" xml:space="preserve">
     <value>&lt;The name will be generated automatically based on the record details&gt;</value>
   </data>
-  <data name="NotTopName" xml:space="preserve">
-    <value>Not a TOP</value>
+  <data name="NotNGDName" xml:space="preserve">
+    <value>Not NGD</value>
   </data>
 </root>

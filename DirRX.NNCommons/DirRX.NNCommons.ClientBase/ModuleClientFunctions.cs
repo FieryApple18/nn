@@ -8,6 +8,246 @@ namespace DirRX.NNCommons.Client
 {
   public partial class ModuleFunctions
   {
+    #region Логика по формированию отчета проверки корректности маршрутов.
+    
+    /// <summary>
+    /// Открывает диалог для формирования запроса экспорта предсказанных схем.
+    /// Собирает параметры от пользователя и вызывает серверную функцию ExportPredictedSchemes.
+    /// </summary>
+    [Hyperlink(DisplayNameResource = "GenerateReportApprovalRoutes")]
+    public void ShowExportPredictedSchemesDialog()
+    {
+      var dialog = Dialogs.CreateInputDialog(
+        DirRX.NNCommons.Resources.ExportPredictedSchemesDialogTitle);
+
+      // --- 1. Тип задачи (выпадающий список из зафиксированных значений) ---
+      var taskTypes = new Dictionary<string, string>
+      {
+        { Constants.Module.PredctedSchemeReport.TaskType.StatementTask, DirRX.NNCommons.Resources.TaskTypeStatementTask },
+        { Constants.Module.PredctedSchemeReport.TaskType.WeekendWorkTask, DirRX.NNCommons.Resources.WeekendWorkTask }
+      };
+      var taskTypeItems = taskTypes.Values.ToArray();
+      var taskTypeControl = dialog.AddSelect(
+        DirRX.NNCommons.Resources.ExportPredictedSchemesDialogTaskType,
+        true,
+        0).From(taskTypeItems);
+
+      // --- 2. Вид документа (справочник «Виды документов», только поддерживаемые типы) ---
+      var documentKindControl = dialog.AddSelect(
+        DirRX.NNCommons.Resources.ExportPredictedSchemesDialogDocumentKind,
+        true,
+        Sungero.Docflow.DocumentKinds.Null).From(Functions.Module.Remote.GetSupportedDocumentKinds());
+
+      // --- 3. Наша организация (справочник «Наши организации») ---
+      var organizationControl = dialog.AddSelect(
+        DirRX.NNCommons.Resources.ExportPredictedSchemesDialogOrganization,
+        true,
+        Sungero.Company.BusinessUnits.Null);
+
+      var personnelSectionsControl = dialog.AddMultilineString(DirRX.NNCommons.Resources.ExportPredictedSchemesDialogPersonnelSections, false);
+      personnelSectionsControl.IsEnabled = false;
+      
+      var personnelSectionsSelectControl = dialog.AddHyperlink(HRPro.HRWred.Resources.Select);
+      personnelSectionsSelectControl.IsEnabled = false;
+      
+      var personalSectionIds = new List<long>();
+      
+      var employeesControl = dialog.AddMultilineString(DirRX.NNCommons.Resources.ExportPredictedSchemesDialogEmployees, false);
+      employeesControl.IsEnabled = false;
+      
+      var employeesSelectControl = dialog.AddHyperlink(HRPro.HRWred.Resources.Select);
+      employeesSelectControl.IsEnabled = false;
+      
+      var employeeIds = new List<long>();
+      
+      personnelSectionsSelectControl.SetOnExecute(
+        () =>
+        {
+          var personalSections = Functions.Module.Remote.GetFilteredPersonalSection(organizationControl.Value).ShowSelectMany();
+          personalSectionIds = personalSections.Select(p => p.Id).ToList();
+          personnelSectionsControl.Value = string.Join("; ", personalSections.Select(s => s.Name));
+        });
+      
+      employeesSelectControl.SetOnExecute(
+        () =>
+        {
+          var employees = Functions.Module.Remote.GetFilteredEmployees(organizationControl.Value, personalSectionIds).ShowSelectMany();
+          employeeIds = employees.Select(p => p.Id).ToList();
+          employeesControl.Value = string.Join("; ", employees.Select(s => s.Name));
+        });
+      
+      // --- Обработчик: изменение «Нашей организации» ---
+      organizationControl.SetOnValueChanged(args =>
+                                            {
+                                              if (Equals(args.NewValue, args.OldValue))
+                                                return;
+
+                                              personalSectionIds = new List<long>();
+                                              personnelSectionsControl.Value = string.Empty;
+                                              personnelSectionsSelectControl.IsEnabled = args.NewValue != null;
+                                              
+                                              employeeIds = new List<long>();
+                                              employeesControl.Value = string.Empty;
+                                              employeesSelectControl.IsEnabled = args.NewValue != null;
+                                            });
+      
+      personnelSectionsControl.SetOnValueChanged(args =>
+                                                 {
+                                                   if (Equals(args.NewValue, args.OldValue))
+                                                     return;
+
+                                                   employeeIds = new List<long>();
+                                                   employeesControl.Value = string.Empty;
+                                                 });
+
+
+      // --- Показ диалога и обработка результата ---
+      var okButton = dialog.Buttons.AddOk();
+      dialog.Buttons.AddCancel();
+
+      if (dialog.Show() != okButton)
+      {
+        return;
+      }
+
+      var selectedTaskType = taskTypes.FirstOrDefault(
+        kv => kv.Value == taskTypeControl.Value);
+
+      try
+      {
+        if (!employeeIds.Any())
+          employeeIds = NNCommons.Functions.Module.Remote.GetFilteredEmployeeIds(organizationControl.Value, personalSectionIds);
+        
+        Functions.Module.Remote.CreatePredctedSchemeReport(selectedTaskType.Key,
+                                                           selectedTaskType.Value,
+                                                           documentKindControl.Value,
+                                                           organizationControl.Value,
+                                                           employeeIds);
+        Dialogs.ShowMessage(
+          DirRX.NNCommons.Resources.ExportPredictedSchemesDialogSuccess,
+          MessageType.Information);
+      }
+      catch (Exception ex)
+      {
+        Dialogs.ShowMessage(
+          string.Format(DirRX.NNCommons.Resources.ExportPredictedSchemesDialogError,
+                        ex.Message),
+          MessageType.Error);
+      }
+    }
+    
+    /// <summary>
+    /// Обновляет фильтрацию доступных разделов персонала.
+    /// </summary>
+    /// <param name="organization">Наша организация.</param>
+    /// <param name="personnelSectionsControl">Контрол разделов персонала.</param>
+    private void UpdatePersonalSectionFilter(
+      Sungero.Company.IBusinessUnit organization,
+      ISelectManyDialogValue<NNCommons.IPersonnelSection> personnelSectionsControl
+     )
+    {
+      if (organization != null)
+      {
+        personnelSectionsControl.IsEnabled = true;
+        personnelSectionsControl.From(NNCommons.PersonnelSections.GetAll(p => Equals(p.BusinessUnit, organization)));
+      }
+    }
+
+    /// <summary>
+    /// Обновляет фильтрацию доступных сотрудников в контроле диалога.
+    /// </summary>
+    /// <param name="organization">Наша организация.</param>
+    /// <param name="personnelSections">Контрол разделов персонала.</param>
+    /// <param name="employeesControl">Контрол Сотрудников.</param>
+    private void UpdateEmployeesFilter(
+      Sungero.Company.IBusinessUnit organization,
+      IEnumerable<DirRX.NNCommons.IPersonnelSection> personnelSections,
+      ISelectManyDialogValue<Sungero.Company.IEmployee> employeesControl)
+    {
+      if (organization == null)
+      {
+        employeesControl.IsEnabled = false;
+        employeesControl.Value = new Sungero.Company.IEmployee[0];
+        return;
+      }
+
+      employeesControl.IsEnabled = true;
+
+      var selectedSections = personnelSections?.ToList()
+        ?? System.Linq.Enumerable.Empty<DirRX.NNCommons.IPersonnelSection>().ToList();
+//
+      //      employeesControl
+      //        .From(Functions.Module.Remote.GetFilteredEmployees(organization, selectedSections));
+    }
+
+    /// <summary>
+    /// Формирует список запросов для серверной функции на основе выбранных параметров.
+    /// </summary>
+    /// <param name="taskTypeName">Тип задачи.</param>
+    /// <param name="documentKind">Вид документа.</param>
+    /// <param name="organization">Наша орагнизация.</param>
+    /// <param name="employees">Сотрудники.</param>
+    /// <returns>Данные для подготовки отчета.</returns>
+    private List<Structures.Module.IExportPredictedSchemeRequest> BuildRequests(
+      string taskTypeName,
+      Sungero.Docflow.IDocumentKind documentKind,
+      Sungero.Company.IBusinessUnit organization,
+      List<Sungero.Company.IEmployee> employees)
+    {
+      if (employees == null || employees.Count == 0)
+        return null;
+
+      if (documentKind == null)
+        return null;
+
+      var documentTypeName = GetDocumentTypeName(documentKind);
+
+      var requests = new List<Structures.Module.IExportPredictedSchemeRequest>();
+
+      // Сотрудник будет использоваться в дальнейшем при создании документа и задачи.
+      foreach (var emp in employees)
+      {
+        var request = Structures.Module.ExportPredictedSchemeRequest.Create();
+        request.AssignedById = emp.Id;
+        request.AssigneeId = emp.Id;
+        request.DocumentTypeName = documentTypeName;
+        request.DocDocumentKind = documentKind.Id;
+        if (organization != null)
+          request.DocBusinessUnit = organization.Id;
+        if (documentTypeName == Constants.Module.PredctedSchemeReport.DocumentType.StatementDocument)
+          request.DocAuthor = emp.Id;
+        request.TaskTypeName = taskTypeName;
+        requests.Add(request);
+      }
+
+      return requests;
+    }
+
+    /// <summary>
+    /// Возвращает имя типа документа по сущности вида документа.
+    /// </summary>
+    private string GetDocumentTypeName(Sungero.Docflow.IDocumentKind documentKind)
+    {
+      var typeGuid = documentKind != null && documentKind.DocumentType != null
+        ? documentKind.DocumentType.DocumentTypeGuid
+        : null;
+      if (typeGuid == null)
+        return null;
+
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.SimpleDocument)
+        return Constants.Module.PredctedSchemeReport.DocumentType.SimpleDocument;
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.Memo)
+        return Constants.Module.PredctedSchemeReport.DocumentType.Memo;
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.ContractualDocument)
+        return Constants.Module.PredctedSchemeReport.DocumentType.ContractualDocument;
+      if (typeGuid == Constants.Module.PredctedSchemeReport.DocumentTypeGuid.StatementDocument)
+        return Constants.Module.PredctedSchemeReport.DocumentType.StatementDocument;
+
+      return null;
+    }
+    
+    #endregion
+    
     /// <summary>
     /// Запустить задачи на выпуск сертификатов.
     /// </summary>

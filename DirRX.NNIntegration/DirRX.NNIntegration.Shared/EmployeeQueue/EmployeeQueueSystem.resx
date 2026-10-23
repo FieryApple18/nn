@@ -211,4 +211,25 @@
   <data name="Property_UtcOffset" xml:space="preserve">
     <value>Time zone</value>
   </data>
+  <data name="Property_PersonnelSectionCode" xml:space="preserve">
+    <value>Personnel section code</value>
+  </data>
+  <data name="Property_PersonnelSubSectionCode" xml:space="preserve">
+    <value>Personnel subsection code</value>
+  </data>
+  <data name="Property_InfoManager" xml:space="preserve">
+    <value>Info manager</value>
+  </data>
+  <data name="Property_ManagerLevel2" xml:space="preserve">
+    <value>Manager level 2</value>
+  </data>
+  <data name="Property_VSPManager" xml:space="preserve">
+    <value>VSP manager</value>
+  </data>
+  <data name="Property_SPManager" xml:space="preserve">
+    <value>SP manager</value>
+  </data>
+  <data name="Property_PersCategory" xml:space="preserve">
+    <value>Pers category</value>
+  </data>
 </root>

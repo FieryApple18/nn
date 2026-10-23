@@ -67,4 +67,22 @@
   <data name="MPGroupIsEmptyError" xml:space="preserve">
     <value>The MR group code for the employee is not filled in.</value>
   </data>
+  <data name="PersonnelSectionIsEmptyError" xml:space="preserve">
+    <value>The Personnel section code for the employee is not filled in.</value>
+  </data>
+  <data name="PersonnelSectionNotFoundError" xml:space="preserve">
+    <value>Employee Personnel section not found by code: {0}</value>
+  </data>
+  <data name="PersonnelSubSectionIsEmptyError" xml:space="preserve">
+    <value>The Personnel subsection code for the employee is not filled in.</value>
+  </data>
+  <data name="PersonnelSubSectionNotFoundError" xml:space="preserve">
+    <value>Employee Personnel subsection not found by code: {0}</value>
+  </data>
+  <data name="EmployeeCategoryIsEmptyError" xml:space="preserve">
+    <value>Employee category is empty.</value>
+  </data>
+  <data name="EmployeeCategoryIsInvalidError" xml:space="preserve">
+    <value>Employee category is invalid: {0}</value>
+  </data>
 </root>

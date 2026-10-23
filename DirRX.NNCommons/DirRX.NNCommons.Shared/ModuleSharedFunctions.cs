@@ -8,7 +8,6 @@ namespace DirRX.NNCommons.Shared
 {
   public partial class ModuleFunctions
   {
-    
     /// <summary>
     /// Получить правильную форму слова "час" в зависимости от числа.
     /// </summary>

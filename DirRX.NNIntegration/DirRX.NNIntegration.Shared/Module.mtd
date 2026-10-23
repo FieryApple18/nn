@@ -376,12 +376,8 @@
       "PreviousItemId": "da636ffa-214b-474b-97f7-be532d76bbf7"
     },
     {
-      "ItemId": "85b6c642-66e0-49d9-ac08-52a0ee7f492d",
-      "PreviousItemId": "88d9ed29-a384-4d44-9179-156f044369fe"
-    },
-    {
       "ItemId": "7afc839e-46c1-4494-9d32-1141889e33a7",
-      "PreviousItemId": "85b6c642-66e0-49d9-ac08-52a0ee7f492d"
+      "PreviousItemId": "88d9ed29-a384-4d44-9179-156f044369fe"
     },
     {
       "ItemId": "ef8de541-e782-425b-95f5-c01fa971d8fe",
@@ -400,8 +396,16 @@
       "PreviousItemId": "609ee0ed-fd17-42b0-9148-aaa93b9b53b6"
     },
     {
-      "ItemId": "3092b8ab-6557-416b-819f-af1aff36bff5",
+      "ItemId": "85b6c642-66e0-49d9-ac08-52a0ee7f492d",
       "PreviousItemId": "a96006b5-a7c7-4c80-8868-b2ad3f75e060"
+    },
+    {
+      "ItemId": "d64e335a-763e-46c3-8c24-c46218a7c2ed",
+      "PreviousItemId": "85b6c642-66e0-49d9-ac08-52a0ee7f492d"
+    },
+    {
+      "ItemId": "3092b8ab-6557-416b-819f-af1aff36bff5",
+      "PreviousItemId": "d64e335a-763e-46c3-8c24-c46218a7c2ed"
     }
   ],
   "HandledEvents": [
@@ -744,7 +748,7 @@
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IVacationsInfo, Sungero.Domain.Interfaces"
     },
     {
-      "NameGuid": "f1b41615-065f-4032-8abf-ad7eced50b1f",
+      "NameGuid": "018c9132-30a4-4673-b0b2-eb274e1ca584",
       "Name": "DeserializeInStruct",
       "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
       "Parameters": [
@@ -915,7 +919,26 @@
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.ISupernikaNotificationStatus, Sungero.Domain.Interfaces"
     },
     {
-      "NameGuid": "f5167078-dce2-4cbb-abbd-c11c7a51271c",
+      "NameGuid": "10b92314-4708-4ffa-b1e0-f0058f5adc93",
+      "Name": "DeserializeInStruct",
+      "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
+      "Parameters": [
+        {
+          "Name": "json",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement, Sungero.Domain.Interfaces"
+    },
+    {
+      "NameGuid": "bcc7af1c-2073-4d68-a098-b907ffbd6ed4",
       "Name": "DeserializeInStruct",
       "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
       "Parameters": [
@@ -934,7 +957,7 @@
       "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IWorkingTimeCalendar, Sungero.Domain.Interfaces"
     },
     {
-      "NameGuid": "10b92314-4708-4ffa-b1e0-f0058f5adc93",
+      "NameGuid": "9b051ea2-11f6-48e9-8dbb-816a8fd874e4",
       "Name": "DeserializeInStruct",
       "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
       "Parameters": [
@@ -945,12 +968,12 @@
         },
         {
           "Name": "structure",
-          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement",
-          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement, Sungero.Domain.Interfaces"
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.ICreateWeekendWorkRestOrderStructure",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.ICreateWeekendWorkRestOrderStructure, Sungero.Domain.Interfaces"
         }
       ],
-      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement",
-      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IEmploymentContractAdditionalAgreement, Sungero.Domain.Interfaces"
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.ICreateWeekendWorkRestOrderStructure",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.ICreateWeekendWorkRestOrderStructure, Sungero.Domain.Interfaces"
     },
     {
       "NameGuid": "5ca0a123-9be7-4bec-baf9-c786cd8001fa",
@@ -1279,7 +1302,7 @@
       "ReturnTypeFullName": "System.String"
     },
     {
-      "NameGuid": "7874e0bd-e702-4aef-a4ab-59454c941443",
+      "NameGuid": "cef1979c-7532-4e6d-a0e2-aef43f2cbbb0",
       "Name": "SerializeInJson",
       "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
       "Parameters": [
@@ -1557,6 +1580,20 @@
       ],
       "ReturnType": "global::System.String",
       "ReturnTypeFullName": "System.String"
+    },
+    {
+      "NameGuid": "ebaacef3-b334-49ef-8568-71938a6fe148",
+      "Name": "SerializeInJson",
+      "IsolatedAreaId": "f3cadb39-be3c-473a-953d-e68102b31883",
+      "Parameters": [
+        {
+          "Name": "structure",
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.ICreateWeekendWorkRestOrderStructure",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.ICreateWeekendWorkRestOrderStructure, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
     }
   ],
   "IsolatedNamespace": "DirRX.NNIntegration.Isolated",
@@ -1608,6 +1645,23 @@
       "GenerateHandler": true,
       "MonthSchedule": "Monthly",
       "TimePeriod": 1
+    },
+    {
+      "NameGuid": "1fb88944-2adf-49e9-a88c-cd04776867a2",
+      "Name": "CreateESSUserAccountJob",
+      "Daily": "Repeat",
+      "GenerateHandler": true,
+      "MonthSchedule": "Monthly",
+      "TimePeriod": 60
+    },
+    {
+      "NameGuid": "6e3443cf-770d-4a23-88d2-1d4dad93e023",
+      "Name": "ExcludeNonInteractiveUsersRoleJob",
+      "Daily": "Repeat",
+      "GenerateHandler": true,
+      "IsEnabled": false,
+      "MonthSchedule": "Monthly",
+      "TimePeriod": 60
     }
   ],
   "Libraries": [
@@ -1638,6 +1692,26 @@
       "Value": "\"AD\""
     },
     {
+      "Name": "BecameSigned",
+      "ParentClasses": [
+        "Module",
+        "CreateAccount",
+        "ConsentChangeType"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "1"
+    },
+    {
+      "Name": "BecameUnsigned",
+      "ParentClasses": [
+        "Module",
+        "CreateAccount",
+        "ConsentChangeType"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "2"
+    },
+    {
       "Name": "Button",
       "ParentClasses": [
         "Module",
@@ -1655,6 +1729,15 @@
       ],
       "TypeName": "System.String",
       "Value": "\"3\""
+    },
+    {
+      "Name": "CancelationRestOrder",
+      "ParentClasses": [
+        "Module",
+        "WeekendWorkRestOrderKindCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"33\""
     },
     {
       "Name": "CommentSubstitute",
@@ -1683,6 +1766,15 @@
       "Value": "100"
     },
     {
+      "Name": "CreateESSUserAccountMessageCount",
+      "ParentClasses": [
+        "Module",
+        "ConstantsDefaultValues"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "200"
+    },
+    {
       "Name": "CreateWeekendWorkOrderDocument",
       "ParentClasses": [
         "Module",
@@ -1692,6 +1784,15 @@
       "Value": "\"4C926C6E-F216-4119-880C-82029D4AC4DC\""
     },
     {
+      "Name": "CreateWeekendWorkRestOrderDocument",
+      "ParentClasses": [
+        "Module",
+        "ExternalSystemsFlowGuids"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"A12387F2-4D1C-4A22-AF81-168DAC16C857\""
+    },
+    {
       "Name": "EmploymentContractAdditionalAgreement",
       "ParentClasses": [
         "Module",
@@ -1699,6 +1800,15 @@
       ],
       "TypeName": "System.String",
       "Value": "\"F6F2A5BA-07B2-4B55-8174-ADF5D01A9A0B\""
+    },
+    {
+      "Name": "ExcludeNonInteractiveUsersRoleCount",
+      "ParentClasses": [
+        "Module",
+        "ConstantsDefaultValues"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "50"
     },
     {
       "Name": "GetCompensationAvailableDays",
@@ -1744,6 +1854,15 @@
       ],
       "TypeName": "System.String",
       "Value": "\"F831ACD6-CBD1-4BFA-B17C-1FE879C617C8\""
+    },
+    {
+      "Name": "GrantRestOrder",
+      "ParentClasses": [
+        "Module",
+        "WeekendWorkRestOrderKindCodes"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"32\""
     },
     {
       "Name": "Guid",
@@ -2126,6 +2245,36 @@
       "Value": "\"AFC3F83D-5510-4547-ADA3-413F6C7FF7C5\""
     },
     {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "AsyncCreateESSUserAccount"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"246FBF40-7023-468D-82E6-21557B77037E\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CreateESSUserAccountMessageCount"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"5DEF903D-764E-4551-BA29-B3EB42F29545\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ExcludeNonInteractiveUsersRole"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"C7756BC6-D62D-4099-ADC1-D3656EE3CEAB\""
+    },
+    {
       "Name": "High",
       "ParentClasses": [
         "Module",
@@ -2134,6 +2283,14 @@
       ],
       "TypeName": "System.Int32",
       "Value": "1"
+    },
+    {
+      "Name": "HRProLoginPrefix",
+      "ParentClasses": [
+        "Module"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"hrpro\""
     },
     {
       "Name": "HyperLinkTemplateToSmartAppKedo",
@@ -2451,6 +2608,36 @@
       ],
       "TypeName": "System.String",
       "Value": "\"Интеграция. Проштамповка. Идентификатор шаблона штампа для УНЭП\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "CreateESSUserAccountMessageCount"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Интеграция. Количество сообщений, обрабатываемых ФП \\\"Создание учетных записей в КЭДО\\\"\""
+    },
+    {
+      "Name": "Name",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "ExcludeNonInteractiveUsersRole"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"Интеграция. Количество сотрудников, обрабатываемых ФП \\\"Норникель. Исключение проф. пользователей из роли неинтерактивные пользователи\\\"\""
+    },
+    {
+      "Name": "None",
+      "ParentClasses": [
+        "Module",
+        "CreateAccount",
+        "ConsentChangeType"
+      ],
+      "TypeName": "System.Int32",
+      "Value": "0"
     },
     {
       "Name": "Normal",
@@ -2790,6 +2977,15 @@
       "Value": "\"849\""
     },
     {
+      "Name": "VacationScheduleProcessStatus",
+      "ParentClasses": [
+        "Module",
+        "ExternalSystemsFlowGuids"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"45625BA8-82B4-433B-B642-D55A64F72EA2\""
+    },
+    {
       "Name": "ValidateEmployeeOtherVacations",
       "ParentClasses": [
         "Module",
@@ -2889,6 +3085,36 @@
     }
   ],
   "PublicFunctions": [
+    {
+      "Name": "AbortActiveCertificateIssueTaskForPerson",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
+    },
+    {
+      "Name": "CheckKedoLogin",
+      "Parameters": [
+        {
+          "Name": "PP0000PERNR",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.ICheckKedoLoginResult",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.ICheckKedoLoginResult",
+      "WebApiRequestType": "Post"
+    },
     {
       "Name": "CreateAccount",
       "Parameters": [
@@ -3446,6 +3672,204 @@
       "WebApiRequestType": "Post"
     },
     {
+      "Name": "CreateEmployeeQueueRecordV3",
+      "Parameters": [
+        {
+          "Name": "PP0002NACHN",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002VORNA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002MIDNM",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002GBDAT",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0290ICCD",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0002GESCH",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Region",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0006ORT01",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "RegistrationAddress",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PostalAddress",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Phones",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Division",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001PLANS",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001ZZPERNR_MNG",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001PERSG",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0000PERNR",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Email",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0000BEGDA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0000ENDDA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "MPGroup",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001VDSK1",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "TIN",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentKind",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentSeries",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentNumber",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentIssueDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentIssuedBy",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentIssuerID",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentBirthPlace",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "IdentityDocumentExpirationDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "UtcOffset",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "WERKS",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "BTRTL",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "InfoManager",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "ManagerLevel2",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "VSPManager",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "SPManager",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PERSK",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "WebApiRequestType": "Post"
+    },
+    {
       "Name": "CreateEmploymentContractAdditionalAgreement",
       "Parameters": [
         {
@@ -3600,6 +4024,54 @@
           "Name": "IsEmployeeExists",
           "ParameterType": "global::System.Boolean",
           "ParameterTypeFullName": "System.Boolean"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "WebApiRequestType": "Post"
+    },
+    {
+      "Name": "CreateJobTitleQueueRecordV3",
+      "Parameters": [
+        {
+          "Name": "SHRP1000STEXT",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "SHRP1000OBJID",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Division",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "SHRP1001BEGDA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "SHRP1001ENDDA",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "PP0001ZZPERNR_TOP",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "IsEmployeeExists",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
+        },
+        {
+          "Name": "Z_POS_LVL",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
@@ -3858,6 +4330,11 @@
           "Name": "Employees",
           "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoFromSAP>",
           "ParameterTypeFullName": "System.Collections.Generic.List"
+        },
+        {
+          "Name": "RespEmployee",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
@@ -3951,6 +4428,74 @@
       "WebApiRequestType": "Post"
     },
     {
+      "Name": "CreateWeekendWorkRestOrderCard",
+      "Parameters": [
+        {
+          "Name": "Employee",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Kind",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Signed",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Prepared",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "CancelsNumber",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "CancelsDate",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "RegNumber",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Date",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "DateEvent",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "Body",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "SAPID",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        },
+        {
+          "Name": "TaskID",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
+      "WebApiRequestType": "Post"
+    },
+    {
       "Name": "DecodeMessageText",
       "Parameters": [
         {
@@ -3982,6 +4527,23 @@
       ],
       "ReturnType": "void",
       "ReturnTypeFullName": "System.Void"
+    },
+    {
+      "Name": "DisableCertificateForPerson",
+      "Parameters": [
+        {
+          "Name": "personId",
+          "ParameterType": "global::System.Int64",
+          "ParameterTypeFullName": "System.Int64"
+        },
+        {
+          "Name": "logPrefix",
+          "ParameterType": "global::System.String",
+          "ParameterTypeFullName": "System.String"
+        }
+      ],
+      "ReturnType": "global::System.String",
+      "ReturnTypeFullName": "System.String"
     },
     {
       "Name": "EncodingMessageText",
@@ -4068,6 +4630,18 @@
       ],
       "ReturnType": "global::DirRX.OverrideSolution.IBusinessUnit",
       "ReturnTypeFullName": "DirRX.OverrideSolution.IBusinessUnit, Sungero.Domain.Interfaces"
+    },
+    {
+      "Name": "GetCreateDateDatabookEntry",
+      "Parameters": [
+        {
+          "Name": "databookEntry",
+          "ParameterType": "global::Sungero.CoreEntities.IDatabookEntry",
+          "ParameterTypeFullName": "Sungero.CoreEntities.IDatabookEntry, Sungero.Domain.Shared"
+        }
+      ],
+      "ReturnType": "global::System.Nullable<global::System.DateTime>",
+      "ReturnTypeFullName": "System.Nullable"
     },
     {
       "Name": "GetDocument",
@@ -4251,6 +4825,28 @@
           "Name": "employee",
           "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
           "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        }
+      ],
+      "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessingErrorStruct",
+      "ReturnTypeFullName": "DirRX.NNIntegration.Structures.Module.IProcessingErrorStruct"
+    },
+    {
+      "Name": "KedoAccountProcessing",
+      "Parameters": [
+        {
+          "Name": "model",
+          "ParameterType": "global::DirRX.NNIntegration.Structures.Module.ICreateAccountStruct",
+          "ParameterTypeFullName": "DirRX.NNIntegration.Structures.Module.ICreateAccountStruct"
+        },
+        {
+          "Name": "employee",
+          "ParameterType": "global::DirRX.OverrideSolution.IEmployee",
+          "ParameterTypeFullName": "DirRX.OverrideSolution.IEmployee, Sungero.Domain.Interfaces"
+        },
+        {
+          "Name": "needIncludeToNonInteractiveUsersRole",
+          "ParameterType": "global::System.Boolean",
+          "ParameterTypeFullName": "System.Boolean"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IProcessingErrorStruct",
@@ -4470,9 +5066,9 @@
           "ParameterTypeFullName": "System.Collections.Generic.List"
         },
         {
-          "Name": "Email",
-          "ParameterType": "global::System.String",
-          "ParameterTypeFullName": "System.String"
+          "Name": "Emails",
+          "ParameterType": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IEmails>",
+          "ParameterTypeFullName": "System.Collections.Generic.List"
         }
       ],
       "ReturnType": "global::DirRX.NNIntegration.Structures.Module.IResponseToExternalSystemRequest",
@@ -4670,6 +5266,18 @@
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
     },
     {
+      "Name": "CheckKedoLoginResult",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Result",
+          "TypeFullName": "global::System.Boolean"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
       "Name": "Child",
       "IsIsolated": true,
       "IsPublic": true,
@@ -4681,6 +5289,11 @@
         },
         {
           "Name": "ChildBirthDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ICCD",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
         },
@@ -4739,6 +5352,16 @@
           "Name": "Provider",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ConsentChangeFlag",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int32>"
+        },
+        {
+          "Name": "BusinessUnitId",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.Int64>"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -4907,6 +5530,11 @@
           "TypeFullName": "global::System.String"
         },
         {
+          "Name": "CancelationReason",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
           "Name": "TaskID",
           "TypeFullName": "global::System.Int64"
         },
@@ -5047,6 +5675,21 @@
           "Name": "Compensation",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Order",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SppElement",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "OtherRM",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -5107,6 +5750,73 @@
         },
         {
           "Name": "SAPID",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
+      "Name": "CreateWeekendWorkRestOrderStructure",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Kind",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Signed",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Prepared",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "CancelsNumber",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "CancelsDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
+        },
+        {
+          "Name": "RegNumber",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Date",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "DateEvent",
+          "IsNullable": true,
+          "TypeFullName": "global::System.DateTime"
+        },
+        {
+          "Name": "Body",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "TaskID",
+          "TypeFullName": "global::System.Int64"
+        },
+        {
+          "Name": "SAPID",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Employee",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
         }
@@ -5197,6 +5907,19 @@
         },
         {
           "Name": "certificate_valid_period_end",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        }
+      ],
+      "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
+    },
+    {
+      "Name": "Emails",
+      "IsIsolated": true,
+      "IsPublic": true,
+      "Properties": [
+        {
+          "Name": "Email",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
         }
@@ -5353,6 +6076,11 @@
           "IsList": true,
           "IsNullable": true,
           "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoFromSAP>"
+        },
+        {
+          "Name": "Responsible",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -5369,9 +6097,10 @@
           "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfo>"
         },
         {
-          "Name": "Email",
+          "Name": "Emails",
+          "IsList": true,
           "IsNullable": true,
-          "TypeFullName": "global::System.String"
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IEmails>"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -5482,6 +6211,11 @@
           "Name": "PerformerInfo",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "FireDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.Nullable<global::System.DateTime>"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -5530,6 +6264,16 @@
           "Name": "CurrentDate",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "ICCD",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "FireDate",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -5557,6 +6301,19 @@
           "Name": "RemarkText",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Experience",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Retiree",
+          "TypeFullName": "global::System.Boolean"
+        },
+        {
+          "Name": "Disable",
+          "TypeFullName": "global::System.Boolean"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -6392,6 +7149,11 @@
           "IsList": true,
           "IsNullable": true,
           "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoDateTimeFromSAP>"
+        },
+        {
+          "Name": "Responsible",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
         }
       ],
       "StructureNamespace": "DirRX.NNIntegration.Structures.Module"
@@ -6408,9 +7170,10 @@
           "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime>"
         },
         {
-          "Name": "Email",
+          "Name": "Emails",
+          "IsList": true,
           "IsNullable": true,
-          "TypeFullName": "global::System.String"
+          "TypeFullName": "global::System.Collections.Generic.List<global::DirRX.NNIntegration.Structures.Module.IEmails>"
         },
         {
           "Name": "ErrorText",
@@ -6467,6 +7230,21 @@
         },
         {
           "Name": "TimeWeekendEnd",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "Order",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "SppElement",
+          "IsNullable": true,
+          "TypeFullName": "global::System.String"
+        },
+        {
+          "Name": "OtherRM",
           "IsNullable": true,
           "TypeFullName": "global::System.String"
         }
@@ -6677,7 +7455,7 @@
   "SharedAssemblyName": "DirRX.NNIntegration.Shared",
   "SharedNamespace": "DirRX.NNIntegration.Shared",
   "SpecialFolders": [],
-  "Version": "25.2.0.12",
+  "Version": "25.2.0.24",
   "Widgets": [],
   "Versions": [
     {

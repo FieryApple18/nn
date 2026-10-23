@@ -10,6 +10,14 @@ namespace DirRX.OverrideSolution
   partial class VacationScheduleDocumentServerHandlers
   {
 
+    public override void BeforeSave(Sungero.Domain.BeforeSaveEventArgs e)
+    {
+      base.BeforeSave(e);
+      
+      if (_obj.TradeUnionOpinionDirRX.Count > Constants.Vacations.VacationScheduleDocument.MaxTradeUnionOpinionsCount)
+        e.AddError(DirRX.OverrideSolution.VacationScheduleDocuments.Resources.MaxTradeUnionOpinionsCountError);
+    }
+
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
       base.Created(e);

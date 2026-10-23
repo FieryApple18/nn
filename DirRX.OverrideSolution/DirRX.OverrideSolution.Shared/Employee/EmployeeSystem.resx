@@ -196,4 +196,37 @@
   <data name="Property_UtcOffsetDirRX" xml:space="preserve">
     <value>Time zone</value>
   </data>
+  <data name="Property_InfoManagerDirRX" xml:space="preserve">
+    <value>Info manager</value>
+  </data>
+  <data name="Property_ManagerLevel2DirRX" xml:space="preserve">
+    <value>Manager (level 2)</value>
+  </data>
+  <data name="Property_VSPManagerDirRX" xml:space="preserve">
+    <value>VSP manager</value>
+  </data>
+  <data name="Property_SPManagerDirRX" xml:space="preserve">
+    <value>SP manager</value>
+  </data>
+  <data name="Property_CategoryDirRX" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Manager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Specialist" xml:space="preserve">
+    <value>Specialist</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Clerk" xml:space="preserve">
+    <value>Clerk</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Worker" xml:space="preserve">
+    <value>Worker</value>
+  </data>
+  <data name="Property_PersonnelSectionDirRX" xml:space="preserve">
+    <value>Personnel section</value>
+  </data>
+  <data name="Property_PersonnelSubSectionDirRX" xml:space="preserve">
+    <value>Personnel subsection</value>
+  </data>
 </root>

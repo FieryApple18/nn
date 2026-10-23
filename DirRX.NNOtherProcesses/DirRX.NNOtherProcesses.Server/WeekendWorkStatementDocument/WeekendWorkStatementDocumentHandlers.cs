@@ -35,12 +35,14 @@ namespace DirRX.NNOtherProcesses
     {
       List<long> selectedEmployees = _obj.WeekendWorkStatementDocument.Employees.Where(d => d.Employee != null).Select(d => d.Employee.Id).ToList();
       
-      // Фильтрация по состоянию, уже выбранным сотрудникам в ТЧ, согласию КЭДО, НОР и признаку ТОП.
+      // Фильтрация по состоянию, уже выбранным сотрудникам в ТЧ, согласию КЭДО, НОР и признаку ТОП и разделу персонала в документе.
+      // Если раздел персонала в дкоументе не указан, то фильтрация по разделам персонала не применяется.
       return query
         .Where(d => d.Status == OverrideSolution.Employee.Status.Active && !selectedEmployees.Contains(d.Id) &&
                d.ConsentHRPro == OverrideSolution.Employee.ConsentHRPro.Signed &&
                OverrideSolution.BusinessUnits.Equals(d.BusinessUnit, _obj.WeekendWorkStatementDocument.PreparedBy.Department.BusinessUnit) &&
-               (_obj.WeekendWorkStatementDocument.TopDirRX == true ? d.IsNGDDirRX.Value : !d.IsNGDDirRX.Value));
+               (_obj.WeekendWorkStatementDocument.IsNGDDirRX == true ? d.IsNGDDirRX.Value : !d.IsNGDDirRX.Value) &&
+               (_obj.WeekendWorkStatementDocument.PersonnelSectionDirRX == null || Equals(_obj.WeekendWorkStatementDocument.PersonnelSectionDirRX, d.PersonnelSectionDirRX)));
     }
   }
 
@@ -53,6 +55,9 @@ namespace DirRX.NNOtherProcesses
       var isOvertimeWork = Functions.WeekendWorkStatementDocument.CheckOvertimeWorkDocKindByExternalLink(_obj.DocumentKind);
       
       #region Общие проверки валидации данных
+      
+      if (!Functions.WeekendWorkStatementDocument.CheckPersonnelSectionInEmployee(_obj, _obj.PersonnelSectionDirRX))
+        e.AddError(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.RemoveEmployeeWithWrongPersonnelSection);
       
       // Валидация дат работы.
       if (_obj.WorkDateFrom.Value.Date != _obj.WorkDateTo.Value.Date)
@@ -87,6 +92,13 @@ namespace DirRX.NNOtherProcesses
       var validateResult = Functions.WeekendWorkStatementDocument.ValidateWeekendWorkBreakPeriods(_obj);
       if (!string.IsNullOrEmpty(validateResult.Error))
         e.AddError(validateResult.Error, _obj.Info.Actions.ValidateWeekendWorkBreakPeriods);
+      
+      // Валидация количества дополнительных согласующих.
+      var maxAdditionalApprovers = NNCommons.PublicFunctions.Module.GetIntValue(NNOtherProcesses.Constants.Module.ConstantsSetting.MaxNumberAdditionalMatchingElement.Guid)
+        ?? NNOtherProcesses.Constants.Module.ConstantsDefaultValues.MaxNumberAdditionalMatchingElement;
+      if (_obj.AdditionalApprovers.Count > maxAdditionalApprovers)
+        e.AddError(_obj.Info.Properties.AdditionalApprovers,
+                   NNOtherProcesses.WeekendWorkStatementDocuments.Resources.AdditionalApproversCountErrorFormat(maxAdditionalApprovers));
       
       #endregion
       
@@ -148,15 +160,15 @@ namespace DirRX.NNOtherProcesses
 
     public override void Created(Sungero.Domain.CreatedEventArgs e)
     {
-      // Сделано для копирования, т.к. в base.Created происходит изменение свойства TopDirRX.
-      var top = _obj.TopDirRX;
+      // Сделано для копирования, т.к. в base.Created происходит изменение свойства IsNGDDirRX.
+      var ngd = _obj.IsNGDDirRX;
       
       base.Created(e);
       
       _obj.RegistrationDate = Calendar.UserNow;
       if (_obj.State.IsCopied)
       {
-        _obj.TopDirRX = top;
+        _obj.IsNGDDirRX = ngd;
         foreach (var employee in _obj.Employees)
         {
           employee.RestDateFrom = null;
@@ -169,6 +181,7 @@ namespace DirRX.NNOtherProcesses
           employee.ChecksResult = null;
           employee.RejectedByApproval = null;
           employee.RejectedByOrder = null;
+          employee.RestDateCanceled = null;
         }
       }
       else

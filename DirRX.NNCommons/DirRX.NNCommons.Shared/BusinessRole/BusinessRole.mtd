@@ -371,10 +371,10 @@
   "PublicStructures": [],
   "ResourcesKeys": [
     "NameTemplate",
-    "TopName",
+    "NGDName",
     "FindDuplicatesError",
     "RecordNameAutotext",
-    "NotTopName"
+    "NotNGDName"
   ],
   "RibbonCardMetadata": {
     "NameGuid": "132c127f-dd99-43b2-bdfa-cb88f8ae7452",

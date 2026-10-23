@@ -9,6 +9,10 @@ namespace DirRX.OverrideSolution
 {
   partial class VacationKindSharedHandlers
   {
+    public virtual void TransferringRulesEmployeesDirRXChanged(Sungero.Domain.Shared.EnumerationPropertyChangedEventArgs e)
+    {
+      Functions.VacationKind.SetTransferringRulesRSS(_obj, e.NewValue);
+    }
     public virtual void VacationKindDirRXChanged(Sungero.Domain.Shared.EnumerationPropertyChangedEventArgs e)
     {
       if (e.NewValue != e.OldValue)

@@ -14,7 +14,7 @@ namespace DirRX.NNIntegration.Shared
     /// </summary>   
     public override void FillRecordName()
     {
-      _obj.RecordName = string.Join(" ", _obj.SapId, _obj.Name, _obj.ReceivedDate?.ToString(Constants.CompanyQueueBase.DateFormat));
+      _obj.RecordName = Functions.CompanyQueueBase.GetRecordName(_obj, _obj.SapId, _obj.Name, _obj.ReceivedDate);
     }
   }
 }

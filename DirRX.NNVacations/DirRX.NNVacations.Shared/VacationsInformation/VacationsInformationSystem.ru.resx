@@ -97,4 +97,13 @@
   <data name="Property_StructuralDepartment" xml:space="preserve">
     <value>Структурное подразделение</value>
   </data>
+  <data name="Property_VacationSchedule" xml:space="preserve">
+    <value>График отпусков</value>
+  </data>
+  <data name="Property_ConsentHRPro" xml:space="preserve">
+    <value>Согласие на КЭДО</value>
+  </data>
+  <data name="Property_VacationScheduleSapId" xml:space="preserve">
+    <value>SAP ID графика отпусков</value>
+  </data>
 </root>

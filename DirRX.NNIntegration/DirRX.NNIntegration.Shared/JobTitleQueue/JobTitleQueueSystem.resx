@@ -121,4 +121,10 @@
   <data name="Property_IsEmployeeExists" xml:space="preserve">
     <value>Is employee exists</value>
   </data>
+  <data name="Property_IsTop" xml:space="preserve">
+    <value>TOP</value>
+  </data>
+  <data name="Property_PositionLevel" xml:space="preserve">
+    <value>Position level</value>
+  </data>
 </root>

@@ -354,6 +354,11 @@ namespace DirRX.NNVacations.Structures.Module
     public string Reason { get; set; }
     
     /// <summary>
+    /// Код уточнения причины.
+    /// </summary>
+    public string RefinementCode { get; set; }
+    
+    /// <summary>
     /// Дата начала.
     /// </summary>
     public string DateStart { get; set; }
@@ -453,7 +458,7 @@ namespace DirRX.NNVacations.Structures.Module
     public string Employee { get; set; }
     
     /// <summary>
-    /// Выбрано дней.
+    /// Выбрано дней за ежегодный отпуск.
     /// </summary>
     public int DaysSelected { get; set; }
     
@@ -466,6 +471,27 @@ namespace DirRX.NNVacations.Structures.Module
     /// ИД задачи.
     /// </summary>
     public long TaskID { get; set; }
+    
+    /// <summary>
+    /// Выбрано дней за ВУТ.
+    /// </summary>
+    public int DaysSelectedVut { get; set; }
+  }
+  
+  /// <summary>
+  /// Число дней на согласовании заявления на компенсацию.
+  /// </summary>
+  partial class CompensationDaysOnApproval
+  {
+    /// <summary>
+    /// Дней на согласовании заявления на компенсацию ежегодного отпуска.
+    /// </summary>
+    public int AnnualVacationDays { get; set; }
+    
+    /// <summary>
+    /// Дней на согласовании заявления на компенсацию за вредные условия.
+    /// </summary>
+    public int VutVacationDays { get; set; }
   }
   
   #endregion
@@ -938,6 +964,16 @@ namespace DirRX.NNVacations.Structures.Module
     public string ErrorText { get; set; }
     
     /// <summary>
+    /// Количество лимитов отпуска за ВУТ/ОУТ.
+    /// </summary>
+    public int DayCountVut { get; set; }
+    
+    /// <summary>
+    /// Дней на согласовании ВУТ/ОУТ.
+    /// </summary>
+    public int DaysOnApprovingVut { get; set; }
+    
+    /// <summary>
     /// Результат проверки.
     /// </summary>
     public bool Result { get; set; }
@@ -946,6 +982,16 @@ namespace DirRX.NNVacations.Structures.Module
     /// Текст результата проверки.
     /// </summary>
     public string ResultText {get; set; }
+    
+    /// <summary>
+    /// Количество доступных для компенсации дней.
+    /// </summary>
+    public int AvailableDays {get; set; }
+    
+    /// <summary>
+    /// Количество доступных для компенсации дней ВУТ/ОУТ.
+    /// </summary>
+    public int AvailableDaysVut {get; set; }
   }
   
   #endregion
@@ -1462,6 +1508,37 @@ namespace DirRX.NNVacations.Structures.Module
     /// Кол-во дней.
     /// </summary>
     public int Numbr { get; set; }
+    
+    /// <summary>
+    /// Число лимитов для компенсации за ВУТ/ОУТ.
+    /// </summary>
+    public int NumberVut { get; set; }
+  }
+  
+  #endregion
+  
+  #region IF-S-29000. Передача статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП.
+  
+  /// <summary>
+  /// Структура для передачи статуса по процессу «Ведение графика отпусков».
+  /// </summary>
+  [Public(Isolated = true)]
+  partial class VacationScheduleProcessStatus
+  {
+    /// <summary>
+    /// Идентификатор запроса.
+    /// </summary>
+    public string RequestCode { get; set; }
+    
+    /// <summary>
+    /// Идентификатор документа в SAP.
+    /// </summary>
+    public string SAPID { get; set; }
+    
+    /// <summary>
+    /// Статус.
+    /// </summary>
+    public string Status { get; set; }
   }
   
   #endregion
@@ -1758,6 +1835,11 @@ namespace DirRX.NNVacations.Structures.Module
     public string CompensationKind { get; set; }
     
     /// <summary>
+    /// Заменить часть отпуска денежной компенсацией.
+    /// </summary>
+    public bool? ReplaceWithPayment { get; set; }
+    
+    /// <summary>
     /// Причина прерывания.
     /// </summary>
     public string Reason { get; set; }
@@ -1798,6 +1880,11 @@ namespace DirRX.NNVacations.Structures.Module
     /// Выбрано дней.
     /// </summary>
     public int DaysSelected { get; set; }
+    
+    /// <summary>
+    /// Выбрано дней ВУТ.
+    /// </summary>
+    public int DaysSelectedVut { get; set; }
   }
   
   /// <summary>
@@ -2008,6 +2095,11 @@ namespace DirRX.NNVacations.Structures.Module
     /// Наименование причины отпуска.
     /// </summary>
     public string Name { get; set; }
+    
+    /// <summary>
+    /// Присоединять к ежегодному отпуску.
+    /// </summary>
+    public bool AddAnnualLeave { get; set; }
   }
   
   /// <summary>
@@ -2065,5 +2157,22 @@ namespace DirRX.NNVacations.Structures.Module
     /// Дней до даты начала старого отпуска.
     /// </summary>
     public int OldVacationDays { get; set; }
+  }
+  
+  /// <summary>
+  /// Пара "Табельный номер" и "Наша организация" сотрудника.
+  /// </summary>
+  [Public]
+  partial class EmployeeBusinessUnitInfo
+  {
+    /// <summary>
+    /// Табельный номер.
+    /// </summary>
+    public string PersonnelNumber { get; set; }
+    
+    /// <summary>
+    /// Id нашей организации.
+    /// </summary>
+    public long BusinessUnitDirRXId { get; set; }
   }
 }

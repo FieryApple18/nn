@@ -4,36 +4,52 @@
     <default><![CDATA[select distinct employee.persnumber_company_sungero as persnumber,
   employee."name" as employeeName, 
   jobTitle."name" as jobTitleName,
-  vacationsinfor.structuraldepa as departmentName
+  vacationsinfor.structuraldepa as departmentName,
+  vacationKind.Name as VacationType,
+  vacationsinfor.DaysAmount,
+  TO_CHAR(vacationsinfor.StartDate, 'DD.MM.YYYY') as StartDate,
+  TO_CHAR(vacationsinfor.EndDate, 'DD.MM.YYYY') as EndDate,
+  vacationsinfor.StartDate as StartDateOrder
 from dirrx_nnvacat_vacationsinfor as vacationsinfor
   join sungero_core_recipient as employee
     on employee.id = vacationsinfor.employee
   join sungero_company_jobTitle as jobTitle
     on jobTitle.id = employee.jobtitle_company_sungero
+  left join hrpro_vacatio_vacationkind as vacationKind
+	on vacationsinfor.VacationType = vacationKind.id
 where not @Consent and 
-    vacationsinfor.businessunit = @BusinessUnitId and 
-    extract(year from vacationsinfor."year") = @Year and 
-    (@DepartmentId = 0 or vacationsinfor.department = @DepartmentId) and 
-    employee.consenthrpro_hrproso_hrpro != 'Signed'
-order by employeeName]]></default>
+	(not vacationsinfor.consenthrpro or vacationsinfor.consenthrpro is null) and
+	vacationsinfor.status = 'Active' and
+	(@DepartmentId = 0 or vacationsinfor.department = @DepartmentId) and
+	vacationsinfor.vacationschedu = @VacationScheduleId
+order by employeeName, StartDateOrder]]></default>
   </query>
   <query key="SelectDataWithConsent">
     <default><![CDATA[select distinct employee.persnumber_company_sungero as persnumber,
   employee."name" as employeeName, 
   jobTitle."name" as jobTitleName,
-  doc.structuraldepa_overrid_dirrx as departmentName
+  doc.structuraldepa_overrid_dirrx as departmentName,
+  vacationKind.Name as VacationType,
+  vacationsinfor.DaysAmount,
+  TO_CHAR(vacationsinfor.StartDate, 'DD.MM.YYYY') as StartDate,
+  TO_CHAR(vacationsinfor.EndDate, 'DD.MM.YYYY') as EndDate,
+  vacationsinfor.StartDate as StartDateOrder
 from sungero_content_edoc as doc 
   join sungero_core_recipient as employee
     on employee.id = doc.employeedirrx_overrid_dirrx
   join sungero_company_jobTitle as jobTitle
     on jobTitle.id = employee.jobtitle_company_sungero
+  join dirrx_nnvacat_vacationsinfor as vacationsinfor
+    on vacationsinfor.employee = employee.id
+  left join hrpro_vacatio_vacationkind as vacationKind
+	on vacationsinfor.VacationType = vacationKind.id
 where @Consent and 
     doc.acquiantanceop_overrid_dirrx = 'Electronic' and
-    doc.businessunit_docflow_sungero = @BusinessUnitId and 
-    extract(year from doc.year1_vacatio_hrpro) = @Year and
     (@DepartmentId = 0 or doc.department_docflow_sungero = @DepartmentId) and
+    doc.vacationschedu_overrid_dirrx = @VacationScheduleId and
     doc.intapprstate_docflow_sungero = 'Aborted' and
-    doc.documentkind_docflow_sungero = @DocKindId
-order by employeeName]]></default>
+    doc.documentkind_docflow_sungero = @DocKindId and
+    vacationsinfor.vacationschedu = @VacationScheduleId
+order by employeeName, StartDateOrder]]></default>
   </query>
 </queries>

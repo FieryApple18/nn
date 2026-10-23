@@ -47,18 +47,15 @@ namespace DirRX.NNVacations.Server
     {
       var task = VacationScheduleManagementTasks.As(_obj.Task);
       var vacationScheduleDocument = task.DocumentGroup.VacationScheduleDocuments.FirstOrDefault();
-      var regNumber = vacationScheduleDocument?.RegistrationNumber;
       var individualAcquiantanceListKind = Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(Constants.Module.DocumentKind.IndividualAcquiantanceVacScheduleListKind);
       var groupAcquiantanceListKind = Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(Constants.Module.DocumentKind.GroupAcquiantanceVacScheduleListKind);
       var inPaper = DirRX.OverrideSolution.VacationScheduleDocument.AcquiantanceOptionDirRX.InPaper;
       var isElectronic = _obj.IsElectronic == true;
-      var departments = task.Department != null ? new List<IDepartment> { task.Department } :
-        Departments.GetAll(d => BusinessUnits.Equals(d.BusinessUnit, task.BusinessUnit) && d.Status == DirRX.OverrideSolution.Department.Status.Active).ToList();
-      departments.AddRange(Functions.Module.GetSubDepartments(departments));
+
       var acquiantanceLists = OverrideSolution.VacationScheduleDocuments.GetAll()
         .Where(d => (Equals(d.DocumentKind, individualAcquiantanceListKind) || Equals(d.DocumentKind, groupAcquiantanceListKind)) &&
-               d.Year.Value.Year == task.Year.Value.Year && Equals(d.BusinessUnit, task.BusinessUnit) && departments.Contains(Departments.As(d.Department)) &&
-               d.AcquiantanceOptionDirRX == inPaper && d.ConsentDirRX == isElectronic && d.RegistrationNumber == regNumber);
+               OverrideSolution.VacationScheduleDocuments.Equals(vacationScheduleDocument, d.VacationScheduleDocumentDirRX) &&
+               d.AcquiantanceOptionDirRX == inPaper && d.ConsentDirRX == isElectronic);
       return acquiantanceLists;
     }
   }

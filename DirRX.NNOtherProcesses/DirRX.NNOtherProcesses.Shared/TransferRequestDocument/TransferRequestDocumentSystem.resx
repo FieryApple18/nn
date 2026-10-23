@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Request for transfer</value>
+  </data>
+  <data name="AccusativeDisplayName" xml:space="preserve">
+    <value>Request for transfer</value>
+  </data>
+  <data name="CollectionDisplayName" xml:space="preserve">
+    <value>Requests for transfer</value>
+  </data>
+  <data name="Property_TransferType" xml:space="preserve">
+    <value>Transfer type</value>
+  </data>
+  <data name="Enum_TransferType_Temporary" xml:space="preserve">
+    <value>Temporary</value>
+  </data>
+  <data name="Enum_TransferType_Permanent" xml:space="preserve">
+    <value>Permanent</value>
+  </data>
+  <data name="Property_TransferReason" xml:space="preserve">
+    <value>Reason for transfer</value>
+  </data>
+  <data name="Property_AbsentEmployee" xml:space="preserve">
+    <value>Absent employee</value>
+  </data>
+  <data name="Property_TransferStartDate" xml:space="preserve">
+    <value>Transfer start date</value>
+  </data>
+  <data name="Property_TransferEndDate" xml:space="preserve">
+    <value>Transfer end date</value>
+  </data>
+  <data name="Property_TransferReasonClarification" xml:space="preserve">
+    <value>Clarification of the reason</value>
+  </data>
+  <data name="Property_SAPIdJobTitle" xml:space="preserve">
+    <value>SAP ID Job Title</value>
+  </data>
+  <data name="Property_NewJobTitle" xml:space="preserve">
+    <value>New Job Title</value>
+  </data>
+  <data name="Property_NewDepartment" xml:space="preserve">
+    <value>New department</value>
+  </data>
+  <data name="Property_LineManager" xml:space="preserve">
+    <value>Line manager</value>
+  </data>
+  <data name="Property_NewManager" xml:space="preserve">
+    <value>Future manager</value>
+  </data>
+  <data name="Property_ChangeAccess" xml:space="preserve">
+    <value>Change of access</value>
+  </data>
+  <data name="Enum_ChangeAccess_Required" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="Enum_ChangeAccess_NotRequired" xml:space="preserve">
+    <value>Not required</value>
+  </data>
+  <data name="Property_ChangeWorkingHours" xml:space="preserve">
+    <value>Change in working hours</value>
+  </data>
+  <data name="Property_NewWorkingHours" xml:space="preserve">
+    <value>New working hours</value>
+  </data>
+  <data name="Action_FillFromSAP" xml:space="preserve">
+    <value>Fill from SAP</value>
+  </data>
+  <data name="Action_FillFromSAPDescription" xml:space="preserve">
+    <value>TODO</value>
+  </data>
+  <data name="Action_FillFromSAPHint" xml:space="preserve">
+    <value>TODO</value>
+  </data>
+  <data name="Action_FillFromSAPConfirmationMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Action_FillFromSAPConfirmationDescription" xml:space="preserve">
+    <value />
+  </data>
+</root>

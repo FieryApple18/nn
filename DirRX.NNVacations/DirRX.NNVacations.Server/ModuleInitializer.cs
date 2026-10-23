@@ -214,6 +214,16 @@ namespace DirRX.NNVacations.Server
                                                                             null, DocKind.CancelVacationOrder, false,
                                                                             HRPro.HRProSolution.DocumentKind.ApproverHRPro.BUnit, null, 1, HRPro.HRDocFlow.PublicConstants.Module.DocumentСodes.OtherDocuments, true, false,
                                                                             false, registrationAnnualVacation, false, Constants.Module.SapKindsCodes.CancelVacationOrder);
+      
+      // Приказ (распоряжение) об изменении сроков отпуска без сохранения заработной платы.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN(DirRX.NNVacations.Resources.ChangingDatesVacationOrderKindName, DirRX.NNVacations.Resources.ChangingDatesVacationOrderKindName,
+                                                                            registrable, innerDocumentFlow, true, false, HRPro.Vacations.PublicConstants.Module.EntityTypeGuid.VacationOrderDocument,
+                                                                            new Sungero.Domain.Shared.IActionInfo[] { Sungero.Docflow.OfficialDocuments.Info.Actions.SendActionItem, 
+                                                                                                                      Sungero.Docflow.OfficialDocuments.Info.Actions.SendForFreeApproval, 
+                                                                                                                      Sungero.Docflow.OfficialDocuments.Info.Actions.SendForDocumentFlow },
+                                                                            DocKind.ChangingDatesVacationOrder, false,
+                                                                            HRPro.HRProSolution.DocumentKind.ApproverHRPro.BUnit, 1, 1, HRPro.HRDocFlow.PublicConstants.Module.DocumentСodes.OtherDocuments, true, false,
+                                                                            false, registrationAnnualVacation, false, Constants.Module.SapKindsCodes.ChangingDatesVacationOrder);
     }
     
     /// <summary>
@@ -222,6 +232,16 @@ namespace DirRX.NNVacations.Server
     public virtual void CreateConstants()
     {
       InitializationLogger.Debug("Init Vacations module: Create сonstants.");
+      
+      // Отпуска. Код типа отпуска Учебный (с сохранением ЗП).
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.StudyWithSalaryVacationTypeId.Name, true, string.Empty,
+                                                             Constants.Module.ConstantsSetting.StudyWithSalaryVacationTypeId.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfVacations.Guid);
+      
+      // Отпуска. Код типа отпуска Учебный (без сохранения ЗП).
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.StudyWithoutSalaryVacationTypeId.Name, true, string.Empty,
+                                                             Constants.Module.ConstantsSetting.StudyWithoutSalaryVacationTypeId.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfVacations.Guid);
       
       // Отпуска. Список ИД причин отпуска, для которых необходимо указывать уточнение причины.
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.VacationReasonsWitnClarificationIds.Name, true, string.Empty,
@@ -300,6 +320,11 @@ namespace DirRX.NNVacations.Server
       // Отпуска. ИД варианта процесса для уведомления ответственных за ошибки настройки сроков согласования отпусков.
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.VacationApprovalDateNotificationProcessId.Name, true, (long)0,
                                                              Constants.Module.ConstantsSetting.VacationApprovalDateNotificationProcessId.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfVacations.Guid);
+      
+      // Отпуска. Дополнительные выходные дни донорам.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.DonorVacationsCodes.Name, true, string.Empty,
+                                                             Constants.Module.ConstantsSetting.DonorVacationsCodes.Guid,
                                                              Constants.Module.ConstantsGroup.RegistrationOfVacations.Guid);
     }
     

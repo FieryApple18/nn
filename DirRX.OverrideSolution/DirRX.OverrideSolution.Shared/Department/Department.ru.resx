@@ -58,4 +58,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ExpFunc_IsIncludedInInfrastructureZF_Name" xml:space="preserve">
+    <value>Подразделения инфраструктуры ЗФ?</value>
+  </data>
+  <data name="ExpFunc_IsIncludedInInfrastructureZF_Desc" xml:space="preserve">
+    <value>Определяет, входит ли подразделение сотрудника в подразделения инфраструктуры ЗФ.</value>
+  </data>
 </root>

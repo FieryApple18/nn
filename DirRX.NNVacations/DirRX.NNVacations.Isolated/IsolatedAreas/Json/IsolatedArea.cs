@@ -148,4 +148,33 @@ namespace DirRX.NNVacations.Isolated.Json
   
   #endregion
   
+  /// <summary>
+  /// Конвертер для сериализации/десериализации структуры VacationDataForShiftByStatement.
+  /// </summary>
+  public class VacationDataForShiftByStatementConverter : JsonConverter<VacationDataForShiftByStatement>
+  {
+    public override VacationDataForShiftByStatement ReadJson(JsonReader reader, Type objectType, VacationDataForShiftByStatement existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+      var response = new VacationDataForShiftByStatement();
+      JObject jsonObject = JObject.Load(reader);
+      response.DateStart = jsonObject["DateStart"].ToObject<DateTime>();
+      response.DateEnd = jsonObject["DateEnd"].ToObject<DateTime>();
+      response.DaysCount = jsonObject["DaysCount"].ToObject<int>();
+      response.VacationPeriod = jsonObject["VacationPeriod"]?.ToString() ?? string.Empty;
+      response.VacationPeriodInfo = jsonObject["VacationPeriodInfo"]?.ToString() ?? string.Empty;
+      response.Paid =  jsonObject["Paid"]?.ToObject<bool>() ?? false;
+      response.IsPlanned = jsonObject["IsPlanned"]?.ToObject<bool>() ?? false;
+      
+      var currentVacations = jsonObject["Vacations"]?.ToObject<List<FormattedVacationForShiftByStatement>>(serializer) ?? new List<FormattedVacationForShiftByStatement>();
+      response.Vacations = currentVacations.Cast<IFormattedVacationForShiftByStatement>().ToList();
+      
+      return response;
+    }
+    
+    public override void WriteJson(JsonWriter writer, VacationDataForShiftByStatement value, JsonSerializer serializer)
+    {
+      
+    }
+  }
+  
 }

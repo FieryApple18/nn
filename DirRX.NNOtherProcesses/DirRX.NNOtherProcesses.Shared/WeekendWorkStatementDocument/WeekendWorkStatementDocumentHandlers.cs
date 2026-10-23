@@ -21,24 +21,60 @@ namespace DirRX.NNOtherProcesses
   partial class WeekendWorkStatementDocumentEmployeesSharedHandlers
   {
 
+    public virtual void EmployeesSecondBreakToChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      _obj.HoursCount = Functions.WeekendWorkStatementDocument.CalculateCountHours(_obj);
+    }
+
+    public virtual void EmployeesSecondBreakFromChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      _obj.HoursCount = Functions.WeekendWorkStatementDocument.CalculateCountHours(_obj);
+    }
+
+    public virtual void EmployeesFirstBreakToChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      _obj.HoursCount = Functions.WeekendWorkStatementDocument.CalculateCountHours(_obj);
+    }
+
+    public virtual void EmployeesFirstBreakFromChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      _obj.HoursCount = Functions.WeekendWorkStatementDocument.CalculateCountHours(_obj);
+    }
+
+    public virtual void EmployeesWorkDateToChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      _obj.HoursCount = Functions.WeekendWorkStatementDocument.CalculateCountHours(_obj);
+    }
+
+    public virtual void EmployeesWorkDateFromChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
+    {
+      _obj.HoursCount = Functions.WeekendWorkStatementDocument.CalculateCountHours(_obj);
+    }
+
     public virtual void EmployeesCompensationChanged(DirRX.NNOtherProcesses.Shared.WeekendWorkStatementDocumentEmployeesCompensationChangedEventArgs e)
     {
       if (e.NewValue == e.OldValue)
         return;
       if (e.NewValue?.NeedRestDate == false)
-        _obj.RestDateFrom = null; 
+        _obj.RestDateFrom = null;
+
+      if (e.NewValue == null)
+         _obj.PresenceCode = null;
+      
+      if (e.NewValue != null)
+        _obj.PresenceCode = e.NewValue.PresenceCode;
     }
 
     public virtual void EmployeesRestDateFromChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
     {
       if (e.NewValue == e.OldValue)
-        return;       
+        return;
       if (_obj.Compensation?.NeedRestDate == false)
       {
         using (EntityEvents.Disable(WeekendWorkStatementDocuments.Info.Properties.Employees.Properties.RestDateFrom.Events.Changed))
           _obj.RestDateTo = _obj.RestDateFrom = null;
         return;
-      }            
+      }
       _obj.RestDateTo = e.NewValue;
     }
 
@@ -52,6 +88,15 @@ namespace DirRX.NNOtherProcesses
 
   partial class WeekendWorkStatementDocumentSharedHandlers
   {
+
+    public override void EmployeeDirRXChanged(DirRX.OverrideSolution.Shared.DocRelatedToWorkBaseEmployeeDirRXChangedEventArgs e)
+    {
+      // Не должно заполняться св-во ТОП.
+      var top = _obj.IsTopDirRX;
+      base.EmployeeDirRXChanged(e);
+      if (_obj.IsTopDirRX != top)
+        _obj.IsTopDirRX = top;
+    }
 
     public virtual void WorkDateToChanged(Sungero.Domain.Shared.DateTimePropertyChangedEventArgs e)
     {

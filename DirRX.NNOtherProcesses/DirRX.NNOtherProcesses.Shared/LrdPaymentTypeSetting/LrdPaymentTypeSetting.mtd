@@ -287,6 +287,21 @@
           "NameGuid": "522b3729-df04-4376-b7b7-b6b5d1c1ecb8",
           "Name": "OneTime",
           "Code": "OneTime"
+        },
+        {
+          "NameGuid": "4ca7a62c-5a16-4b8d-951e-73af63216957",
+          "Name": "Monthly",
+          "Code": "Monthly"
+        },
+        {
+          "NameGuid": "0bfd9fea-294d-40de-b866-7c3f0193296d",
+          "Name": "Quarterly",
+          "Code": "Quarterly"
+        },
+        {
+          "NameGuid": "fe7147ca-3021-437c-9deb-b655981a9c8d",
+          "Name": "Annually",
+          "Code": "Annually"
         }
       ],
       "IsRequired": true,

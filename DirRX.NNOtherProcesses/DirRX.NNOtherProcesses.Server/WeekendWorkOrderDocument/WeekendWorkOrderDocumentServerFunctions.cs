@@ -24,17 +24,21 @@ namespace DirRX.NNOtherProcesses.Server
     {
       _obj.DocumentKind = Functions.Module.GetDocumentKindForWeekendWorkOrder(structure.Kind);
       _obj.IsGroup = statement.IsGroup;
-      _obj.TopDirRX = statement.TopDirRX;
+      _obj.IsNGDDirRX = statement.IsNGDDirRX;
       _obj.BaseOrder = canceledOrder;
       _obj.WeekendWorkStatement = statement;
       _obj.BusinessUnit = statement.BusinessUnit;
       _obj.Department = statement.Department;
+      _obj.PersonnelSectionDirRX = statement.PersonnelSectionDirRX;
       _obj.OurSignatory = ourSignatory;
       _obj.PreparedBy = preparedBy;
       _obj.RegistrationNumber = structure.RegNumber;
       _obj.RegistrationDate = structure.Date;
       _obj.SAPEventDateDirRX = structure.DateEvent;
       _obj.ExternalId = structure.SAPID;
+      _obj.DueTo = statement.DueTo;
+      _obj.ExecutionControl = statement.ExecutionControl;
+      
       // В HR св-во HRLifeCycleStateHRPro продолжает использоваться. Есть метод SetLifeCycleStateByHRLifeCycleState который "правильно"
       // синхронизирует значения из HRLifeCycleStateHRPro в LifeCycleState и InternalApprovalState.
       // Используется в HRLifeCycleStateHRProChanged официального документа.

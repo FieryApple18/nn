@@ -368,6 +368,9 @@
     }
   ],
   "FormViewUuid": "73aa3607-f396-4bda-be54-d7249b74a7a9",
+  "HandledEvents": [
+    "BeforeAbortServer"
+  ],
   "IconResourcesKeys": [],
   "IntegrationServiceName": "NNVacationsVacationScheduleManagement",
   "IsVisibleThreadText": true,
@@ -470,6 +473,17 @@
       "IsVisibility": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
       "PreviousPropertyGuid": "3364c324-c4c4-4ccb-a81c-53653255a022"
+    },
+    {
+      "$type": "Sungero.Metadata.TextPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "03428e7a-c8cb-4350-b943-7ba9e559f57e",
+      "Name": "LoadingErrorMessage",
+      "CanBeSearch": false,
+      "Code": "LoadingErrorMe",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToTextBinder",
+      "PreviousPropertyGuid": "8bf95b58-0397-4a73-800d-8c238f93d322"
     }
   ],
   "PublicFunctions": [

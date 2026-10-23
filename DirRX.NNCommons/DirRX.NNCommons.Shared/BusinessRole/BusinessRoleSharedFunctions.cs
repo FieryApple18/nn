@@ -16,12 +16,12 @@ namespace DirRX.NNCommons.Shared
     public virtual void FillName()
     {
       var name = string.Empty;
-      var topName = _obj.Top == true ? DirRX.NNCommons.BusinessRoles.Resources.TopName : DirRX.NNCommons.BusinessRoles.Resources.NotTopName;
+      var ngdName = _obj.Top == true ? DirRX.NNCommons.BusinessRoles.Resources.NGDName : DirRX.NNCommons.BusinessRoles.Resources.NotNGDName;
 
       if (_obj.Process != null && _obj.DocumentKind == null)
-        name = BusinessRoles.Resources.NameTemplateFormat(_obj.Process?.Name, topName);
+        name = BusinessRoles.Resources.NameTemplateFormat(_obj.Process?.Name, ngdName);
       else if (_obj.DocumentKind != null && _obj.Process == null)
-        name = BusinessRoles.Resources.NameTemplateFormat(_obj.DocumentKind?.Name, topName);
+        name = BusinessRoles.Resources.NameTemplateFormat(_obj.DocumentKind?.Name, ngdName);
       else
         name = DirRX.NNCommons.BusinessRoles.Resources.RecordNameAutotext;
       

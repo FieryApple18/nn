@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -66,6 +66,11 @@ namespace DirRX.NNIntegration.Structures.Module
     public bool IsKEDO { get; set; }
     // Провайдер.
     public string Provider { get; set; }
+    // Признак изменения Согласия на КЭДО
+    public int? ConsentChangeFlag { get; set; }
+    // ИД НОР сотрудника.
+    public long? BusinessUnitId { get; set; }
+
   }
   
   /// <summary>
@@ -707,7 +712,7 @@ namespace DirRX.NNIntegration.Structures.Module
   }
   #endregion
   
-  #region IF-S-9336. Передача уведомления об отпуске из АСУП в КЭДО (АСУП-> КЭДО)
+  #region IF-S-10535. Передача уведомления об отпуске из АСУП в КЭДО (АСУП-> КЭДО)
   
   /// <summary>
   /// Информация по отпускам сотрудников.
@@ -721,9 +726,9 @@ namespace DirRX.NNIntegration.Structures.Module
     public List<DirRX.NNIntegration.Structures.Module.IVacationInfo> EmployeesVacationsInfo { get; set; }
     
     /// <summary>
-    /// Адрес эл. почты.
+    /// Адреса эл. почты.
     /// </summary>
-    public string Email { get; set; }
+    public List<DirRX.NNIntegration.Structures.Module.IEmails> Emails { get; set; }
   }
   
   /// <summary>
@@ -780,6 +785,17 @@ namespace DirRX.NNIntegration.Structures.Module
     public string TypeVacation { get; set; }
   }
   
+  /// <summary>
+  /// Адреса эл. почты.
+  /// </summary>
+  [Public(Isolated = true)]
+  partial class Emails
+  {
+    /// <summary>
+    /// Адрес эл. почты.
+    /// </summary>
+    public string Email { get; set; }
+  }
   
   #endregion
   
@@ -820,6 +836,11 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Список работников.
     /// </summary>
     public List<DirRX.NNIntegration.Structures.Module.IVacationInfoFromSAP> Employees { get; set; }
+    
+    /// <summary>
+    /// Ответственный за График отпусков.
+    /// </summary>
+    public string Responsible { get; set; }
   }
   
   /// <summary>
@@ -889,6 +910,11 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Список работников.
     /// </summary>
     public List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTimeFromSAP> Employees { get; set; }
+    
+    /// <summary>
+    /// Ответственный за График отпусков.
+    /// </summary>
+    public string Responsible { get; set; }
   }
   
   /// <summary>
@@ -925,6 +951,22 @@ namespace DirRX.NNIntegration.Structures.Module
   
   #endregion
   
+  #region IF-S-29001. Проверка УЗ Ответственного за график отпусков в КЭДО.
+  
+  /// <summary>
+  /// Резльтат проверки УЗ Ответственного за график отпусков в КЭДО.
+  /// </summary>
+  [Public(Isolated = true)]
+  partial class CheckKedoLoginResult
+  {
+    /// <summary>
+    /// Результат.
+    /// </summary>
+    public bool Result { get; set; } 
+  }
+  
+  #endregion
+  
   #region Структуры задачи "Регистрация ежегодного отпуска"
   /// <summary>
   /// Информация по отпускам сотрудников.
@@ -938,9 +980,9 @@ namespace DirRX.NNIntegration.Structures.Module
     public List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime> EmployeesVacationsInfo { get; set; }
     
     /// <summary>
-    /// Адрес эл. почты.
+    /// Адреса эл. почты.
     /// </summary>
-    public string Email { get; set; }
+    public List<DirRX.NNIntegration.Structures.Module.IEmails> Emails { get; set; }
     
     /// <summary>
     /// Текст ошибки.
@@ -1136,6 +1178,21 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Время доп. отдыха по.
     /// </summary>
     public string TimeWeekendEnd { get; set; }
+    
+    /// <summary>
+    /// Заказ.
+    /// </summary>
+    public string Order { get; set; }
+    
+    /// <summary>
+    /// СПП-элемент.
+    /// </summary>
+    public string SppElement { get; set; }
+    
+    /// <summary>
+    /// Другое РМ.
+    /// </summary>
+    public string OtherRM { get; set; }
   }
   #endregion
   
@@ -1372,6 +1429,21 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Компенсация.
     /// </summary>
     public string Compensation { get; set; }
+    
+    /// <summary>
+    /// Заказ.
+    /// </summary>
+    public string Order { get; set; }
+    
+    /// <summary>
+    /// СПП-элемент.
+    /// </summary>
+    public string SppElement { get; set; }
+    
+    /// <summary>
+    /// Другое РМ.
+    /// </summary>
+    public string OtherRM { get; set; }
   }
   
   #endregion
@@ -1408,6 +1480,11 @@ namespace DirRX.NNIntegration.Structures.Module
     public string CancelsDate { get; set; }
     
     /// <summary>
+    /// Причина.
+    /// </summary>
+    public string CancelationReason { get; set; }
+    
+    /// <summary>
     /// ИД задачи.
     /// </summary>
     public long TaskID { get; set; }
@@ -1423,6 +1500,82 @@ namespace DirRX.NNIntegration.Structures.Module
   {
     /// <summary>
     /// Таб. номер сотрудника.
+    /// </summary>
+    public string Employee { get; set; }
+  }
+  
+  #endregion
+  
+  #endregion
+  
+  #region IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+  
+  #region Запрос.
+  
+  /// <summary>
+  /// Структура запроса для создания приказа на дополнительный день отдыха за РВД.
+  /// </summary>
+  [Public(Isolated=true)]
+  partial class CreateWeekendWorkRestOrderStructure
+  {
+    
+    /// <summary>
+    /// Вид документа.
+    /// </summary>
+    public string Kind { get; set; }
+    
+    /// <summary>
+    /// Подписал.
+    /// </summary>
+    public string Signed { get; set; }
+    
+    /// <summary>
+    /// Подготовил.
+    /// </summary>
+    public string Prepared { get; set; }
+    
+    /// <summary>
+    /// Номер отменяемого приказа.
+    /// </summary>
+    public string CancelsNumber { get; set; }
+    
+    /// <summary>
+    /// Дата отменяемого приказа.
+    /// </summary>
+    public DateTime? CancelsDate { get; set; }
+    
+    /// <summary>
+    /// Рег.№.
+    /// </summary>
+    public string RegNumber { get; set; }
+    
+    /// <summary>
+    /// Дата документа.
+    /// </summary>
+    public DateTime Date { get; set; }
+    
+    /// <summary>
+    /// Дата мероприятия.
+    /// </summary>
+    public DateTime DateEvent { get; set; }
+    
+    /// <summary>
+    /// Документ.
+    /// </summary>
+    public string Body { get; set; }
+    
+    /// <summary>
+    /// ИД задачи.
+    /// </summary>
+    public long TaskID { get; set; }
+    
+    /// <summary>
+    /// Идентификатор документа в SAP.
+    /// </summary>
+    public string SAPID { get; set; }
+    
+    /// <summary>
+    /// Сотрудник.
     /// </summary>
     public string Employee { get; set; }
   }
@@ -1550,6 +1703,16 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Дата подачи.
     /// </summary>
     public string CurrentDate { get; set; }
+    
+    /// <summary>
+    /// СНИЛС.
+    /// </summary>
+    public string ICCD { get; set; }
+    
+    /// <summary>
+    /// Дата увольнения.
+    /// </summary>
+    public string FireDate { get; set; }
   }
   
   #endregion
@@ -1581,6 +1744,21 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Текст замечания.
     /// </summary>
     public string RemarkText { get; set; }
+    
+    /// <summary>
+    /// Стаж.
+    /// </summary>
+    public string Experience { get; set; }
+    
+    /// <summary>
+    /// Пенсионер.
+    /// </summary>
+    public bool Retiree { get; set; }
+    
+    /// <summary>
+    /// Инвалид.
+    /// </summary>
+    public bool Disable { get; set; }
   }
   #endregion
   
@@ -1644,6 +1822,11 @@ namespace DirRX.NNIntegration.Structures.Module
     /// Дата рождения.
     /// </summary>
     public string ChildBirthDate { get; set; }
+    
+    /// <summary>
+    /// СНИЛС.
+    /// </summary>
+    public string ICCD { get; set; }
     
     /// <summary>
     /// Инвалидность.
@@ -1754,7 +1937,7 @@ namespace DirRX.NNIntegration.Structures.Module
     public string PaymentTypeName { get; set; }
     // ИД заявления.
     public string ChildFIO { get; set; }
-    // Наименование.
+    // Дата рождения ребенка.
     public DateTime? ChildBirthDate { get; set; }
     // Сумма.
     public string Amount { get; set; }
@@ -1762,6 +1945,8 @@ namespace DirRX.NNIntegration.Structures.Module
     public string Reason { get; set; }
     // Информация об исполнителе.
     public string PerformerInfo { get; set; }
+    // Дата увольнения.
+    public DateTime? FireDate { get; set; }
   }
   
   #endregion

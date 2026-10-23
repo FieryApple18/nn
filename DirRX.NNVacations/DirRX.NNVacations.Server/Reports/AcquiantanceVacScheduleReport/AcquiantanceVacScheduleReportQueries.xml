@@ -56,7 +56,7 @@ WHERE employee.discriminator = '{3}'
     deph.dep2 as secondDepartment,
     deph.dep3 as thirdDepartment,
     deph.dep4 as fourthDepartment,
-    case when employee.consenthrpro_hrproso_hrpro = @Signed
+    case when information.consenthrpro
       then case when doc.intapprstate_docflow_sungero = @SignedState
              then @Acquainted
                 when doc.intapprstate_docflow_sungero = @PendingSignState and doc.acquiantanceop_overrid_dirrx = @ElectronicAcqOption
@@ -64,7 +64,7 @@ WHERE employee.discriminator = '{3}'
                 else @OutsideConsent
       end else @OutsideConsent
     end as statusAcq,
-    case when employee.consenthrpro_hrproso_hrpro = @Signed
+    case when information.consenthrpro
       then case when doc.intapprstate_docflow_sungero = @SignedState
              then doc.approvaldatedi_overrid_dirrx::text
                 when doc.intapprstate_docflow_sungero = @PendingSignState and doc.acquiantanceop_overrid_dirrx = @ElectronicAcqOption
@@ -72,7 +72,7 @@ WHERE employee.discriminator = '{3}'
                 else @OutsideConsent
       end else @OutsideConsent
     end as dateAcq,
-    case when employee.consenthrpro_hrproso_hrpro = @Signed
+    case when information.consenthrpro
       then @HasConsent
       else @NoConsent
     end as statusConsent
@@ -89,6 +89,7 @@ WHERE employee.discriminator = '{3}'
       on comp.id = employee.businunitdirrx_esspls_dirrx
   where extract(year from information.year)::text = @DateAcq 
     or extract(year from doc.year1_vacatio_hrpro)::text = @DateAcq
+	  and information.status = 'Active'
     and deph.reportsessionid = @ReportSessionId
     -- Проверка прав доступа к документу
   order by employeeName

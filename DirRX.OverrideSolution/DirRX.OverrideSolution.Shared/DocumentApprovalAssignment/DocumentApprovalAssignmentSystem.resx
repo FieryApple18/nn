@@ -223,4 +223,10 @@
   <data name="Action_ForwardDirRXConfirmationDescription" xml:space="preserve">
     <value />
   </data>
+  <data name="Property_ApprovalDocumentDirRX" xml:space="preserve">
+    <value>Approval document</value>
+  </data>
+  <data name="Property_AdditionalApproversDirRX" xml:space="preserve">
+    <value>Additional approvers</value>
+  </data>
 </root>

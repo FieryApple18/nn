@@ -9,7 +9,7 @@ namespace DirRX.NNOtherProcesses.Client
 {
   partial class WeekendWorkStatementDocumentFunctions
   {
-
+    
     /// <summary>
     /// Изменить данные исполнителей в табличной части.
     /// </summary>
@@ -55,6 +55,14 @@ namespace DirRX.NNOtherProcesses.Client
       restDate.IsVisible = isVisibleRestDate && !isOvertimeWork.Value;
       restDateFrom.IsVisible = isVisibleRestDate && isOvertimeWork.Value;
       restDateTo.IsVisible = isVisibleRestDate && isOvertimeWork.Value;
+      
+      //Оплачиваемый перерыв
+      var paidBreak = dialog.AddBoolean(_obj.Info.Properties.Employees.Properties.PaidBreak.LocalizedName, employee.PaidBreak.GetValueOrDefault());
+      paidBreak.IsVisible = !isOvertimeWork.Value;
+
+      var order = dialog.AddString(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.FillEmployeesOrderTitle, false, employee.Order).MaxLength(_obj.Info.Properties.Employees.Properties.Order.Length);
+      var sppElement = dialog.AddString(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.FillEmployeesSppElementTitle, false, employee.SppElement).MaxLength(_obj.Info.Properties.Employees.Properties.SppElement.Length);
+      var otherRM = dialog.AddString(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.FillEmployeesOtherRMTitle, false, employee.OtherRM).MaxLength(_obj.Info.Properties.Employees.Properties.OtherRM.Length);
       
       #endregion
       
@@ -108,7 +116,8 @@ namespace DirRX.NNOtherProcesses.Client
                                   if (isOvertimeWork != true)
                                   {
                                     var isWorkingHoursExceeded = Functions.WeekendWorkStatementDocument.Remote.IsWorkingHoursExceeded(businessUnit, workDateFrom.Value.Value, workDateTo.Value.Value,
-                                                                                                                                      firstBreakFrom.Value, secondBreakFrom.Value);
+                                                                                                                                      firstBreakFrom.Value, secondBreakFrom.Value,
+                                                                                                                                      paidBreak.Value);
                                     if (isWorkingHoursExceeded)
                                     {
                                       var workingHoursWithoutBreak = businessUnit.WorkingHoursWithoutBreakDirRX.Value;
@@ -147,6 +156,10 @@ namespace DirRX.NNOtherProcesses.Client
           record.FirstBreakTo = firstBreakTo.Value;
           record.SecondBreakFrom = secondBreakFrom.Value;
           record.SecondBreakTo = secondBreakTo.Value;
+          record.Order = order.Value;
+          record.SppElement = sppElement.Value;
+          record.OtherRM = otherRM.Value;
+          record.PaidBreak = paidBreak.Value;
         }
       }
     }
@@ -205,6 +218,14 @@ namespace DirRX.NNOtherProcesses.Client
       restDateFrom.IsVisible = false;
       restDateTo.IsVisible = false;
       
+      //Оплачиваемый перерыв
+      var paidBreak = dialog.AddBoolean(_obj.Info.Properties.Employees.Properties.PaidBreak.LocalizedName, false);
+      paidBreak.IsVisible = !isOvertimeWork.Value;
+      
+      var order = dialog.AddString(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.FillEmployeesOrderTitle, false).MaxLength(_obj.Info.Properties.Employees.Properties.Order.Length);
+      var sppElement = dialog.AddString(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.FillEmployeesSppElementTitle, false).MaxLength(_obj.Info.Properties.Employees.Properties.SppElement.Length);
+      var otherRM = dialog.AddString(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.FillEmployeesOtherRMTitle, false).MaxLength(_obj.Info.Properties.Employees.Properties.OtherRM.Length);
+ 
       #endregion
       
       // Кнопки диалога
@@ -261,7 +282,8 @@ namespace DirRX.NNOtherProcesses.Client
                                   if (isOvertimeWork != true)
                                   {
                                     var isWorkingHoursExceeded = Functions.WeekendWorkStatementDocument.Remote.IsWorkingHoursExceeded(businessUnit, workDateFrom.Value.Value, workDateTo.Value.Value,
-                                                                                                                                      firstBreakFrom.Value, secondBreakFrom.Value);
+                                                                                                                                      firstBreakFrom.Value, secondBreakFrom.Value,
+                                                                                                                                      paidBreak.Value);
                                     if (isWorkingHoursExceeded)
                                     {
                                       var workingHoursWithoutBreak = businessUnit.WorkingHoursWithoutBreakDirRX.Value;
@@ -324,7 +346,8 @@ namespace DirRX.NNOtherProcesses.Client
       if (dialog.Show() == addButton)
         Functions.WeekendWorkStatementDocument.AddEmployes(_obj, employeesInfo, compensation.Value, workDateFrom.Value, workDateTo.Value,
                                                            restDateFrom.Value ?? restDate.Value, restDateTo.Value ?? restDate.Value,
-                                                           firstBreakFrom.Value, firstBreakTo.Value, secondBreakFrom.Value, secondBreakTo.Value);
+                                                           firstBreakFrom.Value, firstBreakTo.Value, secondBreakFrom.Value, secondBreakTo.Value, paidBreak.Value,
+                                                           order.Value, sppElement.Value, otherRM.Value);
     }
 
   }

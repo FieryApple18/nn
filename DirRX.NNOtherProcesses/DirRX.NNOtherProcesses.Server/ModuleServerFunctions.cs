@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -588,10 +588,7 @@ namespace DirRX.NNOtherProcesses.Server
     {
       var logPrefix = string.Format("CreateAndStartNewSignDocumentSubtask. ИД документа {0}. ИД основной задачи {1}", document.Id, mainTaskID);
       
-      var exsitingTaskId = HRPro.HRDocFlow.HRProcessTasks.GetAll()
-        .Where(x => x.MainDoc.Id == document.Id && x.Status == Status.InProcess)
-        .Select(x => x.Id)
-        .FirstOrDefault();
+      var exsitingTaskId = GetExistingHRProcessTaskId(document.Id);
       if (exsitingTaskId > 0)
       {
         Logger.DebugFormat("{0}. Найдена задача на подписание приказа в работе с ИД {1}. Повторная отправка документа на подписание не требуется.", logPrefix, exsitingTaskId);
@@ -644,7 +641,77 @@ namespace DirRX.NNOtherProcesses.Server
       else
         return string.Empty;
     }
+    
+    /// <summary>
+    /// Создать и отправить задачу на подписание документа.
+    /// </summary>
+    /// <param name="employee">Автор задачи.</param>
+    /// <param name="document">Документ.</param>
+    /// <returns>Текст ошибки, string.Empty если ошибок нет.</returns>
+    /// <remarks>Создание и отправка задачи выполняется в транзакции.</remarks>
+    private string CreateAndStartNewSignDocumentTask(OverrideSolution.IEmployee employee, OverrideSolution.IOfficialDocument document)
+    {
+      var logPrefix = string.Format("CreateAndStartNewSignDocumentTask. ИД документа {0}.", document.Id);
+      
+      var exsitingTaskId = GetExistingHRProcessTaskId(document.Id);
+      if (exsitingTaskId > 0)
+      {
+        Logger.DebugFormat("{0}. Найдена задача на подписание приказа в работе с ИД {1}. Повторная отправка документа на подписание не требуется.", logPrefix, exsitingTaskId);
+        return string.Empty;
+      }
+      
+      var executionResult = false;
+      var errorMessage = string.Empty;
+      executionResult = Transactions.Execute(
+        () =>
+        {
+          try
+          {
+            var task = HRPro.HRDocFlow.HRProcessTasks.Create();
+            task.Author = employee;
+            if (employee.BusinessUnit != null)
+              task.BusinessUnit = employee.BusinessUnit;
+            task.NeedApprove = true;
+            task.NeedAcquaintance = false;
+            task.DocumentGroup.OfficialDocuments.Add(document);
+            
+            task.Start();
 
+            Logger.DebugFormat("{0}. Отправлена новая задача на подписание документа с ИД: {1}.", logPrefix, task.Id);
+          }
+          catch (Exception e)
+          {
+            errorMessage = string.Format("Произошла ошибка отправки задачи на подписание приказа. Текст ошибки: {0}.", e.Message);
+            Logger.ErrorFormat("{0}. {1} StackTrace: {2}.", logPrefix, errorMessage, e.StackTrace);
+            
+          }
+        });
+      
+      if (!executionResult || !string.IsNullOrEmpty(errorMessage))
+      {
+        if (string.IsNullOrEmpty(errorMessage))
+        {
+          errorMessage = "Произошла ошибка отправки задачи на подписание приказа. Транзакция не выполнена.";
+          Logger.ErrorFormat("{0}. {1}", logPrefix, errorMessage);
+        }
+        return errorMessage;
+      }
+      else
+        return string.Empty;
+    }
+    /// <summary>
+    /// Получить ИД существующей задачи на обработку документов, связанных с работой.
+    /// </summary>
+    /// <param name="documentId">ИД Документа.</param>
+    /// <returns>ИД Задачи.</returns>
+    private long GetExistingHRProcessTaskId(long documentId)
+    {
+      return HRPro.HRDocFlow.HRProcessTasks.GetAll()
+        .Where(x => x.MainDoc.Id == documentId && x.Status == Status.InProcess)
+        .Select(x => x.Id)
+        .FirstOrDefault();
+    }
+    
     #endregion
 
     #region Интеграционный сценарий «Участие в благотворительности».
@@ -1472,7 +1539,7 @@ namespace DirRX.NNOtherProcesses.Server
       Logger.DebugFormat("{0}. Конец синхронной отправки сообщения.", logPrefix);
       return response;
     }
-
+    
     /// <summary>
     /// Проверить заявление ВД/ПД/СР во внешней системе (перегрузка для RX).
     /// </summary>
@@ -1483,9 +1550,12 @@ namespace DirRX.NNOtherProcesses.Server
       var isOvertimeWork = Functions.WeekendWorkStatementDocument.IsOvertimeWorkDocKind(statement);
       if (isOvertimeWork == null)
         isOvertimeWork = Functions.WeekendWorkStatementDocument.IsOvertimeWork(statement.DocumentKind);
-      
       var kindCode = isOvertimeWork.Value ? NNIntegration.PublicConstants.Module.WeekendWorkStatementKindCodes.OvertimeWork :
         NNIntegration.PublicConstants.Module.WeekendWorkStatementKindCodes.WeekendWork;
+      
+      // HACK: Обход коробочного ограничения для корректного отображения времени в документах.
+      // При передаче в SAP необходимо привести время к формату часового пояса инициатора на момент заполнения им карточки.
+      var initiatorTimeZoneDiff = DirRX.NNOtherProcesses.PublicFunctions.WeekendWorkStatementDocument.Remote.GetInitiatorTimeZoneDiff(statement);
       
       // Информация о сотрудниках.
       var employeeInfoList = new List<NNIntegration.Structures.Module.IValidateWeekendWorkStatementEmployeeInfoRequest>();
@@ -1494,13 +1564,16 @@ namespace DirRX.NNOtherProcesses.Server
         var employeeInfoRequest = NNIntegration.Structures.Module.ValidateWeekendWorkStatementEmployeeInfoRequest.Create();
         employeeInfoRequest.Employee = employeeInfo.Employee.PersonnelNumber;
         employeeInfoRequest.DateStart = employeeInfo.WorkDateFrom.Value.ToString("dd.MM.yyyy");
-        employeeInfoRequest.TimeStart = employeeInfo.WorkDateFrom.Value.ToString("HH:mm");
+        employeeInfoRequest.TimeStart = employeeInfo.WorkDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm");
         employeeInfoRequest.DateEnd = employeeInfo.WorkDateTo.Value.ToString("dd.MM.yyyy");
-        employeeInfoRequest.TimeEnd = employeeInfo.WorkDateTo.Value.ToString("HH:mm");
+        employeeInfoRequest.TimeEnd = employeeInfo.WorkDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm");
         employeeInfoRequest.DateWeekendStart = employeeInfo.RestDateFrom.HasValue ? employeeInfo.RestDateFrom.Value.ToString("dd.MM.yyyy") : string.Empty;
         employeeInfoRequest.DateWeekendEnd = employeeInfo.RestDateTo.HasValue ? employeeInfo.RestDateTo.Value.ToString("dd.MM.yyyy") : string.Empty;
-        employeeInfoRequest.TimeWeekendStart = employeeInfo.RestDateFrom.HasValue ? employeeInfo.RestDateFrom.Value.ToString("HH:mm") : string.Empty;
-        employeeInfoRequest.TimeWeekendEnd = employeeInfo.RestDateTo.HasValue ? employeeInfo.RestDateTo.Value.ToString("HH:mm") : string.Empty;
+        employeeInfoRequest.TimeWeekendStart = employeeInfo.RestDateFrom.HasValue ? employeeInfo.RestDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
+        employeeInfoRequest.TimeWeekendEnd = employeeInfo.RestDateTo.HasValue ? employeeInfo.RestDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString("HH:mm") : string.Empty;
+        employeeInfoRequest.Order = employeeInfo.Order;
+        employeeInfoRequest.SppElement = employeeInfo.SppElement;
+        employeeInfoRequest.OtherRM = employeeInfo.OtherRM;
         employeeInfoList.Add(employeeInfoRequest);
       }
       
@@ -1529,11 +1602,14 @@ namespace DirRX.NNOtherProcesses.Server
     /// <param name="WorkDateTo">Дата работы по.<</param>
     /// <param name="RestDateFrom">Дата доп. отдыха с.</param>
     /// <param name="RestDateTo">Дата доп. отдыха по.</param>
+    /// <param name="Order">Заказ.<</param>
+    /// <param name="SppElement">СПП-элемент.</param>
+    /// <param name="OtherRM">Другое РМ.</param>
     /// <returns>Ошибка. Если ошибки нет - возвращается пустая строка.</returns>
     /// <remarks>Из ЛК заявление всегда для одного сотрудника.</remarks>
-    [Public(WebApiRequestType = RequestType.Get)]
+    [Public(WebApiRequestType = RequestType.Post)]
     public string ValidateWeekendWorkStatementInExternalSystem(string DocKindGuid, long EmployeeId, string WorkDateFrom, string WorkDateTo,
-                                                               string RestDateFrom, string RestDateTo)
+                                                               string RestDateFrom, string RestDateTo, string Order, string SppElement, string OtherRM)
     {
       var request = NNIntegration.Structures.Module.ValidateWeekendWorkStatementRequest.Create();
       var docKinId = NNCommons.PublicFunctions.Module.GetDocumentKindId(DocKindGuid);
@@ -1562,6 +1638,9 @@ namespace DirRX.NNOtherProcesses.Server
       employeeInfoRequest.DateWeekendEnd = !string.IsNullOrEmpty(RestDateTo) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(RestDateTo).Value.ToString("dd.MM.yyyy") : string.Empty;
       employeeInfoRequest.TimeWeekendStart = !string.IsNullOrEmpty(RestDateFrom) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(RestDateFrom).Value.ToString("HH:mm") : string.Empty;
       employeeInfoRequest.TimeWeekendEnd = !string.IsNullOrEmpty(RestDateTo) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(RestDateTo).Value.ToString("HH:mm") : string.Empty;
+      employeeInfoRequest.Order = Order;
+      employeeInfoRequest.SppElement = SppElement;
+      employeeInfoRequest.OtherRM = OtherRM;
       request.Employees.Add(employeeInfoRequest);
       
       var response = ValidateWeekendWorkStatementInExternalSystem(request, 0);
@@ -1616,6 +1695,10 @@ namespace DirRX.NNOtherProcesses.Server
       var reason = doc.Reason != null ? doc.Reason.Code : string.Empty;
       var employeesInfoList = new List<NNIntegration.Structures.Module.ICreateWeekendWorkEventEmployeesInfo>();
       
+      // HACK: Обход коробочного ограничения для корректного отображения времени в документах.
+      // При передаче в SAP необходимо привести время к формату часового пояса инициатора на момент заполнения им карточки.
+      var initiatorTimeZoneDiff = DirRX.NNOtherProcesses.PublicFunctions.WeekendWorkStatementDocument.Remote.GetInitiatorTimeZoneDiff(doc);
+      
       var dateFormat = "dd.MM.yyyy";
       var timeFormat = "HH:mm";
       foreach (var employee in agreedEmployees)
@@ -1624,19 +1707,22 @@ namespace DirRX.NNOtherProcesses.Server
         employeeInfo.Employee = employee.PersonnelNumber;
         employeeInfo.DateStart = employee.WorkDateFrom.HasValue? employee.WorkDateFrom.Value.ToString(dateFormat) : string.Empty;
         employeeInfo.DateEnd = employee.WorkDateTo.HasValue? employee.WorkDateTo.Value.ToString(dateFormat) : string.Empty;
-        employeeInfo.TimeStart = employee.WorkDateFrom.HasValue? employee.WorkDateFrom.Value.ToString(timeFormat) : string.Empty;
-        employeeInfo.TimeEnd = employee.WorkDateTo.HasValue? employee.WorkDateTo.Value.ToString(timeFormat) : string.Empty;
+        employeeInfo.TimeStart = employee.WorkDateFrom.HasValue? employee.WorkDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
+        employeeInfo.TimeEnd = employee.WorkDateTo.HasValue? employee.WorkDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
         employeeInfo.DateWeekendStart = employee.RestDateFrom.HasValue ? employee.RestDateFrom.Value.ToString(dateFormat) : string.Empty;
         employeeInfo.DateWeekendEnd = employee.RestDateTo.HasValue ? employee.RestDateTo.Value.ToString(dateFormat) : string.Empty;
-        employeeInfo.TimeWeekendStart = employee.RestDateFrom.HasValue ? employee.RestDateFrom.Value.ToString(timeFormat) : string.Empty;
-        employeeInfo.TimeWeekendEnd = employee.RestDateTo.HasValue ? employee.RestDateTo.Value.ToString(timeFormat) : string.Empty;
-        employeeInfo.FirstBreakStart = employee.FirstBreakFrom.HasValue? employee.FirstBreakFrom.Value.ToString(timeFormat) : string.Empty;
-        employeeInfo.FirstBreakEnd = employee.FirstBreakTo.HasValue? employee.FirstBreakTo.Value.ToString(timeFormat) : string.Empty;
-        employeeInfo.SecondBreakStart = employee.SecondBreakFrom.HasValue? employee.SecondBreakFrom.Value.ToString(timeFormat) : string.Empty;
-        employeeInfo.SecondBreakEnd = employee.SecondBreakTo.HasValue? employee.SecondBreakTo.Value.ToString(timeFormat) : string.Empty;
+        employeeInfo.TimeWeekendStart = employee.RestDateFrom.HasValue ? employee.RestDateFrom.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
+        employeeInfo.TimeWeekendEnd = employee.RestDateTo.HasValue ? employee.RestDateTo.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
+        employeeInfo.FirstBreakStart = employee.FirstBreakFrom.HasValue? employee.FirstBreakFrom.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
+        employeeInfo.FirstBreakEnd = employee.FirstBreakTo.HasValue? employee.FirstBreakTo.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
+        employeeInfo.SecondBreakStart = employee.SecondBreakFrom.HasValue? employee.SecondBreakFrom.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
+        employeeInfo.SecondBreakEnd = employee.SecondBreakTo.HasValue? employee.SecondBreakTo.Value.AddHours(initiatorTimeZoneDiff).ToString(timeFormat) : string.Empty;
         employeeInfo.WithoutABreak = string.IsNullOrEmpty(employeeInfo.FirstBreakStart) && string.IsNullOrEmpty(employeeInfo.FirstBreakEnd) &&
           string.IsNullOrEmpty(employeeInfo.SecondBreakStart) && string.IsNullOrEmpty(employeeInfo.SecondBreakEnd);
         employeeInfo.Compensation = employee.Compensation.Code;
+        employeeInfo.Order = employee.Order;
+        employeeInfo.SppElement = employee.SppElement;
+        employeeInfo.OtherRM = employee.OtherRM;
         employeesInfoList.Add(employeeInfo);
       }
       
@@ -1711,6 +1797,8 @@ namespace DirRX.NNOtherProcesses.Server
         task.WeekendWorkOrder.RegistrationDate.Value.ToString(dateFormat) :
         string.Empty;
       
+      var cancelationReason = task.CancelationReason!= null ? task.CancelationReason.Name : string.Empty;
+      
       foreach (var employeeData in task.Employees)
       {
         var employeeInfo = NNIntegration.Structures.Module.CreateWeekendWorkCancelationEventEmployeesInfo.Create();
@@ -1718,12 +1806,14 @@ namespace DirRX.NNOtherProcesses.Server
         employeesInfoList.Add(employeeInfo);
       }
       
-      var model = NNIntegration.Structures.Module.CreateWeekendWorkCancelationEvent.Create(messageGuid,
-                                                                                           kindCode,
-                                                                                           cancelsNumber,
-                                                                                           cancelsDate,
-                                                                                           mainTaskId,
-                                                                                           employeesInfoList);
+      var model = NNIntegration.Structures.Module.CreateWeekendWorkCancelationEvent.Create();
+      model.RequestCode = messageGuid;
+      model.Kind = kindCode;
+      model.CancelsNumber = cancelsNumber;
+      model.CancelsDate = cancelsDate;
+      model.CancelationReason = cancelationReason;
+      model.TaskID = mainTaskId;
+      model.Employees = employeesInfoList;
       
       try
       {
@@ -1740,11 +1830,431 @@ namespace DirRX.NNOtherProcesses.Server
     }
 
     #endregion
+    
+    #region IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+
+    /// <summary>
+    /// Обработка создания приказа на дополнительный день отдыха за РВД.
+    /// </summary>
+    /// <param name="incomingMessageId">ИД записи справочника 'Входящие информационные сообщения'.</param>
+    /// <returns>Результат обработки.</returns>
+    [Public]
+    public IProcessIncomingMessageResult CreateWeekendWorkRestOrderDocumentHandler(long incomingMessageId)
+    {
+      var logPrefix = string.Format("CreateWeekendWorkRestOrderDocument. Ид записи справочника 'Входящие информационные сообщения': {0}", incomingMessageId);
+      var result = ProcessIncomingMessageResult.Create();
+      var incomingMessage = IncomingMessages.GetAll(c => c.Id == incomingMessageId).FirstOrDefault();
+      
+      if (incomingMessage == null)
+      {
+        result.ErrorText = "Не найдена запись в справочнике 'Входящие информационные сообщения'.";
+        Logger.ErrorFormat("{0}. {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      var message = NNIntegration.PublicFunctions.IncomingMessage.Remote.GetIncomingMessageText(incomingMessage);
+      ICreateWeekendWorkRestOrderStructure structure = null;
+      
+      try
+      {
+        structure = NNIntegration.IsolatedFunctions.Convert.DeserializeInStruct(message, structure);
+      }
+      catch (Exception ex)
+      {
+        result.ErrorText = string.Format("Ошибка десериализации. Текст ошибки: {0}", ex.Message);
+        Logger.ErrorFormat("{0}. {1} StackTrace: {2}.", logPrefix, result.ErrorText,  ex.StackTrace);
+        return result;
+      }
+      
+      var ourSignatory = DirRX.OverrideSolution.PublicFunctions.Employee.GetEmployeeByPersNumber(structure.Signed);
+      var employeeWhoPrepared = DirRX.OverrideSolution.PublicFunctions.Employee.GetEmployeeByPersNumber(structure.Prepared);
+      var employee = DirRX.OverrideSolution.PublicFunctions.Employee.GetEmployeeByPersNumber(structure.Employee);
+
+      if (ourSignatory == null || employeeWhoPrepared == null || employee == null)
+      {
+        if (ourSignatory == null)
+          result.ErrorText += string.Format("Не найден подписывающий с табельным номером: {0}. ", structure.Signed);
+        if (employeeWhoPrepared == null)
+          result.ErrorText += string.Format("Не найден сотрудник подготовивший документ с табельным номером: {0}. ", structure.Prepared);
+        if (employee == null)
+          result.ErrorText += string.Format("Не найден Cотрудник с табельным номером: {0}. ", structure.Employee);
+
+        result.ErrorText = result.ErrorText.Trim();
+        Logger.ErrorFormat("{0}. {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      var cancelationTask = WeekendWorkCancelationTasks.Null;
+      var canceledOrder = WeekendWorkRestOrderDocuments.Null;
+      var task = WeekendWorkTasks.Null;
+      var statement = WeekendWorkStatementDocuments.Null;
+      var restStatement = WeekendWorkRestStatementDocuments.Null;
+      
+      // Если вид документа - отмена приказа.
+      if (structure.Kind == NNIntegration.PublicConstants.Module.WeekendWorkRestOrderKindCodes.CancelationRestOrder)
+      {
+        // Поиск задачи на отмену приказа.
+        cancelationTask = WeekendWorkCancelationTasks.GetAll(x => x.Id == structure.TaskID).FirstOrDefault();
+        if (cancelationTask == null)
+        {
+          result.ErrorText = string.Format("Не найдена задача для отмены приказа на доп. день отдыха по ИД: {0}", structure.TaskID);
+          Logger.ErrorFormat("{0}. {1}.", logPrefix, result.ErrorText);
+          return result;
+        }
+        
+        // Поиск основного приказа на работу ВД/ПД/СР (РВД/СУ).
+        var mainOrder = cancelationTask.WeekendWorkOrder;
+        if (mainOrder == null)
+        {
+          result.ErrorText = string.Format("Отсутствует ссылка на приказ в задаче на отмену приказа. Ид задачи: {0}", structure.TaskID);
+          Logger.ErrorFormat("{0}. {1}.", logPrefix, result.ErrorText);
+          return result;
+        }
+        
+        // Поиск заявки на работу ВД/ПД/СР (РВД/СУ).
+        statement = WeekendWorkStatementDocuments.As(mainOrder.WeekendWorkStatement);
+        if (statement != null)
+        {
+          // Поиск заявления на доп. день отдыха для сотрудника.
+          restStatement = PublicFunctions.WeekendWorkRestStatementDocument.GetRestStatement(statement, employee);
+          if (restStatement != null)
+          {
+            // Поиск отменяемого приказа на доп день отдыха.
+            canceledOrder = PublicFunctions.WeekendWorkRestOrderDocument.GetRestOrder(restStatement);
+            if (canceledOrder == null)
+            {
+              result.ErrorText = string.Format("Не найден отменяемый приказ по заявлению на доп. день отдыха. ИД заявления: {0}", restStatement.Id);
+              Logger.ErrorFormat("{0}. {1}.", logPrefix, result.ErrorText);
+              return result;
+            }
+          }
+        }
+      }
+      else
+      {
+        // Поиск задачи на оформление работы ВД/ПД/СР (РВД/СУ).
+        task = WeekendWorkTasks.GetAll(x => x.Id == structure.TaskID).FirstOrDefault();
+        if (task == null)
+        {
+          result.ErrorText = string.Format("Не найдена задача на согласование заявки ВД/ПД/СР по ИД: {0}", structure.TaskID);
+          Logger.ErrorFormat("{0}. {1}.", logPrefix, result.ErrorText);
+          return result;
+        }
+        
+        // Поиск заявки на работу ВД/ПД/СР (РВД/СУ).
+        statement = WeekendWorkStatementDocuments.As(task.DocumentGroup.OfficialDocuments.FirstOrDefault());
+      }
+      
+      if (statement == null)
+      {
+        result.ErrorText = string.Format("Отсутствует ссылка на заявку во вложениях задачи или в приказе на доп. день отдыха.");
+        Logger.ErrorFormat("{0}. {1}.", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      restStatement = PublicFunctions.WeekendWorkRestStatementDocument.GetRestStatement(statement, employee);
+      if (restStatement == null)
+      {
+        result.ErrorText = string.Format("Не найдено заявление на доп. день отдыха, оформленное по заявке ИД: {0} и сотруднику ИД: {1}.", statement.Id, employee.Id);
+        Logger.ErrorFormat("{0}. {1}.", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      // Поиск приказа на доп день отдыха.
+      var order = WeekendWorkRestOrderDocuments.GetAll(x => x.ExternalId == structure.SAPID).FirstOrDefault();
+      result.EntityId = order?.Id;
+      
+      if (order != null)
+      {
+        var checkResult = OverrideSolution.PublicFunctions.DocRelatedToWorkBase.CanUpdateDocFromASUP(order);
+        if (!string.IsNullOrEmpty(checkResult))
+        {
+          result.ErrorText = string.Format("Версия документа с ID: {0} не создана. {1}.", order.Id, checkResult);
+          Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+          return result;
+        }
+      }
+      
+      order = order ?? WeekendWorkRestOrderDocuments.Create();
+      
+      // Блокировка необходима для создания тела документа.
+      if (!Locks.GetLockInfo(order).IsLockedByMe && !Locks.TryLock(order))
+      {
+        var locksInfo = Locks.GetLockInfo(order);
+        result.ErrorText = string.Format("ИД документа: {0}. Текст ошибки: Не удалось заблокировать документ. Заблокирован: {1}. Время установки блокировки: {2}.", order.Id, locksInfo.OwnerName, locksInfo.LockTime);
+        result.Retry = true;
+        Logger.ErrorFormat("{0}. {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      
+      try
+      {
+        var errorMessage = Functions.WeekendWorkRestOrderDocument.FillWeekendWorkRestOrderProperties(order, structure, statement, restStatement, canceledOrder, ourSignatory, employeeWhoPrepared, employee);
+        if (!string.IsNullOrWhiteSpace(errorMessage))
+          throw AppliedCodeException.Create(errorMessage);
+        
+        Logger.DebugFormat("{0} Документ с ИД: {1} был сохранен.", logPrefix, order.Id);
+      }
+      catch (Exception ex)
+      {
+        result.ErrorText = string.Format("Произошла ошибка обработки документа с ID = '{0}. Текст ошибки: {1}. StackTrace: {2}.'", order.Id, ex.Message, ex.StackTrace);
+        Logger.ErrorFormat("{0} {1}", logPrefix, result.ErrorText);
+        return result;
+      }
+      finally
+      {
+        if (Locks.GetLockInfo(order).IsLockedByMe)
+          Locks.Unlock(order);
+      }
+      result.EntityId = order?.Id;
+      
+      result.ErrorText = this.CreateAndStartNewSignDocumentTask(employeeWhoPrepared, order);
+      if (string.IsNullOrEmpty(result.ErrorText))
+        Logger.DebugFormat("{0}. Успешно обработан.", logPrefix);
+      
+      return result;
+    }
+    
+    /// <summary>
+    /// Получить вид документа по коду из АСУП.
+    /// </summary>
+    /// <param name="kindCode">Код вида документа из АСУП.</param>
+    /// <returns>Вид документа.</returns>
+    public Sungero.Docflow.IDocumentKind GetDocumentKindForWeekendWorkRestOrder(string kindCode)
+    {
+      var kindGuid = Guid.Empty;
+      if (string.IsNullOrEmpty(kindCode))
+      {
+        Logger.ErrorFormat("GetDocumentKindForWeekendWorkRestOrder. Код вида документа не может быть null или пустым.");
+        return Sungero.Docflow.DocumentKinds.Null;
+      }
+      
+      if (kindCode == NNIntegration.PublicConstants.Module.WeekendWorkRestOrderKindCodes.CancelationRestOrder)
+        kindGuid = Constants.Module.DocumentKind.CancelationRestOrderDocument;
+      else if (kindCode == NNIntegration.PublicConstants.Module.WeekendWorkRestOrderKindCodes.GrantRestOrder)
+        kindGuid = Constants.Module.DocumentKind.GrantRestOrderDocument;
+      else
+        Logger.ErrorFormat("GetDocumentKindForWeekendWorkRestOrder. Не удалось определить вид документа ВД/ПД/СР по его коду. Код: {0}.", kindCode);
+
+      return kindGuid == Guid.Empty ? Sungero.Docflow.DocumentKinds.Null : Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(kindGuid);
+    }
+    
+    #endregion
 
     #endregion
 
     #region Функции для работы с личным кабинетом через сервис интеграции.
+    
+    /// <summary>
+    /// Проверяет ранее оформленные Заявления на выплату по ЛНА.
+    /// </summary>
+    /// <param name="inila">СНИЛС</param>
+    /// <param name="paymentTypeId">Тип выплаты.</param>
+    /// <param name="employeeId">ИД сотрудника.</param>
+    /// <param name="statementId">ИД заявления.</param>
+    /// <returns>Результат проверки.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public Structures.Module.IVerificationResultPayment CheckLrdPaymentInRX(string inila, long paymentTypeId, long employeeId, long? statementId)
+    {
+      Logger.DebugFormat("CheckLrdPaymentInRX. ИД Типа выплаты: {0}. Начало выполнения.", paymentTypeId);
+      var paymentType = LrdPaymentTypes.GetAll(l => l.Id == paymentTypeId).FirstOrDefault();
+      var employee = Employees.GetAll().Where(x => x.Id == employeeId).FirstOrDefault();
+      var result = DirRX.NNOtherProcesses.Structures.Module.VerificationResultPayment.Create(true, string.Empty);
+      
+      // Считаем, что Заявление передают только в услугах на доработку.
+      var statement = LrdPaymentStatementDocuments.GetAll(l => l.Id == statementId).FirstOrDefault();
+      
+      if (CheckRetirementPaymentType(paymentType.Id))
+      {
+        result = CheckRetirementPayment(employee, paymentType, statement);
+        return result;
+      }
+      
+      var hasTypeChildBirth = HasTypeChildBirth(paymentType);
+      var hasTypeDisabledChild = HasTypeDisabledChild(paymentType);
+      if (hasTypeChildBirth || hasTypeDisabledChild)
+        result = AnyLrdPaymentStatementDocumentsForChildren(paymentType, inila, hasTypeChildBirth, hasTypeDisabledChild, statement, employee);
+      
+      return result;
+    }
+    
+    /// <summary>
+    /// Проверяет наличие отправленных заявлений.
+    /// </summary>
+    /// <param name="paymentType">Тип выплат.</param>
+    /// <param name="inila">СНИЛС.</param>
+    /// <param name="hasTypeChildBirth">Является типом выплат на мат. помощь на рождение ребенка.</param>
+    /// <param name="hasTypeDisabledChild">Является типом выплат мат. помощь ребенку инвалиду.</param>
+    /// <param name="statement">Заявление.</param>
+    /// <returns>Результат поиска.</returns>
+    public Structures.Module.IVerificationResultPayment AnyLrdPaymentStatementDocumentsForChildren(ILrdPaymentType paymentType,
+                                                                                                   string inila,
+                                                                                                   bool hasTypeChildBirth,
+                                                                                                   bool hasTypeDisabledChild,
+                                                                                                   ILrdPaymentStatementDocument statement,
+                                                                                                   IEmployee employee)
+    {
+      var result = DirRX.NNOtherProcesses.Structures.Module.VerificationResultPayment.Create();
+      
+      if (string.IsNullOrEmpty(inila) ||
+          PublicConstants.Module.EmptyInilaV1 == inila ||
+          PublicConstants.Module.EmptyInilaV2 == inila)
+      {
+        result.VerificationResult = false;
+        result.CommentText = DirRX.NNOtherProcesses.Resources.NoINILAdata;
+        
+        return result;
+      }
+      
+      ILrdPaymentStatementDocument lrdPaymentStatementDocument = null;
+      
+      Sungero.Core.AccessRights.AllowRead(
+        () =>
+        {
+          // Создается параметр для отключения фильтрации по ролевой модели, т.к. заявление может быть ранее создано первым родителем, а для второго оно может не попасть в выборку.
+          
+          if (Employees.Current != null)
+            ((Sungero.Domain.Shared.IExtendedEntity)Employees.Current).Params.Add(string.Format(PublicConstants.Module.FilterLrdPaymentInRX, Employees.Current.Id), true);
+          
+          var lrdPaymentStatementDocuments = LrdPaymentStatementDocuments.GetAll(s => s.INILA == inila &&
+                                                                                 Equals(s.PaymentType, paymentType) &&
+                                                                                 !Equals(s, statement) &&
+                                                                                 (s.InternalApprovalState == NNOtherProcesses.LrdPaymentStatementDocument.InternalApprovalState.Approved ||
+                                                                                  s.InternalApprovalState == NNOtherProcesses.LrdPaymentStatementDocument.InternalApprovalState.OnApproval ||
+                                                                                  s.InternalApprovalState == NNOtherProcesses.LrdPaymentStatementDocument.InternalApprovalState.OnRework));
+          
+          lrdPaymentStatementDocument = FilterByPeriodPayment(lrdPaymentStatementDocuments, paymentType, employee).FirstOrDefault();
+          
+          if (Employees.Current != null)
+            ((Sungero.Domain.Shared.IExtendedEntity)Employees.Current).Params.Remove(string.Format(PublicConstants.Module.FilterLrdPaymentInRX, Employees.Current.Id));
+        });
+      
+      if (lrdPaymentStatementDocument != null)
+      {
+        if (hasTypeChildBirth)
+        {
+          result.CommentText = DirRX.NNOtherProcesses.Resources.StatementSubmittedInWork;
+          result.VerificationResult = false;
+          
+          return result;
+        }
+        else if (hasTypeDisabledChild)
+        {
+          result.CommentText = DirRX.NNOtherProcesses.Resources.StatementSubmittedCurrentPeriod;
+          result.VerificationResult = true;
+          
+          return result;
+        }
+      }
+      
+      result.VerificationResult = true;
+      result.CommentText = string.Empty;
+      
+      return result;
+    }
+    
+    /// <summary>
+    /// Фильтрация заявлений по периоду Настройки типа заявления.
+    /// </summary>
+    /// <param name="lrdPaymentStatementDocuments">Заявления.</param>
+    /// <param name="lrdPaymentType">Тип выплаты.</param>
+    /// <returns>Отфильтрованные заявления.</returns>
+    public IQueryable<ILrdPaymentStatementDocument> FilterByPeriodPayment(IQueryable<ILrdPaymentStatementDocument> lrdPaymentStatementDocuments,
+                                                                          ILrdPaymentType lrdPaymentType,
+                                                                          IEmployee employee)
+    {
+      // Дата документа для оформляемого заявления проставляется текущая.
+      var today = Calendar.Today;
+      var lrdPaymentTypeSetting = LrdPaymentTypeSettings.GetAll(s => s.Status == NNOtherProcesses.LrdPaymentTypeSetting.Status.Active &&
+                                                                Equals(s.PaymentType, lrdPaymentType) &&
+                                                                Equals(s.MPGroup, employee.MPGroupDirRX) &&
+                                                                Equals(s.BusinessUnit, employee.BusinessUnit))
+        .FirstOrDefault();
+      
+      if (lrdPaymentTypeSetting != null)
+      {
+        Logger.DebugFormat("CheckLrdPaymentInRX. ИД Настройки типа выплаты: {0}", lrdPaymentTypeSetting.Id);
+        
+        if (lrdPaymentTypeSetting.Periodicity == NNOtherProcesses.LrdPaymentTypeSetting.Periodicity.Annually)
+        {
+          var startYear = Calendar.BeginningOfYear(today);
+          var endYear = Calendar.EndOfYear(today);
+          
+          lrdPaymentStatementDocuments = lrdPaymentStatementDocuments.Where(l => l.RegistrationDate >= startYear && l.RegistrationDate <= endYear);
+        }
+        else if (lrdPaymentTypeSetting.Periodicity == NNOtherProcesses.LrdPaymentTypeSetting.Periodicity.Quarterly)
+        {
+          var beginDate = Sungero.Docflow.PublicFunctions.AccountingDocumentBase.BeginningOfQuarter(today);
+          var endDate = Sungero.Docflow.PublicFunctions.AccountingDocumentBase.EndOfQuarter(today);
+          
+          lrdPaymentStatementDocuments = lrdPaymentStatementDocuments.Where(l => l.RegistrationDate >= beginDate && l.RegistrationDate <= endDate);
+        }
+        else if (lrdPaymentTypeSetting.Periodicity == NNOtherProcesses.LrdPaymentTypeSetting.Periodicity.Monthly)
+        {
+          var beginDate = Calendar.BeginningOfMonth(today);
+          var endDate = Calendar.EndOfMonth(today);
+          
+          lrdPaymentStatementDocuments = lrdPaymentStatementDocuments.Where(l => l.RegistrationDate >= beginDate && l.RegistrationDate <= endDate);
+        }
+      }
+      
+      return lrdPaymentStatementDocuments;
+    }
+    
+    /// <summary>
+    /// Проверяет, явялется ли типом выплат "Материальная помощь на рождение ребенка, а также усыновление детей-сирот и детей, оставшихся без попечения родителей".
+    /// </summary>
+    /// <param name="lrdPaymentType">Тип выплат.</param>
+    /// <returns>true - относится к типу выплат мат. помощи ребенку, иначе false.</returns>
+    public bool HasTypeChildBirth(ILrdPaymentType lrdPaymentType)
+    {
+      var childBirthId = DirRX.NNCommons.PublicFunctions.Module.GetIdentifierValue(Constants.Module.ConstantsSetting.ChildBirthPaymentTypeId.Guid);
+      
+      if (childBirthId == null)
+        Logger.DebugFormat("CheckLrdPaymentInRX. Прикладная константа '{1}' не заполнена.", Constants.Module.ConstantsSetting.ChildBirthPaymentTypeId.Guid);
+      
+      var childBirthIdPaymentType = LrdPaymentTypes.GetAll(l => l.Id == childBirthId).FirstOrDefault();
+      
+      return Equals(childBirthIdPaymentType, lrdPaymentType);
+    }
+    
+    /// <summary>
+    /// Проверяет, явялется ли типом выплат "Материальная помощь работнику, имеющему ребенка-инвалида в возрасте до 18 лет".
+    /// </summary>
+    /// <param name="lrdPaymentType">Тип выплат.</param>
+    /// <returns>true - относится к типу выплат мат. помощи ребенку, иначе false.</returns>
+    public bool HasTypeDisabledChild(ILrdPaymentType lrdPaymentType)
+    {
+      var disabledChildId = DirRX.NNCommons.PublicFunctions.Module.GetIdentifierValue(Constants.Module.ConstantsSetting.DisabledChildPaymentTypeId.Guid);
+      
+      if (disabledChildId == null)
+        Logger.DebugFormat("CheckLrdPaymentInRX. Прикладная константа '{1}' не заполнена.", Constants.Module.ConstantsSetting.DisabledChildPaymentTypeId.Guid);
+      
+      var disabledChildPaymentType = LrdPaymentTypes.GetAll(l => l.Id == disabledChildId).FirstOrDefault();
+      
+      return Equals(disabledChildPaymentType, lrdPaymentType);
+    }
 
+    /// <summary>
+    /// Возвращает значение из прикладной константы "Максимальное количество доп. согласующих".
+    /// </summary>
+    /// <returns>Кол-во согласующих.</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public int? GetMaxAdditionalApprovers()
+    {
+      var maxValue = DirRX.NNCommons.PublicFunctions.Module.GetIntValue(Constants.Module.ConstantsSetting.MaxNumberAdditionalMatchingElement.Guid);
+      
+      if (maxValue == null)
+      {
+        var defaultValue = Constants.Module.ConstantsDefaultValues.MaxNumberAdditionalMatchingElement;
+        Logger.DebugFormat("GetMaxAdditionalApprovers. Константа не найдена, будет использоваться значение по умолчанию: {0}.", defaultValue);
+        
+        return defaultValue;
+      }
+      
+      return maxValue;
+    }
+    
     #region Регистрация работы в выходной и/или праздничный день
 
     /// <summary>
@@ -1783,7 +2293,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       // Проверка наличия превышения количества рабочих часов.
       var businessUnit = BusinessUnits.As(employee.BusinessUnit);
-      var isWorkingHoursExceeded = Functions.WeekendWorkStatementDocument.IsWorkingHoursExceeded(businessUnit, workDateFrom, workDateTo, firstBreakDateFrom, secondBreakDateFrom);
+      var isWorkingHoursExceeded = Functions.WeekendWorkStatementDocument.IsWorkingHoursExceeded(businessUnit, workDateFrom, workDateTo, firstBreakDateFrom, secondBreakDateFrom, false);
       Logger.DebugFormat("ValidateWeekendWorkStatement. ИД сотрудника: {0}. Результат проверки: {1}. Конец выполнения.", employeeId, isWorkingHoursExceeded);
       if (isWorkingHoursExceeded)
       {
@@ -1811,20 +2321,29 @@ namespace DirRX.NNOtherProcesses.Server
     /// <param name="secondBreakTo">Второй перерыв по.</param>
     /// <param name="restFrom">Дата доп. отдыха с.</param>
     /// <param name="restTo">Дата доп. отдыха по.</param>
-    /// <param name="additionalApproverId">ИД доп. согласующего.</param>
+    /// <param name="additionalApproverIds">ИД доп. согласующих.</param>
+    /// <param name="dueTo">В связи с.</param>
+    /// <param name="executionControlId">ИД контроля исполнения.</param>
+    /// <param name="order">Заказ.</param>
+    /// <param name="sppElement">СПП-элемент.</param>
+    /// <param name="otherRM">Другое РМ.</param>
     [Public(WebApiRequestType = RequestType.Post)]
     public string FillStatementDataForWeekendWork(long? docId, string docKindGuid, long employeeId,
                                                   long reasonId, long compensation, string description,
                                                   string workFrom, string workTo,
                                                   string firstBreakFrom, string firstBreakTo,
                                                   string secondBreakFrom, string secondBreakTo,
-                                                  string restFrom, string restTo, long? additionalApproverId)
+                                                  string restFrom, string restTo, string additionalApproverIds,
+                                                  string dueTo, long? executionControlId,
+                                                  string order, string sppElement, string otherRM)
+
     {
       Logger.DebugFormat("FillStatementDataForWeekendWork. ИД сотрудника: {0}. ИД документа: {1}. Гуид вида документа: {2}. ИД причины для работы в ВД/ПД/СР: {3}. Компенсация: {4}. Основание: {5}. " +
                          "Дата работы с: {6}. Дата работы по: {7}. Первый перерыв с: {8}. Первый перерыв по: {9}. Второй перерыв с: {10}. Второй перерыв по: {11}. " +
-                         "Дата доп. отдыха с: {12}. Дата доп. отдыха по: {13}. ИД доп. согласующего: {14}. Начало выполнения.",
+                         "Дата доп. отдыха с: {12}. Дата доп. отдыха по: {13}. ИД доп. согласующих: {14}. Начало выполнения.",
                          employeeId, docId, docKindGuid, reasonId, compensation, description,
-                         workFrom, workTo, firstBreakFrom, firstBreakTo, secondBreakFrom, secondBreakTo, restFrom, restTo, additionalApproverId);
+                         workFrom, workTo, firstBreakFrom, firstBreakTo, secondBreakFrom, secondBreakTo, restFrom, restTo, additionalApproverIds,
+                         dueTo, executionControlId, order, sppElement, otherRM);
       
       var statement = WeekendWorkStatementDocuments.GetAll(d => d.Id == docId).FirstOrDefault();
       if (statement == null)
@@ -1836,14 +2355,28 @@ namespace DirRX.NNOtherProcesses.Server
       }
       statement.ReasonDescription = description;
       statement.Reason = WeekendWorkReasons.GetAll(r => r.Id == reasonId).FirstOrDefault();
-      statement.AdditionalApprover = Employees.GetAll(emp => emp.Id == additionalApproverId).FirstOrDefault();
+      
+      var ids = NNCommons.PublicFunctions.Module.ParseStringToListLong(additionalApproverIds);
+      var additionalApprovers = Employees.GetAll(emp => ids.Contains(emp.Id));
+      
+      if (additionalApprovers.Any())
+      {
+        statement.AdditionalApprovers.Clear();
+        
+        foreach (var additionalApprover in additionalApprovers)
+          statement.AdditionalApprovers.AddNew().AdditionalApprover = additionalApprover;
+      }
+      
       var workDateFrom = NNIntegration.PublicFunctions.Module.ParseStringToDate(workFrom);
       var workDateTo = NNIntegration.PublicFunctions.Module.ParseStringToDate(workTo);
       statement.WorkDateFrom = workDateFrom;
       statement.WorkDateTo = workDateTo;
       statement.Employees.Clear();
+      var employee = Employees.GetAll(emp => emp.Id == employeeId).FirstOrDefault();
+      statement.PersonnelSectionDirRX = employee.PersonnelSectionDirRX;
+      
       var line = statement.Employees.AddNew();
-      line.Employee = Employees.GetAll(emp => emp.Id == employeeId).FirstOrDefault();
+      line.Employee = employee;
       line.WorkDateFrom = workDateFrom;
       line.WorkDateTo = workDateTo;
       line.FirstBreakFrom = !string.IsNullOrEmpty(firstBreakFrom) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(firstBreakFrom) : null;
@@ -1851,10 +2384,26 @@ namespace DirRX.NNOtherProcesses.Server
       line.SecondBreakFrom = !string.IsNullOrEmpty(secondBreakFrom) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(secondBreakFrom) : null;
       line.SecondBreakTo = !string.IsNullOrEmpty(secondBreakTo) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(secondBreakTo) : null;
       line.RestDateFrom = !string.IsNullOrEmpty(restFrom) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(restFrom) : null;
-      line.RestDateTo = !string.IsNullOrEmpty(restTo) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(restTo) : null;
+      
+      // HACK: Используется только дата доп. отдыха без перерыва. RestDateFrom.
+      line.RestDateTo = line.RestDateFrom;
       line.Compensation = WeekendWorkCompensationKinds.GetAll(k => k.Id == compensation).FirstOrDefault();
-
-      statement.Save();
+      line.Order = order;
+      line.SppElement = sppElement;
+      line.OtherRM = otherRM;
+      statement.DueTo = dueTo;
+      statement.ExecutionControl = Employees.GetAll(emp => emp.Id == executionControlId).FirstOrDefault();
+      
+      try
+      {
+        statement.Save();
+      }
+      catch (Exception ex)
+      {
+        Logger.ErrorFormat("FillStatementDataForWeekendWork. Ошибка: {0}. StackTrace: {1}", ex.Message, ex.StackTrace);
+        throw ex;
+      }
+      
       Logger.DebugFormat("FillStatementDataForWeekendWork. ИД сотрудника: {0}. ИД документа: {1}. Документ успешно сохранен.", employeeId, statement.Id);
 
       var importedDocuments = new List<NNCommons.Structures.Module.IDocumentInfoFromLK>();
@@ -1892,7 +2441,9 @@ namespace DirRX.NNOtherProcesses.Server
       result.Reason = document.Reason?.Id ?? 0;
       result.ReasonDescription = document.ReasonDescription;
       result.PerformerInfo = string.Join(Environment.NewLine, employee.JobTitle, employee.Department, employee.BusinessUnit);
-      result.AdditionalApproverId = document.AdditionalApprover?.Id ?? 0;
+      result.AdditionalApproverIds = string.Join(",", document.AdditionalApprovers
+                                                 .Where(a => a.AdditionalApprover != null)
+                                                 .Select(a => a.AdditionalApprover.Id));
       result.WorkDateFrom = line.WorkDateFrom.Value;
       result.WorkDateTo = line.WorkDateTo.Value;
       result.FirstBreakFrom = line.FirstBreakFrom;
@@ -2113,7 +2664,8 @@ namespace DirRX.NNOtherProcesses.Server
         statement.ChildBirthDate,
         statement.RequestedAmount.ToString(),
         statement.Reason,
-        performerInfo);
+        performerInfo,
+        statement.FireDate);
       
       return NNIntegration.IsolatedFunctions.Convert.SerializeInJson(assignmentInfo);
     }
@@ -2127,8 +2679,15 @@ namespace DirRX.NNOtherProcesses.Server
     /// <param name="childBirthDate">Дата рождения.</param>
     /// <param name="amount">Сумма.</param>
     /// <param name="reason">Причина.</param>
+    /// <param name="fireDate">Дата увольнения.</param>
+    /// <param name="experience">Стаж.</param>
+    /// <param name="reason">СНИЛС.</param>
+    /// <param name="reason">Текст замечания.</param>
+    /// <param name="retiree">Пенсионер.</param>
+    /// <param name="disable">Инвалид.</param>
     [Public(WebApiRequestType = RequestType.Post)]
-    public void FillLrdPaymentData(long documentId, long paymentTypeId, string childName, string childBirthDate, string amount, string reason)
+    public void FillLrdPaymentData(long documentId, long paymentTypeId, string childName, string childBirthDate, string amount, string reason,
+                                   string inila, string commentText, DateTime? fireDate, string experience, bool retiree, bool disable)
     {
       var logPrefix = string.Format("FillLrdPaymentData. ИД документа: {0}", documentId);
       Logger.DebugFormat("{0}. Начало выполнения.", logPrefix);
@@ -2138,7 +2697,16 @@ namespace DirRX.NNOtherProcesses.Server
       statement.RequestedAmount = Double.Parse(amount);
       statement.ApprovedAmount = statement.RequestedAmount;
       statement.Reason = reason;
+      statement.INILA = inila;
+      statement.SAPCommentTextDirRX = commentText;
       statement.ChildBirthDate = !string.IsNullOrEmpty(childBirthDate) ? NNIntegration.PublicFunctions.Module.ParseStringToDate(childBirthDate) : null;
+      statement.FireDate = fireDate;
+      statement.Retiree = retiree;
+      statement.Disable = disable;
+      int experienceInt;
+      if (int.TryParse(experience, out experienceInt))
+        statement.Experience = experienceInt;
+      
       try
       {
         statement.Save();
@@ -2203,6 +2771,23 @@ namespace DirRX.NNOtherProcesses.Server
     {
       var paymentType = DirRX.NNOtherProcesses.LrdPaymentTypes.GetAll(x => x.Id == paymentTypeId).FirstOrDefault();
       return paymentType?.Name ?? "";
+    }
+    
+    /// <summary>
+    /// Проверить, что тип выплаты - "Единовременная материальная помощь по уходу на пенсию".
+    /// </summary>
+    /// <param name="paymentTypeId">ИД типа выплаты.</param>
+    /// <returns>True, если тип выплаты - "Единовременная материальная помощь по уходу на пенсию".</returns>
+    [Public(WebApiRequestType = RequestType.Get)]
+    public bool CheckRetirementPaymentType(long? paymentTypeId)
+    {
+      if (paymentTypeId == null)
+        return false;
+      
+      var retirementPaymentTypeIds = NNCommons.PublicFunctions.Module.GetIdsListValue(Constants.Module.ConstantsSetting.RetirementPaymentTypeIds.Guid,
+                                                                                      "CheckRetirementPaymentType");
+      
+      return retirementPaymentTypeIds.Contains(paymentTypeId.Value);
     }
 
     #endregion
@@ -2292,6 +2877,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       // Отправить исходящее сообщение.
       var resultSendingMessage = NNIntegration.PublicFunctions.Module.SendMessageToExternalSystem(requestText, flowGuid, statementId);
+      
       if (!string.IsNullOrEmpty(resultSendingMessage.ErrorText))
       {
         Logger.ErrorFormat("{0}. Ошибка отправки исходящего сообщения. Текст ошибки: {1}.", logPrefix, resultSendingMessage.ErrorText);
@@ -2318,48 +2904,91 @@ namespace DirRX.NNOtherProcesses.Server
     /// </summary>
     /// <param name="EmployeeId">Таб. номер сотрудника.</param>
     /// <param name="PaymentTypeId">ИД типа выплаты.</param>
+    /// <param name="Inila">СНИЛС.</param>
     /// <param name="ChildName">ФИО ребенка.</param>
     /// <param name="BirthDate">Дата рождения.</param>
-    /// <returns>Текст ошибки. Если ошибок - нет, то возвращается пуствя строка.</returns>
+    /// <param name="FireDate">Дата увольнения.</param>
+    /// <returns>Результат проверки.</returns>
     [Public(WebApiRequestType = RequestType.Get)]
-    public string CheckLrdPaymentInExternalSystem(long EmployeeId, long PaymentTypeId, string ChildName, string BirthDate)
+    public NNIntegration.Structures.Module.ILrdPaymentCheckResponse CheckLrdPaymentInExternalSystem(long EmployeeId, long PaymentTypeId, string Inila, string ChildName, string BirthDate, DateTime? FireDate)
     {
       Logger.DebugFormat("CheckLrdPaymentInExternalSystem. EmployeeId: {0}. PaymentTypeId: {1}. Cтарт проверки заявления на выплату ЛНА во внешней системе.",
                          EmployeeId, PaymentTypeId);
       
+      var response = NNIntegration.Structures.Module.LrdPaymentCheckResponse.Create();
       var employee = Employees.GetAll().Where(x => x.Id == EmployeeId).FirstOrDefault();
       if (employee == null)
       {
-        Logger.ErrorFormat("CheckLrdPaymentInExternalSystem. EmployeeId: {0}. Не найден сотрудник по ИД.", EmployeeId);
-        return DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError;
+        response.Result = false;
+        response.RemarkText = DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError;
+        return response;
       }
       
       var paymentType = LrdPaymentTypes.GetAll().Where(x => x.Id == PaymentTypeId).FirstOrDefault();
       if (paymentType == null)
       {
         Logger.ErrorFormat("CheckLrdPaymentInExternalSystem. PaymentTypeId: {0}. Не найден тип выплат по ИД.", PaymentTypeId);
-        return DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError;
+        response.Result = false;
+        response.RemarkText = DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError;
+        return response;
       }
       
-      var request = NNIntegration.Structures.Module.LrdPaymentCheckRequest.Create(Guid.NewGuid().ToString(),
-                                                                                  employee.PersonnelNumber,
-                                                                                  paymentType.EventReason.Code,
-                                                                                  paymentType.EventReasonClarification.Code,
-                                                                                  paymentType.PaymentPurpose != null ? paymentType.PaymentPurpose.Code : string.Empty,
-                                                                                  ChildName,
-                                                                                  BirthDate,
-                                                                                  Calendar.Now.ToString("dd.MM.yyyy"));
-      var response = CheckLrdPaymentInExternalSystem(request, 0);
-      if (response == null)
+      var request = NNIntegration.Structures.Module.LrdPaymentCheckRequest.Create();
+      request.RequestCode = Guid.NewGuid().ToString();
+      request.Employee = employee.PersonnelNumber;
+      request.EventReason = paymentType.EventReason.Code;
+      request.Refinement = paymentType.EventReasonClarification.Code;
+      request.Purpose = paymentType.PaymentPurpose != null ? paymentType.PaymentPurpose.Code : string.Empty;
+      request.ChildName = ChildName;
+      request.ICCD = Inila;
+      request.BirthDate = BirthDate;
+      request.CurrentDate = Calendar.Now.ToString("dd.MM.yyyy");
+      request.FireDate = FireDate.HasValue ? FireDate.Value.ToString("dd.MM.yyyy") : string.Empty;
+      
+      var extResponse = CheckLrdPaymentInExternalSystem(request, 0);
+      if (extResponse == null)
       {
         Logger.DebugFormat("CheckLrdPaymentInExternalSystem. {0}", DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError);
-        return DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError;
+        response.Result = false;
+        response.RemarkText = DirRX.NNOtherProcesses.Resources.ExternalSystemCheckLrdPaymentError;
+        
+        return response;
       }
       
-      return response.Result ? string.Empty :
-        !string.IsNullOrWhiteSpace(response.RemarkText) ? response.RemarkText : Resources.CheckLrdPaymentError;
+      return extResponse;
     }
-
+    
+    /// <summary>
+    /// Проверить заявление на выплату по уходу на пенсию.
+    /// </summary>
+    /// <param name="employee">Сотрудник.</param>
+    /// <param name="paymentType">Тип выплаты.</param>
+    /// <param name="statement">Заявление.</param>
+    /// <returns>Результат проверки.</returns>
+    public Structures.Module.IVerificationResultPayment CheckRetirementPayment(OverrideSolution.IEmployee employee, ILrdPaymentType paymentType, ILrdPaymentStatementDocument statement)
+    {
+      var result = DirRX.NNOtherProcesses.Structures.Module.VerificationResultPayment.Create();
+      var statements = LrdPaymentStatementDocuments.GetAll(s => Employees.Equals(s.EmployeeDirRX, employee) &&
+                                                           LrdPaymentTypes.Equals(s.PaymentType, paymentType) &&
+                                                           !Equals(s, statement) &&
+                                                           (s.InternalApprovalState == OverrideSolution.OfficialDocument.InternalApprovalState.OnApproval ||
+                                                            s.InternalApprovalState == OverrideSolution.OfficialDocument.InternalApprovalState.OnRework ||
+                                                            s.InternalApprovalState == OverrideSolution.OfficialDocument.InternalApprovalState.Approved));
+      
+      if (statements.Any())
+      {
+        result.CommentText = DirRX.NNOtherProcesses.Resources.ExistStatementError;
+        result.VerificationResult = false;
+      }
+      else
+      {
+        result.VerificationResult = true;
+        result.CommentText = string.Empty;
+      }
+      
+      return result;
+    }
+    
     #endregion
 
     #region IF-S-25360. Получение списка детей работника (АСУП → КЭДО).
@@ -2390,6 +3019,7 @@ namespace DirRX.NNOtherProcesses.Server
       
       // Отправить исходящее сообщение.
       var resultSendingMessage = NNIntegration.PublicFunctions.Module.SendMessageToExternalSystem(requestText, flowGuid, 0);
+      
       if (!string.IsNullOrEmpty(resultSendingMessage.ErrorText))
       {
         Logger.ErrorFormat("{0} Ошибка отправки исходящего сообщения. Текст ошибки: {1}.", logPrefix, resultSendingMessage.ErrorText);

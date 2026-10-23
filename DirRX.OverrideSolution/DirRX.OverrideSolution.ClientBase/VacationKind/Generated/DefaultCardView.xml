@@ -8,7 +8,7 @@
         <property name="View" isnull="true" iskey="true">
           <property name="LinesPerRowMode">None</property>
           <property name="ColumnChooserState" isnull="true" iskey="true">
-            <property name="Location">791,-127</property>
+            <property name="Location">838,-127</property>
             <property name="Size">220,250</property>
           </property>
           <property name="AllowMoveColumnToDropArea">false</property>
@@ -30,7 +30,7 @@
             <property name="Name">VacationKind_ActualAbsenceDirRX_VacationReason</property>
             <property name="FieldName">VacationReason</property>
             <property name="VisibleIndex">0</property>
-            <property name="Width">129</property>
+            <property name="Width">114</property>
             <property name="ActualWidth">13*</property>
           </property>
           <property name="Item2" isnull="true" iskey="true">
@@ -38,7 +38,7 @@
             <property name="Name">VacationKind_ActualAbsenceDirRX_ActualAbsence</property>
             <property name="FieldName">ActualAbsence</property>
             <property name="VisibleIndex">1</property>
-            <property name="Width">168</property>
+            <property name="Width">149</property>
             <property name="ActualWidth">17*</property>
           </property>
         </property>

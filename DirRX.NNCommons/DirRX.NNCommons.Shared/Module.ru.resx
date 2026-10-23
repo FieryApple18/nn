@@ -335,4 +335,69 @@
 Детализация по каждому замеру (сек.):
 {1}</value>
   </data>
+  <data name="ExportPredictedSchemesDialogTitle" xml:space="preserve">
+    <value>Экспорт предсказанных схем</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogTaskType" xml:space="preserve">
+    <value>Тип задачи</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogDocumentKind" xml:space="preserve">
+    <value>Вид документа</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogOrganization" xml:space="preserve">
+    <value>Наша организация</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogPersonnelSections" xml:space="preserve">
+    <value>Разделы персонала</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogEmployees" xml:space="preserve">
+    <value>Сотрудники</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogSuccess" xml:space="preserve">
+    <value>Отчет будет подготовлен и отправлен задачей для ручной обработки.</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogError" xml:space="preserve">
+    <value>Ошибка при формировании отчёта: {0}</value>
+  </data>
+  <data name="TaskTypeActionItemExecutionTask" xml:space="preserve">
+    <value>Задача на исполнение поручения</value>
+  </data>
+  <data name="TaskTypeApprovalTask" xml:space="preserve">
+    <value>Задача на согласование</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogSelectEmployee" xml:space="preserve">
+    <value>Необходимо выбрать хотя бы одного сотрудника.</value>
+  </data>
+  <data name="ExportPredictedSchemesDialogEmptyResult" xml:space="preserve">
+    <value>Сервер вернул пустой результат.</value>
+  </data>
+  <data name="WeekendWorkTask" xml:space="preserve">
+    <value>Оформление работы в ВД/ПД/СР</value>
+  </data>
+  <data name="SchemeNotFound" xml:space="preserve">
+    <value>Схема не получена: вариант процесса не подобрался для тестовых параметров задачи, либо схема действительно пуста.</value>
+  </data>
+  <data name="TestTaskSubject" xml:space="preserve">
+    <value>Тестовая задача на рассмотрение заявлений сотрудников.</value>
+  </data>
+  <data name="TestActionItemTaskSubject" xml:space="preserve">
+    <value>Тестовое поручение для проверки схемы варианта процесса.</value>
+  </data>
+  <data name="GenerateReportApprovalRoutes" xml:space="preserve">
+    <value>Сформировать отчет о прогнозируемых маршрутах согласования</value>
+  </data>
+  <data name="ActiveTextTest" xml:space="preserve">
+    <value>Сформирован отчёт по предсказанным схемам.
+
+Указанные критерии для формирования.
+Тип задачи: {0}
+Вид документа: {1}
+Наша организация: {2}
+
+Результаты.
+Всего обработано: {3}
+Успешно: {4}
+С ошибками: {5}
+Подробности — в прикреплённом документе.</value>
+  </data>
 </root>

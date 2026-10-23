@@ -17,7 +17,7 @@ namespace DirRX.NNVacations.Server
     /// <param name="documentKindId">ИД вида документа.</param>
     /// <param name="vacationType">Тип отпуска.</param>
     /// <param name="paymentCompleted">Отпуск оплачен.</param>
-    /// <param name="top">Топ-10/100.</param>
+    /// <param name="top">ТОП.</param>
     /// <returns>Срок согласования отпуска.</returns>
     [Public]
     public static IVacationsApprovalPeriod GetVacationsApprovalPeriod(long businessUnitId, long documentKindId, Nullable<Enumeration> vacationType, bool paymentCompleted, bool top)

@@ -121,4 +121,13 @@
   <data name="Enum_MPGroup_Group2" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="Enum_Periodicity_Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Enum_Periodicity_Quarterly" xml:space="preserve">
+    <value>Quarterly</value>
+  </data>
+  <data name="Enum_Periodicity_Annually" xml:space="preserve">
+    <value>Annually</value>
+  </data>
 </root>

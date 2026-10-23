@@ -36,6 +36,7 @@ namespace DirRX.NNVacations.Server.IndividualVacationScheduleAcquaintanceTaskBlo
       doc.Year = task.Year;
       doc.RegistrationNumber = vacationScheduleDocument.RegistrationNumber;
       doc.RegistrationDate = vacationScheduleDocument.RegistrationDate;
+      doc.VacationScheduleDocumentDirRX = vacationScheduleDocument;
       doc.UpdateTemplateParameters();
       doc.Save();
       var prefix = IndividualVacationScheduleAcquaintanceTasks.Resources.CreateScheduleAcquaintanceBlockPrefix;

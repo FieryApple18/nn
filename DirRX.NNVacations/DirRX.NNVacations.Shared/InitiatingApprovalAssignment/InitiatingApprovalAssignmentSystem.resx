@@ -226,4 +226,16 @@
   <data name="Property_RegistrationDate" xml:space="preserve">
     <value>Document date</value>
   </data>
+  <data name="Property_TradeUnionOpinion" xml:space="preserve">
+    <value>Trade union opinion</value>
+  </data>
+  <data name="Property_LoadingErrorMessage" xml:space="preserve">
+    <value>Data loading error message</value>
+  </data>
+  <data name="Form_0a502ecc2a174b538351366396368de0" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="ControlGroup_a71b8c18521a4ec6ac9896af7b8e3814" xml:space="preserve">
+    <value>Error list</value>
+  </data>
 </root>

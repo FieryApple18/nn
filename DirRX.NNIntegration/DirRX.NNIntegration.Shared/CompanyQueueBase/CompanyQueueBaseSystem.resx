@@ -85,7 +85,7 @@
   <data name="Property_ProcessingStatus" xml:space="preserve">
     <value>Processing status</value>
   </data>
-  <data name="Enum_ProcessingStatus_Created" xml:space="preserve">
+  <data name="Enum_ProcessingStatus_Recent" xml:space="preserve">
     <value>New</value>
   </data>
   <data name="Enum_ProcessingStatus_Processed" xml:space="preserve">
@@ -117,5 +117,8 @@
   </data>
   <data name="ControlGroup_fb3aee38e83040ab85e5de84dc2f5ea6" xml:space="preserve">
     <value>Processing error</value>
+  </data>
+  <data name="Property_RetryReason" xml:space="preserve">
+    <value>Retry reason</value>
   </data>
 </root>

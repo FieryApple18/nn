@@ -326,6 +326,19 @@
       "IsShowedInList": false,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
       "PreviousPropertyGuid": "1e525cae-162e-4704-b18f-8f9282f4c8bf"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "450b61f4-86e5-4ed7-a1f6-8cb1bba05dc3",
+      "Name": "DocForManualHoldingEventDirRX",
+      "CanBeSearch": false,
+      "Code": "DocForManualHo",
+      "EntityGuid": "38b6af02-74b1-4bb1-978f-d95281b01dc5",
+      "IsEnabled": false,
+      "IsShowedInList": false,
+      "IsVisibility": false,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "e349ae2e-71f9-4f87-be0b-bbec6f60edbe"
     }
   ],
   "PublicFunctions": [

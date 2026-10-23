@@ -196,4 +196,10 @@
   <data name="Action_ForwardDirRXConfirmationMessage" xml:space="preserve">
     <value>Выполнить задание с результатом "Переадресовать"?</value>
   </data>
+  <data name="Property_ApprovalDocumentDirRX" xml:space="preserve">
+    <value>Документ на согласование</value>
+  </data>
+  <data name="Property_AdditionalApproversDirRX" xml:space="preserve">
+    <value>Добавить дополнительных согласующих</value>
+  </data>
 </root>

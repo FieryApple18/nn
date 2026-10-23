@@ -455,6 +455,42 @@ namespace DirRX.NNIntegration.Constants
         [Public]
         public const string Name = "Интеграция. Проштамповка. Идентификатор шаблона штампа для УНЭП";
       }
+      
+      /// <summary>
+      /// Интеграция. Выполнять подключение к Личному кабинету асинхронно.
+      /// </summary>
+      [Public]
+      public static class AsyncCreateESSUserAccount
+      {
+        [Public]
+        public const string Guid = "246FBF40-7023-468D-82E6-21557B77037E";
+        [Public]
+        public const string Name = "Интеграция. Выполнять подключение к Личному кабинету асинхронно";
+      }
+      
+      /// <summary>
+      /// Интеграция. Количество сообщений, обрабатываемых ФП "Создание учетных записей в КЭДО".
+      /// </summary>
+      [Public]
+      public static class CreateESSUserAccountMessageCount
+      {
+        [Public]
+        public const string Guid = "5DEF903D-764E-4551-BA29-B3EB42F29545";
+        [Public]
+        public const string Name = "Интеграция. Количество сообщений, обрабатываемых ФП \"Создание учетных записей в КЭДО\"";
+      }
+      
+      /// <summary>
+      /// Интеграция. Количество сообщений, обрабатываемых ФП "Норникель. Исключение проф. пользователей из роли неинтерактивные пользователи.".
+      /// </summary>
+      [Public]
+      public static class ExcludeNonInteractiveUsersRole
+      {
+        [Public]
+        public const string Guid = "C7756BC6-D62D-4099-ADC1-D3656EE3CEAB";
+        [Public]
+        public const string Name = "Интеграция. Количество сотрудников, обрабатываемых ФП \"Норникель. Исключение проф. пользователей из роли неинтерактивные пользователи\"";
+      }
     }
 
     /// <summary>
@@ -601,6 +637,18 @@ namespace DirRX.NNIntegration.Constants
       /// </summary>
       [Public]
       public const bool SupernikaPushNotificationsIsTimestampRequired = true;
+      
+      /// <summary>
+      /// Интеграция. Количество сообщений обрабатываемых ФП "Создание учетных записей в КЭДО".
+      /// </summary>
+      [Public]
+      public const int CreateESSUserAccountMessageCount = 200;
+      
+      /// <summary>
+      /// Интеграция. Количество сотрудников обрабатываемых ФП "Исключение проф. пользователей из роли неинтерактивные пользователи".
+      /// </summary>
+      [Public]
+      public const int ExcludeNonInteractiveUsersRoleCount = 50;
     }
     #endregion
 
@@ -817,6 +865,14 @@ namespace DirRX.NNIntegration.Constants
       
       // IF-S-28542 Данные по оплатам отсутствий из АСУП в КЭДО (АСУП → КЭДО).
       public const string VacationsPaymentInfo = "FF17FC96-32E6-40FD-BC2F-5B14E1CD9A66";
+      
+      // IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+      [Public]
+      public const string CreateWeekendWorkRestOrderDocument = "A12387F2-4D1C-4A22-AF81-168DAC16C857";
+      
+      // IF-S-29000. Передача статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП.
+      [Public]
+      public const string VacationScheduleProcessStatus = "45625BA8-82B4-433B-B642-D55A64F72EA2";
     }
 
     /// <summary>
@@ -868,6 +924,8 @@ namespace DirRX.NNIntegration.Constants
       public const string EmploymentContractAdditionalAgreement = "IF-S-28562. Создание карточки дополнительного соглашения к трудовому договору в КЭДО из АСУП (АСУП → КЭДО)";
       public const string SendVacationsForPaymentChecking = "IF-S-28522 Проверка оплаты отсутствий (КЭДО → АСУП)";
       public const string VacationsPaymentInfo = "IF-S-28542 Данные по оплатам отсутствий из АСУП в КЭДО (АСУП → КЭДО)";
+      public const string VacationScheduleProcessStatus = "IF-S-29000. Передача статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП";
+      public const string CreateWeekendWorkRestOrderDocument = "IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО)";
     }
 
     /// <summary>
@@ -919,6 +977,8 @@ namespace DirRX.NNIntegration.Constants
       public const string EmploymentContractAdditionalAgreement = "Интеграционный поток предназначен для передачи дополнительного соглашения к трудовому договору из АСУП в КЭДО.";
       public const string SendVacationsForPaymentChecking = "Интеграционный поток предназначен для запроса признака оплаты отпусков по сотруднику.";
       public const string VacationsPaymentInfo = "Интеграционный поток предназначен для передачи статусов оплаты отпусков по сотруднику.";
+      public const string VacationScheduleProcessStatus = "Интеграционный поток предназначен для передачи статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП.";
+      public const string CreateWeekendWorkRestOrderDocument = "Интеграционный поток предназначен для передачи приказа на дополнительный день отдыха за РВД из АСУП в КЭДО.";
     }
 
     /// <summary>
@@ -1052,6 +1112,32 @@ namespace DirRX.NNIntegration.Constants
         [Public]
         public const string Kedo = "KEDO";
       }
+      
+      /// <summary>
+      /// Признак изменения "Согласия на КЭДО".
+      /// </summary>
+      [Public]
+      public static class ConsentChangeType
+      {
+        /// <summary>
+        /// Изменения не было.
+        /// </summary>
+        [Public]
+        public const int None = 0;
+        
+        /// <summary>
+        /// Изменение было - с "Не подписано" на "Подписано".
+        /// </summary>
+        [Public]
+        public const int BecameSigned = 1;
+        
+        /// <summary>
+        /// Изменение было - с "Подписано" на "Не подписано".
+        /// </summary>
+        [Public]
+        public const int BecameUnsigned = 2;
+      }
+
     }
 
     /// <summary>
@@ -1381,5 +1467,30 @@ namespace DirRX.NNIntegration.Constants
       [Public]
       public const string Cancelation = "3";
     }
+    
+    /// <summary>
+    /// Возможные значения кодов вида документа приказа на дополнительный день отдыха за РВД.
+    /// </summary>
+    [Public]
+    public static class WeekendWorkRestOrderKindCodes
+    {
+      /// <summary>
+      /// Приказ на предоставление дополнительного дня отдыха.
+      /// </summary>
+      [Public]
+      public const string GrantRestOrder = "32";
+      
+      /// <summary>
+      /// Приказ об отмене дополнительного дня отдыха.
+      /// </summary>
+      [Public]
+      public const string CancelationRestOrder = "33";
+    }
+    
+    /// <summary>
+    /// Префикс УЗ пользователей ЛК.
+    /// </summary>
+    [Public]
+    public const string HRProLoginPrefix = "hrpro";
   }
 }

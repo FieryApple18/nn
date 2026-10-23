@@ -41,7 +41,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
-          "Name": "Main",
+          "Name": "MainDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "Overridden": [
@@ -52,7 +52,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "4e1d78fc-6f6c-4c81-bf9a-a1fa2031a46b",
-          "Name": "Registration",
+          "Name": "RegistrationDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "IsVisible": false,
@@ -64,7 +64,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "696a8bb8-3e12-44c8-927a-37d955cfbf0f",
-          "Name": "File",
+          "Name": "FileDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "IsVisible": false,
@@ -76,7 +76,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "1b194ce3-c440-4887-9f0d-1cdc4303c583",
-          "Name": "State",
+          "Name": "StateDirRX",
           "GroupType": "WithTitleNoBorder",
           "IsAncestorMetadata": true,
           "IsVisible": false,
@@ -88,7 +88,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "3d411ab8-967c-43b4-ab77-0240b19d9921",
-          "Name": "Main",
+          "Name": "MainDirRX",
           "IsAncestorMetadata": true,
           "Overridden": [
             "Controls"
@@ -98,7 +98,7 @@
         {
           "$type": "Sungero.Metadata.ControlGroupMetadata, Sungero.Metadata",
           "NameGuid": "5ed4d4a9-d0be-47c7-a642-679213e31156",
-          "Name": "Performer",
+          "Name": "PerformerDirRX",
           "IsAncestorMetadata": true,
           "IsVisible": false,
           "Overridden": [
@@ -152,7 +152,7 @@
           "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.TextEditorToTextBinder",
           "ParentGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
           "PropertyGuid": "4bc39efb-1f46-4a1e-8b8c-04f2b90d6a8b",
-          "RowNumber": 3,
+          "RowNumber": 4,
           "RowSpan": 1,
           "Settings": [
             {
@@ -200,6 +200,19 @@
           "ParentGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
           "PropertyGuid": "a8c35fbf-8218-4289-8f45-9b6d3ad7342b",
           "RowNumber": 2,
+          "RowSpan": 1,
+          "Settings": []
+        },
+        {
+          "$type": "Sungero.Metadata.ControlMetadata, Sungero.Metadata",
+          "NameGuid": "8a6c5265-1be3-45b8-b80e-eb415bd12321",
+          "Name": "IsNGDDirRX",
+          "ColumnNumber": 0,
+          "ColumnSpan": 1,
+          "DataBinderTypeName": "Sungero.Presentation.CommonDataBinders.BooleanEditorToBooleanBinder",
+          "ParentGuid": "406e14dc-1744-4a7f-85d8-f6eef8abaa3f",
+          "PropertyGuid": "17301247-79c2-4647-b0f5-f1bd3f866d20",
+          "RowNumber": 3,
           "RowSpan": 1,
           "Settings": []
         }

@@ -130,4 +130,13 @@
   <data name="Property_StructuralDepartmentDirRX" xml:space="preserve">
     <value>Структурное подразделение</value>
   </data>
+  <data name="Property_TradeUnionOpinionDirRX" xml:space="preserve">
+    <value>Мнение профсоюза и СТС</value>
+  </data>
+  <data name="Property_ScheduleResponsibleDirRX" xml:space="preserve">
+    <value>Ответственный за график отпусков</value>
+  </data>
+  <data name="Property_VacationScheduleDocumentDirRX" xml:space="preserve">
+    <value>График отпусков</value>
+  </data>
 </root>

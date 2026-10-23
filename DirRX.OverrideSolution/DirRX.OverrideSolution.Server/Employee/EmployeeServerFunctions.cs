@@ -11,7 +11,18 @@ namespace DirRX.OverrideSolution.Server
 {
   partial class EmployeeFunctions
   {
-
+    /// <summary>
+    /// Определяет категорию РСС.
+    /// </summary>
+    /// <returns>true, если относится к РСС, иначе false.</returns>
+    [Public]
+    public bool IsCategoryRSS()
+    {
+      return _obj.CategoryDirRX == OverrideSolution.Employee.CategoryDirRX.Manager ||
+        _obj.CategoryDirRX == OverrideSolution.Employee.CategoryDirRX.Specialist ||
+        _obj.CategoryDirRX == OverrideSolution.Employee.CategoryDirRX.Clerk;
+    }
+    
     /// <summary>
     /// Добавить данные сотрудника к превью карточки сотрудника.
     /// </summary>
@@ -118,39 +129,18 @@ namespace DirRX.OverrideSolution.Server
     [Public]
     public virtual void ReissueCertificate()
     {
-      var isCustomCertificateIssueProcess = NNCommons.PublicFunctions.Module.Remote.GetBoolValue(NNCommons.PublicConstants.Module.ConstantsSetting.CertificateIssueProcess.Guid).Value;
+      var logPrefix = "ReissueCertificate";
       
-      // Получить действующую задачу на выпуск сертификата.
-      var task = Sungero.Workflow.Tasks.Null;
-      if (isCustomCertificateIssueProcess)
-        task = NNCommons.CertificateIssueTasks.GetAll(c => c.Employee.Id == _obj.Id && c.Status == Sungero.Workflow.Task.Status.InProcess).FirstOrDefault();
-      else
-        task = DirRX.SignPlatform.CertificateIssueTasks.GetAll(c => c.Employee.Id == _obj.Id && c.Status == Sungero.Workflow.Task.Status.InProcess).FirstOrDefault();
-      
-      // Прекратить задачу, если она в работе.
-      if (task != null)
-      {
-        Logger.DebugFormat("ReissueCertificate. При перевыпуске сертификата найдена устаревшая задача для выпуска сертификата. Задача будет прекращена. ИД задачи: {0}.", task.Id);
-        task.Abort();
-      }
-      
-      // Найти устаревший сертификат
-      var certificate = DirRX.NNCommons.PublicFunctions.Module.Remote.GetEssCertificates(_obj.Person.Id).FirstOrDefault();
+      DirRX.NNIntegration.PublicFunctions.Module.AbortActiveCertificateIssueTaskForPerson(_obj.Person.Id, logPrefix);
+      DirRX.NNIntegration.PublicFunctions.Module.DisableCertificateForPerson(_obj.Person.Id, logPrefix);
       
       try
       {
-        if (certificate != null)
-        {
-          certificate.Enabled = false;
-          Logger.DebugFormat("ReissueCertificate. При перевыпуске сертификата найден устаревший сертификат. Сертификат будет сделан недействующим. ИД сертификта: {0}.", certificate.Id);
-          certificate.Save();
-        }
-        
         IssueCertificate();
       }
       catch (Exception ex)
       {
-        Logger.DebugFormat("ReissueCertificate. Возникла ошибка при перевыпуске сертификата. Текст ошибки: {0}. StackTrace: {1}.", ex.Message, ex.StackTrace);
+        Logger.DebugFormat("{0}. Возникла ошибка при перевыпуске сертификата. Текст ошибки: {1}. StackTrace: {2}.", logPrefix, ex.Message, ex.StackTrace);
         throw ex;
       }
     }

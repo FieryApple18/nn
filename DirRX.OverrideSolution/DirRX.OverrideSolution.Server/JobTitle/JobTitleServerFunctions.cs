@@ -43,5 +43,24 @@ namespace DirRX.OverrideSolution.Server
       return employees;
     }
 
+    /// <summary>
+    /// Получить значение перечисления "Уровень штатной должности" по его коду.
+    /// </summary>
+    /// <param name="positionLevel">Код уровня штатной должности.</param>
+    /// <returns>Значение перечисления "Уровень штатной должности".</returns>
+    [Public]
+    public Sungero.Core.Enumeration GetJobTitlePositionLevel(string positionLevel)
+    {
+      var result = PositionLevelDirRX.RCCN2Lower;
+      
+      if (positionLevel == Constants.Company.JobTitle.PositionLevelCodes.N)
+        result = PositionLevelDirRX.RCCN;
+      else if (positionLevel == Constants.Company.JobTitle.PositionLevelCodes.N1)
+        result = PositionLevelDirRX.RCCN1;
+      else if (positionLevel == Constants.Company.JobTitle.PositionLevelCodes.N2)
+        result = PositionLevelDirRX.RCCN2;
+      
+      return result;
+    }
   }
 }

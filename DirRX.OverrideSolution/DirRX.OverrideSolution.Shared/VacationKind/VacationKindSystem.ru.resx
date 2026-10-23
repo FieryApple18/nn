@@ -152,7 +152,7 @@
     <value>Отпуск можно переносить отдельно</value>
   </data>
   <data name="Property_NeedsTransferredCompletelyDirRX" xml:space="preserve">
-    <value>Отпуск необходимо перенести полностью</value>
+    <value>Отпуск необходимо перенести полностью (Устаревший)</value>
   </data>
   <data name="ControlGroup_c9a6b231c3474c728cc89a1e7f37ce76" xml:space="preserve">
     <value>Перенос отпуска по заявлению</value>
@@ -174,5 +174,41 @@
   </data>
   <data name="Property_IsStudyDirRX" xml:space="preserve">
     <value>Учебный</value>
+  </data>
+  <data name="Property_TransferringRulesEmployeesDirRX" xml:space="preserve">
+    <value>Правила переноса типа отпуска (Рабочие) </value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_MatchCount" xml:space="preserve">
+    <value>Количество дней должно совпадать</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_Fewer" xml:space="preserve">
+    <value>Можно перенести меньше дней</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_More" xml:space="preserve">
+    <value>Можно перенести больше дней</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_FewerOrMore" xml:space="preserve">
+    <value>Можно перенести меньше/больше дней</value>
+  </data>
+  <data name="Property_TransferringRulesRSSDirRXDirRX" xml:space="preserve">
+    <value>Правила переноса типа отпуска (РСС) </value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_MatchCount" xml:space="preserve">
+    <value>Количество дней должно совпадать</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_Fewer" xml:space="preserve">
+    <value>Можно перенести меньше дней</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_More" xml:space="preserve">
+    <value>Можно перенести больше дней</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_FewerOrMore" xml:space="preserve">
+    <value>Можно перенести меньше/больше дней</value>
+  </data>
+  <data name="Property_CanBeAddAnnualLeaveDirRX" xml:space="preserve">
+    <value>Можно присоединить до ежегодного отпуска</value>
+  </data>
+  <data name="Property_AttachDocumentsDirRX" xml:space="preserve">
+    <value>Требовать приложить документы</value>
   </data>
 </root>

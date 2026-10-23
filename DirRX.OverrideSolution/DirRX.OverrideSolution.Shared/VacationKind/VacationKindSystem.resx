@@ -152,7 +152,7 @@
     <value>The vacation must be transferred separately</value>
   </data>
   <data name="Property_NeedsTransferredCompletelyDirRX" xml:space="preserve">
-    <value>The vacation must be rescheduled completelly</value>
+    <value>The vacation must be rescheduled completelly (Obsolete)</value>
   </data>
   <data name="ControlGroup_c9a6b231c3474c728cc89a1e7f37ce76" xml:space="preserve">
     <value>Change vacation period</value>
@@ -172,7 +172,43 @@
   <data name="Property_DaysBeforeTransferringTopDirRX" xml:space="preserve">
     <value>Deadline for transferring paid vacation, days (TOP)</value>
   </data>
+  <data name="Property_TransferringRulesEmployeesDirRX" xml:space="preserve">
+    <value>Transferring rules vacation type (work)</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_MatchCount" xml:space="preserve">
+    <value>The number of days must match</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_FewerOrMore" xml:space="preserve">
+    <value>Fewer or more days can be transferred</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_More" xml:space="preserve">
+    <value>More days can be transferred</value>
+  </data>
+  <data name="Enum_TransferringRulesEmployeesDirRX_Fewer" xml:space="preserve">
+    <value>Fewer days can be transferred</value>
+  </data>
   <data name="Property_IsStudyDirRX" xml:space="preserve">
     <value>Study</value>
+  </data>
+  <data name="Property_TransferringRulesRSSDirRXDirRX" xml:space="preserve">
+    <value>Transferring rules vacation type (RSS)</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_MatchCount" xml:space="preserve">
+    <value>The number of days must match</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_FewerOrMore" xml:space="preserve">
+    <value>Fewer or more days can be transferred</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_More" xml:space="preserve">
+    <value>More days can be transferred</value>
+  </data>
+  <data name="Enum_TransferringRulesRSSDirRXDirRX_Fewer" xml:space="preserve">
+    <value>Fewer days can be transferred</value>
+  </data>
+  <data name="Property_CanBeAddAnnualLeaveDirRX" xml:space="preserve">
+    <value>Can be add annual leave</value>
+  </data>
+  <data name="Property_AttachDocumentsDirRX" xml:space="preserve">
+    <value>Attach documents</value>
   </data>
 </root>

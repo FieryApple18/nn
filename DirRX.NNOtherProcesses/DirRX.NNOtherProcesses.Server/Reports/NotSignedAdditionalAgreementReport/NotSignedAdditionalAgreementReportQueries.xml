@@ -3,7 +3,7 @@
   <query key="AssignmentsQuery">
     <default><![CDATA[SELECT empl.name AS Name,
  	empl.persnumber_company_sungero AS PersonnelNumber,
- 	doc.topdirrx_overrid_dirrx AS Top,
+ 	doc.isngddirrx_overrid_dirrx AS Top,
  	jt.name AS JobTitle,
  	dep.name AS Department,
 	doc.documentdate_docflow_sungero AS DocumentDate,

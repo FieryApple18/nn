@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sungero.Core;
@@ -20,6 +20,7 @@ namespace DirRX.NNOtherProcesses.Server
       GrantRightsOnDocument();
       GrantRightsOnDatabooks();
       GrantRightsOnReports();
+      GrantRightsOnTasks();
       UpdateHRProDocumentKinds();
     }
 
@@ -81,13 +82,23 @@ namespace DirRX.NNOtherProcesses.Server
                                                              true, Constants.Module.ConstantsDefaultValues.WeekendWorkOrderExtension,
                                                              Constants.Module.ConstantsSetting.WeekendWorkOrderExtension.Guid,
                                                              Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
+      // Максимальное количество доп. согласующих.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.MaxNumberAdditionalMatchingElement.Name,
+                                                             true, Constants.Module.ConstantsDefaultValues.MaxNumberAdditionalMatchingElement,
+                                                             Constants.Module.ConstantsSetting.MaxNumberAdditionalMatchingElement.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
       
-      var childSupprotTypesIds = LrdPaymentTypes.GetAll(x => x.Name == Constants.LrdPaymentType.DefaultNames.ChildBirth ||
+      var childSupportTypesIds = LrdPaymentTypes.GetAll(x => x.Name == Constants.LrdPaymentType.DefaultNames.ChildBirth ||
                                                         x.Name == Constants.LrdPaymentType.DefaultNames.DisabledChild).Select(x => x.Id);
       
-      var childSupportTypesIdsString = string.Join(", ", childSupprotTypesIds);
+      var childSupportTypesIdsString = string.Join(", ", childSupportTypesIds);
       
       var disabledChildPaymentTypeId = LrdPaymentTypes.GetAll(x => x.Name == Constants.LrdPaymentType.DefaultNames.DisabledChild).FirstOrDefault()?.Id;
+      var childBirthPaymentTypeId = LrdPaymentTypes.GetAll(x => x.Name == Constants.LrdPaymentType.DefaultNames.ChildBirth).FirstOrDefault()?.Id;
+      
+      var retirementPaymentTypeIds = LrdPaymentTypes.GetAll(x => x.Name == Constants.LrdPaymentType.DefaultNames.Retirement).Select(x => x.Id);
+      var retirementPaymentTypeIdsString = string.Join(", ", retirementPaymentTypeIds);
+      
       
       // Список ИД типов выплат, для которых в заявлении необходимо указывать ребёнка сотрудника.
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.ChildSupportPaymentTypesIds.Name,
@@ -99,6 +110,18 @@ namespace DirRX.NNOtherProcesses.Server
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.DisabledChildPaymentTypeId.Name,
                                                              true, disabledChildPaymentTypeId ?? (long)0,
                                                              Constants.Module.ConstantsSetting.DisabledChildPaymentTypeId.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
+      
+      // Список ИД типов выплат, для которых в заявлении необходимо указывать дату увольнения.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.RetirementPaymentTypeIds.Name,
+                                                             true, retirementPaymentTypeIdsString,
+                                                             Constants.Module.ConstantsSetting.RetirementPaymentTypeIds.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
+      
+      // ИД типа выплаты, на рождение ребенка, а также усыновление детей-сирот и детей, оставшихся без попечения родителей.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.ChildBirthPaymentTypeId.Name,
+                                                             true, childBirthPaymentTypeId ?? (long)0,
+                                                             Constants.Module.ConstantsSetting.ChildBirthPaymentTypeId.Guid,
                                                              Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
       
       // Ид варианта процесса для запроса мнений.
@@ -157,12 +180,30 @@ namespace DirRX.NNOtherProcesses.Server
                                                              Constants.Module.ConstantsSetting.EmploymentContractAdditionalAgreementExtension.Guid,
                                                              Constants.Module.ConstantsGroup.SigningEmploymentContractAgreement.Guid);
       
+      // Оплачиваемый перерыв.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.PaidBreak.Name,
+                                                             true, Constants.Module.ConstantsDefaultValues.PaidBreak,
+                                                             Constants.Module.ConstantsSetting.PaidBreak.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
+
+      // ИД видов компенсации, для которых необходимо создавать заявление на доп. день отдыха.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.WeekendWorkCompensationKindsForRestStatement.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsDefaultValues.WeekendWorkCompensationKindsForRestStatement,
+                                                             Constants.Module.ConstantsSetting.WeekendWorkCompensationKindsForRestStatement.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
+      
+      // Формат файла приказа на доп. день отдыха.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.WeekendWorkRestOrderExtension.Name,
+                                                             true, Constants.Module.ConstantsDefaultValues.WeekendWorkRestOrderExtension,
+                                                             Constants.Module.ConstantsSetting.WeekendWorkRestOrderExtension.Guid,
+                                                             Constants.Module.ConstantsGroup.RegistrationOfWorkVDPDSR.Guid);
       // ДС. Тема письма Специалистам ОКА.
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.NotSignedAdditionalAgreementLetterSubject.Name,
                                                              true, Constants.Module.ConstantsDefaultValues.NotSignedAdditionalAgreementLetterSubject,
                                                              Constants.Module.ConstantsSetting.NotSignedAdditionalAgreementLetterSubject.Guid,
                                                              Constants.Module.ConstantsGroup.SigningEmploymentContractAgreement.Guid);
-                                                             
+      
       // Общее. Оформление заявления по основному месту работы.
       NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.RegistrationStatementMainPlace.Name,
                                                              true,
@@ -213,6 +254,36 @@ namespace DirRX.NNOtherProcesses.Server
                                                                               LrdPaymentOrderDocument.ClassTypeGuid,
                                                                               Sungero.Docflow.DocumentType.DocumentFlow.Inner,true);
       
+      // Заявление на доп. день отдыха.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType(DirRX.NNOtherProcesses.Resources.WeekendWorkRestStatementDocument,
+                                                                              WeekendWorkRestStatementDocument.ClassTypeGuid,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Inner,false);
+      
+      // Приказ на доп. день отдыха.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType(DirRX.NNOtherProcesses.Resources.WeekendWorkRestOrderDocument,
+                                                                              WeekendWorkRestOrderDocument.ClassTypeGuid,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Inner,false);
+      
+      #region Оформление переводов.
+      
+      // Заявка на перевод.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType(DirRX.NNOtherProcesses.TransferRequestDocuments.Info.LocalizedName,
+                                                                              TransferRequestDocument.ClassTypeGuid,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Inner, false);
+      // Заявление о переводе.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType(DirRX.NNOtherProcesses.TransferStatementDocuments.Info.LocalizedName,
+                                                                              TransferStatementDocument.ClassTypeGuid,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Inner, false);
+      // Декларация о конфликте интересов.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType(DirRX.NNOtherProcesses.TransferDeclarationDocuments.Info.LocalizedName,
+                                                                              TransferDeclarationDocuments.ClassTypeGuid,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Inner, false);
+      // Приказ о переводе.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateDocumentType(DirRX.NNOtherProcesses.TransferOrderDocuments.Info.LocalizedName,
+                                                                              TransferOrderDocument.ClassTypeGuid,
+                                                                              Sungero.Docflow.DocumentType.DocumentFlow.Inner, false);
+      
+      #endregion
     }
     
     /// <summary>
@@ -281,7 +352,6 @@ namespace DirRX.NNOtherProcesses.Server
                                                                             PublicConstants.Module.SapKindsCodes.SupportingDocumentForLNADocKind);
       
       #endregion
-      
       
       // Приказ о направлении в командировку.
       NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN(DirRX.NNOtherProcesses.Resources.BusinessTripOrderDocKind,
@@ -438,6 +508,67 @@ namespace DirRX.NNOtherProcesses.Server
                                                                             Constants.Module.CodeMinistryLabor.OtherDocuments, false, false, false, registrationPaymentsLNA, false,
                                                                             Constants.Module.SapKindsCodes.LrdPaymentOrderDocKind);
       
+      // Приказ на предоставление доп. дня отдыха.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN(DirRX.NNOtherProcesses.Resources.GrantRestOrderDocKind,
+                                                                            DirRX.NNOtherProcesses.Resources.GrantRestOrderDocKind,
+                                                                            Sungero.Docflow.DocumentKind.NumberingType.NotNumerable,
+                                                                            Sungero.Docflow.DocumentType.DocumentFlow.Inner, true, false,
+                                                                            WeekendWorkRestOrderDocument.ClassTypeGuid,
+                                                                            new Sungero.Domain.Shared.IActionInfo[] {  },
+                                                                            Constants.Module.DocumentKind.GrantRestOrderDocument, true,
+                                                                            HRPro.HRProSolution.DocumentKind.ApproverHRPro.NotRequired, 1, null,
+                                                                            Constants.Module.CodeMinistryLabor.OtherDocuments, true, true, true, registrationWork, false,
+                                                                            Constants.Module.SapKindsCodes.GrantRestOrderDocKind);
+      
+      // Заявление на доп. день отдыха за РВД.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN(DirRX.NNOtherProcesses.Resources.WeekendWorkRestStatementDocKind,
+                                                                            DirRX.NNOtherProcesses.Resources.WeekendWorkRestStatementDocKind,
+                                                                            Sungero.Docflow.DocumentKind.NumberingType.NotNumerable,
+                                                                            Sungero.Docflow.DocumentType.DocumentFlow.Inner, true, false,
+                                                                            WeekendWorkRestStatementDocument.ClassTypeGuid,
+                                                                            new Sungero.Domain.Shared.IActionInfo[] {  },
+                                                                            Constants.Module.DocumentKind.WeekendWorkRestStatementDocument, true,
+                                                                            HRPro.HRProSolution.DocumentKind.ApproverHRPro.Employee, 1, null,
+                                                                            Constants.Module.CodeMinistryLabor.OtherDocuments, true, true, false, registrationWork, false,
+                                                                            Constants.Module.SapKindsCodes.WeekendWorkRestStatementDocKind);
+      
+      // Приказ об отмене доп. дня отдыха.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN(DirRX.NNOtherProcesses.Resources.CancelationRestOrderDocKind,
+                                                                            DirRX.NNOtherProcesses.Resources.CancelationRestOrderDocKind,
+                                                                            Sungero.Docflow.DocumentKind.NumberingType.NotNumerable,
+                                                                            Sungero.Docflow.DocumentType.DocumentFlow.Inner, true, false,
+                                                                            WeekendWorkRestOrderDocument.ClassTypeGuid,
+                                                                            new Sungero.Domain.Shared.IActionInfo[] {  },
+                                                                            Constants.Module.DocumentKind.CancelationRestOrderDocument, false,
+                                                                            HRPro.HRProSolution.DocumentKind.ApproverHRPro.NotRequired, 1, null,
+                                                                            Constants.Module.CodeMinistryLabor.OtherDocuments, true, true, false, registrationWork, false,
+                                                                            Constants.Module.SapKindsCodes.CancelationRestOrderDocKind);
+      
+      #region Оформление переводов.
+      
+      // Заявка на перевод.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN(DirRX.NNOtherProcesses.TransferRequestDocuments.Info.LocalizedName,
+                                                                            DirRX.NNOtherProcesses.TransferRequestDocuments.Info.LocalizedName,
+                                                                            Sungero.Docflow.DocumentKind.NumberingType.NotNumerable,
+                                                                            Sungero.Docflow.DocumentType.DocumentFlow.Inner, true, false,
+                                                                            TransferRequestDocument.ClassTypeGuid,
+                                                                            new Sungero.Domain.Shared.IActionInfo[] {  },
+                                                                               Constants.Module.DocumentKind.CancelationRestOrderDocument, true,
+                                                                            HRPro.HRProSolution.DocumentKind.ApproverHRPro.NotRequired, null, null,
+                                                                            Constants.Module.CodeMinistryLabor.OtherDocuments, true, true, false, registrationWork, false,
+                                                                            Constants.Module.SapKindsCodes.CancelationRestOrderDocKind
+                                                                           );
+      
+      // Заявление о переводе.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN();
+      
+      // Декларация о конфликте интересов.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN();
+      
+      // Приказ о переводе.
+      NNCommons.PublicInitializationFunctions.Module.CreateHRDocumentKindNN();
+      
+      #endregion
     }
     
     /// <summary>
@@ -445,16 +576,22 @@ namespace DirRX.NNOtherProcesses.Server
     /// </summary>
     public void CreateRoles()
     {
-      InitializationLogger.Debug("Init NNCommons module: Create Roles.");
+      InitializationLogger.Debug("Init NNOtherProcesses module: Create Roles.");
       // Линейные руководители.
       Sungero.Docflow.PublicInitializationFunctions.Module.CreateRole(DirRX.NNOtherProcesses.Resources.ResponsibleWeekendWorkRoleName,
                                                                       DirRX.NNOtherProcesses.Resources.ResponsibleWeekendWorkRoleDescription,
                                                                       Constants.Module.RolesGuid.ResponsibleWeekendWork);
-      
+      // TODO Почему тут два раза одну и ту же роль создаем? Косяк слияния?
       // Ответственный за РВ и СУ.
       Sungero.Docflow.PublicInitializationFunctions.Module.CreateRole(DirRX.NNOtherProcesses.Resources.ResponsibleWeekendWorkRoleName,
                                                                       DirRX.NNOtherProcesses.Resources.ResponsibleWeekendWorkRoleDescription,
                                                                       Constants.Module.RolesGuid.ResponsibleWeekendWork);
+      // TODO Пересмотреть название роли, доработать ресурсы с именем и описанием роли.
+      // Предлагаю: Имя - Ответственный за инициацию переводов, Описание - пользователи, ответственные за иницацию переводов сотрудников.
+      // Инициатор перевода.
+      Sungero.Docflow.PublicInitializationFunctions.Module.CreateRole(DirRX.NNOtherProcesses.Resources.ResponsibleTransferProcessRoleName,
+                                                                      DirRX.NNOtherProcesses.Resources.ResponsibleTransferProcessRoleDescription,
+                                                                      Constants.Module.RolesGuid.ResponsibleTransferProcess);
     }
     
     /// <summary>
@@ -566,25 +703,6 @@ namespace DirRX.NNOtherProcesses.Server
                                                      PublicConstants.LrdPaymentType.CodeVO.Mutilation);
       #endregion
       
-      #region ВД/ПД/СР.
-      
-      // Виды компенсаций.
-      var weekendWorkDocKind = Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(Constants.Module.DocumentKind.WeekendWorkStatementDocument);
-      if (weekendWorkDocKind != null)
-      {
-        error += Functions.WeekendWorkCompensationKind.CreateRecord(Constants.WeekendWorkCompensationKind.DefaultNames.IncreasedPay, Constants.WeekendWorkCompensationKind.DefaultCodes.IncreasedPay, weekendWorkDocKind, false);
-        error += Functions.WeekendWorkCompensationKind.CreateRecord(Constants.WeekendWorkCompensationKind.DefaultNames.AnotherRestDay, Constants.WeekendWorkCompensationKind.DefaultCodes.AnotherRestDay, weekendWorkDocKind, true);
-      }
-      var overtimeWorkDocKind = Sungero.Docflow.PublicFunctions.DocumentKind.GetNativeDocumentKind(Constants.Module.DocumentKind.OvertimeWorkStatementDocument);
-      if (overtimeWorkDocKind != null)
-      {
-        error += Functions.WeekendWorkCompensationKind.CreateRecord(Constants.WeekendWorkCompensationKind.DefaultNames.StandardPay, Constants.WeekendWorkCompensationKind.DefaultCodes.StandardPay, overtimeWorkDocKind, false);
-        error += Functions.WeekendWorkCompensationKind.CreateRecord(Constants.WeekendWorkCompensationKind.DefaultNames.DualPay, Constants.WeekendWorkCompensationKind.DefaultCodes.DualPay, overtimeWorkDocKind, false);
-        error += Functions.WeekendWorkCompensationKind.CreateRecord(Constants.WeekendWorkCompensationKind.DefaultNames.AdditionalRestTime, Constants.WeekendWorkCompensationKind.DefaultCodes.AdditionalRestTime, overtimeWorkDocKind, false);
-      }
-      
-      #endregion
-      
       #region Список систем для замещения.
       
       error += Functions.SubstitutionSystem.CreateRecord(DirRX.NNOtherProcesses.Resources.DefaultSubstitutionSystem_Name,
@@ -617,6 +735,9 @@ namespace DirRX.NNOtherProcesses.Server
       NNOtherProcesses.SubstitutionPersonalAccounts.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
       NNOtherProcesses.SubstitutionPersonalAccounts.AccessRights.Save();
       
+      NNOtherProcesses.WeekendWorkCancelationReasons.AccessRights.Grant(Roles.AllUsers, DefaultAccessRightsTypes.Read);
+      NNOtherProcesses.WeekendWorkCancelationReasons.AccessRights.Save();
+      
       var hrUsers = Roles.GetAll(x => x.Sid == HRPro.HRDocFlow.PublicConstants.Module.Roles.HRDocFlowUsers).FirstOrDefault();
       if (hrUsers != null)
       {
@@ -626,6 +747,25 @@ namespace DirRX.NNOtherProcesses.Server
       else
         InitializationLogger.Debug("Не найдена роль \"Пользователи модуля Кадровый ЭДО\"");
       
+    }
+    
+    /// <summary>
+    /// Выдать права на задачи.
+    /// </summary>
+    public static void GrantRightsOnTasks()
+    {
+      InitializationLogger.Debug("Init: Grant rights on tasks.");
+      
+      // Выдать права роли "Линейные руководители".
+      var managerRole = Roles.GetAll(x => x.Sid == DirRX.NNCommons.PublicConstants.Module.RolesGuid.LineManager).FirstOrDefault();
+      // Роль может быть еще не создана, если нарушился порядок инициализации.
+      if (managerRole != null)
+      {
+        NNOtherProcesses.WeekendWorkCancelationTasks.AccessRights.Grant(managerRole, DefaultAccessRightsTypes.Create);
+        NNOtherProcesses.WeekendWorkCancelationTasks.AccessRights.Save();
+      }
+      else
+        InitializationLogger.Debug("Не найдена роль \"Линейные руководители\"");
     }
 
     /// <summary>

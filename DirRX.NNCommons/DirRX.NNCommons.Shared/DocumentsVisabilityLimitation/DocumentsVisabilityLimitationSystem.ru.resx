@@ -100,4 +100,7 @@
   <data name="Action_ShowDuplicatesDescription" xml:space="preserve">
     <value>Показать ограничения с совпадающими ролью и нашей организацией.</value>
   </data>
+  <data name="Property_PersonnelSection" xml:space="preserve">
+    <value>Раздел персонала</value>
+  </data>
 </root>

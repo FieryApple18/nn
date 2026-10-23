@@ -368,6 +368,18 @@ namespace DirRX.NNIntegration.Server
                                      Constants.Module.ExternalSystemsFlowGuids.VacationsPaymentInfo, Direction.Incoming, ksip,
                                      Resources.NeedFillActionName, false, NNIntegration.ExternalSystemFlow.FlowKind.Asynchronic,
                                      OverrideSolution.Employees.Null, null, false);
+      
+      // IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+      CreateExternalSystemFlowRecord(Constants.Module.ExternalSystemsFlowNames.CreateWeekendWorkRestOrderDocument, Constants.Module.ExternalSystemsFlowDescriptions.CreateWeekendWorkRestOrderDocument,
+                                     Constants.Module.ExternalSystemsFlowGuids.CreateWeekendWorkRestOrderDocument, Direction.Incoming, ksip,
+                                     Resources.NeedFillActionName, false, NNIntegration.ExternalSystemFlow.FlowKind.Asynchronic,
+                                     OverrideSolution.Employees.Null, null, false);
+      
+      // IF-S-29000. Передача статуса по процессу «Ведение графика отпусков» из КЭДО в АСУП.
+      CreateExternalSystemFlowRecord(Constants.Module.ExternalSystemsFlowNames.VacationScheduleProcessStatus, Constants.Module.ExternalSystemsFlowDescriptions.VacationScheduleProcessStatus,
+                                     Constants.Module.ExternalSystemsFlowGuids.VacationScheduleProcessStatus, Direction.Outgoing, ksip,
+                                     Resources.NeedFillActionName, false, NNIntegration.ExternalSystemFlow.FlowKind.Asynchronic,
+                                     OverrideSolution.Employees.Null, null, false);
     }
     
     /// <summary>
@@ -634,6 +646,24 @@ namespace DirRX.NNIntegration.Server
                                                              true, string.Empty,
                                                              Constants.Module.ConstantsSetting.TemplateIdUnqualifiedSignature.Guid,
                                                              Constants.Module.ConstantsGroup.IntegrationWithKss.Guid);
+      
+      // Интеграция. Выполнять подключение к Личному кабинету асинхронно.
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.AsyncCreateESSUserAccount.Name,
+                                                             true, true,
+                                                             Constants.Module.ConstantsSetting.AsyncCreateESSUserAccount.Guid,
+                                                             Constants.Module.ConstantsGroup.SynchronizationOfOrganizationalStructure.Guid);
+      
+      // Интеграция. Количество сообщений обрабатываемых ФП "Создание учетных записей в КЭДО".
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.CreateESSUserAccountMessageCount.Name,
+                                                             true, Constants.Module.ConstantsDefaultValues.CreateESSUserAccountMessageCount,
+                                                             Constants.Module.ConstantsSetting.CreateESSUserAccountMessageCount.Guid,
+                                                             Constants.Module.ConstantsGroup.SynchronizationOfOrganizationalStructure.Guid);
+      
+      // Интеграция. Количество сообщений обрабатываемых ФП "Исключение проф. пользователей из роли неинтерактивные пользователи".
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.ExcludeNonInteractiveUsersRole.Name,
+                                                             true, Constants.Module.ConstantsDefaultValues.ExcludeNonInteractiveUsersRoleCount,
+                                                             Constants.Module.ConstantsSetting.ExcludeNonInteractiveUsersRole.Guid,
+                                                             Constants.Module.ConstantsGroup.SynchronizationOfOrganizationalStructure.Guid);
       
       #region Коды видов документов SAP.
 

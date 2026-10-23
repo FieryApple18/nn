@@ -242,4 +242,22 @@
   <data name="JobDescription_0df2de757007482dbd16e61e67382276" xml:space="preserve">
     <value>Очистка неактуальных частных календарей рабочего времени.</value>
   </data>
+  <data name="JobDisplayName_a934fbbe93744b41a931de8cdc4be8fe" xml:space="preserve">
+    <value>Актуализация признака "TОП"</value>
+  </data>
+  <data name="JobDescription_a934fbbe93744b41a931de8cdc4be8fe" xml:space="preserve">
+    <value>Актуализация признака "TOП" в документах</value>
+  </data>
+  <data name="Block_601d1682a809455c92f771dd8653d11d" xml:space="preserve">
+    <value>Выполнить активные блоки мониторинга</value>
+  </data>
+  <data name="Block_601d1682a809455c92f771dd8653d11d_Description" xml:space="preserve">
+    <value>Скрипт выполняет активные блоки мониторинга у задачи.</value>
+  </data>
+  <data name="Block_601d1682a809455c92f771dd8653d11d_Property_a5eb0b4c316d47eb8eb28e22da13271c" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="AsyncHandler_Description_077cc4f2c9834b3db6d97d1e01066eb3" xml:space="preserve">
+    <value>AsyncHandler</value>
+  </data>
 </root>

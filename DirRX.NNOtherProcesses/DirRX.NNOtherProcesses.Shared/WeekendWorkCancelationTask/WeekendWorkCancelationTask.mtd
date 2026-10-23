@@ -49,6 +49,22 @@
   ],
   "BaseGuid": "d795d1f6-45c1-4e5e-9677-b53fb7280c7e",
   "BlockIds": [],
+  "Blocks": [
+    {
+      "$type": "Sungero.Metadata.AssignmentBlockMetadata, Sungero.Workflow.Shared",
+      "NameGuid": "2f41da45-ccfd-46c0-ac2e-1e4af41c0cd8",
+      "Name": "ReworkWWCancelationAssignmentBlock",
+      "EntityType": "c042e46e-8f7d-40cf-93f5-afc68ec4205a",
+      "HandledEvents": [
+        "ReworkWWCancelationAssignmentBlockStartAssignment",
+        "ReworkWWCancelationAssignmentBlockCompleteAssignment"
+      ],
+      "Overridden": [
+        "EntityType"
+      ],
+      "ProcessStagesDisplayMode": "Show"
+    }
+  ],
   "CanBeNavigationPropertyType": true,
   "CanBeSearch": true,
   "CanBeUsedInIntegration": true,
@@ -256,6 +272,15 @@
       "IsRequired": true,
       "IsShowedInList": false,
       "PreviousPropertyGuid": "16f68f22-31a2-45f3-8a1e-a26037ae82f4"
+    },
+    {
+      "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "f1d2482e-0313-4877-91ef-6a6444842c86",
+      "Name": "CancelationReason",
+      "Code": "CancelationRea",
+      "EntityGuid": "298681fd-2287-4ebc-b792-1bc180ee94b6",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "PreviousPropertyGuid": "e1e0fa4d-a951-44f2-81c2-1207773bc275"
     }
   ],
   "PublicStructures": [],

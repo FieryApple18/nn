@@ -18,7 +18,7 @@ namespace DirRX.NNOtherProcesses
       {
         e.AddInformation(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.RestDateFromIsEnableMessageFormat(_obj.Compensation));
         e.NewValue = null;
-      }        
+      }
     }
     
     public virtual void EmployeesCompensationValueInput(DirRX.NNOtherProcesses.Client.WeekendWorkStatementDocumentEmployeesCompensationValueInputEventArgs e)
@@ -27,16 +27,27 @@ namespace DirRX.NNOtherProcesses
         return;
       if (e.NewValue?.NeedRestDate == false && _obj.RestDateFrom != null)
         e.AddInformation(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.RestDateFromIsEnableMessageFormat(e.NewValue));
-    }  
+    }
   }
 
 
   partial class WeekendWorkStatementDocumentClientHandlers
   {
 
+    public override void PersonnelSectionDirRXValueInput(DirRX.OverrideSolution.Client.DocRelatedToWorkBasePersonnelSectionDirRXValueInputEventArgs e)
+    {
+      base.PersonnelSectionDirRXValueInput(e);
+      
+      if (!Functions.WeekendWorkStatementDocument.CheckPersonnelSectionInEmployee(_obj, e.NewValue))
+        e.AddError(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.RemoveEmployeeWithWrongPersonnelSection);
+    }
+
     public override void Refresh(Sungero.Presentation.FormRefreshEventArgs e)
     {
       base.Refresh(e);
+      
+      _obj.State.Properties.PersonnelSectionDirRX.IsEnabled = _obj.InternalApprovalState == null ||
+        _obj.InternalApprovalState == WeekendWorkStatementDocument.InternalApprovalState.OnRework;
       
       // Обновить выделение цветом данных по ошибкам в табличной части заявки ВД/ПД/СР.
       Functions.WeekendWorkStatementDocument.RefreshHighlightingEmployeesDataErrors(_obj);
@@ -64,9 +75,9 @@ namespace DirRX.NNOtherProcesses
         e.AddError(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.WorkTimeValidationError);
     }
     
-    public override void TopDirRXValueInput(Sungero.Presentation.BooleanValueInputEventArgs e)
+    public override void IsNGDDirRXValueInput(Sungero.Presentation.BooleanValueInputEventArgs e)
     {
-      base.TopDirRXValueInput(e);
+      base.IsNGDDirRXValueInput(e);
       if (e.NewValue != null && _obj.Employees.Any(x => e.NewValue == true ? !x.Employee.IsNGDDirRX.Value : x.Employee.IsNGDDirRX.Value))
         e.AddError(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.NGDGroupValidationError);
     }
@@ -82,7 +93,14 @@ namespace DirRX.NNOtherProcesses
       base.Showing(e);
       var isOvertimeWork = Functions.WeekendWorkStatementDocument.Remote.CheckOvertimeWorkDocKindByExternalLink(_obj.DocumentKind);
       e.Params.AddOrUpdate(string.Format(Constants.WeekendWorkStatementDocument.DocKindParamName, _obj.Id), isOvertimeWork);
+      
       _obj.State.Properties.Employees.CanAdd = false;
+      
+      var goBusinessUnitSapId = DirRX.NNCommons.PublicFunctions.Module.Remote.GetConstant(DirRX.NNCommons.PublicConstants.Module.ConstantsSetting.GoSapCode.Guid)?.StringValue;
+      e.Params.AddOrUpdate(string.Format(Constants.WeekendWorkStatementDocument.GoSapCodeParamName, _obj.Id), goBusinessUnitSapId);
+      
+      if (!DirRX.OverrideSolution.Employees.Equals(DirRX.OverrideSolution.Employees.Current, _obj.PreparedBy))
+        e.AddWarning(DirRX.NNOtherProcesses.WeekendWorkStatementDocuments.Resources.InitiatorTimeZoneWarning);
     }
 
   }

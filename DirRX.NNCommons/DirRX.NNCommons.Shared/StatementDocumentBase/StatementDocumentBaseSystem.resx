@@ -70,4 +70,10 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Basic statement types</value>
   </data>
+  <data name="Property_TransferStartDate" xml:space="preserve">
+    <value>Transfer start date</value>
+  </data>
+  <data name="Property_TransferEndDate" xml:space="preserve">
+    <value>Transfer end date</value>
+  </data>
 </root>

@@ -89,10 +89,10 @@
     <value>Transfer vacation without compensation</value>
   </data>
   <data name="Property_AvailableDaysDirRX" xml:space="preserve">
-    <value>Available days</value>
+    <value>Annual vacation available days</value>
   </data>
   <data name="Property_SelectedDaysDirRX" xml:space="preserve">
-    <value>Selected days</value>
+    <value>Annual vacation selected days</value>
   </data>
   <data name="Property_ApplicationDateDirRX" xml:space="preserve">
     <value>Application date</value>
@@ -195,5 +195,23 @@
   </data>
   <data name="Property_IsShiftByStatementDirRX" xml:space="preserve">
     <value>Shift by statement</value>
+  </data>
+  <data name="Property_AvailableDaysVutDirRX" xml:space="preserve">
+    <value>VUT/OUT vacation available days</value>
+  </data>
+  <data name="Property_SelectedDaysVutDirRX" xml:space="preserve">
+    <value>VUT/OUT vacation selected days</value>
+  </data>
+  <data name="ControlGroup_e99ff632028c4a11bf403e7ba8968548" xml:space="preserve">
+    <value>Annual vacation compensation</value>
+  </data>
+  <data name="ControlGroup_f323404434df4e9dad0be4016c87e6f8" xml:space="preserve">
+    <value>Vut vacation compensation</value>
+  </data>
+  <data name="Property_ReplaceWithPaymentDirRX" xml:space="preserve">
+    <value>Replace vacation part with compensation</value>
+  </data>
+  <data name="Property_AnnualVacDeviationDaysDirRX" xml:space="preserve">
+    <value>Annual vac deviation days</value>
   </data>
 </root>

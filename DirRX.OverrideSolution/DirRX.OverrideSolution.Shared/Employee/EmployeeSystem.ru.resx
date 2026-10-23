@@ -190,4 +190,37 @@
   <data name="Property_UtcOffsetDirRX" xml:space="preserve">
     <value>Часовой пояс</value>
   </data>
+  <data name="Property_InfoManagerDirRX" xml:space="preserve">
+    <value>Линейный руководитель для информирования</value>
+  </data>
+  <data name="Property_ManagerLevel2DirRX" xml:space="preserve">
+    <value>Линейный руководитель (2 уровень)</value>
+  </data>
+  <data name="Property_VSPManagerDirRX" xml:space="preserve">
+    <value>Руководитель ВСП</value>
+  </data>
+  <data name="Property_SPManagerDirRX" xml:space="preserve">
+    <value>Руководитель СП</value>
+  </data>
+  <data name="Property_CategoryDirRX" xml:space="preserve">
+    <value>Категория сотрудника</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Manager" xml:space="preserve">
+    <value>Руководители</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Specialist" xml:space="preserve">
+    <value>Специалисты</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Clerk" xml:space="preserve">
+    <value>Служащие</value>
+  </data>
+  <data name="Enum_CategoryDirRX_Worker" xml:space="preserve">
+    <value>Рабочие</value>
+  </data>
+  <data name="Property_PersonnelSectionDirRX" xml:space="preserve">
+    <value>Раздел персонала</value>
+  </data>
+  <data name="Property_PersonnelSubSectionDirRX" xml:space="preserve">
+    <value>Подраздел персонала</value>
+  </data>
 </root>

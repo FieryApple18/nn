@@ -295,6 +295,7 @@ namespace DirRX.NNIntegration.Isolated.Convert
       vacScheduleDocInfo.OrgType = vacScheduleDocInfoIsolated.OrgType;
       vacScheduleDocInfo.SAPID = vacScheduleDocInfoIsolated.SAPID;
       vacScheduleDocInfo.Year = vacScheduleDocInfoIsolated.Year;
+      vacScheduleDocInfo.Responsible = vacScheduleDocInfoIsolated.Responsible;
       vacScheduleDocInfo.Employees = new List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTimeFromSAP>();
       foreach (var employeeInfo in vacScheduleDocInfoIsolated.Employees)
       {
@@ -347,6 +348,7 @@ namespace DirRX.NNIntegration.Isolated.Convert
       var vacationInfoIsolated = JsonConvert.DeserializeObject<DirRX.NNIntegration.Isolated.Convert.VacationsInfo>(json);
       var vacationsInfoList = DirRX.NNIntegration.Structures.Module.VacationsInfo.Create();
       var vacationInfoList = new List<DirRX.NNIntegration.Structures.Module.IVacationInfoDateTime>();
+      var emailsList = new List<DirRX.NNIntegration.Structures.Module.IEmails>();
       var culture = new System.Globalization.CultureInfo("ru-RU");
       var errors = new List<string>();
       foreach (var employee in vacationInfoIsolated.EmployeesVacationsInfo)
@@ -365,8 +367,20 @@ namespace DirRX.NNIntegration.Isolated.Convert
           vacationInfoList.Add(vacationInfo);
         }
       }
+      
+      foreach (var emails in vacationInfoIsolated.Emails)
+      {
+        var email = DirRX.NNIntegration.Structures.Module.Emails.Create();
+        
+        if (!string.IsNullOrEmpty(emails.Email))
+        {
+          email.Email = emails.Email;
+          emailsList.Add(email);
+        }
+      }
+      
       vacationsInfoList.EmployeesVacationsInfo = vacationInfoList;
-      vacationsInfoList.Email = vacationInfoIsolated.Email;
+      vacationsInfoList.Emails = emailsList;
       if (errors.Any())
       {
         var personnelNumbers = string.Join("," + Environment.NewLine, errors);
@@ -835,5 +849,32 @@ namespace DirRX.NNIntegration.Isolated.Convert
     
     #endregion
     
+    #region IF-S-29002. Передача приказа на дополнительный день отдыха за РВД из АСУП в КЭДО (АСУП -> КЭДО).
+    
+    /// <summary>
+    /// Десериализация строки json в структуру.
+    /// </summary>
+    /// <param name="json">Json строка.</param>
+    /// <param name="structure">Объект структуры для доступности перегрузки.</param>
+    /// <returns>Структура.</returns>
+    [Public]
+    public static ICreateWeekendWorkRestOrderStructure DeserializeInStruct(string json, ICreateWeekendWorkRestOrderStructure structure)
+    {
+      structure = JsonConvert.DeserializeObject<CreateWeekendWorkRestOrderStructure>(json);
+      return structure;
+    }
+    
+    /// <summary>
+    /// Сериализация структуры в json строку.
+    /// </summary>
+    /// <param name="structure">Структура.</param>
+    /// <returns>Json строка.</returns>
+    [Public]
+    public static string SerializeInJson(ICreateWeekendWorkRestOrderStructure structure)
+    {
+      return JsonConvert.SerializeObject(structure);
+    }
+    
+    #endregion
   }
 }

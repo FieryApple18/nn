@@ -170,8 +170,20 @@ left join sungero_core_recipient as author on
 left join sungero_core_recipient as department on
   department.id = author.department_company_sungero
 join temp_table on
-  docs.documentkind_docflow_sungero = temp_table.docKindId and docs.topdirrx_overrid_dirrx = temp_table.top
+  docs.documentkind_docflow_sungero = temp_table.docKindId and docs.isngddirrx_overrid_dirrx = temp_table.top
 where docs.businessunit_docflow_sungero = ANY(STRING_TO_ARRAY('{1}', ',')::bigint[])
+and (
+	case
+	  -- Если поле раздел персонала не заполнено (NULL) - не применяем фильтр
+		when docs.perssection_overrid_dirrx IS NULL
+  		then true
+  	-- Применяем фильтр по разделу персонала, если есть ограничение с разделом персонала и нет общего ограничения.
+		when docs.businessunit_docflow_sungero = ANY(STRING_TO_ARRAY('{8}', ',')::bigint[]) and
+			 docs.businessunit_docflow_sungero <> ALL(STRING_TO_ARRAY('{9}', ',')::bigint[])
+  		then docs.perssection_overrid_dirrx = any(string_to_array('{7}', ',')::bigint[])
+		else true
+	end
+	)
   and (nullif('{3}', '') is null or employee.id = ANY(STRING_TO_ARRAY('{3}', ',')::bigint[]))
   and docs.created + INTERVAL '{6}' HOUR between '{4}' and '{5}'  -- Смещение по часам
 order by docs.created desc;]]></postgres>
@@ -262,7 +274,7 @@ from sungero_wf_assignment as assignments
   join sungero_docflow_documentkind as docKinds
     on docKinds.id = docs.documentkind_docflow_sungero
   join temp_table
-    on docs.documentkind_docflow_sungero = temp_table.docKindId and docs.topdirrx_overrid_dirrx = temp_table.top
+    on docs.documentkind_docflow_sungero = temp_table.docKindId and docs.isngddirrx_overrid_dirrx = temp_table.top
   left join dirrx_nnother_weekendworksta as wws
 	  on wws.edoc = docs.id
   left join sungero_core_recipient as emps
@@ -271,6 +283,18 @@ where
   (not {8} or assignments.ismanualholdin_overrid_dirrx)
   and exists (select 1 from sungero_wf_maintaskreadaccess as taskreadaccess where taskreadaccess.entityid = assignments.maintask and taskreadaccess.recipient = any(string_to_array('{1}', ',')::bigint[]))
   and docs.businessunit_docflow_sungero = any(string_to_array('{3}', ',')::bigint[])
+  and (
+	 case
+	   -- Если поле раздел персонала не заполнено (NULL) - не применяем фильтр
+	 	 when docs.perssection_overrid_dirrx IS NULL
+  		  then true
+  		-- Применяем фильтр по разделу персонала, если есть ограничение с разделом персонала и нет общего ограничения.
+		  when docs.businessunit_docflow_sungero = ANY(STRING_TO_ARRAY('{11}', ',')::bigint[]) and
+			   docs.businessunit_docflow_sungero <> ALL(STRING_TO_ARRAY('{12}', ',')::bigint[])
+  		  then docs.perssection_overrid_dirrx = any(string_to_array('{10}', ',')::bigint[])
+		  else true
+	 end
+	)
   and (nullif('{4}', '') is null or docs.employeedirrx_overrid_dirrx = any(string_to_array('{4}', ',')::bigint[]) or 
       exists (select 1 from dirrx_nnother_weekendworksta as employees where (employees.edoc = docs.id or employees.edoc = docs.weekendworksta_nnother_dirrx) and employees.employee = any(string_to_array('{4}', ',')::bigint[])))
   and (nullif('{5}', '') is null or performer.id = any(string_to_array('{5}', ',')::bigint[]) or completedby.id = any(string_to_array('{5}', ',')::bigint[]))
@@ -303,5 +327,18 @@ order by assignments.created desc;]]></postgres>
     <postgres><![CDATA[CREATE INDEX IF NOT EXISTS {1}
   ON {0}
   (workingtime)]]></postgres>
+  </query>
+  <query key="UpdateTopAttributeQuery">
+    <postgres><![CDATA[update sungero_content_edoc as documents
+set istopdirrx_overrid_dirrx = jobtitles.istopdirrx_overrid_dirrx
+from sungero_docflow_documentkind as documentkinds
+     join sungero_docflow_documenttype as documenttypes
+		on documenttypes.id=documentkinds.documenttype and
+           documenttypes.doctypeguid in ({0}),
+     sungero_core_recipient as employees
+     join sungero_company_jobtitle as jobtitles
+		on jobtitles.id=employees.jobtitle_company_sungero
+where documents.documentkind_docflow_sungero=documentkinds.id and
+      employees.id=documents.employeedirrx_overrid_dirrx]]></postgres>
   </query>
 </queries>

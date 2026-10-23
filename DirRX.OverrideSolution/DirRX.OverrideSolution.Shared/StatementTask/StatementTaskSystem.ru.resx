@@ -94,4 +94,7 @@
   <data name="Property_EndDatesDirRX" xml:space="preserve">
     <value>Даты по</value>
   </data>
+  <data name="Property_AdditionalApproveResponsiblesDirRX" xml:space="preserve">
+    <value>Ответственные за доп.согласование</value>
+  </data>
 </root>

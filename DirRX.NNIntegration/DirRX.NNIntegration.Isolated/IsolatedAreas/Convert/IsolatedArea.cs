@@ -8,7 +8,7 @@ using DirRX.NNIntegration.Structures.Module;
 
 namespace DirRX.NNIntegration.Isolated.Convert
 {
-  #region IF-S-9336. Передача уведомления об отпуске из АСУП в КЭДО.
+  #region IF-S-10535. Передача уведомления об отпуске из АСУП в КЭДО.
   
   /// <summary>
   /// Информация по отпускам сотрудников.
@@ -21,9 +21,9 @@ namespace DirRX.NNIntegration.Isolated.Convert
     public List<VacationData> EmployeesVacationsInfo { get; set; }
     
     /// <summary>
-    /// Адрес эл. почты.
+    /// Адреса эл. почты.
     /// </summary>
-    public string Email { get; set; }
+    public List<Emails> Emails { get; set; }
   }
   
   /// <summary>
@@ -50,6 +50,17 @@ namespace DirRX.NNIntegration.Isolated.Convert
     /// Вид планового отпуска.
     /// </summary>
     public string TypeVacation { get; set; }
+  }
+  
+  /// <summary>
+  /// Адреса эл. почты.
+  /// </summary>
+  public class Emails
+  {
+    /// <summary>
+    /// Адрес эл. почты.
+    /// </summary>
+    public string Email { get; set; }
   }
   
   #endregion
@@ -90,6 +101,11 @@ namespace DirRX.NNIntegration.Isolated.Convert
     /// Список работников.
     /// </summary>
     public List<VacationInfoFromSAP> Employees { get; set; }
+    
+    /// <summary>
+    /// Ответственный за График отпусков.
+    /// </summary>
+    public string Responsible { get; set; }
   }
   
   /// <summary>
