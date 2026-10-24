@@ -70,7 +70,7 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Причины перевода</value>
   </data>
-  <data name="Property_Code" xml:space="preserve">
+  <data name="Property_SAPId" xml:space="preserve">
     <value>Код в АСУП</value>
   </data>
   <data name="Property_Note" xml:space="preserve">
@@ -81,5 +81,8 @@
   </data>
   <data name="Property_BusinessUnits" xml:space="preserve">
     <value>Наша орг.</value>
+  </data>
+  <data name="Property_SAPIdClarification" xml:space="preserve">
+    <value>Код уточнения причины</value>
   </data>
 </root>

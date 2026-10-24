@@ -130,4 +130,13 @@
   <data name="Action_FillFromSAPDescription" xml:space="preserve">
     <value>TODO</value>
   </data>
+  <data name="Property_Salary" xml:space="preserve">
+    <value>Оклад</value>
+  </data>
+  <data name="Property_EmploymentPercent" xml:space="preserve">
+    <value>% занятости</value>
+  </data>
+  <data name="Property_NewWorkingHoursName" xml:space="preserve">
+    <value>Новый график работы (наименование)</value>
+  </data>
 </root>

@@ -210,7 +210,14 @@ namespace DirRX.NNOtherProcesses.Server
                                                              Constants.Module.ConstantsDefaultValues.RegistrationStatementMainPlace,
                                                              Constants.Module.ConstantsSetting.RegistrationStatementMainPlace.Guid,
                                                              Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
-
+      
+      //TODO Возможно стоит переименовать, вдруг этих кодов будет больше чем один, или сделать строку с разделителями, и уже в коде парсить. Пока так.
+      // Оформление переводов. Код из АСУП для причины "на период временного отсутствия основного работника". 
+      NNCommons.PublicFunctions.Module.Remote.CreateConstant(Constants.Module.ConstantsSetting.SAPIdTransferRequest.Name,
+                                                             true,
+                                                             Constants.Module.ConstantsDefaultValues.SAPIdTransferRequest,
+                                                             Constants.Module.ConstantsSetting.SAPIdTransferRequest.Guid,
+                                                             Constants.Module.ConstantsGroup.TransferProcess.Guid);
     }
     
     /// <summary>
@@ -299,6 +306,8 @@ namespace DirRX.NNOtherProcesses.Server
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Name, Constants.Module.ConstantsGroup.RegistrationPaymentsOfLNA.Guid);
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.Substitution.Name, Constants.Module.ConstantsGroup.Substitution.Guid);
       NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.SigningEmploymentContractAgreement.Name, Constants.Module.ConstantsGroup.SigningEmploymentContractAgreement.Guid);
+      
+      NNCommons.PublicFunctions.Module.CreateConstantsGroup(Constants.Module.ConstantsGroup.TransferProcess.Name, Constants.Module.ConstantsGroup.TransferProcess.Guid);
     }
     
     /// <summary>
@@ -553,7 +562,7 @@ namespace DirRX.NNOtherProcesses.Server
                                                                             Sungero.Docflow.DocumentType.DocumentFlow.Inner, true, false,
                                                                             TransferRequestDocument.ClassTypeGuid,
                                                                             new Sungero.Domain.Shared.IActionInfo[] {  },
-                                                                               Constants.Module.DocumentKind.CancelationRestOrderDocument, true,
+                                                                            Constants.Module.DocumentKind.CancelationRestOrderDocument, true,
                                                                             HRPro.HRProSolution.DocumentKind.ApproverHRPro.NotRequired, null, null,
                                                                             Constants.Module.CodeMinistryLabor.OtherDocuments, true, true, false, registrationWork, false,
                                                                             Constants.Module.SapKindsCodes.CancelationRestOrderDocKind
@@ -747,6 +756,16 @@ namespace DirRX.NNOtherProcesses.Server
       else
         InitializationLogger.Debug("Не найдена роль \"Пользователи модуля Кадровый ЭДО\"");
       
+      //NNOtherProcesses.TransferReasons.AccessRights.Grant(Roles.Administrators, DefaultAccessRightsTypes.FullAccess);
+      //NNOtherProcesses.TransferReasons.AccessRights.Save();
+      
+      var responsibleTransferProcess = Roles.GetAll(r => r.Sid == Constants.Module.RolesGuid.ResponsibleTransferProcess).FirstOrDefault();
+      
+      if (responsibleTransferProcess != null)
+      {
+        NNOtherProcesses.TransferReasons.AccessRights.Grant(responsibleTransferProcess, DefaultAccessRightsTypes.Read);
+        NNOtherProcesses.TransferReasons.AccessRights.Save();
+      }
     }
     
     /// <summary>

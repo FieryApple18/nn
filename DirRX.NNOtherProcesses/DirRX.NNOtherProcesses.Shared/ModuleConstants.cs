@@ -103,6 +103,17 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "6B104686-4C9F-4682-82F7-C7F3EE2845C2";
         public const string Name = "Доп. соглашение о пересмотре ЗП";
       }
+      
+      /// <summary>
+      /// Оформление переводов.
+      /// </summary>
+      [Public]
+      public static class TransferProcess
+      {
+        [Public]
+        public const string Guid = "6C0A17CB-4929-487E-B3C4-D8F00E58A722";
+        public const string Name = "Оформление переводов";
+      }
     }
     #endregion
     
@@ -661,6 +672,17 @@ namespace DirRX.NNOtherProcesses.Constants
         public const string Guid = "53FADA99-A3AB-4361-9311-9D3D2B36042B";
         public const string Name = "Оплачиваемый перерыв";
       }
+      
+      /// <summary>
+      /// Код из АСУП для причины "на период временного отсутствия основного работника"
+      /// </summary>
+      [Public]
+      public static class SAPIdTransferRequest
+      {
+        [Public]
+        public const string Guid = "1075927B-823C-4D38-BCA5-2ED64CF3A6E7";
+        public const string Name = "Оформление переводов. Код из АСУП для причины \"на период временного отсутствия основного работника\"";
+      }
     }
 
     /// <summary>
@@ -757,6 +779,11 @@ namespace DirRX.NNOtherProcesses.Constants
       /// Значение по умолчанию. Формат документа "Приказ на доп. день отдыха".
       /// </summary>
       public const string WeekendWorkRestOrderExtension = "doc";
+      
+      /// <summary>
+      /// Значение по умолчанию. Код из АСУП для причины "на период временного отсутствия основного работника"
+      /// </summary>
+      public const string SAPIdTransferRequest = "";
     }
     
     #endregion

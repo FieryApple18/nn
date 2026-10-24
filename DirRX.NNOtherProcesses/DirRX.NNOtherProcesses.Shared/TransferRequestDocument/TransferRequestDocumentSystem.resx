@@ -136,4 +136,13 @@
   <data name="Action_FillFromSAPConfirmationDescription" xml:space="preserve">
     <value />
   </data>
+  <data name="Property_Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="Property_EmploymentPercent" xml:space="preserve">
+    <value>Employment percentage</value>
+  </data>
+  <data name="Property_NewWorkingHoursName" xml:space="preserve">
+    <value>New working hours name</value>
+  </data>
 </root>

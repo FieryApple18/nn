@@ -70,7 +70,7 @@
   <data name="CollectionDisplayName" xml:space="preserve">
     <value>Reasons for transfer</value>
   </data>
-  <data name="Property_Code" xml:space="preserve">
+  <data name="Property_SAPId" xml:space="preserve">
     <value>Code in SAP</value>
   </data>
   <data name="Property_Note" xml:space="preserve">
@@ -81,5 +81,8 @@
   </data>
   <data name="Property_BusinessUnits" xml:space="preserve">
     <value>Business Unit</value>
+  </data>
+  <data name="Property_SAPIdClarification" xml:space="preserve">
+    <value>Code clarification of the reason</value>
   </data>
 </root>

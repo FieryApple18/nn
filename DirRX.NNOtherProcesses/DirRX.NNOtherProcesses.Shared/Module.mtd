@@ -509,6 +509,16 @@
       "Name": "Guid",
       "ParentClasses": [
         "Module",
+        "ConstantsGroup",
+        "TransferProcess"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"6C0A17CB-4929-487E-B3C4-D8F00E58A722\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
         "ConstantsSetting",
         "MaxNumberAdditionalMatchingElement"
       ],
@@ -794,6 +804,16 @@
       ],
       "TypeName": "System.String",
       "Value": "\"53FADA99-A3AB-4361-9311-9D3D2B36042B\""
+    },
+    {
+      "Name": "Guid",
+      "ParentClasses": [
+        "Module",
+        "ConstantsSetting",
+        "SAPIdTransferRequest"
+      ],
+      "TypeName": "System.String",
+      "Value": "\"1075927B-823C-4D38-BCA5-2ED64CF3A6E7\""
     },
     {
       "Name": "HRSimpleDocument",

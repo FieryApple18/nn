@@ -137,10 +137,14 @@
       "$type": "Sungero.Metadata.NavigationPropertyMetadata, Sungero.Metadata",
       "NameGuid": "ed9f1bb0-d1cf-467e-8067-aca85212e44d",
       "Name": "BusinessUnit",
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "IsAncestorMetadata": true,
       "IsRequired": true,
       "Overridden": [
-        "IsRequired"
+        "IsRequired",
+        "HandledEvents"
       ],
       "Versions": []
     },
@@ -229,6 +233,9 @@
           "Code": "Permanent"
         }
       ],
+      "HandledEvents": [
+        "ChangedShared"
+      ],
       "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToEnumerationBinder",
       "PreviousPropertyGuid": "fc81f96d-8831-4abe-ae90-a7583e2b6c09",
@@ -241,7 +248,8 @@
       "Code": "TransferReason",
       "EntityGuid": "442dccf7-bdb6-4e0e-98ff-52f617c0e45a",
       "HandledEvents": [
-        "LookupServer"
+        "LookupServer",
+        "ChangedShared"
       ],
       "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
@@ -265,8 +273,12 @@
       "Name": "TransferReasonClarification",
       "Code": "TransferReaso1",
       "EntityGuid": "d7bc5e90-40d2-461e-a0b8-d34cd20968c8",
+      "HandledEvents": [
+        "LookupServer"
+      ],
       "IsRequired": true,
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.DropDownEditorToNavigationBinder",
+      "NeedPassEntityToLookupEvent": true,
       "PreviousPropertyGuid": "dbd8a46b-7b7f-4446-9763-328570aa97ab"
     },
     {
@@ -359,6 +371,34 @@
       "Code": "NewWorkingHour",
       "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
       "PreviousPropertyGuid": "3cecb7e1-4673-4241-b258-b1374781f4ee"
+    },
+    {
+      "$type": "Sungero.Metadata.DoublePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "d4b57937-b950-4655-a170-bb69d5753311",
+      "Name": "Salary",
+      "CanBeSearch": false,
+      "Code": "Salary",
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "bcb83ba3-1332-4593-bda8-41107bd89a31"
+    },
+    {
+      "$type": "Sungero.Metadata.DoublePropertyMetadata, Sungero.Metadata",
+      "NameGuid": "0eb59ca6-e12a-42d9-83a8-9426ec6112a8",
+      "Name": "EmploymentPercent",
+      "Code": "EmploymentPerc",
+      "IsRequired": true,
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.NumericEditorToIntAndDoubleBinder",
+      "PreviousPropertyGuid": "d4b57937-b950-4655-a170-bb69d5753311"
+    },
+    {
+      "$type": "Sungero.Metadata.StringPropertyMetadata, Sungero.Metadata",
+      "NameGuid": "958e5314-ca92-42ea-8233-b156575a814b",
+      "Name": "NewWorkingHoursName",
+      "CanBeSearch": false,
+      "Code": "NewWorkingHou1",
+      "ListDataBinderTypeName": "Sungero.Presentation.CommonDataBinders.StringEditorToStringBinder",
+      "PreviousPropertyGuid": "0eb59ca6-e12a-42d9-83a8-9426ec6112a8"
     }
   ],
   "PublicStructures": [],

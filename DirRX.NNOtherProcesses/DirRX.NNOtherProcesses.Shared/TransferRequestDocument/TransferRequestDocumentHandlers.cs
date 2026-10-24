@@ -10,6 +10,29 @@ namespace DirRX.NNOtherProcesses
   partial class TransferRequestDocumentSharedHandlers
   {
 
+    public override void BusinessUnitChanged(Sungero.Docflow.Shared.OfficialDocumentBusinessUnitChangedEventArgs e)
+    {
+      base.BusinessUnitChanged(e);
+      
+      if (e.NewValue == null)
+        _obj.TransferReason = null;
+    }
+
+    public virtual void TransferReasonChanged(DirRX.NNOtherProcesses.Shared.TransferRequestDocumentTransferReasonChangedEventArgs e)
+    {
+      
+    }
+
+    public virtual void TransferTypeChanged(Sungero.Domain.Shared.EnumerationPropertyChangedEventArgs e)
+    {
+      var needFillTransferEndDate = _obj.TransferType == TransferRequestDocument.TransferType.Temporary;
+      
+      _obj.State.Properties.TransferEndDate.IsVisible = needFillTransferEndDate;
+      _obj.State.Properties.TransferEndDate.IsEnabled = needFillTransferEndDate;
+      _obj.State.Properties.TransferEndDate.IsRequired = needFillTransferEndDate;
+      
+    }
+
     public override void EmployeeDirRXChanged(DirRX.OverrideSolution.Shared.DocRelatedToWorkBaseEmployeeDirRXChangedEventArgs e)
     {
       // Предзаполняются: Табельный номер, Наша орг., НГД, ТОП (из должности сотр.), Раздел персонала.
